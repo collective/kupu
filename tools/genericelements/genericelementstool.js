@@ -156,7 +156,7 @@ function GenericElementsTool(xmlid) {
         };
 
         if (NON_SINGLE.contains(el[3])) {
-            var nbsp = document.createTextNode('&#xa0;');
+            var nbsp = this.editor.getInnerDocument().createTextNode('Generic Element');
             node.appendChild(nbsp);
         };
 
@@ -186,12 +186,16 @@ function GenericElementsTool(xmlid) {
         this.editor.logMessage('Generic element deleted');
     };
 
-    this.getForm = function(elid,values) {
+    // XXX because of some stupid bug in IE we have to pass the formholder
+    // in as an argument, when we didn't IE wouldn't check any checkboxes
+    // (seems IE can only check them if they're visible?!?)
+    this.getForm = function(elid,values, formholder) {
         /* get the form for a specific type of element */
         if (!values) {
             values = {};
         };
         var form = document.createElement('form');
+        formholder.appendChild(form);
         form.setAttribute('elementid', elid);
         var el = this.getElementById(elid);
 
@@ -237,17 +241,17 @@ function GenericElementsTool(xmlid) {
                     var item = items[j];
                     var inputel = document.createElement('input');
                     inputel.setAttribute('type', type);
-                    inputel.value = item;
-                    if (defaultValue.contains(item)) {
-                        inputel.setAttribute('checked', true);
-                    };
                     inputel.setAttribute('className', 'genericelement-form-field');
                     inputel.setAttribute('name', id);
+                    inputel.setAttribute('value', item);
                     form.appendChild(inputel);
                     form.appendChild(document.createTextNode(item));
                     var inputtext = document.createElement(item);
                     form.appendChild(inputtext);
                     form.appendChild(document.createElement('br'));
+                    if (defaultValue.contains(item)) {
+                        inputel.setAttribute('checked', 'checked');
+                    };
                 };
             } else if (type == 'select') {
                 var select = document.createElement('select');
@@ -628,25 +632,23 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
             selectSelectItem(this.elselect, elid);
             var values = this._getValuesFromElement(currentgenel);
             this.drawForm(values);
+            this.addbutton.style.display = 'inline';
+            this.cancelbutton.style.display = 'none';
+            this.delbutton.style.display = 'inline';
             if (this.toolbox && this.activeclass) {
                 this.toolbox.setAttribute('className', this.activeclass);
             };
         } else {
             this.reset();
-            if (this.toolbox && this.plainclass) {
-                this.toolbox.setAttribute('className', this.plainclass);
-            };
         };
     };
 
     this.drawForm = function(values) {
         var elid = this.elselect.options[this.elselect.selectedIndex].value;
         this.reset();
-        var form = this.tool.getForm(elid, values);
+        var form = this.tool.getForm(elid, values, this.formholder);
         this.form = form;
-        this.formholder.appendChild(form);
-        this.cancelbutton.style.display = 'inline';
-        this.delbutton.style.display = 'none';
+        //this.formholder.appendChild(form);
         this.elselect.style.display = 'none';
         this.state = 'form';
     };
@@ -654,6 +656,12 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
     this.addEl = function() {
         if (this.state == 'new') {
             this.drawForm();
+            this.addbutton.style.display = 'inline';
+            this.cancelbutton.style.display = 'inline';
+            this.delbutton.style.display = 'none';
+            if (this.toolbox && this.activeclass) {
+                this.toolbox.setAttribute('className', this.activeclass);
+            };
             return;
         };
         var elid = this.form.getAttribute('elementid');
@@ -665,12 +673,11 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
             // just return, which will leave the toolbox in 'form' state
             return;
         };
-        // get back to clean state
-        this.reset();
     };
 
     this.deleteEl = function() {
         this.tool.deleteElement();
+        this.reset();
     };
 
     this.reset = function() {
@@ -684,6 +691,9 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
         this.delbutton.style.display = 'none';
         this.state = 'new';
         this.form = undefined;
+        if (this.toolbox && this.plainclass) {
+            this.toolbox.setAttribute('className', this.plainclass);
+        };
     };
 
     this._fillElSelect = function() {
@@ -698,6 +708,7 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
             option.appendChild(content);
             this.elselect.appendChild(option);
         };
+        this.elselect.parentNode.replaceChild(this.elselect, this.elselect);
     };
 
     this._getValuesFromElement = function(el) {
