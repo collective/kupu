@@ -2,6 +2,10 @@
 EcmaUnit changes
 ================
 
+- EcmaUnit 0.3
+  
+  o Added tracebacks for Mozilla and Spidermonkey ('verbose' mode).
+
 - EcmaUnit 0.2 (2004-05-27)
 
   o Factored the reporting mechanism to a separate component

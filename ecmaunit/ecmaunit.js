@@ -255,6 +255,7 @@ function StdoutReporter(verbose) {
             };
             toprint.push(chunks);
         };
+        toprint.reverse();
         for (var i=0; i < toprint.length; i++) {
             print('  ' + toprint[i][1]);
             print('    ' + toprint[i][0]);
