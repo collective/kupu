@@ -29,7 +29,7 @@ triggers the switchSourceEdit() function.
               id="kupu-cleanup-button"
               title="Cleanup source"
               i18n:attributes="title"
-              onclick="cleanupSource()"></button>
+              onclick="cleanupSource()">&#160;</button>
     </span>
   </kupu:part>
 
