@@ -257,7 +257,7 @@ function XhtmlValidation() {
         }
     }
     // The Attributes class returns all valid attributes for a tag,
-    // e.g. a = new Attributes(this)
+    // e.g. a = this.Attributes.head
     // a.head -> [ 'lang', 'xml:lang', 'dir', 'id', 'profile' ]
     this.Attributes = new function(el, validation) {
         this.html = el.i18n.concat('id','xmlns');
