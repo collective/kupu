@@ -10,8 +10,6 @@
 
   <kupu:part name="head">
     <head>
-      <!-- the 'head' macro contains all relevant stuff that one can
-           use when including Kupu in a ZPT-based Zope app -->
       <metal:macro define-macro="head">
         <kupu:define-slot name="head" />
       </metal:macro>
@@ -34,7 +32,7 @@
         tal:attributes="href container/kupueditor.js/absolute_url"> </script>
     <script type="text/javascript" src="kupubasetools.js"
         tal:attributes="href container/kupubasetools.js/absolute_url"> </script>
-    <script type="text/javascript" src="kupuloggers.js">
+    <script type="text/javascript" src="kupuloggers.js"
         tal:attributes="href container/kupuloggers.js/absolute_url"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
         tal:attributes="href container/kupucontentfilters.js/absolute_url"> </script>
