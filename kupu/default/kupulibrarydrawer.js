@@ -193,6 +193,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         var itemsnode = libnode.selectSingleNode("items");
         var newitemsnode = dom.selectSingleNode("//items");
 
+        // IE does not support importNode on XML documet nodes
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
         } else {
@@ -276,6 +277,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         collnode.setAttribute('selected', '1');
 
         var libraries = this.xmldata.selectSingleNode('/libraries');
+
+        // IE does not support importNode on XML documet nodes
         if (this.editor.getBrowserName() == 'IE') {
             collnode = collnode.cloneNode(true);
         } else {
@@ -434,9 +437,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this._replaceNodeContents = function(doc, target, container) {
         /* replace all childnodes in target with all childnodes in container */
         var importedContainer = doc.importNode(container, true);
+        // XXX it seems that IE doesn't allow hacks like these
+        // no need to worry anyway, since the transformed HTML seems
+        // to have the right JS context variables anyway.
         if (this.editor.getBrowserName() != 'IE') {
             container.ownerDocument.contentWindow = doc.contentWindow;
-        }
+        };
         while (target.hasChildNodes()) {
             target.removeChild(target.firstChild);
         };
