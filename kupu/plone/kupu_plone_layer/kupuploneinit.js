@@ -137,6 +137,9 @@ function initPloneKupu(iframe, fieldname) {
                                 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
+    var definitionlisttool = new DefinitionListTool('kupu-list-dl-addbutton');
+    kupu.registerTool('definitionlisttool', definitionlisttool);
+    
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
 
