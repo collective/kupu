@@ -1,0 +1,26 @@
+/*
+ * Overrides common/kupustyles.css
+ */
+ 
+html, body {
+  height: 100%;
+}
+
+div.kupu-fulleditor {
+  height: 78%;
+}
+
+div.kupu-editorframe {
+  border: 2px dashed gray;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+#kupu-editor, #kupu-editor-textarea {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
