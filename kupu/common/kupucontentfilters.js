@@ -187,53 +187,55 @@ function XhtmlValidation(editor) {
         }
         return res;
     }
-    this.excludeAttributes = function(badattrs) {
-        // convert badattrs to a set
-        var bad = new this.Set(badattrs);
+    this.setAttrFilter = function(attributes, filter) {
+        for (var j = 0; j < attributes.length; j++) {
+            var attr = attributes[j];
+            this.attrFilters[attr] = filter || this._defaultCopyAttribute;
+        }
+    }
 
-        var tags = this.Attributes;
-        for (var tag in tags) {
-            var val = this.Attributes[tag];
-            for (var i = val.length; i >= 0; i--) {
-                if (bad[val[i]]) {
-                    val.splice(i,1);
-                }
-            }
+    this.setTagAttributes = function(tags, attributes) {
+        for (var j = 0; j < tags.length; j++) {
+            this.tagAttributes[tags[j]] = attributes;
         }
     }
-    this.excludeTags = function(badtags) {
-        if (badtags instanceof String) badtags = [badtags];
-        for (var i = 0; i < badtags.length; i++) {
-            delete this.Attributes[badtags[i]];
-        }
-    }
-    this.excludeAttributesForTags = function(attributes, tags) {
-        var bad = new this.Set(attributes);
+
+    // define some new attributes for existing tags
+    this.includeTagAttributes = function(tags, attributes) {
         for (var j = 0; j < tags.length; j++) {
             var tag = tags[j];
-            var val = this.Attributes[tag];
+            this.tagAttributes[tag] = this.tagAttributes[tag].concat(attributes);
+        }
+    }
+
+    this.excludeTagAttributes = function(tags, attributes) {
+        var bad = new this.Set(attributes);
+        var tagset = new this.Set(tags);
+        for (var tag in tagset) {
+            var val = this.tagAttributes[tag];
             for (var i = val.length; i >= 0; i--) {
                 if (bad[val[i]]) {
                     val = val.concat(); // Copy
                     val.splice(i,1);
                 }
             }
-            this.Attributes[tag] = val;
+            this.tagAttributes[tag] = val;
         }
     }
-    // define some new attributes for existing tags
-    this.newAttributes = function(attributes, tags, filter) {
-        for (var j = 0; j < tags.length; j++) {
-            var tag = tags[j];
-            var val = this.Attributes[tag];
-            this.Attributes[tag] = this.Attributes[tag].concat(attributes);
-        }
-        for (var j = 0; j < attributes.length; j++) {
-            var attr = attributes[j];
-            this.AttrFilters[attr] = filter || this._defaultCopyAttribute;
+
+    this.excludeTags = function(badtags) {
+        if (badtags instanceof String) badtags = [badtags];
+        for (var i = 0; i < badtags.length; i++) {
+            delete this.tagAttributes[badtags[i]];
         }
     }
-    
+
+    this.excludeAttributes = function(badattrs) {
+        this.excludeTagAttributes(this.tagAttributes, badattrs);
+        for (var i = 0; i < badattrs.length; i++) {
+            delete this.attrFilters[badattrs[i]];
+        }
+    }
     if (editor.getBrowserName()=="IE") {
         this._getTagName = function(htmlnode) {
             var nodename = htmlnode.nodeName.toLowerCase();
@@ -316,10 +318,10 @@ function XhtmlValidation(editor) {
         }
     }
     
-    // The Attributes class returns all valid attributes for a tag,
-    // e.g. a = this.Attributes.head
+    // The tagAttributes class returns all valid attributes for a tag,
+    // e.g. a = this.tagAttributes.head
     // a.head -> [ 'lang', 'xml:lang', 'dir', 'id', 'profile' ]
-    this.Attributes = new function(el, validation) {
+    this.tagAttributes = new function(el, validation) {
         this.title = el.i18n.concat('id');
         this.html = this.title.concat('xmlns');
         this.head = this.title.concat('profile');
@@ -430,8 +432,8 @@ function XhtmlValidation(editor) {
     }(this.elements, this);
 
     // Permitted elements for style.
-    this.StyleWhitelist = new this.Set(['text-align', 'list-style-type']);
-    this.ClassBlacklist = new this.Set(['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
+    this.styleWhitelist = new this.Set(['text-align', 'list-style-type']);
+    this.classBlacklist = new this.Set(['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
         'Bullet1', 'Bullet2']);
 
     this.classFilter = function(value) {
@@ -439,7 +441,7 @@ function XhtmlValidation(editor) {
         var filtered = [];
         for (var i = 0; i < classes.length; i++) {
             var c = classes[i];
-            if (c && !this.ClassBlacklist[c]) {
+            if (c && !this.classBlacklist[c]) {
                 filtered.push(c);
             }
         }
@@ -450,7 +452,7 @@ function XhtmlValidation(editor) {
         if (val) xhtmlnode.setAttribute(name, val);
     }
     // Set up filters for attributes.
-    this.AttrFilters = new function(validation, editor) {
+    this.attrFilters = new function(validation, editor) {
         var attrs = validation.elements.attributes;
         for (var i=0; i < attrs.length; i++) {
             this[attrs[i]] = validation._defaultCopyAttribute;
@@ -485,7 +487,7 @@ function XhtmlValidation(editor) {
                 for (var i = styles.length; i >= 0; i--) if (styles[i]) {
                     var parts = /^([^:]+): *(.*)$/.exec(styles[i]);
                     var name = parts[1].toLowerCase();
-                    if (validation.StyleWhitelist[name]) {
+                    if (validation.styleWhitelist[name]) {
                         styles[i] = name+': '+parts[2];
                     } else {
                         styles.splice(i,1); // delete
@@ -513,19 +515,19 @@ function XhtmlValidation(editor) {
             var c = exclude.c;
             if (!c.length) c = [c];
             for (var i = 0; i < c.length; i++) {
-                this.excludeAttributesForTags(c[i].a, c[i].t);
+                this.excludeTagAttributes(c[i].t, c[i].a);
             }
         }
         if (exclude.style) {
             var s = exclude.style;
             for (var i = 0; i < s.length; i++) {
-                this.StyleWhitelist[s[i]] = 1;
+                this.styleWhitelist[s[i]] = 1;
             }
         }
         if (exclude['class']) {
             var c = exclude['class'];
             for (var i = 0; i < c.length; i++) {
-                this.ClassBlacklist[c[i]] = 1;
+                this.classBlacklist[c[i]] = 1;
             }
         }
     };
@@ -534,7 +536,7 @@ function XhtmlValidation(editor) {
     this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
         for (var i = 0; i < valid.length; i++) {
             var name = valid[i];
-            var filter = this.AttrFilters[name];
+            var filter = this.attrFilters[name];
             if (filter) filter(name, htmlnode, xhtmlnode);
         }
     }
@@ -551,7 +553,7 @@ function XhtmlValidation(editor) {
         // TODO: This permits valid tags anywhere. it should use the state
         // table in xhtmlvalid to only permit tags where the XHTML DTD
         // says they are valid.
-        var validattrs = this.Attributes[nodename];
+        var validattrs = this.tagAttributes[nodename];
         if (validattrs && (nostructure || permitted[nodename])) {
             try {
                 var xhtmlnode = ownerdoc.createElement(nodename);

@@ -235,7 +235,6 @@ function KupuEditor(document, config, logger) {
             request.send(contents);
             this.handleSaveResponse(request,redirect)
         };
-        this.content_changed = false;
     };
     
     this.prepareForm = function(form, id) {
