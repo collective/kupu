@@ -172,19 +172,31 @@
       <div class="kupu-tooltray">
 
         <form name="kupu-citation-form">
-          <table width="100%" border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td width="30%">author</td>
-              <td><input class="store" type="text" id="kupu-citation-authorinput" style="width:81%" /></td>
-            </tr>
-            <tr>
-              <td>source</td>
-              <td><input class="store" type="text" id="kupu-citation-sourceinput" style="width:81%" /></td>
-            </tr>
+          <table width="100%" cellpadding="0">
+            <tbody>
+              <tr>
+                <td>
+                  <table width="100%" border="0">
+                    <tr>
+                      <td width="30%">author</td>
+                      <td><input class="store" type="text" id="kupu-citation-authorinput" style="width:81%" /></td>
+                    </tr>
+                    <tr>
+                      <td>source</td>
+                      <td><input class="store" type="text" id="kupu-citation-sourceinput" style="width:81%" /></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="button" class="transport" value="insert citation" id="kupu-citation-addbutton" />
+                  <input type="button" class="button" value="update citation" id="kupu-citation-updatebutton" />
+                  <input type="button" class="warning" value="delete citation" id="kupu-citation-deletebutton" />
+                </td>
+              </tr>
+            </tbody>
           </table>
-          <input type="button" class="transport" value="insert citation" id="kupu-citation-addbutton" />
-          <input type="button" class="button" value="update citation" id="kupu-citation-updatebutton" />
-          <input type="button" class="warning" value="delete citation" id="kupu-citation-deletebutton" />
         </form>
 
       </div>
