@@ -28,7 +28,9 @@
   </kupu:part>
 
   <kupu:part name="drawers">
-    <div id="kupu-librarydrawer" class="kupu-drawer">
+    <div style="display:block;">
+      <div id="kupu-librarydrawer" class="kupu-drawer">
+      </div>
     </div>
   </kupu:part>
 
