@@ -9,40 +9,6 @@
 
   <kupu:part name="links">
     <div class="kupu-toolbox" id="kupu-toolbox-links">
-      <script type="text/javascript">
-
-        objLookupWindow = null;
-        objTextArea = null;
-        objReferenceFormat = null;
-        objAppendValue = false;
-
-        function openObjectLookupWindow(url_to_open) {
-          // open the lookup window, will be called by getObjectReference
-
-          width = 760;
-          height = 500;
-          leftPos = (screen.width - width) / 2;
-          topPos = (screen.height - height) / 2;
-          aspects = 'toolbar=yes,status=yes,scrollbars=yes,resizable=yes,width=' + width + ',height=' + height + ',left=' + leftPos + ',top=' + topPos;
-          objLookupWindow = window.open(url_to_open, 'ObjectLookupWindow', aspects);
-          objLookupWindow.focus();
-        }
-
-        function getObjectReference(url, format) {
-          // should be called by pagetemplate
-          referenceFormat = format;
-          openObjectLookupWindow(url);
-        }
-
-        function insertObjectReference(id, reference, wndw) {
-          // Is called by the window if the user selected an object
-          var text = referenceFormat.replace('_id_', id).replace('_reference_', reference);
-          var linktool = kupu.getTool('linktool');
-          linktool.createLink(text);
-          wndw.close();
-        }
-
-      </script>
       <script type="text/javascript" tal:define="container model/get_container" tal:content="string:
         function getLink() {
           getObjectReference('${container/absolute_url}/edit/document_lookup', '_reference_');
@@ -91,7 +57,6 @@
 
     <div class="kupu-toolbox" id="kupu-toolbox-images">
 
-    <script type="text/javascript" tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
     <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
       function getImage() {
         openAssetLookupWindow('${container/absolute_url}/edit/asset_lookup?filter=Silva+Image', '${folder_context}');
