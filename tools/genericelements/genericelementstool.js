@@ -341,6 +341,7 @@ function GenericElementsTool(xmlid) {
                 inputel.appendChild(content);
                 inputel.setAttribute('className', 'genericelement-form-field');
                 inputel.setAttribute('name', id);
+                inputel.setAttribute('id', 'genelfield_' + id);
                 form.appendChild(inputel);
             } else if (type == 'checkbox' || type == 'radio') {
                 for (var j=0; j < items.length; j++) {
