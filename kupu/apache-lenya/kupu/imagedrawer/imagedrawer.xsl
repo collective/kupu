@@ -20,10 +20,9 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
   xmlns:jx="http://apache.org/cocoon/templates/jx/1.0"
   version="1.0">
 
-  <xsl:import href="${parameters.getParameter('stylesheetUrl')}"/>
+  <xsl:import href="${parameters.getParameter('root')}librarydrawer.xsl"/>
     
   <xsl:template match="resource|collection" mode="properties">
-    <p>sdfdsfdsfsdfdsf</p>
     <xsl:if test="preview">      
     <div><strong>Preview</strong></div>
     <div id="epd-imgpreview">
@@ -61,4 +60,6 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
   </xsl:template>
   
   <xsl:template name="drawer-title">Image</xsl:template>
+  
+  <xsl:template name="url-prefix">${parameters.getParameter('root')}</xsl:template>
 </xsl:stylesheet>
