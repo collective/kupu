@@ -378,6 +378,10 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
         this._replaceNodeContents(document, targetnode, sourcenode);
+
+        if (this.editor.getBrowserName() == 'IE' && id == this.resourcespanelid) {
+            this.updateDisplay(this.drawerid);
+        };
     };
 
     this.deselectActiveCollection = function() {
@@ -439,7 +443,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // instead of running the full transformations again we get a 
         // reference to the element and set the classname...
         var newseldiv = document.getElementById(id);
-	     newseldiv.className = 'kupu-libsource-selected';
+        newseldiv.className = 'kupu-libsource-selected';
     };
 
     this._libraryContentCallback = function(dom, src_uri) {
@@ -594,7 +598,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this.selectUpload = function() {
         this.removeSelection();
         this.showupload = 'yes';
-        this.updateDisplay(this.drawerid);
+        this.updateDisplay(this.resourcespanelid);
         this.updateDisplay(this.propertiespanelid);
     }
     /*** Selecting a resource ***/
@@ -610,7 +614,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         var newselitem = this.xmldata.selectSingleNode(newselxpath);
         newselitem.setAttribute("selected", "1");
 
-        this.updateDisplay(this.drawerid);
+        this.updateDisplay(this.resourcespanelid);
+        this.updateDisplay(this.propertiespanelid);
         return;
     }
 
