@@ -125,8 +125,16 @@ function initSilvaKupu(iframe) {
     var citationtool = new SilvaCitationTool(
         'kupu-citation-authorinput', 'kupu-citation-sourceinput',
 	'kupu-citation-addbutton', 'kupu-citation-updatebutton',
-	'kupu-citation-deletebutton');
+	'kupu-citation-deletebutton', 'kupu-toolbox-citation',
+        'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('citationtool', citationtool);
+  
+    var abbrtool = new SilvaAbbrTool('kupu-abbr-type-abbr', 'kupu-abbr-type-acronym', 
+                                        'kupu-abbr-radiorow', 'kupu-abbr-title',
+                                        'kupu-abbr-addbutton', 'kupu-abbr-updatebutton',
+                                        'kupu-abbr-deletebutton', 'kupu-toolbox-abbr',
+                                        'kupu-toolbox', 'kupu-toolbox-active');
+    kupu.registerTool('abbrtool', abbrtool);
   
     var imagetool = new SilvaImageTool(
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
