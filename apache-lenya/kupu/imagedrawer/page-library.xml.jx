@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<collection>
+  <uri>FIXME URI</uri>
+  <icon></icon>
+  <title>Page Library</title>
+  <description>FIXME Description</description>
+  <items>
+    <resource id="pageres">
+      <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
+      <icon></icon>
+      <description>page Demo Resource two</description>
+    </resource>
+    <!--
+    <resource id="res2">
+      <uri>kupudrawers/res2</uri>
+      <icon></icon>
+      <description>Demo Resource two</description>
+    </resource>
+    <collection id="collection1">
+      <uri>kupudrawers/coll1</uri>
+      <icon></icon>
+      <title>Demo Collecton</title>
+      <description>Container for portal members' home directories</description>
+      <src>kupudrawers/democollection.xml</src>
+    </collection>
+    -->
+  </items>
+</collection>
