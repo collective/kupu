@@ -233,20 +233,7 @@ function KupuEditor(document, config, logger) {
             request.open("PUT", this.config.dst, false);
             request.setRequestHeader("Content-type", this.config.content_type);
             request.send(contents);
-            if (redirect) { // && (!request.status || request.status == '200' || request.status == '204'))
-                window.document.location = redirect;
-            } else if (request.status != '200' && request.status != '204'){
-                alert('Error saving your data.\nResponse status: ' + 
-                    request.status + 
-                    '.\nCheck your server log for more information.')
-                window.status = "Error saving document"
-            } else {
-                if (this.config.reload_after_save) {
-                    this.reloadSrc();
-                };
-                // we're done so we can start editing again
-                window.status= "Document saved";
-            };
+            this.handleSaveResponse(request,redirect)
         };
         this.content_changed = false;
     };
@@ -423,27 +410,33 @@ function KupuEditor(document, config, logger) {
         }
     };
     
+    this.handleSaveResponse = function(request, redirect) {
+        if (request.status != '200' && request.status != '204'){
+            alert('Error saving your data.\nResponse status: ' + 
+                  request.status + 
+                  '.\nCheck your server log for more information.')
+            window.status = "Error saving document"
+        } else if (redirect) { // && (!request.status || request.status == '200' || request.status == '204'))
+            window.document.location = redirect;
+            this.content_changed = false;
+        } else {
+            if (this.config.reload_after_save) {
+                this.reloadSrc();
+            };
+            // we're done so we can start editing again
+            window.status= "Document saved";
+            this.content_changed = false;
+        };
+        this._initialized = true;
+    };
+
     // private methods
     this._addEventHandler = addEventHandler;
 
     this._saveCallback = function(request, redirect) {
         /* callback for Sarissa */
         if (request.readyState == 4) {
-            if (redirect) { // && (!request.status || request.status == '200' || request.status == '204'))
-                window.document.location = redirect;
-            } else if (request.status != '200' && request.status != '204'){
-                alert('Error saving your data.\nResponse status: ' + 
-                    request.status + 
-                    '.\nCheck your server log for more information.')
-                window.status = "Error saving document"
-            } else {
-                if (this.config.reload_after_save) {
-                    this.reloadSrc();
-                };
-                // we're done so we can start editing again
-                window.status= "Document saved";
-            };
-            this._initialized = true;
+            this.handleSaveResponse(request, redirect)
         };
     };
     
