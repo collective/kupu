@@ -67,39 +67,38 @@ div.kupu-smalleditor {
   margin-right: 2px;
 }
 
-.kupu-bold {background-image: url("kupuimages/bold.gif");}
-.kupu-bold-pressed {background-image: url("kupuimages/bold.gif"); background-color: white;}
-.kupu-forecolor {background-image: url("kupuimages/textcolor.gif");}
-.kupu-hilitecolor {background-image: url("kupuimages/bgcolor.gif");}
-.kupu-hyperlink {background-image: url("kupuimages/hyperlink.gif");}
-.kupu-hyperlink-pressed {background-image: url("kupuimages/hyperlink.gif"); background-color: white}
-.kupu-image {background-image: url("kupuimages/image.gif");}
-.kupu-indent {background-image: url("kupuimages/indent.gif");}
-.kupu-inserthorizontalrule {background-image: url("kupuimages/hr.gif");}
-.kupu-insertorderedlist {background-image: url("kupuimages/numbered.gif");}
-.kupu-insertunorderedlist {background-image: url("kupuimages/list.gif");}
-.kupu-italic {background-image: url("kupuimages/italic.gif");}
-.kupu-italic-pressed {background-image: url("kupuimages/italic.gif"); background-color: white}
-.kupu-justifycenter {background-image: url("kupuimages/centre.gif");}
-.kupu-justifyleft {background-image: url("kupuimages/left_just.gif");}
-.kupu-justifyright {background-image: url("kupuimages/right_just.gif");}
+
+.kupu-bold {background-image: url("kupuimages/bold.png");}
+.kupu-bold-pressed {background-image: url("kupuimages/bold.png"); background-color: white;}
+.kupu-forecolor {background-image: url("kupuimages/text-color.png");}
+.kupu-hilitecolor {background-image: url("kupuimages/background-color.png");}
+.kupu-hyperlink {background-image: url("kupuimages/link.png");}
+.kupu-hyperlink-pressed {background-image: url("kupuimages/link.png"); background-color: white}
+.kupu-image {background-image: url("kupuimages/image.png");}
+.kupu-indent {background-image: url("kupuimages/indent.png");}
+.kupu-inserthorizontalrule {background-image: url("kupuimages/hr.png");}
+.kupu-insertorderedlist {background-image: url("kupuimages/ordered-list.png");}
+.kupu-insertunorderedlist {background-image: url("kupuimages/unordered-list.png");}
+.kupu-italic {background-image: url("kupuimages/italic.png");}
+.kupu-italic-pressed {background-image: url("kupuimages/italic.png"); background-color: white}
+.kupu-justifycenter {background-image: url("kupuimages/justify-center.png");}
+.kupu-justifyleft {background-image: url("kupuimages/justify-left.png");}
+.kupu-justifyright {background-image: url("kupuimages/justify-right.png");}
 .kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
-.kupu-outdent {background-image: url("kupuimages/outdent.gif");}
-.kupu-redo {background-image: url("kupuimages/redo.gif");}
-.kupu-save {background-image: url("kupuimages/save.gif");}
+.kupu-outdent {background-image: url("kupuimages/outdent.png");}
+.kupu-redo {background-image: url("kupuimages/redo.png");}
+.kupu-save {background-image: url("kupuimages/save.png");}
 .kupu-save-and-exit {background-image: url("kupuimages/exit.gif");}
 .kupu-space {background-image: url("kupuimages/space.gif");}
-.kupu-source {background-image: url("kupuimages/source.gif");}
-.kupu-subscript {background-image: url("kupuimages/subscript.gif");}
-.kupu-subscript-pressed {background-image: url("kupuimages/subscript.gif"); background-color: white}
-.kupu-superscript {background-image: url("kupuimages/superscript.gif");}
-.kupu-superscript-pressed {background-image: url("kupuimages/superscript.gif"); background-color: white}
-.kupu-table {background-image: url("kupuimages/table.gif");}
-.kupu-underline {background-image: url("kupuimages/underline.gif");}
-.kupu-underline-pressed {background-image: url("kupuimages/underline.gif"); background-color: white}
-.kupu-undo {background-image: url("kupuimages/undo.gif");}
-.kupu-removelink {background-image: url("kupuimages/remove.png")}
-.kupu-removeimage {background-image: url("kupuimages/remove.png")}
+.kupu-source {background-image: url("kupuimages/view-source.png");}
+.kupu-subscript {background-image: url("kupuimages/subscript.png");}
+.kupu-subscript-pressed {background-image: url("kupuimages/subscript.png"); background-color: white}
+.kupu-superscript {background-image: url("kupuimages/superscript.png");}
+.kupu-superscript-pressed {background-image: url("kupuimages/superscript.png"); background-color: white}
+.kupu-table {background-image: url("kupuimages/table.png");}
+.kupu-underline {background-image: url("kupuimages/underline.png");}
+.kupu-underline-pressed {background-image: url("kupuimages/underline.png"); background-color: white}
+.kupu-undo {background-image: url("kupuimages/undo.png");}
 
 #kupu-tb-buttons button.invisible { 
   display: none;
