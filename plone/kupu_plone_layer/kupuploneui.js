@@ -75,7 +75,7 @@ function PloneKupuUI(textstyleselectid) {
         
             generate a block element accordingly 
         */
-        var classname = null;
+        var classname = '';
         var eltype = style;
         if (style.indexOf('|') > -1) {
             style = style.split('|');

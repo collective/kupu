@@ -137,10 +137,6 @@ function KupuMultiEditor(documents, config, logger) {
     this._setDesignMode = function(doc) {
         doc.getDocument().designMode = "On";
         doc.execCommand("undo");
-        // note the negation: the argument doesn't work as expected...
-        // XXX somehow calling execCommand('useCSS',...) here doesn't seem to have effect unless it's
-        // called with a timeout... don't know why, crappy workaround...
-        timer_instance.registerFunction(doc, doc.execCommand, 0, "useCSS", !this.config.use_css);
     };
 
     // XXX perhaps we can partially move this to a helper method to approve
