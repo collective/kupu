@@ -621,8 +621,8 @@ Array.prototype.contains = function(element, objectequality) {
 
 // JavaScript has a friggin' blink() function, but not for string stripping...
 String.prototype.strip = function() {
-    var stripspace = /^\s*(.*)\s*$/;
-    return stripspace.exec(this)[0];
+    var stripspace = /^\s*((\S+\s*\S+)*)\s*$/;
+    return stripspace.exec(this)[1];
 };
 
 //----------------------------------------------------------------------------
