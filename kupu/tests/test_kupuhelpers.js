@@ -84,9 +84,10 @@ function KupuHelpersTestCase() {
         this.assertEquals(dict['foo'], 'bar');
         this.assertEquals(dict['sna'], 'fu');
         for (var attr in dict) {
-            this.assert(attr == 'foo' || attr == 'sna' || attr == 'some_int');
+            this.assert(attr == 'foo' || attr == 'sna' || attr == 'some_int' || attr == 'nested');
         };
         this.assertEquals(dict['some_int'], 1);
+        this.assertEquals(dict['nested']['foo'], 'bar');
     };
 };
 
