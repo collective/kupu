@@ -6,7 +6,7 @@
     >
 
   <kupu:part name="xmlconfig">
-    <div style="visibility: hidden">
+    <div style="display: none;">
       <xml id="kupuconfig">
         <kupuconfig>
           <kupu:define-slot name="kupuconfig" />
