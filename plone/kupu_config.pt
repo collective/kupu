@@ -75,15 +75,27 @@ Turn this off to prevent Kupu loading its own handler.
 
 </fieldset>
 <fieldset>
-<legend>Tables</legend>
-
+<legend>Styles</legend>
+<div class="field">
+<label for="table_classnames">Tables</label>
 <div class="formHelp">Enter a list of class names to be made available in the table drawer</div>
+<input type="hidden" name="table_classnames:list:default" value=" " />
 
-<textarea name="table_classnames:lines"
+<textarea name="table_classnames:lines" id="table_classnames"
          rows="5" cols="30"
          tal:content="python:'\n'.join(here.getTableClassnames())">
 </textarea>
+</div>
 
+<div class="field">
+<label for="parastyles">Paragraph Styles</label>
+<div class="formHelp">Enter a list of paragraph styles to appear in the style pulldown. Format is title|tag or title|tag|className, one per line.</div>
+<input type="hidden" name="parastyles:list:default" value=" " />
+<textarea name="parastyles:lines" id="parastyles"
+         rows="5" cols="30"
+         tal:content="python:'\n'.join(here.getParagraphStyles())">
+</textarea>
+</div>
 </fieldset>
 
 <fieldset>

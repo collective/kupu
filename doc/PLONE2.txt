@@ -51,6 +51,16 @@ when upgrading. A sample script is in the kupu_plone_layer folder.
 
 Paragraph styles
 ----------------
+Paragraph styles come from 3 sources:
+
+   * Styles Normal, Heading, Subheading and Formatted are always defined.
+
+   * Use the Plone control panel to add additional styles to be
+   available on all content types.
+
+   * For Archetypes content types additional styles may be defined for
+   individual fields.
+
 Each rich text field can define its own set of paragraph styles to be
 made available in kupu. These are defined on the parastyles attribute
 of the RichWidget. For example, a typical field definition might be::

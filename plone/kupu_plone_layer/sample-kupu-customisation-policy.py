@@ -44,6 +44,12 @@ STYLE_WHITELIST = ['text-align', 'list-style-type']
 CLASS_BLACKLIST = ['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
         'Bullet1', 'Bullet2']
 
+TABLE_CLASSNAMES = ('plain', 'listing', 'grid', 'data')
+PARAGRAPH_STYLES = (
+    'Fancy|div|fancyClass',
+    'Plain|div|plainClass',
+)
+    
 tool = getToolByName(context, 'kupu_library_tool')
 typetool = getToolByName(context, 'portal_types')
 
@@ -59,8 +65,10 @@ tool.addResourceType('collection', typefilter(COLLECTION))
 print "configure kupu"
 tool.configure_kupu(linkbyuid=True,
     table_classnames = ('plain', 'listing', 'grid', 'data'),
+    parastyles=PARAGRAPH_STYLES,
     html_exclusions = EXCLUDED_HTML,
     style_whitelist = STYLE_WHITELIST,
-    class_blacklist = CLASS_BLACKLIST)
+    class_blacklist = CLASS_BLACKLIST,
+    installBeforeUnload=True)
 
 return printed

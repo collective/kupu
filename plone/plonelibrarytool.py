@@ -62,6 +62,9 @@ _excluded_html = [
   (('table','th','td'),('width','height')),
 ]
 
+# Default should list all styles used by Kupu
+_style_whitelist = ['text-align', 'list-style-type']
+
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
 
@@ -108,6 +111,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         except AttributeError:
             return ('plain', 'listing', 'grid', 'data')
 
+    security.declareProtected('View', "getParagraphStyles")
+    def getParagraphStyles(self):
+        """Return a list of classnames supported in tables"""
+        try:
+            return self.paragraph_styles
+        except AttributeError:
+            return ()
+
     security.declareProtected('View', "getHtmlExclusions")
     def getHtmlExclusions(self):
         try:
@@ -118,7 +129,11 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected('View', "getStyleWhitelist")
     def getStyleWhitelist(self):
-        return getattr(self, 'style_whitelist', [])
+        try:
+            return self.style_whitelist
+        except AttributeError:
+            self.style_whitelist = _style_whitelist
+            return self.style_whitelist
 
     security.declareProtected('View', "getClassBlacklist")
     def getClassBlacklist(self):
@@ -221,13 +236,15 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
                               "configure_kupu")
     def configure_kupu(self,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
-        installBeforeUnload=None,
+        installBeforeUnload=None, parastyles=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
         if installBeforeUnload is not None:
             self.install_beforeunload = bool(installBeforeUnload)
+        if parastyles:
+            self.paragraph_styles = [ line.strip() for line in parastyles if line.strip() ]
 
         newex = html_exclusions[-1]
             
