@@ -532,12 +532,11 @@ function LinkTool() {
         if (!linkel) {
             this.editor.execCommand("CreateLink", url);
             var currnode = this.editor.getSelectedNode();
-            if (this.editor.getBrowserName() == 'IE') {
-                linkel = this.editor.getNearestParentOfType(currnode, 'A');
-            } else {
-                linkel = currnode.tagName=='A'?currnode:currnode.nextSibling;
+            linkel = this.editor.getNearestParentOfType(currnode, 'A');
+            if (this.editor.getBrowserName() != 'IE') {
+                if (!linkel) linkel = this.editor.getNearestParentOfType(currnode.nextSibling, 'A');
             };
-            if ((!linkel) || linkel.tagName != 'A') {
+            if (!linkel) {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 linkel = doc.createElement("a");

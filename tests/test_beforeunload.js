@@ -59,9 +59,11 @@ function KupuBeforeUnloadTestCase() {
 }
 
 KupuBeforeUnloadTestCase.prototype = new TestCase;
-Class = KupuBeforeUnloadTestCase.prototype
+Class = KupuBeforeUnloadTestCase.prototype;
+var BeforeUnloadHandler = window.onbeforeunload.tool.constructor;
 
 Class.setUp = function() {
+    
     this.bu = new BeforeUnloadHandler();
 };
 
