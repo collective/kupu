@@ -826,10 +826,11 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     
     // called by onLoad within document sent by server
     this.finishUpload = function(url) {
-        var img = this.tool.createImage(url);
+        var imgclass = 'image-inline';
         if (this.editor.config.captions) {
-            img.className = img.className + " captioned";
-        }
+            imgclass += " captioned";
+        };
+        this.tool.createImage(url, null, imgclass);
         this.shared.newimages = 1;
         this.drawertool.closeDrawer();
     };
@@ -852,23 +853,21 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         uri = uri.strip();  // needs kupuhelpers.js
-        var img = this.tool.createImage(uri);
         var alt = getFromSelector('image_alt').value;
-        img.setAttribute('alt', alt);
 
-        // Set image class from the alignment radio buttons
         var radios = document.getElementsByName('image-align');
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
-                img.className = radios[i].value;
-            }
-        }
+                var imgclass = radios[i].value;
+            };
+        };
 
         var caption = document.getElementsByName('image-caption');
         if (caption && caption.length>0 && caption[0].checked) {
-            img.className = img.className + " captioned";
-        }
+            imgclass += " captioned";
+        };
 
+        this.tool.createImage(uri, alt, imgclass);
         this.drawertool.closeDrawer();
     };
 };
