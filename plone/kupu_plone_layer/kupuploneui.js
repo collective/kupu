@@ -78,7 +78,7 @@ function PloneKupuUI(textstyleselectid) {
         var styletag, classname;
 
         var selection = this.editor.getSelection();
-            
+
         for (var el=selNode.firstChild; el; el=el.nextSibling) {
             if (el.nodeType==1 && selection.containsNode(el)) {
                 var i = this.nodeStyle(el);
@@ -92,27 +92,29 @@ function PloneKupuUI(textstyleselectid) {
                     break;
                 }
             }
-        }
+        };
 
         if (index===undefined) {
             index = this.nodeStyle(selNode);
         }
 
+        if (this.otherstyle) {
+            this.tsselect.removeChild(this.otherstyle);
+            this.otherstyle = null;
+        }
+
         if (index < 0 || mixed) {
+            var caption = mixed ? 'Mixed styles' :
+                'Other: ' + this.styletag + ' '+ this.classname;
+
             if (!this.otherstyle) {
                 var opt = document.createElement('option');
                 this.tsselect.appendChild(opt);
                 this.otherstyle = opt;
+                this.otherstyle.text = caption;
             }
-            if (mixed) {
-                this.otherstyle.text = 'Mixed styles';
-            } else {
-                this.otherstyle.text = 'Other: ' + this.styletag + ' '+ this.classname;
-            }
+
             index = this.tsselect.length-1;
-        } else if (this.otherstyle) {
-            this.tsselect.removeChild(this.otherstyle);
-            this.otherstyle = null;
         }
         this.tsselect.selectedIndex = Math.max(index,0);
     };
@@ -162,7 +164,7 @@ function PloneKupuUI(textstyleselectid) {
         if (classname) {
             el.className = classname;
         } else {
-            el.removeAttribute("class");
+            el.removeAttribute(el.className ?"className":"class");
         }
     }
     this.setTextStyle = function(style, noupdate) {

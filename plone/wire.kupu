@@ -2,10 +2,12 @@
   implementation="plone"
   xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
   >
+  <kupu:id>$Id$</kupu:id>
 
   <!-- Plone specific wiring -->
 
   <kupu:fill-slot name="html">
+    <kupu:insert-ids />
     <kupu:insert-part feature="wysiwyg_support" part="editorbox" />
     <kupu:insert-part feature="wysiwyg_support" part="textformatselector" />
   </kupu:fill-slot>

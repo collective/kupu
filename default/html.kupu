@@ -4,6 +4,7 @@
     implementation="default"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
+  <kupu:id>$Id$</kupu:id>
   <kupu:part name="html">
 <html xmlns="http://www.w3.org/1999/xhtml">
 

@@ -125,6 +125,12 @@ to the following schema::
          <text />
        </element>
 
+       <optional>
+         <element name="label">
+           <text />
+         </element>
+       </optional>
+
        <element name="title">
          <text />
        </element>

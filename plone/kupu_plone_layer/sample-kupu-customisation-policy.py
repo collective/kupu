@@ -40,7 +40,7 @@ EXCLUDED_HTML = [
    {'tags': '', 'attributes': '' } # Must be dummy entry at end.
 ]
 
-STYLE_WHITELIST = ['text-align', 'list-style-type']
+STYLE_WHITELIST = ['text-align', 'list-style-type', 'float']
 CLASS_BLACKLIST = ['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
         'Bullet1', 'Bullet2']
 

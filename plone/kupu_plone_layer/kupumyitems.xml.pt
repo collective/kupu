@@ -20,6 +20,5 @@
     <metal:slot fill-slot="defineItems">
        <tal:var define="global items context/kupuMyItems"/>
     </metal:slot>
-    <metal:slot fill-slot="parentCollection" />
   </items>
 </library>

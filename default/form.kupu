@@ -5,6 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
+  <kupu:id>$Id$</kupu:id>
 
   <!-- This is an example of how to wrap the kupu editor in an HTML
        form. -->

@@ -11,7 +11,8 @@
     >
   <uri tal:content="template/absolute_url">URI</uri>
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
-  <title i18n_translate="heading_search_results">Search Results</title>
+  <title i18n_translate="heading_search_results"
+        tal:content="string:Search '${request/SearchableText}'">Search Results</title>
   <description>Search results.</description>
 
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
