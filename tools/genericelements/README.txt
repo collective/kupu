@@ -17,9 +17,12 @@ It was written for CodeName Future by Guido Wesdorp from Infrae. Right now it's
 still meant only for that customer, so no support is given for this product
 yet. If you want to use it, it will be at your own risk.
 
-Installing and using
---------------------
+Installation instructions
+-------------------------
 
-Because the package is not yet complete, no installation or usage instructions
-are available. For more information about how to use the tool currently the
-only location where you could check would be the code itself.
+For installation instructions, see INSTALL.txt
+
+Questions
+=========
+
+If you have questions or remarks, please send an email to guido@infrae.com.
