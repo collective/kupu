@@ -10,6 +10,100 @@
 
 // $Id$
 
+function SelectionTestCase() {
+
+    this.assertEquals = function(var1, var2, message) {
+        /* assert whether 2 vars have the same value */
+        // XXX: this should be removed again when issue 188 is resolved
+        // toSource() of Mozilla objects returns always the same
+        if (!message)  {
+            message = '';
+        } else {
+            message = "'" + message + "' ";
+        }
+        if (var1 != var2) {
+            throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
+        };
+    };
+
+    var visibleEmptyElements = {'IMG': 1, 'BR': 1, 'HR': 1};
+
+    this.setUp = function() {
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
+        this.kupudoc = new KupuDocument(iframe);
+        this.selection = this.kupudoc.getSelection();
+        this.kupudoc.getWindow().focus();
+    };
+
+    this._MozillaPosition = function(element, offset, lastnode) {
+        // this does not skip invisible whitespace
+        var node = element.firstChild;
+        for (var i=0; i < element.childNodes.length; i++) {
+            if (node.nodeType == node.TEXT_NODE) {
+                if ((lastnode && (offset < node.length)) ||
+                    (!lastnode && (offset <= node.length))) {
+                    return [node, offset];
+                };
+                offset -= node.length;
+            } else if (node.nodeType == node.ELEMENT_NODE) {
+                if (node.tagName.toUpperCase() in visibleEmptyElements) {
+                    if (offset > 0 && !node.nextSibling) {
+                        offset -= 1;
+                        i += 1;
+                    };
+                    if (offset == 0) {
+                        return [element, i];
+                    };
+                    offset -= 1;
+                } else {
+                    position = this._MozillaPosition(node, offset, lastnode);
+                    if (position[0]) {
+                        return position;
+                    };
+                    offset = position[1];
+                };
+            };
+            node = node.nextSibling;
+        };
+        return [node, offset];
+    };
+
+    this._setSelection = function(startOffset, startNextNode, endOffset,
+                                     endNextNode, verificationString) {
+        var element = this.body;
+        var innerSelection = this.selection.selection;
+        if (_SARISSA_IS_IE) {
+            var range = innerSelection.createRange();
+            var endrange = innerSelection.createRange();
+            range.moveToElementText(element);
+            range.moveStart('character', startOffset);
+            endrange.moveToElementText(element);
+            endrange.moveStart('character', endOffset);
+            range.setEndPoint('EndToStart', endrange);
+            range.select();
+        } else {
+            var position = this._MozillaPosition(element, startOffset,
+                                                 startNextNode);
+            innerSelection.collapse(position[0], position[1]);
+            if (startOffset != endOffset) {
+                var position = this._MozillaPosition(element, endOffset,
+                                                     endNextNode);
+                innerSelection.extend(position[0], position[1]);
+            };
+        };
+        this.assertEquals(this.selection.toString().replace(/\r|\n/g, ''),
+                          verificationString);
+    };
+
+    this.tearDown = function() {
+        this.body.innerHTML = '';
+    };
+};
+
+SelectionTestCase.prototype = new TestCase;
+
 function KupuHelpersTestCase() {
     this.name = 'KupuHelpersTestCase';
 
@@ -93,22 +187,55 @@ function KupuHelpersTestCase() {
 KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
-    this.setUp = function() {
-        var iframe = document.getElementById('iframe');
-        this.doc = iframe.contentWindow.document;
-        this.body = this.doc.getElementsByTagName('body')[0];
-        this.kupudoc = new KupuDocument(iframe);
-        this.kupudoc.getWindow().focus();
+
+    this.testGetSelectedNodeMissing = function() {
+        this.body.innerHTML = ' <p>foo <b>bar</b><img><img> baz</p>';
+        // remove selection
+        var selection = this.selection.selection;
+        _SARISSA_IS_IE ? selection.empty() : selection.removeAllRanges();
+        node = this.doc.getElementsByTagName('p')[0].firstChild;
+        this.assertEquals(this.selection.getSelectedNode(), node);
     };
 
-    this.testReplaceWithNode = function() {
-        var node = this.doc.createElement('p');
-        var nbsp = this.doc.createTextNode('\xa0');
-        node.appendChild(nbsp);
-        this.body.appendChild(node);
-        var selection = _SARISSA_IS_IE ? new IESelection(this.kupudoc) : new MozillaSelection(this.kupudoc);
-        selection.selectNodeContents(node);
-        this.assertEquals(selection.getSelectedNode(), node);
+    this.testGetSelectedNodeBold = function() {
+        this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
+        // select                       |bar|
+        this._setSelection(4, true, 7, false, 'bar');
+        node = this.doc.getElementsByTagName('b')[0].firstChild;
+        this.assertEquals(this.selection.getSelectedNode(), node);
+    };
+
+    this.testGetSelectedNodeImg = function() {
+        this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
+        // select                              |<img/>|
+        this._setSelection(7, true, 8, false, '');
+        node = this.doc.getElementsByTagName('img')[0];
+        this.assertEquals(this.selection.getSelectedNode(), node);
+    };
+
+    this.testGetSelectedNodeImgSpecial = function() {
+        this.body.innerHTML = '<p>foo <a><img/></a></p>';
+        // select                       |<img/>|
+        this._setSelection(4, true, 5, null, '');
+        node = this.doc.getElementsByTagName('img')[0];
+        foo = this.selection.getSelectedNode();
+        this.assertEquals(this.selection.getSelectedNode(), node);
+    };
+
+    this.testGetSelectedNodeMixed = function() {
+        this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
+        // select                        |ar</b><img><img> b|
+        this._setSelection(5, null, 11, null, 'ar b');
+        node = this.doc.getElementsByTagName('p')[0];
+        this.assertEquals(this.selection.getSelectedNode(), node);
+    };
+
+    this.testGetSelectedNode_r9516 = function() {
+        this.body.innerHTML = '<p>foo <b>bar</b><img/></p><p>baz</p>';
+        // select                              |<img/></p><p>baz|
+        this._setSelection(7, true, 12, false, 'baz');
+        node = this.doc.getElementsByTagName('body')[0];
+        this.assertEquals(this.selection.getSelectedNode(), node);
     };
 
     this.testToString = function() {
@@ -119,10 +246,6 @@ function KupuSelectionTestCase() {
         selection.selectNodeContents(this.body.firstChild.childNodes[1]);
         this.assertEquals(selection.toString(), 'bar');
     };
-
-    this.tearDown = function() {
-        this.body.innerHTML = '';
-    };
 };
 
-KupuSelectionTestCase.prototype = new TestCase;
+KupuSelectionTestCase.prototype = new SelectionTestCase;
