@@ -189,10 +189,10 @@
   </kupu:part>
 
   <kupu:part name="xmlconfig">
-    <image_xsl_uri>kupudrawers/imagedrawer.xsl</image_xsl_uri>
-    <link_xsl_uri>kupudrawers/linkdrawer.xsl</link_xsl_uri>
-    <image_libraries_uri>kupudrawers/demolibraries.xml</image_libraries_uri>
-    <link_libraries_uri>kupudrawers/demolibraries.xml</link_libraries_uri>
+    <image_xsl_uri>kupudrawers/drawer.xsl</image_xsl_uri>
+    <link_xsl_uri>kupudrawers/drawer.xsl</link_xsl_uri>
+    <image_libraries_uri>kupudrawers/imagelibraries.xml</image_libraries_uri>
+    <link_libraries_uri>kupudrawers/linklibraries.xml</link_libraries_uri>
     <search_images_uri> </search_images_uri>
     <search_links_uri> </search_links_uri>
   </kupu:part>
