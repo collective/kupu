@@ -52,12 +52,34 @@ default editor for new users from the ZMI::
 
   "portal_memberdata" -> "Properties" -> "wysiwyg_editor" = "Kupu"
 
+Installation Problems
+=====================
+
+Macro Nesting
+~~~~~~~~~~~~~
+
 When attempting to use Kupu, if you see the message::
 
- Kupu not installed correctly: macro nesting limit (100) exceeded ...
+       Kupu not installed correctly: macro nesting limit (100) exceeded ...
 
 it probably means that the ``make`` command was not run, or failed to
 run for some reason.
+
+Zoom
+~~~~
+
+If zooming the Kupu window leaves parts of the underlying page still
+visible it is possible that some part of the page is specifying an
+explicit z-index. Try customising kupustyles.css and increasing the
+setting for z-index in::
+
+    div.kupu-fulleditor-zoomed {
+       z-index: 1;
+       margin: 0; border: none;
+       position: fixed;
+       top: 0; left: 0;
+    }
+
 
 Plone Configlet
 ---------------

@@ -27,10 +27,12 @@ div.kupu-fulleditor .kupu-editorframe {
 }
 
 div.kupu-fulleditor-zoomed {
+   z-index: 1;
    margin: 0; border: none;
    position: fixed;
    top: 0; left: 0;
 }
+
 * html div.kupu-fulleditor-zoomed {
    position: absolute; /* IE */
 }

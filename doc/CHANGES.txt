@@ -10,10 +10,12 @@ Kupu changes
 
   * Other issues fixed:
 
+        - 149_: When using Zoom on Plone site, the right portlets are not disabled
         - 146_: kupu 1.2b tagName is null or not an object javascript error in IE
         - 141_: Inserting links in Gecko browsers sometimes replaced the selected
           text with the link title.
 
+.. _149: http://codespeak.net/issues/kupu/issue149
 .. _146: http://codespeak.net/issues/kupu/issue146
 .. _141: http://codespeak.net/issues/kupu/issue141
 
