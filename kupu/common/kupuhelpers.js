@@ -383,56 +383,6 @@ function MozillaSelection(document) {
         this.selection.selectAllChildren(node);
     };
 
-    // XXX wrong name, should be getSelectedElement, since it won't return
-    // text nodes...
-    this.getSelectedNode = function() {
-        /* return the selected node (or the node containing the selection) */
-        var selection = this.selection;
-        var selectedNode = selection.anchorNode;
-        if (!selectedNode) {
-            selectedNode = this.document.getDocument().body;
-            while (selectedNode.firstChild && selectedNode.firstChild.nodeType == 1)
-                selectedNode = selectedNode.firstChild;
-            // return here, the rest of the code requires an actual selection 
-            // which we don't seem to have
-            return selectedNode;
-        }
-        // this should always return an element node, never a text node
-        while (selectedNode.nodeType != 1) {
-            selectedNode = selectedNode.parentNode;
-        };
-        while (selectedNode.firstChild && selectedNode.firstChild.nodeType == 1 &&
-                    !selectedNode.childNodes.length > 1) {
-            selectedNode = selectedNode.firstChild;
-        }
-
-        // XXX the following deals with cases where only a single node is selected,
-        // but then entirely (e.g. after a click on an image)
-        var range = this.selection.getRangeAt(0);
-        var cloned = range.cloneContents();
-        if (cloned.childNodes.length == 1 && cloned.childNodes[0].nodeType == 1) {
-            // either we have a single char, or a single node in the range, in the
-            // latter case find out what node it is and return that instead of its
-            // parent
-            for (var i=0; i < selectedNode.childNodes.length; i++) {
-                if (range.compareNode(selectedNode.childNodes[i]) == range.NODE_INSIDE) {
-                    return selectedNode.childNodes[i];
-                };
-            };
-        };
-        
-        var n = selectedNode;
-        // Get next sibling at any level
-        while (n.parentNode) {
-            if ((n.previousSibling && selection.containsNode(n.previousSibling, true)) ||
-                (n.nextSibling && selection.containsNode(n.nextSibling, true))) {
-                selectedNode = n.parentNode;
-            }
-            n = n.parentNode;
-        }
-        return selectedNode;
-    };
-
     this.collapse = function(collapseToEnd) {
         try {
             if (!collapseToEnd) {
@@ -722,13 +672,59 @@ function MozillaSelection(document) {
     };
 
     this.parentElement = function() {
+        /* return the selected node (or the node containing the selection) */
         // XXX this should be on a range object
-        var parent = this.selection.getRangeAt(0).commonAncestorContainer;
-        if (parent.nodeType == 3) {
+        if (this.selection.rangeCount == 0) {
+            var parent = this.document.getDocument().body;
+            while (parent.firstChild) {
+                parent = parent.firstChild;
+            };
+        } else {
+            var range = this.selection.getRangeAt(0);
+            var parent = range.commonAncestorContainer;
+
+            // the following deals with cases where only a single child is
+            // selected, e.g. after a click on an image
+            var inv = range.compareBoundaryPoints(Range.START_TO_END, range) < 0;
+            var startNode = inv ? range.endContainer : range.startContainer;
+            var startOffset = inv ? range.endOffset : range.startOffset;
+            var endNode = inv ? range.startContainer : range.endContainer;
+            var endOffset = inv ? range.startOffset : range.endOffset;
+
+            var selectedChild = null;
+            var child = parent.firstChild;
+            while (child) {
+                // XXX the additional conditions catch some invisible
+                // intersections, but still not all of them
+                if (range.intersectsNode(child) &&
+                    !(child == startNode && startOffset == child.length) &&
+                    !(child == endNode && endOffset == 0)) {
+                    if (selectedChild) {
+                        // current child is the second selected child found
+                        selectedChild = null;
+                        break;
+                    } else {
+                        // current child is the first selected child found
+                        selectedChild = child;
+                    };
+                } else if (selectedChild) {
+                    // current child is after the selection
+                    break;
+                };
+                child = child.nextSibling;
+            };
+            if (selectedChild) {
+                parent = selectedChild;
+            };
+        };
+        if (parent.nodeType == Node.TEXT_NODE) {
             parent = parent.parentNode;
         };
         return parent;
     };
+
+    // deprecated alias of parentElement
+    this.getSelectedNode = this.parentElement;
 
     this.moveStart = function(offset) {
         // XXX this should be on a range object
@@ -856,26 +852,6 @@ function IESelection(document) {
         range.select();
         this.selection = this.document.getDocument().selection;
     };
-
-    // XXX wrong name, should be getSelectedElement, since it won't return
-    // text nodes...
-    this.getSelectedNode = function() {
-        /* return the selected node (or the node containing the selection) */
-        range = null;
-        switch (this.selection.type) {
-            case "None":
-            case "Text":
-                range = this.selection.createRange();
-                selectedNode = range.parentElement();
-                break;
-            case "Control":
-                // return img itself instead of its parent
-                selectedNode = this.selection.createRange().item(0);
-                break;
-        };
-        return selectedNode;
-    };
-
 
     this.collapse = function(collapseToEnd) {
         var range = this.selection.createRange();
@@ -1087,8 +1063,17 @@ function IESelection(document) {
     };
 
     this.parentElement = function() {
-        return this.selection.createRange().parentElement();
+        /* return the selected node (or the node containing the selection) */
+        // XXX this should be on a range object
+        if (this.selection.type == 'Control') {
+            return this.selection.createRange().item(0);
+        } else {
+            return this.selection.createRange().parentElement();
+        };
     };
+
+    // deprecated alias of parentElement
+    this.getSelectedNode = this.parentElement;
 
     this.moveStart = function(offset) {
         /* move the start of the selection */
