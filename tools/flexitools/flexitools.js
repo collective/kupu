@@ -3,11 +3,10 @@
  * Copyright (c) 2004 Tomas Hnilica, tomas.hnilica@webstep.net. 
  * All rights reserved.
  *
- * Tool for KUPU, allows edit only parts of document, which are in the
- * DIV elements that contains attribute "editable" with value "yes". 
+ * Tool for KUPU, allows making only parts of a document editable, 
+ * all elements that don't contain an attribute "editable" with 
+ * a value "yes" will refuse keystrokes. 
  * 
- * init: iframe is the edited iframe element
- *
  * This software is distributed under the terms of the Kupu
  * License. See LICENSE.txt for license text. For a list of Kupu
  * Contributors see CREDITS.txt in the Kupu package.
@@ -50,9 +49,10 @@ function fxWritable() {
         var currnode = selNode;
         while (currnode.nodeName != '#document' && 
                 this.fxWritable_status == false) {
-            if (currnode.nodeName.toLowerCase()=="div" && 
+            if (currnode.nodeType == 1 &&
                     currnode.getAttribute("editable")=="yes") {
                 this.fxWritable_status = true;
+                break;
             };
             currnode = currnode.parentNode;
         };
