@@ -11,8 +11,7 @@
     <kupu:define-slot name="start" />
   </kupu:expand>
 
-  <!-- Define an implementation order. Default contains only one
-       implementation, itself. -->
+  <!-- Define an implementation order -->
   <kupu:implementation-order>
     <kupu:implementation name="plone" />
     <kupu:implementation name="default" />
