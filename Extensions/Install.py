@@ -116,21 +116,22 @@ def install_configlet(self, out):
         pass # Get KeyError when registering duplicate configlet.
 
 def install_transform(self, out):
-    print >>out, "Adding new mimetype"
-    mimetypes_tool = getToolByName(self, 'mimetypes_registry')
-    newtype = MimeTypeItem.MimeTypeItem('HTML with captioned images',
-        ('text/x-html-captioned',), ('html-captioned',), 0)
-    mimetypes_tool.register(newtype)
-
-    print >>out,"Add transform"
-    transform_tool = getToolByName(self, 'portal_transforms')
     try:
-        transform_tool.manage_delObjects(['html-to-captioned'])
-    except: # XXX: get rid of bare except
-        pass
-    transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
-    #print "Add policy"
-    #transform_tool.manage_addPolicy('text/x-html-captioned', ('html-to-captioned',))
+        print >>out, "Adding new mimetype"
+        mimetypes_tool = getToolByName(self, 'mimetypes_registry')
+        newtype = MimeTypeItem.MimeTypeItem('HTML with captioned images',
+            ('text/x-html-captioned',), ('html-captioned',), 0)
+        mimetypes_tool.register(newtype)
+
+        print >>out,"Add transform"
+        transform_tool = getToolByName(self, 'portal_transforms')
+        try:
+            transform_tool.manage_delObjects(['html-to-captioned'])
+        except: # XXX: get rid of bare except
+            pass
+        transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
+    except NameError:
+        print >>out, "No MimetypesRegistry, captioning not supported."
 
 def install(self):
     out = StringIO()
