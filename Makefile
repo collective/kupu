@@ -41,6 +41,9 @@ silvamacros:
 lenyamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o apache-lenya/kupu/kupumacros.html $(XSL_FILE) dist-apache-lenya.kupu
 
+kupu_experimental:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu_experimental.html $(XSL_FILE) dist-experimental.kupu
+
 clean:
 	rm -f common/kupu.html
 	rm -f common/kupumacros.html
@@ -49,6 +52,7 @@ clean:
 	rm -f silva/kupumacros.html
 	rm -f common/kupumulti.html
 	rm -f common/kupucnf.html
+	rm -f common/kupu_experimental.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
