@@ -23,7 +23,11 @@ $Id$
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
             <head>
                 <title>Imagedrawer</title>
-                <link type="text/css" rel="stylesheet" href="../kupudrawerstyles.css"/>
+                <link type="text/css" rel="stylesheet">
+                  <xsl:attribute name="href">
+                    <xsl:call-template name="url-prefix"/>../kupudrawerstyles.css
+                  </xsl:attribute>
+                </link>
             </head>
             <body>
                 <div style="width: 500px; border: solid black 1px; width: 100px">
@@ -133,4 +137,5 @@ $Id$
     </xsl:template>
     
     <xsl:template name="drawer-title">[Override xsl:template name=drawer-title]</xsl:template>
+    <xsl:template name="url-prefix"/>
 </xsl:stylesheet>
