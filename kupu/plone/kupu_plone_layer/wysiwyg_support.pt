@@ -14,8 +14,8 @@
 <div metal:define-macro="textFormatSelector">
   <tal:block define="editor python: member.getProperty('wysiwyg_editor').lower();
         support python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/plone_wysiwyg/wysiwyg_support' % (editor, editor));">
- <xmetal:block xmetal:use-macro="support/macros/textFormatSelector">
- </xmetal:block>
+ <metal:block metal:use-macro="support/macros/textFormatSelector">
+ </metal:block>
  </tal:block>
 </div>
 
