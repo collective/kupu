@@ -30,10 +30,6 @@
             tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupucontextmenu.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupudrawertool.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupulibrarydrawer.js"> </script>
 
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
@@ -47,7 +43,7 @@
   <!-- XXX this could be a separate feature, maybe -->
   <kupu:part name="bootstrap-editor">
     <script type="text/javascript" src="kupuploneinit.js"
-            tal:attributes="src string:${portal_url}/kupuploneinit.js"></script>
+            tal:attributes="src string:${portal_url}/kupuploneinit.js"> </script>
   </kupu:part>
 
 </kupu:feature>
