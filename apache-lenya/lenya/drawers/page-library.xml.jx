@@ -7,10 +7,10 @@
   <items>
     <resource id="pageres">
       <title>Exit</title>
-      <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
-      <icon>/kupu/apache-lenya/kupu/images/right_arrow.png</icon>
+      <uri>/kupu/apache-lenya/lenya/images/exit.gif</uri>
+      <icon>/kupu/apache-lenya/lenya/images/right_arrow.png</icon>
       <description>page Demo Resource two</description>
-      <preview>/kupu/apache-lenya/kupu/images/exit.gif</preview>
+      <preview>/kupu/apache-lenya/lenya/images/exit.gif</preview>
     </resource>
     <!--
     <collection id="collection1">
