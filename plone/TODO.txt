@@ -1,5 +1,7 @@
 TODO for drawers
 
+- merge kupudrawertool.js and kupulibrarydrawers.js to kupudrawers.js
+
 - improve library drawer UI
 
   + particular problem: "Current location: ..." is only shown when a
@@ -7,14 +9,16 @@ TODO for drawers
 
 - table drawers
 
-  + make edit table work
-
   + improve UI
 
 - issue 63: set text/html as content type when editing w/ kupu
+  Can't reproduce?!?
 
-- Reload libraries / current collection functionality
-  A lot of it is already in place. See comments in JS
+- provide external link functionality
+
+  + drawer or dialog?
+
+  + admin should be able to disable/enable it
 
 - IE problems:
 
