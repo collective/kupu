@@ -379,5 +379,17 @@
     </div>
   </kupu:part>
 
+  <kupu:part name="save">
+    <div class="kupu-toolbox">
+    
+      <h1 i18n:translate="save">save</h1>
+      <div class="kupu-tooltray">
+        <form action="." method="POST" onsubmit="return false">
+          <input type="button" class="transport" value="save" id="kupu-save-toolbox-button" onclick="kupu.saveDocument()" />
+        </form>
+      </div>
+
+    </div>
+  </kupu:part>
 
 </kupu:feature>
