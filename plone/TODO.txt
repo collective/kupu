@@ -2,6 +2,9 @@
 TODO for Plone
 ==============
 
+[also some general todos. Some of these are firm ideas, others are
+just idle thoughts]
+
 Make the toolbar customisable from Plone control panel, possibly by
 making the kupu tool into an action provider.
 [DB: I'm not sure this will work as I think the information we need is
@@ -9,7 +12,31 @@ rather different than the usual action provider. After all, our
 actions are all client side javascript not server-side methods.
 However the general idea is good.]
 
-Add an option to the 
+Make the initialisation data driven so it can be more easily
+customised (and driven from plone cpanel.
+
+Add user-level documentation to kupu.oscom.org. Make the Plone
+butterfly direct to a plone specific documentation page?
+
+Improved source editing mode?
+
+Need a pulldown to set classes on non-block tags: e.g. span, a, etc.
+
+Make the ul/li pulldown options customisable through cpanel, allow
+them to set classes as well as list-style-type.
+
+Refactor classes to do proper base class initialisation. This also
+means we need to use .prototype. consitently for methods.
+
+Move Plone paragraph styling back into the common code.
+
+Generic RPC mechanism to allow tools to be defined entirely on the
+server?? JSON-RPC?
+
+Triage on the issue tracker: which issues are still valid, which are
+fixed or otherwise outdated, which do we fix and which are unfixable.
+
+Make it easier to enable the output transforms. Hotfix ATCT?
 
 ================
 TODO for drawers
