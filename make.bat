@@ -71,6 +71,10 @@ goto :eof
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o silva\kupumacros.html %XSL_FILE% dist-silva.kupu
     goto :eof
 
+:target_kupu_experimental
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupu_experimental.html %XSL_FILE% dist-exerimental.kupu
+    goto :eof
+
 :target_
 :target_all
     call :target_kupu.html
@@ -78,11 +82,13 @@ goto :eof
     call :target_zope2macros
     call :target_plonemacros
     call :target_silvamacros
+    call :target_experimental
     goto :eof
 
 :target_clean
     SET FILES=common\kupumacros.html common\kupu.html common\kupuform.html
-    SET FILES=%FILES% plone\kupu_plone_layer\wysiwyg_support.html silva\kupumacros.html
+    SET FILES=%FILES% plone\kupu_plone_layer\wysiwyg_support.html
+    SET FILES=%FILES% silva\kupumacros.html common\kupu_experimental.html
     for %%F in (%FILES%) DO (
         IF EXIST %%F ( %X%echo del %%F && %X%del %%F )
     )
