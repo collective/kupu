@@ -124,7 +124,7 @@
               <tr>
                 <td width="50%">Col Align</td>
                 <td>
-                  <select id="kupu-table-alignchooser"
+                  <select id="kupu-tabledrawer-alignchooser"
                           onchange="drawertool.current_drawer.tool.setColumnAlign(this.options[this.selectedIndex].value)">
                     <option value="left">Left</option>
                     <option value="center">Center</option>
@@ -135,18 +135,18 @@
               <tr>
                 <td>Column</td>
                 <td>
-                  <button type="button" id="kupu-table-addcolumn-button"
+                  <button type="button" id="kupu-tabledrawer-addcolumn-button"
                           onclick="drawertool.current_drawer.tool.addTableColumn">Add</button>
-                  <button type="button" id="kupu-table-delcolumn-button"
+                  <button type="button" id="kupu-tabledrawer-delcolumn-button"
                           onclick="drawertool.current_drawer.tool.delTableColumn">Remove</button>
                 </td>
               </tr>
               <tr>
                 <td>Row</td>
                 <td>
-                  <button type="button" id="kupu-table-addrow-button"
+                  <button type="button" id="kupu-tabledrawer-addrow-button"
                           onclick="drawertool.current_drawer.addTableRow">Add</button> 
-                  <button type="button" id="kupu-table-delrow-button"
+                  <button type="button" id="kupu-tabledrawer-delrow-button"
                           onclick="drawertool.current_drawer.delTableRow">Remove</button>
                 </td>
               </tr>
