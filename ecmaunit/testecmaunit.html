@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>EcmaTest test page</title>
+<style type="text/css" rel="stylesheet">
+/*<![CDATA[*/
+
+body {font-family: Arial}
+
+/*]]>*/
+</style>
+<script type="text/javascript" src="ecmaunit.js"> </script>
+<script type="text/javascript" src="testecmaunit.js"> </script>
+<script type="text/javascript">
+//<![CDATA[
+    function runTests() {
+        var testcase = new TestTestCase();
+        testcase.initialize('placeholder1');
+        testcase.runTests();
+
+        var testcase2 = new TestTestCase2();
+        testcase2.initialize('placeholder2');
+        testcase2.runTests();
+
+        var testsuite = new TestSuite('placeholder3');
+        testsuite.registerTest('TestTestCase', TestTestCase);
+        testsuite.registerTest('TestTestCase2', TestTestCase2);
+        testsuite.runSuite();
+    };
+
+//]]>
+</script>
+</head>
+<body onload="runTests()">
+<h3>test 1</h3>
+<em>These should all fail</em>
+<span id="placeholder1" />
+<h3>test 2</h3>
+<em>These should all pass</em>
+<span id="placeholder2" />
+<h3>test suite</h3>
+<em>The first half (or so) should fail, the rest should pass</em>, 
+a general fail
+<span id="placeholder3" />
+</body>
+</html>

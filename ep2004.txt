@@ -1,0 +1,69 @@
+Developing fatter CMS clients
+
+1. Interaction required - to what level?
+  
+  - user experience grows with level of interaction
+  - too much moving stuff distracts
+  - but too little makes the application feel static
+  - what is and what is not allowed (viewing and editing
+    data, animations, relying on Javascript on the client,
+    client-side validation)
+
+2. Do not rely on JS for public pages
+
+  - this page is best viewed with... telnet?
+  - turning off browser features
+  - people hate popups
+
+3. But for a backend one can set requirements
+
+  - what does the customer use?
+  - graceful degradation - what do you want to allow?
+  - not secure...
+  - ...but flexible it is!
+
+4. Client-side programming
+
+  - Java stinks. (mind the period)
+  - We can't use VBScript...
+  - ...or Active-X...
+  - ...or XUL for that matter
+  - so JavaScript it is!
+
+5. JavaScript (ECMAScript)
+
+  - post-browser wars
+  - but still no peace!
+  - men in suits writing languages for kiddies
+  - it may have sounded nice...
+
+6. It's a messy job...
+
+  - we are Python developers
+  - Prototypes? (it may have sounded nice...)
+  - string evaluation
+  - spot the XXX's ;)
+  - DOM manipulations
+
+7. ...but someone's gotta do it...
+
+  - if you have to do it, do it right
+  - finding patterns - to boldly go where no JS programmer has gone before...
+  - abstractions, abstractions, abstractions...
+  - IE is old crap...
+  - but still owns 98% of the market
+  - bad excuse for not improving your client
+
+8. So here we are!
+
+  - Kupu
+  - some code
+  - XMLRPC
+  - WebDAV
+  - fat generic clients, XML editors and IDEs
+  - 3D shoot-em-ups? ;)
+
+9. Conclusion
+
+  - JavaScript may not be the best language, but it's usable
+  - World domination within reach!

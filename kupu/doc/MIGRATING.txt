@@ -1,0 +1,39 @@
+==============================
+Migrating Kupu 0.X to kupu 1.x
+==============================
+
+The early versions of Kupu (before 1.0) were designed for use in
+Zope2, CMF 1.4, and Silva. The 1.x versions are designed for use in
+any content system. Therefore we will only discuss migration from
+those platforms.
+
+
+Using Zope2 (w/o CMF or Plone)
+------------------------------
+
+Kupu 1.0 has a totally different approach than Kupu 0.X. While the old
+Kupu provided a global python function called 'Kupu' that was callable
+from Python Script, DTML and ZPT, we have done away with the
+triple-code generation in the Kupu 1.0 tree.
+
+Kupu 1.0 mainly consists of a filesystem-based layer. The editor
+application itself is a combination of ECMAScripts and a Page Template
+macro. This way, the same code not only works in Silva, Zope2, CMF,
+and Zope3, but it also can be seen right off the filesystem.
+
+In order to use Kupu 1.0 in your custom Zope2 application, you will
+have to make these filesystem-based ZPT macros available to your
+ZODB-based Page Templates. The easiest way is to use the zope2
+integration package using the FileSystemSite product. It can be
+downloaded at http://zope.org/Members/philikon/FileSystemSite.
+
+Once you have installed FileSystemSite and Kupu in your Products
+directory, you will see a new addable meta type called 'kupu
+editor'. Add this one to the top-most folder of your Zope2
+application. A common id would be 'kupu'. If you look inside the
+object you just created, you will see that it provides all
+filesystem-based page templates and ECMAScript files to the ZODB.
+
+You can now create a page template and use the macro defined in
+'kupumacros.html'. See ZOPEMACROS.txt for more information on what
+macros are exposed and what slots you can fill.

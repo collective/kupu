@@ -1,0 +1,385 @@
+<?xml version="1.0"?>
+
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      >
+<head>
+  <title>Kupu Editor - Apache Lenya</title>
+    <link href="/kupu/common/kupustyles.css" rel="stylesheet" type="text/css" />
+    <link href="/kupu/common/kupucustom.css" rel="stylesheet" type="text/css" />
+ 
+    <!-- IMPORTANT NOTE: The generator is closing all tags, which seem to be self-closing tags, e.g. <script src="..."></script>. Mozilla doesn't seem to like that, hence the whitespace -->
+
+    <script type="text/javascript" src="/kupu/common/sarissa.js"> </script>
+    <script type="text/javascript" src="/kupu/common/kupueditor.js"> </script>
+
+</head>
+<body onload="kupu = initKupu(document.getElementById('kupu-editor')); kupuui = kupu.getTool('ui');">
+
+
+<h1>Kupu Editor - Apache Lenya</h1>
+
+<div class="kupu-fulleditor">
+  <div metal:define-macro="kupu_fulleditor" xmlns:kupu="kupu:">
+
+<!-- Start toolbar -->
+
+  <div class="kupu-tb" id="toolbar" metal:define-macro="kupu_toolbar">
+    <span id="kupu-tb-buttons">
+      <span class="kupu-tb-buttongroup" style="float: right">
+        <button class="kupu-logo" title="Go to the Kupu website"
+                i18n:attributes="title"
+                onclick="window.open('http://sourceforge.net/projects/kupu');">&#160;</button>
+      </span>
+      <select id="kupu-tb-styles" onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+        <option value="P" i18n:translate="paragraph-normal">
+          Normal
+        </option>
+        <option value="H1">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 1
+        </option>
+        <option value="H2">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 2
+        </option>
+        <option value="H3">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 3
+        </option>
+        <option value="H4">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 4
+        </option>
+        <option value="H5">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 5
+        </option>
+        <option value="H6">
+          <span tal:omit-tag="" i18n:translate="heading">Heading</span> 6
+        </option>
+        <option value="PRE" i18n:translate="paragraph-formatted">
+          Formatted
+        </option>
+      </select>
+      <span class="kupu-tb-buttongroup">
+        <button class="kupu-save" title="Save"
+                onclick="kupuui.saveButtonHandler()">&#160;</button>
+        <button class="kupu-save" title="Save"
+                onclick="kupuui.saveAndExitButtonHandler('http://www.oscom.org')">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <button class="kupu-bold" title="Bold"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('bold');">&#160;</button>
+        <button class="kupu-italic" title="Italic"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('italic');">&#160;</button>
+        <button class="kupu-underline" title="Underline"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('underline');">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <button class="kupu-subscript" title="Subscript"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('subscript');">&#160;</button>
+        <button class="kupu-superscript" title="Superscript"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('superscript');">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <!-- Note: the event handlers are attached to these buttons dynamically, like for tools -->
+        <button class="kupu-forecolor" id="kupu-forecolor" title="Text Color"
+                i18n:attributes="title">&#160;</button>
+        <button class="kupu-hilitecolor" id="kupu-hilitecolor" title="Background Color"
+                i18n:attributes="title">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <button class="kupu-justifyleft" title="Left Justify"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('justifyleft');">&#160;</button>
+        <button class="kupu-justifycenter" title="Center"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('justifycenter');">&#160;</button>
+        <button class="kupu-justifyright" title="Right Justify"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('justifyright');">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <!-- list button events are set on the list tool -->
+        <button class="kupu-insertorderedlist" title="Numbered List"
+                id="kupu-list-ol-addbutton" i18n:attributes="title">&#160;</button>
+        <button class="kupu-insertunorderedlist" title="Unordered List"
+                id="kupu-list-ul-addbutton" i18n:attributes="title">&#160;</button>
+        <button class="kupu-outdent" title="Outdent"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('outdent');">&#160;</button>
+        <button class="kupu-indent" title="Indent"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('indent');">&#160;</button>
+        <button class="kupu-inserthorizontalrule" title="Ruled Line"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('inserthorizontalrule');">&#160;</button>
+      </span>
+      <span class="kupu-tb-buttongroup">
+        <button class="kupu-undo" title="Undo"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('undo');">&#160;</button>
+        <button class="kupu-redo" title="Redo"
+                i18n:attributes="title"
+                onclick="kupuui.basicButtonHandler('redo');">&#160;</button>
+      </span>
+    </span>
+	<select id="kupu-ulstyles">
+	  <option value="disc" i18n:translate="list-disc">&#9679;</option>
+	  <option value="square" i18n:translate="list-square">&#9632;</option>
+	  <option value="circle" i18n:translate="list-circle">&#9675;</option>
+	  <option value="none" i18n:translate="list-nobullet">no bullet</option>
+	</select>
+	<select id="kupu-olstyles">
+	  <option value="decimal" 
+		  i18n:translate="list-decimal">1</option>
+	  <option value="upper-roman" 
+		  i18n:translate="list-upperroman">I</option>
+	  <option value="lower-roman" 
+		  i18n:translate="list-lowerroman">i</option>
+	  <option value="upper-alpha" 
+		  i18n:translate="list-upperalpha">A</option>
+	  <option value="lower-alpha" 
+		  i18n:translate="list-loweralpha">a</option>
+	</select>
+
+  </div>
+  
+<!-- end toolbar -->
+
+  <div class="kupu-toolboxes" metal:define-macro="kupu_toolboxes">
+
+    <div class="kupu-toolbox" id="kupu-toolbox-properties" metal:define-slot="kupu_toolbox_properties">
+      <!-- start kupu toolbox properties -->
+      
+      <h1>Properties</h1>
+
+      <table id="kupu-properties">
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td><input id="kupu-properties-title" />
+	    </td>
+          </tr>
+          <tr>
+            <td colspan="2">Description</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+	      <textarea id="kupu-properties-description"> </textarea>
+	    </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <!-- end kupu toolbox properties -->
+    </div>
+
+    <div class="kupu-toolbox" id="kupu-toolbox-links" metal:define-slot="kupu_toolbox_links">
+      <!-- start kupu toolbox links -->
+    
+      <h1 i18n:translate="links">Links</h1>
+
+      <div id="kupu-toolbox-addlink">
+	<div class="kupu-toolbox-label">
+	  <!--           Link to items matching the keyword  -->
+          <span tal:omit-tag="" i18n:translate="items-matching-keyword">
+	    Link the highlighted text to this URL
+          </span>:
+	</div>
+
+	<input id="kupu-link-input"
+               class="kupu-toolbox-st" 
+               type="text" size="14" />
+	<button id="kupu-link-button"
+		class="kupu-toolbox-action">Make Link</button>
+        <div id="kupu-link-results" class="kupu-toolbox-results" 
+	     onclick="kupuui.linkResource(event);"> </div>
+
+      </div>
+
+      <div id="kupu-toolbox-editlink">
+	<div class="kupu-toolbox-label">
+	  <!--           Link to items matching the keyword  -->
+          <span tal:omit-tag="" i18n:translate="items-matching-keyword">
+	    Modify properties of current link
+          </span>:
+	</div>
+
+      <table id="kupu-toolbox-linktable">
+        <tbody>
+          <tr>
+            <td>Target</td>
+            <td><input id="kupu-link-href" size="18" /></td>
+          </tr>
+          <tr>
+            <td>Title</td>
+            <td><input id="kupu-link-title" size="18" /></td>
+          </tr>
+        </tbody>
+      </table>
+
+      </div>
+
+      <!-- end kupu toolbox links -->
+    </div>
+
+    <div class="kupu-toolbox" id="kupu-toolbox-images" metal:define-slot="kupu_toolbox_images">
+      <!-- start kupu toolbox images -->
+    
+      <h1 i18n:translate="images">Images</h1>
+
+      <div class="kupu-toolbox-label">
+        <span tal:omit-tag="" i18n:translate="">
+	  Insert image at the following URL
+        </span>:
+      </div>
+
+      <input id="kupu-image-input"
+	     value="boa.jpg"
+             class="kupu-toolbox-st" 
+             type="text" size="14" />
+      <button id="kupu-image-addbutton" class="kupu-toolbox-action">Insert Image</button>
+
+      <!-- end kupu toolbox images -->
+    </div>
+
+    <div class="kupu-toolbox" id="kupu-toolbox-tables" metal:define-slot="kupu_toolbox_tables">
+      <!-- start kupu toolbox tables -->
+      
+      <h1 i18n:translate="table-inspector">Tables</h1>
+
+      <table width="100%">
+        <tbody>
+          <tr>
+            <td>Table Class</td>
+            <td>
+              <select id="kupu-table-classchooser">
+                <option value="plain">Plain</option>
+                <option value="listing">Listing</option>
+                <option value="grid">Grid</option>
+                <option value="data">Data</option>
+              </select>
+            </td>
+          </tr>
+	  <tr>
+            <td colspan="2">
+              <div id="kupu-toolbox-addtable">
+                <table width="100%">
+                  <tr>
+                    <td>Rows</td>
+                    <td><input id="kupu-table-newrows"/></td>
+                  </tr>
+                  <tr>
+                    <td>Columns</td>
+                    <td><input id="kupu-table-newcols"/></td>
+                  </tr>
+                  <tr>
+                    <td>Headings</td>
+                    <td>
+                      <input id="kupu-table-makeheader" type="checkbox"/> Create
+                    </td>
+                  </tr>
+                  <tr>
+                    <td> </td>
+                    <td><button id="kupu-table-addtable-button">Add</button></td>
+                  </tr>
+                </table>
+              </div>
+              <div id="kupu-toolbox-edittable">
+                <table width="100%">
+                  <tr>
+                    <td>Col Align</td>
+                    <td>
+                      <select id="kupu-table-alignchooser">
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                        </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Column</td>
+                    <td>
+                        <button id="kupu-table-addcolumn-button">Add</button>
+                        <button id="kupu-table-delcolumn-button">Remove</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Row</td>
+                    <td>
+                      <button id="kupu-table-addrow-button">Add</button> 
+                      <button id="kupu-table-delrow-button">Remove</button></td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- end kupu toolbox tables -->
+    </div>
+    <div class="kupu-toolbox" id="kupu-toolbox-extra">
+      <!-- start kupu toolbox extra -->
+
+
+      <!-- end kupu toolbox extra -->
+    </div>
+
+    <div class="kupu-toolbox" id="kupu-toolbox-debug" metal:define-slot="kupu_toolbox_debug">
+      <!-- start kupu toolbox debug -->
+      
+      <h1 i18n:translate="debug-log">Debug Log</h1>
+
+      <div id="kupu-toolbox-debuglog" style="height: 150px;">
+      </div>
+
+      <!-- end kupu toolbox debug -->
+    </div>
+
+  </div>
+
+  <!-- End toolboxes  -->
+
+  <table id="kupu-colorchooser" cellpadding="0" cellspacing="0" style="position: fixed; border-style: solid; border-color: black; border-width: 1px;"> </table>
+        
+  <script type="text/javascript">
+      function startKupu() {
+          try {
+              kupu.initialize();
+          } catch(e) {
+              window.setTimeout("startKupu()", 100);
+          }
+      };
+  </script>
+  <div class="kupu-editorframe" metal:define-slot="kupu_editorframe">
+    <!-- FIXME: reloadsrc="1" doesn't seem to be modified by the XSLT -->
+    <iframe id="kupu-editor" frameborder="0" src="/kupu/common/tutorial.html"
+            reloadsrc="0" usecss="1"
+	    metal:define-macro="kupu_editorframe"
+            tal:attributes="src nothing"
+            onload="startKupu()"> </iframe>
+  </div>
+</div>
+
+<script type="text/javascript">
+  // Important!! IE can't do this in the onload handler, it leads 
+  // to double events everywhere
+  var d = document.getElementById("kupu-editor").contentWindow.document;
+  if (_SARISSA_IS_IE) {
+    d.designMode = "On";
+  }
+</script>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<html i18n:domain="plone">
+
+<div metal:define-macro="wysiwygEditorBox">
+<tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu';" />
+<div tal:condition="haskupu">
+  <div class="kupu-fulleditor">
+    <div metal:use-macro="here/kupumacros/macros/kupu_fulleditor" xmlns:kupu="kupu:">
+      <div class="kupu-editorframe" metal:fill-slot="kupu_editorframe">
+	<script type="text/javascript" src="sarissa.js"> </script>
+	<script type="text/javascript" src="kupuhelpers.js"> </script>
+	<script type="text/javascript" src="kupueditor.js"> </script>
+	<script type="text/javascript" src="kupubasetools.js"> </script>
+	<script type="text/javascript" src="kupuloggers.js"> </script>
+	<script type="text/javascript" src="kupucontentfilters.js"> </script>
+	<script type="text/javascript" src="kupucontextmenu.js"> </script>
+        <script type="text/javascript" src="plone_kupu.js"></script>
+      			 
+        <iframe id="kupu-editor" frameborder="0" src="emptypage" onload="startKupu()"></iframe>
+      	<input type="hidden" tal:attributes="name inputname; value inputvalue; id inputname"/>
+      </div>
+    </div>
+  </div>
+
+		
+  <script type="text/javascript">
+    // Important!! IE can't do this in the onload handler, it leads 
+    // to double events everywhere
+    var d = document.getElementById("kupu-editor").contentWindow.document;
+    if (_SARISSA_IS_IE) {
+      d.designMode = "On";
+    }
+  </script>
+
+		
+  <script type="text/javascript" tal:content="string:
+      if (window.addEventListener) window.addEventListener('load',  function() {window.kupu = initPloneKupu(document.getElementById('kupu-editor'),'${inputname}');window.kupuui = window.kupu.getTool('ui');}  ,false);
+      else if (window.attachEvent) window.attachEvent('onload',function() {window.kupu = initPloneKupu(document.getElementById('kupu-editor'),'${inputname}');window.kupuui = window.kupu.getTool('ui');});">
+    </script>
+</div>
+
+<textarea tal:condition="not:haskupu" 
+						cols="80"
+            rows="25"
+            tabindex=""
+            name="description"
+            tal:content="inputvalue"
+            tal:attributes="name inputname;
+                            id inputname;
+                            onfocus onfocus|nothing;
+                            onblur onblur|nothing;
+                            tabindex tabindex|nothing;
+                            rows rows|default;
+                            cols cols|default;"></textarea>
+</div>
+
+
+<div metal:define-macro="textFormatSelector"
+     class="field"
+     tal:define="tabindex tabindex/next;
+                     text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
+
+  <tal:editor tal:condition="haskupu">
+     <input type="hidden" name="text_format" value="html" />
+  </tal:editor> 		
+  <tal:noeditor  tal:condition="not:haskupu">
+    <label for="text_format" i18n:translate="label_format">Format</label>
+
+    <div class="formHelp" i18n:translate="help_format">
+      If you are unsure of which format to use, just select Plain
+      Text and type the document as you usually do.
+    </div>
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="structured-text"
+           tabindex=""
+           id="cb_structuredtext"
+           tal:attributes="checked python:test(text_format=='structured-text', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="html"
+           tabindex=""
+           id="cb_html"
+           tal:attributes="checked python:test(text_format=='html', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_html" i18n:translate="html">HTML</label> <br />
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="plain"
+           tabindex=""
+           id="cb_plain"
+           tal:attributes="checked python:test(text_format=='plain', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
+
+		
+  </tal:noeditor>
+</div>
+</html>

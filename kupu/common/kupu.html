@@ -1,0 +1,278 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Test Editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="kupustyles.css" rel="stylesheet" type="text/css"> </link>
+    <link href="kupucustom.css" rel="stylesheet" type="text/css"> </link>
+    <script type="text/javascript" src="sarissa.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupuhelpers.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupueditor.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupubasetools.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupuloggers.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupucontentfilters.js" xml:space="preserve"> </script>
+    <script type="text/javascript" src="kupuinit.js" xml:space="preserve"> </script>
+    <script type="text/javascript" xml:space="preserve">
+        
+        var kupu = null;
+        var kupuui = null;
+        function startKupu() {
+            var frame = document.getElementById('kupu-editor'); 
+            kupu = initKupu(frame); 
+            kupuui = kupu.getTool('ui'); 
+            kupu.initialize();
+        };
+        
+    </script>
+  </head>
+  <body onload="startKupu()">
+
+    <h1>Kupu Editor Test Page</h1>
+
+    <div class="kupu-fulleditor">
+      <div xmlns:kupu="http://kupueditor.org/xml/namespaces/kupu">
+
+        <!-- Start toolbar -->
+        <div class="kupu-tb" id="toolbar">
+          <span id="kupu-tb-buttons">
+            <span class="kupu-tb-buttongroup" style="float: right">
+              <button type="button" class="kupu-logo" title="Kupu 1.1" onclick="window.open('http://kupu.oscom.org');">&nbsp;</button>
+            </span>
+            <select id="kupu-tb-styles" onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+              <option value="P">
+                Normal
+              </option>
+              <option value="H1">
+                <span>Heading</span> 1
+              </option>
+              <option value="H2">
+                <span>Heading</span> 2
+              </option>
+              <option value="H3">
+                <span>Heading</span> 3
+              </option>
+              <option value="H4">
+                <span>Heading</span> 4
+              </option>
+              <option value="H5">
+                <span>Heading</span> 5
+              </option>
+              <option value="H6">
+                <span>Heading</span> 6
+              </option>
+              <option value="PRE">
+                Formatted
+              </option>
+            </select>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-save" title="Save" onclick="kupuui.saveButtonHandler()">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-bold" title="Bold" onclick="kupuui.basicButtonHandler('bold');">&nbsp;</button>
+              <button type="button" class="kupu-italic" title="Italic" onclick="kupuui.basicButtonHandler('italic');">&nbsp;</button>
+              <button type="button" class="kupu-underline" title="Underline" onclick="kupuui.basicButtonHandler('underline');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-subscript" title="Subscript" onclick="kupuui.basicButtonHandler('subscript');">&nbsp;</button>
+              <button type="button" class="kupu-superscript" title="Superscript" onclick="kupuui.basicButtonHandler('superscript');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <!-- Note: the event handlers are attached to these buttons dynamically, like for tools -->
+              <button type="button" class="kupu-forecolor" id="kupu-forecolor" title="Text Color">&nbsp;</button>
+              <button type="button" class="kupu-hilitecolor" id="kupu-hilitecolor" title="Background Color">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-justifyleft" title="Left Justify" onclick="kupuui.basicButtonHandler('justifyleft');">&nbsp;</button>
+              <button type="button" class="kupu-justifycenter" title="Center" onclick="kupuui.basicButtonHandler('justifycenter');">&nbsp;</button>
+              <button type="button" class="kupu-justifyright" title="Right Justify" onclick="kupuui.basicButtonHandler('justifyright');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <!-- list button events are set on the list tool -->
+              <button type="button" class="kupu-insertorderedlist" title="Numbered List" id="kupu-list-ol-addbutton">&nbsp;</button>
+              <button type="button" class="kupu-insertunorderedlist" title="Unordered List" id="kupu-list-ul-addbutton">&nbsp;</button>
+              <button type="button" class="kupu-outdent" title="Outdent" onclick="kupuui.basicButtonHandler('outdent');">&nbsp;</button>
+              <button type="button" class="kupu-indent" title="Indent" onclick="kupuui.basicButtonHandler('indent');">&nbsp;</button>
+              <button type="button" class="kupu-inserthorizontalrule" title="Ruled Line" onclick="kupuui.basicButtonHandler('inserthorizontalrule');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-undo" title="Undo" onclick="kupuui.basicButtonHandler('undo');">&nbsp;</button>
+              <button type="button" class="kupu-redo" title="Redo" onclick="kupuui.basicButtonHandler('redo');">&nbsp;</button>
+            </span>
+          </span>
+          <select id="kupu-ulstyles">
+            <option value="disc">&#9679;</option>
+            <option value="square">&#9632;</option>
+            <option value="circle">&#9675;</option>
+            <option value="none">no bullet</option>
+          </select>
+          <select id="kupu-olstyles">
+            <option value="decimal">1</option>
+            <option value="upper-roman">I</option>
+            <option value="lower-roman">i</option>
+            <option value="upper-alpha">A</option>
+            <option value="lower-alpha">a</option>
+          </select>
+        </div>
+        <!-- end toolbar -->
+        
+        <div class="kupu-toolboxes">
+          <div class="kupu-toolbox" id="kupu-toolbox-properties">
+            <!-- start kupu toolbox properties -->
+            <h1>Properties</h1>
+            <table id="kupu-properties">
+              <tbody>
+                <tr>
+                  <td rowspan="1" colspan="1" class="kupu-toolbox-label">Title</td>
+                  <td rowspan="1" colspan="1"><input id="kupu-properties-title" type="text"></input>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="1" class="kupu-toolbox-label">Description</td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="1">
+                    <textarea id="kupu-properties-description"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- end kupu toolbox properties -->
+          </div>
+
+          <div class="kupu-toolbox" id="kupu-toolbox-links">
+            <!-- start kupu toolbox links -->
+            <h1>Links</h1>
+            <div id="kupu-toolbox-addlink">
+              <div class="kupu-toolbox-label">
+                <!--           Link to items matching the keyword  -->
+                <span>
+                  Link the highlighted text to this URL
+                </span>:
+              </div>
+              <input id="kupu-link-input" class="kupu-toolbox-st" type="text" size="14"></input><br />
+              <div style="text-align: center">
+                <button type="button" id="kupu-link-button" class="kupu-toolbox-action">Make Link</button>
+              </div>
+            </div>
+
+            <!-- end kupu toolbox links -->
+          </div>
+
+          <div class="kupu-toolbox" id="kupu-toolbox-images">
+            <!-- start kupu toolbox images -->
+            <h1>Images</h1>
+            <div class="kupu-toolbox-label">
+              <span>
+                Insert image at the following URL
+              </span>:
+            </div>
+
+            <input id="kupu-image-input" value="kupuimages/kupu_icon.gif" class="kupu-toolbox-st" type="text" size="14"></input><br />
+            <div style="text-align: center">
+              <button type="button" id="kupu-image-addbutton" class="kupu-toolbox-action" class="kupu-toolbox-label">Insert Image</button>
+            </div>
+            <!-- end kupu toolbox images -->
+          </div>
+
+          <div class="kupu-toolbox" id="kupu-toolbox-tables">
+            <!-- start kupu toolbox tables -->
+            <h1>Tables</h1>
+            <table width="100%">
+              <tbody>
+                <tr>
+                  <td rowspan="1" colspan="1" class="kupu-toolbox-label">Table Class</td>
+                  <td rowspan="1" colspan="1">
+                    <select id="kupu-table-classchooser">
+                      <option value="plain">Plain</option>
+                      <option value="listing">Listing</option>
+                      <option value="grid">Grid</option>
+                      <option value="data">Data</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="1">
+                    <div id="kupu-toolbox-addtable">
+                      <table width="100%">
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Rows</td>
+                          <td rowspan="1" colspan="1"><input id="kupu-table-newrows" type="text"></input></td>
+                        </tr>
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Columns</td>
+                          <td rowspan="1" colspan="1"><input id="kupu-table-newcols" type="text"></input></td>
+                        </tr>
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Headings</td>
+                          <td rowspan="1" colspan="1">
+                            <input id="kupu-table-makeheader" type="checkbox"></input>
+                            <span class="kupu-toolbox-label">Create</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td rowspan="1" colspan="2" style="text-align: center"><button type="button" id="kupu-table-addtable-button">Add Table</button></td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div id="kupu-toolbox-edittable">
+                      <table width="100%">
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Col Align</td>
+                          <td rowspan="1" colspan="1">
+                            <select id="kupu-table-alignchooser">
+                              <option value="left">Left</option>
+                              <option value="center">Center</option>
+                              <option value="right">Right</option>
+                              </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Column</td>
+                          <td rowspan="1" colspan="1">
+                              <button type="button" id="kupu-table-addcolumn-button">Add</button>
+                              <button type="button" id="kupu-table-delcolumn-button">Remove</button>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td rowspan="1" colspan="1" class="kupu-toolbox-label">Row</td>
+                          <td rowspan="1" colspan="1">
+                            <button type="button" id="kupu-table-addrow-button">Add</button> 
+                            <button type="button" id="kupu-table-delrow-button">Remove</button></td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- end kupu toolbox tables -->
+          </div>
+          <div class="kupu-toolbox" id="kupu-toolbox-debug">
+            <!-- start kupu toolbox debug -->
+            <h1>Debug Log</h1>
+
+            <div id="kupu-toolbox-debuglog" class="kupu-toolbox-label" style="height: 150px;">
+            </div>
+            <!-- end kupu toolbox debug -->
+          </div>
+        </div>
+        <!-- End toolboxes  -->
+
+        <table id="kupu-colorchooser" cellpadding="0" cellspacing="0" style="position: fixed; border-style: solid; border-color: black; border-width: 1px;"></table>
+              
+        <div class="kupu-editorframe">
+          <iframe id="kupu-editor" 
+                    frameborder="0" 
+                    src="fulldoc.html" 
+                    dst="fulldoc.html"
+                    reloadsrc="0" 
+                    usecss="1"
+                    strict_output="1"
+                    content_type="application/xhtml+xml"
+                    scrolling="auto"
+                    ></iframe>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
