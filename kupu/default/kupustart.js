@@ -10,9 +10,6 @@
 
 // $Id$
 
-var kupu = null;
-var kupuui = null;
-
 function startKupu() {
     // initialize the editor, initKupu groks 1 arg, a reference to the iframe
     var frame = document.getElementById('kupu-editor'); 

@@ -172,6 +172,11 @@ function KupuUI(textstyleselectid) {
     this.initialize = function(editor) {
         /* initialize the ui like tools */
         this.editor = editor;
+        addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
+    };
+
+    this.setTextStyleHandler = function(event) {
+        this.setTextStyle(this.tsselect.options[this.tsselect.selectedIndex].value);
     };
     
     // event handlers

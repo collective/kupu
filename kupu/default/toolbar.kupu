@@ -48,7 +48,7 @@
   </kupu:part>
 
   <kupu:part name="select-styles">
-    <select id="kupu-tb-styles" onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+    <select id="kupu-tb-styles">
       <option value="P" i18n:translate="paragraph-normal">
         Normal
       </option>
