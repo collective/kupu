@@ -5,7 +5,7 @@ Kupu Frequently Asked Questions
 * Will this work with Safari or Opera or ...?
 
   No, Kupu will only run on browsers with the IE engine (IE 5.5+) or those
-  with a Gecko engine (Mozilla 1.3.1+ and Netscape 7.0+), not on the 
+  with a Gecko engine (Mozilla 1.3.1+ and Netscape 7.1+), not on the 
   Konqueror one (which Safari uses) or on Opera or any other browser. 
   Actually Mozilla copied a feature unique to Internet Explorer, which is 
   not part of any standard, which Kupu uses. Because it's not part of a
