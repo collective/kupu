@@ -37,10 +37,18 @@ $Id: linkdrawer.xsl 5456 2004-07-06 15:55:15Z guido $
            <xsl:value-of select="description" />
          </td>
        </tr>
+       <!--
+       <tr class="kupu-linkdrawer-language-row">
+         <td>
+           <strong>Language</strong><br />
+           <xsl:value-of select="language" />
+         </td>
+       </tr>
+       -->
        <tr class="kupu-linkdrawer-name-row">
          <td>
            <strong>Name</strong><br />
-           <input type="text" id="link_name" size="10" value="{title}"/>
+           <input type="text" id="link_name" size="14" value="{title}"/>
          </td>
        </tr>       
        <tr class="kupu-linkdrawer-target-row">
@@ -52,7 +60,7 @@ $Id: linkdrawer.xsl 5456 2004-07-06 15:55:15Z guido $
        <xsl:if test="preview">
        <tr>
          <td>
-           <div><strong>Preview</strong></div>
+           <strong>Preview</strong><br/>
            <div id="epd-imgpreview">
              <a href="{preview}" target="_blank" title="Preview page {uri} in new a window">
                Preview page in new window.
