@@ -1141,6 +1141,21 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         /* attach the event handlers */
         this.tool = tool;
         this.editor = editor;
+        // build the select list of table classes if configured
+        if (this.editor.config.table_classes) {
+            var classes = this.editor.config.table_classes['class'];
+            while (this.classselect.hasChildNodes()) {
+                this.classselect.removeChild(this.classselect.firstChild);
+            };
+            for (var i=0; i < classes.length; i++) {
+                var classname = classes[i];
+                var option = document.createElement('option');
+                var content = document.createTextNode(classname);
+                option.appendChild(content);
+                option.setAttribute('value', classname);
+                this.classselect.appendChild(option);
+            };
+        };
         addEventHandler(this.addtablebutton, "click", this.addTable, this);
         addEventHandler(this.addrowbutton, "click", this.tool.addTableRow, this.tool);
         addEventHandler(this.delrowbutton, "click", this.tool.delTableRow, this.tool);
