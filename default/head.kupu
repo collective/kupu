@@ -28,6 +28,7 @@
     <script type="text/javascript" src="kupubasetools.js"> </script>
     <script type="text/javascript" src="kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"> </script>
+    <script type="text/javascript" src="kupucleanupexpressions.js"> </script>
   </kupu:part>
 
   <!-- XXX this could be a separate feature, maybe -->

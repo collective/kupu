@@ -30,6 +30,50 @@
       <class>grid</class>
       <class>data</class>
     </table_classes>
+
+    <cleanup_expressions>
+      <set>
+        <name>Convert single quotes to curly ones</name>
+        <expression>
+          <reg>
+            (\W)'
+          </reg>
+          <replacement>
+            \1‘
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            '
+          </reg>
+          <replacement>
+            ’
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Reduce whitespace</name>
+        <expression>
+          <reg>
+            [ ]{2}
+          </reg>
+          <replacement>
+            \x20
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Fix improper words</name>
+        <expression>
+          <reg>
+            [Pp]lone
+          </reg>
+          <replacement>
+            Silva
+          </replacement>
+        </expression>
+      </set>
+    </cleanup_expressions>
   </kupu:part>
  
 </kupu:feature>

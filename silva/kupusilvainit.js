@@ -208,6 +208,10 @@ function initSilvaKupu(iframe) {
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
     
+    var cleanupexpressions = new CleanupExpressionsTool(
+            'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');
+    kupu.registerTool('cleanupexpressions', cleanupexpressions);
+
     // Function that returns function to open a drawer
     var opendrawer = function(drawerid) {
         return function(button, editor) {
