@@ -259,7 +259,7 @@ function XhtmlValidation(editor) {
             'cellspacing','char','charoff','charset','checked','cite','class',
             'classid','clear','code','codebase','codetype','color','cols','colspan',
             'compact','content','coords','data','datetime','declare','defer','dir',
-            'disabled','enctype','face','for','frame','frameborder','halign','headers',
+            'disabled','enctype','face','for','frame','frameborder','headers',
             'height','href','hreflang','hspace','http-equiv','id','ismap','label',
             'lang','language','link','longdesc','marginheight','marginwidth',
             'maxlength','media','method','multiple','name','nohref','noshade','nowrap',
@@ -374,8 +374,8 @@ function XhtmlValidation(editor) {
         this.isindex = el.coreattrs.concat('prompt', el.i18n);
         this.table = el.attrs.concat('summary','width','border','frame','rules','cellspacing','cellpadding','align','bgcolor');
         this.caption = el.attrs.concat('align');
-        this.col = this.colgroup = el.attrs.concat('span','width','halign','char','charoff','valign');
-        this.thead =  el.attrs.concat('halign','char','charoff','valign');
+        this.col = this.colgroup = el.attrs.concat('span','width','align','char','charoff','valign');
+        this.thead =  el.attrs.concat('align','char','charoff','valign');
         this.tfoot = this.tbody = this.thead;
         this.tr = this.thead.concat('bgcolor');
         this.td = this.th = this.tr.concat('abbr','axis','headers','scope','rowspan','colspan','nowrap','width','height');
