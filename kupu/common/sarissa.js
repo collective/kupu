@@ -537,7 +537,7 @@ else if (_SARISSA_IS_IE)
 				DOCUMENT_FRAGMENT_NODE: 11,
 				NOTATION_NODE: 12
 		}
-	}
+        }
 	// implement importNode for IE
 	if(!document.importNode)
 	{
@@ -593,12 +593,15 @@ else if (_SARISSA_IS_IE)
 			throw "Could not retreive a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
 		idList = null;
 		return o2Store;
-	};
+        };
 	// store proper progIDs
-	_SARISSA_DOM_PROGID = pickRecentProgID(["Msxml2.DOMDocument.5.0", "Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"]);
-	_SARISSA_XMLHTTP_PROGID = pickRecentProgID(["Msxml2.XMLHTTP.5.0", "Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
-	_SARISSA_THREADEDDOM_PROGID = pickRecentProgID(["Msxml2.FreeThreadedDOMDocument.5.0", "MSXML2.FreeThreadedDOMDocument.4.0", "MSXML2.FreeThreadedDOMDocument.3.0", "MSXML.FreeThreadedDOMDocument", "Microsoft.FreeThreadedXMLDOM"]);
-	_SARISSA_XSLTEMPLATE_PROGID = pickRecentProgID(["Msxml2.XSLTemplate.5.0", "Msxml2.XSLTemplate.4.0", "MSXML2.XSLTemplate.3.0", "MSXML2.XSLTemplate"]);
+	var _SARISSA_DOM_PROGID = pickRecentProgID(["Msxml2.DOMDocument.5.0", "Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"]);
+	var _SARISSA_XMLHTTP_PROGID = pickRecentProgID(["Msxml2.XMLHTTP.5.0", "Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
+        var _SARISSA_THREADEDDOM_PROGID = pickRecentProgID(["Msxml2.FreeThreadedDOMDocument.5.0", "MSXML2.FreeThreadedDOMDocument.4.0", "MSXML2.FreeThreadedDOMDocument.3.0", "MSXML.FreeThreadedDOMDocument", "Microsoft.FreeThreadedXMLDOM"]);
+        try {
+            var _SARISSA_XSLTEMPLATE_PROGID = pickRecentProgID(["Msxml2.XSLTemplate.5.0", "Msxml2.XSLTemplate.4.0", "MSXML2.XSLTemplate.3.0", "MSXML2.XSLTemplate"]);
+        } catch(e) {
+        }
 	// we dont need this anymore
 	pickRecentProgID = null;
 	//============================================
@@ -655,9 +658,11 @@ else if (_SARISSA_IS_IE)
 	 * @constructor
 	 */
 	function XSLTProcessor()
-	{
-		this.template = new ActiveXObject(_SARISSA_XSLTEMPLATE_PROGID);
-		this.processor = null;
+        {
+            if (_SARISSA_XSLTEMPLATE_PROGID) {
+                this.template = new ActiveXObject(_SARISSA_XSLTEMPLATE_PROGID);
+            }
+            this.processor = null;
 	};
 	/**
 	 * Impoprts the given XSLT DOM and compiles it to a reusable transform

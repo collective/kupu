@@ -295,18 +295,24 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         this.xsl = dom;
 
 	// Change by Paul to have cached xslt transformers for reuse of 
-	// multiple transforms and also xslt params
-	this.xsltproc = new XSLTProcessor();
-	this.xsltproc.importStylesheet(dom);
-
-	this.xsltproc.setParameter("", "drawertype", this.drawertype);
-	this.xsltproc.setParameter("", "drawertitle", this.drawertitle);
-
+        // multiple transforms and also xslt params
+        try {
+            this.xsltproc = new XSLTProcessor();
+            this.xsltproc.importStylesheet(dom);
+            this.xsltproc.setParameter("", "drawertype", this.drawertype);
+            this.xsltproc.setParameter("", "drawertitle", this.drawertitle);
+        } catch(e) {
+            return; // No XSLT Processor, maybe IE 5.5?
+        }
     };
 
     this.createContent = function() {
         // load the initial XML
         if(!this.xmldata) {
+            if (!this.xsltproc.template) {
+                alert("This function requires a newer browser version");
+                return;
+            }
             this.loadLibraries();
         } else {
             this.updateDisplay();
@@ -648,7 +654,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         
             calls callback with one arg (the XML DOM) when done
             the (optional) body arg should contain the body for the request
-        */
+*/
         var xmlhttp = Sarissa.getXmlHttpRequest();
         var method = 'GET';
         if (body) {

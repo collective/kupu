@@ -8,24 +8,25 @@
  *
  *****************************************************************************/
 
-// $Id$
+KupuEditor.prototype._getBase = function(dom) {
+    var base = dom.getelementsByTagName('base');
+    if (base.length) {
+        return base[0].href;
+    } else {
+        return '';
+    }
+}
 
-KupuEditor.prototype.makeLinksRelative = function(contents) {
+// $Id$
+KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     // After extracting text from Internet Explorer, all the links in
     // the document are absolute.
     // we can't use the DOM to convert them to relative links, since
     // its the DOM that corrupts them to absolute to begin with.
     // Instead we can find the base from the DOM and do replace on the
     // text until all our links are relative.
-    var doc = this.getInnerDocument();
-    var nodes = doc.getElementsByTagName("BASE");
-    if (nodes.length==0) {
-        var head = doc.getElementsByTagName("HEAD")[0];
-        head.appendChild(doc.createElement("base"));
-        nodes = doc.getElementsByTagName("BASE");
-    };
-    var base = nodes[0];
-    var href = base.href;
+
+    var href = base;
     var hrefparts = href.split('/');
     return contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
@@ -40,6 +41,10 @@ KupuEditor.prototype.makeLinksRelative = function(contents) {
                    common < hrefparts.length &&
                    urlparts[common]==hrefparts[common])
                 common++;
+            var tail = /emptypage([#?].*)/.exec(urlparts[common]);
+            if (common+1 == urlparts.length && tail) {
+                urlparts[common] = tail[1];
+            }
             // The base and the url have 'common' parts in common.
             // First two are the protocol, so only do stuff if more
             // than two match.
@@ -75,7 +80,9 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
     // We need to get the contents of the body node as xml, but we don't
     // want the body node itself, so we use a regex to remove it
     contents = transform.getElementsByTagName("body")[0].xml;
-    contents = this.makeLinksRelative(contents).replace(/<\/?body[^>]*>/g, "");
+    var base = this._getBase(transform)
+    contents = this._fixupSingletons(contents);
+    contents = this.makeLinksRelative(contents, base).replace(/<\/?body[^>]*>/g, "");
     this.logMessage("Cleanup done, sending document to server");
 
     // now create the form input
