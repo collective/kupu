@@ -35,3 +35,21 @@ XXXLonger description
 
 $Id$
 """
+
+
+==========================
+Template for feature files
+==========================
+
+<kupu:feature
+    name="FEATURE"
+    implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <kupu:part name="PART">
+
+  </kupu:part>
+
+</kupu:feature>
