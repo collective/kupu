@@ -29,6 +29,11 @@ KupuEditor.prototype.makeLinksRelative = function(contents) {
     var hrefparts = href.split('/');
     return contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
+            var resolveuid = url.indexOf('/resolveuid/');
+            if (resolveuid != -1) {
+                str = tag + url.substr(resolveuid+1)+'"';
+                return str;
+            }
             var urlparts = url.split('/');
             var common = 0;
             while (common < urlparts.length &&
