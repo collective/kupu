@@ -14,7 +14,7 @@ FileSystemSite product. FileSystemSite can be found at
 http://www.zope.org/Members/k_vertigo/Products/FileSystemSite
 Note that FileSystemSite 1.3 is required.
 
-$Id: __init__.py,v 1.3 2003/10/24 14:46:00 philikon Exp $
+$Id$
 """
 
 import Globals
@@ -74,7 +74,7 @@ def createKupuEditor(parent, filepath, id=None):
     ob = KupuEditor(id, filepath)
     parent._setObject(id, ob)
 
-def manage_addKupuEditor(self, filepath="Products/kupu/common",
+def manage_addKupuEditor(self, filepath="Products/kupu/default",
                          id=None, REQUEST=None):
     """Adds either an kupu editor object
     """
