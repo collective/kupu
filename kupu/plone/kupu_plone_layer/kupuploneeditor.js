@@ -82,7 +82,7 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
 
     // We need to get the contents of the body node as xml, but we don't
     // want the body node itself, so we use a regex to remove it
-    contents = transform.getElementsByTagName("body")[0].xml;
+    var contents = kupu.getXMLBody(transform);
     if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;)*<\/body>$/.test(contents)) {
         contents = ''; /* Ignore nearly empty contents */
     }

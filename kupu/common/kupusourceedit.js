@@ -38,26 +38,30 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
             };
             kupu._initialized = false;
 
+            var data;
             if(kupu.config.filtersourceedit) {
                 window.status = 'Cleaning up HTML...';
                 var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
-                var data = transform.getElementsByTagName('body')[0].xml;
+                data = kupu.getXMLBody(transform);
                 data = kupu._fixupSingletons(data).replace(/<\/?body[^>]*>/g, "");
                 window.status = '';
             } else {
-                var data = kupu.getInnerDocument().documentElement.getElementsByTagName('body')[0].innerHTML;
+                data = kupu.getHTMLBody();
             }
             sourcearea.value = data;
             editorframe.style.display = 'none';
             sourcearea.style.display = 'block';
           } else {
-            var data = sourcearea.value;
-            kupu.getInnerDocument().documentElement.getElementsByTagName('body')[0].innerHTML = data;
+            kupu.setHTMLBody(sourcearea.value);
             sourcearea.style.display = 'none';
             editorframe.style.display = 'block';
             if (kupu.getBrowserName() == 'Mozilla') {
                 kupudoc.designMode = 'On';
             };
+            var selection = this.editor.getSelection();
+            selection.collapse();
+            this.editor.getDocument().getWindow().focus();
+
             kupu._initialized = true;
         };
      };

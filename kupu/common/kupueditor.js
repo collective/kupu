@@ -36,6 +36,7 @@ function KupuDocument(iframe) {
         /* delegate execCommand */
         // XXX Is the command always a string? Can't it be '' or 0 or so?
         if (!arg) arg = null;
+        window.status=command+" false "+arg;
         this.document.execCommand(command, false, arg);
     };
     
@@ -295,6 +296,11 @@ function KupuEditor(document, config, logger) {
         };
         if (command != 'useCSS') {
             this.content_changed = true;
+            // note the negation: the argument doesn't work as
+            // expected...
+            // Done here otherwise it doesn't always work or gets lost
+            // after some commands
+            this.getDocument().execCommand('useCSS', !this.config.use_css);
         };
         if (this.getBrowserName() == "IE") {
             this._restoreSelection();
@@ -508,9 +514,6 @@ function KupuEditor(document, config, logger) {
         this.execCommand("undo");
         // note the negation: the argument doesn't work as expected...
         this._initialized = true;
-        // XXX somehow calling execCommand('useCSS',...) here doesn't seem to have effect unless it's
-        // called with a timeout... don't know why, crappy workaround...
-        timer_instance.registerFunction(this, this.execCommand, 10, "useCSS", !this.config.use_css);
     };
 
     this._saveSelection = function() {
@@ -562,6 +565,33 @@ function KupuEditor(document, config, logger) {
         // or script or textarea tags without closing tag...
         this._fixXML(doc, xhtmldoc);
         return doc;
+    };
+
+    this.getXMLBody = function(transform) {
+        var bodies = transform.getElementsByTagName('body');
+        var data = '';
+        for (var i = 0; i < bodies.length; i++) {
+            data += bodies[i].xml;
+        }
+        return data;
+    };
+
+    this.getHTMLBody = function() {
+        var bodies = this.getInnerDocument().documentElement.getElementsByTagName('body');
+        var data = '';
+        for (var i = 0; i < bodies.length; i++) {
+            data += bodies[i].innerHTML;
+        }
+        return data;
+    };
+
+    // If we have multiple bodies this needs to remove the extras.
+    this.setHTMLBody = function(text) {
+        var bodies = this.getInnerDocument().documentElement.getElementsByTagName('body');
+        for (var i = 0; i < bodies.length-1; i++) {
+            bodies[i].parentNode.removeChild(bodies[i]);
+        }
+        bodies[bodies.length-1].innerHTML = text;
     };
 
     this._fixXML = function(doc, document) {
