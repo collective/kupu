@@ -13,7 +13,7 @@
   xmlns:li="http://apache.org/cocoon/lenya/info/1.0"
  >
 
-<xsl:param name="resource-icon-url"/>
+<xsl:param name="iconUrl"/>
 <xsl:param name="resource-path-url"/>
 
 <xsl:template match="/">
@@ -36,7 +36,7 @@
   <resource id="{$resource-url}">
     <title><xsl:value-of select="dc:source"/></title>
     <uri><xsl:value-of select="$resource-url"/></uri>
-    <icon><xsl:value-of select="$resource-icon-url"/></icon>
+    <icon><xsl:value-of select="$iconUrl"/></icon>
     <description><xsl:value-of select="dc:title"/></description>
     <preview><xsl:value-of select="$resource-url"/></preview>
     <size><xsl:value-of select="dc:extent"/>&#160;kb</size>
