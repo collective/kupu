@@ -56,7 +56,7 @@ the local machine aren't allowed to run scripts.-->
         };
 
         var body = getFromSelector('body');
-        var testsuite = new TestSuite(new HTMLReporter(body));
+        var testsuite = new TestSuite(new HTMLReporter(body, true));
         testsuite.registerTest(KupuHelpersTestCase);
         testsuite.registerTest(KupuEditorTestCase);
         testsuite.registerTest(KupuSelectionTestCase);
