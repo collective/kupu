@@ -36,3 +36,13 @@ ploneCustom.css and use the kupu class to distinguish them. e.g.
   border: solid black 1px;
   margin-right: 0.2em;
 }
+
+/* Hide the 'target' field in the LinkLibraryDrawer 
+
+   I've used a class as an identifier here because somehow using id
+   doesn't seem to work (Mozilla doesn't seem to apply CSS defined for
+   an id when generating HTML using XSLT).
+*/
+.kupu-linkdrawer-target-row {
+  display: none
+}
