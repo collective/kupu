@@ -97,6 +97,13 @@ function KupuToolBox() {
     };
 };
 
+function NoContextMenu(object) {
+    /* Decorator for a tool to suppress the context menu */
+    object.createContextMenuElements = function(selNode, event) {
+        return [];
+    }
+    return object;
+}
 //----------------------------------------------------------------------------
 // Implementations
 //----------------------------------------------------------------------------
