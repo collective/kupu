@@ -25,6 +25,9 @@ called 'kupumacros.html' by typing:
 
   $ make zope2macros
 
+Note: this is only required if you use a Subversion checkout of Kupu, the
+template will be available pre-built in the release tarballs.
+
 Now restart your Zope instance
 
 Overview
