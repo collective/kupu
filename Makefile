@@ -15,7 +15,7 @@ XSL_DEBUG = --param debug true\(\)
 XSLTPROC_PARAMS = --nonet --novalid --xinclude
 XSL_FILE = make.xsl
 
-all: clean kupu.html kupuform.html zope2macros plonemacros silvamacros kupu_experimental
+all: clean kupu.html kupuform.html kupumulti.html zope2macros plonemacros silvamacros lenyamacros
 
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
@@ -26,14 +26,17 @@ zope2macros:
 kupuform.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupuform.html $(XSL_FILE) dist-form.kupu
 
+kupumulti.html:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupumulti.html $(XSL_FILE) dist-multi.kupu
+
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o plone/kupu_plone_layer/wysiwyg_support.html $(XSL_FILE) dist-plone.kupu
 
 silvamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o silva/kupumacros.html $(XSL_FILE) dist-silva.kupu
 
-kupu_experimental:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu_experimental.html $(XSL_FILE) dist-experimental.kupu
+lenyamacros:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) -o apache-lenya/kupu/kupumacros.html $(XSL_FILE) dist-apache-lenya.kupu
 
 clean:
 	rm -f common/kupu.html
@@ -41,7 +44,7 @@ clean:
 	rm -f common/kupuform.html
 	rm -f plone/kupu_plone_layer/wysiwyg_support.html
 	rm -f silva/kupumacros.html
-	rm -f common/kupu_experimental.html
+	rm -f common/kupumulti.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
