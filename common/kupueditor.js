@@ -294,18 +294,18 @@ function KupuEditor(document, config, logger) {
             this.logMessage('Editor not initialized yet!');
             return;
         };
-        if (command != 'useCSS') {
-            this.content_changed = true;
-            // note the negation: the argument doesn't work as
-            // expected...
-            // Done here otherwise it doesn't always work or gets lost
-            // after some commands
-            this.getDocument().execCommand('useCSS', !this.config.use_css);
-        };
         if (this.getBrowserName() == "IE") {
             this._restoreSelection();
         } else {
             this.getDocument().getWindow().focus();
+            if (command != 'useCSS') {
+                this.content_changed = true;
+                // note the negation: the argument doesn't work as
+                // expected...
+                // Done here otherwise it doesn't always work or gets lost
+                // after some commands
+                this.getDocument().execCommand('useCSS', !this.config.use_css);
+            };
         };
         this.getDocument().execCommand(command, param);
         var message = 'Command ' + command + ' executed';
