@@ -31,7 +31,12 @@ silvamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o silva/kupumacros.html $(XSL_FILE) dist-silva.kupu
 
 all:
-	kupu.html
+	make clean
+	make kupu.html
+	make kupuform.html
+	make zope2macros
+	make plonemacros
+	make silvamacros
 
 clean:
 	rm -f common/kupu.html
