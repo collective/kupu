@@ -165,6 +165,19 @@ Methods on KupuObject (kupueditor.js)
         - return the name of the client browser, will return IE, Mozilla
             or raise an exception if the client uses a non-supported one.
 
+    getXMLBody(transform)
+        - transform is a Sarissa node.
+          Returns the body tag (or body tags if more than one) as text.
+
+    getHTMLBody()
+        - returns the body node as text (including <body> tag). Will return all
+          body nodes if there are multiple bodies.
+
+    setHTMLBody(text)
+        - sets the contents of the body to the specified HTML text
+        (which should not include a body tag). If there are multiple
+        bodies they are all replaced.
+
 Methods on tools (kupubasetools.js)
 -----------------------------------
 
