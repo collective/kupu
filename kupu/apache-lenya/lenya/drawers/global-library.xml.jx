@@ -7,24 +7,10 @@
   <items>
     <resource id="globalres">
       <title>GResource1</title>
-      <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
-      <icon>/kupu/apache-lenya/kupu/images/right_arrow.png</icon>
+      <uri>/kupu/apache-lenya/lenya/images/exit.gif</uri>
+      <icon>/kupu/apache-lenya/lenya/images/right_arrow.png</icon>
       <description>Demo Resource one</description>
-      <preview>/kupu/apache-lenya/kupu/images/exit.gif</preview>
+      <preview>/kupu/apache-lenya/lenya/images/exit.gif</preview>
     </resource>
-    <!--
-    <resource id="res2">
-      <uri>kupudrawers/res2</uri>
-      <icon></icon>
-      <description>Demo Resource two</description>
-    </resource>
-    <collection id="collection1">
-      <uri>kupudrawers/coll1</uri>
-      <icon></icon>
-      <title>Demo Collecton</title>
-      <description>Container for portal members' home directories</description>
-      <src>kupudrawers/democollection.xml</src>
-    </collection>
-    -->
   </items>
 </collection>
