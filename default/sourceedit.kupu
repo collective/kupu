@@ -1,6 +1,7 @@
 <kupu:feature
     name="sourceedit"
     implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
@@ -10,11 +11,11 @@ enabled by clicking on a button (provided in the 'button' part) which
 triggers the switchSourceEdit() function.
 -->
 
-  <kupu:part name="jsinclude">
+  <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupusourceedit.js"> </script>
   </kupu:part>
 
-  <kupu:part name="button">
+  <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
       <button type="button"
               class="kupu-source"

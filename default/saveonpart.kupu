@@ -5,7 +5,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
 
-  <kupu:part name="jsinclude">
+  <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupusaveonpart.js"> </script>
   </kupu:part>
 
