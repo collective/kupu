@@ -55,6 +55,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     id = "kupu_library_tool"
     meta_type = "kupu Library Tool"
+    title = "Holds library definitions for the kupu WYSIWYG editor"
     security = ClassSecurityInfo()
 
     # protect methods provided by super class KupuLibraryTool
