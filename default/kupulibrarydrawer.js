@@ -192,7 +192,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         var libnode = this.xmldata.selectSingleNode('//*[@selected]');
         var itemsnode = libnode.selectSingleNode("items");
         var newitemsnode = dom.selectSingleNode("//items");
-        newitemsnode = this.xmldata.importNode(newitemsnode, true);
+
+        if (this.editor.getBrowserName() == 'IE') {
+            newitemsnode = newitemsnode.cloneNode(true);
+        } else {
+            newitemsnode = this.xmldata.importNode(newitemsnode, true);
+        }
         if (!itemsnode) {
             // We're loading this for the first time
             libnode.appendChild(newitemsnode);
@@ -226,7 +231,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
         // Case 2: We've already loaded the data, but there hasn't
         // been a reference made yet. So, make one :)
-        uri = leafnode.selectSingleNode('uri/text()');
+        uri = leafnode.selectSingleNode('uri/text()').nodeValue;
         uri = (new String(uri)).strip(); // needs kupuhelpers.js
         var collnode_path = "/libraries/collection/uri[text()='" + uri + "']/..";
         var collnode = this.xmldata.selectSingleNode(collnode_path);
@@ -271,7 +276,11 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         collnode.setAttribute('selected', '1');
 
         var libraries = this.xmldata.selectSingleNode('/libraries');
-        collnode = this.xmldata.importNode(collnode, true);
+        if (this.editor.getBrowserName() == 'IE') {
+            collnode = collnode.cloneNode(true);
+        } else {
+            collnode = this.xmldata.importNode(collnode, true);
+        }
         libraries.appendChild(collnode);
         this.updateDisplay(this.resourcespanelid);
     };
