@@ -19,7 +19,7 @@ triggers the switchSourceEdit() function.
   </kupu:part>
 
   <kupu:part name="buttons">
-    <span class="kupu-tb-buttongroup" id="kupu-source">
+    <span class="kupu-tb-buttongroup kupu-source-span" id="kupu-source">
       <button type="button"
               class="kupu-source"
               id="kupu-source-button"

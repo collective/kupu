@@ -16,19 +16,19 @@
   </kupu:part>
 
   <kupu:part name="buttons">
-    <span id="kupu-tb-buttons">
+    <span id="kupu-tb-buttons" class="kupu-tb-buttons">
       <kupu:define-slot name="toolbar-buttons" />
     </span>
   </kupu:part>
 
   <kupu:part name="liststyles">
-    <select id="kupu-ulstyles">
+    <select id="kupu-ulstyles" class="kupu-ulstyles">
       <option value="disc" i18n:translate="list-disc">&#9679;</option>
       <option value="square" i18n:translate="list-square">&#9632;</option>
       <option value="circle" i18n:translate="list-circle">&#9675;</option>
       <option value="none" i18n:translate="list-nobullet">no bullet</option>
     </select>
-    <select id="kupu-olstyles">
+    <select id="kupu-olstyles" class="kupu-olstyles">
       <option value="decimal" 
               i18n:translate="list-decimal">1</option>
       <option value="upper-roman" 
@@ -43,7 +43,7 @@
   </kupu:part>
 
   <kupu:part name="logo">
-    <span class="kupu-tb-buttongroup" style="float: right" id="kupu-logo">
+    <span class="kupu-tb-buttongroup kupu-logo" style="float: right" id="kupu-logo">
       <button type="button" class="kupu-logo" title="Kupu SVN/unreleased" 
               i18n:attributes="title" accesskey="k"
               onclick="window.open('http://kupu.oscom.org');">&#160;</button>

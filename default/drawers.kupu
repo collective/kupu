@@ -35,17 +35,17 @@
   </kupu:part>
 
   <kupu:part name="librarydrawer">
-    <div style="display:block;">
-      <div id="kupu-librarydrawer" class="kupu-drawer">
-      </div>
+    <div style="display:block;" class="kupu-librarydrawer-parent">
+<!--      <div id="kupu-librarydrawer" class="kupu-drawer kupu-librarydrawer">
+      </div>-->
     </div>
   </kupu:part>
 
   <kupu:part name="linkdrawer">
-    <div id="kupu-linkdrawer" class="kupu-drawer">
+    <div id="kupu-linkdrawer" class="kupu-drawer kupu-linkdrawer">
       <h1 i18n:translate="">External Link</h1>
 
-      <div id="kupu-linkdrawer-addlink" class="kupu-panels">
+      <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
         <table>
         <tr><td><div class="kupu-toolbox-label">
           <!-- Link to items matching the keyword  -->
@@ -54,14 +54,14 @@
           </span>
         </div>
 
-        <input id="kupu-linkdrawer-input" class="kupu-toolbox-st" type="text" />
+        <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" />
         </td><td class="kupu-preview-button">
         <button type="button" onclick="drawertool.current_drawer.preview()"
                 i18n:translate="">Preview</button>
         </td></tr>
         <tr><td colspan="2" align="center">
         <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                id="kupu-linkdrawer-preview" src="kupublank.html">
+                class="kupu-linkdrawer-preview" src="kupublank.html">
         </iframe>
         </td></tr>
         </table>
@@ -78,7 +78,7 @@
   </kupu:part>
 
   <kupu:part name="tabledrawer">
-    <div id="kupu-tabledrawer" class="kupu-drawer">
+    <div id="kupu-tabledrawer" class="kupu-drawer kupu-tabledrawer">
     <h1>Table</h1>
     <div class="kupu-panels">
       <table width="99%">
@@ -89,7 +89,7 @@
                 <tr>
                   <td class="kupu-toolbox-label">Table Class</td>
                   <td width="50%">
-                    <select id="kupu-tabledrawer-classchooser"
+                    <select class="kupu-tabledrawer-classchooser"
                             onchange="drawertool.current_drawer.tool.setTableClass(this.options[this.selectedIndex].value)">
                       <option value="plain">Plain</option>
                       <option value="listing">Listing</option>
@@ -103,21 +103,20 @@
                   <td colspan="2" class="">
 
                   <!-- this gets displayed when not in a table -->
-                  <div id="kupu-tabledrawer-addtable">
+                  <div class="kupu-tabledrawer-addtable">
                     <table width="100%">
                       <tr>
                         <td class="kupu-toolbox-label" width="50%">Rows</td>
-                        <td><input type="text" id="kupu-tabledrawer-newrows" /></td>
+                        <td><input type="text" class="kupu-tabledrawer-newrows"/></td>
                       </tr>
                       <tr>
                         <td class="kupu-toolbox-label">Columns</td>
-                        <td><input type="text" id="kupu-tabledrawer-newcols" /></td>
+                        <td><input type="text" class="kupu-tabledrawer-newcols"/></td>
                       </tr>
                       <tr>
                         <td class="kupu-toolbox-label">Headings</td>
                         <td class="kupu-toolbox-label">
-                          <input name="kupu-tabledrawer-makeheader"
-                                 id="kupu-tabledrawer-makeheader"
+                          <input class="kupu-tabledrawer-makeheader"
                                  type="checkbox"
                                  />
                           <label for="kupu-tabledrawer-makeheader">Create</label>
@@ -137,12 +136,12 @@
                   </div>
 
                   <!-- this gets displayed when in a table -->
-                  <div id="kupu-tabledrawer-edittable">
+                  <div class="kupu-tabledrawer-edittable">
                     <table width="100%">
                       <tr>
                         <td width="50%">Current column alignment</td>
                         <td>
-                          <select id="kupu-tabledrawer-alignchooser"
+                          <select id="kupu-tabledrawer-alignchooser" class="kupu-tabledrawer-alignchooser" 
                                   onchange="drawertool.current_drawer.tool.setColumnAlign(this.options[this.selectedIndex].value)">
                             <option value="left">Left</option>
                             <option value="center">Center</option>
@@ -153,25 +152,25 @@
                       <tr>
                         <td>Column</td>
                         <td>
-                          <button type="button" id="kupu-tabledrawer-addcolumn-button"
+                          <button type="button"
                                   onclick="drawertool.current_drawer.tool.addTableColumn()">Add</button>
-                          <button type="button" id="kupu-tabledrawer-delcolumn-button"
+                          <button type="button"
                                   onclick="drawertool.current_drawer.tool.delTableColumn()">Remove</button>
                         </td>
                       </tr>
                       <tr>
                         <td>Row</td>
                         <td>
-                          <button type="button" id="kupu-tabledrawer-addrow-button"
+                          <button type="button"
                                   onclick="drawertool.current_drawer.tool.addTableRow()">Add</button> 
-                          <button type="button" id="kupu-tabledrawer-delrow-button"
+                          <button type="button"
                                   onclick="drawertool.current_drawer.tool.delTableRow()">Remove</button>
                         </td>
                       </tr>
                       <tr>
                         <td>Fix Table</td>
                         <td>
-                          <button type="button" id="kupu-tabledrawer-addrow-button"
+                          <button type="button"
                                   onclick="drawertool.current_drawer.tool.fixTable()">Fix</button> 
                         </td>
                       </tr>

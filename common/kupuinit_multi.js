@@ -32,7 +32,7 @@ function initKupu(iframeids) {
     
     var documents = new Array();
     for (var i=0; i < iframeids.length; i++) {
-        var iframe = document.getElementById(iframeids[i]);
+        var iframe = getFromSelector(iframeids[i]);
         documents.push(new KupuDocument(iframe));
     };
 

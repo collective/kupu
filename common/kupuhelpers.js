@@ -87,7 +87,7 @@ function addEventHandler(element, event, method, context) {
     } catch(e) {
         alert(_('exception ${message} while registering an event handler ' +
                 'for element ${element}, event ${event}, method ${method}',
-                {'message': e.message,
+                {'message': e.message, 'element': element,
                     'event': event,
                     'method': method}));
     };
@@ -103,6 +103,33 @@ function removeEventHandler(element, event, method) {
         throw _("Unsupported browser!");
     };
 };
+
+/* Replacement for window.document.getElementById()
+ * selector can be an Id (so we maintain backwards compatability)
+ * but is intended to be a subset of valid CSS selectors.
+ * For now we only support the format: "#id tag.class"
+ */
+function getFromSelector(selector) {
+    var match = /#(\S+)\s*([^ .]+)\.(\S+)/.exec(selector);
+    if (!match) {
+        return window.document.getElementById(selector);
+    }
+    var id=match[1], tag=match[2], className=match[3];
+    var base = window.document.getElementById(id);
+    return getBaseTagClass(base, tag, className);
+}
+
+function getBaseTagClass(base, tag, className) {
+    var classPat = new RegExp('\\b'+className+'\\b');
+
+    var nodes = base.getElementsByTagName(tag);
+    for (var i = 0; i < nodes.length; i++) {
+        if (classPat.test(nodes[i].className)) {
+            return nodes[i];
+        }
+    }
+    return null;
+}
 
 function openPopup(url, width, height) {
     /* open and center a popup window */
@@ -202,7 +229,7 @@ function loadDictFromXML(document, islandid) {
         calling context.
     */
     var dict = {};
-    var confnode = document.getElementById(islandid);
+    var confnode = getFromSelector(islandid);
     var root = null;
     for (var i=0; i < confnode.childNodes.length; i++) {
         if (confnode.childNodes[i].nodeType == 1) {

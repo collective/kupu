@@ -12,7 +12,7 @@
 
 function startKupu() {
     // initialize the editor, initKupu groks 1 arg, a reference to the iframe
-    var frame = document.getElementById('kupu-editor'); 
+    var frame = getFromSelector('kupu-editor'); 
     var kupu = initKupu(frame);
     
     // first let's load the message catalog
@@ -53,7 +53,7 @@ function continueStartKupu(kupu) {
     // this makes the editor's content_changed attribute set according to changes
     // in a textarea or input (registering onchange, see saveOnPart() for more
     // details)
-    kupu.registerContentChanger(document.getElementById('kupu-editor-textarea'));
+    kupu.registerContentChanger(getFromSelector('kupu-editor-textarea'));
 
     // let's register saveOnPart(), to ask the user if he wants to save when 
     // leaving after editing

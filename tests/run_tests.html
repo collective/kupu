@@ -45,7 +45,7 @@ the local machine aren't allowed to run scripts.-->
         // execCommand tests working in Mozilla. Don't touch the body node!
         // Even if you re-add it you'll break other tests!
 
-        var iframe = document.getElementById('iframe');
+        var iframe = getFromSelector('iframe');
         iframe.style.display = 'block';
         // IE seems to re-initialize the iframe on designMode change,
         // destroying the blank document. But only Mozilla needs that mode.
@@ -53,7 +53,7 @@ the local machine aren't allowed to run scripts.-->
             iframe.contentWindow.document.designMode = 'on';
         };
 
-        var body = document.getElementById('body');
+        var body = getFromSelector('body');
         var testsuite = new TestSuite(new HTMLReporter(body));
         testsuite.registerTest(KupuHelpersTestCase);
         testsuite.registerTest(KupuEditorTestCase);

@@ -110,7 +110,7 @@ function NoContextMenu(object) {
 
 function KupuButton(buttonid, commandfunc, tool) {
     /* Base prototype for kupu button tools */
-    this.button = window.document.getElementById(buttonid);
+    this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.tool = tool;
 
@@ -138,7 +138,7 @@ KupuButton.prototype = new KupuTool;
 function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     /* A button that can have two states (e.g. pressed and
        not-pressed) based on CSS classes */
-    this.button = window.document.getElementById(buttonid);
+    this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.checkfunc = checkfunc;
     this.offclass = offclass;
@@ -178,7 +178,7 @@ KupuStateButton.prototype = new KupuButton;
 function KupuRemoveElementButton(buttonid, element_name, cssclass) {
     /* A button specialized in removing elements in the current node
        context. Typical usages include removing links, images, etc. */
-    this.button = window.document.getElementById(buttonid);
+    this.button = getFromSelector(buttonid);
     this.onclass = 'invisible';
     this.offclass = cssclass;
     this.pressed = false;
@@ -204,7 +204,7 @@ function KupuUI(textstyleselectid) {
     */
     
     // attributes
-    this.tsselect = document.getElementById(textstyleselectid);
+    this.tsselect = getFromSelector(textstyleselectid);
 
     this.initialize = function(editor) {
         /* initialize the ui like tools */
@@ -345,9 +345,9 @@ KupuUI.prototype = new KupuTool;
 function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
     /* the colorchooser */
     
-    this.fgcolorbutton = document.getElementById(fgcolorbuttonid);
-    this.hlcolorbutton = document.getElementById(hlcolorbuttonid);
-    this.ccwindow = document.getElementById(colorchooserid);
+    this.fgcolorbutton = getFromSelector(fgcolorbuttonid);
+    this.hlcolorbutton = getFromSelector(hlcolorbuttonid);
+    this.ccwindow = getFromSelector(colorchooserid);
     this.command = null;
 
     this.initialize = function(editor) {
@@ -454,8 +454,8 @@ ColorchooserTool.prototype = new KupuTool;
 function PropertyTool(titlefieldid, descfieldid) {
     /* The property tool */
 
-    this.titlefield = document.getElementById(titlefieldid);
-    this.descfield = document.getElementById(descfieldid);
+    this.titlefield = getFromSelector(titlefieldid);
+    this.descfield = getFromSelector(descfieldid);
 
     this.initialize = function(editor) {
         /* attach the event handlers and set the initial values */
@@ -664,9 +664,9 @@ LinkTool.prototype = new KupuTool;
 function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
-    this.input = document.getElementById(inputid);
-    this.button = document.getElementById(buttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.input = getFromSelector(inputid);
+    this.button = getFromSelector(buttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
     
@@ -761,10 +761,10 @@ ImageTool.prototype = new KupuTool;
 function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, plainclass, activeclass) {
     /* toolbox for adding images */
 
-    this.inputfield = document.getElementById(inputfieldid);
-    this.insertbutton = document.getElementById(insertbuttonid);
-    this.floatselect = document.getElementById(floatselectid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.inputfield = getFromSelector(inputfieldid);
+    this.insertbutton = getFromSelector(insertbuttonid);
+    this.floatselect = getFromSelector(floatselectid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -1410,21 +1410,21 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
 
     // a lot of dependencies on html elements here, but most implementations
     // will use them all I guess
-    this.addtablediv = document.getElementById(addtabledivid);
-    this.edittablediv = document.getElementById(edittabledivid);
-    this.newrowsinput = document.getElementById(newrowsinputid);
-    this.newcolsinput = document.getElementById(newcolsinputid);
-    this.makeheaderinput = document.getElementById(makeheaderinputid);
-    this.classselect = document.getElementById(classselectid);
-    this.alignselect = document.getElementById(alignselectid);
-    this.addtablebutton = document.getElementById(addtablebuttonid);
-    this.addrowbutton = document.getElementById(addrowbuttonid);
-    this.delrowbutton = document.getElementById(delrowbuttonid);
-    this.addcolbutton = document.getElementById(addcolbuttonid);
-    this.delcolbutton = document.getElementById(delcolbuttonid);
-    this.fixbutton = document.getElementById(fixbuttonid);
-    this.fixallbutton = document.getElementById(fixallbuttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.addtablediv = getFromSelector(addtabledivid);
+    this.edittablediv = getFromSelector(edittabledivid);
+    this.newrowsinput = getFromSelector(newrowsinputid);
+    this.newcolsinput = getFromSelector(newcolsinputid);
+    this.makeheaderinput = getFromSelector(makeheaderinputid);
+    this.classselect = getFromSelector(classselectid);
+    this.alignselect = getFromSelector(alignselectid);
+    this.addtablebutton = getFromSelector(addtablebuttonid);
+    this.addrowbutton = getFromSelector(addrowbuttonid);
+    this.delrowbutton = getFromSelector(delrowbuttonid);
+    this.addcolbutton = getFromSelector(addcolbuttonid);
+    this.delcolbutton = getFromSelector(delcolbuttonid);
+    this.fixbutton = getFromSelector(fixbuttonid);
+    this.fixallbutton = getFromSelector(fixallbuttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -1491,7 +1491,8 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         var rows = this.newrowsinput.value;
         var cols = this.newcolsinput.value;
         var makeHeader = this.makeheaderinput.checked;
-        var classchooser = document.getElementById("kupu-table-classchooser-add");
+        // XXX getFromSelector
+        var classchooser = getFromSelector("kupu-table-classchooser-add");
         var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
         
         this.tool.createTable(rows, cols, makeHeader, tableclass);
@@ -1517,10 +1518,10 @@ TableToolBox.prototype = new KupuToolBox;
 function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid) {
     /* tool to set list styles */
 
-    this.addulbutton = document.getElementById(addulbuttonid);
-    this.addolbutton = document.getElementById(addolbuttonid);
-    this.ulselect = document.getElementById(ulstyleselectid);
-    this.olselect = document.getElementById(olstyleselectid);
+    this.addulbutton = getFromSelector(addulbuttonid);
+    this.addolbutton = getFromSelector(addolbuttonid);
+    this.ulselect = getFromSelector(ulstyleselectid);
+    this.olselect = getFromSelector(olstyleselectid);
 
     this.style_to_type = {'decimal': '1',
                             'lower-alpha': 'a',
@@ -1707,7 +1708,7 @@ function DefinitionListTool(dlbuttonid) {
         behaviour should be similar
     */
 
-    this.dlbutton = document.getElementById(dlbuttonid);
+    this.dlbutton = getFromSelector(dlbuttonid);
     
     this.initialize = function(editor) {
         /* initialize the tool */
@@ -2010,8 +2011,10 @@ function DefinitionListTool(dlbuttonid) {
 
 DefinitionListTool.prototype = new KupuTool;
 
-function KupuZoomTool(buttonid) {
-    this.button = window.document.getElementById(buttonid);
+function KupuZoomTool(buttonid, firsttab, lasttab) {
+    this.button = getFromSelector(buttonid);
+    firsttab = firsttab || 'kupu-tb-styles';
+    lasttab = lasttab || 'kupu-logo-button';
 
     this.initialize = function(editor) {
         this.offclass = 'kupu-zoom';
@@ -2024,8 +2027,8 @@ function KupuZoomTool(buttonid) {
         addEventHandler(window, "scroll", this.onscroll, this);
 
         /* Toolbar tabbing */
-        var lastbutton = window.document.getElementById('kupu-logo-button');
-        var firstbutton = window.document.getElementById('kupu-tb-styles');
+        var lastbutton = getFromSelector(lasttab);
+        var firstbutton = getFromSelector(firsttab);
         var iframe = editor.getInnerDocument();
         this.setTabbing(iframe, firstbutton, lastbutton);
         this.setTabbing(firstbutton, null, editor.getDocument().getWindow());
@@ -2088,10 +2091,12 @@ KupuZoomTool.prototype.onresize = function() {
     width = width + 'px';
     var offset = iframe.offsetTop;
     if (sourceArea && !offset) offset = sourceArea.offsetTop-1;
-    height = height - offset -1/*top border*/ + 'px';
+    // XXX: TODO: Using wrong values here, figure out why.
+    var nheight = Math.max(height - offset -1/*top border*/, 10);
+    nheight = nheight + 'px';
     fulleditor.style.width = width; /*IE needs this*/
     iframe.style.width = width;
-    iframe.style.height = height;
+    iframe.style.height = nheight;
     if (sourceArea) {
         sourceArea.style.width = width;
         sourceArea.style.height = height;

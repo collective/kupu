@@ -148,7 +148,7 @@ function Element(node, panel, visibility) {
 function KupuInspector(inspectorelement) {
     /* the Inspector tool, a tool to set attributes on elements */
     
-    this.element = document.getElementById(inspectorelement);
+    this.element = getFromSelector(inspectorelement);
     this._lastnode = null;
 
     this.default_attrs = new Array('id', 'className');

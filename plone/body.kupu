@@ -6,9 +6,8 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
   <kupu:id>$Id$</kupu:id>
-  <kupu:part name="editorframe">
+  <kupu:part name="editorframe"><script type="text/javascript">var focuscount = 0;</script>
     <iframe
-        id="kupu-editor"
 	class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
@@ -17,13 +16,13 @@
                 base here/absolute_url;
                 posfactory python:base.find('/portal_factory/');
                 base python:posfactory > 0 and base[:posfactory+15] or base;"
-        tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1"
+        tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1;"
         >
     </iframe>
     <textarea cols="80" rows="25"
         tabindex=""
         class="kupu-editor-textarea"
-        name="description" id="kupu-editor-textarea"
+        name="description"
 
         tal:define="pss modules/Products/PythonScripts/standard;
                 text_format python: getattr(here,'text_format','html');

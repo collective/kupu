@@ -37,7 +37,7 @@
 	var kupu = null;
 	var kupuui = null;
 	function startKupu() {
-	    var frame = document.getElementById('kupu-editor'); 
+	    var frame = getFromSelector('kupu-editor'); 
 	    kupu = initSilvaKupu(frame); 
 	    kupuui = kupu.getTool('ui'); 
 	    kupu.initialize();

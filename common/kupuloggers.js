@@ -40,7 +40,7 @@ function DebugLogger() {
 function PlainLogger(debugelid, maxlength) {
     /* writes messages to a debug tool and throws errors */
 
-    this.debugel = document.getElementById(debugelid);
+    this.debugel = getFromSelector(debugelid);
     this.maxlength = maxlength;
     
     this.log = function(message, severity) {
