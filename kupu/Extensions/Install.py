@@ -130,7 +130,7 @@ def install_transform(self, out):
         except: # XXX: get rid of bare except
             pass
         transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
-    except NameError:
+    except (NameError,AttributeError):
         print >>out, "No MimetypesRegistry, captioning not supported."
 
 def install(self):
