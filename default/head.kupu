@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <kupu:feature
     name="head"
     implementation="default"
@@ -28,6 +29,10 @@
     <script type="text/javascript" src="kupubasetools.js"> </script>
     <script type="text/javascript" src="kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"> </script>
+  </kupu:part>
+
+  <kupu:part name="contextmenujs">
+    <script type="text/javascript" src="kupucontextmenu.js"> </script>
   </kupu:part>
 
   <!-- XXX this could be a separate feature, maybe -->

@@ -36,6 +36,9 @@ function initKupu(iframe) {
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
 
+    var contextmenu = new ContextMenu();
+    kupu.setContextMenu(contextmenu);
+
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
 
