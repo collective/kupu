@@ -22,8 +22,8 @@
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
       <form>
-        <iframe id="kupu-editor" 
-                frameborder="0" 
+        <iframe id="kupu-editor"
+                frameborder="0"
                 src="fulldoc.html"
                 scrolling="auto">
         </iframe>
