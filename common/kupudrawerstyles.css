@@ -31,6 +31,7 @@ input#kupu-searchbox {
   margin-left: 350px;
   width: 8em;
   margin-bottom: 6px;
+  margin-top: 12px;
 }
 
 div#kupu-dialogbuttons {
@@ -41,7 +42,6 @@ div#kupu-dialogbuttons {
 }
 
 div#kupu-dialogbuttons button {
-  width: 4.5em;
   margin-left: 0.3em;
 }
 
@@ -61,12 +61,12 @@ div#kupu-panels td {
 }
 
 td#kupu-librariespanel {
-  width: 27%;
+  width: 20%;
   height: 240px;
 }
 
 td#kupu-resourcespanel {
-  width: 43%;
+  width: 35%;
 }
 
 td#kupu-propertiespanel {
@@ -109,4 +109,9 @@ div.selected {
 
 #kupu-tabledrawer-edittable {
   display: none;
+}
+
+
+span.drawer-item-title {
+  padding-left: 6px;
 }
