@@ -19,7 +19,8 @@ EDITABLE_METADATA = {
                 ['contactemail', 'text']
             ],
     'http://infrae.com/namespaces/metadata/abstract':
-            [['author', 'text', 1]]
+            [['author', 'text', 1],
+                ['other_authors', 'textarea', 0]]
 }
 
 function SilvaLinkTool() {
