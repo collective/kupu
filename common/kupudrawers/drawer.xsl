@@ -16,9 +16,11 @@ drawer.
 $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
-    xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml">
+    xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
     <xsl:param name="drawertype">image</xsl:param>
     <xsl:param name="drawertitle">Image Drawer</xsl:param>
+    <xsl:param name="showupload"></xsl:param>
     <xsl:variable name="titlelength" select="20"/>
     <xsl:template match="/">
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -61,8 +63,14 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                                         <div id="kupu-properties" class="overflow">
                                         <xsl:choose>
                                         <xsl:when test="$drawertype='image'">
-                                        <xsl:apply-templates
-                                        select="/libraries/*[@selected]//resource[@selected]" mode="image-properties"/>
+                                            <xsl:if test="//resource[@selected]">
+                                                <xsl:apply-templates
+                                                select="/libraries/*[@selected]//resource[@selected]" mode="image-properties"/>
+                                            </xsl:if>
+                                            <!-- use image upload template -->
+                                            <xsl:if test="$showupload='yes'">
+                                                <xsl:apply-templates select="/libraries/*[@selected]//uploadbutton" mode="image-upload"/>
+                                            </xsl:if>
                                         </xsl:when>
                                         <xsl:when test="$drawertype='link'">
                                         <xsl:apply-templates
@@ -74,11 +82,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                                 </tr>
                             </table>
                         </div>
-                        <div class="kupu-dialogbuttons">
-                            <!--
-                            <button type="button"
-                                onclick="drawertool.current_drawer.reloadCurrent();">Reload current</button>
--->
+                        <div class="kupu-dialogbuttons">                            
                             <button type="button" onclick="drawertool.current_drawer.save();">Ok</button>
                             <button type="button" onclick="drawertool.closeDrawer();">Cancel</button>
                         </div>
@@ -102,7 +106,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
         </div>
     </xsl:template>
     <xsl:template match="items">
-        <xsl:apply-templates select="collection|resource" mode="currentpanel"/>
+        <xsl:apply-templates select="collection|resource|uploadbutton" mode="currentpanel"/>
     </xsl:template>
     <xsl:template match="resource|collection" mode="currentpanel">
         <div id="{@id}" class="kupu-{local-name()}" title="{description}">
@@ -116,6 +120,14 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
             <xsl:apply-templates select="title"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="uploadbutton" mode="currentpanel">
+        <div class="kupu-upload">
+            <xsl:attribute name="onclick">
+                drawertool.current_drawer.selectUpload();
+            </xsl:attribute>
+            <span class="drawer-item-title">Upload ...</span>
         </div>
     </xsl:template>
     <xsl:template match="icon">
@@ -238,4 +250,27 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
             </table>
         </form>
     </xsl:template>
+    
+    <!-- image upload form -->
+    <xsl:template match="uploadbutton" mode="image-upload">
+        <div id="kupu-upload-instructions" i18n:translate="upload-instructions">
+            Select an image from your computer and click ok to have it automatically uploaded to selected folder and inserted into the editor.
+        </div><br/>
+        <form name="kupu_upload_form" method="POST" action="" scrolling="off" target="kupu_upload_form_target"
+              enctype="multipart/form-data" style="margin: 0; border: 0;">
+
+            <span id="kupu-upload-to"><strong>Upload to: </strong> <xsl:value-of select="title"/> </span><br/>
+            <input id="kupu-upload-file" type="file" name="node_prop_image" /><br/>
+            <label>Title: 
+                <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/>
+            </label><br/>
+            <input type="reset" i18n:translate="upload-resetform" value="Clear"/>
+
+        </form>
+
+        <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
+                src="" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
+        </iframe>
+    </xsl:template>
+    
 </xsl:stylesheet>
