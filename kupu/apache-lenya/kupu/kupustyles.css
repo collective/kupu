@@ -6,9 +6,9 @@ html, body { height: 100%; }
 
 div.kupu-fulleditor {
   height: 560px;
-  margin: 0;
+  margin: auto;
   padding: 0;
-  width: 98%;
+  width: 99%;
 }
 
 div.kupu-editorframe, .kupu-editorframe {
