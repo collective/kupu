@@ -2,6 +2,21 @@
 Kupu changes
 ============
 
+- Kupu 1.1
+
+  o Re-added experimental dist with inspector.
+
+  o Moved drawers to the experimental dist.
+
+  o Some fixes in the Citation tool and External Source tools
+
+  o Fixed bug that made Kupu break on certain type of meta-tags in the
+    editable document.
+
+  o Moved definition list tool to the main and form dist.
+
+  o Made Damian Gajda's SourceEditTool replace the switchSourceEdit function.
+
 - Kupu 1.1 beta 2 (2004-05-27)
 
   o Added source editing for Silva.
