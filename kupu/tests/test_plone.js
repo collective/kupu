@@ -93,7 +93,7 @@ function KupuPloneTestCase() {
         return s;
     }
     this.testSetTextStyle = function() {
-        var data = '<p>line 1</p> <div class="Caption">line 2</div> <div class="Caption">line 3</div>';
+        var data = '<p>line 1</p><div class="Caption">line 2</div><div class="Caption">line 3</div>';
         // select  .....................................|e 2</div><div class="Caption">line|...
         var expected = '<p>line 1</p><h2>line 2</h2><h2>line 3</h2>';
         this.body.innerHTML = data;
