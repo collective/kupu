@@ -52,10 +52,12 @@ function fxWritable() {
             if (currnode.nodeType == 1 &&
                     currnode.getAttribute("editable")=="yes") {
                 this.fxWritable_status = true;
+                this.editor._initialized = true;
                 break;
             };
             currnode = currnode.parentNode;
         };
+        this.editor._initialized = false;
     };
 };
 
