@@ -11,7 +11,7 @@
 # Make a copy of this script called 'kupu-customisation-policy'
 # in any skin folder on your site and edit it to set up your own
 # preferred kupu configuration.
-
+from Products.CMFCore.utils import getToolByName
 
 LINKABLE = ('MyObjectType',
             'AnotherObjectType',)
@@ -44,12 +44,17 @@ STYLE_WHITELIST = ['text-align', 'list-style-type']
 CLASS_BLACKLIST = ['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
         'Bullet1', 'Bullet2']
 
-tool = context.kupu_library_tool
+tool = getToolByName(context, 'kupu_library_tool')
+typetool = getToolByName(context, 'portal_types')
+
+def typefilter(types):
+    all_meta_types = dict([ (t.content_meta_type, 1) for t in typetool.listTypeInfo()])
+    return [ t for t in types if t in all_meta_types ]
 
 print "add resources"
-tool.addResourceType('linkable', LINKABLE)
-tool.addResourceType('mediaobject', MEDIAOBJECT)
-tool.addResourceType('collection', COLLECTION)
+tool.addResourceType('linkable', typefilter(LINKABLE))
+tool.addResourceType('mediaobject', typefilter(MEDIAOBJECT))
+tool.addResourceType('collection', typefilter(COLLECTION))
 
 print "configure kupu"
 tool.configure_kupu(linkbyuid=True,
