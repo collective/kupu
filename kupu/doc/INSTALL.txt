@@ -23,7 +23,11 @@ o An XSLT processor with XInclude support, such as xsltproc from
   Gnome's libxml/libxslt.
 
   Windows users: You can get libxml/libxslt binaries at
-  http://www.zlatkovic.com/pub/libxml/
+  http://www.zlatkovic.com/pub/libxml/. As a minimum you need to
+  download the zipfiles for libxslt, libxml2, iconv and zlib.
+  Extracting all of the .dll and .exe files into c:\libxslt is
+  sufficient for make.bat to work (ignore subdirectories in the
+  zipfiles).
 
 o A webserver that can handle some form of server-side processing, and
   preferrably also HTTP PUT requests (POST is also supported, see 'PUT
