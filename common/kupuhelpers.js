@@ -385,9 +385,9 @@ function MozillaSelection(document) {
         var selection = this.selection;
         var selectedNode = selection.anchorNode;
 
-        var n = selectedNode.parentNode;
+        var n = selectedNode;
         // Get next sibling at any level
-        while (n) {
+        while (n.parentNode) {
             if ((n.previousSibling && selection.containsNode(n.previousSibling, true)) ||
                 (n.nextSibling && selection.containsNode(n.nextSibling, true))) {
                 selectedNode = n.parentNode;

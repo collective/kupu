@@ -2,7 +2,12 @@
 Kupu changes
 ============
 
-- Since 1.2 beta 1
+- Since 1.2rc1
+
+  Creating links was broken by the fixes to #146, rewrote link
+  creation to be more robust and predictable.
+
+- Kupu 1.2rc1
 
   The following issues have been resolved (see the `issue tracker`_
   for details of the numbered ones):
