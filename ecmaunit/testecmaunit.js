@@ -11,6 +11,8 @@
 // $Id$
 
 function TestTestCase() {
+    this.name = 'TestTestCase';
+
     this.setUp = function() {
         /* not in use here, didn't have to define it but this might be
 	   used as a reference
@@ -39,11 +41,11 @@ function TestTestCase() {
 	this.assertFalse(true);
     };
 
-    this.testAssertRaises = function() {
-        this.assertRaises(function() {throw('foo')}, 'foo');
-	this.assertRaises(function() {throw(new Array(1,2))}, new Array(1,2));
-	this.assertRaises(function() {throw('bar')});
-	this.assertRaises(function() {}, 'baz');
+    this.testAssertThrows = function() {
+        this.assertThrows(function() {throw('foo')}, 'foo');
+	this.assertThrows(function() {throw(new Array(1,2))}, new Array(1,2));
+	this.assertThrows(function() {throw('bar')});
+	this.assertThrows(function() {}, 'baz');
     };
 
     this.tearDown = function() {
@@ -56,6 +58,8 @@ function TestTestCase() {
 TestTestCase.prototype = new TestCase;
 
 function TestTestCase2() {
+    this.name = 'TestTestCase2';
+
     this.setUp = function() {
         function Foo() {
 	    this.returnfoo = function() {
@@ -84,8 +88,8 @@ function TestTestCase2() {
         this.assertFalse(this.foo.returnfoo() == 'bar');
     };
 
-    this.testAssertRaises = function() {
-        this.assertRaises(this.foo.throwfoo, 'foo');
+    this.testAssertThrows = function() {
+        this.assertThrows(this.foo.throwfoo, 'foo');
     };
 };
 

@@ -11,18 +11,18 @@
 // $Id$
 
 /*
-   Object Oriented prototype-based unit test suite
+   Object-oriented prototype-based unit test suite
 */
 
 function TestCase() {
     /* a single test case */
-    
-    this.initialize = function(outputelid) {
-        /* call this before running the test */
-        this._outputel = document.getElementById(outputelid);
+    this.name = 'TestCase';
 
-        // this array will be displayed when done (if it contains anything)
+    this.initialize = function(reporter) {
+        // this array's contents will be displayed when done (if it
+        // contains anything)
         this._exceptions = new Array();
+        this._reporter = reporter;
     };
 
     this.setUp = function() {
@@ -62,18 +62,18 @@ function TestCase() {
         };
     };
 
-    this.assertRaises = function(func, exception, context) {
+    this.assertThrows = function(func, exception, context) {
         /* assert whether a certain exception is raised */
         if (!context) {
             context = null;
+        };
+        if (!exception) {
+            return;
         };
         var exception_thrown = false;
         try {
             func.apply(context, arguments);
         } catch(e) {
-            if (!exception) {
-                return;
-            };
             if (exception.toSource && e.toSource) {
                 exception = exception.toSource();
                 e = e.toSource();
@@ -102,7 +102,7 @@ function TestCase() {
         /* find all methods of which the name starts with 'test'
             and call them */
         var ret = this._runHelper();
-        this._writeFinalOutput(ret[0], ret[1]);
+	this._reporter.summarize(ret[0], ret[1], this._exceptions);
     };
 
     this._runHelper = function() {
@@ -117,10 +117,10 @@ function TestCase() {
                 this.setUp();
                 try {
                     this[attr]();
-                    this._writeSuccessOutput();
+                    this._reporter.reportSuccess(this.name, attr);
                 } catch(e) {
-                    this._writeErrorOutput(attr, e);
-                    this._exceptions.push(new Array(attr, e));
+                    this._reporter.reportError(this.name, attr, e);
+                    this._exceptions.push(new Array(this.name, attr, e));
                 };
                 this.tearDown();
                 numtests++;
@@ -131,73 +131,20 @@ function TestCase() {
         return new Array(numtests, totaltime);
     };
 
-    this._writeSuccessOutput = function() {
-        /* output a dot */
-        // a single dot looks rather small
-        var dot = document.createTextNode('+');
-        this._outputel.appendChild(dot);
-    };
-
-    this._writeErrorOutput = function(attr, exception) {
-        /* output a failure message */
-        var f = document.createTextNode('F');
-        this._outputel.appendChild(f);
-    };
-
-    this._writeFinalOutput = function(numtests, time) {
-        /* write the result output to the html node */
-        var p = document.createElement('p');
-        var text = document.createTextNode(numtests + ' tests ran in ' + 
-                                            time / 1000.0 + ' seconds');
-        p.appendChild(text);
-        this._outputel.appendChild(p);
-        if (this._exceptions.length) {
-            for (var i=0; i < this._exceptions.length; i++) {
-                var attr = this._exceptions[i][0];
-                var exception = this._exceptions[i][1];
-                var div = document.createElement('div');
-                var text = document.createTextNode('Test ' + attr + 
-                                            ', exception: ' + exception);
-                div.appendChild(text);
-                div.style.color = 'red';
-                this._outputel.appendChild(div);
-            };
-            var div = document.createElement('div');
-            var text = document.createTextNode('NOT OK!');
-            div.appendChild(text);
-            div.style.backgroundColor = 'red';
-            div.style.color = 'black';
-            div.style.fontWeight = 'bold';
-            div.style.textAlign = 'center';
-            div.style.marginTop = '1em';
-            this._outputel.appendChild(div);
-        } else {
-            var div = document.createElement('div');
-            var text = document.createTextNode('OK!');
-            div.appendChild(text);
-            div.style.backgroundColor = 'lightgreen';
-            div.style.color = 'black';
-            div.style.fontWeight = 'bold';
-            div.style.textAlign = 'center';
-            div.style.marginTop = '1em';
-            this._outputel.appendChild(div);
-        };
-    };
 };
 
-function TestSuite(outputelid) {
+function TestSuite(reporter) {
     /* run a suite of tests */
-    this._outputel = document.getElementById(outputelid);
-    this._outputelid = outputelid;
+    this._reporter = reporter;
     this._tests = new Array();
     this._exceptions = new Array();
     
-    this.registerTest = function(name, test) {
+    this.registerTest = function(test) {
         /* register a test */
         if (!test) {
-            throw('TestSuite.registerTest() takes two arguments, got one.');
+            throw('TestSuite.registerTest() requires a testcase as argument');
         };
-        this._tests.push(new Array(name, test));
+        this._tests.push(test);
     };
 
     this.runSuite = function() {
@@ -206,9 +153,8 @@ function TestSuite(outputelid) {
         var starttime = now.getTime();
         var testsran = 0;
         for (var i=0; i < this._tests.length; i++) {
-            var testinfo = this._tests[i];
-            var test = new testinfo[1]();
-            test.initialize(this._outputelid);
+            var test = new this._tests[i]();
+            test.initialize(this._reporter);
             testsran += test._runHelper()[0];
             // the TestCase class handles output of dots and Fs, but we
             // should take care of the exceptions
@@ -217,54 +163,101 @@ function TestSuite(outputelid) {
                     // attr, exc in the org array, so here it becomes
                     // name, attr, exc
                     var excinfo = test._exceptions[j];
-                    this._exceptions.push(new Array(testinfo[0], 
-                                        excinfo[0], excinfo[1]));
+                    this._exceptions.push(excinfo);
                 };
             };
         };
         var now = new Date();
         var totaltime = now.getTime() - starttime;
-        this._writeFinalOutput(testsran, totaltime);
+        this._reporter.summarize(testsran, totaltime, this._exceptions);
+    };
+};
+
+function StdoutReporter(verbose) {
+  this.verbose = verbose; //XXX verbose not yet supported
+
+    this.reportSuccess = function(testcase, attr) {
+        /* report a test success */
+        print('.');
     };
 
-    this._writeFinalOutput = function(numtests, time) {
+    this.reportError = function(testcase, attr, exception) {
+        /* report a test failure */
+        print('F');
+    };
+
+    this.summarize = function(numtests, time, exceptions) {
+        print(numtests + ' tests ran in ' + time / 1000.0 + ' seconds');
+        if (exceptions.length) {
+            for (var i=0; i < exceptions.length; i++) {
+                var testcase = exceptions[i][0];
+                var attr = exceptions[i][1];
+                var exception = exceptions[i][2];
+                print(testcase + '.' + attr + ', exception: ' + exception);
+            };
+            print('NOT OK!');
+        } else {
+            print('OK!');
+        };
+    };
+};
+
+function HTMLReporter(outputelement, verbose) {
+    this.outputelement = outputelement;
+    this.document = outputelement.ownerDocument;
+    this.verbose = verbose; //XXX verbose not yet supported
+
+    this.reportSuccess = function(testcase, attr) {
+        /* report a test success */
+        // a single dot looks rather small
+        var dot = this.document.createTextNode('+');
+        this.outputelement.appendChild(dot);
+    };
+
+    this.reportError = function(testcase, attr, exception) {
+        /* report a test failure */
+        var f = this.document.createTextNode('F');
+        this.outputelement.appendChild(f);
+    };
+
+    this.summarize = function(numtests, time, exceptions) {
         /* write the result output to the html node */
-        var p = document.createElement('p');
-        var text = document.createTextNode(numtests + ' tests ran in ' + 
-                                            time / 1000.0 + ' seconds');
+        var p = this.document.createElement('p');
+        var text = this.document.createTextNode(numtests + ' tests ran in ' + 
+                                                time / 1000.0 + ' seconds');
         p.appendChild(text);
-        this._outputel.appendChild(p);
-        if (this._exceptions.length) {
-            for (var i=0; i < this._exceptions.length; i++) {
-                var testname = this._exceptions[i][0];
-                var attr = this._exceptions[i][1];
-                var exception = this._exceptions[i][2];
-                var div = document.createElement('div');
-                var text = document.createTextNode('Test ' + testname + '.' + 
-                                            attr + ', exception: ' + exception);
+        this.outputelement.appendChild(p);
+        if (exceptions.length) {
+            for (var i=0; i < exceptions.length; i++) {
+                var testcase = exceptions[i][0];
+                var attr = exceptions[i][1];
+                var exception = exceptions[i][2];
+                var div = this.document.createElement('div');
+                var text = this.document.createTextNode(
+                    testcase + '.' + attr + ', exception: ' + exception);
                 div.appendChild(text);
                 div.style.color = 'red';
-                this._outputel.appendChild(div);
+                this.outputelement.appendChild(div);
             };
-            var div = document.createElement('div');
-            var text = document.createTextNode('NOT OK!');
+            var div = this.document.createElement('div');
+            var text = this.document.createTextNode('NOT OK!');
             div.appendChild(text);
             div.style.backgroundColor = 'red';
             div.style.color = 'black';
             div.style.fontWeight = 'bold';
             div.style.textAlign = 'center';
             div.style.marginTop = '1em';
-            this._outputel.appendChild(div);
+            this.outputelement.appendChild(div);
         } else {
-            var div = document.createElement('div');
-            var text = document.createTextNode('OK!');
+            var div = this.document.createElement('div');
+            var text = this.document.createTextNode('OK!');
             div.appendChild(text);
             div.style.backgroundColor = 'lightgreen';
             div.style.color = 'black';
             div.style.fontWeight = 'bold';
             div.style.textAlign = 'center';
             div.style.marginTop = '1em';
-            this._outputel.appendChild(div);
+            this.outputelement.appendChild(div);
         };
     };
 };
