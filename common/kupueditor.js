@@ -159,7 +159,7 @@ function KupuEditor(document, config, logger) {
             this._saveSelection();
         };
 
-        if (event.type == 'click' || 
+        if (event.type == 'click' || event.type=='mouseup' ||
                 (event.type == 'keyup' && 
                     interesting_codes.contains(event.keyCode))) {
             // Filthy trick to make the updateState method get called *after*
@@ -470,6 +470,7 @@ function KupuEditor(document, config, logger) {
         this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true}, this);
+        this._addEventHandler(this.getInnerDocument(), "mouseup", this.updateStateHandler, this);
     };
 
     this._setDesignModeWhenReady = function() {
