@@ -2,11 +2,6 @@
 TODO for drawers
 ================
 
-- link drawers: support for removing a link (goes for toolboxes as
-  well!)
-
-- link/image drawer: support re-editing of link or image
-
 - improve library drawer UI
 
   + particular problem: "Current location: ..." is only shown when a
