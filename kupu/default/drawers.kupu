@@ -1,0 +1,39 @@
+<kupu:feature
+    name="drawers"
+    implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    >
+
+  <kupu:part name="jsincludes">
+    <script type="text/javascript" src="kupudrawertool.js"> </script>
+    <script type="text/javascript" src="kupulibrarydrawer.js"> </script>
+  </kupu:part>
+
+  <kupu:part name="buttons">
+    <span class="kupu-tb-buttongroup">
+      <button type="button" class="kupu-image" id="kupu-imagedrawer-button"
+              title="Insert image" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-hyperlink" id="kupu-linkdrawer-button"
+              title="Insert link" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-table" id="kupu-tabledrawer-button"
+              title="Insert table"  i18n:attributes="title">&#160;</button>
+    </span>
+  </kupu:part>
+
+  <kupu:part name="drawers">
+    <div id="kupu-librarydrawer" class="kupu-drawer">
+    </div>
+  </kupu:part>
+
+  <kupu:part name="xmlconfig">
+    <image_xsl_uri>kupudrawers/imagedrawer.xsl</image_xsl_uri>
+    <link_xsl_uri>kupudrawers/linkdrawer.xsl</link_xsl_uri>
+    <image_libraries_uri>kupudrawers/libraries.xml</image_libraries_uri>
+    <link_libraries_uri>kupudrawers/libraries.xml</link_libraries_uri>
+    <search_images_uri> </search_images_uri>
+    <search_links_uri> </search_links_uri>
+  </kupu:part>
+
+</kupu:feature>

@@ -10,6 +10,7 @@
 
 // $Id$
 
+var drawertool = null;
 var kupu = null;
 var kupuui = null;
 
@@ -42,6 +43,9 @@ function startKupu() {
             addEventHandler(window, 'unload', saveOnPart);
         };
     };
+
+    // get a reference to the drawer tool for the drawer buttons
+    drawertool = kupu.getTool('drawertool');
 
     // and now we can initialize...
     kupu.initialize();
