@@ -124,6 +124,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     def getClassBlacklist(self):
         return getattr(self, 'class_blacklist', [])
 
+    security.declareProtected('View', "getClassBlacklist")
+    def installBeforeUnload(self):
+        return getattr(self, 'install_beforeunload', True)
+
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (
          dict(label='Config', action='kupu_config'),
@@ -217,10 +221,13 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
                               "configure_kupu")
     def configure_kupu(self,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
+        installBeforeUnload,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
+        self.install_beforeunload = bool(installBeforeUnload)
+
         newex = html_exclusions[-1]
             
         html_exclusions = [ (tuple(h.get('tags', ())), tuple(h.get('attributes', ())))
