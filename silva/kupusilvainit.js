@@ -128,6 +128,13 @@ function initSilvaKupu(iframe) {
 	'kupu-citation-deletebutton');
     kupu.registerTool('citationtool', citationtool);
   
+    var abbrtool = new SilvaAbbrTool('kupu-abbr-type-abbr', 'kupu-abbr-type-acronym', 
+                                        'kupu-abbr-radiorow', 'kupu-abbr-title',
+                                        'kupu-abbr-addbutton', 'kupu-abbr-updatebutton',
+                                        'kupu-abbr-deletebutton', 'kupu-toolbox-abbr',
+                                        'kupu-toolbox', 'kupu-toolbox-active');
+    kupu.registerTool('abbrtool', abbrtool);
+  
     var imagetool = new SilvaImageTool(
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
 	'kupu-toolbox-image-target', 'kupu-toolbox-image-link-radio-hires',
@@ -145,7 +152,8 @@ function initSilvaKupu(iframe) {
 	'kupu-table-addtable-button', 'kupu-table-addrow-button',
 	'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
         'kupu-table-delcolumn-button', 'kupu-table-fix-button',
-	'kupu-toolbox-tables', 'kupu-toolbox', 'kupu-toolbox-active'
+        'kupu-table-delete-button', 'kupu-toolbox-tables', 
+        'kupu-toolbox', 'kupu-toolbox-active'
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
