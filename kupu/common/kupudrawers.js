@@ -34,6 +34,9 @@ function DrawerTool() {
         if (this.current_drawer) {
             this.closeDrawer();
         };
+        if (this.editor.getBrowserName() == 'IE') {
+            this.editor._saveSelection();
+        }
         var drawer = this.drawers[id];
         drawer.createContent();
         this.current_drawer = drawer;

@@ -792,14 +792,16 @@ function IESelection(document) {
         // to just before the element instead of inside it, and since IE doesn't reserve
         // an index for the element itself as well the way to get it inside the element is
         // by moving the start one pos and then moving it back (yuck!)
-        var range = this.selection.createRange().duplicate();
-        range.moveToElementText(node);
-        range.moveStart('character', 1);
-        range.moveStart('character', -1);
-        range.moveEnd('character', -1);
-        range.moveEnd('character', 1);
-        range.select();
-        this.selection = this.document.getDocument().selection;
+        if (this.selection.type == "Text") {
+            var range = this.selection.createRange().duplicate();
+            range.moveToElementText(node);
+            range.moveStart('character', 1);
+            range.moveStart('character', -1);
+            range.moveEnd('character', -1);
+            range.moveEnd('character', 1);
+            range.select();
+            this.selection = this.document.getDocument().selection;
+        }
     };
 
     this.getSelectedNode = function() {
