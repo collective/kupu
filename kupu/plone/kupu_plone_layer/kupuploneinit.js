@@ -23,7 +23,12 @@ function initPloneKupu(iframe, fieldname) {
         iframehead.appendChild(link);
     };
 
-    iframe.contentWindow.document.getElementsByTagName('body')[0].innerHTML = document.getElementById(fieldname).value;
+    // XXX this should be fixed in stylesheets, but I don't know how to do 
+    // that without applying this change to the outter document. Damn iframes.
+    var ibody = iframe.contentWindow.document.getElementsByTagName("body")[0];
+    ibody.style.margin = "12px";
+
+    ibody.innerHTML = document.getElementById(fieldname).value;
 		
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
