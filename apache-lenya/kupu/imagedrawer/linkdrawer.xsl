@@ -24,7 +24,7 @@ $Id: linkdrawer.xsl 5456 2004-07-06 15:55:15Z guido $
 
   <xsl:template match="resource|collection" mode="properties">
    <form onsubmit="return false;">
-     <table>
+     <table class="resource-properties">
        <tr class="kupu-linkdrawer-title-row">
          <td>
            <strong>Title</strong><br />
@@ -42,15 +42,25 @@ $Id: linkdrawer.xsl 5456 2004-07-06 15:55:15Z guido $
            <strong>Name</strong><br />
            <input type="text" id="link_name" size="10" value="{title}"/>
          </td>
-       </tr>
-       <!-- Using @target is not strict XHTML 1.0
+       </tr>       
        <tr class="kupu-linkdrawer-target-row">
          <td>
            <strong>Target</strong><br />
-           <input type="text" id="link_target" value="_self" size="10" />
+           <input type="text" id="link_target" value="" size="10" title="Target window of link: _self, _blank, or custom"/>
+         </td>
+       </tr>       
+       <xsl:if test="preview">
+       <tr>
+         <td>
+           <div><strong>Preview</strong></div>
+           <div id="epd-imgpreview">
+             <a href="{preview}" target="_blank" title="Preview page {uri} in new a window">
+               Preview page in new window.
+             </a>
+           </div>
          </td>
        </tr>
-       -->
+       </xsl:if>
      </table>
     </form>
   </xsl:template>
