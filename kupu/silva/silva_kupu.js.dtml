@@ -1383,20 +1383,22 @@ function SilvaKupuUI(textstyleselectid) {
 SilvaKupuUI.prototype = new KupuUI;
 
 function initSilvaKupu(iframe) {
+    // first we create a logger
     var l = new PlainLogger('kupu-toolbox-debuglog', 5);
 
-    var conf = {'src': iframe.getAttribute('src'),
-                'dst': iframe.getAttribute('dst'),
-                'use_css': (iframe.getAttribute('usecss') != "0"),
-                'reload_after_save': (iframe.getAttribute('reloadsrc') == "1")
-                };
+    // now some config values
+    var conf = loadDictFromXML(document, 'kupuconfig');
     
+    // the we create the document, hand it over the id of the iframe
     var doc = new KupuDocument(iframe);
+
+    // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
     
     var cm = new ContextMenu();
     kupu.setContextMenu(cm);
 
+    // now we can create a UI object which we can use from the UI
     var ui = new SilvaKupuUI('kupu-tb-styles');
     kupu.registerTool('ui', ui);
 
@@ -1404,51 +1406,53 @@ function initSilvaKupu(iframe) {
     var savebutton = new KupuBaseButton('kupu-save-button', savebuttonfunc);
     kupu.registerTool('savebutton', savebutton);
 
-    var boldbuttonfunc = function(button, editor) {editor.execCommand('bold')};
+    // function that returns a function to execute a button command
+    var execCommand = function(cmd) {
+        return function(button, editor) {
+            editor.execCommand(cmd);
+        };
+    };
+
     var boldcheckfunc = new StateButtonCheckFunction(
                             new Array('b', 'strong'), 'font-weight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
-                                         boldbuttonfunc, 
+                                         execCommand('bold'),
                                          boldcheckfunc.execute, 
                                          'kupu-bold', 
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicbuttonfunc = function(button, editor) {editor.execCommand('italic')};
     var italiccheckfunc = new StateButtonCheckFunction(
                             new Array('i', 'em'), 'font-style', 'italic');
     var italicbutton = new KupuStateButton('kupu-italic-button', 
-                                           italicbuttonfunc, 
+                                           execCommand('italic'),
                                            italiccheckfunc.execute, 
                                            'kupu-italic', 
                                            'kupu-italic-pressed');
     kupu.registerTool('italicbutton', italicbutton);
 
-    var underlinebuttonfunc = function(button, editor) {editor.execCommand('underline')};
     var underlinebuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('u'));
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
-                                              underlinebuttonfunc, 
+                                              execCommand('underline'),
                                               underlinebuttoncheckfunc.execute, 
                                               'kupu-underline', 
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptbuttonfunc = function(button, editor) {editor.execCommand('subscript')};
     var subscriptbuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('sub'));
     var subscriptbutton = new KupuStateButton('kupu-subscript-button', 
-                                              subscriptbuttonfunc, 
+                                              execCommand('subscript'),
                                               subscriptbuttoncheckfunc.execute, 
                                               'kupu-subscript', 
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptbuttonfunc = function(button, editor) {editor.execCommand('superscript')};
     var superscriptbuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('super'));
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
-                                                superscriptbuttonfunc, 
+                                                execCommand('superscript'),
                                                 superscriptbuttoncheckfunc.execute, 
                                                 'kupu-superscript', 
                                                 'kupu-superscript-pressed');
