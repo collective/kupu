@@ -127,6 +127,9 @@ function initSilvaKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'))
     kupu.registerTool('redobutton', redobutton);
 
+    var propertytool = new SilvaPropertyTool('propsrow');
+    kupu.registerTool('propstool', propertytool);
+
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
 				'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);

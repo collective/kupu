@@ -10,6 +10,18 @@
 
 // $Id$
 
+// a mapping from namespace to field names, here you can configure which 
+// metadata fields should be editable with the property editor (needs to
+// be moved to somewhere in Silva or something?)
+EDITABLE_METADATA = {
+    'http://infrae.com/namespaces/metadata/silva-extra': 
+            [['contactname', 'text'],
+                ['contactemail', 'text']
+            ],
+    'http://infrae.com/namespaces/metadata/abstract':
+            [['author', 'text', 1]]
+}
+
 function SilvaLinkTool() {
     /* redefine the contextmenu elements */
 };
@@ -2097,3 +2109,175 @@ function SilvaKupuUI(textstyleselectid) {
 };
 
 SilvaKupuUI.prototype = new KupuUI;
+
+function SilvaPropertyTool(tablerowid) {
+    /* a simple tool to edit metadata fields
+
+        the fields' contents are stored in Silva's metadata sets
+    */
+    this.tablerow = document.getElementById(tablerowid);
+    this.table = this.tablerow.parentNode;
+    while (!this.table.nodeName.toLowerCase() == 'table') {
+        this.table = this.table.parentNode;
+    };
+    // remove current content from the fields
+    var tds = this.tablerow.getElementsByTagName('td');
+    for (var i=0; i < tds.length; i++) {
+        while (tds[i].hasChildNodes()) {
+            tds[i].removeChild(tds[i].childNodes[0]);
+        };
+    };
+};
+
+SilvaPropertyTool.prototype = new KupuTool;
+
+SilvaPropertyTool.prototype.initialize = function(editor) {
+    this.editor = editor;
+    
+    // walk through all metadata fields and expose them to the user
+    var metas = this.editor.getInnerDocument().getElementsByTagName('meta');
+    for (var i=0; i < metas.length; i++) {
+        var meta = metas[i];
+        var name = meta.getAttribute('name');
+        if (!name) {
+            // http-equiv type
+            continue;
+        };
+        var rowcopy = this.tablerow.cloneNode(true);
+        var tag = this.parseFormElIntoRow(meta, rowcopy);
+        if (tag) {
+            this.tablerow.parentNode.appendChild(tag);
+        };
+    };
+    // throw away the original row: we don't need it anymore...
+    this.tablerow.parentNode.removeChild(this.tablerow);
+};
+
+SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
+    /* render a field in the properties tool according to a metadata tag
+
+        returns some false value if the meta tag should not be editable
+    */
+    var scheme = metatag.getAttribute('scheme');
+    if (!scheme || !(scheme in EDITABLE_METADATA)) {
+        return;
+    };
+    var name = metatag.getAttribute('name');
+    var namespace = metatag.getAttribute('scheme');
+    var nametypes = EDITABLE_METADATA[scheme];
+    var type = 'text';
+    var mandatory = false;
+    var namefound = false;
+    for (var i=0; i < nametypes.length; i++) {
+        var nametype = nametypes[i];
+        var elname = nametype[0];
+        var type = nametype[1];
+        var mandatory = nametype[2];
+        if (elname == name) {
+            namefound = true;
+            break;
+        };
+    };
+    if (!namefound) {
+        return;
+    };
+    
+    var titlefield = document.createElement('span');
+    var title = document.createTextNode(metatag.getAttribute('title'));
+    titlefield.appendChild(title);
+    tablerow.getElementsByTagName('td')[0].appendChild(titlefield);
+    titlefield.className = 'metadata-field';
+    
+    var input = null;
+    var value = metatag.getAttribute('content');
+    var parentvalue = metatag.getAttribute('parentcontent');
+    if (type == 'text') {
+        input = document.createElement('input');
+        input.value = value;
+        input.setAttribute('type', 'text');
+    } else if (type == 'textarea') {
+        input = document.createElement('textarea');
+        var content = document.createTextNode(value);
+        input.appendChild(content);
+    };
+    input.setAttribute('name', name);
+    input.setAttribute('namespace', namespace);
+    input.className = 'metadata-input';
+    if (mandatory) {
+        input.setAttribute('mandatory', 'true');
+    };
+    var td = tablerow.getElementsByTagName('td')[1]
+    td.appendChild(input);
+    if (parentvalue && parentvalue != '') {
+        td.appendChild(document.createElement('br'));
+        td.appendChild(document.createTextNode('acquired value:'));
+        td.appendChild(document.createElement('br'));
+        td.appendChild(document.createTextNode(parentvalue));
+    };
+
+    return tablerow;
+};
+
+SilvaPropertyTool.prototype.beforeSave = function() {
+    /* save the metadata to the document */
+    var doc = this.editor.getInnerDocument();
+    var inputs = this.table.getElementsByTagName('input');
+    var textareas = this.table.getElementsByTagName('textarea');
+    var errors = [];
+    var okay = [];
+    for (var i=0; i < inputs.length; i++) {
+        var input = inputs[i];
+        if (!input.getAttribute('type') == 'text' || !input.getAttribute('namespace')) {
+            continue;
+        };
+        var name = input.getAttribute('name');
+        var scheme = input.getAttribute('namespace');
+        var value = input.value;
+        if (input.getAttribute('mandatory') && value.strip() == '') {
+            errors.push(name);
+            continue;
+        };
+        okay.push([name, scheme, value]);
+    };
+    for (var i=0; i < textareas.length; i++) {
+        var textarea = textareas[i];
+        var name = textarea.getAttribute('name');
+        var scheme = textarea.getAttribute('namespace');
+        var value = textarea.value;
+        if (textarea.getAttribute('mandatory') && value.strip() == '') {
+            errors.push(name);
+            continue;
+        };
+        okay.push([name, scheme, value]);
+    };
+    if (errors.length) {
+        throw('Error: fields ' + errors.join(', ') + ' are required but not filled in');
+    };
+    for (var i=0; i < okay.length; i++) {
+        this._addMetaTag(doc, okay[i][0], okay[i][1], okay[i][2]);
+    };
+};
+
+SilvaPropertyTool.prototype._addMetaTag = function(doc, name, scheme, value, parentvalue) {
+    var head = doc.getElementsByTagName('head')[0];
+    if (!head) {
+        throw('The editable document *must* have a <head> element!');
+    };
+    // first find and delete the old one
+    // XXX if only we'd have XPath...
+    var metas = doc.getElementsByTagName('meta');
+    for (var i=0; i < metas.length; i++) {
+        var meta = metas[i];
+        if (meta.getAttribute('name') == name && 
+                meta.getAttribute('scheme') == scheme) {
+            meta.parentNode.removeChild(meta);
+        };
+    };
+    var tag = doc.createElement('meta');
+    tag.setAttribute('name', name);
+    tag.setAttribute('scheme', scheme);
+    tag.setAttribute('content', value);
+
+    head.appendChild(tag);
+};
+
