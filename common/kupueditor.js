@@ -344,6 +344,20 @@ function KupuEditor(document, config, logger) {
         return false;
     };
 
+    this.removeNearestParentOfType = function(node, type) {
+        var nearest = this.getNearestParentOfType(node, type);
+	if (!nearest) {
+	    return false;
+	};
+	var parent = nearest.parentNode;
+	while (nearest.childNodes.length) {
+	    var child = nearest.firstChild;
+	    child = nearest.removeChild(child);
+	    parent.insertBefore(child, nearest);
+	};
+	parent.removeChild(nearest);
+    };
+
     this.getDocument = function() {
         /* returns a reference to the document object that wraps the iframe */
         return this.document;
