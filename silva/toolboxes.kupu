@@ -401,12 +401,6 @@
     <div class="kupu-toolbox" id="kupu-toolbox-cleanupexpressions">
       <h1 i18n:translate="">cleanup</h1>
       <div class="kupu-tooltray">
-        <div class="kupu-toolbox-label">
-          <span i18n:translate="">
-            select a cleanup action:
-          </span>
-        </div>
-
         <select id="kupucleanupexpressionselect" class="kupu-toolbox-st">
         </select>
         <input class="button" type="button" id="kupucleanupexpressionbutton"
