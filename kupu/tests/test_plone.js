@@ -34,20 +34,10 @@ function KupuPloneTestCase() {
     }
 
     this.setUp = function() {
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
         this.editor = new KupuEditor(null, {}, null);
-        this.doc = document.getElementById('iframe').contentWindow.document;
-        var head = this.doc.createElement('head');
-        var title = this.doc.createElement('title');
-        var titletext = this.doc.createTextNode('test');this
-        this.body = this.doc.createElement('body');
-
-        title.appendChild(titletext);
-        head.appendChild(title);
-        var html = this.doc.documentElement;
-        while (html.childNodes.length > 0)
-            html.removeChild(html.childNodes[0]);
-        html.appendChild(head);
-        html.appendChild(this.body);
     };
 
     this.testRelativeLinks1 = function() {
@@ -75,6 +65,9 @@ function KupuPloneTestCase() {
         this.verifyResult(actual, expected);
     }
 
+    this.tearDown = function() {
+        this.body.innerHTML = '';
+    };
 }
 
 KupuPloneTestCase.prototype = new TestCase;
