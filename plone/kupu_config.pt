@@ -64,7 +64,7 @@ renamed or moved elsewhere on the site.</div>
     name="installBeforeUnload:int"
     id = "kupu_installBeforeUnload"
     value="1"
-    tal:attributes="checked here/installBeforeUnload" />
+    tal:attributes="checked here/installBeforeUnload|python:1" />
 <label for="kupu_installBeforeUnload">Install Kupu code to detect form changes</label>
 
 <div class="formHelp">Kupu can install a handler to warn before navigating
