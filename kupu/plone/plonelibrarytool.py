@@ -115,7 +115,15 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         except AttributeError:
             self.html_exclusions = _excluded_html
             return self.html_exclusions
-            
+
+    security.declareProtected('View', "getStyleWhitelist")
+    def getStyleWhitelist(self):
+        return getattr(self, 'style_whitelist', [])
+
+    security.declareProtected('View', "getClassBlacklist")
+    def getClassBlacklist(self):
+        return getattr(self, 'class_blacklist', [])
+
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (
          dict(label='Config', action='kupu_config'),
@@ -207,7 +215,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
-    def configure_kupu(self, linkbyuid, table_classnames, html_exclusions, REQUEST=None):
+    def configure_kupu(self,
+        linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
+        REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
@@ -224,6 +234,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
         self.html_exclusions = html_exclusions
 
+        self.style_whitelist = list(style_whitelist)
+        self.class_blacklist = list(class_blacklist)
+        
         REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
 InitializeClass(PloneKupuLibraryTool)
