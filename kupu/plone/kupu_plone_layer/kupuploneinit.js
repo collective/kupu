@@ -13,20 +13,11 @@
 function initPloneKupu(iframe, fieldname) {
     var l = new DummyLogger();
 
-    var iframehead = iframe.contentWindow.document.getElementsByTagName('head')[0];
-    var styles = Array('kupuplone.css', 'plone.css', 'ploneCustom.css');
-    for (var i = 0; i < styles.length; i++) {
-        var link = iframe.contentWindow.document.createElement('link');
-        link.href = styles[i];
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        iframehead.appendChild(link);
-    };
-
     // XXX this should be fixed in stylesheets, but I don't know how to do 
     // that without applying this change to the outter document. Damn iframes.
     var ibody = iframe.contentWindow.document.getElementsByTagName("body")[0];
     ibody.style.margin = "12px";
+    ibody.className = "kupu"; // This is set in emptypage but gets lost for some reason.
 
     ibody.innerHTML = document.getElementById(fieldname).value;
                 
