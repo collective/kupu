@@ -43,6 +43,6 @@ ploneCustom.css and use the kupu class to distinguish them. e.g.
    doesn't seem to work (Mozilla doesn't seem to apply CSS defined for
    an id when generating HTML using XSLT).
 */
-.kupu-linkdrawer-target-row {
+.kupu-linkdrawer-target-row, .kupu-linkdrawer-name-row {
   display: none
 }
