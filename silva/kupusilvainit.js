@@ -142,7 +142,8 @@ function initSilvaKupu(iframe) {
     var linktool = new SilvaLinkTool();
     kupu.registerTool('linktool', linktool);
     var linktoolbox = new SilvaLinkToolBox(
-        "kupu-link-input", "kupu-link-addbutton", 'kupu-link-updatebutton',
+        "kupu-link-input", 'kupu-linktarget-select', 'kupu-linktarget-input',
+        "kupu-link-addbutton", 'kupu-link-updatebutton',
 	'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox',
 	'kupu-toolbox-active');
     linktool.registerToolBox("linktoolbox", linktoolbox);

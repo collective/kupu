@@ -23,7 +23,14 @@
 
         <form name="kupu_link_form" onsubmit="return false;">
           <input type="button" class="transport" style="margin-bottom:0.2em;" onclick="getLink(); return false;" value="get link reference..." />
-          <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" />
+          <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" /><br />
+          &#160;link target 
+          <select id="kupu-linktarget-select">
+            <option value="_self">Same window</option>
+            <option value="_blank">New window</option>
+            <option value="input">Custom target</option>
+          </select><br />
+          <input class="store" type="text" id="kupu-linktarget-input" name="kupu_link_target" style="margin-left: 0.2em; width: 96%" />
           <input type="button" class="button" value="add link" id="kupu-link-addbutton" />
           <input type="button" class="button" value="update link" id="kupu-link-updatebutton" />
           <input type="button" class="warning" value="remove" id="kupu-link-delbutton" />

@@ -28,62 +28,108 @@ function SilvaLinkTool() {
 
 SilvaLinkTool.prototype = new LinkTool;
 
-function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
+function SilvaLinkToolBox(inputid, targetselectid, targetinputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
     this.input = document.getElementById(inputid);
+    this.targetselect = document.getElementById(targetselectid);
+    this.targetinput = document.getElementById(targetinputid);
     this.addbutton = document.getElementById(addbuttonid);
     this.updatebutton = document.getElementById(updatebuttonid);
     this.delbutton = document.getElementById(delbuttonid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
-    
-    this.initialize = function(tool, editor) {
-        this.tool = tool;
-        this.editor = editor;
-        addEventHandler(this.addbutton, 'click', this.createLinkHandler, this);
-        addEventHandler(this.updatebutton, 'click', this.createLinkHandler, this);
-        addEventHandler(this.delbutton, 'click', this.tool.deleteLink, this);
-        this.editor.logMessage('Link tool initialized');
-    };
-
-    this.createLinkHandler = function(event) {
-        var url = this.input.value;
-        this.tool.createLink(url);
-    };
-    
-    this.updateState = function(selNode, event) {
-        var currnode = selNode;
-        var link = false;
-        var href = '';
-        while (currnode) {
-            if (currnode.nodeName.toLowerCase() == 'a') {
-                href = currnode.getAttribute('href');
-                if (href) {
-                    if (this.toolboxel) {
-                        this.toolboxel.className = this.activeclass;
-                    };
-                    this.input.value = href;
-                    this.addbutton.style.display = 'none';
-                    this.updatebutton.style.display = 'inline';
-                    this.delbutton.style.display = 'inline';
-                    return;
-                };
-            };
-            currnode = currnode.parentNode;
-        };
-        this.updatebutton.style.display = 'none';
-        this.delbutton.style.display = 'none';
-        this.addbutton.style.display = 'inline';
-        if (this.toolboxel) {
-            this.toolboxel.className = this.plainclass;
-        };
-        this.input.value = '';
-    };
 };
 
 SilvaLinkToolBox.prototype = new LinkToolBox;
+
+SilvaLinkToolBox.prototype.initialize = function(tool, editor) {
+    this.tool = tool;
+    this.editor = editor;
+    addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.targetinput, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.addbutton, 'click', this.createLinkHandler, this);
+    addEventHandler(this.updatebutton, 'click', this.createLinkHandler, this);
+    addEventHandler(this.delbutton, 'click', this.tool.deleteLink, this);
+    this.targetinput.style.display = 'none';
+    this.editor.logMessage('Link tool initialized');
+};
+
+SilvaLinkToolBox.prototype.selectTargetHandler = function(event) {
+    var select = this.targetselect;
+    var input = this.targetinput;
+
+    var selvalue = select.options[select.selectedIndex].value;
+    if (selvalue != 'input') {
+        input.style.display = 'none';
+    } else {
+        input.style.display = 'inline';
+    };
+};
+
+SilvaLinkToolBox.prototype.createLinkHandler = function(event) {
+    var url = this.input.value;
+    var target = this.targetselect.options[this.targetselect.selectedIndex].value;
+    if (target == 'input') {
+        target = this.targetinput.value;
+    };
+    this.tool.createLink(url, 'link', null, target);
+};
+
+SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
+    var currnode = selNode;
+    var link = false;
+    var href = '';
+    while (currnode) {
+        if (currnode.nodeName.toLowerCase() == 'a') {
+            href = currnode.getAttribute('href');
+            if (href) {
+                if (this.toolboxel) {
+                    this.toolboxel.className = this.activeclass;
+                };
+                this.input.value = href;
+                var target = currnode.getAttribute('target');
+                if (!target) {
+                    this.targetselect.selectedIndex = 0;
+                    this.targetinput.style.display = 'none';
+                } else {
+                    var target_found = false;
+                    for (var i=0; i < this.targetselect.options.length; i++) {
+                        var option = this.targetselect.options[i];
+                        if (option.value == target) {
+                            this.targetselect.selectedIndex = i;
+                            target_found = true;
+                            break;
+                        };
+                    };
+                    if (target_found) {
+                        this.targetinput.value = '';
+                        this.targetinput.style.display = 'none';
+                    } else {
+                        this.targetinput.value = target;
+                        this.targetinput.style.display = 'inline';
+                    };
+                };
+                this.addbutton.style.display = 'none';
+                this.updatebutton.style.display = 'inline';
+                this.delbutton.style.display = 'inline';
+                return;
+            };
+        };
+        currnode = currnode.parentNode;
+    };
+    this.targetselect.selectedIndex = 0;
+    this.targetinput.value = '';
+    this.targetinput.style.display = 'none';
+    this.updatebutton.style.display = 'none';
+    this.delbutton.style.display = 'none';
+    this.addbutton.style.display = 'inline';
+    if (this.toolboxel) {
+        this.toolboxel.className = this.plainclass;
+    };
+    this.input.value = '';
+};
 
 function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
                         alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
