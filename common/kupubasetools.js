@@ -672,6 +672,7 @@ function ImageTool() {
         img.setAttribute('src', url);
         img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage('Image inserted');
+        this.editor.updateState();
         return img;
     };
     
