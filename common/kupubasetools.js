@@ -512,7 +512,7 @@ function LinkTool() {
     };
     
     // the order of the arguments is a bit odd here because of backward compatibility
-    this.createLink = function(url, type, name, target) {
+    this.createLink = function(url, type, name, target, title) {
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'A');
         if (!linkel) {
@@ -524,13 +524,17 @@ function LinkTool() {
                 linkel = currnode.nextSibling;
             };
             if (!linkel) {
-                this.editor.logMessage('No text selected');
-                return;
+                // Insert link with no text selected, insert the title
+                // or URI instead.
+                var doc = this.editor.getInnerDocument();
+                linkel = doc.createElement("a");
+                linkel.setAttribute('href', url);
+                linkel.appendChild(doc.createTextNode(title?title:url));
+                currnode.appendChild(linkel);
             };
         } else {
             linkel.setAttribute('href', url);
         }
-
         if (type && type == 'anchor') {
             linkel.removeAttribute('href');
             linkel.setAttribute('name', name);

@@ -235,7 +235,7 @@ Tool implementations (depending on the complexity of the tool a tool either
 
     LinkTool - add and edit hyperlinks
 
-        createLink(url, type, name, target)
+        createLink(url, type, name, target, title)
             - create a link around the current selection
 
         deleteLink()

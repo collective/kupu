@@ -130,13 +130,7 @@ function LinkDrawer(elementid, tool) {
         /* add or modify a link */
         var input = document.getElementById('kupu-linkdrawer-input');
         var url = input.value;
-        var currnode = this.editor.getSelectedNode();
-        var linkel = this.editor.getNearestParentOfType(currnode, 'a');
-        if (linkel) {
-            linkel.setAttribute('href', url);
-        } else {
-            this.tool.createLink(url);
-        };
+        this.tool.createLink(url);
 	input.value = '';
 
 	// XXX when reediting a link, the drawer does not close for
@@ -485,7 +479,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // Unlike with libraries, we don't have to find a node to hook
         // our results into (UNLESS we've hit the reload button, but
         // that is handled in _libraryContentCallback anyway).
-
         // We need to give the newly retrieved data a unique ID, we
         // just use the time.
         date = new Date();
@@ -756,13 +749,16 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         uri = uri.strip();  // needs kupuhelpers.js
+        var title = '';
+        title = selnode.selectSingleNode('title/text()').nodeValue;
+        title = title.strip();
 
         // XXX requiring the user to know what link type to enter is a
         // little too much I think. (philiKON)
         var type = null;
         var name = document.getElementById('link_name').value;
         var target = document.getElementById('link_target').value;
-        this.tool.createLink(uri, type, name, target);
+        this.tool.createLink(uri, type, name, target, title);
     };
 };
 
