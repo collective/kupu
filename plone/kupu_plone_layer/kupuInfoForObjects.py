@@ -11,6 +11,10 @@ from Products.CMFCore.utils import getToolByName
 import AccessControl
 from AccessControl import Unauthorized
 
+request = context.REQUEST
+response = request.RESPONSE
+response.setHeader('Cache-Control', 'no-cache')
+
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 linkbyuid = kupu_tool.getLinkbyuid()

@@ -7,6 +7,11 @@
 ##bind subpath=traverse_subpath
 ##parameters=values
 from Products.CMFCore.utils import getToolByName
+
+request = context.REQUEST
+response = request.RESPONSE
+response.setHeader('Cache-Control', 'no-cache')
+
 types_tool = getToolByName(context, 'portal_types')
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 linkbyuid = kupu_tool.getLinkbyuid()
@@ -18,7 +23,6 @@ preview_action = 'kupupreview'
 # The absolute to relative conversion when the document is saved
 # should strip the url right back down to resolveuid/whatever.
 base = context.absolute_url()
-
 
 def info(brain):
     # It would be nice to do everything from the brain, but
