@@ -35,3 +35,37 @@ function switchSourceEdit() {
         kupu._initialized = true;
     };
 };
+
+
+function cleanupSource() {
+    /* Called from toolbar button, convert vomit to filtered XHTML */
+
+    var editorframe = document.getElementById('kupu-editor');
+    var sourcearea = document.getElementById('kupu-editor-textarea');
+    var kupudocroot = kupu.getInnerDocument().documentElement;
+
+    /* Build up the blacklist of things to remove */
+    var blacklist = "";
+    blacklist += "//*[substring-before(name(),':')]"; // Foreign namespaces
+    blacklist += "|//comment()"; // Comment nodes
+    blacklist += "|//@class[.='MsoNormal']"; // Bogus formatting classes
+
+    /* Convert ugly HTML to XHTML and remove some offending elements */
+    var xhtmldoc = Sarissa.getDomDocument();  // XXX Refactor filterContent
+    var transform = kupu._filterContent(kupudocroot).selectSingleNode("body");
+    xhtmldoc.loadXML(transform.xml); // XXX Double-parsing is dumb!!
+    var rejected = xhtmldoc.selectNodes(blacklist);
+    alert("rejected: " + rejected.length);
+    for (i=0; i < rejected.length; i++) {
+        rejected[i].parentNode.removeChild(rejected[i]);
+    }
+
+
+    /* Grab body contents and shove into editor */
+    var contents = xhtmldoc.xml.replace(/<\/?body[^>]*>/g, "");
+    kupudocroot.getElementsByTagName('body')[0].innerHTML = contents;
+
+    alert(kupudocroot.getElementsByTagName('body')[0].innerHTML);
+    return;
+
+}

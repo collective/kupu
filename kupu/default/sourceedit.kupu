@@ -24,6 +24,12 @@ triggers the switchSourceEdit() function.
               title="Edit source"
               i18n:attributes="title"
               onclick="switchSourceEdit()">&#160;</button>
+      <button type="button"
+              class="kupu-cleanup"
+              id="kupu-cleanup-button"
+              title="Cleanup source"
+              i18n:attributes="title"
+              onclick="cleanupSource()"></button>
     </span>
   </kupu:part>
 
