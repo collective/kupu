@@ -2,6 +2,15 @@
 Image and Link Libraries in Kupu
 ================================
 
+Abstract
+--------
+
+This document describes the Library feature of the Kupu WYSIWYG
+editor. It defines the behaviour on both the client and the server and
+serves as a specification for the XML protocol that is used for their
+interaction.
+
+
 Motivation
 ----------
 
