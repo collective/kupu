@@ -32,8 +32,7 @@
           window.kupu = initPloneKupu(document.getElementById('kupu-editor'), 'kupu-editor-textarea');
           window.kupuui = window.kupu.getTool('ui');
           window.drawertool = window.kupu.getTool('drawertool');
-          window.kupu.initialize();}  , document);">
-    </script>
+          window.kupu.initialize();}  , document);"></script>
   </kupu:part>
 
   <kupu:part name="textarea">
