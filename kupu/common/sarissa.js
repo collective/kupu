@@ -590,7 +590,7 @@ else if (_SARISSA_IS_IE)
 			}
 		}
 		if (!bFound)
-			throw "Could not retreive a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
+			throw "Could not retrieve a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
 		idList = null;
 		return o2Store;
         };

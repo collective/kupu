@@ -34,7 +34,16 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
                 kupudoc.designMode = 'Off';
             };
             kupu._initialized = false;
-            var data = kupu.getInnerDocument().documentElement.getElementsByTagName('body')[0].innerHTML;
+
+            if(kupu.config.filtersourceedit) {
+                window.status = 'Cleaning up HTML...';
+                var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
+                var data = transform.getElementsByTagName('body')[0].xml;
+                data = kupu._fixupSingletons(data).replace(/<\/?body[^>]*>/g, "");
+                window.status = '';
+            } else {
+                var data = kupu.getInnerDocument().documentElement.getElementsByTagName('body')[0].innerHTML;
+            }
             sourcearea.value = data;
             editorframe.style.display = 'none';
             sourcearea.style.display = 'block';
