@@ -2,11 +2,17 @@
 Kupu changes
 ============
 
-- Since 1.2rc1
+- 1.2rc2
 
+  - Fixed getSelectedNode, this should now behave correctly even in edge 
+    situations and when there's no selection.
+  - Added support for linking to folderish content with the link drawer.
+  - Fixed JS error when clicking on a Control selection.
+  - Changed Plone table style to use 3d borders.
+  - Added Silva support for 1.2, including some new Silva-specific tools.
+  - Zoom button is now available in the default template.
   - Creating links was broken by the fixes to #146, rewrote link
     creation to be more robust and predictable.
-
   - Changed 'halign' as the attribute to set the alignment of tables
     and tablecells to 'align'.
 
@@ -28,7 +34,8 @@ Kupu changes
   - 153: Exit from bulleted list: next paragraph becomes a list item
   - 152: Install.py does not work with CMF
   - 151: This function requires better XML support in your browser
-  - 150: Javscript error in IE when viewing empty html source and style select changed
+  - 150: Javscript error in IE when viewing empty html source and style select 
+    changed
   - 149: When using Zoom on Plone site, the right portlets are not disabled
   - 146: kupu 1.2b tagName is null or not an object javascript error in IE
   - 143: Invalid request error when trying to edit raw HTML using Safari
