@@ -13,5 +13,6 @@
   <xi:include href="silva/include.kupu" />
   <xi:include href="plone/include.kupu" />
   <xi:include href="apache-lenya/kupu/include.kupu" />
+  <xi:include href="cnf/include.kupu" />
 
 </kupu:include>

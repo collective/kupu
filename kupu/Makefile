@@ -29,6 +29,9 @@ kupuform.html:
 kupumulti.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupumulti.html $(XSL_FILE) dist-multi.kupu
 
+kupucnf.html:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupucnf.html $(XSL_FILE) dist-cnf.kupu
+
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o plone/kupu_plone_layer/wysiwyg_support.html $(XSL_FILE) dist-plone.kupu
 
