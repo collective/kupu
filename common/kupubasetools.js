@@ -1388,3 +1388,313 @@ function ViewSourceTool() {
 };
 
 ViewSourceTool.prototype = new KupuTool;
+
+function DefinitionListTool(dlbuttonid) {
+    /* a tool for managing definition lists
+
+        the dl elements should behave much like plain lists, and the keypress
+        behaviour should be similar
+    */
+
+    this.dlbutton = document.getElementById(dlbuttonid);
+    
+    this.initialize = function(editor) {
+        /* initialize the tool */
+        this.editor = editor;
+        addEventHandler(this.dlbutton, 'click', this.createDefinitionList, this);
+        addEventHandler(editor.getInnerDocument(), 'keyup', this._keyDownHandler, this);
+        addEventHandler(editor.getInnerDocument(), 'keypress', this._keyPressHandler, this);
+    };
+
+    // even though the following methods may seem view related, they belong 
+    // here, since they describe core functionality rather then view-specific
+    // stuff
+    this.handleEnterPress = function(selNode) {
+        var dl = this.editor.getNearestParentOfType(selNode, 'dl');
+        if (dl) {
+            var dt = this.editor.getNearestParentOfType(selNode, 'dt');
+            if (dt) {
+                if (dt.childNodes.length == 1 && dt.childNodes[0].nodeValue == '\xa0') {
+                    this.escapeFromDefinitionList(dl, dt, selNode);
+                    return;
+                };
+
+                var selection = this.editor.getSelection();
+                var startoffset = selection.startOffset();
+                var endoffset = selection.endOffset(); 
+                if (endoffset > startoffset) {
+                    // throw away any selected stuff
+                    selection.cutChunk(startoffset, endoffset);
+                    selection = this.editor.getSelection();
+                    startoffset = selection.startOffset();
+                };
+                
+                var ellength = selection.getElementLength(selection.parentElement());
+                if (startoffset >= ellength - 1) {
+                    // create a new element
+                    this.createDefinition(dl, dt);
+                } else {
+                    var doc = this.editor.getInnerDocument();
+                    var newdt = selection.splitNodeAtSelection(dt);
+                    var newdd = doc.createElement('dd');
+                    while (newdt.hasChildNodes()) {
+                        if (newdt.firstChild != newdt.lastChild || newdt.firstChild.nodeName.toLowerCase() != 'br') {
+                            newdd.appendChild(newdt.firstChild);
+                        };
+                    };
+                    newdt.parentNode.replaceChild(newdd, newdt);
+                    selection.selectNodeContents(newdd);
+                    selection.collapse();
+                };
+            } else {
+                var dd = this.editor.getNearestParentOfType(selNode, 'dd');
+                if (!dd) {
+                    this.editor.logMessage('Not inside a definition list element!');
+                    return;
+                };
+                if (dd.childNodes.length == 1 && dd.childNodes[0].nodeValue == '\xa0') {
+                    this.escapeFromDefinitionList(dl, dd, selNode);
+                    return;
+                };
+                var selection = this.editor.getSelection();
+                var startoffset = selection.startOffset();
+                var endoffset = selection.endOffset();
+                if (endoffset > startoffset) {
+                    // throw away any selected stuff
+                    selection.cutChunk(startoffset, endoffset);
+                    selection = this.editor.getSelection();
+                    startoffset = selection.startOffset();
+                };
+                var ellength = selection.getElementLength(selection.parentElement());
+                if (startoffset >= ellength - 1) {
+                    // create a new element
+                    this.createDefinitionTerm(dl, dd);
+                } else {
+                    // add a break and continue in this element
+                    var br = this.editor.getInnerDocument().createElement('br');
+                    this.editor.insertNodeAtSelection(br, 1);
+                    //var selection = this.editor.getSelection();
+                    //selection.moveStart(1);
+                    selection.collapse(true);
+                };
+            };
+        };
+    };
+
+    this.handleTabPress = function(selNode) {
+    };
+
+    this._keyDownHandler = function(event) {
+        var selNode = this.editor.getSelectedNode();
+        var dl = this.editor.getNearestParentOfType(selNode, 'dl');
+        if (!dl) {
+            return;
+        };
+        switch (event.keyCode) {
+            case 13:
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                };
+                break;
+        };
+    };
+
+    this._keyPressHandler = function(event) {
+        var selNode = this.editor.getSelectedNode();
+        var dl = this.editor.getNearestParentOfType(selNode, 'dl');
+        if (!dl) {
+            return;
+        };
+        switch (event.keyCode) {
+            case 13:
+                this.handleEnterPress(selNode);
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                };
+                break;
+            case 9:
+                if (event.preventDefault) {
+                    event.preventDefault();
+                } else {
+                    event.returnValue = false;
+                };
+                this.handleTabPress(selNode);
+        };
+    };
+
+    this.createDefinitionList = function() {
+        /* create a new definition list (dl) */
+        var selection = this.editor.getSelection();
+        var doc = this.editor.getInnerDocument();
+
+        var selection = this.editor.getSelection();
+        var cloned = selection.cloneContents();
+        // first get the 'first line' (until the first break) and use it
+        // as the dt's content
+        var iterator = new NodeIterator(cloned);
+        var currnode = null;
+        var remove = false;
+        while (currnode = iterator.next()) {
+            if (currnode.nodeName.toLowerCase() == 'br') {
+                remove = true;
+            };
+            if (remove) {
+                var next = currnode;
+                while (!next.nextSibling) {
+                    next = next.parentNode;
+                };
+                next = next.nextSibling;
+                iterator.setCurrent(next);
+                currnode.parentNode.removeChild(currnode);
+            };
+        };
+
+        var dtcontentcontainer = cloned;
+        var collapsetoend = false;
+        
+        var dl = doc.createElement('dl');
+        this.editor.insertNodeAtSelection(dl);
+        var dt = this.createDefinitionTerm(dl);
+        if (dtcontentcontainer.hasChildNodes()) {
+            collapsetoend = true;
+            while (dt.hasChildNodes()) {
+                dt.removeChild(dt.firstChild);
+            };
+            while (dtcontentcontainer.hasChildNodes()) {
+                dt.appendChild(dtcontentcontainer.firstChild);
+            };
+        };
+
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(dt);
+        selection.collapse(collapsetoend);
+    };
+
+    this.createDefinitionTerm = function(dl, dd) {
+        /* create a new definition term inside the current dl */
+        var doc = this.editor.getInnerDocument();
+        var dt = doc.createElement('dt');
+        // somehow Mozilla seems to add breaks to all elements...
+        if (dd) {
+            if (dd.lastChild.nodeName.toLowerCase() == 'br') {
+                dd.removeChild(dd.lastChild);
+            };
+        };
+        // dd may be null here, if so we assume this is the first element in 
+        // the dl
+        if (!dd || dl == dd.lastChild) {
+            dl.appendChild(dt);
+        } else {
+            var nextsibling = dd.nextSibling;
+            if (nextsibling) {
+                dl.insertBefore(dt, nextsibling);
+            } else {
+                dl.appendChild(dt);
+            };
+        };
+        var nbsp = doc.createTextNode('\xa0');
+        dt.appendChild(nbsp);
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(dt);
+        selection.collapse();
+        this.editor.getDocument().getWindow().focus();
+
+        return dt;
+    };
+
+    this.createDefinition = function(dl, dt, initial_content) {
+        var doc = this.editor.getInnerDocument();
+        var dd = doc.createElement('dd');
+        var nextsibling = dt.nextSibling;
+        // somehow Mozilla seems to add breaks to all elements...
+        if (dt) {
+            if (dt.lastChild.nodeName.toLowerCase() == 'br') {
+                dt.removeChild(dt.lastChild);
+            };
+        };
+        while (nextsibling) {
+            var name = nextsibling.nodeName.toLowerCase();
+            if (name == 'dd' || name == 'dt') {
+                break;
+            } else {
+                nextsibling = nextsibling.nextSibling;
+            };
+        };
+        if (nextsibling) {
+            dl.insertBefore(dd, nextsibling);
+            //this._fixStructure(doc, dl, nextsibling);
+        } else {
+            dl.appendChild(dd);
+        };
+        if (initial_content) {
+            for (var i=0; i < initial_content.length; i++) {
+                dd.appendChild(initial_content[i]);
+            };
+        };
+        var nbsp = doc.createTextNode('\xa0');
+        dd.appendChild(nbsp);
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(dd);
+        selection.collapse();
+    };
+
+    this.escapeFromDefinitionList = function(dl, currel, selNode) {
+        var doc = this.editor.getInnerDocument();
+        var p = doc.createElement('p');
+        var nbsp = doc.createTextNode('\xa0');
+        p.appendChild(nbsp);
+
+        if (dl.lastChild == currel) {
+            dl.parentNode.insertBefore(p, dl.nextSibling);
+        } else {
+            for (var i=0; i < dl.childNodes.length; i++) {
+                var child = dl.childNodes[i];
+                if (child == currel) {
+                    var newdl = this.editor.getInnerDocument().createElement('dl');
+                    while (currel.nextSibling) {
+                        newdl.appendChild(currel.nextSibling);
+                    };
+                    dl.parentNode.insertBefore(newdl, dl.nextSibling);
+                    dl.parentNode.insertBefore(p, dl.nextSibling);
+                };
+            };
+        };
+        currel.parentNode.removeChild(currel);
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(p);
+        selection.collapse();
+        this.editor.getDocument().getWindow().focus();
+    };
+
+    this._fixStructure = function(doc, dl, offsetnode) {
+        /* makes sure the order of the elements is correct */
+        var currname = offsetnode.nodeName.toLowerCase();
+        var currnode = offsetnode.nextSibling;
+        while (currnode) {
+            if (currnode.nodeType == 1) {
+                var nodename = currnode.nodeName.toLowerCase();
+                if (currname == 'dt' && nodename == 'dt') {
+                    var dd = doc.createElement('dd');
+                    while (currnode.hasChildNodes()) {
+                        dd.appendChild(currnode.childNodes[0]);
+                    };
+                    currnode.parentNode.replaceChild(dd, currnode);
+                } else if (currname == 'dd' && nodename == 'dd') {
+                    var dt = doc.createElement('dt');
+                    while (currnode.hasChildNodes()) {
+                        dt.appendChild(currnode.childNodes[0]);
+                    };
+                    currnode.parentNode.replaceChild(dt, currnode);
+                };
+            };
+            currnode = currnode.nextSibling;
+        };
+    };
+};
+
+DefinitionListTool.prototype = new KupuTool;
+

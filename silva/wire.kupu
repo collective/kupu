@@ -56,7 +56,7 @@
     <!--kupu:insert-part feature="colorchooser" part="buttons" /-->
     <!--kupu:insert-part feature="toolbar" part="buttongroup-justify" /-->
     <kupu:insert-part feature="toolbar" part="buttongroup-list" />
-    <kupu:insert-part feature="definitions" part="buttons" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-definitionlist" />
     <!--kupu:insert-part feature="toolbar" part="buttongroup-indent" /-->
     <kupu:insert-part feature="drawers" part="buttons" />
     <!--kupu:insert-part feature="toolbar" part="buttongroup-remove" /-->
@@ -69,13 +69,12 @@
     <kupu:insert-part feature="toolboxes" part="links" />
     <kupu:insert-part feature="toolboxes" part="indexes" />
     <kupu:insert-part feature="toolboxes" part="images" />
-    <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="citation" />
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="toc" />
+    <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="typochars" />
-    <!-- needs to be there for the logger; is hidden by CSS -->
-    <kupu:insert-part feature="toolboxes" part="debug" />
+    <kupu:insert-part feature="toolboxes" part="save" />
   </kupu:fill-slot>
 
 </kupu:wire>

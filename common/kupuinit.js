@@ -145,6 +145,9 @@ function initKupu(iframe) {
                                 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
     
+    var definitionlisttool = new DefinitionListTool('kupu-list-dl-addbutton');
+    kupu.registerTool('definitionlisttool', definitionlisttool);
+    
     var proptool = new PropertyTool('kupu-properties-title', 'kupu-properties-description');
     kupu.registerTool('proptool', proptool);
 
