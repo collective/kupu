@@ -5,19 +5,24 @@ Installing Kupu in Plone2
 Requirements
 ------------
 
-  - Zope 2.7
+o Zope 2.7 and Python 2.3.3 or greater
 
-  - Plone 2.0
+o Plone 2.0 or greater
 
-  - CMF 1.4
+o CMF 1.4 or greater
 
-  - CMFQuickInstaller (comes w/ Plone 2.0)
+o An XSLT processor with XInclude support, such as xsltproc from
+  Gnome's libxml/libxslt.
 
 Installation
 ------------
 
-Drop the 'kupu' directory into your instance home's Products directory
-and restart the Zope instance. Now go to the Plone Control Panel,
+Drop the 'kupu' directory into your instance home's Products
+directory. Now generate the Plone template by typing:
+
+  $ make wysiwyg_support.html
+
+Then restart the Zope instance. Now go to the Plone Control Panel,
 section Add/remove Products and select 'kupu' for installation.
 
 Usually, every user has to explicitly set its preferred editor to
