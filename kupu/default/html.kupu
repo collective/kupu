@@ -4,7 +4,6 @@
     implementation="default"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
-  <!-- XXX kupu:fill-slot -->
   <kupu:part name="html">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
