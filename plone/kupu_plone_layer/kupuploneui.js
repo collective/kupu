@@ -193,8 +193,10 @@ function PloneKupuUI(textstyleselectid) {
             this._setClass(el, classname);
         } else {
             var selection = this.editor.getSelection();
-            for (el = selNode.firstChild; el; el=el.nextSibling) {
-                if (el.tagName==eltype && selection.containsNode(el)) {
+            var elements = selNode.getElementsByTagName(eltype);
+            for (var i = 0; i < elements.length; i++) {
+                el = elements[i];
+                if (selection.containsNode(el)) {
                     this._setClass(el, classname);
                 }
             }
