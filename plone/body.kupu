@@ -9,6 +9,7 @@
   <kupu:part name="editorframe">
     <iframe
         id="kupu-editor"
+	class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
         >

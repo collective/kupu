@@ -18,6 +18,7 @@ $Id$
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   version="1.0">
+      <xsl:variable name="titlelength" select="14"/>
 
   <xsl:template match="/">
     <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -83,7 +84,7 @@ $Id$
       <xsl:if test="icon">
         <img src="{icon}" title="{title}" alt="{title}" />
       </xsl:if>
-      <xsl:value-of select="title"/>
+      <xsl:apply-templates select="title"/>
     </div>
   </xsl:template>
 
@@ -108,11 +109,21 @@ $Id$
         <xsl:attribute name="style">background-color: #C0C0C0</xsl:attribute>
       </xsl:if>
       <xsl:if test="icon">
-        <img src="{icon}" title="{title}" alt="{title}" />
+        1<img src="{icon}" title="{title}" alt="{title}" />2
       </xsl:if>
-      <xsl:value-of select="title"/>
+      <xsl:apply-templates select="title"/>
     </div>
   </xsl:template>
+  
+    <xsl:template match="title">
+        <xsl:choose>
+            <xsl:when test="string-length() &gt; $titlelength">
+                <xsl:value-of select="substring(., 0, $titlelength)"/>...</xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="."/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
   <xsl:template match="resource|collection" mode="properties">
     <!-- Override this template for your custom library drawer -->
