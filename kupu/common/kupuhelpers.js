@@ -863,12 +863,6 @@ function IESelection(document) {
             node was placed, or some value that resolves to true to select
             the placed node
         */
-        // XXX one big hack!!
-        
-        // XXX this method hasn't been optimized *at all* but can probably 
-        // be made a hell of a lot faster, however for now it's complicated
-        // enough the way it is and I want to have it stable first
-        
         if (this.selection.type == 'Control') {
             var range = this.selection.createRange();
             range.item(0).parentNode.replaceChild(newnode, range.item(0));
@@ -881,99 +875,25 @@ function IESelection(document) {
                 range.select();
             };
         } else {
-            var selrange = this.selection.createRange();
-            var startpoint = selrange.duplicate();
-            startpoint.collapse();
-            var endpoint = selrange.duplicate();
-            endpoint.collapse(false);
-            var parent = selrange.parentElement();
-            if (parent.tagName=='IMG') parent=parent.parentElement;
+            var document = this.document.getDocument();
+            var range = this.selection.createRange();
 
-            var elrange = selrange.duplicate();
-            elrange.moveToElementText(parent);
-            
-            // now find the start parent and offset
-            var startoffset = this.startOffset();
-            var endoffset = this.endOffset();
-            
-            // copy parent to contain new nodes, don't copy its children (false arg)
-            var newparent = this.document.getDocument().createElement('span');
-            // also make a temp node to copy some temp nodes into later
-            var tempparent = newparent.cloneNode(false);
-
-            // this is awful, it is a hybrid DOM/copy'n'paste solution
-            // first it gets the chunk of data before the selection and
-            // pastes that (as a string) into the new parent, then it appendChilds
-            // the new node and then it pastes the stuff behind the selection 
-            // to a temp node (there's no string paste method to append) and
-            // copies the contents of that to the new node using appendChild...
-
-            // first the first bit, straightforward string pasting
-            var temprange = elrange.duplicate();
-            temprange.moveToElementText(parent);
-            temprange.collapse();
-            temprange.moveEnd('character', startoffset);
-            if (temprange.isEqual(elrange)) {
-                // cursor was on the last position in the parent
-                while (parent.hasChildNodes()) {
-                    newparent.appendChild(parent.firstChild);
-                };
-            } else {
-                // using htmlText here should fix markup problems (opening tags without closing ones etc.)
-                newparent.insertAdjacentHTML('afterBegin', temprange.htmlText);
-            };
-
-            // now some straightforward appendChilding the new node
-            newparent.appendChild(newnode);
-            
-            // getting the rest of the elements behind the selection can only be 
-            // done using htmlText (afaik) so we end up with a string, which we
-            // can not just use to attach to the new node (innerHTML would 
-            // overwrite the content) so we use set it as the innerHTML of the 
-            // temp node and after that's done appendChild all the child elements
-            // of the temp node to the new parent
-            temprange.moveToElementText(parent);
-            temprange.collapse(false);
-            temprange.moveStart('character', -endoffset);
-            if (temprange.isEqual(elrange)) {
-                // cursor was on position 0 of the parent
-                while (parent.hasChildNodes()) {
-                    tempparent.appendChild(parent.firstChild);
-                };
-            } else if (endoffset > 0) {
-                tempparent.insertAdjacentHTML('afterBegin', temprange.htmlText);
-            };
-            while (tempparent.hasChildNodes()) {
-                newparent.appendChild(tempparent.firstChild);
-            };
-
-            // so now we have the result in newparent, replace the old parent in 
-            // the document and we're done
-            //parent.parentNode.replaceChild(newparent, parent);
-            while (parent.hasChildNodes()) {
-                parent.removeChild(parent.firstChild);
-            };
-            while (newparent.hasChildNodes()) {
-                var child = newparent.firstChild;
-                parent.appendChild(newparent.firstChild);
-            };
+            range.pasteHTML('<img id="kupu-tempnode">');
+            tempnode = document.getElementById('kupu-tempnode');
+            tempnode.replaceNode(newnode);
 
             if (selectAfterPlace) {
                 // see MozillaSelection.replaceWithNode() for some comments about
                 // selectAfterPlace
-                var temprange = this.document.getDocument().body.createTextRange();
-                if (selectAfterPlace.nodeType == 1) {
-                    temprange.moveToElementText(selectAfterPlace);
+                if (selectAfterPlace.nodeType == Node.ELEMENT_NODE) {
+                    range.moveToElementText(selectAfterPlace);
                 } else {
-                    temprange.moveToElementText(newnode);
+                    range.moveToElementText(newnode);
                 };
-                //temprange.moveEnd('character', -1);
-                temprange.select();
+                range.select();
             };
         };
-
-        this.selection = this.document.getDocument().selection;
-
+        this.reset();
         return newnode;
     };
 
