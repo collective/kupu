@@ -9,9 +9,9 @@
  *****************************************************************************/
 
 KupuEditor.prototype._getBase = function(dom) {
-    var base = dom.getelementsByTagName('base');
+    var base = dom.getElementsByTagName('base');
     if (base.length) {
-        return base[0].href;
+        return base[0].getAttribute('href');
     } else {
         return '';
     }
@@ -80,7 +80,7 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
     // We need to get the contents of the body node as xml, but we don't
     // want the body node itself, so we use a regex to remove it
     contents = transform.getElementsByTagName("body")[0].xml;
-    var base = this._getBase(transform)
+    var base = this._getBase(transform);
     contents = this._fixupSingletons(contents);
     contents = this.makeLinksRelative(contents, base).replace(/<\/?body[^>]*>/g, "");
     this.logMessage("Cleanup done, sending document to server");
