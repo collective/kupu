@@ -75,13 +75,17 @@ Some notes about the scripts:
 function addEventHandler(element, event, method, context) {
     /* method to add an event handler for both IE and Mozilla */
     var wrappedmethod = new ContextFixer(method, context);
-    if (_SARISSA_IS_MOZ) {
-        element.addEventListener(event, wrappedmethod.execute, false);
-    } else if (_SARISSA_IS_IE) {
-        element.attachEvent("on" + event, wrappedmethod.execute);
-    } else {
-        throw "Unsupported browser!";
-    }
+    try {
+        if (_SARISSA_IS_MOZ) {
+            element.addEventListener(event, wrappedmethod.execute, false);
+        } else if (_SARISSA_IS_IE) {
+            element.attachEvent("on" + event, wrappedmethod.execute);
+        } else {
+            throw "Unsupported browser!";
+        }
+    } catch(e) {
+        alert('exception ' + e.message + ' while registering an event handler for element ' + element + ', event ' + event + ', method ' + method);
+    };
 };
 
 function removeEventHandler(element, event, method) {
