@@ -26,7 +26,8 @@ function SelectionTestCase() {
         };
     };
 
-    var visibleEmptyElements = {'IMG': 1, 'BR': 1, 'HR': 1};
+    var visibleEmptyElements = new Array('IMG', 'BR', 'HR');
+    var blockElements = new Array('P', 'DIV');
 
     this.setUp = function() {
         var iframe = document.getElementById('iframe');
@@ -48,7 +49,7 @@ function SelectionTestCase() {
                 };
                 offset -= node.length;
             } else if (node.nodeType == node.ELEMENT_NODE) {
-                if (node.tagName.toUpperCase() in visibleEmptyElements) {
+                if (visibleEmptyElements.contains(node.tagName.toUpperCase())) {
                     if (offset > 0 && !node.nextSibling) {
                         offset -= 1;
                         i += 1;
@@ -66,6 +67,9 @@ function SelectionTestCase() {
                 };
             };
             node = node.nextSibling;
+        };
+        if (blockElements.contains(element.tagName.toUpperCase())) {
+            offset -= 1;
         };
         return [node, offset];
     };
@@ -252,7 +256,7 @@ function KupuSelectionTestCase() {
     this.testParentElement_r9516 = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/></p><p>baz</p>';
         // select                              |<img/></p><p>baz|
-        this._setSelection(7, true, 12, false, 'baz');
+        this._setSelection(7, true, 13, false, 'baz');
         node = this.doc.getElementsByTagName('body')[0];
         this.assertEquals(this.selection.parentElement(), node);
     };
