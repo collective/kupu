@@ -152,7 +152,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
          dict(label='Libraries', action='zmi_libraries'),
          dict(label='Resource types', action='zmi_resource_types'),
          dict(label='Documentation', action='zmi_docs'),
-         dict(label='Status', action='sanity_check'),
+         #dict(label='Status', action='sanity_check'),
          ))
 
 
