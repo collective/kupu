@@ -179,61 +179,6 @@ function initKupu(iframe) {
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
-    // Drawers...
-
-    // Function that returns function to open a drawer
-    var opendrawer = function(drawerid) {
-        return function(button, editor) {
-            drawertool.openDrawer(drawerid);
-        };
-    };
-
-    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button',
-                                              opendrawer('imagelibdrawer'));
-    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
-
-    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
-                                             opendrawer('linklibdrawer'));
-    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
-
-    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
-                                          opendrawer('linkdrawer'));
-    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
-
-    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
-                                           opendrawer('tabledrawer'));
-    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
-
-    // create some drawers, drawers are some sort of popups that appear when a 
-    // toolbar button is clicked
-    var drawertool = new DrawerTool();
-    kupu.registerTool('drawertool', drawertool);
-
-    try {
-        var linklibdrawer = new LinkLibraryDrawer(linktool, 
-                                                  conf['link_xsl_uri'],
-                                                  conf['link_libraries_uri'],
-                                                  conf['link_images_uri']);
-        drawertool.registerDrawer('linklibdrawer', linklibdrawer);
-
-        var imagelibdrawer = new ImageLibraryDrawer(imagetool, 
-                                                    conf['image_xsl_uri'],
-                                                    conf['image_libraries_uri'],
-                                                    conf['search_images_uri']);
-        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
-    } catch(e) {
-        alert('There was a problem initializing the drawers. Most likely the ' +
-                'XSLT or XML files aren\'t available. If this is not the ' +
-                'Kupu demo version, check your files or the service that ' +
-                'provide them (error: ' + (e.message || e.toString()) + ').');
-    };
-
-    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
-    drawertool.registerDrawer('linkdrawer', linkdrawer);
-
-    var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
-    drawertool.registerDrawer('tabledrawer', tabledrawer);
-
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
