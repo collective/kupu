@@ -79,7 +79,9 @@ $Id$
             <div>
                 <xsl:apply-templates select="icon"/>
             </div>
-            <xsl:apply-templates select="title"/>
+            <span class="drawer-item-title">
+                 <xsl:value-of select="title"/>
+            </span>
         </div>
     </xsl:template>
     <xsl:template match="items">
