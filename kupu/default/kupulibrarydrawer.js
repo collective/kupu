@@ -490,10 +490,6 @@ function ImageDrawer(tool, xsluri, libsuri, searchuri) {
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         uri = uri.strip();  // needs kupuhelpers.js
         var img = this.tool.createImage(uri);
-        if (img.nodeName.toLowerCase() != 'img') {
-            alert('Element before cursor is not an image');
-            throw "Not an image";
-        };
         var alt = document.getElementById('image_alt').value;
         img.setAttribute('alt', alt);
     };
