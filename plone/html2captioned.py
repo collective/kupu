@@ -38,7 +38,7 @@ ATTR_PATTERN = re.compile('''
      )*\>
     )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE)
 
-CLASS_PATTERN = re.compile('\s*class=("[^"]*"|[^ \/>]*)')
+CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
 IMAGE_TEMPLATE = '''\
 <div class="%(class)s">
  <div style="width:%(width)s">
