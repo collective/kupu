@@ -13,6 +13,13 @@ linkbyuid = kupu_tool.getLinkbyuid()
 coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 preview_action = 'kupupreview'
 
+# The redirecting url must be absolute otherwise it won't work for
+# preview when the page is using portal_factory
+# The absolute to relative conversion when the document is saved
+# should strip the url right back down to resolveuid/whatever.
+base = context.absolute_url()
+
+
 def info(brain):
     # It would be nice to do everything from the brain, but
     # unfortunately we need to get the object to calculate a UID
@@ -24,7 +31,7 @@ def info(brain):
     collection = portal_type in coll_types
 
     if linkbyuid and not collection and hasattr(obj, 'UID'):
-        url = 'resolveuid/%s' % obj.UID()
+        url = base+'/resolveuid/%s' % obj.UID()
     else:
         url = brain.getURL()
 
