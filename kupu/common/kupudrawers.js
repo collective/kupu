@@ -309,12 +309,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this.createContent = function() {
         // load the initial XML
         if(!this.xmldata) {
-	    /*
-            if (!this.xsltproc.template) {
-                alert("This function requires a newer browser version");
-                return;
-            }
-	    */
+	    // Do a meaningful test to see if this is IE5.5 or some other 
+	    // editor-enabled version whose XML support isn't good enough 
+	    // for the drawers
+	    if (!Sarissa.IS_ENABLED_XSLTPROC) {
+		alert("This function requires better XML support in your browser.");
+		return;
+	    }
             this.loadLibraries();
         } else {
             this.updateDisplay();
