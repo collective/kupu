@@ -1280,7 +1280,7 @@ function SilvaDefinitionListTool(dlbuttonid) {
                     this.createDefinitionTerm(dl, dd);
                 } else {
                     // add a break and continue in this element
-                    var br = dl.ownerDocument.createElement('br');
+                    var br = this.editor.getInnerDocument().createElement('br');
                     this.editor.insertNodeAtSelection(br, 1);
                     //var selection = this.editor.getSelection();
                     //selection.moveStart(1);
@@ -1463,7 +1463,7 @@ function SilvaDefinitionListTool(dlbuttonid) {
             for (var i=0; i < dl.childNodes.length; i++) {
                 var child = dl.childNodes[i];
                 if (child == currel) {
-                    var newdl = dl.ownerDocument.createElement('dl');
+                    var newdl = this.editor.getInnerDocument().createElement('dl');
                     while (currel.nextSibling) {
                         newdl.appendChild(currel.nextSibling);
                     };
