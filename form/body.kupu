@@ -15,12 +15,6 @@
     </body>
   </kupu:part>
 
-  <kupu:part name="fulleditor">
-    <div class="kupu-fulleditor">
-      <kupu:define-slot name="fulleditor" />
-    </div>
-  </kupu:part>
-
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
       <iframe id="kupu-editor"

@@ -17,4 +17,7 @@
     <kupu:implementation name="default" />
   </kupu:implementation-order>
 
+  <!-- Save on part makes little sense in a form context -->
+  <kupu:disable-feature name="saveonpart" />
+
 </kupu:dist>
