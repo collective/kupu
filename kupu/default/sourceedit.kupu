@@ -21,7 +21,7 @@ triggers the switchSourceEdit() function.
       <button type="button"
               class="kupu-source"
               id="kupu-source-button"
-              title="Edit source"
+              title="edit HTML code"
               i18n:attributes="title"
               >&#160;</button>
     </span>

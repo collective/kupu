@@ -18,13 +18,13 @@
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-image" id="kupu-imagelibdrawer-button"
-              title="Image drawer" i18n:attributes="title">&#160;</button>
+              title="image" i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-inthyperlink" id="kupu-linklibdrawer-button"
-              title="Link drawer" i18n:attributes="title">&#160;</button>
+              title="internal link" i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-exthyperlink" id="kupu-linkdrawer-button"
-              title="External link drawer" i18n:attributes="title">&#160;</button>
+              title="external link" i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-table" id="kupu-tabledrawer-button"
-              title="Table drawer"  i18n:attributes="title">&#160;</button>
+              title="table"  i18n:attributes="title">&#160;</button>
     </span>
   </kupu:part>
 
