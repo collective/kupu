@@ -13,7 +13,7 @@ requirements are one of:
 
   - Internet Explorer 5.5 or higher
 
-  - Netscape Navigator 7.0 or higher
+  - Netscape Navigator 7.1 or higher
 
 Server-side there are hardly any requirements, except for some way of
 processing data (CGI or something more fancy like PHP, ASP or Python
