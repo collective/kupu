@@ -13,7 +13,11 @@
         frameborder="0"
         src="emptypage"
         onfocus="this.contentWindow.focus();"
-        tal:attributes="src here/emptypage/absolute_url"
+        tal:define="
+                base here/absolute_url;
+                posfactory python:base.find('/portal_factory/');
+                base python:posfactory > 0 and base[:posfactory] or base;"
+        tal:attributes="src string:${base}/emptypage"
         >
     </iframe>
     <textarea cols="80" rows="25"

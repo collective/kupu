@@ -25,7 +25,7 @@
     <tal:var define="
         base here/absolute_url;
         posfactory python:base.find('/portal_factory/');
-        base python:posfactory > 0 and base[:posfactory+1] or base;
+        base python:posfactory > 0 and base[:posfactory] or base;
         lib_prefix    string:${base}/kupulibraries.xml?resource_type=;
         search_prefix string:${portal_url}/kupusearch.xml?resource_type=;"
         >

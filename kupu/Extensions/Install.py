@@ -122,7 +122,7 @@ def install_transform(self, out):
         ('text/x-html-captioned',), ('html-captioned',), 0)
     mimetypes_tool.register(newtype)
 
-    print "Add transform"
+    print >>out,"Add transform"
     transform_tool = getToolByName(self, 'portal_transforms')
     try:
         transform_tool.manage_delObjects(['html-to-captioned'])

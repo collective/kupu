@@ -4,7 +4,11 @@
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/kupuplone.css" />
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/plone.css" />
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/ploneCustom.css" />
-    <base href="emptypage" tal:attributes="href string:${here/absolute_url}/" />
+    <base href="emptypage" tal:define="
+        base here/absolute_url;
+        posfactory python:base.find('/portal_factory/');
+        base python:posfactory > 0 and base[:posfactory] or base;"
+        tal:attributes="href base" />
   </head>
   <body class="kupu">
    
