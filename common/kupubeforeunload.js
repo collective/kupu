@@ -3,7 +3,7 @@ if (!window.beforeunload) (function() {
     var BeforeUnloadHandler = function() {
         var self = this;
 
-        this.message = "Your form has not been saved. All changes you have made will be lost";
+        this.message = _("Your form has not been saved. All changes you have made will be lost");
         this.forms = [];
         this.chkId = [];
         this.chkType = new this.CheckType();

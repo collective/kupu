@@ -81,10 +81,14 @@ function addEventHandler(element, event, method, context) {
         } else if (_SARISSA_IS_IE) {
             element.attachEvent("on" + event, wrappedmethod.execute);
         } else {
-            throw "Unsupported browser!";
+            throw _("Unsupported browser!");
         };
     } catch(e) {
-        alert('exception ' + e.message + ' while registering an event handler for element ' + element + ', event ' + event + ', method ' + method);
+        alert(_('exception ${message} while registering an event handler ' +
+                'for element ${element}, event ${event}, method ${method}',
+                {'message': e.message,
+                    'event': event,
+                    'method': method}));
     };
 };
 
@@ -95,7 +99,7 @@ function removeEventHandler(element, event, method) {
     } else if (_SARISSA_IS_IE) {
         element.detachEvent("on" + event, method);
     } else {
-        throw "Unsupported browser!";
+        throw _("Unsupported browser!");
     };
 };
 
@@ -207,7 +211,7 @@ function loadDictFromXML(document, islandid) {
         };
     };
     if (!root) {
-        throw('No element found in the config island!');
+        throw(_('No element found in the config island!'));
     };
     dict = _load_dict_helper(root);
     return dict;
@@ -287,7 +291,7 @@ function BaseSelection() {
             this will fail if the selection is not inside the node
         */
         if (!this.selectionInsideNode(node)) {
-            throw('Selection not inside the node!');
+            throw(_('Selection not inside the node!'));
         };
         // a bit sneaky: what we'll do is insert a new br node to replace
         // the current selection, then we'll walk up to that node in both
@@ -525,7 +529,7 @@ function MozillaSelection(document) {
             // 'Control range', range consists of a single element, so startOffset is 0
             if (startnodeoffset != 0) {
                 // just an assertion to see if my assumption about this case is right
-                throw('Start node offset detected in a node without children!');
+                throw(_('Start node offset detected in a node without children!'));
             };
             return 0;
         };
@@ -578,8 +582,10 @@ function MozillaSelection(document) {
             // node doesn't have any content, so offset is always 0
             if (endnodeoffset != 0) {
                 // just an assertion to see if my assumption about this case is right
-                alert('End node offset detected in a node without children!');
-                throw('End node offset detected in a node without children!');
+                var msg = _('End node offset detected in a node without ' +
+                            'children!');
+                alert(msg);
+                throw(msg);
             };
             return 0;
         };
@@ -658,10 +664,10 @@ function MozillaSelection(document) {
         
         // now cut the chunk
         if (!startparent) {
-            throw('Start offset out of range!');
+            throw(_('Start offset out of range!'));
         };
         if (!endparent) {
-            throw('End offset out of range!');
+            throw(_('End offset out of range!'));
         };
 
         var newrange = range.cloneRange();
@@ -736,7 +742,7 @@ function MozillaSelection(document) {
                 };
                 currnode = currnode.nextSibling;
             };
-            throw('Offset out of document range');
+            throw(_('Offset out of document range'));
         } else if (realoffset < 0) {
             var currnode = offsetparent.prevSibling;
             var curroffset = 0;

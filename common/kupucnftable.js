@@ -14,12 +14,12 @@ TableTool.prototype.setTableRowRepeat = function() {
     var selNode = this.editor.getSelectedNode();
     var row = this.editor.getNearestParentOfType(selNode, 'tr');
     if (!row) {
-        this.editor.logMessage('Not inside a row!', 1);
+        this.editor.logMessage(_('Not inside a row!'), 1);
         return;
     };
     row.setAttribute('repeatable', 'repeatable');
     row.className = 'repeatable';
-    this.editor.logMessage('Row repeated');
+    this.editor.logMessage(_('Row repeated'));
     this.updateState(selNode);
 };
 
@@ -27,13 +27,13 @@ TableTool.prototype.delTableRowRepeat = function() {
     var selNode = this.editor.getSelectedNode();
     var row = this.editor.getNearestParentOfType(selNode, 'tr');
     if (!row) {
-        this.editor.logMessage('Not inside a row!', 1);
+        this.editor.logMessage(_('Not inside a row!'), 1);
         return;
     };
     row.removeAttribute('repeatable');
     row.className = '';
     row.removeAttribute('class');
-    this.editor.logMessage('Row repeat turned off');
+    this.editor.logMessage(_('Row repeat turned off'));
     this.updateState(selNode);
 };
 
@@ -95,7 +95,7 @@ function CNFTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.fixallbutton, "click", this.tool.fixAllTables, this.tool);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
-        this.editor.logMessage('Table tool initialized');
+        this.editor.logMessage(_('Table tool initialized'));
     };
 
     this.updateState = function(selNode) {
