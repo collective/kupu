@@ -29,6 +29,7 @@
 </xsl:template>
 
 <xsl:template match="li:asset">
+  <xsl:if test="(contains(dc:source, '.jpg') or contains(dc:source, '.gif') or contains(dc:source, '.png') or contains(dc:source, '.swf'))">
   <xsl:variable name="resource-url">
     <xsl:value-of select="concat($resource-path-url, dc:source)"/>
   </xsl:variable> 
@@ -41,6 +42,7 @@
     <preview><xsl:value-of select="$resource-url"/></preview>
     <size><xsl:value-of select="dc:extent"/>&#160;kb</size>
   </resource>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="@*|node()">
