@@ -1777,10 +1777,9 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                             continue;
                         };
                         extsource.setAttribute(key, value);
-                        var div = doc.createElement('div');
                         var textel = doc.createTextNode('Key: ' + key + ', value: ' + value.toString());
-                        div.appendChild(textel);
-                        extsource.appendChild(div);
+                        extsource.appendChild(textel);
+                        extsource.appendChild(doc.createElement('br'));
                     };
                 };
                 var htext = doc.createTextNode(metatype + ' \xab' + object._id + '\xbb');
