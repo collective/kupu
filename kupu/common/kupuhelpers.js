@@ -132,12 +132,6 @@ function ParentWithStyleChecker(tagnames, style, stylevalue) {
     return function(selNode, button, editor, event) {
         /* check if the button needs to look pressed in */
         var currnode = selNode;
-        if (!currnode) {
-            return;
-        };
-        if (currnode.nodeType == 3) {
-            currnode = currnode.parentNode;
-        };
         while (currnode && currnode.style) {
             for (var i=0; i < tagnames.length; i++) {
                 if (currnode.nodeName.toLowerCase() == tagnames[i].toLowerCase()) {
