@@ -12,6 +12,7 @@
 	class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
+        onfocus="this.contentWindow.focus();"
         >
     </iframe>
     <textarea cols="80" rows="25"
