@@ -16,22 +16,10 @@
     <div class="kupu-toolbox" id="kupu-toolbox-properties">
       <h1>Properties</h1>
 
-      <table id="kupu-properties">
-        <tbody>
-          <tr>
-            <td class="kupu-toolbox-label">Title</td>
-            <td><input id="kupu-properties-title" /></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="kupu-toolbox-label">Description</td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <textarea id="kupu-properties-description"> </textarea>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="kupu-toolbox-label">Title</div>
+      <input id="kupu-properties-title" />
+      <div class="kupu-toolbox-label">Description</div>
+      <textarea style="width: 90%" id="kupu-properties-description"> </textarea>
     </div>
   </kupu:part>
 
@@ -97,93 +85,57 @@
     <div class="kupu-toolbox" id="kupu-toolbox-tables">
       <h1 i18n:translate="table-inspector">Tables</h1>
 
-      <table width="100%">
-        <tbody>
-          <tr>
-            <td class="kupu-toolbox-label">Table Class</td>
-            <td>
-              <select id="kupu-table-classchooser">
-                <option value="plain">Plain</option>
-                <option value="listing">Listing</option>
-                <option value="grid">Grid</option>
-                <option value="data">Data</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2">
-              <div id="kupu-toolbox-addtable">
-                <table width="100%">
-                  <tr>
-                    <td class="kupu-toolbox-label">Rows</td>
-                    <td><input id="kupu-table-newrows" /></td>
-                  </tr>
-                  <tr>
-                    <td class="kupu-toolbox-label">Columns</td>
-                    <td><input id="kupu-table-newcols" /></td>
-                  </tr>
-                  <tr>
-                    <td class="kupu-toolbox-label">Headings</td>
-                    <td class="kupu-toolbox-label">
-                      <input name="kupu-table-makeheader"
-                             id="kupu-table-makeheader"
-                             type="checkbox"
-                             />
-                      <label for="kupu-table-makeheader">Create</label>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" style="text-align: center">
-                      <button type="button"
-                              id="kupu-table-addtable-button">Add Table</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Fix all tables</td>
-                    <td>
-                      <button type="button" id="kupu-table-fixall-button">Fix</button> 
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div id="kupu-toolbox-edittable">
-                <table width="100%">
-                  <tr>
-                    <td>Col Align</td>
-                    <td>
-                      <select id="kupu-table-alignchooser">
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Column</td>
-                    <td>
-                      <button type="button" id="kupu-table-addcolumn-button">Add</button>
-                      <button type="button" id="kupu-table-delcolumn-button">Remove</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Row</td>
-                    <td>
-                      <button type="button" id="kupu-table-addrow-button">Add</button> 
-                      <button type="button" id="kupu-table-delrow-button">Remove</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Fix table</td>
-                    <td>
-                      <button type="button" id="kupu-table-fix-button">Fix</button> 
-                    </td>
-                  </tr>
-                </table>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="kupu-toolbox-label">Table Class
+        <select id="kupu-table-classchooser"> </select>
+      </div>
+
+      <div id="kupu-toolbox-addtable">
+        <div class="kupu-toolbox-label">Rows</div>
+        <input type="text" id="kupu-table-newrows" style="width: 98%" />
+
+        <div class="kupu-toolbox-label">Columns</div>
+        <input type="text" id="kupu-table-newcols" style="width: 98%" />
+
+        <div class="kupu-toolbox-label">
+          Headings
+          <input name="kupu-table-makeheader"
+                 id="kupu-table-makeheader"
+                 type="checkbox"
+                 />
+          <label for="kupu-table-makeheader">Create</label>
+        </div>
+
+        <div style="text-align: center">
+          <button type="button" id="kupu-table-fixall-button">Fix Table</button> 
+          <button type="button" id="kupu-table-addtable-button">Add Table</button> 
+        </div>
+
+      </div>
+
+      <div id="kupu-toolbox-edittable">
+      
+          <div class="kupu-toolbox-label">Col Align
+            <select id="kupu-table-alignchooser">
+              <option value="left">Left</option>
+              <option value="center">Center</option>
+              <option value="right">Right</option>
+            </select>
+          </div>
+      
+          <br />
+          <button type="button" id="kupu-table-addcolumn-button">Add Column</button>
+          <button type="button" id="kupu-table-delcolumn-button">Remove Column</button>
+          
+          <br />
+          <button type="button" id="kupu-table-addrow-button">Add Row</button>
+          <button type="button" id="kupu-table-delrow-button">Remove Row</button>
+          
+          <div style="text-align: center">
+            <button type="button" id="kupu-table-fix-button">Fix</button>
+          </div>
+          
+      </div>
+
     </div>
   </kupu:part>
 
