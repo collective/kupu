@@ -210,6 +210,18 @@ function XhtmlValidation() {
             delete this.Attributes[badtags[i]];
         }
     }
+    this._excludeAttributesForTags = function(attributes, tags) {
+        var bad = new this.Set(attributes);
+        for (var j = 0; j < tags.length; j++) {
+            var tag = tags[j];
+            var val = this.Attributes[tag];
+            for (var i = val.length; i >= 0; i--) {
+                if (bad[val[i]]==1) {
+                    val.splice(i,1);
+                }
+            }
+        }
+    }
     // Supporting declarations
     this.elements = new function() {
         // Core attributes
@@ -287,7 +299,7 @@ function XhtmlValidation() {
         this.bdo = el.coreattrs.concat(el.events, 'lang','xml:lang','dir');
         this.br = el.coreattrs.concat('clear');
         validation._commonsetting(this,
-                                  ['noscript','noframes','dt', 'dd', 'address','center','span','em', 'strong', 'dfb','code',
+                                  ['noscript','noframes','dt', 'dd', 'address','center','span','em', 'strong', 'dfn','code',
                                   'samp','kbd','var','cite','abbr','acronym','sub','sup','tt',
                                   'i','b','big','small','u','s','strike'],
                                   el.attrs);
@@ -356,7 +368,7 @@ function XhtmlValidation() {
         this.span = this.bdo = el.Inline;
         this.br = this.basefont = [];
         var tags = [
-                   'em', 'strong', 'dfb','code','samp','kbd','var',
+                   'em', 'strong', 'dfn','code','samp','kbd','var',
                    'cite','abbr','acronym','q','sub','sup','tt','i',
                    'b','big','small','u','s','strike','font','label',
                    'legend'];

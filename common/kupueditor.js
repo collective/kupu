@@ -615,10 +615,23 @@ function KupuEditor(document, config, logger) {
     this.xhtmlvalid._excludeAttributes(
         this.xhtmlvalid.elements.events.concat(
         'style','class','xml:lang','xml:space',
-                                               'onfocus','onblur','onselect','onchange','onsubmit','onreset'));
+        'onfocus','onblur','onselect','onchange','onsubmit','onreset'));
     // Exclude unwanted tags.
     this.xhtmlvalid._excludeTags(['center']);
 
+    if (this.config && this.config.exclude) {
+        if (this.config.exclude.a)
+            this.xhtmlvalid._excludeAttributes(this.config.exclude.a);
+        if (this.config.exclude.t)
+            this.xhtmlvalid._excludeTags(this.config.exclude.t);
+        if (this.config.exclude.c) {
+            var c = this.config.exclude.c;
+            if (!c.length) c = [c];
+            for (var i = 0; i < c.length; i++) {
+                this.xhtmlvalid._excludeAttributesForTags(c[i].a, c[i].t);
+            }
+        }
+    };
     this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
         for (var i = 0; i < valid.length; i++) {
             var name = valid[i];

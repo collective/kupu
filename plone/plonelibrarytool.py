@@ -55,6 +55,13 @@ _default_resource_types = {
     'linkable': ('Document', 'Image', 'File', 'News Item', 'Event')
     }
 
+# Tidy up html by exlcluding lots of things.
+_excluded_html = [
+  (('center', 'span', 'tt', 'big', 'small', 'u', 's', 'strike', 'basefont', 'font'), ()),
+  ((), ('dir','lang','valign','halign','border','frame','rules','cellspacing','cellpadding','align','bgcolor')),
+  (('table','th','td'),('width','height')),
+]
+
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
 
@@ -101,6 +108,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         except AttributeError:
             return ('plain', 'listing', 'grid', 'data')
 
+    security.declareProtected('View', "getHtmlExclusions")
+    def getHtmlExclusions(self):
+        try:
+            return self.html_exclusions
+        except AttributeError:
+            self.html_exclusions = _excluded_html
+            return self.html_exclusions
+            
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (
          dict(label='Config', action='kupu_config'),
@@ -192,10 +207,23 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
-    def configure_kupu(self, linkbyuid, table_classnames, REQUEST=None):
+    def configure_kupu(self, linkbyuid, table_classnames, html_exclusions, REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
+        newex = html_exclusions[-1]
+            
+        html_exclusions = [ (tuple(h.get('tags', ())), tuple(h.get('attributes', ())))
+            for h in html_exclusions[:-1] if h.get('keep')]
+        
+        tags, attr = newex.get('tags', ()), newex.get('attributes', ())
+        if tags or attr:
+            tags = tuple(tags.replace(',',' ').split())
+            attr = tuple(attr.replace(',',' ').split())
+            html_exclusions.append((tags, attr))
+
+        self.html_exclusions = html_exclusions
+
         REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
 InitializeClass(PloneKupuLibraryTool)
