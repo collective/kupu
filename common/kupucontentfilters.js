@@ -494,6 +494,55 @@ function XhtmlValidation(editor) {
         }
     }
 
+    this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
+        return this._convertNodes(ownerdoc, htmlnode, xhtmlparent, new this.Set(['html']));
+    };
+    
+    this._convertNodes = function(ownerdoc, htmlnode, xhtmlparent, permitted) {
+        var name, parentnode = xhtmlparent;
+        var nodename = this._getTagName(htmlnode);
+
+        // TODO: This permits valid tags anywhere. it should use the state
+        // table in xhtmlvalid to only permit tags where the XHTML DTD
+        // says they are valid.
+        var validattrs = this.Attributes[nodename];
+        if (validattrs && permitted[nodename]) {
+            try {
+                var xhtmlnode = ownerdoc.createElement(nodename);
+                parentnode = xhtmlnode;
+            } catch (e) { };
+
+            if (validattrs && xhtmlnode)
+                this._copyAttributes(htmlnode, xhtmlnode, validattrs);
+        }
+
+        var kids = htmlnode.childNodes;
+        if (kids.length == 0) {
+            if (htmlnode.text && htmlnode.text != "") {
+                var text = htmlnode.text;
+                var tnode = ownerdoc.createTextNode(text);
+                parentnode.appendChild(tnode);
+            }
+        } else { 
+            for (var i = 0; i < kids.length; i++) {
+                var permittedChildren = this.States[nodename] || permitted;
+                var kid = kids[i];
+                if (kid.nodeType == 1) {
+                    var newkid = this._convertNodes(ownerdoc, kid, parentnode, permittedChildren);
+                    if (newkid != null) {
+                        parentnode.appendChild(newkid);
+                    };
+                } else if (kid.nodeType == 3) {
+                    if (permittedChildren['#PCDATA'])
+                        parentnode.appendChild(ownerdoc.createTextNode(kid.nodeValue));
+                } else if (kid.nodeType == 4) {
+                    if (permittedChildren['#PCDATA'])
+                        parentnode.appendChild(ownerdoc.createCDATASection(kid.nodeValue));
+                }
+            }
+        } 
+        return xhtmlnode;
+    };
 }
 
 

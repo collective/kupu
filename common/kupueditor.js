@@ -593,7 +593,7 @@ function KupuEditor(document, config, logger) {
 
     this.xhtmlvalid = new XhtmlValidation(this);
 
-    this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
+    this._convertToSarissaNode = function(ownerdoc, htmlnode) {
         /* Given a string of non-well-formed HTML, return a string of 
            well-formed XHTML.
 
@@ -610,46 +610,7 @@ function KupuEditor(document, config, logger) {
            Inspired by Guido, adapted by Paul from something in usenet.
            Tag and attribute tables added by Duncan
         */
-
-        var name, parentnode = xhtmlparent;
-        var nodename = this.xhtmlvalid._getTagName(htmlnode);
-        
-        // TODO: This permits valid tags anywhere. it should use the state
-        // table in xhtmlvalid to only permit tags where the XHTML DTD
-        // says they are valid.
-        var validattrs = this.xhtmlvalid.Attributes[nodename];
-        if (validattrs) {
-            try {
-                var xhtmlnode = ownerdoc.createElement(nodename);
-                parentnode = xhtmlnode;
-            } catch (e) { };
-
-            if (xhtmlnode)
-                this.xhtmlvalid._copyAttributes(htmlnode, xhtmlnode, validattrs);
-        }
-
-        var kids = htmlnode.childNodes;
-        if (kids.length == 0) {
-            if (htmlnode.text && htmlnode.text != "") {
-                var text = htmlnode.text;
-                var tnode = ownerdoc.createTextNode(text);
-                parentnode.appendChild(tnode);
-            }
-        } else { 
-            for (var i = 0; i < kids.length; i++) {
-                if (kids[i].nodeType == 1) {
-                    var newkid = this._convertToSarissaNode(ownerdoc, kids[i], parentnode);
-                    if (newkid != null) {
-                        parentnode.appendChild(newkid);
-                    };
-                } else if (kids[i].nodeType == 3) {
-                    parentnode.appendChild(ownerdoc.createTextNode(kids[i].nodeValue));
-                } else if (kids[i].nodeType == 4) {
-                    parentnode.appendChild(ownerdoc.createCDATASection(kids[i].nodeValue));
-                }
-            }
-        } 
-        return xhtmlnode;
+        return this.xhtmlvalid._convertToSarissaNode(ownerdoc, htmlnode);
     };
 
     this._serializeOutputToString = function(transform) {
