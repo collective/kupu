@@ -132,6 +132,7 @@ CleanupExpressionsTool.prototype.populateActionSelect = function(mapping) {
         option.appendChild(document.createTextNode(name));
         this.actionselect.appendChild(option);
     };
+    this.actionselect.style.width = '100%';
 };
 
 CleanupExpressionsTool.prototype.performAction = function() {
@@ -155,6 +156,7 @@ CleanupExpressionsTool.prototype.performAction = function() {
             };
         };
     };
+    alert('Cleanup done');
 };
 
 CleanupExpressionsTool.prototype.performReplaceOnNode = function(node, regexp, replacement) {
