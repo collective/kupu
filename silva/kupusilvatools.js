@@ -20,7 +20,7 @@ EDITABLE_METADATA = {
             ],
     'http://infrae.com/namespaces/metadata/abstract':
             [['author', 'text', 1, 'Presenting author'],
-                ['other_authors', 'textarea', 0, 'Other authors']]
+                ['co_authors', 'textarea', 0, 'Co-author(s)']]
 }
 
 function SilvaLinkTool() {
