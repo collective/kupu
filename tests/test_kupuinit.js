@@ -76,7 +76,7 @@ function InitKupuCheckersTestCase() {
         this.assertEquals(boldchecker(selNode), false);
     };
 
-    this.XXXtestBoldcheckerBoldLeftOuter = function() {
+    this.testBoldcheckerBoldLeftOuter = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                    |<b>bar|
         this._setSelection(4, false, 7, false, 'bar');
@@ -94,7 +94,7 @@ function InitKupuCheckersTestCase() {
         this.assertEquals(boldchecker(selNode), true);
     };
 
-    this.XXXtestBoldcheckerExecCommand = function() {
+    this.testBoldcheckerExecCommand = function() {
         this.body.innerHTML = '<p>foo bar</p>';
         // select                    |bar|
         this._setSelection(4, true, 7, false, 'bar');
@@ -114,7 +114,7 @@ function InitKupuCheckersTestCase() {
         this.assertEquals(boldchecker(selNode), true);
     };
 
-    this.XXXtestBoldcheckerExecCommandNoCSS = function() {
+    this.testBoldcheckerExecCommandNoCSS = function() {
         if (_SARISSA_IS_IE) return;
         this.doc.execCommand('useCSS', null, true);
 
