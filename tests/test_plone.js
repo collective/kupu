@@ -88,6 +88,15 @@ function KupuPloneTestCase() {
         this.verifyResult(actual, expected);
     }
 
+    this.testRelativeLinks6 = function() {
+        var data =  '<a href="http://localhost:9080/plone/Members/admin">[1]</a>';
+        var expected = '<a href=".">[1]</a>';
+        var base = 'http://localhost:9080/plone/Members/admin/art1';
+
+        var actual = this.editor.makeLinksRelative(data, base);
+        this.verifyResult(actual, expected);
+    }
+
     this.cleanHtml = function(s) {
         s = s.toLowerCase().replace(/[\r\n]/g, "");
         s = s.replace(/\>[ ]+\</g, "><");
