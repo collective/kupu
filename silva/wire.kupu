@@ -78,7 +78,7 @@
   </kupu:fill-slot>
 
   <kupu:fill-slot name="drawers">
-    <kupu:insert-part feature="drawers" part="librarydrawer" />
+    <!-- <kupu:insert-part feature="drawers" part="librarydrawer" /> -->
   </kupu:fill-slot>
 
 </kupu:wire>
