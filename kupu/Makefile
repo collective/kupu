@@ -21,6 +21,9 @@ kupu.html:
 zope2macros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-zope2.kupu > default/kupumacros.html
 
+kupuform.html:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-form.kupu > default/kupuform.html
+
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 
@@ -32,6 +35,8 @@ all:
 
 clean:
 	rm -f default/kupu.html
+	rm -f default/kupumacros.html
+	rm -f default/kupuform.html
 	rm -f plone/kupu_plone_layer/wysiwyg_support.html
 	rm -f silva/kupumacros.html
 
