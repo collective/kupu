@@ -54,7 +54,16 @@ function GenericElementsTool(xmlid) {
         var dom = document.getElementById(this.xmlid);
         this.elements = this._parseXML(dom);
         this._insideElement = false;
+        this._clipboard = null;
         addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPress, this);
+
+        // keep a list of unique ids and generate a new one for every
+        // element added
+        // XXX this is a requirement for CNF, other people may want to remove
+        // it by overriding the 'getUniqueIds()' and 'generateUniqueId()'
+        // methods
+        // XXX this should browse *all* documents in a multi-document setup
+        this._unique_ids = this.getUniqueIds(this.editor.getInnerDocument());
     };
 
     this.updateState = function(selNode) {
@@ -70,6 +79,11 @@ function GenericElementsTool(xmlid) {
     };
 
     this.handleKeyPress = function(event) {
+        /* make sure the element is not editable
+        
+            does nothing on most key presses, creates a new <p> when
+            enter is pressed
+        */
         if (!this._insideElement) {
             return;
         };
@@ -99,12 +113,13 @@ function GenericElementsTool(xmlid) {
     };
 
     this.getNearestGenericElement = function(selNode) {
+        /* return the nearest generic element parent (or selNode itself) */
         var currnode = selNode;
         while (currnode && currnode.nodeType != 9) {
             if (currnode.nodeType == 3) {
                 currnode = currnode.parentNode;
             };
-            if (currnode.getAttribute('genericelement')) {
+            if (currnode.getAttribute('genericelement_id')) {
                 return currnode;
             };
             currnode = currnode.parentNode;
@@ -142,7 +157,8 @@ function GenericElementsTool(xmlid) {
         };
         
         var node = this.editor.getInnerDocument().createElement(el[3]);
-        node.setAttribute('genericelement', elid);
+        node.setAttribute('genericelement_id', elid);
+        node.setAttribute('genericelements_uniqueid', this.createUniqueId());
         for (var i=0; i < el[4].length; i++) {
             node.setAttribute(el[4][i][0], el[4][i][1]);
         };
@@ -197,6 +213,40 @@ function GenericElementsTool(xmlid) {
 
         currgenericel.parentNode.removeChild(currgenericel);
         this.editor.logMessage('Generic element deleted');
+    };
+
+    this.copyElement = function() {
+        /* copy the current selected element to the clipboard */
+        var selNode = this.editor.getSelectedNode();
+        var currgenel = this.getNearestGenericElement(selNode).cloneNode(1);
+        if (!currgenel) {
+            this.editor.logMessage('Not inside a generic element!');
+            return;
+        };
+        this._clipboard = currgenel;
+    };
+
+    this.pasteElement = function() {
+        /* paste the current clipboard element (if there is one) */
+        if (!this._clipboard) {
+            this.editor.logMessage('Nothing to paste!', 1);
+        };
+        var selNode = this.editor.getSelectedNode();
+        var currgenel = this.getNearestGenericElement(selNode);
+        if (currgenel) {
+            this.editor.logMessage('Can\'t nest generic elements!');
+            return;
+        };
+        var copy = this._clipboard.cloneNode(1);
+        this.editor.insertNodeAtSelection(copy);
+    };
+
+    this.clipboard = function() {
+        /* returns the clipboard
+        
+            can be used to check if the clipboard contains an element
+        */
+        return this._clipboard;
     };
 
     // XXX because of some stupid bug in IE we have to pass the formholder
@@ -325,6 +375,7 @@ function GenericElementsTool(xmlid) {
     };
 
     this.getElementById = function(id) {
+        /* retrieve an element by its id */
         for (var i=0; i < this.elements.length; i++) {
             var el = this.elements[i];
             if (el[0] == id) {
@@ -337,6 +388,44 @@ function GenericElementsTool(xmlid) {
     this.parseForm = function(form) {
         /* parse the form to a dict */
         return gatherFormData(form);
+    };
+
+    this.createUniqueId = function() {
+        /* create a unique id for a new element */
+        // just use the current time, in msecs, as the unique id
+        // may be a bit simple, but quite effective...
+        var id = (new Date()).getTime();
+        while (1) {
+            if (!this._unique_ids.contains(id)) {
+                break;
+            };
+            id++;
+        };
+        return id;
+    };
+
+    this.getUniqueIds = function(doc) {
+        /* browse the full document to find GenericElement ids */
+        var body = doc.getElementsByTagName('body')[0];
+        var ids = new Array();
+        var iterator = new NodeIterator(body);
+        var currnode;
+        while (currnode = iterator.next()) {
+            if (currnode.nodeType != 1) {
+                continue;
+            };
+            var unique_id = currnode.getAttribute('genericelements_uniqueid');
+            if (unique_id) {
+                if (ids.contains(unique_id)) {
+                    // in some cases an id can be used twice, once for the
+                    // actual element and once for some copied version of the
+                    // element on the bottom of the page
+                    continue;
+                };
+                ids.push(unique_id);
+            };
+        };
+        return ids;
     };
 
     this._parseXML = function(dom) {
@@ -610,13 +699,16 @@ function gatherFormData(form) {
 };
 
 function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebuttonid,
-                                cancelbuttonid, toolboxid, plainclass, activeclass) {
+                                copybuttonid, pastebuttonid, cancelbuttonid, toolboxid, 
+                                plainclass, activeclass) {
     /* the UI counterpart of GenericTool */
     
     this.elselect = document.getElementById(elselectid);
     this.formholder = document.getElementById(formholderid);
     this.addbutton = document.getElementById(addbuttonid);
     this.delbutton = document.getElementById(deletebuttonid);
+    this.copybutton = document.getElementById(copybuttonid);
+    this.pastebutton = document.getElementById(pastebuttonid);
     this.cancelbutton = document.getElementById(cancelbuttonid);
     this.toolbox = document.getElementById(toolboxid);
     this.plainclass = plainclass;
@@ -630,8 +722,12 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
         
         addEventHandler(this.addbutton, 'click', this.addEl, this);
         addEventHandler(this.delbutton, 'click', this.deleteEl, this);
+        addEventHandler(this.copybutton, 'click', this.copyEl, this);
+        addEventHandler(this.pastebutton, 'click', this.pasteEl, this);
         addEventHandler(this.cancelbutton, 'click', this.reset, this);
 
+        this.copybutton.style.display = 'none';
+        this.pastebutton.style.display = 'none';
         this.cancelbutton.style.display = 'none';
         this.delbutton.style.display = 'none';
 
@@ -641,18 +737,25 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
     this.updateState = function(selNode) {
         var currentgenel = this.tool.getNearestGenericElement(selNode);
         if (currentgenel) {
-            var elid = currentgenel.getAttribute('genericelement');
+            var elid = currentgenel.getAttribute('genericelement_id');
             selectSelectItem(this.elselect, elid);
             var values = this._getValuesFromElement(currentgenel);
             this.drawForm(values);
             this.addbutton.style.display = 'inline';
             this.cancelbutton.style.display = 'none';
             this.delbutton.style.display = 'inline';
+            this.copybutton.style.display = 'inline';
+            this.pastebutton.style.display = 'none';
             if (this.toolbox && this.activeclass) {
                 this.toolbox.setAttribute('className', this.activeclass);
             };
         } else {
             this.reset();
+            if (this.tool.clipboard()) {
+                this.pastebutton.style.display = 'inline';
+            } else {
+                this.pastebutton.style.display = 'none';
+            };
         };
     };
 
@@ -702,11 +805,20 @@ function GenericElementsToolBox(elselectid, formholderid, addbuttonid, deletebut
         this.addbutton.style.display = 'inline';
         this.cancelbutton.style.display = 'none';
         this.delbutton.style.display = 'none';
+        this.copybutton.style.display = 'none';
         this.state = 'new';
         this.form = undefined;
         if (this.toolbox && this.plainclass) {
             this.toolbox.setAttribute('className', this.plainclass);
         };
+    };
+
+    this.copyEl = function() {
+        this.tool.copyElement();
+    };
+
+    this.pasteEl = function() {
+        this.tool.pasteElement();
     };
 
     this._fillElSelect = function() {
