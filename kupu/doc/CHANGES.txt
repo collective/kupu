@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- Current development version
+
+  o Added support for CSS 'float' for images.
+
 - Kupu 1.1 beta 2 (2004-05-27)
 
   o Added source editing for Silva.
