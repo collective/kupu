@@ -15,50 +15,62 @@ drawer.
 
 $Id$
 -->
-<xsl:stylesheet
-  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:tal="http://xml.zope.org/namespaces/tal"
-  version="1.0">
-
-  <xsl:import
-    href="librarydrawer.xsl"
-    tal:attributes="href here/kupudrawers/librarydrawer.xsl/absolute_url"
-    />
-
-  <xsl:template match="resource|collection" mode="properties">
-    <xsl:if test="preview">      
-    <div><strong>Preview</strong></div>
-    <div id="epd-imgpreview">
-      <img src="{preview}" title="{title}" alt="{title}" />
-    </div>
-    </xsl:if>
-    <table>
-      <tr>
-        <td>
-          <strong>Title</strong><br />
-          <xsl:value-of select="title" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Size</strong><br />
-          <xsl:value-of select="size" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Description</strong><br />
-          <xsl:value-of select="description" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>ALT-text</strong><br />
-          <form onsubmit="return false;">
-            <input type="text" id="image_alt" size="10" />
-          </form>
-        </td>
-      </tr>
-    </table>
-  </xsl:template>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:tal="http://xml.zope.org/namespaces/tal" version="1.0">
+    <xsl:import href="librarydrawer.xsl" tal:attributes="href here/kupudrawers/librarydrawer.xsl/absolute_url"/>
+    <xsl:template match="resource|collection" mode="properties">
+        <xsl:if test="preview">
+            <div>
+                <strong>Preview</strong>
+            </div>
+            <div id="epd-imgpreview">
+                <img src="{preview}" title="{title}" alt="{title}"/>
+            </div>
+        </xsl:if>
+        <div>
+            <xsl:value-of select="title"/>
+        </div>
+        <xsl:choose>
+            <xsl:when test="width">
+                <div>
+                    <xsl:variable name="h" select="number(height) div 120"/>
+                    <xsl:variable name="w" select="number(width) div 100"/>
+                    <xsl:choose>
+                        <xsl:when test="($h&gt;$w) and $h&gt;1">
+                            <img src="{uri}" title="{title}" height="120" width="{width div $h}" alt="{title}"/>
+                        </xsl:when>
+                        <xsl:when test="($w&gt;$h) and $w&gt;1">
+                            <img src="{uri}" title="{title}" height="{height div $w}" width="100" alt="{title}"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <img src="{uri}" title="{title}" height="{height}" width="{width}" alt="{title}"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </div>
+            </xsl:when>
+            <!-- <xsl:when test="preview">
+                    <tr>
+                        <td>
+                            <strong>Preview</strong>
+                            <br/>
+                            <img src="{url}" title="{title}" height="{height}" width="{width}" alt="{title}"/>
+                        </td>
+                    </tr>
+                </xsl:when>-->
+        </xsl:choose>
+        <div>
+            <xsl:value-of select="size"/>
+            <xsl:if test="width"> (<xsl:value-of select="width"/> by <xsl:value-of select="height"/>)</xsl:if>
+        </div>
+        <div>
+            <xsl:value-of select="description"/>
+        </div>
+        <div>
+            <strong>ALT-text</strong>
+            <br/>
+            <form onsubmit="return false;">
+                <input type="text" id="image_alt" size="10"/>
+            </form>
+        </div>
+    </xsl:template>
 </xsl:stylesheet>
