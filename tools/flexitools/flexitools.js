@@ -15,16 +15,15 @@
  *****************************************************************************/
 
 
-function fxWritable(iframe) {
+function fxWritable() {
+    """Tool to make only certain parts of the iframe editable"""
     
-    this.editable = false;
     this.fxWritable_status = false;
     this.fxWritable_MOZ_WARN = false;    
     
     this.initialize = function(editor) {
         /* initialize the tool */
         var doc = editor.getInnerDocument();
-        this.editable = false;
      
         /* set event onKeyPress, onKeyDown */
         addEventHandler(doc, 'keydown', this.checkWrite, this);
