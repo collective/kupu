@@ -21,7 +21,7 @@ function KupuXhtmlTestCase() {
     this.verifyResult = function(newdoc, exp) {
         var expected = this.incontext(exp);
         var actual = newdoc.xml;
-
+        actual = actual.replace('\xa0', '&nbsp;');
         if (actual == expected)
             return;
 
@@ -138,7 +138,7 @@ function KupuXhtmlTestCase() {
         var expected = '<div>centered<p>Test</p>zzz</div>';
         this.conversionTest(data, expected);
     }
-    this.skip_testnbsp = function() {
+    this.testnbsp = function() {
         var data = '<p>Text with&nbsp;<b>non-break</b> space</p>';
         this.conversionTest(data, data);
     };
