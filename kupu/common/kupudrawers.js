@@ -573,7 +573,11 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         resultlib.setAttribute("selected", "1");
 
         // now hook the result library into our DOM
-        this.xmldata.importNode(resultlib, true);
+        if (this.editor.getBrowserName() == 'IE') {
+            resultlib = resultlib.cloneNode(true);
+        } else {
+            this.xmldata.importNode(resultlib, true);
+        }
         var libraries = this.xmldata.selectSingleNode("/libraries");
         libraries.appendChild(resultlib);
 
