@@ -86,7 +86,7 @@ function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, too
 SilvaLinkToolBox.prototype = new LinkToolBox;
 
 function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
-                        alignselectid, toolboxid, plainclass, activeclass) {
+                        alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
     /* Silva specific image tool */
     this.editel = document.getElementById(editelid);
     this.urlinput = document.getElementById(urlinputid);
@@ -95,6 +95,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.linklinkradio = document.getElementById(linklinkradioid);
     this.linkinput = document.getElementById(linkinputid);
     this.alignselect = document.getElementById(alignselectid);
+    this.titleinput = document.getElementById(titleinputid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -108,6 +109,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
         addEventHandler(this.linkinput, 'keypress', this.setLink, this);
         addEventHandler(this.linkinput, 'change', this.setLink, this);
         addEventHandler(this.alignselect, 'change', this.setAlign, this);
+        addEventHandler(this.titleinput, 'change', this.setTitle, this);
         this.editor.logMessage('Image tool initialized');
     };
 
@@ -142,10 +144,16 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             if (!align) {
                 align = 'left';
             };
+            var title = image.getAttribute('title');
+            if (!title) {
+                title = '';
+            };
+            this.titleinput.value = title;
             selectSelectItem(this.alignselect, align);
         } else {
             this.editel.style.display = 'none';
             this.urlinput.value = '';
+            this.titleinput.value = '';
             if (this.toolboxel) {
                 this.toolboxel.className = this.plainclass;
             };
@@ -209,6 +217,17 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
         };
         image.setAttribute('link', link);
         image.setAttribute('link_to_hires', '0');
+    };
+
+    this.setTitle = function() {
+        var selNode = this.editor.getSelectedNode();
+        var image = this.editor.getNearestParentOfType(selNode, 'img');
+        if (!image) {
+            this.editor.logMessage('No image selected!', 1);
+            return;
+        };
+        var title = this.titleinput.value;
+        image.setAttribute('title', title);
     };
 
     this.setAlign = function() {
