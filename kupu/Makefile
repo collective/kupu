@@ -31,9 +31,9 @@ all:
 	kupu.html
 
 clean:
-	rm default/kupu.html
-	rm plone/kupu_plone_layer/wysiwyg_support.html
-	rm silva/kupumacros.html
+	rm -f default/kupu.html
+	rm -f plone/kupu_plone_layer/wysiwyg_support.html
+	rm -f silva/kupumacros.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
