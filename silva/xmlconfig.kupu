@@ -35,24 +35,102 @@
         </expression>
       </set>
       <set>
-        <name>Reduce whitespace</name>
+        <name>Convert double quotes to curly ones</name>
         <expression>
           <reg>
-            [ ]{2}
+            (\W)"
           </reg>
           <replacement>
-            \x20
+            \1“
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            "
+          </reg>
+          <replacement>
+            ”
           </replacement>
         </expression>
       </set>
       <set>
-        <name>Fix improper words</name>
+        <name>Convert single dashes to n-dashes</name>
         <expression>
           <reg>
-            [Pp]lone
+            ([^\-])\-([^\-])
           </reg>
           <replacement>
-            Silva
+            \1–\2
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ([^\-])\-$
+          </reg>
+          <replacement>
+            \1–
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-([^\-])
+          </reg>
+          <replacement>
+            –\1
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-$
+          </reg>
+          <replacement>
+            –
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Convert double dashes to m-dashes</name>
+        <expression>
+          <reg>
+            ([^\-])\-\-([^\-])
+          </reg>
+          <replacement>
+            \1—\2
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ([^\-])\-\-$
+          </reg>
+          <replacement>
+            \1—
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-\-([^\-])
+          </reg>
+          <replacement>
+            —\1
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-\-$
+          </reg>
+          <replacement>
+            —
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Reduce whitespace in source</name>
+        <expression>
+          <reg>
+            [ \n\r\t]{2}
+          </reg>
+          <replacement>
+            \x20
           </replacement>
         </expression>
       </set>
