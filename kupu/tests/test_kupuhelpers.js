@@ -263,6 +263,13 @@ function KupuSelectionTestCase() {
         this.assertEquals(this.selection.parentElement(), node);
     };
 
+    this.testGetContentLength = function() {
+        this.body.innerHTML = '<p>foo bar baz</p>';
+        // select                    |bar|
+        this._setSelection(4, null, 7, null, 'bar');
+        this.assertEquals(this.selection.getContentLength(), 3);
+    };
+
     this.testToString = function() {
         this.body.innerHTML = '<p>foo <b>bar</b> baz</p>';
         var selection = this.kupudoc.getSelection();

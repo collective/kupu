@@ -939,14 +939,10 @@ function IESelection(document) {
             return this.selection.createRange().length;
         };
         var contentlength = 0;
-        var range = this.selection.createRange().duplicate();
-        var startpoint = range.duplicate();
-        startpoint.collapse();
-        var endpoint = range.duplicate();
-        endpoint.collapse(false);
-        while (!startpoint.isEqual(endpoint)) {
-            startpoint.moveEnd('character', 1);
-            startpoint.moveStart('character', 1);
+        var range = this.selection.createRange();
+        var endrange = range.duplicate();
+        while (range.compareEndPoints('StartToEnd', endrange) < 0) {
+            range.move('character', 1);
             contentlength++;
         };
         return contentlength;
