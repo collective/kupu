@@ -6,17 +6,5 @@
     <src>kupudrawers/logos.xml</src>
     <icon>kupuimages/kupulibrary.png</icon>
   </library>
-  <library id="portal_root">
-    <uri>kupudrawers/imagelibrary1.xml</uri>
-    <title>Portal Root</title>
-    <src>kupudrawers/imagelibrary1.xml</src>
-    <icon>kupuimages/kupulibrary.png</icon>
-  </library>
-  <library id="recentitems">
-    <uri>kupudrawers/imagelibrary2.xml</uri>
-    <title>Current Folder</title>
-    <src>kupudrawers/imagelibrary2.xml</src>
-    <icon>kupuimages/kupulibrary.png</icon>
-  </library>
 
 </libraries>
