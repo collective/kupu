@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <kupu:feature
-    name="saveonpart"
+    name="beforeunload"
     implementation="plone"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
@@ -8,8 +8,8 @@
     >
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupusaveonpart.js"
-        tal:attributes="src string:${portal_url}/kupusaveonpart.js"> </script>
+    <script type="text/javascript" src="kupubeforeunload.js"
+        tal:attributes="src string:${portal_url}/kupubeforeunload.js"> </script>
   </kupu:part>
 
 </kupu:feature>
