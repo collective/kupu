@@ -1478,7 +1478,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
             request.onreadystatechange = callback.execute;
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            request.setRequestHeader('Content-Length:', formdata.length);
             request.send(formdata);
         };
     };
@@ -1491,7 +1490,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         var request = Sarissa.getXmlHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.setRequestHeader('Content-Length:', formdata.length);
         var callback = new ContextFixer(this._addFormToTool, request, this);
         request.onreadystatechange = callback.execute;
         request.send(formdata);
