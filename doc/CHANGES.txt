@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- Current development version
+- Kupu 1.2 beta 1
 
   * Added image upload.
 
