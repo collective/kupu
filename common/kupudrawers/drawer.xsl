@@ -139,14 +139,6 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
         </span>
     </xsl:template>
     <xsl:template match="resource|collection" mode="image-properties">
-        <xsl:if test="preview">
-            <div>
-                <strong>Preview</strong>
-            </div>
-            <div id="epd-imgpreview">
-                <img src="{preview}" title="{title}" alt="{title}"/>
-            </div>
-        </xsl:if>
         <div>
             <xsl:value-of select="title"/>
         </div>
