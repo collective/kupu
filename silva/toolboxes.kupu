@@ -14,10 +14,10 @@
       <form name="kupu-properties-form">
         <table width="100%" style="color: #333;" border="0">
           <tr id="propsrow">
-            <td>
+            <td valign="top">
               name
             </td>
-            <td>
+            <td valign="top">
               input
             </td>
           </tr>

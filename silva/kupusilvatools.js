@@ -15,12 +15,12 @@
 // be moved to somewhere in Silva or something?)
 EDITABLE_METADATA = {
     'http://infrae.com/namespaces/metadata/silva-extra': 
-            [['contactname', 'text'],
-                ['contactemail', 'text']
+            [['contactname', 'text', 0, 'Contact name'],
+                ['contactemail', 'text', 0, 'Contact email']
             ],
     'http://infrae.com/namespaces/metadata/abstract':
-            [['author', 'text', 1],
-                ['other_authors', 'textarea', 0]]
+            [['author', 'text', 1, 'Presenting author'],
+                ['other_authors', 'textarea', 0, 'Other authors']]
 }
 
 function SilvaLinkTool() {
@@ -2169,11 +2169,13 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     var type = 'text';
     var mandatory = false;
     var namefound = false;
+    var fieldtitle = '';
     for (var i=0; i < nametypes.length; i++) {
         var nametype = nametypes[i];
         var elname = nametype[0];
         var type = nametype[1];
         var mandatory = nametype[2];
+        var fieldtitle = nametype[3];
         if (elname == name) {
             namefound = true;
             break;
@@ -2184,7 +2186,7 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     };
     
     var titlefield = document.createElement('span');
-    var title = document.createTextNode(metatag.getAttribute('title'));
+    var title = document.createTextNode(fieldtitle);
     titlefield.appendChild(title);
     tablerow.getElementsByTagName('td')[0].appendChild(titlefield);
     titlefield.className = 'metadata-field';
