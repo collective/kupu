@@ -242,7 +242,7 @@ function NodeIterator(node, continueatnextsibling) {
             while (current != this.terminator && !current.nextSibling) {
                 current = current.parentNode;
             };
-            if (curent == this.terminator) {
+            if (current == this.terminator) {
                 this.current = false;
             } else {
                 this.current = current.nextSibling;
