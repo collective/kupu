@@ -41,47 +41,44 @@ function initSilvaKupu(iframe) {
         };
     };
 
-    var boldcheckfunc = new StateButtonCheckFunction(
-                            new Array('b', 'strong'), 'font-weight', 'bold');
+    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
+					     'font-weight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
-                                         boldcheckfunc.execute, 
-                                         'kupu-bold', 
+                                         boldchecker,
+                                         'kupu-bold',
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italiccheckfunc = new StateButtonCheckFunction(
-                            new Array('i', 'em'), 'font-style', 'italic');
-    var italicbutton = new KupuStateButton('kupu-italic-button', 
+    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
+						'font-style', 'italic');
+    var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
-                                           italiccheckfunc.execute, 
+                                           italicschecker, 
                                            'kupu-italic', 
                                            'kupu-italic-pressed');
-    kupu.registerTool('italicbutton', italicbutton);
+    kupu.registerTool('italicsbutton', italicsbutton);
 
-    var underlinebuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('u'));
+    var underlinechecker = ParentWithStyleChecker(new Array('u'));
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
-                                              underlinebuttoncheckfunc.execute, 
+                                              underlinechecker,
                                               'kupu-underline', 
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptbuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('sub'));
-    var subscriptbutton = new KupuStateButton('kupu-subscript-button', 
+    var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
+    var subscriptbutton = new KupuStateButton('kupu-subscript-button',
                                               execCommand('subscript'),
-                                              subscriptbuttoncheckfunc.execute, 
-                                              'kupu-subscript', 
+                                              subscriptchecker,
+                                              'kupu-subscript',
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptbuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('super'));
+    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'));
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
                                                 execCommand('superscript'),
-                                                superscriptbuttoncheckfunc.execute, 
+                                                superscriptchecker,
                                                 'kupu-superscript', 
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
@@ -92,46 +89,63 @@ function initSilvaKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'))
     kupu.registerTool('redobutton', redobutton);
 
-    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
+				'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
     var dltool = new SilvaDefinitionListTool('kupu-definitionlist-button');
     kupu.registerTool('dltool', dltool);
 
-    var toctool = new SilvaTocTool('kupu-toolbox-toc-depth', 'kupu-toc-add-button', 'kupu-toc-del-button',
-                                    'kupu-toolbox-toc', 'kupu-toolbox', 'kupu-toolbox-active');
+    var toctool = new SilvaTocTool(
+        'kupu-toolbox-toc-depth', 'kupu-toc-add-button', 'kupu-toc-del-button',
+	'kupu-toolbox-toc', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('toctool', toctool);
     
     var linktool = new SilvaLinkTool();
     kupu.registerTool('linktool', linktool);
-    var linktoolbox = new SilvaLinkToolBox("kupu-link-input", "kupu-link-addbutton", 'kupu-link-updatebutton', 'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
+    var linktoolbox = new SilvaLinkToolBox(
+        "kupu-link-input", "kupu-link-addbutton", 'kupu-link-updatebutton',
+	'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox',
+	'kupu-toolbox-active');
     linktool.registerToolBox("linktoolbox", linktoolbox);
   
-    var indextool = new SilvaIndexTool("kupu-index-input", 'kupu-index-addbutton', 'kupu-index-updatebutton', 'kupu-index-deletebutton', 'kupu-toolbox-indexes', 'kupu-toolbox', 'kupu-toolbox-active');
+    var indextool = new SilvaIndexTool(
+        "kupu-index-input", 'kupu-index-addbutton', 'kupu-index-updatebutton',
+	'kupu-index-deletebutton', 'kupu-toolbox-indexes', 'kupu-toolbox',
+	'kupu-toolbox-active');
     kupu.registerTool('indextool', indextool);
 
-    var extsourcetool = new SilvaExternalSourceTool('kupu-toolbox-extsource-id', 'kupu-extsource-formcontainer', 
-                                'kupu-extsource-addbutton', 'kupu-extsource-cancelbutton', 'kupu-extsource-updatebutton', 
-                                'kupu-extsource-delbutton', 'kupu-toolbox-extsource', 'kupu-toolbox', 'kupu-toolbox-active');
+    var extsourcetool = new SilvaExternalSourceTool(
+        'kupu-toolbox-extsource-id', 'kupu-extsource-formcontainer', 
+	'kupu-extsource-addbutton', 'kupu-extsource-cancelbutton',
+	'kupu-extsource-updatebutton', 'kupu-extsource-delbutton',
+	'kupu-toolbox-extsource', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('extsourcetool', extsourcetool);
 
-    var citationtool = new SilvaCitationTool('kupu-citation-authorinput', 'kupu-citation-sourceinput', 'kupu-citation-addbutton', 
-                                                'kupu-citation-updatebutton', 'kupu-citation-deletebutton');
+    var citationtool = new SilvaCitationTool(
+        'kupu-citation-authorinput', 'kupu-citation-sourceinput',
+	'kupu-citation-addbutton', 'kupu-citation-updatebutton',
+	'kupu-citation-deletebutton');
     kupu.registerTool('citationtool', citationtool);
   
-    var imagetool = new SilvaImageTool('kupu-toolbox-image-edit', 'kupu-toolbox-image-src', 'kupu-toolbox-image-target', 
-                                        'kupu-toolbox-image-link-radio-hires', 'kupu-toolbox-image-link-radio-link', 
-                                        'kupu-toolbox-image-link', 'kupu-toolbox-image-align', 'kupu-toolbox-images', 'kupu-toolbox', 
-                                        'kupu-toolbox-active');
+    var imagetool = new SilvaImageTool(
+        'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
+	'kupu-toolbox-image-target', 'kupu-toolbox-image-link-radio-hires',
+	'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
+	'kupu-toolbox-image-align', 'kupu-toolbox-images', 'kupu-toolbox',
+	'kupu-toolbox-active');
     kupu.registerTool('imagetool', imagetool);
 
     var tabletool = new SilvaTableTool(); 
     kupu.registerTool('tabletool', tabletool);
-    var tabletoolbox = new SilvaTableToolBox('kupu-toolbox-addtable', 
-        'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
-        'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser', 'kupu-table-columnwidth',
-        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
-        'kupu-table-delcolumn-button', 'kupu-table-fix-button', 'kupu-toolbox-tables', 'kupu-toolbox', 'kupu-toolbox-active'
+    var tabletoolbox = new SilvaTableToolBox(
+        'kupu-toolbox-addtable', 'kupu-toolbox-edittable', 'kupu-table-newrows',
+	'kupu-table-newcols','kupu-table-makeheader', 'kupu-table-classchooser',
+	'kupu-table-alignchooser', 'kupu-table-columnwidth',
+	'kupu-table-addtable-button', 'kupu-table-addrow-button',
+	'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
+        'kupu-table-delcolumn-button', 'kupu-table-fix-button',
+	'kupu-toolbox-tables', 'kupu-toolbox', 'kupu-toolbox-active'
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 

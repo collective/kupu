@@ -118,9 +118,10 @@ function selectSelectItem(select, item) {
     select.selectedIndex = 0;
 };
 
-function StateButtonCheckFunction(tagnames, style, stylevalue) {
-    /* small wrapper that provides a generic function to check if a button should look pressed in */
-    this.execute = function(selNode, button, editor, event) {
+function ParentWithStyleChecker(tagnames, style, stylevalue) {
+    /* small wrapper that provides a generic function to check if a
+       button should look pressed in */
+    return function(selNode, button, editor, event) {
         /* check if the button needs to look pressed in */
         var currnode = selNode;
         if (!currnode) {
