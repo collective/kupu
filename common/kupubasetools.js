@@ -2097,7 +2097,7 @@ KupuZoomTool.prototype.checkfunc = function(selNode, button, editor, event) {
 
 KupuZoomTool.prototype.commandfunc = function(button, editor) {
     /* Toggle zoom state */
-    var zoom = !button.pressed;
+    var zoom = button.pressed;
     this.zoomed = zoom;
 
     var zoomClass = 'kupu-fulleditor-zoomed';
