@@ -2,22 +2,37 @@ TODO for drawers
 
 - improve library drawer UI
 
-- IE support --> guido
-
-  + xsl:import needs provide a valid URI; it seems IE cannot import an
-    XSL file that is linked with a relative path (as reported by duncan)
-
-  + container.ownerDocument.contentWindow = doc.contentWindow;
-    fails: "object doesn't support this property or method"
-    temp solution: do not execute on IE
-
-  + importNode fails on XML Document nodes. use cloneNode(true) as a hack.
+  + particular problem: "Current location: ..." is only shown when a
+    drawer is closed and re-opened. CSS problem?
 
 - Description in the rightmost bar needs to be trimmed, in case it's a
   long string. Can XSLT do that?!? --> paul?
 
 - Reload libraries / current collection functionality
   A lot of it is already in place. See comments in JS
+
+- IE problems:
+
+  + IE6 on WinXP crashes upon saving, if a drawer has been opened in
+    the Kupu session. Reproduceable on other systems?
+
+  + xsl:import needs provide a valid URI; it seems IE cannot import an
+    XSL file that is linked with a relative path (as reported by
+    duncan, reproduced by philiKON). Fix in Plone: generate XSL
+    templates with ZPT, providing an absolute URI for the import
+    statements.
+
+  + container.ownerDocument.contentWindow = doc.contentWindow;
+    fails: "object doesn't support this property or method". Solution:
+    do not execute on IE (it seems not to be needed anyway).
+
+  + importNode(node) fails on XML Document nodes. Use
+    node.cloneNode(true) as a hack.
+
+  + IE doesn't seem to accept the dynamic setting of display:block. It
+    does not display the element as a block element, but inline.
+    Solution: wrap the div that is to appear as a block element in
+    another <div style="display:block;"> element.
 
 - test xml output, or rather the corresponding python methods
 
