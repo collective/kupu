@@ -1,4 +1,8 @@
-<?xml version="1.0" ?>
+<tal:block define="charset site_properties/default_charset|string:utf-8;
+        content_type python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=%s' % charset);"
+ replace='structure string:&lt;?xml version="1.0" encoding="${charset}" ?&gt;'>
+<?xml version="1.0"?>
+</tal:block>
 <libraries
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
