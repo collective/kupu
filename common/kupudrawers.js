@@ -488,50 +488,28 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     /*** Selecting a resource ***/
 
-    this.selectItem = function(id) {
-        /* select an item in the item pane, show the item's metadata 
+    this.selectItem = function (id) {
+        /* 
 
-            the selected item will have a specific CSS class (selected)
+	  select an item in the item pane, show the item's metadata 
+
         */
-        var selxpath = '//resource[@selected]';
-        var selitem = this.xmldata.selectSingleNode(selxpath);
-        if (selitem) {
-            var seldiv = document.getElementById(selitem.getAttribute('id'));
-            if (seldiv) {
-                seldiv.className = 'kupu-libsource';
-            }
-            selitem.removeAttribute('selected');
-        };
 
-        var resnode_path = '//resource[@id="' + id + '"]';
-        var resnode = this.xmldata.selectSingleNode(resnode_path);
-        resnode.setAttribute('selected', '1');
+	// First turn off current selection, if any
+        var oldselxpath = '/libraries/*[@selected]//resource[@selected]';
+        var oldselitem = this.xmldata.selectSingleNode(oldselxpath);
+	if (oldselitem) oldselitem.removeAttribute("selected");
 
-        // instead of running the full transformations again we get a 
-        // reference to the element and set the classname...
-        var newseldiv = document.getElementById(id);
-        newseldiv.className = 'selected';
+	// Grab XML DOM node for clicked "resource" and mark it selected
+        var newselxpath = '/libraries/*[@selected]//resource[@id="' + id + '"]';
+        var newselitem = this.xmldata.selectSingleNode(newselxpath);
+        newselitem.setAttribute("selected", "1");
 
-        // now load the item's metadata into the metadata pane
-        this.displayItemMetadata(resnode);
-    };
+	this.updateDisplay(this.drawerid);
 
-    this.displayItemMetadata = function() {
-        /* 'loads' the metadata XML for a single item from the main XML 
-        
-            when loaded it displays the metadata in the metadata pane
-        */
-        // get the transformed html
-        var htmldoc = this._transformXml();
-        // XXXX Xpath query on HTML
-        var proppan = htmldoc.selectSingleNode('//*[@id="kupu-propertiespanel"]');
+	return;
+    }
 
-        // XXX html element reference hard-coded, do we mind?
-        var panediv = document.getElementById('kupu-propertiespanel');
-        //XXXX Xpath query on HTML
-        var newpanediv = htmldoc.selectSingleNode('//*[@id="kupu-propertiespanel"]');
-        this._replaceNodeContents(document, panediv, newpanediv);
-    };
 
     this.search = function() {
         /* search */
