@@ -27,8 +27,8 @@ function startKupu() {
         if (this.readyState == 4) {
             var status = this.status;
             if (status != '200') {
-                alert('Error loading translation (status ' + status + 
-                        '), falling back to english');
+                alert(_('Error loading translation (status ${status} ' +
+                        '), falling back to english'), {'status': status});
                 continueStartKupu(kupu);
                 return;
             };

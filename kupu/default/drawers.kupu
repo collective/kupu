@@ -47,14 +47,15 @@
         <table>
         <tr><td><div class="kupu-toolbox-label">
           <!-- Link to items matching the keyword  -->
-          <span i18n:translate="items-matching-keyword">
-            Link the highlighted text to this URL
-          </span>:
+          <span i18n:translate="">
+            Link the highlighted text to this URL:
+          </span>
         </div>
 
         <input id="kupu-linkdrawer-input" class="kupu-toolbox-st" type="text" />
         </td><td class="kupu-preview-button">
-        <button type="button" onclick="drawertool.current_drawer.preview()">Preview</button>
+        <button type="button" onclick="drawertool.current_drawer.preview()"
+                i18n:translate="">Preview</button>
         </td></tr>
         <tr><td colspan="2" align="center">
         <iframe frameborder="1" scrolling="auto" width="440" height="198"
@@ -64,8 +65,10 @@
         </table>
 
         <div class="kupu-dialogbuttons">
-          <button type="button" onclick="drawertool.current_drawer.save()">Ok</button>
-          <button type="button" onclick="drawertool.closeDrawer()">Cancel</button>
+          <button type="button" onclick="drawertool.current_drawer.save()"
+                    i18n:translate="">Ok</button>
+          <button type="button" onclick="drawertool.closeDrawer()"
+                    i18n:translate="">Cancel</button>
         </div>
 
       </div>
