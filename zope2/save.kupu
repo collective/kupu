@@ -9,7 +9,7 @@
     >
 
   <kupu:part name="buttons">
-    <metal:slot define-slot="buttongroup-save">
+    <metal:slot define-slot="buttongroup_save">
       <kupu:insert-part feature="save" part="buttons" />
     </metal:slot>
   </kupu:part>

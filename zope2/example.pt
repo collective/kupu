@@ -40,20 +40,52 @@
           tal:attributes="src string:${kupuurl}/kupucontentfilters.js"> </script>
     <script type="text/javascript" 
           tal:attributes="src string:${kupuurl}/kupuinit.js"> </script>
-
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupucontextmenu.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupusaveonpart.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupustart.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupusourceedit.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupudrawers.js"> </script>
+  
     <link type="text/css" rel="stylesheet"
           tal:attributes="href string:${kupuurl}/kupustyles.css" />
     <link type="text/css" rel="stylesheet"
-          tal:attributes="href string:${kupuurl}/kupucustom.css" />
+          tal:attributes="href string:${kupuurl}/kupudrawerstyles.css" />
 
-    <metal:startjs use-macro="macros/kupu_startjs" />
+    <div style="display: none;">
+      <xml id="kupuconfig">
+        <kupuconfig>
+          
+          <dst tal:content="documenturl">fulldoc.html</dst>
+          <use_css>1</use_css>
+          <reload_after_save>0</reload_after_save>
+          <strict_output>1</strict_output>
+          <content_type>application/xhtml+xml</content_type>
+          <compatible_singletons>1</compatible_singletons>
+
+          <image_xsl_uri>kupudrawers/imagedrawer.xsl</image_xsl_uri>
+          <link_xsl_uri>kupudrawers/linkdrawer.xsl</link_xsl_uri>
+          <image_libraries_uri>kupudrawers/demolibraries.xml</image_libraries_uri>
+          <link_libraries_uri>kupudrawers/demolibraries.xml</link_libraries_uri>
+          <search_images_uri> </search_images_uri>
+          <search_links_uri> </search_links_uri>
+  
+        
+        </kupuconfig>
+      </xml>
+    </div>
+
   </head>
   
-  <body onload="startKupu();">
-    <div class="kupu-fulleditor" metal:use-macro="macros/kupu_fulleditor">
-      <iframe metal:fill-slot="kupu_editorframe"
+  <body onload="kupu = startKupu();">
+    <div class="kupu-fulleditor" metal:use-macro="macros/fulleditor">
+      <iframe metal:fill-slot="editorframe"
               id="kupu-editor" 
-              tal:attributes="src documenturl; dst documenturl;"
+              tal:attributes="src documenturl;"
               reloadsrc="0" 
               usecss="1"
               strict_output="1"

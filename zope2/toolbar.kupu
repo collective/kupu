@@ -64,6 +64,12 @@
     </metal:slot>
   </kupu:part>
 
+  <kupu:part name="buttongroup-definitionlist">
+    <metal:slot define-slot="buttongroup_definitionlist">
+      <kupu:insert-part feature="toolbar" part="buttongroup-defitionlist" />
+    </metal:slot>
+  </kupu:part>
+
   <kupu:part name="buttongroup-indent">
     <metal:slot define-slot="buttongroup_indent">
       <kupu:insert-part feature="toolbar" part="buttongroup-indent" />

@@ -4,6 +4,11 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
 
+  <kupu:fill-slot name="body">
+    <kupu:insert-part feature="zope2-xmlconfig" part="xmlconfig" />
+    <kupu:insert-part feature="body" part="fulleditor" />
+  </kupu:fill-slot>
+
   <kupu:fill-slot name="fulleditor">
     <kupu:insert-part feature="zope2-toolbar" part="toolbar" />
     <kupu:insert-part feature="zope2-toolboxes" part="toolboxes" />
@@ -32,6 +37,7 @@
     <kupu:insert-part feature="zope2-colorchooser" part="buttons" />
     <kupu:insert-part feature="zope2-toolbar" part="buttongroup-justify" />
     <kupu:insert-part feature="zope2-toolbar" part="buttongroup-list" />
+    <kupu:insert-part feature="zope2-toolbar" part="buttongroup-definitionlist" />
     <kupu:insert-part feature="zope2-toolbar" part="buttongroup-indent" />
     <kupu:insert-part feature="zope2-drawers" part="buttons" />
     <kupu:insert-part feature="zope2-toolbar" part="buttongroup-remove" />

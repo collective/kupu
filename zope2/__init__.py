@@ -38,7 +38,7 @@ def initialize(context):
 
 #_dirreg = DirectoryRegistry()
 from Products.FileSystemSite.DirectoryView import _dirreg
-_dirreg.registerDirectory('../default', globals())
+_dirreg.registerDirectory('../common', globals())
 
 # for library drawers
 registerFileExtension('xsl', FSFile)
@@ -82,7 +82,7 @@ def createKupuEditor(parent, filepath, id=None):
     ob = KupuEditor(id, filepath)
     parent._setObject(id, ob)
 
-def manage_addKupuEditor(self, filepath="Products/kupu/default",
+def manage_addKupuEditor(self, filepath="Products/kupu/common",
                          id=None, REQUEST=None):
     """Adds either an kupu editor object
     """
