@@ -48,15 +48,15 @@ $Id$
                     </xsl:choose>
                 </div>
             </xsl:when>
-            <!-- <xsl:when test="preview">
+            <xsl:when test="preview">
                     <tr>
                         <td>
                             <strong>Preview</strong>
                             <br/>
-                            <img src="{url}" title="{title}" height="{height}" width="{width}" alt="{title}"/>
+                            <img src="{preview}" title="{title}" height="{height}" width="{width}" alt="{title}"/>
                         </td>
                     </tr>
-                </xsl:when>-->
+                </xsl:when>
         </xsl:choose>
         <div>
             <xsl:value-of select="size"/>
@@ -69,7 +69,7 @@ $Id$
             <strong>ALT-text</strong>
             <br/>
             <form onsubmit="return false;">
-                <input type="text" id="image_alt" size="10"/>
+                <input type="text" id="image_alt" size="20" value="{title}"/>
             </form>
         </div>
     </xsl:template>
