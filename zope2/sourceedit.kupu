@@ -9,7 +9,7 @@
 
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupusourceedit.js"
-            tal:attributes="href container/kupusourceedit.js/absolute_url"> </script>
+            tal:attributes="src string:${kupu_url}/kupusourceedit.js"> </script>
   </kupu:part>
 
 </kupu:feature>

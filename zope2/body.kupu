@@ -11,11 +11,11 @@
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
       <form>
+        <!-- XXX: fulldoc.html gets the .html stripped by FSS -->
         <iframe metal:define-slot="editorframe"
                 id="kupu-editor"
                 frameborder="0"
-                src=""
-                tal:attributes="src here/absolute_url"
+                src="fulldoc"
                 scrolling="auto">
         </iframe>
         <textarea id="kupu-editor-textarea" style="display: none"> </textarea>

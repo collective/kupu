@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="html"
+    implementation="zope2"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+  <kupu:part name="html">
+    <!-- macros use kupu_url for locating kupu -->
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          tal:define="kupu_url here/absolute_url">
+
+      <kupu:define-slot name="html" />
+
+    </html>
+  </kupu:part>
+</kupu:feature>

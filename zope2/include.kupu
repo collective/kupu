@@ -6,6 +6,7 @@
 
   <!-- Include features -->
   <xi:include href="wire.kupu" />
+  <xi:include href="html.kupu" />
   <xi:include href="head.kupu" />
   <xi:include href="xmlconfig.kupu" />
   <xi:include href="body.kupu" />
