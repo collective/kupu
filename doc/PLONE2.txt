@@ -121,6 +121,44 @@ set classes for displaying images floated left, inline or right::
        clear: both;
     }
 
+References from HTML text
+-------------------------
+Kupu can be made to store archetypes references for any HTML field.
+You can use these references for a variety of purposes, e.g. when
+publishing a document you could automatically publish all the
+contained images.
+
+To enable this feature for a particular field, you need to  change the
+type of the field from TextField to ReftextField:
+
+    from Products.kupu.plone.ReftextField import ReftextField
+
+then define your field as:
+
+        Reftextfield('bodyCopy',
+            required=1,
+            searchable=1,
+            relationship='bodyCopy',
+            widget=RichWidget
+            (description='Please paste or type your article here',
+                label='Body Copy',
+                parastyles=(
+                 ('div|pullQuote','Pull Quote'),
+                 ('div|Caption','Caption'),
+                 ('div|contactInformation','Contact Information'),
+                 ('div|notesToEditors','Notes to editors'),
+                ),
+            ),
+        ),
+
+the ReftextField type is identical to the existing TextField except
+that it also extracts references from the HTML text whenever the field
+is saved. The relationship used to hold the references may be
+specified as shown, but if omitted it defaults to the field name.
+
+If the HTML contains an invalid reference, e.g. a link to an object
+that has since been deleted, ReftextField will completely ignore that
+link.
 
 Migrating from Epoz
 -------------------
