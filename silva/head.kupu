@@ -19,11 +19,14 @@
             tal:attributes="src string:${root_url}/kupu/kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
             tal:attributes="src string:${root_url}/kupu/kupucontentfilters.js"> </script>
+
+    <script type="text/javascript" src="kupusilvatools.js"
+            tal:attributes="src string:${root_url}/kupu_silva/kupusilvatools.js"> </script>
   </kupu:part>
 
   <kupu:part name="bootstrap-editor">
-    <script type="text/javascript" src="silva_kupu.js"
-            tal:attributes="src string:${root_url}/kupu_silva/silva_kupu.js"> </script>
+    <script type="text/javascript" src="kupusilvainit.js"
+            tal:attributes="src string:${root_url}/kupu_silva/kupusilvainit.js"> </script>
     <script type="text/javascript">
 	var kupu = null;
 	var kupuui = null;
