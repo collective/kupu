@@ -27,8 +27,8 @@
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="sourceedit" part="jsincludes" />
     <kupu:insert-part feature="drawers" part="jsincludes" />
-    <kupu:insert-part feature="exit" part="jsincludes" />
     <kupu:insert-part feature="lenya" part="jsincludes" />
+    <kupu:insert-part feature="lenya" part="styles" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">
