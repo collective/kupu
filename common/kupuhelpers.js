@@ -161,7 +161,7 @@ function _load_dict_helper(element) {
                 // test if we can recurse, if so ditch the string (probably
                 // ignorable whitespace) and dive into the node
                 if (child.childNodes[j].nodeType == 1) {
-                    value = _load_dict_helper(child.childNodes[j]);
+                    value = _load_dict_helper(child);
                     break;
                 } else {
                     value += child.childNodes[j].nodeValue;
