@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Make a nice tarball for a Kupu release
+#
+
+# configuration parameters
+# THIS DIR WILL BE DELETED BY THE SCRIPT!!!
+KUPU_DIR="/tmp/kupu_build"
+BRANCH="tag/kupu-1.1.1b1"
+DATE=`date +%Y-%m-%d`
+#TARBALLNAME="kupu-nightly-$DATE.tgz"
+TARBALLNAME="kupu-1.1.1b1.tar.gz"
+PROC="/usr/bin/xsltproc"
+XSL_PAR="--nonet --novalid --xinclude"
+LINT="/usr/bin/xmllint"
+LINT_PAR="--noblanks --format"
+XSL="make.xsl"
+
+# remove anything that was there before
+echo "Deleting $KUPU_DIR"
+if [ -d $KUPU_DIR ]; then
+  rm -Rf $KUPU_DIR
+fi
+mkdir $KUPU_DIR
+
+# get branch from svn
+echo "Checking out $BRANCH"
+svn export http://codespeak.net/svn/kupu/$BRANCH $KUPU_DIR/kupu
+
+# generate the files; don't use make because we want to run
+# xmllint over the output
+echo "Generating templates"
+cd $KUPU_DIR/kupu
+$PROC $XSL_PAR $XSL dist.kupu | $LINT $LINT_PAR - > common/kupu.html
+$PROC $XSL_PAR $XSL dist-form.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > common/kupuform.html
+$PROC $XSL_PAR $XSL dist-plone.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > plone/kupu_plone_layer/wysiwyg_support.html
+$PROC $XSL_PAR $XSL dist-silva.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > silva/kupumacros.html
+$PROC $XSL_PAR $XSL dist-zope2.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > default/kupumacros.html
+cd ..
+
+# make the tarball
+echo "Creating tarball"
+tar czf $TARBALLNAME kupu
+echo "Done"
