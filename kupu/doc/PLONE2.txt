@@ -38,7 +38,16 @@ When logged in as a Manager use the 'Plone Setup' to get to the Plone
 control panel. Kupu appears as a configurable product on the control
 panel.
 
-XXX
+You can also define a customisation policy script called
+'kupu-customisation-policy' in a skin folder. If there is a script of
+this name then it will be run automatically every time you install (or
+reinstall) kupu in your plone site. This script should use the
+kupu_library_tool to set up the configuration as you wish it for your
+site.
+
+Creating a customisation policy script is optional, but is a simple
+way to ensure that you do not lose customised configuration settings
+when upgrading. A sample script is in the kupu_plone_layer folder.
 
 Paragraph styles
 ----------------

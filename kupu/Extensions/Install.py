@@ -76,6 +76,7 @@ def install_plone(self, out):
     install_libraries(self, out)
     install_configlet(self, out)
     install_transform(self, out)
+    install_customisation(self, out)
 
 def install_libraries(self, out):
     """Install everything necessary to support Kupu Libraries
@@ -132,6 +133,14 @@ def install_transform(self, out):
         transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
     except (NameError,AttributeError):
         print >>out, "No MimetypesRegistry, captioning not supported."
+
+def install_customisation(self, out):
+    cpscript = getattr(self, 'kupu-customisation-policy', None)
+    if cpscript:
+        print >>out, "Customising Kupu"
+        print >>out, cpscript()
+    else:
+        print >>out, "No kupu customisation policy"
 
 def install(self):
     out = StringIO()
