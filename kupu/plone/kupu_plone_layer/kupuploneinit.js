@@ -142,9 +142,6 @@ function initPloneKupu(iframe, fieldname) {
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
-    var jumplinks = new JumpLinkTool();
-    kupu.registerTool('jumplinktool', jumplinks);
-
     var imagetool = NoContextMenu(new ImageTool());
     kupu.registerTool('imagetool', imagetool);
 

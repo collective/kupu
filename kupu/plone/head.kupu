@@ -32,8 +32,6 @@
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
     <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupuplonetools.js"> </script>
-    <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
 
   </kupu:part>
