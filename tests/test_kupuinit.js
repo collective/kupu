@@ -14,7 +14,7 @@ function InitKupuCheckersTestCase() {
     // Please note that we are cheating here a bit:
     // 1. No idea how to get the real checkers without setting up a complete
     //    Kupu, so we work on a copy here.
-    // 2. We test getSelectedNode, ParentWithStyleChecker and the arguments
+    // 2. We test parentElement, ParentWithStyleChecker and the arguments
     //    used in initKupu simultanously, so these tests don't tell you what's
     //    responsible if they fail.
 
@@ -62,7 +62,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                        |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -71,7 +71,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                  |o <b>bar|
         this._setSelection(2, null, 7, false, 'o bar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), false);
     };
@@ -80,7 +80,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                    |<b>bar|
         this._setSelection(4, false, 7, false, 'bar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -89,7 +89,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                       |bar|
         this._setSelection(4, true, 7, false, 'bar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -99,7 +99,7 @@ function InitKupuCheckersTestCase() {
         // select                    |bar|
         this._setSelection(4, true, 7, false, 'bar');
         this.doc.execCommand('bold', null, null);
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -109,7 +109,7 @@ function InitKupuCheckersTestCase() {
         // select                   ||
         this._setSelection(3, null, 3, null, '');
         this.doc.execCommand('bold', null, null);
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -122,7 +122,7 @@ function InitKupuCheckersTestCase() {
         // select                    |bar|
         this._setSelection(4, null, 7, false, 'bar');
         this.doc.execCommand('bold', null, null);
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
 
@@ -133,7 +133,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <strong>bar</strong></p>';
         // select                             |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -143,7 +143,7 @@ function InitKupuCheckersTestCase() {
                       '<p>foo <span style="font-weight: bold;">bar</span></p>';
         // select                                              |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
     };
@@ -152,7 +152,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <i>bar</i></p>';
         // select                        |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
     };
@@ -161,7 +161,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML = '<p>foo <em>bar</em></p>';
         // select                         |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
     };
@@ -171,7 +171,7 @@ function InitKupuCheckersTestCase() {
                      '<p>foo <span style="font-style: italic;">bar</span></p>';
         // select                                              |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
     };
@@ -181,7 +181,7 @@ function InitKupuCheckersTestCase() {
              '<p>foo <span style="text-decoration: underline;">bar</span></p>';
         // select                                              |ar|
         this._setSelection(5, null, 7, false, 'ar');
-        var selNode = this.selection.getSelectedNode();
+        var selNode = this.selection.parentElement();
         var underlinechecker = this._makeUnderlinechecker();
         this.assertEquals(underlinechecker(selNode), true);
     };
