@@ -55,32 +55,32 @@ function DrawerTool() {
 
     this.getDrawerEnv = function(iframe_win) {
         var drawer = null;
-	for (var id in this.drawers) {
-	    var ldrawer = this.drawers[id];
-	    // Note that we require drawers to provide us with an
-	    // element property!
-	    if (ldrawer.element.contentWindow == iframe_win) {
-	        drawer = ldrawer;
+        for (var id in this.drawers) {
+            var ldrawer = this.drawers[id];
+            // Note that we require drawers to provide us with an
+            // element property!
+            if (ldrawer.element.contentWindow == iframe_win) {
+                drawer = ldrawer;
             };
-	};
-	if (!drawer) {
-	    this.editor.logMessage("Drawer not found", 1);
-	    return;
-	};
-	return {
-	    'drawer': drawer,
-	    'drawertool': this,
-	    'tool': drawer.tool
-	};
+        };
+        if (!drawer) {
+            this.editor.logMessage("Drawer not found", 1);
+            return;
+        };
+        return {
+            'drawer': drawer,
+            'drawertool': this,
+            'tool': drawer.tool
+        };
     };
 };
 
 DrawerTool.prototype = new KupuTool;
 
-function Drawer(iframeid, tool) {
+function Drawer(elementid, tool) {
     /* base prototype for drawers */
 
-    this.element = document.getElementById(iframeid);
+    this.element = document.getElementById(elementid);
     this.tool = tool;
     
     this.initialize = function(editor, drawertool) {
@@ -100,12 +100,15 @@ function Drawer(iframeid, tool) {
     };
 };
 
-// XXX needs to be re-implemented, probably using a base prototype and
-// two separate drawers, TableAddDrawer and TableEditDrawer.
-function TableDrawer(addiframeid, editiframeid, tool) {
-    this.addelement = document.getElementById(addiframeid);
-    this.editelement = document.getElementById(editiframeid);
+function TableDrawer(elementid, tool) {
+    this.element = document.getElementById(elementid);
     this.tool = tool;
+
+    this.addpanelid = 'kupu-tabledrawer-addtable';
+    this.editpanelid = 'kupu-tabledrawer-edittable';
+
+    this.addpanel = document.getElementById(this.addpanelid);
+    this.editpanel = document.getElementById(this.editpanelid);
 
     this.createContent = function() {
         var selNode = this.editor.getSelectedNode();
@@ -113,21 +116,27 @@ function TableDrawer(addiframeid, editiframeid, tool) {
 
         if (!table) {
             // show add table drawer
-            element = this.addelement;
-            hideelement = this.editelement;
+            show = this.addpanel;
+            hide = this.editpanel;
         } else {
             // show edit table drawer
-            element = this.editelement;
-            hideelement = this.addelement;
+            show = this.editpanel;
+            hide = this.addpanel;
         };
-        hideelement.style.display = 'none';
-        element.style.display = 'block';
+        hide.style.display = 'none';
+        show.style.display = 'block';
+        this.element.style.display = 'block';
     };
 
-    this.hide = function() {
-        this.addelement.style.display = 'none';
-        this.editelement.style.display = 'none';
+    this.createTable = function() {
+      var rows = document.getElementById('kupu-tabledrawer-newrows').value;
+      var cols = document.getElementById('kupu-tabledrawer-newcols').value;
+      var style = document.getElementById('kupu-tabledrawer-classchooser').value;
+      var add_header = document.getElementById('kupu-tabledrawer-makeheader').checked;
+      this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
+      this.drawertool.closeDrawer();
     };
+
 };
 
 TableDrawer.prototype = new Drawer;

@@ -106,3 +106,7 @@ div.selected {
   background-repeat: no-repeat;
   background-color: ButtonFace;
 }
+
+#kupu-tabledrawer-edittable {
+  display: none;
+}
