@@ -1,5 +1,5 @@
 /* BeforeUnload form processing */
-if (!window.beforeunload) function() {
+if (!window.beforeunload) (function() {
     var BeforeUnloadHandler = function() {
         var self = this;
 
@@ -136,8 +136,8 @@ if (!window.beforeunload) function() {
             method = this['chk_'+ele.tagName.toLowerCase()];
 
         return method? method.apply(this, [ele]) : false;
-    }
+    };
 
     window.onbeforeunload = new BeforeUnloadHandler().execute;
-}();
+})();
 
