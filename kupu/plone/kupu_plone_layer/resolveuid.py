@@ -22,6 +22,10 @@ if not obj:
     
 if traverse_subpath:
     traverse_subpath.insert(0, obj.absolute_url())
-    return response.redirect('/'.join(traverse_subpath))
+    target = '/'.join(traverse_subpath)
+else:
+    target = obj.absolute_url()
 
-return response.redirect(obj.absolute_url())
+if request.QUERY_STRING:
+    target += '?' + request.QUERY_STRING
+return response.redirect(target)

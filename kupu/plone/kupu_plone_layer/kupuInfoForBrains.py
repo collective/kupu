@@ -14,7 +14,7 @@ coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 preview_action = 'kupupreview'
 
 def info(brain):
-    # It owuld be nice to do everything from the brain, but
+    # It would be nice to do everything from the brain, but
     # unfortunately we need to get the object to calculate a UID
     # based URL, and also for the preview size.
     obj = brain.getObject()
