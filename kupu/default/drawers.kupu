@@ -28,6 +28,10 @@
   </kupu:part>
 
   <kupu:part name="drawers">
+    <kupu:define-slot name="drawers" />
+  </kupu:part>
+
+  <kupu:part name="librarydrawer">
     <div style="display:block;">
       <div id="kupu-librarydrawer" class="kupu-drawer">
       </div>

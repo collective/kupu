@@ -61,6 +61,10 @@
     <kupu:insert-part feature="drawers" part="drawers" />
   </kupu:fill-slot>
 
+  <kupu:fill-slot name="drawers">
+    <kupu:insert-part feature="drawers" part="librarydrawer" />
+  </kupu:fill-slot>
+
   <kupu:fill-slot name="toolbar-buttons">
     <kupu:insert-part feature="toolbar" part="logo" />
     <kupu:insert-part feature="toolbar" part="select-styles" />
