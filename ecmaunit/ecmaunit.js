@@ -82,13 +82,19 @@ function TestCase() {
             return;
         };
         var exception_thrown = false;
+        // remove the first three args, they're the function's normal args
+        var args = [];
+        for (var i=3; i < arguments.length; i++) {
+            args.push(arguments[i]);
+        };
         try {
-            func.apply(context, arguments);
+            func.apply(context, args);
         } catch(e) {
             if (exception.toSource && e.toSource) {
                 exception = exception.toSource();
                 e = e.toSource();
-            } else if (exception.toString && e.toString) {
+            };
+            if (exception.toString && e.toString) {
                 exception = exception.toString();
                 e = e.toString();
             };
