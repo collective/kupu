@@ -12,6 +12,8 @@ TODO for drawers
 - issue 63: set text/html as content type when editing w/ kupu
   Can't reproduce?!?
 
+- link/image drawer: support re-editing of link or image
+
 - provide external link functionality
 
   + drawer or dialog?
