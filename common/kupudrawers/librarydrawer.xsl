@@ -42,19 +42,19 @@ $Id$
                             </form>
                         </div>
                         <div class="kupu-panels">
-                            <table width="99%">
+                            <table>
                                 <tr class="kupu-panelsrow">
-                                    <td id="kupu-librariespanel">
+                                    <td id="kupu-librariespanel" class="panel">
                                         <div id="kupu-librariesitems" class="overflow">
                                             <xsl:apply-templates select="/libraries/library"/>
                                         </div>
                                     </td>
-                                    <td id="kupu-resourcespanel">
+                                    <td id="kupu-resourcespanel" class="panel">
                                         <div id="kupu-resourceitems" class="overflow">
                                             <xsl:apply-templates select="/libraries/*[@selected]/items"/>
                                         </div>
                                     </td>
-                                    <td id="kupu-propertiespanel">
+                                    <td id="kupu-propertiespanel" class="panel">
                                         <div id="kupu-properties" class="overflow">
                                             <xsl:apply-templates
                                                 select="/libraries/*[@selected]//resource[@selected]" mode="properties"/>
