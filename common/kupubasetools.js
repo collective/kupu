@@ -549,8 +549,11 @@ function LinkTool() {
             };
         };
         
-        var selection = this.editor.getSelection();
-        selection.selectNodeContents(linkel);
+        try {
+            var selection = this.editor.getSelection();
+            selection.selectNodeContents(linkel);
+        } catch(e) { // Can fail on IE.
+        }
         
         linkel.style.color = this.linkcolor;
         
