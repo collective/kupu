@@ -37,15 +37,6 @@ function InitKupuCheckersTestCase() {
        <SUB>spam</SUB>
        <SUP>eggs</SUP>*/
 
-    this.setUp = function() {
-        var iframe = document.getElementById('iframe');
-        this.doc = iframe.contentWindow.document;
-        this.body = this.doc.getElementsByTagName('body')[0];
-        this.kupudoc = new KupuDocument(iframe);
-        this.selection = this.kupudoc.getSelection();
-        this.kupudoc.getWindow().focus();
-    };
-
     this._makeBoldchecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
@@ -67,33 +58,10 @@ function InitKupuCheckersTestCase() {
         return underlinechecker;
         };
 
-    this._setSelection = function(startTag, startOffset, endTag, endOffset,
-                                  verificationString) {
-        var startElement = this.body.getElementsByTagName(startTag)[0];
-        var endElement = this.body.getElementsByTagName(endTag)[0];
-        var innerSelection = this.selection.selection;
-        if (_SARISSA_IS_IE) {
-            var range = innerSelection.createRange();
-            var endrange = innerSelection.createRange();
-            range.moveToElementText(startElement);
-            range.moveStart('character', startOffset);
-            endrange.moveToElementText(endElement);
-            endrange.moveStart('character', endOffset);
-            range.setEndPoint('EndToStart', endrange);
-            range.select();
-        } else {
-            innerSelection.collapse(startElement.firstChild, startOffset);
-            if (startElement != endElement || startOffset != endOffset) {
-                innerSelection.extend(endElement.firstChild, endOffset);
-            };
-        };
-        this.assertEquals(this.selection.toString(), verificationString);
-    };
-
     this.testBoldcheckerBold = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                        |ar|
-        this._setSelection('b', 1, 'b', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
@@ -102,7 +70,7 @@ function InitKupuCheckersTestCase() {
     this.testBoldcheckerMixed = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                  |o <b>bar|
-        this._setSelection('p', 2, 'b', 3, 'o bar');
+        this._setSelection(2, null, 7, false, 'o bar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), false);
@@ -111,7 +79,7 @@ function InitKupuCheckersTestCase() {
     this.XXXtestBoldcheckerBoldLeftOuter = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                    |<b>bar|
-        this._setSelection('p', 4, 'b', 3, 'bar');
+        this._setSelection(4, false, 7, false, 'bar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
@@ -120,7 +88,7 @@ function InitKupuCheckersTestCase() {
     this.testBoldcheckerBoldInner = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                       |bar|
-        this._setSelection('b', 0, 'b', 3, 'bar');
+        this._setSelection(4, true, 7, false, 'bar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
@@ -129,7 +97,7 @@ function InitKupuCheckersTestCase() {
     this.XXXtestBoldcheckerExecCommand = function() {
         this.body.innerHTML = '<p>foo bar</p>';
         // select                    |bar|
-        this._setSelection('p', 4, 'p', 7, 'bar');
+        this._setSelection(4, true, 7, false, 'bar');
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
@@ -139,7 +107,7 @@ function InitKupuCheckersTestCase() {
     this.XXXtestBoldcheckerExecCommandCollapsed = function() {
         this.body.innerHTML = '<p>foo bar</p>';
         // select                   ||
-        this._setSelection('p', 3, 'p', 3, '');
+        this._setSelection(3, null, 3, null, '');
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
@@ -152,7 +120,7 @@ function InitKupuCheckersTestCase() {
 
         this.body.innerHTML = '<p>foo bar</p>';
         // select                    |bar|
-        this._setSelection('p', 4, 'p', 7, 'bar');
+        this._setSelection(4, null, 7, false, 'bar');
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
@@ -164,7 +132,7 @@ function InitKupuCheckersTestCase() {
     this.testBoldcheckerStrong = function() {
         this.body.innerHTML = '<p>foo <strong>bar</strong></p>';
         // select                             |ar|
-        this._setSelection('strong', 1, 'strong', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
@@ -174,7 +142,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML =
                       '<p>foo <span style="font-weight: bold;">bar</span></p>';
         // select                                              |ar|
-        this._setSelection('span', 1, 'span', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode), true);
@@ -183,7 +151,7 @@ function InitKupuCheckersTestCase() {
     this.testItalicscheckerItalics = function() {
         this.body.innerHTML = '<p>foo <i>bar</i></p>';
         // select                        |ar|
-        this._setSelection('i', 1, 'i', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
@@ -192,7 +160,7 @@ function InitKupuCheckersTestCase() {
     this.testItalicscheckerEmphasis = function() {
         this.body.innerHTML = '<p>foo <em>bar</em></p>';
         // select                         |ar|
-        this._setSelection('em', 1, 'em', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
@@ -202,7 +170,7 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML =
                      '<p>foo <span style="font-style: italic;">bar</span></p>';
         // select                                              |ar|
-        this._setSelection('span', 1, 'span', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
@@ -212,15 +180,11 @@ function InitKupuCheckersTestCase() {
         this.body.innerHTML =
              '<p>foo <span style="text-decoration: underline;">bar</span></p>';
         // select                                              |ar|
-        this._setSelection('span', 1, 'span', 3, 'ar');
+        this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.getSelectedNode();
         var underlinechecker = this._makeUnderlinechecker();
         this.assertEquals(underlinechecker(selNode), true);
     };
-
-    this.tearDown = function() {
-        this.body.innerHTML = '';
-    };
 };
 
-InitKupuCheckersTestCase.prototype = new TestCase;
+InitKupuCheckersTestCase.prototype = new SelectionTestCase;
