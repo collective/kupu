@@ -1,20 +1,41 @@
 <?xml version="1.0" ?>
 <kupu:feature
-    name="drawers"
+    name="zope2-drawers"
     implementation="zope2"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
 
-  <kupu:part name="styles">
-    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css"
-          tal:attributes="href container/kupudrawerstyles.css/absolute_url" />
+  <kupu:part name="drawers">
+    <metal:macro define-macro="drawers">
+      <kupu:define-slot name="drawers" />
+    </metal:macro>
   </kupu:part>
 
-  <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupudrawers.js"
-        tal:attributes="href container/kupudrawers.js/absolute_url"> </script>
+  <kupu:part name="buttons">
+    <metal:slot define-slot="buttongroup_drawers">
+      <kupu:insert-part feature="drawers" part="buttons" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="librarydrawer">
+    <metal:slot define-slot="librarydrawer">
+      <kupu:insert-part feature="drawers" part="librarydrawer" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="linkdrawer">
+    <metal:slot define-slot="linkdrawer">
+      <kupu:insert-part feature="drawers" part="linkdrawer" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="tabledrawer">
+    <metal:slot define-slot="tabledrawer">
+      <kupu:insert-part feature="drawers" part="tabledrawer" />
+    </metal:slot>
   </kupu:part>
 
 </kupu:feature>

@@ -1,0 +1,88 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="zope2-toolbar"
+    implementation="zope2"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    >
+
+  <kupu:part name="toolbar">
+    <metal:toolbar define-slot="kupu_toolbar_slot">
+      <div class="kupu-tb" id="toolbar" metal:define-macro="kupu_toolbar">
+        <kupu:define-slot name="toolbar" />
+      </div>
+    </metal:toolbar>
+  </kupu:part>
+
+  <kupu:part name="buttons">
+    <span id="kupu-tb-buttons">
+      <kupu:define-slot name="toolbar-buttons" />
+    </span>
+  </kupu:part>
+
+  <kupu:part name="liststyles">
+    <metal:slot define-slot="tb_select_liststyle">
+      <kupu:insert-part feature="toolbar" part="liststyles" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="logo">
+    <metal:slot define-slot="buttongroup_logo">
+      <kupu:insert-part feature="toolbar" part="logo" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="select-styles">
+    <metal:slot define-slot="tb_select_styles">
+      <kupu:insert-part feature="toolbar" part="select-styles" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-basicmarkup">
+    <metal:slot define-slot="buttongroup_basicmarkup">
+      <kupu:insert-part feature="toolbar" part="buttongroup-basicmarkup" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-subsuper">
+    <metal:slot define-slot="buttongroup_subsuper">
+      <kupu:insert-part feature="toolbar" part="buttongroup-subsuper" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-justify">
+    <metal:slot define-slot="buttongroup_justify">
+      <kupu:insert-part feature="toolbar" part="buttongroup-justify" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-list">
+    <metal:slot define-slot="buttongroup_list">
+      <kupu:insert-part feature="toolbar" part="buttongroup-list" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-indent">
+    <metal:slot define-slot="buttongroup_indent">
+      <kupu:insert-part feature="toolbar" part="buttongroup-indent" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-undo">
+    <metal:slot define-slot="buttongroup_undo">
+      <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
+    </metal:slot>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-remove">
+    <metal:slot define-slot="buttongroup_remove">
+      <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
+    </metal:slot>
+  </kupu:part>
+
+  <!-- We will have the button tool configuration here, too, once we
+       do tool definitions in XML config. -->
+
+</kupu:feature>

@@ -1,15 +1,22 @@
 <?xml version="1.0" ?>
 <kupu:feature
-    name="sourceedit"
+    name="zope2-sourceedit"
     implementation="zope2"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupusourceedit.js"
         tal:attributes="href container/kupusourceedit.js/absolute_url"> </script>
+  </kupu:part>
+
+  <kupu:part name="buttons">
+    <metal:slot define-slot="buttongroup_source">
+      <kupu:insert-part feature="sourceedit" part="buttons" />
+    </metal:slot>
   </kupu:part>
 
 </kupu:feature>

@@ -34,7 +34,7 @@
         tal:attributes="href container/kupueditor.js/absolute_url"> </script>
     <script type="text/javascript" src="kupubasetools.js"
         tal:attributes="href container/kupubasetools.js/absolute_url"> </script>
-    <script type="text/javascript" src="kupuloggers.js">
+    <script type="text/javascript" src="kupuloggers.js"
         tal:attributes="href container/kupuloggers.js/absolute_url"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
         tal:attributes="href container/kupucontentfilters.js/absolute_url"> </script>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="zope2-save"
+    implementation="zope2"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    >
+
+  <kupu:part name="buttons">
+    <metal:slot define-slot="buttongroup-save">
+      <kupu:insert-part feature="save" part="buttons" />
+    </metal:slot>
+  </kupu:part>
+
+</kupu:feature>
