@@ -111,7 +111,7 @@
             <tbody>
               <tr>
                 <td>
-                  <table width="100%" border="0">
+                  <table width="100%" style="color: #333;" border="0">
                     <tr>
                       <td width="30%">author</td>
                       <td><input class="store" type="text" id="kupu-citation-authorinput" style="width:81%" /></td>
@@ -171,7 +171,7 @@
           <tr>
             <td colspan="2">
               <div id="kupu-toolbox-addtable">
-                <table width="100%">
+                <table width="100%" style="color: #333;">
                   <tr>
                     <td class="align-right" width="30%">rows</td>
                     <td><input id="kupu-table-newrows"/></td>
@@ -320,7 +320,7 @@
       <h1 i18n:translate="save">save</h1>
       <div class="kupu-tooltray">
         <form action="." method="POST" onsubmit="return false">
-          <input type="button" class="transport" value="save" id="kupu-save-toolbox-button" onclick="kupu.saveDocument()" />
+          <input type="button" class="button" value="save" id="kupu-save-toolbox-button" onclick="kupu.saveDocument()" />
         </form>
       </div>
 
