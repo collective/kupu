@@ -42,14 +42,3 @@ completed.
 
 - Get rid of saveonpart code in startkupu and put it in the saveonpart
   feature
-
-- Command for the plone-drawers merge:
-
-    svn merge \
-      http://codespeak.net/svn/epoz/branch/duncan-plone-branch@3123 \
-      http://codespeak.net/svn/kupu/branch/plone-drawers@HEAD \
-      trunk/kupu
-
-  Resulting conflicts (there will be a lot) will have to be resolved
-  carefully. There will be conflicts even of unchanged files such as
-  the button images. These need to be reverted
