@@ -69,6 +69,8 @@ kupu credits
 
   - Eric Casteleijn for the new name.
 
+  - Felicia Wong for the kupu logo.
+
   - Igor Stroh for some bugfixes.
 
   - Jan Smith for finding bugs (and believe us, she did! ;)
