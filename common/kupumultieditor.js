@@ -80,53 +80,6 @@ function KupuMultiEditor(documents, config, logger) {
         throw('Not supported, use prepareForm to attach the editor to a form');
     };
 
-    this.prepareForm = function(form) {
-        /* prepare the form
-            
-            unlike the version in the superclass this gets one argument, the form,
-            the ids of the iframe should be set as 'fieldid' attributes on the iframe
-        */
-        // make sure people can't edit or save during saving
-        if (!this._initialized) {
-            return;
-        }
-        this._initialized = false;
-        
-        // set the window status so people can see we're actually saving
-        window.status= "Please wait while saving document...";
-
-        for (var i=0; i < this.documents.length; i++) {
-            var document = this.documents[i];
-            var iframe = document.getEditable();
-            var fieldid = iframe.getAttribute('fieldid');
-
-            if (!fieldid) {
-                throw('Missing fieldid attribute on iframe');
-            };
-            
-            var transform = this._filterContent(document.getDocument().documentElement);
-            
-            // XXX need to fix this.  Sometimes a spurious "\n\n" text 
-            // node appears in the transform, which breaks the Moz 
-            // serializer on .xml
-            var contents =  '<html>' + 
-                            transform.getElementsByTagName("head")[0].xml +
-                            transform.getElementsByTagName("body")[0].xml +
-                            '</html>';
-            
-            // now create the form input
-            var targetdocument = form.ownerDocument;
-            var textarea = targetdocument.createElement('textarea');
-            textarea.style.visibility = 'hidden';
-            var text = document.createTextNode(contents);
-            textarea.appendChild(text);
-            textarea.setAttribute('name', fieldid);
-            
-            // and add it to the form
-            form.appendChild(textarea);
-        };
-    };
-
     this.getDocument = function() {
         /* return the current active document */
         return this._current_document;
@@ -176,6 +129,51 @@ function KupuMultiEditor(documents, config, logger) {
         // XXX somehow calling execCommand('useCSS',...) here doesn't seem to have effect unless it's
         // called with a timeout... don't know why, crappy workaround...
         timer_instance.registerFunction(doc, doc.execCommand, 0, "useCSS", !this.config.use_css);
+    };
+
+    // XXX perhaps we can partially move this to a helper method to approve
+    // code reuse?
+    this.prepareForm = function(form, idprefix) {
+        /* add some fields to the form and place the contents of the iframes 
+        */
+        // make sure people can't edit or save during saving
+        if (!this._initialized) {
+            return;
+        }
+        this._initialized = false;
+        
+        // set the window status so people can see we're actually saving
+        window.status= "Please wait while saving document...";
+
+        // set a default id
+        if (!idprefix) {
+            idprefix = 'kupu';
+        };
+        
+        // pass the content through the filters
+        this.logMessage("Starting HTML cleanup");
+        var contents = new Array();
+        for (var i=0; i < this.documents.length; i++) {
+            var transform = this._filterContent(this.documents[i].getDocument().documentElement);
+            contents.push(this._serializeOutputToString(transform));
+        };
+        
+        this.logMessage("Cleanup done, sending document to server");
+        
+        // now create the form input, since IE 5.5 doesn't support the 
+        // ownerDocument property we use window.document as a fallback (which
+        // will almost by definition be correct).
+        var document = form.ownerDocument ? form.ownerDocument : window.document;
+        for (var i=0; i < contents.length; i++) {
+            var ta = document.createElement('textarea');
+            ta.style.visibility = 'hidden';
+            var text = document.createTextNode(contents);
+            ta.appendChild(text);
+            ta.setAttribute('name', idprefix + '_' + i);
+            
+            // and add it to the form
+            form.appendChild(ta);
+        };
     };
 };
 

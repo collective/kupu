@@ -9,7 +9,7 @@
   <kupu:part name="body">
     <body onload="kupu = startKupu()">
       <h1>Kupu Editor Test Page</h1>
-      <form action="http://debris.demon.nl/printpost" method="POST">
+      <form action="http://localhost/printpost.cgi" method="POST">
         <kupu:define-slot name="body" />
       </form>
     </body>
