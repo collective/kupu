@@ -107,36 +107,22 @@ function ContextMenu() {
         };
         // now move the menu to the right position
         var iframe = this.editor.getDocument().getEditable();
-        var left = 0;
-        var top = 0;
+        var left = event.clientX;
+        var top = event.clientY;
+        var currnode = iframe;
         if (this.editor.getBrowserName() == 'IE') {
-            var orgnode = event.srcElement;
-            left = event.clientX;
-            top = event.clientY;
-            var currnode = iframe;
             while (currnode) {
                 left += currnode.offsetLeft + currnode.clientLeft;
                 top += currnode.offsetTop + currnode.clientTop;
                 currnode = currnode.offsetParent;
             };
         } else {
-            left = event.pageX;
-            top = event.pageY;
-            var body = this.editor.getInnerDocument().body;
-            left -= body.scrollLeft;
-            top -= body.scrollTop;
-            var node = iframe;
-            while (node) {
-                left += node.offsetLeft;
-                top += node.offsetTop;
-                node = node.offsetParent;
-            }
+            while (currnode) {
+                left += currnode.offsetLeft;
+                top += currnode.offsetTop;
+                currnode = currnode.offsetParent;
+            };
         };
-        //var clienttop = event.clientY;
-        /*if (clienttop > (parseInt(this.editor.getDocument().getWindow().innerHeight) - 
-                    (parseInt(menu.style.lineHeight) * elements.length))) {
-            top -= parseInt(menu.style.lineHeight) * elements.length;
-        };*/
         menu.style.left = left + 'px';
         menu.style.top = top + 'px';
         menu.style.visibility = 'visible';
