@@ -63,6 +63,8 @@
 
   <kupu:fill-slot name="drawers">
     <kupu:insert-part feature="drawers" part="librarydrawer" />
+    <kupu:insert-part feature="drawers" part="add-table" />
+    <kupu:insert-part feature="drawers" part="edit-table" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">
