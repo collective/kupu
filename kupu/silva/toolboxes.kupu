@@ -316,7 +316,7 @@
     
       <h1 i18n:translate="typographical-characters">typographical characters</h1>
       <div class="kupu-tooltray">
-        <!-- euro , ` ' ,, `` '' << >> -- - -->
+        <!-- euro , ` ' ,, `` '' << >> - - -->
         &#x20AC; &#8218; &#145; &#146; &#132; &#147; &#148; &#171; &#187; &#8212; &#8211; &#183;
       </div>
 
