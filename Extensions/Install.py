@@ -98,7 +98,11 @@ def install_libraries(self, out):
         print >>out, "Kupu library Tool already added"    
 
 def install_configlet(self, out):
-    portal_conf=getToolByName(self,'portal_controlpanel')
+    try:
+        portal_conf=getToolByName(self,'portal_controlpanel')
+    except AttributeError:
+        print >>out, "Configlet could not be installed"
+        return
     try:
         portal_conf.registerConfiglet( 'kupu'
                , 'Kupu'      
