@@ -8,6 +8,9 @@
 
   <kupu:part name="bootstrap-editor">
     <script type="text/javascript" 
+            src="kupucnftable.js"> 
+    </script>
+    <script type="text/javascript" 
             src="../../tools/genericelements/genericelementstool.js"> 
     </script>
     <script type="text/javascript" 
