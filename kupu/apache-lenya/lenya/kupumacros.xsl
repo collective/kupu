@@ -108,7 +108,7 @@
     Content stuff.
   -->
   <xsl:template match="xhtml:title">
-    <title>Edit <xsl:value-of select="$document-path"/> - Apache Lenya</title>
+    <title>Apache Lenya | Edit <xsl:value-of select="$document-path"/> with Kupu </title>
   </xsl:template>
   
   <xsl:template match="xhtml:h1[1]">
