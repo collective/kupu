@@ -10,16 +10,18 @@
 #
 ##############################################################################
 
-Generate an HTM template from Kupu distribution files
+Generate an HTML template from Kupu distribution files
 
 This XSLT is fed a Kupu distribution file (generally dist.kupu) which
 contains:
 
-  a) feature definitions,
+  a) slot definitions,
 
-  b) a master part that uses features and is to be expanded,
+  b) feature and part definitions,
 
-  c) an order in which implementations are to be cascaded.
+  c) wiring that matches parts to slots,
+
+  d) an order in which implementations are to be cascaded.
 
 If the XSLT processor supports XInclude, the above stated items may of
 course be located in different files and included later.
