@@ -50,11 +50,24 @@ kupu credits
 
 * Duncan Booth
 
-  - Much work on Plone support.
+  - Wrote (more) advanced ContentFilter system, zoom mode and did a lot of
+    Plone work.
 
 * Petri Savolainen
 
-  - Image drawer upload code
+  - Added image drawer upload code.
+
+* Donovan Baarda
+
+  - Fixed some bugs in SaveOnPart.
+
+* Danny Bloemendaal
+
+  - Fixed some Plone CSS issues.
+
+* Rolf Kulemann
+
+  - Added Lenya support.
 
 * Third party products included:
 
