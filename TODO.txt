@@ -8,9 +8,10 @@ completed.
 
 - documentation:
 
-  * how to customize / make a distribution
+  * update CUSTOMIZING.txt/EXTENDING.txt (how to override a feature,
+    how to add one)
 
-  * how to add a feature
+  * how to make a distribution
 
 - build framework: I'd like to see a build system such as the following:
 
