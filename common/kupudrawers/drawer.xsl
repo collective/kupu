@@ -270,7 +270,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
         </form>
 
         <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
-                src="" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
+                src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
     </xsl:template>
     
