@@ -33,28 +33,50 @@ to be saved without reloading the page) as well as in a form.
 Kupu can be customized on many different levels, allowing a lot of changes
 from CSS, but also providing a JavaScript extension API.
 
+
+More documentation...
+---------------------
+
+General information
+
+  o Authors: see CREDITS.txt
+
+  o License: see LICENSE.txt
+
+  o Frequently asked questions: see FAQ.txt
+
 Installation
-------------
 
-See the INSTALL.txt file.
+  o general: see INSTALL.txt
 
-Authors
--------
+  o Zope 2.x: see ZOPE2.txt
 
-See the CREDITS.txt file.
+  o Plone 2.x: see PLONE2.txt
+
+Developing
+
+  o Customizing kupu: see CUSTOMIZING.txt
+
+  o Extending kupu: see EXTENDING.txt
+
+  o Java Script API: see JSAPI.txt
+
+  o Old browser support: see OLDBROWSERS.txt
+
+  o Templating system: see TEMPLATE-SYSTEM.txt
+
+  o Library Feature Specification: see LIBRARIES.txt
 
 Reporting bugs
 --------------
 
 Please report bugs to the issue tracker available at:
-http://codespeak.net/issues/kupu/ 
-(mind the trailing slash).
+http://codespeak.net/issues/kupu/ (mind the trailing slash).
 
 Mailing list
 ------------
 
-There is a mailing lists for Kupu development:
-kupu-development@lists.sourceforge.net
+There is a mailing lists for Kupu development: kupu-dev@codespeak.net
 
 License
 -------
