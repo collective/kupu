@@ -67,10 +67,19 @@ o Each method (at least when it's public) should have a docstring, the
   the next line is indented deeper than the first one and the comment
   is closed a line below the last line of the comment.
 
-o Class methods are defined inline like in Python instead of defining
-  them on the prototype attribute (which is more common in JavaScript
-  but a bit less flexible), although using the prototype attribute is
-  'allowed' in extensions.
+o Even though the original way of defining class methods was inline, we
+  found out that there are certain problems with that, so we switched
+  the recommended way of attachin methods to the more common notation
+  of 'Class.prototype.method = function() {...}'. Please make sure all
+  code you check in follows this notation, as the old notation can lead
+  to subtle bugs in your code (for instance, attributes with an instance
+  value are shared in instances of classes when using the old notation).
+
+o For the above mentioned reason, all objects that have attributes should
+  have a method called 'initialize', which should be called after object
+  instantiation from the calling code. All instance variables must be defined
+  in that method, since if they're defined in the constructor they're,
+  under certain circumstanced, shared by all instances of the class. 
 
 o No double newlines, classes and functions are seperated with a
   single white line.
