@@ -22,7 +22,8 @@
   <html dc:dummy="FIXME:keepNamespace" dcterms:dummy="FIXME:keepNamespace" lenya:dummy="FIXME:keepNamespace" xhtml:dummy="FIXME:keepNamespace">
     <xsl:copy-of select="original/xhtml:html/lenya:meta"/>
     <head>
-      <xsl:apply-templates select="edited/xhtml:html/xhtml:head/*"/>
+      <xsl:apply-templates select="edited/xhtml:html/xhtml:head/xhtml:title"/>
+      <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>    
     </head>
     <xsl:copy-of select="edited/xhtml:html/xhtml:body"/>
   </html>
