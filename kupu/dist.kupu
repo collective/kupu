@@ -7,7 +7,6 @@
 
   <!-- Include implementations -->
   <xi:include href="default/include.kupu" />
-  <xi:include href="default/wire.kupu" />
 
   <!-- Define the default slot to start with -->
   <kupu:expand>
@@ -19,8 +18,8 @@
 
   <!-- Define an implementation order. Default contains only one
        implementation, itself. -->
-  <kupu:implementationOrder>
+  <kupu:implementation-order>
     <kupu:implementation name="default" />
-  </kupu:implementationOrder>
+  </kupu:implementation-order>
 
 </kupu:dist>
