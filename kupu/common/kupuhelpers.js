@@ -788,7 +788,16 @@ MozillaSelection.prototype = new BaseSelection;
 function IESelection(document) {
     this.document = document;
     this.selection = document.getDocument().selection;
-    
+
+    /* If no selection in editable document, IE returns selection from
+     * main page, so force an inner selection. */
+    var doc = document.getDocument();
+    if (this.selection.createRange().parentElement().ownerDocument != doc) {
+        var range = doc.body.createTextRange();
+        range.collapse();
+        range.select();
+    }
+
     this.selectNodeContents = function(node) {
         /* select the contents of a node */
         // a bit nasty, when moveToElementText is called it will move the selection start
