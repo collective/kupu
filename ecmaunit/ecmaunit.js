@@ -57,7 +57,8 @@ function TestCase() {
     this.assert = function(statement, message) {
         /* assert whether a variable resolves to true */
         if (!statement) {
-            if (!message) message = statement.toString ? statement.toString() : statement;
+            if (!message) message = (statement && statement.toString) ? 
+                                        statement.toString() : statement;
             throw('Assertion \'' + message + '\' failed');
         };
     };
