@@ -210,6 +210,9 @@ div.kupu-toolbox-label {
 }
 
 .kupu-toolbox-buttons button {
+  font-size: 0.9em;
+  border: 1px solid;
+  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
   width: 45%;
 }
 
@@ -228,17 +231,6 @@ div.kupu-toolbox-active table#kupu-toolbox-edittable input {
 
 div.kupu-toolbox-active {
   background-color: ButtonFace;
-}
-
-div.kupu-toolbox button {
-  font-size: 0.9em;
-  border: 1px solid;
-  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
-}
-
-div.kupu-toolbox button:active {
-  border: 1px solid;
-  border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
 }
 
 #kupu-toolbox-editlink, #kupu-toolbox-edittable,
