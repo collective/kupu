@@ -1,53 +1,47 @@
+================
 TODO for drawers
+================
+
+- link/image drawer: support re-editing of link or image
 
 - improve library drawer UI
 
   + particular problem: "Current location: ..." is only shown when a
     drawer is closed and re-opened. CSS problem?
 
-- table drawers
+- improve table and link drawer UI
 
-  + improve UI
-
-- issue 63: set text/html as content type when editing w/ kupu
-  Can't reproduce?!?
-
-- link/image drawer: support re-editing of link or image
-
-- provide external link functionality
-
-  + drawer or dialog?
-
-  + admin should be able to disable/enable it
-
-- IE problems:
-
-  + IE6 on WinXP crashes upon saving, if a drawer has been opened in
-    the Kupu session.
-    Fix: get rid of the drawer element before saving form
-    data. Implemented and tested by guido, no confirmation yet
-
-  + xsl:import needs provide a valid URI; it seems IE cannot import an
-    XSL file that is linked with a relative path (as reported by
-    duncan, reproduced by philiKON). Fix in Plone: generate XSL
-    templates with ZPT, providing an absolute URI for the import
-    statements.
-
-  + container.ownerDocument.contentWindow = doc.contentWindow;
-    fails: "object doesn't support this property or method". Solution:
-    do not execute on IE (it seems not to be needed anyway).
-
-  + importNode(node) fails on XML Document nodes. Use
-    node.cloneNode(true) as a hack.
-
-  + IE doesn't seem to accept the dynamic setting of display:block. It
-    does not display the element as a block element, but inline.
-    Solution: wrap the div that is to appear as a block element in
-    another <div style="display:block;"> element.
+- issue 63: Archetypes RichTextWidget + Kupu + content_type choice
 
 - test xml output, or rather the corresponding python methods
 
-- provide automatic preview views?
 
-- i18n of xml? --> currently not possible because ZPT deliberately
-  disable i18n for xml (at least in Zope2).
+IE problems and fixes
+=====================
+
+o IE6 on WinXP crashes upon saving, if a drawer has been opened in the
+  Kupu session.
+
+  Fix: get rid of the drawer element before saving form
+  data. Implemented and tested by guido, no confirmation yet
+
+o xsl:import needs provide a valid URI; it seems IE cannot import an
+  XSL file that is linked with a relative path (as reported by duncan,
+  reproduced by philiKON).
+
+  Fix in Plone: generate XSL templates with ZPT, providing an absolute
+  URI for the import statements.
+
+o container.ownerDocument.contentWindow = doc.contentWindow; fails:
+  "object doesn't support this property or method".
+
+  Solution: do not execute on IE (it seems not to be needed anyway).
+
+o importNode(node) fails on XML Document nodes. Use
+  node.cloneNode(true) as a hack.
+
+o IE doesn't seem to accept the dynamic setting of display:block. It
+  does not display the element as a block element, but inline.
+
+  Solution: wrap the div that is to appear as a block element in
+  another <div style="display:block;"> element.
