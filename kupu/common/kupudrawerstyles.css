@@ -123,10 +123,13 @@ div.response, div.collection {
 }
 
 div.kupu-libsource, div.kupu-libsource-selected, 
-div.kupu-resource, div.kupu-collection {
+div.kupu-resource, div.kupu-collection, div.kupu-upload {
   cursor: pointer;
   margin-bottom: 2px;
   vertical-align: text-bottom;
+}
+div.kupu-upload {
+   text-align: right; font-style: italic;
 }
 
 div.kupu-libsource-selected {
@@ -157,4 +160,30 @@ span.drawer-item-title {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
+}
+
+/* Local image upload form */
+
+#kupu-upload-to {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  clear:both;
+}
+
+#kupu-upload-file {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  clear:both;
+}
+
+#kupu-upload-title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  clear:both;
+}
+
+#kupu-upload-instructions {
+  margin-top:10px;
+  margin-bottom: 20px;
+  clear:both;
 }

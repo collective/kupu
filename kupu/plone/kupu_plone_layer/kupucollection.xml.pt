@@ -3,10 +3,10 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     >
-
   <tal:with define="info python:context.kupuInfoForObjects([context])[0]">
     <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems" />
-    <src tal:define="resource_type request/resource_type | string:mediaobject;"
+    <src tal:define="resource_type request/resource_type | string:mediaobject;
+        global supportsupload python:resource_type=='mediaobject';"
          tal:content="string:${here/absolute_url}/${template/getId}?resource_type=${resource_type}">Source</src>
   </tal:with>
 
@@ -82,6 +82,7 @@
       </collection>
 
     </tal:loop>
+    <uploadbutton tal:condition="supportsupload|nothing" />
   </items>
 
 </collection>

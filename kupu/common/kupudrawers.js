@@ -136,11 +136,11 @@ function LinkDrawer(elementid, tool) {
         var target = '_self';
         if (this.target) target = this.target;
         this.tool.createLink(url, null, null, target);
-	input.value = '';
+        input.value = '';
 
-	// XXX when reediting a link, the drawer does not close for
-	// some weird reason. BUG! Close the drawer manually until we
-	// find a fix:
+        // XXX when reediting a link, the drawer does not close for
+        // some weird reason. BUG! Close the drawer manually until we
+        // find a fix:
         this.drawertool.closeDrawer();
     };
     
@@ -259,6 +259,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         this.xsluri = xsluri;
         this.libsuri = libsuri;
         this.searchuri = searchuri;
+        
+        // marker that gets set when a new image has been uploaded
+        this.newimages = null;
 
         // the following vars will be available after this.initialize()
         // has been called
@@ -294,13 +297,14 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         */
         this.xsl = dom;
 
-	// Change by Paul to have cached xslt transformers for reuse of 
+        // Change by Paul to have cached xslt transformers for reuse of 
         // multiple transforms and also xslt params
         try {
             this.xsltproc = new XSLTProcessor();
             this.xsltproc.importStylesheet(dom);
             this.xsltproc.setParameter("", "drawertype", this.drawertype);
             this.xsltproc.setParameter("", "drawertitle", this.drawertitle);
+            this.xsltproc.setParameter("", "showupload", this.showupload);
         } catch(e) {
             return; // No XSLT Processor, maybe IE 5.5?
         }
@@ -309,15 +313,19 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this.createContent = function() {
         // load the initial XML
         if(!this.xmldata) {
-	    // Do a meaningful test to see if this is IE5.5 or some other 
-	    // editor-enabled version whose XML support isn't good enough 
-	    // for the drawers
-	    if (!Sarissa.IS_ENABLED_XSLTPROC) {
-		alert("This function requires better XML support in your browser.");
-		return;
-	    }
+            // Do a meaningful test to see if this is IE5.5 or some other 
+            // editor-enabled version whose XML support isn't good enough 
+            // for the drawers
+            if (!Sarissa.IS_ENABLED_XSLTPROC) {
+               alert("This function requires better XML support in your browser.");
+               return;
+            }
             this.loadLibraries();
         } else {
+            if (this.newimages) {
+                this.reloadCurrent();
+                this.newimages = null;
+            };
             this.updateDisplay();
         };
 
@@ -362,6 +370,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         if(!id) {
             id = this.drawerid;
         };
+        this.xsltproc.setParameter("", "showupload", this.showupload);
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
@@ -405,12 +414,15 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
         var items_xpath = "items";
         var items_node = libnode.selectSingleNode(items_xpath);
-        if (items_node) {
+        
+        if (items_node && !this.newimages) {
             // The library has already been loaded before or was
             // already provided with an items list. No need to do
             // anything except for displaying the contents in the
-            // middle pane.
+            // middle pane. Newimages is set if we've lately
+            // added an image.
             this.updateDisplay(this.resourcespanelid);
+            this.updateDisplay(this.propertiespanelid);
         } else {
             // We have to load the library from XML first.
             var src_uri = libnode.selectSingleNode('src/text()').nodeValue;
@@ -419,11 +431,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             // to load the XML, do this via a call back
             var wrapped_callback = new ContextFixer(this._libraryContentCallback, this);
             this._loadXML(src_uri, wrapped_callback.execute, null);
+            this.newimages = null;
         };
         // instead of running the full transformations again we get a 
         // reference to the element and set the classname...
         var newseldiv = document.getElementById(id);
-	newseldiv.className = 'kupu-libsource-selected';
+	     newseldiv.className = 'kupu-libsource-selected';
     };
 
     this._libraryContentCallback = function(dom, src_uri) {
@@ -452,6 +465,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             libnode.replaceChild(newitemsnode, itemsnode);
         };
         this.updateDisplay(this.resourcespanelid);
+        this.updateDisplay(this.propertiespanelid);
     };
 
     /*** Load a collection ***/
@@ -459,6 +473,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this.selectCollection = function(id) {
         this.deselectActiveCollection();
 
+        // First turn off current selection, if any
+        this.removeSelection();
+        
         var leafnode_path = "//collection[@id='" + id + "']";
         var leafnode = this.xmldata.selectSingleNode(leafnode_path);
 
@@ -471,6 +488,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             if (collnode) {
                 collnode.setAttribute('selected', '1');
                 this.updateDisplay(this.resourcespanelid);
+                this.updateDisplay(this.propertiespanelid);
                 return;
             };
         };
@@ -486,6 +504,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             leafnode.setAttribute('loadedInNode', id);
             collnode.setAttribute('selected', '1');
             this.updateDisplay(this.resourcespanelid);
+            this.updateDisplay(this.propertiespanelid);
             return;
         };
 
@@ -528,12 +547,14 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         }
         libraries.appendChild(collnode);
         this.updateDisplay(this.resourcespanelid);
+        this.updateDisplay(this.propertiespanelid);
     };
 
     /*** Reloading a collection or library ***/
 
     this.reloadCurrent = function() {
         // Reload current collection or library
+        this.showupload = '';
         var current = this.xmldata.selectSingleNode('//*[@selected]');
         // make sure we're dealing with a collection even though a
         // resource might be selected
@@ -550,34 +571,44 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         };
 
         var src_uri = src_node.selectSingleNode('text()').nodeValue;
+        
         src_uri = src_uri.strip(); // needs kupuhelpers.js
 
         var wrapped_callback = new ContextFixer(this._libraryContentCallback, this);
         this._loadXML(src_uri, wrapped_callback.execute);
     };
 
+    this.removeSelection = function() {
+        // turn off current selection, if any
+        var oldselxpath = '/libraries/*[@selected]//resource[@selected]';
+        var oldselitem = this.xmldata.selectSingleNode(oldselxpath);
+        if (oldselitem) {
+            oldselitem.removeAttribute("selected");
+        };
+        this.showupload = '';
+    }
+
+    this.selectUpload = function() {
+        this.removeSelection();
+        this.showupload = 'yes';
+        this.updateDisplay(this.drawerid);
+        this.updateDisplay(this.propertiespanelid);
+    }
     /*** Selecting a resource ***/
 
     this.selectItem = function (id) {
-        /* 
+        /* select an item in the item pane, show the item's metadata */
 
-	  select an item in the item pane, show the item's metadata 
-
-        */
-
-	// First turn off current selection, if any
-        var oldselxpath = '/libraries/*[@selected]//resource[@selected]';
-        var oldselitem = this.xmldata.selectSingleNode(oldselxpath);
-	if (oldselitem) oldselitem.removeAttribute("selected");
-
-	// Grab XML DOM node for clicked "resource" and mark it selected
+        // First turn off current selection, if any
+        this.removeSelection();
+        
+        // Grab XML DOM node for clicked "resource" and mark it selected
         var newselxpath = '/libraries/*[@selected]//resource[@id="' + id + '"]';
         var newselitem = this.xmldata.selectSingleNode(newselxpath);
         newselitem.setAttribute("selected", "1");
 
-	this.updateDisplay(this.drawerid);
-
-	return;
+        this.updateDisplay(this.drawerid);
+        return;
     }
 
 
@@ -736,14 +767,55 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this.drawertitle = "Image Library";
     this.drawertype = "image";
-    this.init(tool, xsluri, libsuri, searchuri);
+    this.showupload = '';
+    this.init(tool, xsluri, libsuri, searchuri);    
+ 
+    
+    // upload, on submit/insert press
+    this.uploadImage = function() {
+        if (document.kupu_upload_form.node_prop_caption.value == "") {
+            alert("Please enter a title for the image you are uploading");
+            return;        
+        };
+        
+        var targeturi =  this.xmldata.selectSingleNode('/libraries/*[@selected]/uri/text()').nodeValue
+        document.kupu_upload_form.action =  targeturi + "/kupuUploadImage";
+        document.kupu_upload_form.submit();
+    };
+    
+    // called for example when no permission to upload for some reason
+    this.cancelUpload = function(msg) {
+        var s = this.xmldata.selectSingleNode('/libraries/*[@selected]');     
+        s.removeAttribute("selected");
+        this.updateDisplay();
+        if (msg != '') {
+            alert(msg);
+        };
+    };
+    
+    // called by onLoad within document sent by server
+    this.finishUpload = function(url) {
+        this.tool.createImage(url);
+        this.newimages = 1;
+        this.drawertool.closeDrawer();
+    };
+    
 
     this.save = function() {
         /* create an image in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';
         var selnode = this.xmldata.selectSingleNode(selxpath);
+        
+        // If no image resource is selected, check for upload
         if (!selnode) {
+            var selected = this.xmldata.selectSingleNode("/libraries/*[@selected]");
+            if (selected) {
+                var id = selected.getAttribute('id')
+                if (id != "myitems" && id != "recentitems") {
+                    this.uploadImage();
+                };
+            };
             return;
         };
 
@@ -777,6 +849,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this.drawertitle = "Link Drawer";
     this.drawertype = "link";
+    this.showupload = '';
     this.init(tool, xsluri, libsuri, searchuri);
 
     this.save = function() {
