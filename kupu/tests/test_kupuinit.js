@@ -49,15 +49,22 @@ function InitKupuCheckersTestCase() {
     this._makeBoldchecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-    					     'font-weight', 'bold');
+                                                 'fontWeight', 'bold');
         return boldchecker;
         };
 
     this._makeItalicschecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-    						'font-style', 'italic');
+                                                    'fontStyle', 'italic');
         return italicschecker;
+        };
+
+    this._makeUnderlinechecker = function() {
+        // XXX copied from initKupu, must be synced manually!
+        var underlinechecker = ParentWithStyleChecker(new Array('u'),
+                                                'textDecoration', 'underline');
+        return underlinechecker;
         };
 
     this._setSelection = function(startTag, startOffset, endTag, endOffset,
@@ -163,7 +170,7 @@ function InitKupuCheckersTestCase() {
         this.assertEquals(boldchecker(selNode), true);
     };
 
-    this.XXXtestBoldcheckerStyle = function() {
+    this.testBoldcheckerStyle = function() {
         this.body.innerHTML =
                       '<p>foo <span style="font-weight: bold;">bar</span></p>';
         // select                                              |ar|
@@ -191,7 +198,7 @@ function InitKupuCheckersTestCase() {
         this.assertEquals(italicschecker(selNode), true);
     };
 
-    this.XXXtestItalicscheckerStyle = function() {
+    this.testItalicscheckerStyle = function() {
         this.body.innerHTML =
                      '<p>foo <span style="font-style: italic;">bar</span></p>';
         // select                                              |ar|
@@ -199,6 +206,16 @@ function InitKupuCheckersTestCase() {
         var selNode = this.selection.getSelectedNode();
         var italicschecker = this._makeItalicschecker();
         this.assertEquals(italicschecker(selNode), true);
+    };
+
+    this.testUnderlinecheckerStyle = function() {
+        this.body.innerHTML =
+             '<p>foo <span style="text-decoration: underline;">bar</span></p>';
+        // select                                              |ar|
+        this._setSelection('span', 1, 'span', 3, 'ar');
+        var selNode = this.selection.getSelectedNode();
+        var underlinechecker = this._makeUnderlinechecker();
+        this.assertEquals(underlinechecker(selNode), true);
     };
 
     this.tearDown = function() {
