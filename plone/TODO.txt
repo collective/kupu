@@ -9,6 +9,9 @@ TODO for drawers
 
   + container.ownerDocument.contentWindow = doc.contentWindow;
     fails: "object doesn't support this property or method"
+    temp solution: do not execute on IE
+
+  + importNode fails on XML Document nodes. use cloneNode(true) as a hack.
 
 - Description in the rightmost bar needs to be trimmed, in case it's a
   long string. Can XSLT do that?!? --> paul?
