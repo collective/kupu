@@ -280,6 +280,10 @@ function StdoutReporter(verbose) {
         var toprint = [];
         for (var i=0; i < lines.length; i++) {
             var line = lines[i];
+            if (line.indexOf('ecmaunit.js') > -1) {
+                // remove useless bit of traceback
+                break;
+            };
             if (line.charAt(0) == '(') {
                 line = 'function' + line;
             };
@@ -291,6 +295,7 @@ function StdoutReporter(verbose) {
             print('  ' + toprint[i][1]);
             print('    ' + toprint[i][0]);
         };
+        print();
     };
 };
 
@@ -410,6 +415,10 @@ function HTMLReporter(outputelement, verbose) {
             var toprint = []; // need to reverse this before outputting
             for (var i=0; i < lines.length; i++) {
                 var line = lines[i];
+                if (line.indexOf('ecmaunit.js') > -1) {
+                    // remove useless bit of traceback
+                    break;
+                };
                 if (line[0] == '(') {
                     line = 'function' + line;
                 };
@@ -425,6 +434,7 @@ function HTMLReporter(outputelement, verbose) {
                     )
                 );
             };
+            pre.appendChild(document.createTextNode('\n'));
             this.outputelement.appendChild(pre);
         };
     };
