@@ -1,3 +1,7 @@
+import os, sys
+if __name__ == '__main__':
+    execfile(os.path.join(sys.path[0], 'framework.py'))
+
 from unittest  import TestCase, TestSuite, main, makeSuite
 from os.path import join, abspath, dirname
 
@@ -27,6 +31,7 @@ tests =(
 ('Products.kupu.plone.html2captioned', "baduid.in", "baduid.out", normalize_html, 0),
 ('Products.kupu.plone.html2captioned', "notquoted.in", "notquoted.out", normalize_html, 0),
 ('Products.kupu.plone.html2captioned', "notcaptioned.in", "notcaptioned.out", normalize_html, 0),
+('Products.kupu.plone.html2captioned', "linked.in", "linked.out", normalize_html, 0),
     )
 
 class MockImage:
@@ -65,7 +70,7 @@ class TransformTest(TestCase):
         input.close()
         data = datastream(self.transform.name())
         res_data = self.transform.convert(orig, data, filename=filename, context=self.portal)
-        self.assert_(implements(res_data, idatastream))
+        self.assert_(idatastream.isImplementedBy(res_data))
         got = res_data.getData()
         try:
             output = open(output)

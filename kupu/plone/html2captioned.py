@@ -16,7 +16,9 @@ __revision__ = '$Id$'
 # IMAGE_PATTERN matches an image tag on its own, or an image tag
 # enclosed in a simple <p> or <div>. In the latter case we strip out
 # the enclosing tag since we are going to insert our own.
-PAT0 = '(\\<img[^>]+class=[^=>]*captioned[^>]+\\>)'
+PATIMG = '\\<img[^>]+class=[^=>]*captioned[^>]+\\>'
+PATA = '(?:\\<a[^>]*\\>'+PATIMG+'\\</a\\>)' + '|' + PATIMG
+PAT0 = '('+PATA+')'
 PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0
 IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 
