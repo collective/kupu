@@ -12,5 +12,7 @@
   <xi:include href="sourceedit.kupu" />
   <xi:include href="toolbar.kupu" />
   <xi:include href="toolboxes.kupu" />
+  <xi:include href="colorchooser.kupu" />
+  <xi:include href="save.kupu" />
 
 </kupu:include>

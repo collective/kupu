@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <kupu:feature
     name="toolbar"
     implementation="default"
@@ -75,13 +74,6 @@
     </select>
   </kupu:part>
 
-  <kupu:part name="buttongroup-save">
-    <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-save" id="kupu-save-button" 
-              title="Save" i18n:attributes="title" accesskey="s">&#160;</button>
-    </span>
-  </kupu:part>
-
   <kupu:part name="buttongroup-basicmarkup">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-bold" id="kupu-bold-button" title="Bold"
@@ -99,18 +91,6 @@
               i18n:attributes="title" accesskey="v">&#160;</button>
       <button type="button" class="kupu-superscript" id="kupu-superscript-button" title="Superscript"
               i18n:attributes="title" accesskey="^">&#160;</button>
-    </span>
-  </kupu:part>
-
-  <kupu:part name="buttongroup-color">
-    <span class="kupu-tb-buttongroup">
-      <!-- Note: the event handlers are attached to these buttons dynamically, like for tools -->
-      <button type="button" class="kupu-forecolor" id="kupu-forecolor-button" 
-              title="Text Color" i18n:attributes="title" 
-              accesskey="f">&#160;</button>
-      <button type="button" class="kupu-hilitecolor" id="kupu-hilitecolor-button"
-              title="Background Color" i18n:attributes="title"
-              accesskey="h">&#160;</button>
     </span>
   </kupu:part>
 
@@ -161,5 +141,8 @@
               i18n:attributes="title" accesskey="y">&#160;</button>
     </span>
   </kupu:part>
+
+  <!-- We will have the button tool configuration here, too, once we
+       do tool definitions in XML config. -->
 
 </kupu:feature>
