@@ -73,6 +73,10 @@
           <button type="button" id="kupu-table-addrow-button">Add Row</button>
           <button type="button" id="kupu-table-delrow-button">Remove Row</button>
           
+          <br />
+          <button type="button" id="kupu-table-setrowrepeat-button">Make Row Repeat</button>
+          <button type="button" id="kupu-table-delrowrepeat-button">Remove Row Repeat</button>
+          
           <div style="text-align: center">
             <button type="button" id="kupu-table-fix-button">Fix</button>
           </div>
