@@ -27,7 +27,7 @@ resource_type = request.get('resource_type', 'mediaobject')
 portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
 
 max = 20
-review_state = 'published'
+review_state = ('visible','published')
 
 results = catalog.searchResults(
     #modified={'query':last_login_time, 'range':'min'},
