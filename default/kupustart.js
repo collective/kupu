@@ -13,15 +13,12 @@
 function startKupu() {
     // initialize the editor, initKupu groks 1 arg, a reference to the iframe
     var frame = document.getElementById('kupu-editor'); 
-    kupu = initKupu(frame);
+    var kupu = initKupu(frame);
     
     // this makes the editor's content_changed attribute set according to changes
     // in a textarea or input (registering onchange, see saveOnPart() for more
     // details)
     kupu.registerContentChanger(document.getElementById('kupu-editor-textarea'));
-
-    // get a reference to the ui for the buttons
-    kupuui = kupu.getTool('ui'); 
 
     // let's register saveOnPart(), to ask the user if he wants to save when 
     // leaving after editing
