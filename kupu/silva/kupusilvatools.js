@@ -1404,6 +1404,10 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         if (extsource) {
             this._insideExternalSource = true;
             selectSelectItem(this.idselect, extsource.getAttribute('source_id'));
+            this.addbutton.style.display = 'none';
+            this.cancelbutton.style.display = 'none';
+            this.updatebutton.style.display = 'inline';
+            this.delbutton.style.display = 'inline';
             this.startExternalSourceUpdate(extsource);
         } else {
             this._insideExternalSource = false;
@@ -1494,10 +1498,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         };
         var text = document.createTextNode('Loading...');
         this.formcontainer.appendChild(text);
-        this.addbutton.style.display = 'none';
-        this.cancelbutton.style.display = 'none';
-        this.updatebutton.style.display = 'inline';
-        this.delbutton.style.display = 'inline';
     };
 
     this._addFormToTool = function(object) {
@@ -1600,7 +1600,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         this.idselect.style.display = 'inline';
         this.addbutton.style.display = 'inline';
         this.cancelbutton.style.display = 'none';
-        this.cancelbutton.style.display = 'none';
+        this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
         //this.editor.updateState();
         this._editing = false;
