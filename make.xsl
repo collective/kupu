@@ -40,6 +40,13 @@ $Id$
     omit-xml-declaration="yes"
     />
 
+  <xsl:strip-space
+    elements="kupu:*"
+    />
+
+  <xsl:preserve-space
+    elements="kupu:part"
+    />
 
   <!-- ### Global parameters ### -->
 
