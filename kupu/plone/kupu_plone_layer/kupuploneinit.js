@@ -15,11 +15,12 @@ function initPloneKupu(iframe, fieldname) {
 
     // XXX this should be fixed in stylesheets, but I don't know how to do 
     // that without applying this change to the outter document. Damn iframes.
-    var ibody = iframe.contentWindow.document.getElementsByTagName("body")[0];
+    var ibody = iframe.contentWindow.document.body;
+    var textarea = document.getElementById(fieldname);
+    var form = textarea.form;
     ibody.style.margin = "12px";
     ibody.className = "kupu"; // This is set in emptypage but gets lost for some reason.
-
-    ibody.innerHTML = document.getElementById(fieldname).value;
+    ibody.innerHTML = textarea.value;
                 
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
@@ -158,10 +159,23 @@ function initPloneKupu(iframe, fieldname) {
     if (beforeunloadTool) {
         var initialBody = ibody.innerHTML;
         beforeunloadTool.addHandler(function() {return ibody.innerHTML != initialBody;});
-        var form = iframe;
-        while (form && form.tagName != 'FORM') form = form.parentNode;
         beforeunloadTool.addForm(form);
     }
+    // Patch for bad AT format pulldown.
+    var fmtname = textarea.name+'_text_format';
+    var pulldown = form[fmtname];
+    if (pulldown && pulldown.type=='select-one') {
+        for (var i=0 ; i < pulldown.length; i++) {
+            var opt = pulldown.options[i];
+            opt.selected = opt.defaultSelected = (opt.value=='text/html');
+        }
+        pulldown.disabled = true;
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.name = fmtname;
+        hidden.value = 'text/html';
+        pulldown.parentNode.appendChild(hidden);
+    };
 
     // Drawers...
 

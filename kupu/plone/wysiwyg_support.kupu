@@ -41,10 +41,10 @@
         cols="80"
         rows="25"
         tabindex=""
-        name="description"
+        name="fieldName"
         tal:content="inputvalue"
-        tal:attributes="name inputname;
-                        id inputname;
+        tal:attributes="name fieldName|inputname;
+                        id fieldName|inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
                         tabindex tabindex|nothing;
@@ -59,8 +59,15 @@
      class="field"
      tal:define="text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
 
+  <tal:block tal:define="wysiwyg python: here.portal_membership.getAuthenticatedMember().getProperty('wysiwyg_editor');">
+    <tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu' and here.browserSupportsKupu();" />
+  </tal:block>
   <tal:editor tal:condition="haskupu">
-     <input type="hidden" name="text_format" value="html" />
+     <input type="hidden" name="text_format" value="text/html"
+        tal:define="fieldName fieldName|inputname|nothing;
+                fieldName python:fieldName and fieldName+'_text_format' or 'text_format';"
+        tal:attributes="name fieldName;"
+     />
   </tal:editor>                 
   <tal:noeditor  tal:condition="not:haskupu">
     <label for="text_format" i18n:translate="label_format">Format</label>
