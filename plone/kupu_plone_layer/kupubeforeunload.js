@@ -18,8 +18,8 @@ if (!window.beforeunload) {
                 var fn = self.handlers[i];
                 var message = message || fn.apply(self);
             }
-            if (message==true) message = self.message;
-            if (message==false) message = undefined;
+            if (message===true) message = self.message;
+            if (message===false) message = undefined;
             if (event) event.returnValue = message;
             return message;
         }
@@ -86,7 +86,7 @@ if (!window.beforeunload) {
         }
     }
 
-    Class.CheckType = function() {}
+    Class.CheckType = function() {};
     var c = Class.CheckType.prototype;
     c.checkbox = c.radio = function(ele) {
         return ele.checked != ele.defaultChecked;
@@ -100,7 +100,7 @@ if (!window.beforeunload) {
         for (var i=0 ; i < ele.length; i++) {
             var opt = ele.options[i];
             if ( opt.selected != opt.defaultSelected) {
-                if (i==0 && opt.selected) continue; /* maybe no default */
+                if (i===0 && opt.selected) continue; /* maybe no default */
                 return true;
             }
         }

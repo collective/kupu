@@ -1977,7 +1977,11 @@ KupuZoomTool.prototype.setTabbing = function(control, forward, backward) {
 KupuZoomTool.prototype.onresize = function() {
     if (!this.zoomed) return;
 
-    var iframe = this.editor.getDocument().editable;
+    var editor = this.editor;
+    var iframe = editor.getDocument().editable;
+    var sourcetool = editor.getTool('sourceedittool');
+    var sourceArea = sourcetool?sourcetool.sourceArea:null;
+
     var fulleditor = iframe.parentNode;
     var body = document.body;
 
@@ -1992,9 +1996,16 @@ KupuZoomTool.prototype.onresize = function() {
         var height = document.body.offsetHeight-5;
     }
     width = width + 'px';
+    var offset = iframe.offsetTop;
+    if (sourceArea && !offset) offset = sourceArea.offsetTop-1;
+    height = height - offset -1/*top border*/ + 'px';
     fulleditor.style.width = width; /*IE needs this*/
     iframe.style.width = width;
-    iframe.style.height = height - iframe.offsetTop -1/*top border*/ + 'px';
+    iframe.style.height = height;
+    if (sourceArea) {
+        sourceArea.style.width = width;
+        sourceArea.style.height = height;
+    }
 }
 
 KupuZoomTool.prototype.checkfunc = function(selNode, button, editor, event) {
@@ -2022,6 +2033,13 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
 
         iframe.style.width = '';
         iframe.style.height = '';
+
+        var sourcetool = editor.getTool('sourceedittool');
+        var sourceArea = sourcetool?sourcetool.sourceArea:null;
+        if (sourceArea) {
+            sourceArea.style.width = '';
+            sourceArea.style.height = '';
+        }
     }
     var doc = editor.getInnerDocument();
     // Mozilla needs this. Yes, really!
