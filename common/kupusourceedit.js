@@ -70,6 +70,7 @@ function MultiSourceEditTool(sourcebuttonid, textareaprefix) {
     };
 
     this.switchSourceEdit = function(event) {
+        var kupu = this.editor;
         if (!this._currently_editing) {
             var docobj = kupu.getDocument();
             var doc = docobj.getDocument();
@@ -79,15 +80,10 @@ function MultiSourceEditTool(sourcebuttonid, textareaprefix) {
 
             this._currently_editing = docobj;
 
-            // XXX i think we don't need this since the iframe isn't visible
-            // anyway...
-            /*
             if (kupu.getBrowserName() == 'Mozilla') {
-                kupudoc.designMode = 'Off';
+                doc.designMode = 'Off';
             };
-            */
-            // XXX can we keep the editor 'initialized'?
-            // kupu._initialized = false;
+            kupu._initialized = false;
             var data = doc.documentElement.
                             getElementsByTagName('body')[0].innerHTML;
             sourcearea.value = data;
@@ -107,13 +103,10 @@ function MultiSourceEditTool(sourcebuttonid, textareaprefix) {
                     getElementsByTagName('body')[0].innerHTML = data;
             sourcearea.style.display = 'none';
             editorframe.style.display = 'block';
-            // XXX see XXX comments above
-            /*
             if (kupu.getBrowserName() == 'Mozilla') {
-                kupudoc.designMode = 'On';
+                doc.designMode = 'On';
             };
             kupu._initialized = true;
-            */
         };
     };
 };
