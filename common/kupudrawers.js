@@ -130,7 +130,9 @@ function LinkDrawer(elementid, tool) {
         /* add or modify a link */
         var input = document.getElementById('kupu-linkdrawer-input');
         var url = input.value;
-        this.tool.createLink(url);
+        var target = '_self';
+        if (this.target) target = this.target;
+        this.tool.createLink(url, null, null, target);
 	input.value = '';
 
 	// XXX when reediting a link, the drawer does not close for

@@ -27,7 +27,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents) {
     var base = nodes[0];
     var href = base.href;
     var hrefparts = href.split('/');
-    return contents.replace(/(<[^>]* href=")([^"]*)"/g,
+    return contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
             var urlparts = url.split('/');
             var common = 0;
