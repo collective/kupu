@@ -110,10 +110,12 @@ function LinkDrawer(elementid, tool) {
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'a');
         var input = document.getElementById('kupu-linkdrawer-input');
+        input.value = "";
+        this.preview();
         if (linkel) {
             input.value = linkel.getAttribute('href');
         } else {
-            input.value = '';
+            input.value = 'http://';
         };
         this.element.style.display = 'block';
     };

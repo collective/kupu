@@ -32,11 +32,14 @@ div#kupu-drawerheader, div#kupu-dialogbuttons {
 }
 
 input#kupu-searchbox {
-  margin-left: 350px;
   width: 8em;
   margin-bottom: 6px;
   margin-top: 12px;
   padding: 2px;
+}
+
+input#kupu-linkdrawer-input {
+  width: 400px;
 }
 
 div.kupu-dialogbuttons {
@@ -66,6 +69,9 @@ div.kupu-panels td {
   padding: 6px;
 }
 
+div.kupu-panels td.kupu-preview-button {
+  vertical-align: bottom;
+}
 td#kupu-librariespanel {
   width: 20%;
   height: 240px;
