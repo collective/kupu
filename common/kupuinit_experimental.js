@@ -195,12 +195,12 @@ function initKupu(iframe) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linklibdrawer = new LinkLibrarydrawer(linktool, conf['link_xsl_uri'],
+    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
                                               conf['link_libraries_uri'],
                                               conf['link_images_uri']);
     drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagelibdrawer = new ImageLibrarydrawer(imagetool, conf['image_xsl_uri'],
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
                                                 conf['image_libraries_uri'],
                                                 conf['search_images_uri']);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
