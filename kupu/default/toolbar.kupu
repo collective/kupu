@@ -41,7 +41,7 @@
   </kupu:part>
 
   <kupu:part name="logo">
-    <span class="kupu-tb-buttongroup" style="float: right">
+    <span class="kupu-tb-buttongroup" style="float: right" id="kupu=logo">
       <button type="button" class="kupu-logo" title="Kupu 1.1" accesskey="k"
               onclick="window.open('http://kupu.oscom.org');">&#160;</button>
     </span>
@@ -77,7 +77,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-basicmarkup">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup">
       <button type="button" class="kupu-bold" id="kupu-bold-button" title="bold: alt-b"
               i18n:attributes="title" accesskey="b">&#160;</button>
       <button type="button" class="kupu-italic" id="kupu-italic-button" title="italic: alt-i"
@@ -88,7 +88,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-subsuper">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-subsuper">
       <button type="button" class="kupu-subscript" id="kupu-subscript-button" title="subscript: alt--"
               i18n:attributes="title" accesskey="-">&#160;</button>
       <button type="button" class="kupu-superscript" id="kupu-superscript-button" title="superscript: alt-+"
@@ -97,7 +97,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-justify">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-justify">
       <button type="button" class="kupu-justifyleft" id="kupu-justifyleft-button" 
               title="left justify: alt-l" i18n:attributes="title"
               accesskey="l">&#160;</button>
@@ -111,7 +111,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-list">
-              <span class="kupu-tb-buttongroup">
+              <span class="kupu-tb-buttongroup" id="kupu-bg-list">
       <!-- list button events are set on the list tool -->
       <button type="button" class="kupu-insertorderedlist" 
               title="numbered list: alt-#" id="kupu-list-ol-addbutton" 
@@ -123,7 +123,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-definitionlist">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-definitionlist">
       <!-- list button events are set on the list tool -->
       <button type="button" class="kupu-insertdefinitionlist" 
               title="definition list: alt-=" id="kupu-list-dl-addbutton" 
@@ -132,7 +132,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-indent">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-indent">
       <button type="button" class="kupu-outdent" 
               id="kupu-outdent-button" title="outdent: alt-&lt;"
               i18n:attributes="title" accesskey="&lt;">&#160;</button>
@@ -143,7 +143,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-undo">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-undo">
       <button type="button" class="kupu-undo" 
               id="kupu-undo-button" title="undo: alt-z"
               i18n:attributes="title" accesskey="z">&#160;</button>
@@ -154,7 +154,7 @@
   </kupu:part>
 
   <kupu:part name="buttongroup-remove">
-    <span class="kupu-tb-buttongroup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-remove">
       <button type="button" class="kupu-removeimage invisible"
               id="kupu-removeimage-button" title="Remove image"
               i18n:attributes="title">&#160;</button>
