@@ -2,6 +2,13 @@
 Kupu changes
 ============
 
+  * Fixed 'phantom whitespace' problem. Saved format was 'text/html'
+    which non-AT content types interpret as an alias for 'stx'. Now
+    sets format to 'html' for non-AT content types.
+
+  * Inserting links in Gecko browsers sometimes replaced the selected
+    text with the link title.
+
 - Kupu 1.2 beta 1
 
   * Added image upload.

@@ -65,8 +65,9 @@
   <tal:editor tal:condition="haskupu">
      <input type="hidden" name="text_format" value="text/html"
         tal:define="fieldName fieldName|inputname|nothing;
+                val python:fieldName and 'text/html' or 'html';
                 fieldName python:fieldName and fieldName+'_text_format' or 'text_format';"
-        tal:attributes="name fieldName;"
+        tal:attributes="name fieldName;value val;"
      />
   </tal:editor>                 
   <tal:noeditor  tal:condition="not:haskupu">
