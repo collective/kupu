@@ -158,7 +158,9 @@ function initKupu(iframe) {
 
     var imagetool = new ImageTool();
     kupu.registerTool('imagetool', imagetool);
-    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 'kupu-toolbox-images', 'kupu-toolbox', 'kupu-toolbox-active');
+    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 
+                                        'kupu-image-float-select', 'kupu-toolbox-images', 
+                                        'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
     var tabletool = new TableTool();
