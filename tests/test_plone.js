@@ -87,14 +87,19 @@ function KupuPloneTestCase() {
         this.verifyResult(actual, expected);
     }
 
+    this.cleanHtml = function(s) {
+        s = s.toLowerCase().replace(/[\r\n]/g, "");
+        s = s.replace(/\>[ ]+\</g, "><");
+        return s;
+    }
     this.testSetTextStyle = function() {
-        var data = '<p>line 1</p><div class="Caption">line 2</div><div class="Caption">line 3</div>';
+        var data = '<p>line 1</p> <div class="Caption">line 2</div> <div class="Caption">line 3</div>';
         // select  .....................................|e 2</div><div class="Caption">line|...
         var expected = '<p>line 1</p><h2>line 2</h2><h2>line 3</h2>';
         this.body.innerHTML = data;
-        this._setSelection(9, null, 16, null, 'e 2line');
+        this._setSelection(10, null, 18, null, 'e 2line');
         this.ui.setTextStyle('h2');
-        this.assertEquals(this.body.innerHTML.replace(/[\r\n]/g, ""), expected);
+        this.assertEquals(this.cleanHtml(this.body.innerHTML), expected);
     }
 
     this.tearDown = function() {
