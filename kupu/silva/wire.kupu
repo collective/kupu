@@ -72,7 +72,8 @@
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="toc" />
     <kupu:insert-part feature="toolboxes" part="typochars" />
-    <!--kupu:insert-part feature="toolboxes" part="debug" /-->
+    <!-- needs to be there for the logger; is hidden by CSS -->
+    <kupu:insert-part feature="toolboxes" part="debug" />
   </kupu:fill-slot>
 
 </kupu:wire>
