@@ -1086,16 +1086,26 @@ function IESelection(document) {
 
     this.containsNode = function(node) {
         var selected = this.selection.createRange();
+        
+        if (this.selection.type.toLowerCase()=='text') {
+            var range = doc.body.createTextRange();
+            range.moveToElementText(node);
 
-        var range = doc.body.createTextRange();
-        range.moveToElementText(node);
-
-        if (selected.compareEndPoints('StartToEnd', range) >= 0 ||
-            selected.compareEndPoints('EndToStart', range) <= 0) {
+            if (selected.compareEndPoints('StartToEnd', range) >= 0 ||
+                selected.compareEndPoints('EndToStart', range) <= 0) {
+                return false;
+            }
+            return true;
+        } else {
+            for (var i = 0; i < selected.length; i++) {
+                if (selected.item(i).contains(node)) {
+                    return true;
+                }
+            }
             return false;
         }
-        return true;
-    }
+    };
+    
     this.toString = function() {
         return this.selection.createRange().htmlText;
     };

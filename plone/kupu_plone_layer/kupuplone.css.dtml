@@ -45,10 +45,19 @@ ploneCustom.css and use the kupu class to distinguish them. e.g.
 .pullQuote { float: right; width: 30%; }
 .kupu .pullQuote { float:none; width: auto; }
 */
-.kupu TABLE, .kupu TD {
-   border: 1 solid &dtml-contentViewBorderColor;;
-}
+.kupu table { 
+  border-left:1px solid ThreeDLightShadow; 
+  border-top:1px solid ThreeDLightShadow; 
+  border-right:1px solid ThreeDDarkShadow; 
+  border-bottom:1px solid ThreeDDarkShadow; 
+} 
 
+.kupu table tr td { 
+  border-left:1px solid ThreeDDarkShadow; 
+  border-top:1px solid ThreeDDarkShadow; 
+  border-right:1px solid ThreeDLightShadow; 
+  border-bottom:1px solid ThreeDLightShadow; 
+} 
 /* Hide the 'target' field in the LinkLibraryDrawer 
 
    I've used a class as an identifier here because somehow using id
