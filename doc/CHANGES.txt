@@ -19,6 +19,9 @@ Kupu changes
     drawers load information about linkable/insertable objects from
     the server via standardized XML.
 
+  o Some core functionality is now covered by unit tests, based on the
+    JavaScript testing framework ECMAUnit.
+
 - 1.0.3 (2004-03-25)
 
   o Renamed epoz to kupu to end the name confusion with Maik
