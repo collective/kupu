@@ -45,10 +45,11 @@ clean:
 	rm -f common/kupu.html
 	rm -f common/kupumacros.html
 	rm -f common/kupuform.html
-	rm -f plone/kupu_plone_layer/kupu_wysiwyg_support.html
-	rm -f silva/kupumacros.html
 	rm -f common/kupumulti.html
 	rm -f common/kupucnf.html
+	rm -f plone/kupu_plone_layer/kupu_wysiwyg_support.html
+	rm -f silva/kupumacros.html
+	rm -f apache-lenya/kupu/kupumacros.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
