@@ -32,13 +32,15 @@ input#kupu-searchbox {
   width: 8em;
   margin-bottom: 6px;
   margin-top: 12px;
+  padding: 2px;
 }
 
 div#kupu-dialogbuttons {
-  position: absolute;
-  left: 20em;  
+  xposition: absolute;
+  text-align: right;
   margin-top: 6px;
   margin-bottom: 6px;
+  margin-right: 20px;
 }
 
 div#kupu-dialogbuttons button {
@@ -83,7 +85,10 @@ div#kupu-resourceitems {
   height: 230px;
 }
 
-div.kupu-libsource {
+div.kupu-libsource, div.kupu-libsource-selected {
+  text-align: center;
+  padding-top: 0.2em;
+  padding-bottom: 0.6em;
 }
 
 div.response, div.collection {
@@ -95,23 +100,39 @@ div.response, div.collection {
   padding-top: 4px;
 }
 
-div.kupu-libsource:hover,
-div.response:hover,
-div.collection:hover,
-div.selected:hover {
+div.kupu-libsource, div.kupu-libsource-selected, 
+div.kupu-resource, div.kupu-collection {
   cursor: pointer;
+  margin-bottom: 2px;
+  vertical-align: text-bottom;
 }
 
-div.selected {
+div.kupu-libsource-selected {
   background-repeat: no-repeat;
-  background-color: ButtonFace;
+}
+
+div.kupu-libsource-selected span,
+ div.kupu-libsource span{
+  margin-top: 3px;
+  display: block;
+}
+
+div.kupu-libsource-selected span {
+  background-color: ButtonFace;  
 }
 
 #kupu-tabledrawer-edittable {
   display: none;
 }
 
+img.library-icon-collection, img.library-icon-resource {
+  margin-right: 5px;
+  height: 16px;
+  width: 16px;
+}
 
 span.drawer-item-title {
-  padding-left: 6px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 2px;
 }
