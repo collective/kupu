@@ -89,7 +89,9 @@
             <option value="image-right">align right</option>
             <option value="float-left">float left</option>
             <option value="float-right">float right</option>
-          </select>
+          </select><br />
+          &#160;tooltip
+          <input type="text" id="kupu-toolbox-image-alt" />
         </div>
       </form>
 

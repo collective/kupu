@@ -139,7 +139,8 @@ function initSilvaKupu(iframe) {
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
 	'kupu-toolbox-image-target', 'kupu-toolbox-image-link-radio-hires',
 	'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
-	'kupu-toolbox-image-align', 'kupu-toolbox-images', 'kupu-toolbox',
+	'kupu-toolbox-image-align', 'kupu-toolbox-image-alt', 
+        'kupu-toolbox-images', 'kupu-toolbox',
 	'kupu-toolbox-active');
     kupu.registerTool('imagetool', imagetool);
 
