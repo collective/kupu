@@ -1105,6 +1105,22 @@ function TableTool() {
 
         return currcolindex;
     };
+
+    this._getColumnAlign = function(selNode) {
+        /* return the alignment setting of the current column */
+        var align;
+        var td = this.editor.getNearestParentOfType(selNode, 'td');
+        if (!td) {
+            td = this.editor.getNearestParentOfType(selNode, 'th');
+        };
+        if (td) {
+            align = td.getAttribute('align');
+            if (this.editor.config.use_css) {
+                align = td.style.textAlign;
+            };
+        };
+        return align;
+    };
 };
 
 TableTool.prototype = new KupuTool;
@@ -1174,17 +1190,9 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         if (table) {
             this.addtablediv.style.display = "none";
             this.edittablediv.style.display = "block";
-            var td = this.editor.getNearestParentOfType(selNode, 'td');
-            if (!td) {
-                td = this.editor.getNearestParentOfType(selNode, 'th');
-            };
-            if (td) {
-                var align = td.getAttribute('align');
-                if (this.editor.config.use_css) {
-                    align = td.style.textAlign;
-                };
-                selectSelectItem(this.alignselect, align);
-            };
+
+            var align = this.tool._getColumnAlign(selNode);
+            selectSelectItem(this.alignselect, align);
             selectSelectItem(this.classselect, table.className);
             if (this.toolboxel) {
                 this.toolboxel.className = this.activeclass;

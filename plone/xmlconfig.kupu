@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="xmlconfig"
+    implementation="plone"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <!-- Default configuration -->
+  <kupu:part name="defaultconfig">
+    <dst>fulldoc.html</dst>
+    <use_css>1</use_css>
+    <reload_after_save>0</reload_after_save>
+    <strict_output>1</strict_output>
+    <content_type>application/xhtml+xml</content_type>
+    <compatible_singletons>1</compatible_singletons>
+    <!-- example of how to create a list of classnames for the table tool -->
+    <table_classes tal:repeat="class here/get_table_classnames">
+      <class tal:content="class" />
+    </table_classes>
+  </kupu:part>
+ 
+</kupu:feature>
