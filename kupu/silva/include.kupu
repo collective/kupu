@@ -8,6 +8,8 @@
   <xi:include href="head.kupu" />
   <xi:include href="body.kupu" />
   <xi:include href="xmlconfig.kupu" />
+  <xi:include href="saveonpart.kupu" />
+  <xi:include href="contextmenu.kupu" />
   <xi:include href="toolbar.kupu" />
   <xi:include href="toolboxes.kupu" />
   <xi:include href="definitions.kupu" />
