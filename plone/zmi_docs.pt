@@ -14,6 +14,7 @@
 
 Default cascading style sheet for the HTML output of Docutils.
 */
+h3, h4, h5 { clear: none!IMPORTANT; }
 
 .first {
   margin-top: 0 }
@@ -199,7 +200,7 @@ span.option-argument {
   font-style: italic }
 
 span.pre {
-  white-space: pre }
+  white-space: nowrap }
 
 span.problematic {
   color: red }

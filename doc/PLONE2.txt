@@ -49,6 +49,13 @@ Usually, every user has to explicitly set their preferred editor to
 versions of Epoz may both be installed on the same Plone site allowing
 users to choose whichever they prefer.
 
+When attempting to use Kupu, if you see the message::
+
+ Kupu not installed correctly: macro nesting limit (100) exceeded ...
+
+it probably means that the ``make`` command was not run, or failed to
+run for some reason.
+
 Plone Configlet
 ---------------
 
