@@ -40,11 +40,11 @@ ATTR_PATTERN = re.compile('''
 
 CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
 IMAGE_TEMPLATE = '''\
-<div class="%(class)s">
+<div class="%(class)s" style="width:%(width)spx;">
  <div style="width:%(width)s">
   %(tag)s
  </div>
- <div class="image-caption" style="width:%(width)spx;">
+ <div class="image-caption">
   %(caption)s
  </div>
 </div>
