@@ -16,7 +16,9 @@ drawer.
 $Id$
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+  
     <xsl:variable name="titlelength" select="20"/>
+    
     <xsl:template match="/">
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -70,6 +72,7 @@ $Id$
             </body>
         </html>
     </xsl:template>
+    
     <xsl:template match="library">
         <div onclick="drawertool.current_drawer.selectLibrary('{@id}');" class="kupu-libsource"
             title="{title}" style="">
@@ -84,9 +87,11 @@ $Id$
             </span>
         </div>
     </xsl:template>
+    
     <xsl:template match="items">
         <xsl:apply-templates select="collection|resource" mode="currentpanel"/>
     </xsl:template>
+    
     <xsl:template match="resource|collection" mode="currentpanel">
         <div id="{@id}" class="kupu-{local-name()}" title="{title}">
             <xsl:attribute name="onclick">
@@ -100,12 +105,14 @@ $Id$
             <xsl:apply-templates select="title"/>
         </div>
     </xsl:template>
+    
     <xsl:template match="icon">
         <img src="{.}" alt="{../title}">
             <xsl:attribute name="class">library-icon-<xsl:value-of select="local-name(..)"/>
             </xsl:attribute>
         </img>
     </xsl:template>
+    
     <xsl:template match="title">
         <span class="drawer-item-title">
             <xsl:if test="../@selected">
@@ -120,7 +127,10 @@ $Id$
             </xsl:choose>
         </span>
     </xsl:template>
+    
     <xsl:template match="resource|collection" mode="properties">
         <!-- Override this template for your custom library drawer -->
     </xsl:template>
+    
+    <xsl:template name="drawer-title">[Override xsl:template name=drawer-title]</xsl:template>
 </xsl:stylesheet>
