@@ -36,7 +36,6 @@ function KupuDocument(iframe) {
         /* delegate execCommand */
         // XXX Is the command always a string? Can't it be '' or 0 or so?
         if (!arg) arg = null;
-        window.status=command+" false "+arg;
         this.document.execCommand(command, false, arg);
     };
     
