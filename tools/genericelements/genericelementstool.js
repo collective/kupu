@@ -156,8 +156,21 @@ function GenericElementsTool(xmlid) {
         };
 
         if (NON_SINGLE.contains(el[3])) {
-            var nbsp = this.editor.getInnerDocument().createTextNode('Generic Element');
-            node.appendChild(nbsp);
+            var doc = this.editor.getInnerDocument();
+            var title = doc.createElement('h3');
+            var titlecontent = doc.createTextNode(el[1]);
+            title.appendChild(titlecontent);
+            node.appendChild(title);
+
+            for (var i=0; i < el[2].length; i++) {
+                var id = el[2][i][0];
+                var name = el[2][i][1];
+                var div = doc.createElement('div');
+                var content = name + ': ' + properties[id];
+                var text = doc.createTextNode(content);
+                div.appendChild(text);
+                node.appendChild(div);
+            };
         };
 
         var currgenericel = this.getNearestGenericElement(selNode);
