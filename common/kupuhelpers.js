@@ -792,10 +792,16 @@ function IESelection(document) {
     /* If no selection in editable document, IE returns selection from
      * main page, so force an inner selection. */
     var doc = document.getDocument();
-    if (this.selection.createRange().parentElement().ownerDocument != doc) {
-        var range = doc.body.createTextRange();
-        range.collapse();
-        range.select();
+
+    var range = this.selection.createRange()
+    var parent = this.selection.type=="Text" ?
+        range.parentElement() :
+        this.selection.type=="Control" ?  range.parentElement : null;
+
+    if(parent && parent.ownerDocument != doc) {
+            var range = doc.body.createTextRange();
+            range.collapse();
+            range.select();
     }
 
     this.selectNodeContents = function(node) {
@@ -872,6 +878,7 @@ function IESelection(document) {
             var endpoint = selrange.duplicate();
             endpoint.collapse(false);
             var parent = selrange.parentElement();
+            if (parent.tagName=='IMG') parent=parent.parentElement;
 
             var elrange = selrange.duplicate();
             elrange.moveToElementText(parent);
