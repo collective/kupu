@@ -18,6 +18,8 @@
       <class>grid</class>
       <class>data</class>
     </table_classes>
+    
+    <exit_destination/>
   </kupu:part>
 
 </kupu:feature>

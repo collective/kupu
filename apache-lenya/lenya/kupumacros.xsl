@@ -8,6 +8,7 @@
   <xsl:param name="document-path"/>
   <xsl:param name="contentfile"/>
   <xsl:param name="save-destination"/>
+  <xsl:param name="exit-destination"/>
   <xsl:param name="reload-after-save" select="'1'"/>
   <xsl:param name="use-css" select="'1'"/>
   <xsl:param name="context-prefix" select="/"/>
@@ -55,6 +56,12 @@
     </use_css>
   </xsl:template>
   
+  <xsl:template match="xhtml:kupuconfig/xhtml:exit_destination">
+    <exit_destination>
+      <xsl:value-of select="$exit-destination"/>
+    </exit_destination>
+  </xsl:template>
+  
   <!-- 
     Use default tables classes from xmlconfig.kupu.
     Override if appropriate.
@@ -92,15 +99,21 @@
     <title>Edit <xsl:value-of select="$document-path"/> - Apache Lenya</title>
   </xsl:template>
   <xsl:template match="xhtml:h1[1]">
-    <h1 style="float:left; width: 200px;">lenya.kupu.edit.title</h1>
+    <div style="float:left; width: 50%;">
+      <h1 style="margin: 0; padding: 0;">Edit document</h1>
+      <span 
+        style="font-style: italic; font-size: 1.3em; letter-spacing: 1px; color: gray;">
+        <xsl:value-of select="$document-path"/>
+      </span>
+    </div>
     <div style="display: inline; float: right;">
-      <a href="http://cocoon.apache.org/lenya/" target="_blank">
-        <img src="{$lenya-logo}" 
-          alt="Lenya project logo" style="border: 0;"/>
-      </a>
       <a href="http://kupu.oscom.org/" target="_blank">
         <img src="{$kupu-logo}" style="vertical-align: top; border: 0;" 
           alt="Kupu logo"/>
+      </a>
+      <a href="http://cocoon.apache.org/lenya/" target="_blank">
+        <img src="{$lenya-logo}" 
+          alt="Lenya project logo" style="border: 0;"/>
       </a>
     </div>
     <br clear="all"/>    

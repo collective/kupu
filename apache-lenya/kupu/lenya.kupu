@@ -1,13 +1,15 @@
 <?xml version="1.0" ?>
 <kupu:feature
-    name="toolbar"
+    name="lenya"
     implementation="apache-lenya"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
-  
-  <!-- Beware of leaving parts empty. this might screw up javascript initialzation in initKupu -->
-  <kupu:part name="logo"/>    
+
+  <kupu:part name="jsincludes">
+    <script type="text/javascript" src="../apache-lenya/kupu/lenya.js">
+    </script>
+  </kupu:part>
 
 </kupu:feature>
