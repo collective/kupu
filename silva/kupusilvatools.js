@@ -102,6 +102,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.initialize = function(editor) {
         this.editor = editor;
         addEventHandler(this.targetselect, 'click', this.setTarget, this);
+        addEventHandler(this.urlinput, 'change', this.setSrc, this);
         addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
         addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
         addEventHandler(this.linkinput, 'keypress', this.setLink, this);
@@ -159,6 +160,18 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             this.editor.logMessage('No image selected!', 1);
         };
         image.setAttribute('target', target);
+    };
+
+    this.setSrc = function() {
+        var selNode = this.editor.getSelectedNode();
+        var img = this.editor.getNearestParentOfType(selNode, 'img');
+        if (!img) {
+            this.editor.logMessage('Not inside an image!', 1);
+        };
+        
+        var src = this.urlinput.value;
+        img.setAttribute('src', src);
+        this.editor.logMessage('Image updated');
     };
 
     this.setHires = function() {
