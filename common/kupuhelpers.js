@@ -144,8 +144,7 @@ function ParentWithStyleChecker(tagnames, style, stylevalue) {
                     return true;
                 };
             };
-            if (tagnames.contains(currnode.nodeName.toLowerCase()) && 
-                    (style && currnode.style[style] == stylevalue)) {
+            if (style && currnode.style[style] == stylevalue) {
                 return true;
             };
             currnode = currnode.parentNode;
