@@ -123,11 +123,11 @@ class KupuLibraryTool:
 
     def _validate_portal_types(self, resource_type, portal_types):
         typetool = getToolByName(self, 'portal_types')
-        all_meta_types = dict([ (t.content_meta_type, 1) for t in typetool.listTypeInfo()])
+        all_portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
 
         portal_types = [ptype.strip() for ptype in portal_types if ptype]
         for p in portal_types:
-            if p not in all_meta_types:
+            if p not in all_portal_types:
                 raise KupuError, "Resource type: %s, invalid type: %s" % (resource_type, p)
         return portal_types
 
