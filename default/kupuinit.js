@@ -48,31 +48,35 @@ function initKupu(iframe) {
     var savebutton = new KupuBaseButton('kupu-save-button', savebuttonfunc);
     kupu.registerTool('savebutton', savebutton);
 
-    var boldbuttonfunc = function(button, editor) {editor.execCommand('bold')};
+    // function that returns a function to execute a button command
+    var execCommand = function(cmd) {
+        return function(button, editor) {
+            editor.execCommand(cmd);
+        };
+    };
+
     var boldcheckfunc = new StateButtonCheckFunction(
                             new Array('b', 'strong'), 'font-weight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
-                                         boldbuttonfunc, 
-                                         boldcheckfunc.execute, 
-                                         'kupu-bold', 
+                                         execCommand('bold'),
+                                         boldcheckfunc.execute,
+                                         'kupu-bold',
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicbuttonfunc = function(button, editor) {editor.execCommand('italic')};
     var italiccheckfunc = new StateButtonCheckFunction(
                             new Array('i', 'em'), 'font-style', 'italic');
     var italicbutton = new KupuStateButton('kupu-italic-button', 
-                                           italicbuttonfunc, 
+                                           execCommand('italic'),
                                            italiccheckfunc.execute, 
                                            'kupu-italic', 
                                            'kupu-italic-pressed');
     kupu.registerTool('italicbutton', italicbutton);
 
-    var underlinebuttonfunc = function(button, editor) {editor.execCommand('underline')};
     var underlinebuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('u'));
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
-                                              underlinebuttonfunc, 
+                                              execCommand('underline'),
                                               underlinebuttoncheckfunc.execute, 
                                               'kupu-underline', 
                                               'kupu-underline-pressed');
@@ -82,7 +86,7 @@ function initKupu(iframe) {
     var subscriptbuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('sub'));
     var subscriptbutton = new KupuStateButton('kupu-subscript-button', 
-                                              subscriptbuttonfunc, 
+                                              execCommand('subscript'),
                                               subscriptbuttoncheckfunc.execute, 
                                               'kupu-subscript', 
                                               'kupu-subscript-pressed');
@@ -92,46 +96,46 @@ function initKupu(iframe) {
     var superscriptbuttoncheckfunc = new StateButtonCheckFunction(
                             new Array('super'));
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
-                                                superscriptbuttonfunc, 
+                                                execCommand('superscript'),
                                                 superscriptbuttoncheckfunc.execute, 
                                                 'kupu-superscript', 
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
-    var justifyleftbuttonfunc = function(button, editor) {editor.execCommand('justifyleft')};
-    var justifyleftbutton = new KupuBaseButton('kupu-justifyleft-button', justifyleftbuttonfunc);
+    var justifyleftbutton = new KupuBaseButton('kupu-justifyleft-button',
+                                               execCommand('justifyleft'));
     kupu.registerTool('justifyleftbutton', justifyleftbutton);
 
-    var justifycenterbuttonfunc = function(button, editor) {editor.execCommand('justifycenter')};
-    var justifycenterbutton = new KupuBaseButton('kupu-justifycenter-button', justifycenterbuttonfunc);
+    var justifycenterbutton = new KupuBaseButton('kupu-justifycenter-button',
+                                                 execCommand('justifycenter'));
     kupu.registerTool('justifycenterbutton', justifycenterbutton);
 
-    var justifyrightbuttonfunc = function(button, editor) {editor.execCommand('justifyright')};
-    var justifyrightbutton = new KupuBaseButton('kupu-justifyright-button', justifyrightbuttonfunc);
+    var justifyrightbutton = new KupuBaseButton('kupu-justifyright-button',
+                                                execCommand('justifyright'));
     kupu.registerTool('justifyrightbutton', justifyrightbutton);
 
-    var outdentbuttonfunc = function(button, editor) {editor.execCommand('outdent')};
-    var outdentbutton = new KupuBaseButton('kupu-outdent-button', outdentbuttonfunc);
+    var outdentbutton = new KupuBaseButton('kupu-outdent-button', execCommand('outdent'));
     kupu.registerTool('outdentbutton', outdentbutton);
 
-    var indentbuttonfunc = function(button, editor) {editor.execCommand('indent')};
-    var indentbutton = new KupuBaseButton('kupu-indent-button', indentbuttonfunc);
+    var indentbutton = new KupuBaseButton('kupu-indent-button', execCommand('indent'));
     kupu.registerTool('indentbutton', indentbutton);
 
-    var undobuttonfunc = function(button, editor) {editor.execCommand('undo')};
-    var undobutton = new KupuBaseButton('kupu-undo-button', undobuttonfunc);
+    var undobutton = new KupuBaseButton('kupu-undo-button', execCommand('undo'));
     kupu.registerTool('undobutton', undobutton);
 
-    var redobuttonfunc = function(button, editor) {editor.execCommand('redo')};
-    var redobutton = new KupuBaseButton('kupu-redo-button', redobuttonfunc);
+    var redobutton = new KupuBaseButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
     // add some tools
     // XXX would it be better to pass along elements instead of ids?
-    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button', 'kupu-hilitecolor-button', 'kupu-colorchooser');
+    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
+                                                'kupu-hilitecolor-button',
+                                                'kupu-colorchooser');
     kupu.registerTool('colorchooser', colorchoosertool);
 
-    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    var listtool = new ListTool('kupu-list-ul-addbutton',
+                                'kupu-list-ol-addbutton',
+                                'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
     
     var proptool = new PropertyTool('kupu-properties-title', 'kupu-properties-description');
@@ -163,22 +167,23 @@ function initKupu(iframe) {
 
     // Drawers...
 
+    // Function that returns function to open a drawer
     var opendrawer = function(drawerid) {
         return function(button, editor) {
             drawertool.openDrawer(drawerid);
-	};
+        };
     };
 
     var imagedrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
-					       opendrawer('imagedrawer'));
+                                               opendrawer('imagedrawer'));
     kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
 
     var linkdrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
-					      opendrawer('linkdrawer'));
+                                              opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
     var tabledrawerbutton = new KupuBaseButton('kupu-tabledrawer-button',
-					       opendrawer('tabledrawer'));
+                                               opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
 
     // create some drawers, drawers are some sort of popups that appear when a 
