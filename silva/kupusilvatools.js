@@ -296,11 +296,7 @@ function SilvaTableTool() {
         };
         this.editor.insertNodeAtSelection(table);
 
-        if (contentcell) {
-            var selection = this.editor.getSelection();
-            selection.selectNodeContents(contentcell);
-            selection.collapse(setcursoratend);
-        };
+        this._setTableCellHandlers(table);
 
         this.editor.logMessage('Table added');
     };
@@ -710,7 +706,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             var td = this.editor.getNearestParentOfType(selNode, 'td');
             if (!td) {
                 td = this.editor.getNearestParentOfType(selNode, 'th');
-                this.inputwidth.value = '';
+                this.widthinput.value = '';
             } else {
                 this.widthinput.value = this.tool.getColumnWidths(table);
             };

@@ -104,16 +104,21 @@ function KupuEditor(document, config, logger) {
         this._initializeEventHandlers();
         this.getDocument().getWindow().focus();
         if (this.getBrowserName() == "IE") {
-            this._saveSelection();
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
+            // provide an 'afterInit' method on KupuEditor.prototype
+            // for additional bootstrapping (after editor init)
             this._initialized = true;
+            if (this.afterInit) {
+                this.afterInit();
+            };
+            this._saveSelection();
         } else {
             this._setDesignModeWhenReady();
         };
         this.logMessage('Editor initialized');
     };
-    
+
     this.setContextMenu = function(menu) {
         /* initialize the contextmenu */
         menu.initialize(this);
@@ -484,13 +489,22 @@ function KupuEditor(document, config, logger) {
             alert('Couldn\'t set design mode. Kupu will not work on this browser.');
             return;
         };
+        var success = false;
         try {
             this._setDesignMode();
+            success = true;
         } catch (e) {
             // register a function to the timer_instance because 
             // window.setTimeout can't refer to 'this'...
             timer_instance.registerFunction(this, this._setDesignModeWhenReady, 100);
-        }
+        };
+        if (success) {
+            // provide an 'afterInit' method on KupuEditor.prototype
+            // for additional bootstrapping (after editor init)
+            if (this.afterInit) {
+                this.afterInit();
+            };
+        };
     };
 
     this._setDesignMode = function() {
@@ -500,7 +514,7 @@ function KupuEditor(document, config, logger) {
         this._initialized = true;
         // XXX somehow calling execCommand('useCSS',...) here doesn't seem to have effect unless it's
         // called with a timeout... don't know why, crappy workaround...
-        timer_instance.registerFunction(this, this.execCommand, 0, "useCSS", !this.config.use_css);
+        timer_instance.registerFunction(this, this.execCommand, 10, "useCSS", !this.config.use_css);
     };
 
     this._saveSelection = function() {
