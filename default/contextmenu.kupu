@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="contextmenu"
+    implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    >
+
+  <kupu:part name="contextmenujs">
+    <script type="text/javascript" src="kupucontextmenu.js"> </script>
+  </kupu:part>
+
+  <!-- We will have the button tool configuration here, too, once we
+       do tool definitions in XML config. -->
+
+</kupu:feature>
