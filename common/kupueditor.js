@@ -656,7 +656,7 @@ function KupuEditor(document, config, logger) {
         // node appears in the transform, which breaks the Moz 
         // serializer on .xml
             
-        if (config.strict_output) {
+        if (this.config.strict_output) {
             var contents =  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ' + 
                             '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n' + 
                             '<html xmlns="http://www.w3.org/1999/xhtml">' + 
