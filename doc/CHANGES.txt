@@ -2,12 +2,20 @@
 Kupu changes
 ============
 
+- Since 1.2 beta 1
+
   * Fixed 'phantom whitespace' problem. Saved format was 'text/html'
     which non-AT content types interpret as an alias for 'stx'. Now
     sets format to 'html' for non-AT content types.
 
-  * Inserting links in Gecko browsers sometimes replaced the selected
-    text with the link title.
+  * Other issues fixed:
+
+        - 146_: kupu 1.2b tagName is null or not an object javascript error in IE
+        - 141_: Inserting links in Gecko browsers sometimes replaced the selected
+          text with the link title.
+
+.. _146: http://codespeak.net/issues/kupu/issue146
+.. _141: http://codespeak.net/issues/kupu/issue141
 
 - Kupu 1.2 beta 1
 
@@ -235,3 +243,4 @@ Kupu changes
 
   * When the cursor is in a list, a drop-down appears to set the style
     of the list symbols (e.g. disc for ul, roman numerals for ol)
+

@@ -76,13 +76,25 @@ function PloneKupuUI(textstyleselectid) {
             generate a block element accordingly 
         */
         var classname = '';
-        var eltype = style;
+        var eltype = style.toUpperCase();
         if (style.indexOf('|') > -1) {
             style = style.split('|');
-            eltype = style[0];
+            eltype = style[0].toUpperCase();
             classname = style[1];
         };
 
+        function setClass(el) {
+            var parent = el.parentNode;
+            if (parent.tagName=='DIV' && parent.childNodes.length==1) {
+            // fixup buggy formatting
+                var gp = parent.parentNode;
+                gp.insertBefore(el, parent);
+                gp.removeChild(parent);
+                this.editor.getSelection().selectNodeContents(el);
+            }
+            // now set the classname
+            el.className = classname;
+        }
         var command = eltype;
         // first create the element, then find it and set the classname
         if (this.editor.getBrowserName() == 'IE') {
@@ -93,17 +105,15 @@ function PloneKupuUI(textstyleselectid) {
         // now get a reference to the element just added
         var selNode = this.editor.getSelectedNode();
         var el = this.editor.getNearestParentOfType(selNode, eltype);
-        var parent = el.parentNode;
-        if (parent.tagName=='DIV' && parent.childNodes.length==1) {
-            // fixup buggy formatting
-            var gp = parent.parentNode;
-            gp.insertBefore(el, parent);
-            gp.removeChild(parent);
-            this.editor.getSelection().selectNodeContents(el);
+        if (el) {
+            setClass(el);
+        } else {
+            for (el = selNode.firstChild; el; el=el.nextSibling) {
+                if (el.tagName==eltype) {
+                    setClass(el);
+                }
+            }
         }
-
-        // now set the classname
-        el.className = classname;
         this.editor.updateState();
     };
 };
