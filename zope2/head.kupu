@@ -10,8 +10,6 @@
 
   <kupu:part name="head">
     <head>
-      <!-- the 'head' macro contains all relevant stuff that one can
-           use when including Kupu in a ZPT-based Zope app -->
       <metal:macro define-macro="head">
         <kupu:define-slot name="head" />
       </metal:macro>

@@ -8,14 +8,6 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     >
 
-  <kupu:part name="fulleditor">
-    <metal:macro define-macro="fulleditor">
-    <div class="kupu-fulleditor">
-      <kupu:define-slot name="fulleditor" />
-    </div>
-    </metal:macro>
-  </kupu:part>
-
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
       <form>
