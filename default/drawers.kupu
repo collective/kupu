@@ -58,7 +58,7 @@
         </td></tr>
         <tr><td colspan="2" align="center">
         <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                id="kupu-linkdrawer-preview">
+                id="kupu-linkdrawer-preview" src="kupublank.html">
         </iframe>
         </td></tr>
         </table>

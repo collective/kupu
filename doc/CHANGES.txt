@@ -16,6 +16,8 @@ Kupu changes
   - 143: Invalid request error when trying to edit raw HTML using Safari
   - 141: Inserting links in Gecko browsers sometimes replaced the selected
     text with the link title.
+  - 94: Using kupu with Plone via SSL gives error on IE
+    (this was already marked as resolved but had recurred).
   - Fixed 'phantom whitespace' problem. Saved format was 'text/html'
     which non-AT content types interpret as an alias for 'stx'. Now
     sets format to 'html' for non-AT content types.
