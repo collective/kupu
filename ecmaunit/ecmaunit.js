@@ -49,7 +49,7 @@ function TestCase() {
     this.assert = function(statement) {
         /* assert whether a variable resolves to true */
         if (!statement) {
-            throw('Assertion ' + statement.toString ? statement.toString() : statement + ' failed');
+            throw('Assertion ' + (statement.toString ? statement.toString() : statement) + ' failed');
         };
     };
 
@@ -119,6 +119,9 @@ function TestCase() {
                     this[attr]();
                     this._reporter.reportSuccess(this.name, attr);
                 } catch(e) {
+                    if (e.name && e.message) { // Microsoft
+                        e = e.name+':'+e.message;
+                    }
                     this._reporter.reportError(this.name, attr, e);
                     this._exceptions.push(new Array(this.name, attr, e));
                 };
