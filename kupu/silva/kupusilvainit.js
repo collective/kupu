@@ -24,16 +24,17 @@ KupuEditor.prototype.afterInit = function() {
             // okay, the first element node is a h2, select
             // next node, if it doesn't exist create and select
             var next = h.nextSibling;
-            var nodeName = next.nodeName.toLowerCase();
-            if (nodeName == 'table') {
-                next = next.getElementsByTagName('td')[0];
-            } else if (nodeName == 'ul' || nodeName == 'ol') {
-                next = next.getElementsByTagName('li')[0];
-            };
             if (!next) {
                 next = doc.createElement('p');
                 next.appendChild(doc.createTextNode('\xa0'));
                 body.appendChild(next);
+            } else {
+                var nodeName = next.nodeName.toLowerCase();
+                if (nodeName == 'table') {
+                    next = next.getElementsByTagName('td')[0];
+                } else if (nodeName == 'ul' || nodeName == 'ol') {
+                    next = next.getElementsByTagName('li')[0];
+                };
             };
             selection.selectNodeContents(next);
             selection.collapse();
