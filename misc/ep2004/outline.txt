@@ -111,6 +111,9 @@ Part II.: Kupu
   - cross-browser
   - cross-platform
 
+  - OpenSource (BSD-style license)
+  - official OSCOM project (together with BXE)
+
 10. Aren't there already editors like this?
 
   - not just a replacement for your textarea
