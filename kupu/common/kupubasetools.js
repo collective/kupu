@@ -274,12 +274,35 @@ function KupuUI(textstyleselectid) {
     };
 
     this.setTextStyle = function(style) {
-        /* method for the text style pulldown */
-        // XXX Yuck!!
-        if (this.editor.getBrowserName() == "IE") {
-            style = '<' + style + '>';
+        /* method for the text style pulldown
+            
+            parse the argument into a type and classname part if it contains
+            a pipe symbol (|), generate a block element
+        */
+        var classname = "";
+        var eltype = style;
+        if (style.indexOf('|') > -1) {
+            style = style.split('|');
+            eltype = style[0];
+            classname = style[1];
         };
-        this.editor.execCommand('formatblock', style);
+
+        var command = eltype;
+        // first create the element, then find it and set the classname
+        if (this.editor.getBrowserName() == 'IE') {
+            command = '<' + eltype + '>';
+        };
+        this.editor.getDocument().execCommand('formatblock', command);
+
+        // now get a reference to the element just added
+        var selNode = this.editor.getSelectedNode();
+        var el = this.editor.getNearestParentOfType(selNode, eltype);
+
+        // now set the classname
+        if (classname) {
+            el.className = classname;
+        };
+        this.editor.updateState();
     };
 
     this.updateState = function(selNode) {
