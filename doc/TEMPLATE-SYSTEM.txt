@@ -124,13 +124,13 @@ Proposal
 File system structure
 ---------------------
 
-kupu's main template (kupumacros.html) is split into logical chunks
-resembling Features and Parts as defined above. Each Feature and all
-its parts resides in an XML file with the file ending '.kupu'. All
-features of an Implementation reside in the same directory. The main
-kupu distribution includes a directory named 'default'. It contains a
-default set of Features in their default Implementation. Platform
-specific markup resides in other Implementation directories.
+kupu's former main template (kupumacros.html) is split into logical
+chunks resembling Features and Parts as defined above. Each Feature
+and all its parts resides in an XML file with the file ending '.kupu'.
+All features of an Implementation reside in the same directory.  The
+main kupu distribution includes a directory named 'default'.  It
+contains a default set of Features in their default Implementation.
+Platform specific markup resides in other Implementation directories.
 
 A Distribution is represented in an XML file typically named
 'dist.kupu'. It defines an order in which Features are looked up in
@@ -150,13 +150,16 @@ kupu/dist.kupu             (kupu's default Distribution file)
 kupu/default/              ('default' Implementation of Features)
 kupu/default/feature1.kupu
 kupu/default/feature2.kupu
-kupu/default/include.kupu  (imports all Features from the 'default'
-                            Implementation for convenience)
+kupu/default/wire.kupu     (wires Parts to Slots)
+kupu/default/include.kupu  (imports all Features and the wiring from the
+                            'default' Implementation for convenience)
 
-kupu/foo.kupu              (imports all 'foo' Features file for convenience)
 kupu/foo/                  ('Foo' Implementation)
 kupu/foo/feature1.kupu
 kupu/foo/feature2.kupu
+kupu/foo/wire.kupu         ([re-]wires [additional] Parts to Slots)
+kupu/foo/include.kupu      (imports all Features and the wiring from the
+                           'default' Implementation for convenience)
 kupu/foo/foo.py            (some additional platform specific files)
 kupu/foo/Foo.class
 kupu/foo/fooicon.png
@@ -181,55 +184,12 @@ XML format
     </element>
   </define>
 
-  <define name="expand">
-    <oneOrMore>
-      <element name="expand">
-        <ref name="useFeature" />
-      </element>
-    </oneOrMore>
-  </define>
-
-  <define name="implementationOrder">
-    <element name="implementationOrder>
-      <oneOrMore>
-        <element name="implementation">
-          <attribute name="name">
-            <text />
-          </attribute>
-        </element>
-      </oneOrMore>
-    </element>
-  </define>
-
-  <define name="arbitraryMarkup">
-    <element name=""> <!-- XXX arbitrary markup -->
-      <ref name="partContents" />
-    </element>
-  </define>
-
-  <define name="useFeature">
-    <element name="use-feature">
-      <attribute name="name">
-        <text />
-      </attribute>
-      <attribute name="part">
-        <text />
-      </attribute>
-    </element>
-  </define>
-
-  <define name="partContents">
-    <zeroOrMore>
-      <choice>
-        <ref name="arbitraryMarkup" />
-        <ref name="useFeature" />
-      </choice>
-    </zeroOrMore>
-  </define>
-
   <define name="feature">
     <element name="feature">
       <attribute name="name">
+        <text />
+      </attribute>
+      <attribute name="implementation">
         <text />
       </attribute>
       <element name="part">
@@ -255,6 +215,87 @@ XML format
     </zeroOrMore>
   </define>
 
+  <define name="wire">
+    <element name="wire">
+      <attribute name="implementation">
+        <text />
+      </attribute>
+      <zeroOrMore>
+        <ref name="fillSlot" />
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="fillSlot">
+    <element name="fill-slot">
+      <attribute name="name">
+        <text />
+      </attribute>
+      <zeroOrMore>
+        <choice>
+          <ref name="arbitraryMarkup" />
+          <ref name="insertPart" />
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="expand">
+    <oneOrMore>
+      <element name="expand">
+        <zeroOrMore>
+          <ref name="defineSlot" />
+        </zeroOrMore>
+      </element>
+    </oneOrMore>
+  </define>
+
+  <define name="defineSlot">
+    <element name="define-slot">
+      <attribute name="name">
+        <text />
+      </attribute>
+    </element>
+  </define>
+
+  <define name="implementationOrder">
+    <element name="implementation-order>
+      <oneOrMore>
+        <element name="implementation">
+          <attribute name="name">
+            <text />
+          </attribute>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+
+  <define name="arbitraryMarkup">
+    <element name=""> <!-- XXX arbitrary markup -->
+      <ref name="partContents" />
+    </element>
+  </define>
+
+  <define name="insertPart">
+    <element name="insert-part">
+      <attribute name="name">
+        <text />
+      </attribute>
+      <attribute name="part">
+        <text />
+      </attribute>
+    </element>
+  </define>
+
+  <define name="partContents">
+    <zeroOrMore>
+      <choice>
+        <ref name="arbitraryMarkup" />
+        <ref name="defineSlot" />
+      </choice>
+    </zeroOrMore>
+  </define>
+
 </grammar>
 
 
@@ -269,32 +310,34 @@ dist.kupu
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
-<!-- Include implementations -->
-<xi:include href="default/include.kupu" />
-<xi:include href="zope2/include.kupu" />
-<xi:include href="zope3/include.kupu" />
-<xi:include href="silva/include.kupu" />
-<xi:include href="plone/include.kupu" />
-<xi:include href="apache-lenya/include.kupu" />
-<xi:include href="roundup/include.kupu" />
-<!-- ... -->
+  <!-- Include implementations -->
+  <xi:include href="default/include.kupu" />
+  <xi:include href="zope2/include.kupu" />
+  <xi:include href="zope3/include.kupu" />
+  <xi:include href="silva/include.kupu" />
+  <xi:include href="plone/include.kupu" />
+  <xi:include href="apache-lenya/include.kupu" />
+  <xi:include href="roundup/include.kupu" />
+  <!-- ... -->
 
-<!-- Every kupu:use-feature call within kupu:expand is expanded -->
-<kupu:expand>
-  <kupu:use-feature name="html" part="html" />
-</kupu:expand>
+  <!-- Define the default slot to start with -->
+  <kupu:expand>
+    <kupu:define-slot name="start" />
+  </kupu:expand>
 
-<!-- Define an order for the implementations that are to be used. The
-     most specific one is located at the top, the last one should
-     always be 'default'. -->
-<kupu:implementationOrder>
-  <!-- most specific one at top -->
-  <kupu:implementation name="plone" />
-  <kupu:implementation name="zope" />
-  <kupu:implementation name="default" />
-</kupu:implementationOrder>
+  <!-- Define an order for the implementations that are to be used. The
+       most specific one is located at the top, the last one should
+       always be 'default'. -->
+  <kupu:implementation-order>
+    <!-- most specific one at top -->
+    <kupu:implementation name="plone" />
+    <kupu:implementation name="default" />
+  </kupu:implementation-order>
 
-<kupu:disableFeature name="sourceedit" />
+  <!-- Plone does not want to use certain features -->
+  <kupu:disable-feature name="toolboxes" />
+  <kupu:disable-feature name="save" />
+  <kupu:disable-feature name="colorchooser" />
 
 </kupu:dist>
 
@@ -330,39 +373,43 @@ some_impl/feature1.kupu
   <kupu:part name="part2">
     <p>
 
-      We can also refer to other parts of our own feature:
-      <kupu:use-feature name="feature1" part="part1" />
+      This part defines a slot that can be filled with more markup by
+      other features:
 
-      or, of course, refer to other features:
-      <kupu:use-feature name="feature3000" part="part3000" />
+      <div id="foobar">
+        <kupu:define-slot name="foobar" />
+      </div>
 
     </p>
   </kupu:part>
 
-  <kupu:part name="part3">
-    <p>We can also refer to our own part, but in a different
-    implementation. Often, you might want to customize a part by
-    simply wrapping it in some other markup. Here, we wrap the default
-    implementation in a 'div' with an id.</p>
-
-    <div id="foobar">
-      <kupu:use-feature name="feature1" part="part3" implementation="default" />
-    </div>
-  </kupu:part>
-
 </kupu:feature>
+
+some_impl/wire.kupu
+- - - - - - - - - -
+
+<kupu:wire
+  implementation="some_impl"
+  xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+  >
+
+  <kupu:fill-slot name="foobar">
+    <kupu:insert-part feature="some_feature" part="some_part" />
+    <kupu:insert-part feature="another_feature" part="a_part" />
+  </kupu:fill-slot>
+
+</kupu:wire>
 
 
 Questions/Problems
 ==================
 
 - Yet to be solved: How to handle i18n in templates? Temporary
-  solution: use ZPT's i18n markup.
+  solution: use ZPT's i18n markup so that we have at least a declaration
+  of what is to be i18n'd.
 
 
 Futures
 =======
-
-- fill-slot in addition to append-slot
 
 - Feature/Part dependencies
