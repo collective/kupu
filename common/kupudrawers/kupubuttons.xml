@@ -26,8 +26,8 @@
             <title>superscript</title>
             <description></description>
             <size>961</size>
-            <height>19</height>
-            <width>20</width>
+            <height>20</height>
+            <width>19</width>
         </resource>
         <resource id="fonts.png">
             <uri>kupuimages/fonts.png</uri>
@@ -114,8 +114,8 @@
             <title>exthyperlink</title>
             <description></description>
             <size>314</size>
-            <height>23</height>
-            <width>22</width>
+            <height>22</height>
+            <width>23</width>
         </resource>
         <resource id="background-color.png">
             <uri>kupuimages/background-color.png</uri>
@@ -146,8 +146,8 @@
             <title>buttons</title>
             <description></description>
             <size>3253</size>
-            <height>120</height>
-            <width>140</width>
+            <height>140</height>
+            <width>120</width>
         </resource>
         <resource id="subscript.png">
             <uri>kupuimages/subscript.png</uri>
@@ -162,8 +162,8 @@
             <title>remove</title>
             <description></description>
             <size>1298</size>
-            <height>23</height>
-            <width>22</width>
+            <height>22</height>
+            <width>23</width>
         </resource>
         <resource id="caret.png">
             <uri>kupuimages/caret.png</uri>
@@ -362,8 +362,8 @@
             <title>inthyperlink</title>
             <description></description>
             <size>296</size>
-            <height>23</height>
-            <width>22</width>
+            <height>22</height>
+            <width>23</width>
         </resource>
     </items>
 </collection>
