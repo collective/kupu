@@ -492,6 +492,12 @@ function ImageDrawer(tool, xsluri, libsuri, searchuri) {
         var img = this.tool.createImage(uri);
         var alt = document.getElementById('image_alt').value;
         img.setAttribute('alt', alt);
+
+        // XXX for some reason, image drawers aren't closed
+        // automatically like Link Drawers. This is definitely a bug
+        // and should be fixed. Until that happens, close the drawer
+        // manually:
+        this.drawertool.closeDrawer();
     };
 };
 
