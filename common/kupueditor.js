@@ -541,7 +541,11 @@ function KupuEditor(document, config, logger) {
 
     this._isDocumentSelected = function() {
         var editable_body = this.getInnerDocument().getElementsByTagName('body')[0];
-        var selrange = this.getInnerDocument().selection.createRange();
+        try {
+            var selrange = this.getInnerDocument().selection.createRange();
+        } catch(e) {
+            return false;
+        }
         var someelement = selrange.parentElement ? selrange.parentElement() : selrange.item(0);
 
         while (someelement.nodeName.toLowerCase() != 'body') {

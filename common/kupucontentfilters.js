@@ -432,7 +432,7 @@ function XhtmlValidation(editor) {
     }(this.elements, this);
 
     // Permitted elements for style.
-    this.styleWhitelist = new this.Set(['text-align', 'list-style-type']);
+    this.styleWhitelist = new this.Set(['text-align', 'list-style-type', 'float']);
     this.classBlacklist = new this.Set(['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
         'Bullet1', 'Bullet2']);
 

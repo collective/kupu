@@ -66,7 +66,7 @@ _excluded_html = [
 ]
 
 # Default should list all styles used by Kupu
-_style_whitelist = ['text-align', 'list-style-type']
+_style_whitelist = ['text-align', 'list-style-type', 'float']
 
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
