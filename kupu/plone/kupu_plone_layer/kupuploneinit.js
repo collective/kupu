@@ -144,10 +144,10 @@ function initPloneKupu(iframe, fieldname) {
     var jumplinks = new JumpLinkTool();
     kupu.registerTool('jumplinktool', jumplinks);
 
-    var imagetool = new ImageTool();
+    var imagetool = NoContextMenu(new ImageTool());
     kupu.registerTool('imagetool', imagetool);
 
-    var linktool = new LinkTool();
+    var linktool = NoContextMenu(new LinkTool());
     kupu.registerTool('linktool', linktool);
 
     // let's register saveOnPart(), to ask the user if he wants to save when 
