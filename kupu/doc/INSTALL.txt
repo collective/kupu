@@ -22,6 +22,9 @@ Requirements
 o An XSLT processor with XInclude support, such as xsltproc from
   Gnome's libxml/libxslt.
 
+  Windows users: You can get libxml/libxslt binaries at
+  http://www.zlatkovic.com/pub/libxml/
+
 o A webserver that can handle some form of server-side processing, and
   preferrably also HTTP PUT requests (POST is also supported, see 'PUT
   or POST' below).
