@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- Kupu 1.1.2
+
+  o Added support for link targets in Silva.
+
 - Kupu 1.1.1
 
   o Fixed some documentation that said Netscape 7.0 was supported, which
