@@ -259,7 +259,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
         <form name="kupu_upload_form" method="POST" action="" scrolling="off" target="kupu_upload_form_target"
               enctype="multipart/form-data" style="margin: 0; border: 0;">
 
-            <span id="kupu-upload-to"><strong>Upload to: </strong> <xsl:value-of select="title"/> </span><br/>
+            <span id="kupu-upload-to"><strong>Upload to: </strong> <xsl:value-of select="/libraries/*[@selected]/title"/> </span><br/>
             <input id="kupu-upload-file" type="file" name="node_prop_image" /><br/>
             <label>Title: 
                 <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/>
