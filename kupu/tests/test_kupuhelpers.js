@@ -100,20 +100,19 @@ KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
     this.setUp = function() {
-        this.iframe = document.getElementById('iframe');
+        this.main_body = document.getElementById('body');
+        this.iframe = this.main_body.appendChild(
+                            document.createElement('iframe'));
         this.kupudoc = new KupuDocument(this.iframe);
         this.document = this.iframe.contentWindow.document;
         var doc = this.document;
+        doc.designMode = 'on';
         var docel = doc.documentElement ? doc.documentElement : doc;
-        this.docel = docel;
-        var html = doc.createElement('html');
-        docel.appendChild(html);
-        this.body = doc.createElement('body');
-        html.appendChild(this.body);
+        this.body = docel.appendChild(doc.createElement('body'));
+        this.kupudoc.getWindow().focus();
     };
 
     this.testReplaceWithNode = function() {
-        return;
         var node = this.document.createElement('p');
         var nbsp = this.document.createTextNode('\xa0');
         node.appendChild(nbsp);
@@ -124,9 +123,7 @@ function KupuSelectionTestCase() {
     };
 
     this.tearDown = function() {
-        while (this.iframe.hasChildNodes()) {
-            this.iframe.removeChild(this.iframe.firstChild);
-        };
+        this.main_body.removeChild(this.iframe);
     };
 };
 
