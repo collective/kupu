@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<libraries>
+
+  <library id="library1" selected="true">
+    <uri>/kupu/apache-lenya/kupu/imagedrawer/library.xml</uri>
+    <title>Library I</title>
+    <src>/kupu/apache-lenya/kupu/imagedrawer/library.xml</src>
+    <icon>/kupu/common/kupuimages/kupu_icon.gif</icon>
+    
+    <items>
+    <resource id="res1">
+      <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
+      <icon></icon>
+      <description>Demo Resource one</description>
+    </resource>
+    <!--
+    <resource id="res2">
+      <uri>kupudrawers/res2</uri>
+      <icon></icon>
+      <description>Demo Resource two</description>
+    </resource>
+    <collection id="collection1">
+      <uri>kupudrawers/coll1</uri>
+      <icon></icon>
+      <title>Demo Collecton</title>
+      <description>Container for portal members' home directories</description>
+      <src>kupudrawers/democollection.xml</src>
+    </collection>
+    -->
+  </items>
+  </library>
+  
+  <library id="library2" selected="true">
+    <uri>/kupu/apache-lenya/kupu/imagedrawer/libraries.xml</uri>
+    <title>Library II</title>
+    <src>/kupu/apache-lenya/kupu/imagedrawer/libraries.xml</src>
+    <icon>/kupu/common/kupuimages/kupu_icon.gif</icon>
+    
+    <items>
+      <resource id="res2">
+        <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
+        <icon></icon>
+        <description>Demo Resource one</description>
+      </resource>
+    </items>
+  </library>
+
+</libraries>
