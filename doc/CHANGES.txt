@@ -10,6 +10,8 @@ Kupu changes
   Apache Lenya enhancements:
   
   * improved handling of image assets
+  * enabled roundtrip of image editing between Kupu and BXE
+    (http://issues.apache.org/bugzilla/show_bug.cgi?id=29164)
   * fixed bug that inserted multiple meta charset entries per save.
   * slight wording changes here and there
   
