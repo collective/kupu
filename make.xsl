@@ -49,11 +49,6 @@ $Id$
     select="false()"
     />
 
-  <xsl:variable
-    name="implementation_order"
-    select="//kupu:implementationOrder/*/@name"
-    />
-
 
   <!-- ### Templates ### -->
 
@@ -108,7 +103,7 @@ $Id$
 
     <xsl:variable
       name="impl"
-      select="//kupu:implementationOrder/kupu:implementation[$implno]/@name"
+      select="//kupu:implementation-order/kupu:implementation[$implno]/@name"
       />
 
     <xsl:variable
@@ -134,7 +129,7 @@ $Id$
              a) A specific implementation wasn't request: not(@implementation)
              b) We're already in the last implementation -->
         <xsl:choose>          
-        <xsl:when test="$implno &lt;= count(//kupu:implementationOrder/kupu:implementation)">
+        <xsl:when test="$implno &lt;= count(//kupu:implementation-order/kupu:implementation)">
          <xsl:call-template name="fill-slot">
             <xsl:with-param name="implno" select="$implno+1" />
             <xsl:with-param name="slot" select="$slot" />
@@ -204,7 +199,7 @@ $Id$
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of
-            select="//kupu:implementationOrder/kupu:implementation[$implno]/@name"
+            select="//kupu:implementation-order/kupu:implementation[$implno]/@name"
             />
         </xsl:otherwise>
       </xsl:choose>
@@ -233,7 +228,7 @@ $Id$
              a) A specific implementation wasn't request: not(@implementation)
              b) We're already in the last implementation -->
         <xsl:choose>          
-        <xsl:when test="not($implementation) and $implno &lt;= count(//kupu:implementationOrder/kupu:implementation)">
+        <xsl:when test="not($implementation) and $implno &lt;= count(//kupu:implementation-order/kupu:implementation)">
          <xsl:call-template name="insert-part">
             <xsl:with-param name="implno" select="$implno+1" />
             <xsl:with-param name="feature" select="$feature" />
