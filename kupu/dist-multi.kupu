@@ -22,4 +22,7 @@
   <!-- Save on part makes little sense in a form context -->
   <kupu:disable-feature name="saveonpart" />
 
+  <!-- contextmenu should be made to appear in all iframes -->
+  <kupu:disable-feature name="contextmenu" />
+
 </kupu:dist>
