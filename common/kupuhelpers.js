@@ -226,7 +226,7 @@ function NodeIterator(node, continueatnextsibling) {
     
     this.node = node;
     this.current = node;
-    this.stopatnextsibling = !continueatnextsibling;
+    this.terminator = continueatnextsibling ? null : node;
     
     this.next = function() {
         /* return the next node */
@@ -234,21 +234,19 @@ function NodeIterator(node, continueatnextsibling) {
             // restart
             this.current = this.node;
         };
-        if (this.stopatnextsibling && this.current == this.node.nextSibling) {
-            return false;
-        };
         var current = this.current;
         if (current.firstChild) {
             this.current = current.firstChild;
         } else {
-            while (!current.nextSibling) {
-                if (!current.parentNode || current == this.node.nextSibling) {
-                    this.current = false;
-                    return false;
-                };
+            // walk up parents until we finish or find one with a nextSibling
+            while (current != this.terminator && !current.nextSibling) {
                 current = current.parentNode;
-            }
-            this.current = current.nextSibling;
+            };
+            if (curent == this.terminator) {
+                this.current = false;
+            } else {
+                this.current = current.nextSibling;
+            };
         };
         return this.current;
     };
@@ -461,7 +459,7 @@ function MozillaSelection(document) {
                 var textAfter = text.substr(pos);
 
                 var beforeNode = this.document.getDocument().createTextNode(textBefore);
-                var afterNode = this.document.getDocument().createTextNode(textAfter);
+                afterNode = this.document.getDocument().createTextNode(textAfter);
 
                 // insert the 3 new nodes before the old one
                 container.insertBefore(afterNode, textNode);
@@ -472,7 +470,7 @@ function MozillaSelection(document) {
                 container.removeChild(textNode);
             } else {
                 // else simply insert the node
-                var afterNode = container.childNodes[pos];
+                afterNode = container.childNodes[pos];
                 if (afterNode) {
                     container.insertBefore(node, afterNode);
                 } else {
@@ -699,7 +697,8 @@ function MozillaSelection(document) {
         // XXX this should be on a range object
         var offsetparent = this.parentElement();
         // the offset within the offsetparent
-        var realoffset = offset + this.startOffset();
+        var startoffset = this.startOffset();
+        var realoffset = offset + startoffset;
         if (realoffset >= 0) {
             var currnode = offsetparent.firstChild;
             var curroffset = 0;
@@ -824,6 +823,7 @@ function IESelection(document) {
         var range = this.selection.createRange();
         range.collapse(!collapseToEnd);
         range.select();
+        this.selection = document.getDocument().selection;
     };
 
     this.replaceWithNode = function(newnode, selectAfterPlace) {
