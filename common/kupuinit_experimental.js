@@ -36,9 +36,8 @@ function initKupu(iframe) {
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
 
-    // add the contextmenu
-    var cm = new ContextMenu();
-    kupu.setContextMenu(cm);
+    var contextmenu = new ContextMenu();
+    kupu.setContextMenu(contextmenu);
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
@@ -60,7 +59,7 @@ function initKupu(iframe) {
     };
 
     var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-					     'font-weight', 'bold');
+                                             'fontWeight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
                                          boldchecker,
@@ -69,7 +68,7 @@ function initKupu(iframe) {
     kupu.registerTool('boldbutton', boldbutton);
 
     var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-						'font-style', 'italic');
+                                                'fontStyle', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
                                            italicschecker, 
@@ -77,7 +76,8 @@ function initKupu(iframe) {
                                            'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
-    var underlinechecker = ParentWithStyleChecker(new Array('u'));
+    var underlinechecker = ParentWithStyleChecker(new Array('u'),
+                                                'textDecoration', 'underline');
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
                                               underlinechecker,
@@ -113,10 +113,6 @@ function initKupu(iframe) {
                                             execCommand('justifyright'));
     kupu.registerTool('justifyrightbutton', justifyrightbutton);
 
-    var justifyrightbutton = new KupuButton('kupu-justifyright-button',
-                                            execCommand('justifyright'));
-    kupu.registerTool('justifyrightbutton', justifyrightbutton);
-
     var outdentbutton = new KupuButton('kupu-outdent-button', execCommand('outdent'));
     kupu.registerTool('outdentbutton', outdentbutton);
 
@@ -140,10 +136,14 @@ function initKupu(iframe) {
 
     // add some tools
     // XXX would it be better to pass along elements instead of ids?
-    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button', 'kupu-hilitecolor-button', 'kupu-colorchooser');
+    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
+                                                'kupu-hilitecolor-button',
+                                                'kupu-colorchooser');
     kupu.registerTool('colorchooser', colorchoosertool);
 
-    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    var listtool = new ListTool('kupu-list-ul-addbutton',
+                                'kupu-list-ol-addbutton',
+                                'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
     // since we use the inspector we don't need much else ;)
@@ -210,11 +210,11 @@ function initKupu(iframe) {
 
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
-    
+
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);
 
     return kupu;
-}
+};
