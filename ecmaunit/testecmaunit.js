@@ -21,31 +21,37 @@ function TestTestCase() {
 
     this.testAssert = function() {
         this.assert(true);
-	this.assert(false);
+	this.assertThrows(this.assert, "Assertion 'false' failed", this, false);
     };
         
     this.testAssertEquals = function() {
         this.assertEquals('foo', 'foo');
-	this.assertEquals('foo', 'bar');
+	this.assertThrows(this.assertEquals, 
+                            'Assertion failed: foo != bar',
+                            this, 'foo', 'bar');
     };
 
     this.testAssertTrue = function() {
         this.assertTrue(1);
 	this.assertTrue('foo');
-	this.assertTrue(false);
+	this.assertThrows(this.assertTrue, "Assertion 'false' failed",
+                            this, false);
     };
 
     this.testAssertFalse = function() {
         this.assertFalse(0);
 	this.assertFalse('');
-	this.assertFalse(true);
+	this.assertThrows(this.assertFalse, "AssertFalse 'true' failed",
+                            this, true);
     };
 
     this.testAssertThrows = function() {
         this.assertThrows(function() {throw('foo')}, 'foo');
 	this.assertThrows(function() {throw(new Array(1,2))}, new Array(1,2));
 	this.assertThrows(function() {throw('bar')});
-	this.assertThrows(function() {}, 'baz');
+	this.assertThrows(this.assertThrows, 
+                                "function didn't raise exception 'baz'", 
+                                this, function() {}, 'baz');
     };
 
     this.tearDown = function() {
@@ -58,6 +64,7 @@ function TestTestCase() {
 TestTestCase.prototype = new TestCase;
 
 function TestTestCase2() {
+    /* an example unit test */
     this.name = 'TestTestCase2';
 
     this.setUp = function() {
