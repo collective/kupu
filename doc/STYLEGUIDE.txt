@@ -35,6 +35,11 @@ o Operands (+, -, = etc.) are surroned by exactly one space, e.g.::
 
     a = b + c;   instead of   a=b+c;
 
+o The body of loops should *always* be surrounded by curly braces, even
+  if it's only a single line. A loop starts with the loop statement,
+  then a space, then a curly brace and on the next line the body starts
+  with indentation.
+
 o Opening parentheses are not followed by a space nor are closing
   preceded by one, e.g.::
 
