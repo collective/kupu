@@ -27,6 +27,7 @@
                 src="fulldoc.html"
                 scrolling="auto">
         </iframe>
+        <!-- XXX this should be moved to sourceedit.kupu somehow -->
         <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
       </form>
     </div>
