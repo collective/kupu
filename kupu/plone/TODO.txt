@@ -5,6 +5,14 @@ TODO for drawers
   + particular problem: "Current location: ..." is only shown when a
     drawer is closed and re-opened. CSS problem?
 
+- table drawers
+
+  + make edit table work
+
+  + improve UI
+
+- issue 63: set text/html as content type when editing w/ kupu
+
 - Description in the rightmost bar needs to be trimmed, in case it's a
   long string. Can XSLT do that?!? --> paul?
 
@@ -14,7 +22,9 @@ TODO for drawers
 - IE problems:
 
   + IE6 on WinXP crashes upon saving, if a drawer has been opened in
-    the Kupu session. Reproduceable on other systems?
+    the Kupu session.
+    Fix: get rid of the drawer element before saving form
+    data. Implemented and tested by guido, no confirmation yet
 
   + xsl:import needs provide a valid URI; it seems IE cannot import an
     XSL file that is linked with a relative path (as reported by
