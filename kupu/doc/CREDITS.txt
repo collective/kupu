@@ -65,7 +65,7 @@ kupu credits
     mailinglists). See http://codespeak.net for more information about
     this cool project.
 
-  - Micheal Wechner and OSCOM for providing us with a new home.
+  - Michael Wechner and OSCOM for providing us with a new home.
 
   - Eric Casteleijn for the new name.
 
