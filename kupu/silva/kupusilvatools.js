@@ -883,6 +883,15 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
 
         this.editor.logMessage('Table cleaned up');
     };
+
+    this._fixAllTables = function() {
+        /* fix all the tables in the document at once */
+        return;
+        var tables = this.editor.getInnerDocument().getElementsByTagName('table');
+        for (var i=0; i < tables.length; i++) {
+            this.fixTable(tables[i]);
+        };
+    };
 }
 
 SilvaTableToolBox.prototype = new TableToolBox;
@@ -1204,6 +1213,129 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
 
 SilvaTocTool.prototype = new KupuTool;
 
+function SilvaAbbrTool(abbrradioid, acronymradioid, radiocontainerid, titleinputid,
+                            addbuttonid, updatebuttonid, delbuttonid,
+                            toolboxid, plainclass, activeclass) {
+    /* tool to manage citation elements */
+    this.abbrradio = document.getElementById(abbrradioid);
+    this.acronymradio = document.getElementById(acronymradioid);
+    this.radiocontainer = document.getElementById(radiocontainerid);
+    this.titleinput = document.getElementById(titleinputid);
+    this.addbutton = document.getElementById(addbuttonid);
+    this.updatebutton = document.getElementById(updatebuttonid);
+    this.delbutton = document.getElementById(delbuttonid);
+    this.toolbox = document.getElementById(toolboxid);
+    this.plainclass = plainclass;
+    this.activeclass = activeclass;
+    
+    this.initialize = function(editor) {
+        this.editor = editor;
+        addEventHandler(this.addbutton, 'click', this.addElement, this);
+        addEventHandler(this.updatebutton, 'click', this.updateElement, this);
+        addEventHandler(this.delbutton, 'click', this.deleteElement, this);
+        
+        this.updatebutton.style.display = 'none';
+        this.delbutton.style.display = 'none';
+    };
+
+    this.updateState = function(selNode, event) {
+        var element = this.getNearestAbbrAcronym(selNode);
+        if (element) {
+            this.addbutton.style.display = 'none';
+            this.updatebutton.style.display = 'inline';
+            this.delbutton.style.display = 'inline';
+            this.titleinput.value = element.getAttribute('title');
+            this.radiocontainer.style.display = 'none';
+            if (this.toolbox) {
+                this.toolbox.className = this.activeclass;
+            };
+        } else {
+            this.addbutton.style.display = 'inline';
+            this.updatebutton.style.display = 'none';
+            this.delbutton.style.display = 'none';
+            this.titleinput.value = '';
+            if (this.editor.getBrowserName() == 'IE' || this.radiocontainer.nodeName.toLowerCase() != 'tr') {
+                this.radiocontainer.style.display = 'block';
+            } else {
+                this.radiocontainer.style.display = 'table-row';
+            };
+            if (this.toolbox) {
+                this.toolbox.className = this.plainclass;
+            };
+        };
+    };
+
+    this.getNearestAbbrAcronym = function(selNode) {
+        var current = selNode;
+        while (current && current.nodeType != 9) {
+            if (current.nodeType == 1) {
+                var nodeName = current.nodeName.toLowerCase();
+                if (nodeName == 'abbr' || nodeName == 'acronym') {
+                    return current;
+                };
+            };
+            current = current.parentNode;
+        };
+    };
+
+    this.addElement = function() {
+        var type = this.abbrradio.checked ? 'abbr' : 'acronym';
+        var doc = this.editor.getInnerDocument();
+        var selNode = this.editor.getSelectedNode();
+        if (this.getNearestAbbrAcronym(selNode)) {
+            this.editor.logMessage('Can not nest abbr and acronym elements');
+            return;
+        };
+        var element = doc.createElement(type);
+        element.setAttribute('title', this.titleinput.value);
+
+        var selection = this.editor.getSelection();
+        var docfrag = selection.cloneContents();
+        var placecursoratend = false;
+        if (docfrag.hasChildNodes()) {
+            for (var i=0; i < docfrag.childNodes.length; i++) {
+                element.appendChild(docfrag.childNodes[i]);
+            };
+            placecursoratend = true;
+        } else {
+            var text = doc.createTextNode('\xa0');
+            element.appendChild(text);
+        };
+        this.editor.insertNodeAtSelection(element, 1);
+        var selection = this.editor.getSelection();
+        selection.collapse(placecursoratend);
+        this.editor.getDocument().getWindow().focus();
+        var selNode = selection.getSelectedNode();
+        this.editor.updateState(selNode);
+        this.editor.logMessage('Element ' + type + ' added');
+    };
+
+    this.updateElement = function() {
+        var selNode = this.editor.getSelectedNode();
+        var element = this.getNearestAbbrAcronym(selNode);
+        if (!element) {
+            this.editor.logMessage('Not inside an abbr or acronym element!', 1);
+            return;
+        };
+        var title = this.titleinput.value;
+        element.setAttribute('title', title);
+        this.editor.logMessage('Updated ' + element.nodeName.toLowerCase() + ' element');
+    };
+
+    this.deleteElement = function() {
+        var selNode = this.editor.getSelectedNode();
+        var element = this.getNearestAbbrAcronym(selNode);
+        if (!element) {
+            this.editor.logMessage('Not inside an abbr or acronym element!', 1);
+            return;
+        };
+        element.parentNode.removeChild(element);
+        this.editor.logMessage('Deleted ' + element.nodeName.toLowerCase() + ' deleted');
+    };
+};
+
+SilvaCitationTool.prototype = new KupuTool;
+
 function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebuttonid, delbuttonid, 
                             toolboxid, plainclass, activeclass) {
     /* tool to manage citation elements */
@@ -1480,6 +1612,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
             request.onreadystatechange = callback.execute;
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Content-Length:', formdata.length);
             request.send(formdata);
         };
     };
@@ -1492,6 +1625,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         var request = Sarissa.getXmlHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setRequestHeader('Content-Length:', formdata.length);
         var callback = new ContextFixer(this._addFormToTool, request, this);
         request.onreadystatechange = callback.execute;
         request.send(formdata);
