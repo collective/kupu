@@ -11,6 +11,8 @@
 // $Id$
 
 function KupuEditorTestCase() {
+    this.name = 'KupuEditorTestCase';
+
     this.setUp = function() {
         this.editor = new KupuEditor(null, {}, null);
     };
