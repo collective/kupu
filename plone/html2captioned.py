@@ -32,7 +32,7 @@ ATTR_WIDTH = ATTR_VALUE % 'width'
 ATTR_PATTERN = re.compile('''
     (?P<tag>\<
      ( class%s
-     | src="resolveuid/(?P<src>([^/"]*))
+     | src="resolveuid/(?P<src>([^/"#? ]*))
      | width%s
      | .
      )*\>
@@ -50,7 +50,7 @@ IMAGE_TEMPLATE = '''\
 </div>
 '''
 
-UID_PATTERN = re.compile('(?P<tag><(?:a|img) [^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^"]*))"')
+UID_PATTERN = re.compile('(?P<tag><(?:a|img) [^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^"#? ]*))')
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""

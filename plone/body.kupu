@@ -23,7 +23,15 @@
     <textarea cols="80" rows="25"
         tabindex="" style="display:none"
         name="description" id="kupu-editor-textarea"
-        tal:content="inputvalue"
+
+        tal:define="pss modules/Products/PythonScripts/standard;
+                text_format python: getattr(here,'text_format','html');
+                is_stx python:text_format=='structured-text';
+                is_ptx python:text_format=='plain';"
+
+        tal:content="python:(is_stx and pss.structured_text(inputvalue))
+                                    			or (is_ptx and pss.newline_to_br(inputvalue))
+                                    			or inputvalue"
         tal:attributes="name inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
