@@ -15,7 +15,6 @@ function KupuHelpersTestCase() {
 
     this.setUp = function() {
         this.doc = document.getElementById('iframe').contentWindow.document;
-        var html = this.doc.createElement('html');
         var head = this.doc.createElement('head');
         var title = this.doc.createElement('title');
         var titletext = this.doc.createTextNode('test');
@@ -23,9 +22,11 @@ function KupuHelpersTestCase() {
 
         title.appendChild(titletext);
         head.appendChild(title);
+        var html = this.doc.documentElement;
+        while (html.childNodes.length > 0)
+            html.removeChild(html.childNodes[0]);
         html.appendChild(head);
         html.appendChild(this.body);
-        this.doc.documentElement.appendChild(html);
     };
         
     this.testSelectSelectItem = function() {
