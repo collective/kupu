@@ -63,17 +63,6 @@
           </replacement>
         </expression>
       </set>
-      <set>
-        <name>Fix improper words</name>
-        <expression>
-          <reg>
-            [Pp]lone
-          </reg>
-          <replacement>
-            Silva
-          </replacement>
-        </expression>
-      </set>
     </cleanup_expressions>
   </kupu:part>
  
