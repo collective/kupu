@@ -1,0 +1,49 @@
+div.kupu-toolboxes {display: none}
+
+/*select#kupu-tb-styles {display: block}*/
+
+div.kupu-fulleditor .kupu-editorframe {
+  margin-right: 2em;
+}
+
+.drawer {
+    left: 25%;
+}
+
+/* Styles for iframe */
+.introductionCopy {
+	font-weight: bold;
+    background-color: #f0f000;
+}
+
+.pullQuote {
+    background-color: #dee7ec;
+    border-color: #8cacbb;
+    border-style: solid;
+    border-width: 1px;
+    padding: 0em 1em;
+    margin-left: 20em;
+    text-align: center;
+    vertical-align: top;
+    margin: 1em 0em;
+    display: block;
+}
+
+.caption {
+    text-align:right;
+    font-size: 8pt;
+}
+
+.contactInformation {
+    font-size: 8pt;
+}
+
+.notesToEditors {
+    background-color: #fff0e0;
+}
+
+.backToTop {
+    background-color: #f0f0f0;
+    text-align: right;
+    font-family: sans-serif; font-size: 8pt;
+}

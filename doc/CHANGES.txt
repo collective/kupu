@@ -1,0 +1,138 @@
+============
+Kupu changes
+============
+
+- 1.0.3 (2004-03-25)
+
+  o Renamed epoz to kupu to end the name confusion with Maik
+    Jablonski's editor once and for all. Thanks to Eric Casteleijn for
+    the name suggestion.
+
+  o Kupu is distributed under the BSD-style Kupu license. See
+    LICENSE.txt for license text.
+
+  o Kupu is an official OSCOM project now. Its new homepage is
+    available at http://kupu.oscom.org. The development home remains
+    with Codespeak.
+
+  o Improved preliminary Plone support. Thanks to Duncan G. Booth for
+    this work.
+
+  o Fixed bug that made IE throw an exception on re-selecting text in
+    a removed element.
+
+  o Removed the 'locales' directory for the time being. We will
+    support i18n in the future, but not in this Zope-specific way.
+
+- 1.0.2 (2004-03-06)
+
+  o Added POST support
+
+  o Finally added some more documentation, made some older docs less 
+    Zope specific
+
+  o Added toolboxes, a plugin for tools, to seperate functionality from
+    view dependencies (this means a change in initEpoz, so custom versions
+    need to be updated!)
+
+  o Chopped epozeditor.js into several pieces (this means all existing
+    installations need to be updated!)
+
+  o Table editing in IE 5.5 is fixed, the tables don't end up
+    in the parent document anymore
+
+  o Fixed some subtle bug that caused the parent element of the
+    selection to be the selected element instead of the element
+    itself when a selection spanned a full element (thanks Igor
+    Stroh for the IE fix!)
+
+  o Cleaned up the HTML files and pagetemplates, there's now only 1 piece
+    of JavaScript for initialization.
+
+  o Added experimental context menu
+
+  o Added experimental inspector tool
+
+  o A lot of small bugfixes...
+
+- 1.0.1 (2003-12-10)
+  
+  o Fixed bug that caused saving to fail in Mozilla 1.3.1
+
+  o Fixed bug that prevented Zope from booting when Epoz and Plone were
+    installed on the same instance
+
+  o Added an example pagetemplate for Zope 2 integration
+
+- 1.0 final (2003-11-21)
+
+  o Fixed text style support for IE
+
+  o Renamed epoztoolbar macro to epoz_toolbar for consistency
+
+  o Added style sheet and headers to prevent caching in the
+    example document fulldoc.html
+
+- 1.0 beta 1 (2003-11-14)
+
+  o Some API cleanups done
+
+  o Added some code to 'disable' the editor during init and save
+    [Issue 11]
+
+  o Added Silva-specific JavaScript, also as an example for large
+    customizations
+
+  o Fixed major problem with IE that removed the selection from the
+    iframe as soon as some other element got clicked (resulting in
+    actions to be performed on the wrong location). [issue 31]
+
+  o Fixed colorchooser in IE, also fixed background color support.
+
+- 1.0 alpha 2 (2003-11-07)
+
+  o Refactored epozeditor.js to a MVC-style component architecture.
+    [Issue 26]
+
+  o Added a path tool [Issue 24]
+
+  o Added epoz logo
+
+- 1.0 alpha 1 (2003-10-24)
+
+  o Fix useCSS (generates a Midas error)
+
+  o When in a list, a style picker will appear for the shape of the
+  list symbols.
+
+  o  Dumb down the link and image toolboxes
+
+  o Let the iframe src work from Apache via a tal:attributes to
+    replace the src with nothing when served from Zope
+
+  o Added new attributes on <iframe> to configure the Epoz instance:
+
+    - dst specifices the URL to PUT to.
+  
+    - usecss is either 0 or 1, to tell Midas whether to use CSS or
+      element styles like <b>.
+
+    - reloadsrc is either 0 or 1, to tell Epoz whether the server
+      wants the editor to reload the source after saving.  This is
+      true in Silva, which transforms the XHTML after saving.
+
+  o Improved error message that appears if an async save fails.
+
+  o Added plain Zope2 integration (philikon)
+
+  o Added functionality for editing tables (adding and deleting
+    rows and columns, setting alignment etc.)
+
+  o Fixed bug in link code, the url is now added to the link 
+    correctly and can also be modified
+
+  o Replaced some timeout code with a poll loop, which should work
+    better in extreme situations (slow setup, large documents etc.)
+
+  o When the cursor is in a list, a drop-down appears to set the style
+    of the list symbols (e.g. disc for ul, roman numerals for ol)

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:define="kupu here/kupu; 
+                  kupuurl kupu/absolute_url;
+                  macros kupu/kupumacros/macros;
+                  documenturl here/REQUEST/URL1">
+
+  <!--
+   Create a 'kupu editor' object in the folder where you want to
+   enable visual editing with kupu. Call it 'kupu' (you can call it
+   something else, but this template relies on this name being
+   'kupu'). Add a Page Template next to the kupu object and copy the
+   contents of this file into it. Call the Page Template 'kupu_edit'
+   or something like that. You can now point your browser at any object's
+   URL, append '/kupu_edit' and you will be able to edit the object
+   with kupu.
+   -->
+
+  <head>
+    <title>Kupu Editor example template</title>
+
+    <!-- need to load javascripts and stylehsheets by hand here since
+         we need the correct url prefix -->
+
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/sarissa.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupuhelpers.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupueditor.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupubasetools.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupuloggers.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupucontentfilters.js"> </script>
+    <script type="text/javascript" 
+          tal:attributes="src string:${kupuurl}/kupuinit.js"> </script>
+
+    <link type="text/css" rel="stylesheet"
+          tal:attributes="href string:${kupuurl}/kupustyles.css" />
+    <link type="text/css" rel="stylesheet"
+          tal:attributes="href string:${kupuurl}/kupucustom.css" />
+
+    <metal:startjs use-macro="macros/kupu_startjs" />
+  </head>
+  
+  <body onload="startKupu();">
+    <div class="kupu-fulleditor" metal:use-macro="macros/kupu_fulleditor">
+      <iframe metal:fill-slot="kupu_editorframe"
+              id="kupu-editor" 
+              tal:attributes="src documenturl; dst documenturl;"
+              reloadsrc="0" 
+              usecss="1"
+              strict_output="1"
+              content_type="application/xhtml+xml"
+              scrolling="auto"
+              ></iframe>
+    </div>
+  </body>
+</html>

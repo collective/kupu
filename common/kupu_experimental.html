@@ -1,0 +1,200 @@
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal" 
+      xmlns:metal="http://xml.zope.org/namespaces/metal" 
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <head>
+    <title>Test Editor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="kupustyles.css" rel="stylesheet" type="text/css"/>
+    <link href="kupucustom.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="sarissa.js"> </script>
+    <script type="text/javascript" src="kupuhelpers.js"> </script>
+    <script type="text/javascript" src="kupueditor.js"> </script>
+    <script type="text/javascript" src="kupubasetools.js"> </script>
+    <script type="text/javascript" src="kupuloggers.js""> </script>
+    <script type="text/javascript" src="kupucontentfilters.js"> </script>
+    <script type="text/javascript" src="kupucontextmenu.js"> </script>
+    <script type="text/javascript" src="kupuinspector.js"> </script>
+    <script type="text/javascript" src="kupuinit_experimental.js"> </script>
+    <script type="text/javascript">
+        
+        var kupu = null;
+        var kupuui = null;
+        function startKupu() {
+            var frame = document.getElementById('kupu-editor'); 
+            kupu = initKupu(frame); 
+            kupuui = kupu.getTool('ui'); 
+            kupu.initialize();
+        };
+        
+    </script>
+  </head>
+  <body onload="startKupu()">
+    <h1>Kupu Editor Test Page</h1>
+
+    <div class="kupu-fulleditor">
+      <div>
+
+        <!-- Start toolbar -->
+        <div class="kupu-tb" id="toolbar">
+          <span id="kupu-tb-buttons">
+            <span class="kupu-tb-buttongroup" style="float: right">
+              <button type="button" class="kupu-logo" title="Kupu 1.0.3" 
+                  onclick="window.open('http://kupu.oscom.org');">&nbsp;</button>
+            </span>
+            <select id="kupu-tb-styles" 
+                onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+              <option value="P">
+                Normal
+              </option>
+              <option value="H1">
+                Heading 1
+              </option>
+              <option value="H2">
+                Heading 2
+              </option>
+              <option value="H3">
+                Heading 3
+              </option>
+              <option value="H4">
+                Heading 4
+              </option>
+              <option value="H5">
+                Heading 5
+              </option>
+              <option value="H6">
+                Heading 6
+              </option>
+              <option value="PRE">
+                Formatted
+              </option>
+            </select>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-save" title="Save" 
+                  onclick="kupuui.saveButtonHandler()">
+                &nbsp;
+              </button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-bold" title="Bold" 
+                  onclick="kupuui.basicButtonHandler('bold');">&nbsp;</button>
+              <button type="button" class="kupu-italic" title="Italic" 
+                  onclick="kupuui.basicButtonHandler('italic');">&nbsp;</button>
+              <button type="button" class="kupu-underline" title="Underline" 
+                  onclick="kupuui.basicButtonHandler('underline');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-subscript" title="Subscript" 
+                  onclick="kupuui.basicButtonHandler('subscript');">&nbsp;</button>
+              <button type="button" class="kupu-superscript" title="Superscript" 
+                  onclick="kupuui.basicButtonHandler('superscript');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <!-- Note: the event handlers are attached to these
+                   buttons dynamically, like for tools -->
+              <button type="button" class="kupu-forecolor" id="kupu-forecolor" 
+                  title="Text Color">&nbsp;</button>
+              <button type="button" class="kupu-hilitecolor" id="kupu-hilitecolor" 
+                  title="Background Color">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-justifyleft" title="Left Justify" 
+                  onclick="kupuui.basicButtonHandler('justifyleft');">&nbsp;</button>
+              <button type="button" class="kupu-justifycenter" title="Center" 
+                  onclick="kupuui.basicButtonHandler('justifycenter');">&nbsp;</button>
+              <button type="button" class="kupu-justifyright" title="Right Justify" 
+                  onclick="kupuui.basicButtonHandler('justifyright');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <!-- list button events are set on the list tool -->
+              <button type="button" class="kupu-insertorderedlist" title="Numbered List" 
+                  id="kupu-list-ol-addbutton">&nbsp;</button>
+              <button type="button" class="kupu-insertunorderedlist" title="Unordered List" 
+                  id="kupu-list-ul-addbutton">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-outdent" title="Outdent" 
+                  onclick="kupuui.basicButtonHandler('outdent');">&nbsp;</button>
+              <button type="button" class="kupu-indent" title="Indent" 
+                  onclick="kupuui.basicButtonHandler('indent');">&nbsp;</button>
+            </span>
+            <span class="kupu-tb-buttongroup">
+              <button type="button" class="kupu-undo" title="Undo" 
+                  onclick="kupuui.basicButtonHandler('undo');">&nbsp;</button>
+              <button type="button" class="kupu-redo" title="Redo" 
+                  onclick="kupuui.basicButtonHandler('redo');">&nbsp;</button>
+            </span>
+          </span>
+          <select id="kupu-ulstyles">
+            <option value="disc">●</option>
+            <option value="square">■</option>
+            <option value="circle">○</option>
+            <option value="none">no bullet</option>
+          </select>
+          <select id="kupu-olstyles">
+            <option value="decimal">1</option>
+            <option value="upper-roman">I</option>
+            <option value="lower-roman">i</option>
+            <option value="upper-alpha">A</option>
+            <option value="lower-alpha">a</option>
+          </select>
+        </div>
+        <!-- end toolbar -->
+        
+        <div class="kupu-toolboxes">
+
+          <div class="kupu-toolbox" id="kupu-toolbox-inspector">
+            <!-- start kupu inspector -->
+            
+            <h1>Inspector</h1>
+
+            <table id="kupu-inspector" width="100%">
+              <tbody>
+                <tr>
+                  <td align="center" colspan="1" rowspan="1">
+                    <form method="post" action="#" onsubmit="return false;" 
+                        id="kupu-inspector-form" 
+                        enctype="application/x-www-form-urlencoded">
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+            <!-- end kupu inspector -->
+          </div>
+
+          <div class="kupu-toolbox" id="kupu-toolbox-debug">
+            <!-- start kupu toolbox debug -->
+            <h1>Debug Log</h1>
+
+            <div id="kupu-toolbox-debuglog" class="kupu-toolbox-label" style="height: 150px;">
+            </div>
+
+            <!-- end kupu toolbox debug -->
+          </div>
+
+        </div>
+        <!-- End toolboxes  -->
+
+        <table id="kupu-colorchooser" cellpadding="0" cellspacing="0" 
+                style="position: fixed; border-style: solid;
+                        border-color: black; border-width: 1px;"> </table>
+
+        <div class="kupu-editorframe">
+          <iframe id="kupu-editor" 
+                  frameborder="0" 
+                  src="fulldoc.html" 
+                  dst="fulldoc.html" 
+                  reloadsrc="0" 
+                  usecss="1" 
+                  strict_output="1" 
+                  content_type="application/xhtml+xml" 
+                  scrolling="auto"> </iframe>
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>

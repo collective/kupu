@@ -1,0 +1,668 @@
+/*****************************************************************************
+ *
+ * Copyright (c) 2003-2004 Kupu Contributors. All rights reserved.
+ *
+ * This software is distributed under the terms of the Kupu
+ * License. See LICENSE.txt for license text. For a list of Kupu
+ * Contributors see CREDITS.txt.
+ *
+ *****************************************************************************/
+
+// $Id$
+
+function SilvaLinkTool() {
+    /* redefine the contextmenu elements */
+    
+    this.createContextMenuElements = function(selNode, event) {
+        /* create the 'Create link' or 'Remove link' menu elements */
+        var ret = new Array();
+        var link = this.editor.getNearestParentOfType(selNode, 'a');
+        if (link) {
+            ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
+        } else {
+            ret.push(new ContextMenuElement('Create link', getLink, this));
+        };
+        return ret;
+    };
+}
+
+SilvaLinkTool.prototype = new LinkTool;
+
+function SilvaImageTool() {
+    /* Silva specific image tool */
+
+    this.createContextMenuElements = function(selNode, event) {
+        return new Array(new ContextMenuElement('Create image', getImage, this));
+    };
+}
+
+SilvaImageTool.prototype = new ImageTool;
+
+function SilvaTableTool() {
+    /* Silva specific table functionality
+        overrides most of the table functionality, required because Silva requires
+        a completely different format for tables
+    */
+
+    this.createTable = function(rows, cols, makeHeader, tableclass) {
+        /* add a Silvs specific table, with an (optional) header with colspan */
+        var doc = this.editor.getInnerDocument();
+
+        var table = doc.createElement('table');
+        table.style.width = "100%";
+        table.setAttribute("class", tableclass);
+
+        var tbody = doc.createElement('tbody');
+        
+        if (makeHeader) {
+            this._addRowHelper(doc, tbody, 'th', -1, cols);
+        }
+
+        for (var i=0; i < rows; i++) {
+            this._addRowHelper(doc, tbody, 'td', -1, cols);
+        }
+
+        table.appendChild(tbody);
+        this.editor.insertNodeAtSelection(table);
+
+        this.editor.logMessage('Table added');
+    };
+
+    this.addTableRow = function() {
+        /* add a table row or header */
+        var currnode = this.editor.getSelectedNode();
+        var doc = this.editor.getInnerDocument();
+        var tbody = this.editor.getNearestParentOfType(currnode, 'tbody');
+        if (!tbody) {
+            this.editor.logMessage('No table found!', 1);
+            return;
+        }
+        var cols = this._countCells(tbody);
+        var currrow = this.editor.getNearestParentOfType(currnode, 'tr');
+        if (!currrow) {
+            this.editor.logMessage('Not inside a row!', 1);
+            return;
+        };
+        var index = this._getRowIndex(currrow) + 1;
+        // should check what to add as well
+        this._addRowHelper(doc, tbody, 'td', index, cols);
+
+        this.editor.logMessage('Table row added');
+    };
+
+    this.delTableRow = function() {
+        /* delete a table row or header */
+        var currnode = this.editor.getSelectedNode();
+        var currtr = this.editor.getNearestParentOfType(currnode, 'tr');
+
+        if (!currtr) {
+            this.editor.logMessage('Not inside a row!', 1);
+            return;
+        };
+
+        currtr.parentNode.removeChild(currtr);
+
+        this.editor.logMessage('Table row removed');
+    };
+
+    this.addTableColumn = function() {
+        /* add a table column */
+        var currnode = this.editor.getSelectedNode();
+        var doc = this.editor.getInnerDocument();
+        var body = this.editor.getNearestParentOfType(currnode, 'tbody');
+        if (!body) {
+            this.editor.logMessage('Not inside a table!');
+            return;
+        };
+        var currcell = this.editor.getNearestParentOfType(currnode, 'td');
+        if (!currcell) {
+            var currcell = this.editor.getNearestParentOfType(currnode, 'th');
+            if (!currcell) {
+                this.editor.logMessage('Not inside a row!', 1);
+                return;
+            } else {
+                var index = -1;
+            };
+        } else {
+            var index = this._getColIndex(currcell) + 1;
+        };
+        var numcells = this._countCells(body);
+        this._addColHelper(doc, body, index, numcells);
+
+        this.editor.logMessage('Column added');
+    };
+
+    this.delTableColumn = function() {
+        /* delete a column */
+        var currnode = this.editor.getSelectedNode();
+        var body = this.editor.getNearestParentOfType(currnode, 'tbody');
+        if (!body) {
+            this.editor.logMessage('Not inside a table body!', 1);
+            return;
+        }
+        var currcell = this.editor.getNearestParentOfType(currnode, 'td');
+        if (!currcell) {
+            currcell = this.editor.getNearestParentOfType(currnode, 'th');
+            if (!currcell) {
+                this.editor.logMessage('Not inside a cell!');
+                return;
+            };
+            var index = -1;
+        } else {
+            var index = this._getColIndex(currcell);
+        };
+
+        this._delColHelper(body, index);
+
+        this.editor.logMessage('Column deleted');
+    };
+
+    this._addRowHelper = function(doc, body, celltype, index, numcells) {
+        /* actually adds a row to the table */
+        var row = doc.createElement('tr');
+
+        // fill the row with cells
+        if (celltype == 'td') {
+            for (var i=0; i < numcells; i++) {
+                var cell = doc.createElement(celltype);
+                var nbsp = doc.createTextNode("\u00a0");
+                cell.appendChild(nbsp);
+                row.appendChild(cell);
+            }
+        } else if (celltype == 'th') {
+            var cell = doc.createElement(celltype);
+            cell.setAttribute('colSpan', numcells);
+            var nbsp = doc.createTextNode("\u00a0");
+            cell.appendChild(nbsp);
+            row.appendChild(cell);
+        }
+
+        // now append it to the tbody
+        var rows = this._getAllRows(body);
+        if (index == -1 || index >= rows.length) {
+            body.appendChild(row);
+        } else {
+            var nextrow = rows[index];
+            body.insertBefore(row, nextrow);
+        }
+
+        return row;
+    };
+
+    this._addColHelper = function(doc, body, index, numcells) {
+        /* actually adds a column to a table */
+        var rows = this._getAllRows(body);
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var cols = this._getAllColumns(row);
+            var col = cols[0];
+            if (col.nodeName.toLowerCase() == 'th') {
+                var colspan = col.getAttribute('colSpan');
+                if (colspan) {
+                    colspan = parseInt(colspan);
+                } else {
+                    colspan = 1;
+                }
+                col.setAttribute('colSpan', colspan + 1);
+            } else {
+                var cell = doc.createElement('td');
+                var nbsp = doc.createTextNode('\u00a0');
+                cell.appendChild(nbsp);
+                if (index == -1 || index >= rows.length) {
+                    row.appendChild(cell);
+                } else {
+                    row.insertBefore(cell, cols[index]);
+                };
+            };
+        };
+    };
+
+    this._delColHelper = function(body, index) {
+        /* actually delete all cells in a column */
+        var rows = this._getAllRows(body);
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var cols = this._getAllColumns(row);
+            if (cols[0].nodeName.toLowerCase() == 'th') {
+                // is a table header, so reduce colspan
+                var th = cols[0];
+                var colspan = th.getAttribute('colSpan');
+                if (!colspan || colspan == '1') {
+                    body.removeChild(row);
+                } else {
+                    colspan = parseInt(colspan);
+                    th.setAttribute('colSpan', colspan - 1);
+                };
+            } else {
+                // is a table cell row, remove one
+                if (index > -1) {
+                    row.removeChild(cols[index]);
+                } else {
+                    row.removeChild(cols[cols.length - 1]);
+                }
+            }
+        };
+    };
+
+    this._getRowIndex = function(row) {
+        /* get the current rowindex */
+        var rowindex = 0;
+        var prevrow = row.previousSibling;
+        while (prevrow) {
+            if (prevrow.nodeName.toLowerCase() == 'tr') {
+                rowindex++;
+            };
+            prevrow = prevrow.previousSibling;
+        };
+        return rowindex;
+    };
+
+    this._countCells = function(body) {
+        /* get the current column index */
+        var numcols = 0;
+        var cols = this._getAllColumns(this._getAllRows(body)[0]);
+        for (var i=0; i < cols.length; i++) {
+            var node = cols[i];
+            if (node.nodeName.toLowerCase() == 'th') {
+                var colspan = node.getAttribute('colSpan');
+                if (colspan) {
+                    colspan = parseInt(colspan);
+                } else {
+                    colspan = 1;
+                };
+                numcols += colspan;
+            } else {
+                numcols++;
+            };
+        };
+        return numcols;
+    };
+
+    this._getAllRows = function(body) {
+        /* returns an Array of all available rows */
+        var rows = new Array();
+        for (var i=0; i < body.childNodes.length; i++) {
+            var node = body.childNodes[i];
+            if (node.nodeName.toLowerCase() == 'tr') {
+                rows.push(node);
+            };
+        };
+        return rows;
+    };
+
+    this._getAllColumns = function(row) {
+        /* returns an Array of all columns in a row */
+        var cols = new Array();
+        for (var i=0; i < row.childNodes.length; i++) {
+            var node = row.childNodes[i];
+            if (node.nodeName.toLowerCase() == 'td' || 
+                    node.nodeName.toLowerCase() == 'th') {
+                cols.push(node);
+            };
+        };
+        return cols;
+    };
+}
+
+SilvaTableTool.prototype = new TableTool;
+
+function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
+                        newcolsinputid, makeheaderinputid, classselectid, alignselectid, addtablebuttonid,
+                        addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, fixbuttonid) {
+    /* Silva specific table functionality
+        overrides most of the table functionality, required because Silva requires
+        a completely different format for tables
+    */
+
+    this.addtablediv = document.getElementById(addtabledivid);
+    this.edittablediv = document.getElementById(edittabledivid);
+    this.newrowsinput = document.getElementById(newrowsinputid);
+    this.newcolsinput = document.getElementById(newcolsinputid);
+    this.makeheaderinput = document.getElementById(makeheaderinputid);
+    this.classselect = document.getElementById(classselectid);
+    this.alignselect = document.getElementById(alignselectid);
+    this.addtablebutton = document.getElementById(addtablebuttonid);
+    this.addrowbutton = document.getElementById(addrowbuttonid);
+    this.delrowbutton = document.getElementById(delrowbuttonid);
+    this.addcolbutton = document.getElementById(addcolbuttonid);
+    this.delcolbutton = document.getElementById(delcolbuttonid);
+    this.fixbutton = document.getElementById(fixbuttonid);
+
+    this.initialize = function(tool, editor) {
+        /* attach the event handlers */
+        this.tool = tool;
+        this.editor = editor;
+        addEventHandler(this.addtablebutton, "click", this.addTable, this);
+        addEventHandler(this.addrowbutton, "click", this.addTableRow, this);
+        addEventHandler(this.delrowbutton, "click", this.delTableRow, this);
+        addEventHandler(this.addcolbutton, "click", this.addTableColumn, this);
+        addEventHandler(this.delcolbutton, "click", this.delTableColumn, this);
+        addEventHandler(this.fixbutton, "click", this.fixTable, this);
+        addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
+        addEventHandler(this.classselect, "change", this.setTableClass, this);
+        this.addtablediv.style.display = "block";
+        this.edittablediv.style.display = "none";
+        this.editor.logMessage('Table tool initialized');
+    };
+
+    this.addTable = function() {
+        /* add a Silvs specific table, with an (optional) header with colspan */
+        var rows = parseInt(this.newrowsinput.value);
+        var cols = parseInt(this.newcolsinput.value);
+        var makeHeader = this.makeheaderinput.checked;
+        var classchooser = document.getElementById("kupu-table-classchooser-add");
+        var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
+        this.tool.createTable(rows, cols, makeHeader, tableclass);
+    };
+
+    this.fixTable = function(event) {
+        /* fix the table so it is Silva (and this tool) compliant */
+        // since this can be quite a nasty creature we can't just use the
+        // helper methods
+        
+        // first we create a new tbody element
+        var currnode = this.editor.getSelectedNode();
+        var table = this.editor.getNearestParentOfType(currnode, 'TABLE');
+        if (!table) {
+            this.editor.logMessage('Not inside a table!');
+            return;
+        };
+        var doc = this.editor.getInnerDocument();
+        var tbody = doc.createElement('tbody');
+
+        var allowed_classes = new Array('plain', 'grid', 'list', 'listing', 'data');
+        if (!allowed_classes.contains(table.getAttribute('class'))) {
+            table.setAttribute('class', 'plain');
+        };
+        
+        table.setAttribute('cellpadding', '0');
+        table.setAttribute('cellspacing', '0');
+
+        // now get all the rows of the table, the rows can either be
+        // direct descendants of the table or inside a 'tbody', 'thead'
+        // or 'tfoot' element
+        var rows = new Array();
+        var parents = new Array('thead', 'tbody', 'tfoot');
+        for (var i=0; i < table.childNodes.length; i++) {
+            var node = table.childNodes[i];
+            if (node.nodeName.toLowerCase() == 'tr') {
+                rows.push(node);
+            } else if (parents.contains(node.nodeName.toLowerCase())) {
+                for (var j=0; j < node.childNodes.length; j++) {
+                    var inode = node.childNodes[j];
+                    if (inode.nodeName.toLowerCase() == 'tr') {
+                        rows.push(inode);
+                    };
+                };
+            };
+        };
+        
+        // now find out how many cells our rows should have
+        var numcols = 0;
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var currnumcols = 0;
+            for (var j=0; j < row.childNodes.length; j++) {
+                var node = row.childNodes[j];
+                if (node.nodeName.toLowerCase() == 'td' ||
+                        node.nodeName.toLowerCase() == 'th') {
+                    var colspan = 1;
+                    if (node.getAttribute('colSpan')) {
+                        colspan = parseInt(node.getAttribute('colSpan'));
+                    };
+                    currnumcols += colspan;
+                };
+            };
+            if (currnumcols > numcols) {
+                numcols = currnumcols;
+            };
+        };
+
+        // now walk through all rows to clean them up
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var newrow = doc.createElement('tr');
+            var currcolnum = 0;
+            var inhead = -1;
+            while (row.childNodes.length > 0) {
+                var node = row.childNodes[0];
+                if (node.nodeName.toLowerCase() == 'td') {
+                    if (inhead == -1) {
+                        inhead = 0;
+                        node.setAttribute('colSpan', '1');
+                    };
+                } else if (node.nodeName.toLowerCase() == 'th') {
+                    if (inhead == -1) {
+                        inhead = 1;
+                        newrow.appendChild(node);
+                        node.setAttribute('colSpan', '1');
+                        node.setAttribute('rowSpan', '1');
+                        continue;
+                    } else if (inhead == 0) {
+                        var td = doc.createElement('td');
+                        while (node.childNodes.length) {
+                            td.appendChild(node.childNodes[0]);
+                        };
+                        row.removeChild(node);
+                        node = td;
+                    };
+                } else {
+                    row.removeChild(node);
+                    continue;
+                };
+                node.setAttribute('rowspan', '1');
+                if (inhead) {
+                    while (node.childNodes.length) {
+                        newrow.childNodes[0].appendChild(node.childNodes[0]);
+                    };
+                    var colspan = node.getAttribute('colSpan');
+                    if (colspan) {
+                        colspan = parseInt(colspan);
+                    } else {
+                        colspan = 1;
+                    }
+                    var current_colspan = parseInt(newrow.childNodes[0].getAttribute('colSpan'));
+                    newrow.childNodes[0].setAttribute('colSpan', (current_colspan + colspan).toString());
+                    row.removeChild(node);
+                } else {
+                    node.setAttribute('colSpan', 1);
+                    node.setAttribute('rowSpan', 1);
+                    newrow.appendChild(node);
+                };
+            };
+            if (newrow.childNodes.length) {
+                tbody.appendChild(newrow);
+            };
+        };
+
+        // now make sure all rows have the correct length
+        for (var i=0; i < tbody.childNodes.length; i++) {
+            var row = tbody.childNodes[i];
+            if (row.childNodes.length && row.childNodes[0].nodeName.toLowerCase() == 'th') {
+                row.childNodes[0].setAttribute('colSpan', numcols);
+            } else {
+                while (row.childNodes.length < numcols) {
+                    var td = doc.createElement('td');
+                    var nbsp = doc.createTextNode('\u00a0');
+                    td.appendChild(nbsp);
+                    row.appendChild(td);
+                };
+            };
+        };
+        
+        // now remove all the old stuff from the table and add the new tbody
+        var tlength = table.childNodes.length;
+        for (var i=0; i < tlength; i++) {
+            table.removeChild(table.childNodes[0]);
+        };
+        table.appendChild(tbody);
+
+        this.editor.getDocument().getWindow().focus();
+
+        this.editor.logMessage('Table cleaned up');
+    };
+
+    this._fixAllTables = function() {
+        /* fix all the tables in the document at once */
+        return;
+        var tables = this.editor.getInnerDocument().getElementsByTagName('table');
+        alert('going to fix ' + tables);
+        for (var i=0; i < tables.length; i++) {
+            this.fixTable(tables[i]);
+        };
+    };
+}
+
+SilvaTableToolBox.prototype = new TableToolBox;
+
+function SilvaIndexTool(inputid, buttonid) {
+    /* a tool to manage idnex items (named anchors) for Silva */
+    this.input = document.getElementById(inputid);
+    this.button = document.getElementById(buttonid);
+
+    this.initialize = function(editor) {
+        /* attach the event handlers */
+        this.editor = editor;
+        addEventHandler(this.input, 'blur', this.updateIndex, this);
+        addEventHandler(this.button, 'click', this.addIndex, this);
+    };
+
+    this.addIndex = function(event) {
+        /* create an index */
+        var name = this.input.value;
+        var currnode = this.editor.getSelectedNode();
+        var indexel = this.editor.getNearestParentOfType(currnode, 'A');
+        
+        if (!indexel) {
+            this.editor.execCommand('CreateLink', '#');
+            var currnode = this.editor.getSelectedNode();
+            if (this.editor.getBrowserName() == 'IE') {
+                indexel = this.editor.getNearestParentOfType(currnode, 'A');
+            } else {
+                indexel = currnode.nextSibling;
+                if (!indexel) {
+                    indexel = this.editor.getNearestParentOfType(currnode, 'A');
+                };
+            };
+        };
+        
+        if (indexel.getAttribute('href')) {
+            indexel.removeAttribute('href');
+        };
+        
+        indexel.setAttribute('name', name);
+        this.editor.logMessage('Index added');
+    };
+
+    this.updateIndex = function(event) {
+        /* update an existing index */
+        var currnode = this.editor.getSelectedNode();
+        var indexel = this.editor.getNearestParentOfType(currnode, 'A');
+        if (!indexel) {
+            return;
+        };
+
+        var name = this.input.value;
+        if (indexel.getAttribute('href')) {
+            indexel.removeAttribute('href');
+        };
+
+        indexel.setAttribute('name', name);
+        this.editor.logMessage('Index modified');
+    };
+
+    this.updateState = function(selNode) {
+        var indexel = this.editor.getNearestParentOfType(selNode, 'A');
+        if (indexel && !indexel.getAttribute('href')) {
+            this.input.value = indexel.getAttribute('name');
+        } else {
+            this.input.value = '';
+        };
+    };
+};
+
+SilvaIndexTool.prototype = new KupuTool;
+
+// some dirty work to do here: the pulldown for text styles should contain 
+// some other elements than the Kupu one, replace them here
+function replaceTextStyleElements() {
+    /* replace the elements of the text-style pulldown to Silva specific ones */
+    var pulldown = document.getElementById('kupu-tb-styles');
+    var items = new Array('P', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'PRE');
+    var styles = {'P': 'Normal paragraph',
+                    'H2': 'Title heading',
+                    'H3': 'Normal heading',
+                    'H4': 'Sub heading',
+                    'H5': 'Subsub heading',
+                    'H6': 'Paragraph heading',
+                    'H7': 'Subparagraph heading',
+                    'PRE': 'Preformatted paragraph'}
+    for (var i=0; i < pulldown.options.length; i++) {
+        var el = pulldown.options[i];
+        el.value = items[i];
+        var text = document.createTextNode(styles[items[i]]);
+        while (el.childNodes.length) {
+            el.removeChild(el.childNodes[0]);
+        };
+        el.appendChild(text);
+    };
+    // this makes IE render it again, taking care of resizing if necessary (which it is)
+    pulldown.className = pulldown.className;
+};
+
+function initSilvaKupu(iframe) {
+    var l = new PlainLogger('kupu-toolbox-debuglog', 5);
+
+    var conf = {'src': iframe.getAttribute('src'),
+                'dst': iframe.getAttribute('dst'),
+                'use_css': (iframe.getAttribute('usecss') != "0"),
+                'reload_after_save': (iframe.getAttribute('reloadsrc') == "1")
+                };
+    
+    var doc = new KupuDocument(iframe);
+    var kupu = new KupuEditor(doc, conf, l);
+    
+    var cm = new ContextMenu();
+    kupu.setContextMenu(cm);
+
+    var ui = new KupuUI('kupu-tb-styles');
+    kupu.registerTool('ui', ui);
+
+    var colorchoosertool = new ColorchooserTool('kupu-forecolor', 'kupu-hilitecolor', 'kupu-colorchooser');
+    kupu.registerTool('colorchooser', colorchoosertool);
+
+    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    kupu.registerTool('listtool', listtool);
+    
+    var linktool = new SilvaLinkTool("kupu-link-input", "kupu-link-button");
+    kupu.registerTool('linktool', linktool);
+    var linktoolbox = new LinkToolBox("kupu-link-input", "kupu-link-button");
+    linktool.registerToolBox("linktoolbox", linktoolbox);
+  
+    var indextool = new SilvaIndexTool("kupu-index-input", "kupu-index-button");
+    kupu.registerTool('indextool', indextool);
+  
+    var imagetool = new SilvaImageTool();
+    kupu.registerTool('imagetool', imagetool);
+
+    var tabletool = new SilvaTableTool(); 
+    kupu.registerTool('tabletool', tabletool);
+    var tabletoolbox = new SilvaTableToolBox('kupu-toolbox-addtable', 
+        'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
+        'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
+        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
+        'kupu-table-delcolumn-button', 'kupu-table-fix-button'
+        );
+    tabletool.registerToolBox('tabletoolbox', tabletoolbox);
+
+    var showpathtool = new ShowPathTool();
+    kupu.registerTool('showpathtool', showpathtool);
+    
+    var nonxhtmltagfilter = new NonXHTMLTagFilter();
+    kupu.registerFilter(nonxhtmltagfilter);
+
+    replaceTextStyleElements();
+
+    return kupu;
+};
+

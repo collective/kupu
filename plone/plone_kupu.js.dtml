@@ -1,0 +1,278 @@
+KupuEditor.prototype.makeLinksRelative = function(contents) {
+    // After extracting text from Internet Explorer, all the links in
+    // the document are absolute.
+    // we can't use the DOM to convert them to relative links, since
+    // its the DOM that corrupts them to absolute to begin with.
+    // Instead we can find the base from the DOM and do replace on the
+    // text until all our links are relative.
+    var doc = this.getInnerDocument();
+    var nodes = doc.getElementsByTagName("BASE");
+    if (nodes.length==0) {
+        var head = doc.getElementsByTagName("HEAD")[0];
+        head.appendChild(doc.createElement("base"));
+        nodes = doc.getElementsByTagName("BASE");
+    }
+    var base = nodes[0];
+    var href = base.href;
+    var hrefparts = href.split('/');
+    return contents.replace(/(<[^>]* href=")([^"]*)"/g,
+        function(str, tag, url, offset, contents) {
+            var urlparts = url.split('/');
+            var common = 0;
+            while (common < urlparts.length && common < hrefparts.length && urlparts[common]==hrefparts[common])
+                common++;
+            // The base and the url have 'common' parts in common.
+            // First two are the protocol, so only do stuff if more
+            // than two match.
+            if (common > 2) {
+                var path = new Array();
+                var i = 0;
+                for (; i+common < hrefparts.length-1; i++) {
+                    path[i] = '..';
+                }
+                while (common < urlparts.length) {
+                    path[i++] = urlparts[common++];
+                }
+                str = tag + path.join('/')+'"';
+            }
+            return str;
+        });
+};
+
+KupuEditor.prototype.saveDataToField = function(form, field){
+    if (!this._initialized) {
+        return;
+    }
+    this._initialized = false;
+
+    // set the window status so people can see we're actually saving
+    window.status= "Please wait while saving document...";
+
+    // pass the content through the filters
+    this.logMessage("Starting HTML cleanup");
+
+    var transform = this._filterContent(this.getInnerDocument().documentElement);
+
+    // We need to get the contents of the body node as xml, but we don't
+    // want the body node itself, so we use a regex to remove it
+    contents = transform.getElementsByTagName("body")[0].xml;
+    contents = this.makeLinksRelative(contents).replace(/<\/?body[^>]*>/g, "");
+    this.logMessage("Cleanup done, sending document to server");
+
+    // now create the form input
+    var document = form.ownerDocument;
+
+    field.value = contents;
+    
+    kupu.content_changed = false;
+}
+
+function JumpLinkTool() {
+
+    this.initialize = function(editor) {
+        this.editor = editor;
+        this.editor.logMessage('Jumplink tool initialized');
+    };
+
+    this.updateState = function(selNode, event) {
+    };
+
+    this.createContextMenuElements = function(selNode, event) {
+        var ret = new Array();
+        ret.push(new ContextMenuElement('Insert ToC', this.insertJumplinks, this));
+        return ret;
+    };
+
+    this.removeDivNodes = function() {
+        var doc = this.editor.getInnerDocument();
+        var nodes = doc.getElementsByTagName("DIV");
+
+        for (var j = nodes.length-1; j >= 0; j--) {
+            var node = nodes[j];
+            var classname=node.className; // node.getAttribute("class") for Mozilla?
+            if (classname=="jumpLinkTable" || classname=="backToTop") {
+                node.parentNode.removeChild(node);
+            }
+        }
+    }
+
+    this.removeJumplinks = function() {
+        this.removeDivNodes();
+    }
+
+    this.insertJumplinks = function() {
+
+        // First thing is we must strip out previously generated
+        // jumplinks
+        this.removeJumplinks();
+        
+        var doc = this.editor.getInnerDocument();
+        var jumptable = doc.createElement("div");
+        jumptable.setAttribute("class", "jumpLinkTable");
+
+        var headings = doc.getElementsByTagName("h3");
+        // For each heading/subheading in the document
+        // Insert it into the jumptable.
+        for (var i = 0; i < headings.length; i++) {
+            var entrydiv = doc.createElement("div");
+            var entry = doc.createElement("a");
+            var caption;
+            if (_SARISSA_IS_IE) {
+                caption = headings[i].innerText;
+            } else {
+                caption = headings[i].textContent;
+                alert("caption="+caption);
+            }
+            
+            entry.setAttribute("href", "#section"+(i+1));
+            entry.setAttribute("title", caption);
+            entry.appendChild(doc.createTextNode(caption));
+            entrydiv.appendChild(entry);
+            jumptable.appendChild(entrydiv);
+
+            // Insert a jump target into the relevant heading.
+            // Insert a 'back to top' div before the heading
+            var backtotop = doc.createElement("div");
+            backtotop.setAttribute("class", "backToTop");
+            var link = doc.createElement("a");
+            link.setAttribute("href", "#");
+            link.setAttribute("name", "section"+(i+1));
+            link.appendChild(doc.createTextNode("Back to top"));
+            backtotop.appendChild(link);
+            headings[i].parentNode.insertBefore(backtotop, headings[i]);
+        }
+        this.editor.insertNodeAtSelection(jumptable);
+        this.editor.logMessage("Jump table added");
+    };
+}
+
+
+function PloneKupuUI(textstyleselectid) {
+    this.tsselect = document.getElementById(textstyleselectid);
+
+    this.updateState = function(selNode) {
+        /* set the text-style pulldown */
+
+        // first get the nearest style
+        var styles = {}; // use an object here so we can use the 'in' operator later on
+        for (var i=0; i < this.tsselect.options.length; i++) {
+            // XXX we should cache this
+            styles[this.tsselect.options[i].value] = i;
+        }
+        
+        // search the list of nodes like in the original one, break if we encounter a match,
+        // this method does some more than the original one since it can handle commands in
+        // the form of '<style>|<classname>' next to the plain '<style>' commands
+        var currnode = selNode;
+        var index = -1;
+        while (index==-1 && currnode) {
+            var nodename = currnode.nodeName.toLowerCase();
+            for (var style in styles) {
+                if (style.indexOf('|') < 0) {
+                    // simple command
+                    if (nodename == style.toLowerCase() && !currnode.className) {
+                        index = styles[style];
+                        break;
+                    };
+                } else {
+                    // command + classname
+                    var tuple = style.split('|');
+                    if (nodename == tuple[0].toLowerCase() && currnode.className == tuple[1]) {
+                        index = styles[style];
+                        break;
+                    };
+                };
+            };
+            currnode = currnode.parentNode;
+        }
+        this.tsselect.selectedIndex = Math.max(index,0);
+    };
+  
+    this.setTextStyle = function(style) {
+        /* parse the argument into a type and classname part
+        
+            generate a block element accordingly 
+        */
+        var classname = "";
+        var eltype = style;
+        if (style.indexOf('|') > -1) {
+            style = style.split('|');
+            eltype = style[0];
+            classname = style[1];
+        };
+
+        var command = eltype;
+        // first create the element, then find it and set the classname
+        if (this.editor.getBrowserName() == 'IE') {
+            command = '<' + eltype + '>';
+        };
+        this.editor.getDocument().execCommand('formatblock', command);
+
+        // now get a reference to the element just added
+        var selNode = this.editor.getSelectedNode();
+        var el = this.editor.getNearestParentOfType(selNode, eltype);
+
+        // now set the classname
+        el.className = classname;
+        this.editor.updateState();
+    };
+};
+
+PloneKupuUI.prototype = new KupuUI;
+
+function initPloneKupu(iframe, fieldname) {
+    var l = new DummyLogger();
+    //var l = new DebugLogger();
+
+    //head = document.getElementsByTagName('head')[0];
+
+    var iframehead = iframe.contentWindow.document.getElementsByTagName('head')[0];
+    var link = iframe.contentWindow.document.createElement('link');
+    link.href = 'kupuplone.css';
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    iframehead.appendChild(link);
+
+    iframe.contentWindow.document.getElementsByTagName('body')[0].innerHTML = document.getElementById(fieldname).value;
+		
+    var conf = {'src': iframe.getAttribute('src'),
+                'dst': iframe.getAttribute('dst'),
+                'use_css': (iframe.getAttribute('usecss') != "0"),
+                'reload_after_save': (iframe.getAttribute('reloadsrc') == "1")
+                };
+
+    var doc = new KupuDocument(iframe);
+    var kupu = new KupuEditor(doc, conf, l);
+
+    // add the contextmenu
+    var cm = new ContextMenu();
+    kupu.setContextMenu(cm);
+
+    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    kupu.registerTool('listtool', listtool);
+
+    var tabletool = new TableTool();
+    kupu.registerTool('tabletool', tabletool);
+
+    var showpathtool = new ShowPathTool('kupu-showpath-field');
+    kupu.registerTool('showpathtool', showpathtool);
+
+    var ui = new PloneKupuUI('kupu-tb-styles');
+    kupu.registerTool('ui', ui);
+
+    var jumplinks = new JumpLinkTool();
+    kupu.registerTool('jumplinktool', jumplinks);
+
+    var imagetool = new ImageTool();
+    kupu.registerTool('imagetool', imagetool);
+
+    var linktool = new LinkTool();
+    kupu.registerTool('linktool', linktool);
+
+    document.getElementById(fieldname).form.onsubmit = function(){
+            kupu.saveDataToField(document.getElementById(fieldname).form,
+                                 document.getElementById(fieldname))
+    }
+		
+    return kupu;
+};
