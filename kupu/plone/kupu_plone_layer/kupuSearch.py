@@ -7,6 +7,11 @@
 ##bind subpath=traverse_subpath
 ##parameters=
 from Products.CMFCore.utils import getToolByName
+
+request = context.REQUEST
+response = request.RESPONSE
+response.setHeader('Cache-Control', 'no-cache')
+
 catalog = getToolByName(context, 'portal_catalog')
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 

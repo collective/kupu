@@ -7,6 +7,11 @@
 ##bind subpath=traverse_subpath
 ##parameters=
 from Products.CMFCore.utils import getToolByName
+
+request = context.REQUEST
+response = request.RESPONSE
+response.setHeader('Cache-Control', 'no-cache')
+
 catalog = getToolByName(context, 'portal_catalog')
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 
@@ -17,7 +22,6 @@ kupu_tool = getToolByName(context, 'kupu_library_tool')
 #member = member_tool.getAuthenticatedMember()
 #last_login_time = member.getProperty('last_login_time', DateTime());
 
-request = context.REQUEST
 # the default resource type is mediaobject
 resource_type = request.get('resource_type', 'mediaobject')
 portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
