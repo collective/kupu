@@ -130,7 +130,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             if (!hires) {
                 var link = image.getAttribute('link');
                 this.linklinkradio.checked = 'selected';
-                this.linkinput.value = link;
+                this.linkinput.value = link == null ? '' : link;
             } else {
                 this.hireslinkradio.checked = 'checked';
                 this.linkinput.value = '';
@@ -262,14 +262,14 @@ function SilvaTableTool() {
             };
         };
         
+        var selection = this.editor.getSelection();
+        var docfrag = selection.cloneContents();
         var setcursoratend = false;
-        if (contentcell) {
+        if (contentcell && docfrag.hasChildNodes()) {
             while (contentcell.hasChildNodes()) {
                 contentcell.removeChild(contentcell.firstChild);
             };
             
-            var selection = this.editor.getSelection();
-            var docfrag = selection.cloneContents();
             while (docfrag.hasChildNodes()) {
                 contentcell.appendChild(docfrag.firstChild);
                 setcursoratend = true;
