@@ -67,16 +67,25 @@ Developing
 
   o Library Feature Specification: see LIBRARIES.txt
 
+
+Homepage
+--------
+
+Kupu has a homepage at http://kupu.oscom.org
+
+
 Reporting bugs
 --------------
 
 Please report bugs to the issue tracker available at:
 http://codespeak.net/issues/kupu/ (mind the trailing slash).
 
+
 Mailing list
 ------------
 
 There is a mailing lists for Kupu development: kupu-dev@codespeak.net
+
 
 License
 -------
@@ -88,8 +97,3 @@ The Sarissa ECMAScript library shipped in this distribution
 (common/sarissa.js) is the work of Manos Batis and distributed under
 the Kupu License with his kind permission. See the Sarissa homepage at
 http://sarissa.sourceforge.net for more information.
-
-Home page
----------
-
-Kupu has a homepage on SourceForge: http://kupu.oscom.org
