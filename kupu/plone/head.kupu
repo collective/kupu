@@ -9,8 +9,6 @@
   <kupu:part name="styles">
     <link href="kupustyles.css" rel="stylesheet" type="text/css"
           tal:attributes="href string:${portal_url}/kupustyles.css" />
-    <link href="kupucustom.css" rel="stylesheet" type="text/css"
-          tal:attributes="href string:${portal_url}/kupucustom.css" />
     <link href="kupuplone.css" rel="stylesheet" type="text/css"
           tal:attributes="href string:${portal_url}/kupuplone.css" />
   </kupu:part>
