@@ -48,7 +48,6 @@ div#kupu-librarydrawer h1, div.kupu-drawer h1 {
 }
 
 div.kupu-dialogbuttons {
-  xposition: absolute;
   text-align: right;
   margin-top: 6px;
   margin-bottom: 6px;
