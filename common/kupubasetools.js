@@ -72,7 +72,7 @@ function KupuTool() {
         this.editor.logMessage('Deprecation warning: KupuTool._selectSelectItem');
     };
     this._fixTabIndex = function(element) {
-        var tabIndex = this.editor.document.editable.tabIndex-1;
+        var tabIndex = this.editor.getDocument().getEditable().tabIndex-1;
         if (tabIndex && !element.tabIndex) {
             element.tabIndex = tabIndex;
         }
