@@ -45,14 +45,8 @@ function KupuMultiEditor(documents, config, logger) {
         /* check whether the event is interesting enough to trigger the 
         updateState machinery and act accordingly */
         var interesting_codes = new Array(8, 13, 37, 38, 39, 40, 46);
-        // unfortunately it's not possible to do this on blur, since that's
-        // too late. also (some versions of?) IE 5.5 doesn't support the
-        // onbeforedeactivate event, which would be ideal here...
-        if (this.getBrowserName() == 'IE') {
-            this._saveSelection();
-        };
-
-        if (event.type == 'click' || 
+        if (event.type == 'click' || event.type == 'dblclick' || 
+                event.type == 'select' ||
                 (event.type == 'keyup' && 
                     interesting_codes.contains(event.keyCode))) {
             var target = event.target ? event.target : event.srcElement;
@@ -73,7 +67,13 @@ function KupuMultiEditor(documents, config, logger) {
             };
             this._current_document = document;
             this.updateState(event);
-        }
+        };
+        // unfortunately it's not possible to do this on blur, since that's
+        // too late. also (some versions of?) IE 5.5 doesn't support the
+        // onbeforedeactivate event, which would be ideal here...
+        if (this.getBrowserName() == 'IE') {
+            this._saveSelection();
+        };
     };
 
     this.saveDocument = function() {
@@ -93,6 +93,8 @@ function KupuMultiEditor(documents, config, logger) {
             this._addEventHandler(doc, "keyup", this.updateStateHandler, this);
             if (this.getBrowserName() == "IE") {
                 this._addEventHandler(doc, "focus", this._clearSelection, this);
+                this._addEventHandler(doc, "dblclick", this.updateStateHandler, this);
+                this._addEventHandler(doc, "select", this.updateStateHandler, this);
             };
         };
     };
