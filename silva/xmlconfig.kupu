@@ -1,0 +1,18 @@
+<kupu:feature
+    name="xmlconfig"
+    implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <!-- Silva specific configuration -->
+  <kupu:part name="defaultconfig">
+    <dst>...</dst>
+    <use_css>0</use_css>
+    <reload_after_save>1</reload_after_save>
+    <strict_output>1</strict_output>
+    <content_type>application/xhtml+xml</content_type>
+    <compatible_singletons>1</compatible_singletons>
+  </kupu:part>
+
+</kupu:feature>

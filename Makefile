@@ -21,12 +21,16 @@ kupu.html:
 wysiwyg_support.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 
+kupumacros.html:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-silva.kupu > silva/kupumacros.html
+
 all:
 	kupu.html
 
 clean:
 	rm default/kupu.html
 	rm plone/kupu_plone_layer/wysiwyg_support.html
+	rm silva/kupumacros.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
