@@ -29,12 +29,17 @@ function KupuMultiEditor(documents, config, logger) {
         this._initializeEventHandlers();
         this.getDocument().getWindow().focus();
         if (this.getBrowserName() == 'IE') {
-            this._saveSelection();
             for (var i=0; i < this.documents.length; i++) {
                 var body = this.documents[i].getDocument().getElementsByTagName('body')[0];
                 body.setAttribute('contentEditable', 'true');
             };
+            // provide an 'afterInit' method on KupuEditor.prototype
+            // for additional bootstrapping (after editor init)
             this._initialized = true;
+            if (this.afterInit) {
+                this.afterInit();
+            };
+            this._saveSelection();
             this.logMessage('Editor initialized');
         } else {
             this._setDesignModeWhenReady();
@@ -120,6 +125,11 @@ function KupuMultiEditor(documents, config, logger) {
         if (should_retry) {
             timer_instance.registerFunction(this, this._setDesignModeWhenReady, 100);
         } else {
+            // provide an 'afterInit' method on KupuEditor.prototype
+            // for additional bootstrapping (after editor init)
+            if (this.afterInit) {
+                this.afterInit();
+            };
             this._initialized = true;
         };
     };
