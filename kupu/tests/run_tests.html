@@ -20,16 +20,11 @@
 //<![CDATA[
 
     function runTests() {
-        /*
-        var helperscase = new KupuHelpersTestCase();
-        helperscase.initialize('body');
-        helperscase.runTests();
-        */
-
-        var testsuite = new TestSuite('body');
-        testsuite.registerTest('KupuHelpersTestCase', KupuHelpersTestCase);
-        testsuite.registerTest('KupuEditorTestCase', KupuEditorTestCase);
-        testsuite.registerTest('KupuSelectionTestCase', KupuSelectionTestCase);
+        var body = document.getElementById('body');
+        var testsuite = new TestSuite(new HTMLReporter(body));
+        testsuite.registerTest(KupuHelpersTestCase);
+        testsuite.registerTest(KupuEditorTestCase);
+        testsuite.registerTest(KupuSelectionTestCase);
         testsuite.runSuite();
     };
 
