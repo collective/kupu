@@ -22,6 +22,7 @@ from App.Common import package_home
 from Products.CMFCore.utils import getToolByName, minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.kupu import kupu_globals
+from zExceptions import BadRequest
 
 PROJECTNAME = 'Kupu'
 
@@ -77,6 +78,8 @@ def install_libraries(self, out):
     try:
         addTool('Kupu Library Tool')
         print >>out, "Added the Kupu Library Tool to the plone Site"
+    except BadRequest:
+        print >>out, "Kupu library Tool already added"
     except:
         #heuristics for testing if an instance with the same name already exists
         #only this error will be swallowed.
