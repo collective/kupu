@@ -98,6 +98,17 @@ div.kupu-smalleditor {
 .kupu-underline {background-image: url("kupuimages/underline.gif");}
 .kupu-underline-pressed {background-image: url("kupuimages/underline.gif"); background-color: white}
 .kupu-undo {background-image: url("kupuimages/undo.gif");}
+.kupu-removelink {background-image: url("kupuimages/remove.png")}
+.kupu-removeimage {background-image: url("kupuimages/remove.png")}
+
+#kupu-tb-buttons button.invisible { 
+  display: none;
+  /*visibility: hidden;*/
+}
+
+#kupu-tb-buttons button.visible { 
+  display: inline;
+}
 
 div.kupu-editorframe {
   margin-left: 0.3em;

@@ -144,6 +144,15 @@
     </span>
   </kupu:part>
 
+  <kupu:part name="buttongroup-remove">
+    <span class="kupu-tb-buttongroup">
+      <button type="button" class="kupu-removeimage" id="kupu-removeimage-button"
+              title="Remove image" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-removelink" id="kupu-removelink-button"
+              title="Remove link" i18n:attributes="title">&#160;</button>
+    </span>
+  </kupu:part>
+
   <!-- We will have the button tool configuration here, too, once we
        do tool definitions in XML config. -->
 
