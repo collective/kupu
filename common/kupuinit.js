@@ -205,15 +205,24 @@ function initKupu(iframe) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
-                                              conf['link_libraries_uri'],
-                                              conf['link_images_uri']);
-    drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+    try {
+        var linklibdrawer = new LinkLibraryDrawer(linktool, 
+                                                  conf['link_xsl_uri'],
+                                                  conf['link_libraries_uri'],
+                                                  conf['link_images_uri']);
+        drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
-                                                conf['image_libraries_uri'],
-                                                conf['search_images_uri']);
-    drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+        var imagelibdrawer = new ImageLibraryDrawer(imagetool, 
+                                                    conf['image_xsl_uri'],
+                                                    conf['image_libraries_uri'],
+                                                    conf['search_images_uri']);
+        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+    } catch(e) {
+        alert('There was a problem initializing the drawers. Most likely the ' +
+                'XSLT or XML files aren\'t available. If this is not the ' +
+                'Kupu demo version, check your files or the service that ' +
+                'provide them (error: ' + (e.message || e.toString()) + ').');
+    };
 
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
