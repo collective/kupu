@@ -28,14 +28,30 @@ function SilvaLinkTool() {
 
 SilvaLinkTool.prototype = new LinkTool;
 
-function SilvaLinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
+function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
     this.input = document.getElementById(inputid);
-    this.button = document.getElementById(buttonid);
+    this.addbutton = document.getElementById(addbuttonid);
+    this.updatebutton = document.getElementById(updatebuttonid);
+    this.delbutton = document.getElementById(delbuttonid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
+    
+    this.initialize = function(tool, editor) {
+        this.tool = tool;
+        this.editor = editor;
+        addEventHandler(this.addbutton, 'click', this.createLinkHandler, this);
+        addEventHandler(this.updatebutton, 'click', this.createLinkHandler, this);
+        addEventHandler(this.delbutton, 'click', this.tool.deleteLink, this);
+        this.editor.logMessage('Link tool initialized');
+    };
+
+    this.createLinkHandler = function(event) {
+        var url = this.input.value;
+        this.tool.createLink(url);
+    };
     
     this.updateState = function(selNode, event) {
         var currnode = selNode;
@@ -49,11 +65,17 @@ function SilvaLinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass)
                         this.toolboxel.className = this.activeclass;
                     };
                     this.input.value = href;
+                    this.addbutton.style.display = 'none';
+                    this.updatebutton.style.display = 'inline';
+                    this.delbutton.style.display = 'inline';
                     return;
                 };
             };
             currnode = currnode.parentNode;
         };
+        this.updatebutton.style.display = 'none';
+        this.delbutton.style.display = 'none';
+        this.addbutton.style.display = 'inline';
         if (this.toolboxel) {
             this.toolboxel.className = this.plainclass;
         };
@@ -215,7 +237,38 @@ function SilvaTableTool() {
         }
 
         table.appendChild(tbody);
+
+        var iterator = new NodeIterator(table);
+        var currnode = null;
+        var contentcell = null;
+        while (currnode = iterator.next()) {
+            var nodename = currnode.nodeName.toLowerCase();
+            if (nodename == 'td' || nodename == 'th') {
+                contentcell = currnode;
+                break;
+            };
+        };
+        
+        var setcursoratend = false;
+        if (contentcell) {
+            while (contentcell.hasChildNodes()) {
+                contentcell.removeChild(contentcell.firstChild);
+            };
+            
+            var selection = this.editor.getSelection();
+            var docfrag = selection.cloneContents();
+            while (docfrag.hasChildNodes()) {
+                contentcell.appendChild(docfrag.firstChild);
+                setcursoratend = true;
+            };
+        };
         this.editor.insertNodeAtSelection(table);
+
+        if (contentcell) {
+            var selection = this.editor.getSelection();
+            selection.selectNodeContents(contentcell);
+            selection.collapse(setcursoratend);
+        };
 
         this.editor.logMessage('Table added');
     };
@@ -307,6 +360,117 @@ function SilvaTableTool() {
         this._delColHelper(body, index);
 
         this.editor.logMessage('Column deleted');
+    };
+
+    this.setColumnWidths = function(widths) {
+        /* sets relative column widths */
+        var selNode = this.editor.getSelectedNode();
+        var table = this.editor.getNearestParentOfType(selNode, 'table');
+
+        // first remove all current width settings from the table
+        var iterator = new NodeIterator(table);
+        var currnode = null;
+        while (currnode = iterator.next()) {
+            if (currnode.nodeName.toLowerCase() == 'td') {
+                if (currnode.getAttribute('width')) {
+                    currnode.removeAttribute('width');
+                } else if (currnode.style.width) {
+                    delete currnode.style.width;
+                };
+            };
+        };
+        
+        var silva_column_info = new Array();
+        widths = widths.split(',');
+        for (var i=0; i < widths.length; i++) {
+            widths[i] = widths[i].strip();
+            silva_column_info.push('C:' + widths[i]);
+            widths[i] = parseInt(widths[i]);
+        };
+        silva_column_info = silva_column_info.join(' ');
+        table.setAttribute('silva_column_info', silva_column_info);
+        
+        // now convert the relative widths to percentages
+        // first find the first row containing cells
+        var totalunits = 0;
+        for (var i=0; i < widths.length; i++) {
+            totalunits += widths[i];
+        };
+        var iterator = new NodeIterator(table);
+        var currnode = null;
+        var row = null;
+        while (currnode = iterator.next()) {
+            if (currnode.nodeName.toLowerCase() == 'td') {
+                row = currnode.parentNode;
+                break;
+            };
+        };
+        var iterator = new NodeIterator(row);
+        var percent_per_unit = 100.0 / totalunits;
+        var currcell = null;
+        for (var i=0; i < widths.length; i++) {
+            while (currcell = iterator.next()) {
+                if (currcell.nodeName.toLowerCase() == 'td') {
+                    currcell.setAttribute('width', '' + (widths[i] * percent_per_unit) + '%');
+                    break;
+                };
+            };
+        };
+    };
+
+    this.getColumnWidths = function(table) {
+        var silvacolinfo = table.getAttribute('silva_column_info');
+        var widths = new Array();
+        if (!silvacolinfo) {
+            var body = null;
+            var iterator = new NodeIterator(table);
+            var body = iterator.next();
+            while (body.nodeName.toLowerCase() != 'tbody') {
+                body = iterator.next();
+            };
+            var numcols = this._countCells(body);
+            for (var i=0; i < numcols; i++) {
+                widths.push(1);
+            };
+        } else {
+            silvacolinfo = silvacolinfo.split(' ');
+            for (var i=0; i < silvacolinfo.length; i++) {
+                var pair = silvacolinfo[i].split(':');
+                widths.push(parseInt(pair[1]));
+            };
+            widths = this._factorWidths(widths);
+        };
+        return widths;
+    };
+
+    this._factorWidths = function(widths) {
+        var highest = 0;
+        for (var i=0; i < widths.length; i++) {
+            if (widths[i] > highest) {
+                highest = widths[i];
+            };
+        };
+        var factor = 1;
+        for (var i=0; i < highest; i++) {
+            var testnum = highest - i;
+            var isfactor = true;
+            for (var j=0; j < widths.length; j++) {
+                if (widths[j] % testnum != 0) {
+                    isfactor = false;
+                    break;
+                };
+            };
+            if (isfactor) {
+                factor = testnum;
+                break;
+            };
+        };
+        if (factor > 1) {
+            for (var i=0; i < widths.length; i++) {
+                widths[i] = widths[i] / factor;
+            };
+        };
+        return widths;
     };
 
     this._addRowHelper = function(doc, body, celltype, index, numcells) {
@@ -459,9 +623,9 @@ function SilvaTableTool() {
 SilvaTableTool.prototype = new TableTool;
 
 function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
-                        newcolsinputid, makeheaderinputid, classselectid, alignselectid, addtablebuttonid,
-                        addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, fixbuttonid,
-                        toolboxid, plainclass, activeclass) {
+                        newcolsinputid, makeheaderinputid, classselectid, alignselectid, widthinputid,
+                        addtablebuttonid, addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, 
+                        fixbuttonid, toolboxid, plainclass, activeclass) {
     /* Silva specific table functionality
         overrides most of the table functionality, required because Silva requires
         a completely different format for tables
@@ -474,6 +638,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.makeheaderinput = document.getElementById(makeheaderinputid);
     this.classselect = document.getElementById(classselectid);
     this.alignselect = document.getElementById(alignselectid);
+    this.widthinput = document.getElementById(widthinputid);
     this.addtablebutton = document.getElementById(addtablebuttonid);
     this.addrowbutton = document.getElementById(addrowbuttonid);
     this.delrowbutton = document.getElementById(delrowbuttonid);
@@ -494,11 +659,47 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.addcolbutton, "click", this.tool.addTableColumn, this.tool);
         addEventHandler(this.delcolbutton, "click", this.tool.delTableColumn, this.tool);
         addEventHandler(this.fixbutton, "click", this.fixTable, this);
-        addEventHandler(this.alignselect, "change", this.tool.setColumnAlign, this.tool);
+        addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
+        addEventHandler(this.widthinput, "change", this.setColumnWidths, this);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
         this.editor.logMessage('Table tool initialized');
+    };
+
+    this.updateState = function(selNode) {
+        /* update the state (add/edit) and update the pulldowns (if required) */
+        var table = this.editor.getNearestParentOfType(selNode, 'table');
+        if (table) {
+            this.addtablediv.style.display = "none";
+            this.edittablediv.style.display = "block";
+            var td = this.editor.getNearestParentOfType(selNode, 'td');
+            if (!td) {
+                td = this.editor.getNearestParentOfType(selNode, 'th');
+                this.inputwidth.value = '';
+            } else {
+                this.widthinput.value = this.tool.getColumnWidths(table);
+            };
+            if (td) {
+                var align = td.getAttribute('align');
+                if (this.editor.config.use_css) {
+                    align = td.style.textAlign;
+                };
+                selectSelectItem(this.alignselect, align);
+            };
+            selectSelectItem(this.classselect, table.className);
+            if (this.toolboxel) {
+                this.toolboxel.className = this.activeclass;
+            };
+        } else {
+            this.edittablediv.style.display = "none";
+            this.addtablediv.style.display = "block";
+            this.alignselect.selectedIndex = 0;
+            this.classselect.selectedIndex = 0;
+            if (this.toolboxel) {
+                this.toolboxel.className = this.plainclass;
+            };
+        };
     };
 
     this.addTable = function() {
@@ -514,6 +715,11 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.setTableClass = function() {
         var cls = this.classselect.options[this.classselect.selectedIndex].value;
         this.tool.setTableClass(cls);
+    };
+
+    this.setColumnWidths = function() {
+        var widths = this.widthinput.value;
+        this.tool.setColumnWidths(widths);
     };
 
     this.fixTable = function(event) {
@@ -676,7 +882,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
 SilvaTableToolBox.prototype = new TableToolBox;
 
 function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, toolboxid, plainclass, activeclass) {
-    /* a tool to manage idnex items (named anchors) for Silva */
+    /* a tool to manage index items (named anchors) for Silva */
     this.input = document.getElementById(inputid);
     this.addbutton = document.getElementById(addbuttonid);
     this.updatebutton = document.getElementById(updatebuttonid);
@@ -710,6 +916,19 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
         
         if (!indexel) {
             var doc = this.editor.getDocument();
+            if (!name) {
+                var selection = this.editor.getSelection();
+                var cloned = selection.cloneContents();
+                var iterator = new NodeIterator(cloned);
+                var name = '';
+                var currnode = null;
+                while (currnode = iterator.next()) {
+                    name += currnode.nodeValue;
+                };
+                if (name) {
+                    this.input.value = name;
+                };
+            };
             var docel = doc.getDocument();
             indexel = docel.createElement('a');
             var text = docel.createTextNode('[' + name + ']');
@@ -1002,18 +1221,71 @@ function SilvaDefinitionListTool(dlbuttonid) {
     this.handleEnterPress = function(selNode) {
         var dl = this.editor.getNearestParentOfType(selNode, 'dl');
         if (dl) {
-            if (dl.childNodes.length == 1 && dl.childNodes[0].nodeValue == '\xa0') {
-                this.escapeFromDefinitionList(dl, selNode);
-            };
             var dt = this.editor.getNearestParentOfType(selNode, 'dt');
             if (dt) {
                 if (dt.childNodes.length == 1 && dt.childNodes[0].nodeValue == '\xa0') {
-                    this.escapeFromDefinitionList(dl, selNode);
+                    this.escapeFromDefinitionList(dl, dt, selNode);
+                    return;
                 };
-                this.createDefinition(dl, dt);
+
+                var selection = this.editor.getSelection();
+                var startoffset = selection.startOffset();
+                var endoffset = selection.endOffset(); 
+                if (endoffset > startoffset) {
+                    // throw away any selected stuff
+                    selection.cutChunk(startoffset, endoffset);
+                    selection = this.editor.getSelection();
+                    startoffset = selection.startOffset();
+                };
+                
+                var ellength = selection.getElementLength(selection.parentElement());
+                if (startoffset >= ellength - 1) {
+                    // create a new element
+                    this.createDefinition(dl, dt);
+                } else {
+                    var doc = this.editor.getInnerDocument();
+                    var newdt = selection.splitNodeAtSelection(dt);
+                    var newdd = doc.createElement('dd');
+                    while (newdt.hasChildNodes()) {
+                        if (newdt.firstChild != newdt.lastChild || newdt.firstChild.nodeName.toLowerCase() != 'br') {
+                            newdd.appendChild(newdt.firstChild);
+                        };
+                    };
+                    newdt.parentNode.replaceChild(newdd, newdt);
+                    selection.selectNodeContents(newdd);
+                    selection.collapse();
+                };
             } else {
                 var dd = this.editor.getNearestParentOfType(selNode, 'dd');
-                this.createDefinitionTerm(dl, dd);
+                if (!dd) {
+                    this.editor.logMessage('Not inside a definition list element!');
+                    return;
+                };
+                if (dd.childNodes.length == 1 && dd.childNodes[0].nodeValue == '\xa0') {
+                    this.escapeFromDefinitionList(dl, dd, selNode);
+                    return;
+                };
+                var selection = this.editor.getSelection();
+                var startoffset = selection.startOffset();
+                var endoffset = selection.endOffset();
+                if (endoffset > startoffset) {
+                    // throw away any selected stuff
+                    selection.cutChunk(startoffset, endoffset);
+                    selection = this.editor.getSelection();
+                    startoffset = selection.startOffset();
+                };
+                var ellength = selection.getElementLength(selection.parentElement());
+                if (startoffset >= ellength - 1) {
+                    // create a new element
+                    this.createDefinitionTerm(dl, dd);
+                } else {
+                    // add a break and continue in this element
+                    var br = dl.ownerDocument.createElement('br');
+                    this.editor.insertNodeAtSelection(br, 1);
+                    //var selection = this.editor.getSelection();
+                    //selection.moveStart(1);
+                    selection.collapse(true);
+                };
             };
         };
     };
@@ -1029,8 +1301,8 @@ function SilvaDefinitionListTool(dlbuttonid) {
         };
         switch (event.keyCode) {
             case 13:
-                if (event.stopPropagation) {
-                    event.stopPropagation();
+                if (event.preventDefault) {
+                    event.preventDefault();
                 } else {
                     event.returnValue = false;
                 };
@@ -1046,18 +1318,18 @@ function SilvaDefinitionListTool(dlbuttonid) {
         };
         switch (event.keyCode) {
             case 13:
+                this.handleEnterPress(selNode);
                 if (event.preventDefault) {
                     event.preventDefault();
                 } else {
                     event.returnValue = false;
                 };
-                this.handleEnterPress(selNode);
                 break;
             case 9:
                 if (event.preventDefault) {
                     event.preventDefault();
                 } else {
-                    event.cancelBubble = 1;
+                    event.returnValue = false;
                 };
                 this.handleTabPress(selNode);
         };
@@ -1067,28 +1339,66 @@ function SilvaDefinitionListTool(dlbuttonid) {
         /* create a new definition list (dl) */
         var selection = this.editor.getSelection();
         var doc = this.editor.getInnerDocument();
+
+        var selection = this.editor.getSelection();
+        var cloned = selection.cloneContents();
+        // first get the 'first line' (until the first break) and use it
+        // as the dt's content
+        var iterator = new NodeIterator(cloned);
+        var currnode = null;
+        var remove = false;
+        while (currnode = iterator.next()) {
+            if (currnode.nodeName.toLowerCase() == 'br') {
+                remove = true;
+            };
+            if (remove) {
+                var next = currnode;
+                while (!next.nextSibling) {
+                    next = next.parentNode;
+                };
+                next = next.nextSibling;
+                iterator.setCurrent(next);
+                currnode.parentNode.removeChild(currnode);
+            };
+        };
+
+        var dtcontentcontainer = cloned;
+        var collapsetoend = false;
+        
         var dl = doc.createElement('dl');
-        var dt = doc.createElement('dt');
-        dl.appendChild(dt);
-        var nbsp = doc.createTextNode('\xa0');
-        dt.appendChild(nbsp);
         this.editor.insertNodeAtSelection(dl);
-        this.createDefinitionTerm(dl);
+        var dt = this.createDefinitionTerm(dl);
+        if (dtcontentcontainer.hasChildNodes()) {
+            collapsetoend = true;
+            while (dt.hasChildNodes()) {
+                dt.removeChild(dt.firstChild);
+            };
+            while (dtcontentcontainer.hasChildNodes()) {
+                dt.appendChild(dtcontentcontainer.firstChild);
+            };
+        };
+
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(dt);
+        selection.collapse(collapsetoend);
     };
 
     this.createDefinitionTerm = function(dl, dd) {
         /* create a new definition term inside the current dl */
         var doc = this.editor.getInnerDocument();
         var dt = doc.createElement('dt');
+        // somehow Mozilla seems to add breaks to all elements...
+        if (dd) {
+            if (dd.lastChild.nodeName.toLowerCase() == 'br') {
+                dd.removeChild(dd.lastChild);
+            };
+        };
         // dd may be null here, if so we assume this is the first element in 
         // the dl
         if (!dd || dl == dd.lastChild) {
             dl.appendChild(dt);
         } else {
-            var nextsibling = dl.nextSibling;
-            while (nextsibling && nextsibling.nodeName.toLowerCase() != 'dt') {
-                nextsibling = nextsibling.nextSibling;
-            };
+            var nextsibling = dd.nextSibling;
             if (nextsibling) {
                 dl.insertBefore(dt, nextsibling);
             } else {
@@ -1099,14 +1409,22 @@ function SilvaDefinitionListTool(dlbuttonid) {
         dt.appendChild(nbsp);
         var selection = this.editor.getSelection();
         selection.selectNodeContents(dt);
-        selection.collapse(true);
+        selection.collapse();
         this.editor.getDocument().getWindow().focus();
+
+        return dt;
     };
 
-    this.createDefinition = function(dl, dt) {
+    this.createDefinition = function(dl, dt, initial_content) {
         var doc = this.editor.getInnerDocument();
         var dd = doc.createElement('dd');
         var nextsibling = dt.nextSibling;
+        // somehow Mozilla seems to add breaks to all elements...
+        if (dt) {
+            if (dt.lastChild.nodeName.toLowerCase() == 'br') {
+                dt.removeChild(dt.lastChild);
+            };
+        };
         while (nextsibling) {
             var name = nextsibling.nodeName.toLowerCase();
             if (name == 'dd' || name == 'dt') {
@@ -1117,23 +1435,44 @@ function SilvaDefinitionListTool(dlbuttonid) {
         };
         if (nextsibling) {
             dl.insertBefore(dd, nextsibling);
-            this._fixStructure(doc, dl, nextsibling);
+            //this._fixStructure(doc, dl, nextsibling);
         } else {
             dl.appendChild(dd);
+        };
+        if (initial_content) {
+            for (var i=0; i < initial_content.length; i++) {
+                dd.appendChild(initial_content[i]);
+            };
         };
         var nbsp = doc.createTextNode('\xa0');
         dd.appendChild(nbsp);
         var selection = this.editor.getSelection();
         selection.selectNodeContents(dd);
-        selection.collapse(1);
+        selection.collapse();
     };
 
-    this.escapeFromDefinitionList = function(dl, selNode) {
+    this.escapeFromDefinitionList = function(dl, currel, selNode) {
         var doc = this.editor.getInnerDocument();
         var p = doc.createElement('p');
         var nbsp = doc.createTextNode('\xa0');
         p.appendChild(nbsp);
-        dl.parentNode.insertBefore(p, dl.nextSibling);
+
+        if (dl.lastChild == currel) {
+            dl.parentNode.insertBefore(p, dl.nextSibling);
+        } else {
+            for (var i=0; i < dl.childNodes.length; i++) {
+                var child = dl.childNodes[i];
+                if (child == currel) {
+                    var newdl = dl.ownerDocument.createElement('dl');
+                    while (currel.nextSibling) {
+                        newdl.appendChild(currel.nextSibling);
+                    };
+                    dl.parentNode.insertBefore(newdl, dl.nextSibling);
+                    dl.parentNode.insertBefore(p, dl.nextSibling);
+                };
+            };
+        };
+        currel.parentNode.removeChild(currel);
         var selection = this.editor.getSelection();
         selection.selectNodeContents(p);
         selection.collapse();
@@ -1254,11 +1593,21 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
         div.setAttribute('author', author);
         div.setAttribute('source', source);
         div.setAttribute('is_citation', '1');
-        var text = doc.createTextNode('\xa0');
-        div.appendChild(text);
+        var selection = this.editor.getSelection();
+        var docfrag = selection.cloneContents();
+        var placecursoratend = false;
+        if (docfrag.hasChildNodes()) {
+            for (var i=0; i < docfrag.childNodes.length; i++) {
+                div.appendChild(docfrag.childNodes[i]);
+            };
+            placecursoratend = true;
+        } else {
+            var text = doc.createTextNode('\xa0');
+            div.appendChild(text);
+        };
         this.editor.insertNodeAtSelection(div, 1);
         var selection = this.editor.getSelection();
-        selection.collapse();
+        selection.collapse(placecursoratend);
         this.editor.getDocument().getWindow().focus();
         var selNode = selection.getSelectedNode();
         this.editor.updateState(selNode);
@@ -1308,6 +1657,350 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
 };
 
 SilvaCitationTool.prototype = new KupuTool;
+
+function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cancelbuttonid,
+                                    updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
+    this.idselect = document.getElementById(idselectid);
+    this.formcontainer = document.getElementById(formcontainerid);
+    this.addbutton = document.getElementById(addbuttonid);
+    this.cancelbutton = document.getElementById(cancelbuttonid);
+    this.updatebutton = document.getElementById(updatebuttonid);
+    this.delbutton = document.getElementById(delbuttonid);
+    this.toolbox = document.getElementById(toolboxid);
+    this.plainclass = plainclass;
+    this.activeclass = activeclass;
+
+    this._editing = false;
+    this._url = null;
+    this._id = null;
+    this._form = null;
+    this._insideExternalSource = false;
+
+    // store the base url, this will be prepended to the id to form the url to
+    // get the codesource from (Zope's acquisition will make sure it ends up on
+    // the right object)
+    var urlparts = document.location.toString().split('/')
+    this._baseurl = urlparts.slice(0, urlparts.length - 2).join('/');
+
+    this.initialize = function(editor) {
+        this.editor = editor;
+        addEventHandler(this.addbutton, 'click', this.startExternalSourceAddEdit, this);
+        addEventHandler(this.cancelbutton, 'click', this.resetTool, this);
+        addEventHandler(this.updatebutton, 'click', this.startExternalSourceAddEdit, this);
+        addEventHandler(this.delbutton, 'click', this.delExternalSource, this);
+        addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnExternalSource, this);
+        
+        this.updatebutton.style.display = 'none';
+        this.delbutton.style.display = 'none';
+        this.cancelbutton.style.display = 'none';
+    };
+
+    this.updateState = function(selNode) {
+        var extsource = this.getNearestExternalSource(selNode);
+        if (extsource) {
+            this._insideExternalSource = true;
+            selectSelectItem(this.idselect, extsource.getAttribute('source_id'));
+            this.startExternalSourceUpdate(extsource);
+        } else {
+            this._insideExternalSource = false;
+            this.resetTool();
+        };
+    };
+
+    this.handleKeyPressOnExternalSource = function(event) {
+        if (!this._insideExternalSource) {
+            return;
+        };
+        if (event.keyCode == 13) {
+            var selNode = this.editor.getSelectedNode();
+            var div = this.getNearestExternalSource(selNode);
+            if (div.nextSibling) {
+                var selection = this.editor.getSelection();
+                selection.selectNodeContents(div.nextSibling);
+                selection.collapse();
+            } else {
+                var doc = this.editor.getInnerDocument();
+                var p = doc.createElement('p');
+                var nbsp = doc.createTextNode('\xa0');
+                p.appendChild(nbsp);
+                div.parentNode.appendChild(p);
+                var selection = this.editor.getSelection();
+                selection.selectNodeContents(p);
+                selection.collapse();
+            };
+        };
+        if (event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        };
+    };
+
+    this.startExternalSourceAddEdit = function() {
+        // get the appropriate form and display it
+        if (!this._editing) {
+            var id = this.idselect.options[this.idselect.selectedIndex].value;
+            this._id = id;
+            var url = this._baseurl + '/' + id;
+            this._url = url;
+            url = url + '/get_rendered_form_for_editor';
+            var request = Sarissa.getXmlHttpRequest();
+            request.open('GET', url, true);
+            var callback = new ContextFixer(this._addFormToTool, request, this);
+            request.onreadystatechange = callback.execute;
+            request.send(null);
+            while (this.formcontainer.hasChildNodes()) {
+                this.formcontainer.removeChild(this.formcontainer.firstChild);
+            };
+            var text = document.createTextNode('Loading...');
+            this.formcontainer.appendChild(text);
+            this.updatebutton.style.display = 'none';
+            this.cancelbutton.style.display = 'inline';
+            this.addbutton.style.display = 'inline';
+            this._editing = true;
+        } else {
+            // validate the data and take further actions
+            var formdata = this._gatherFormData();
+            var doc = window.document;
+            var request = Sarissa.getXmlHttpRequest();
+            request.open('POST', this._url + '/validate_form_to_request', true);
+            var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
+            request.onreadystatechange = callback.execute;
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Content-Length:', formdata.length);
+            request.send(formdata);
+        };
+    };
+
+    this.startExternalSourceUpdate = function(extsource) {
+        this._id = extsource.getAttribute('source_id');
+        this._url = this._baseurl + '/' + this._id;
+        url = this._url + '/get_rendered_form_for_editor';
+        var formdata = this._gatherFormDataFromElement();
+        var request = Sarissa.getXmlHttpRequest();
+        request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setRequestHeader('Content-Length:', formdata.length);
+        var callback = new ContextFixer(this._addFormToTool, request, this);
+        request.onreadystatechange = callback.execute;
+        request.send(formdata);
+        this._editing = true;
+        while (this.formcontainer.hasChildNodes()) {
+            this.formcontainer.removeChild(this.formcontainer.firstChild);
+        };
+        var text = document.createTextNode('Loading...');
+        this.formcontainer.appendChild(text);
+        this.addbutton.style.display = 'none';
+        this.cancelbutton.style.display = 'none';
+        this.updatebutton.style.display = 'inline';
+        this.delbutton.style.display = 'inline';
+    };
+
+    this._addFormToTool = function(object) {
+        if (this.readyState == 4) {
+            while (object.formcontainer.hasChildNodes()) {
+                object.formcontainer.removeChild(object.formcontainer.firstChild);
+            };
+            // XXX Somehow appending the XML to the form using DOM doesn't 
+            // work correctly, it looks like the elements aren't HTMLElements 
+            // but XML elements, don't know how to fix now so I'll use string 
+            // insertion for now, needless to say it should be changed to DOM
+            // manipulation asap...
+            // XXX why is this.responseXML.documentElement.xml sometimes 'undefined'?
+            object.formcontainer.innerHTML = this.responseText;
+            object.idselect.style.display = 'none';
+            // the formcontainer will contain a table with a form
+            var form = null;
+            var iterator = new NodeIterator(object.formcontainer);
+            while (form == null) {
+                var next = iterator.next();
+                if (next.nodeName.toLowerCase() == 'form') {
+                    form = next;
+                };
+            };
+            object._form = form;
+        };
+    };
+
+    this._addExternalSourceIfValidated = function(object) {
+        if (this.readyState == 4) {
+            if (this.status == '200') {
+                // success, add the external source element to the document
+                var selNode = object.editor.getSelectedNode();
+                var currsource = object.getNearestExternalSource(selNode);
+                var doc = object.editor.getInnerDocument();
+                
+                var extsource = doc.createElement('div');
+                extsource.setAttribute('source_id', object._id);
+                var header = doc.createElement('h3');
+                var htext = doc.createTextNode('External Source "' + object._id + '"');
+                header.appendChild(htext);
+                extsource.appendChild(header);
+                extsource.className = 'externalsource';
+                for (var i=0; i < this.responseXML.documentElement.childNodes.length; i++) {
+                    var child = this.responseXML.documentElement.childNodes[i];
+                    if (child.nodeName.toLowerCase() == 'parameter') {
+                        var key = child.getAttribute('key');
+                        var value = '';
+                        for (var j=0; j < child.childNodes.length; j++) {
+                            value += child.childNodes[j].nodeValue;
+                        };
+                        extsource.setAttribute(key, value);
+                        var div = doc.createElement('div');
+                        var textel = doc.createTextNode('Key: ' + key + ', value: ' + value.toString());
+                        div.appendChild(textel);
+                        extsource.appendChild(div);
+                    };
+                };
+                extsource.appendChild(doc.createElement('br'));
+                if (!currsource) {
+                    object.editor.insertNodeAtSelection(extsource);
+                } else {
+                    currsource.parentNode.replaceChild(extsource, currsource);
+                    var selection = object.editor.getSelection();
+                    selection.selectNodeContents(extsource);
+                    selection.collapse(true);
+                };
+                object.resetTool();
+                object.editor.updateState();
+            } else if (this.status == '400') {
+                // failure, provide some feedback and return to the form
+                alert('Form could not be validated, error message: ' + this.responseText);
+            } else {
+                alert('POST failed with unhandled status ' + this.status);
+                throw('Error handling POST, server returned ' + this.status + ' HTTP status code');
+            };
+        };
+    };
+
+    this.delExternalSource = function() {
+        var selNode = this.editor.getSelectedNode();
+        var source = this.getNearestExternalSource(selNode);
+        if (!source) {
+            this.editor.logMessage('Not inside external source!', 1);
+            return;
+        };
+        var nextsibling = source.nextSibling;
+        source.parentNode.removeChild(source);
+        if (nextsibling) {
+            var selection = this.editor.getSelection();
+            selection.selectNodeContents(nextsibling);
+            selection.collapse();
+        };
+    };
+
+    this.resetTool = function() {
+        while (this.formcontainer.hasChildNodes()) {
+            this.formcontainer.removeChild(this.formcontainer.firstChild);
+        };
+        this.idselect.style.display = 'inline';
+        this.addbutton.style.display = 'inline';
+        this.cancelbutton.style.display = 'none';
+        this.cancelbutton.style.display = 'none';
+        this.delbutton.style.display = 'none';
+        //this.editor.updateState();
+        this._editing = false;
+    };
+
+    this._gatherFormData = function() {
+        /* walks through the form and creates a POST body */
+        // XXX we may want to turn this into a helper function, since it's 
+        // quite useful outside of this object I reckon
+        var form = this._form;
+        if (!form) {
+            this.editor.logMessage('Not currently editing');
+            return;
+        };
+        // first place all data into a dict, convert to a string later on
+        var data = {};
+        for (var i=0; i < form.elements.length; i++) {
+            var child = form.elements[i];
+            var elname = child.nodeName.toLowerCase();
+            if (elname == 'input') {
+                var name = child.getAttribute('name');
+                var type = child.getAttribute('type');
+                if (!type || type == 'text' || type == 'hidden' || type == 'password') {
+                    data[name] = child.value;
+                } else if (type == 'checkbox' || type == 'radio') {
+                    if (child.checked) {
+                        if (data[name]) {
+                            if (typeof data[name] == typeof('')) {
+                                var value = new Array(data[name]);
+                                value.push(child.value);
+                                data[name] = value;
+                            } else {
+                                data[name].push(child.value);
+                            };
+                        } else {
+                            data[name] = value;
+                        };
+                    };
+                };
+            } else if (elname == 'textarea') {
+                data[child.getAttribute('name')] = child.value;
+            } else if (elname == 'select') {
+                var name = child.getAttribute('name');
+                var multiple = child.getAttribute('multiple');
+                if (!multiple) {
+                    data[name] = child.options[child.selectedIndex].value;
+                } else {
+                    var value = new Array();
+                    for (var i=0; i < child.options.length; i++) {
+                        if (child.options[i].checked) {
+                            value.push(options[i].value);
+                        };
+                        if (value.length > 1) {
+                            data[name] = value;
+                        } else if (value.length) {
+                            data[name] = value[0];
+                        };
+                    };
+                };
+            };
+        };
+        
+        // now we should turn it into a query string
+        var ret = new Array();
+        for (var key in data) {
+            var value = data[key];
+            // XXX does IE5 support encodeURIComponent?
+            ret.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+        };
+        
+        return ret.join("&");
+    };
+
+    this._gatherFormDataFromElement = function() {
+        var selNode = this.editor.getSelectedNode();
+        var source = this.getNearestExternalSource(selNode);
+        if (!source) {
+            return '';
+        };
+        var ret = new Array();
+        for (var i=0; i < source.attributes.length; i++) {
+            var attr = source.attributes[i];
+            var name = attr.nodeName;
+            var value = attr.nodeValue;
+            if (name != 'class' && name != 'source_id' && name != 'id') {
+                ret.push(encodeURIComponent(name) + '=' + encodeURIComponent(value));
+            };
+        };
+        return ret.join('&');
+    };
+
+    this.getNearestExternalSource = function(selNode) {
+    
+        var currnode = selNode;
+        while (currnode) {
+            if (currnode.nodeName.toLowerCase() == 'div' && currnode.className == 'externalsource') {
+                return currnode;
+            };
+            currnode = currnode.parentNode;
+        };
+    };
+};
+
+SilvaExternalSourceTool.prototype = new KupuTool;
 
 function SilvaKupuUI(textstyleselectid) {
     this.tsselect = document.getElementById(textstyleselectid);
@@ -1375,7 +2068,10 @@ function SilvaKupuUI(textstyleselectid) {
         var el = this.editor.getNearestParentOfType(selNode, eltype);
 
         // now set the classname
-        el.className = classname;
+        if (classname) {
+            el.className = classname;
+            el.setAttribute('silva_type', classname);
+        };
         this.editor.updateState();
     };
 };

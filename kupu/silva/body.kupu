@@ -26,11 +26,11 @@
         </tr>
 
         <tr>
-          <td width="100%" valign="top">
+          <td valign="top">
             <kupu:define-slot name="fulleditor-frame" />
           </td>
     
-          <td width="100%" valign="top">
+          <td style="width: 23em;" valign="top">
             <kupu:define-slot name="fulleditor-toolboxes" />
           </td>
         </tr>
@@ -42,6 +42,7 @@
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
       <iframe id="kupu-editor" 
+              width="99%"
               frameborder="0" 
               src="kupu_content"
               scrolling="auto"

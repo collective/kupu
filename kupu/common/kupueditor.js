@@ -451,6 +451,7 @@ function KupuEditor(document, config, logger) {
         // Initialize DOM2Event compatibility
         // XXX should come back and change to passing in an element
         this._addEventHandler(this.getInnerDocument(), "click", this.updateStateHandler, this);
+        this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true}, this);
         if (this.getBrowserName() == "IE") {
@@ -496,13 +497,20 @@ function KupuEditor(document, config, logger) {
 
     this._restoreSelection = function() {
         /* re-selects the previous selection in IE */
-        if (this._previous_range) {
+        if (this._previous_range && !this._isDocumentSelected()) {
             try {
                 this._previous_range.select();
             } catch (e) {
                 this.logMessage('Error placing back selection');
             };
         };
+    };
+
+    this._isDocumentSelected = function() {
+        var doc = this.getInnerDocument();
+        var selrange = this.getInnerDocument().selection.createRange();
+        var ownerdoc = selrange.parentElement ? selrange.parentElement().ownerDocument : selrange.item(0).ownerDocument;
+        return (ownerdoc == doc);
     };
 
     this._clearSelection = function() {

@@ -12,7 +12,7 @@
 
 function initSilvaKupu(iframe) {
     // first we create a logger
-    var l = new PlainLogger('kupu-toolbox-debuglog', 5);
+    var l = new DummyLogger();
 
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
@@ -86,6 +86,12 @@ function initSilvaKupu(iframe) {
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
+    var undobutton = new KupuBaseButton('kupu-undo-button', execCommand('undo'))
+    kupu.registerTool('undobutton', undobutton);
+
+    var redobutton = new KupuBaseButton('kupu-redo-button', execCommand('redo'))
+    kupu.registerTool('redobutton', redobutton);
+
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
@@ -96,13 +102,18 @@ function initSilvaKupu(iframe) {
                                     'kupu-toolbox-toc', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('toctool', toctool);
     
-    var linktool = new SilvaLinkTool("kupu-link-input", "kupu-link-button");
+    var linktool = new SilvaLinkTool();
     kupu.registerTool('linktool', linktool);
-    var linktoolbox = new SilvaLinkToolBox("kupu-link-input", "kupu-link-button", 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
+    var linktoolbox = new SilvaLinkToolBox("kupu-link-input", "kupu-link-addbutton", 'kupu-link-updatebutton', 'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
     linktool.registerToolBox("linktoolbox", linktoolbox);
   
     var indextool = new SilvaIndexTool("kupu-index-input", 'kupu-index-addbutton', 'kupu-index-updatebutton', 'kupu-index-deletebutton', 'kupu-toolbox-indexes', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('indextool', indextool);
+
+    var extsourcetool = new SilvaExternalSourceTool('kupu-toolbox-extsource-id', 'kupu-extsource-formcontainer', 
+                                'kupu-extsource-addbutton', 'kupu-extsource-cancelbutton', 'kupu-extsource-updatebutton', 
+                                'kupu-extsource-delbutton', 'kupu-toolbox-extsource', 'kupu-toolbox', 'kupu-toolbox-active');
+    kupu.registerTool('extsourcetool', extsourcetool);
 
     var citationtool = new SilvaCitationTool('kupu-citation-authorinput', 'kupu-citation-sourceinput', 'kupu-citation-addbutton', 
                                                 'kupu-citation-updatebutton', 'kupu-citation-deletebutton');
@@ -118,7 +129,7 @@ function initSilvaKupu(iframe) {
     kupu.registerTool('tabletool', tabletool);
     var tabletoolbox = new SilvaTableToolBox('kupu-toolbox-addtable', 
         'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
-        'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
+        'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser', 'kupu-table-columnwidth',
         'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
         'kupu-table-delcolumn-button', 'kupu-table-fix-button', 'kupu-toolbox-tables', 'kupu-toolbox', 'kupu-toolbox-active'
         );
