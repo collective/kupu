@@ -26,9 +26,9 @@
           <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" /><br />
           &#160;link target 
           <select id="kupu-linktarget-select">
-            <option value="_self">Same window</option>
-            <option value="_blank">New window</option>
-            <option value="input">Custom target</option>
+            <option value="_self">same window</option>
+            <option value="_blank">new window</option>
+            <option value="input">custom target</option>
           </select><br />
           <input class="store" type="text" id="kupu-linktarget-input" name="kupu_link_target" style="margin-left: 0.2em; width: 96%" />
           <input type="button" class="button" value="add link" id="kupu-link-addbutton" />
@@ -90,7 +90,9 @@
           <select id="kupu-toolbox-image-target" style="margin-left:0.2em">
             <option value="_self">same window</option>
             <option value="_blank">new window</option>
+            <option value="input">custom target</option>
           </select><br />
+          <input class="store" type="text" id="kupu-toolbox-image-target-input" name="kupu_image_target" style="margin-left: 0.2em; width: 96%" />
           &#160;image alignment
           <select id="kupu-toolbox-image-align" style="margin-left:0.2em">
             <option value="default">default</option>

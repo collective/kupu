@@ -12,21 +12,21 @@
 
 function SilvaLinkTool() {
     /* redefine the contextmenu elements */
-    
-    this.createContextMenuElements = function(selNode, event) {
-        /* create the 'Create link' or 'Remove link' menu elements */
-        var ret = new Array();
-        var link = this.editor.getNearestParentOfType(selNode, 'a');
-        if (link) {
-            ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
-        } else {
-            ret.push(new ContextMenuElement('Create link', getLink, this));
-        };
-        return ret;
-    };
 };
 
 SilvaLinkTool.prototype = new LinkTool;
+    
+SilvaLinkTool.prototype.createContextMenuElements = function(selNode, event) {
+    /* create the 'Create link' or 'Remove link' menu elements */
+    var ret = new Array();
+    var link = this.editor.getNearestParentOfType(selNode, 'a');
+    if (link) {
+        ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
+    } else {
+        ret.push(new ContextMenuElement('Create link', getLink, this));
+    };
+    return ret;
+};
 
 function SilvaLinkToolBox(inputid, targetselectid, targetinputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
@@ -108,7 +108,7 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
                         this.targetinput.style.display = 'none';
                     } else {
                         // XXX this is pretty hard-coded...
-                        this.targetselect.selectedIndex = 2;
+                        this.targetselect.selectedIndex = this.targetselect.options.length - 1;
                         this.targetinput.value = target;
                         this.targetinput.style.display = 'inline';
                     };
@@ -133,12 +133,15 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
     this.input.value = '';
 };
 
-function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
-                        alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
+function SilvaImageTool(editelid, urlinputid, targetselectid, targetinputid, 
+                        hireslinkradioid, linklinkradioid, linkinputid, 
+                        alignselectid, titleinputid, toolboxid, plainclass, 
+                        activeclass) {
     /* Silva specific image tool */
     this.editel = document.getElementById(editelid);
     this.urlinput = document.getElementById(urlinputid);
     this.targetselect = document.getElementById(targetselectid);
+    this.targetinput = document.getElementById(targetinputid);
     this.hireslinkradio = document.getElementById(hireslinkradioid);
     this.linklinkradio = document.getElementById(linklinkradioid);
     this.linkinput = document.getElementById(linkinputid);
@@ -147,150 +150,189 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
-
-    this.initialize = function(editor) {
-        this.editor = editor;
-        addEventHandler(this.targetselect, 'click', this.setTarget, this);
-        addEventHandler(this.urlinput, 'change', this.setSrc, this);
-        addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
-        addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
-        addEventHandler(this.linkinput, 'keypress', this.setLink, this);
-        addEventHandler(this.linkinput, 'change', this.setLink, this);
-        addEventHandler(this.alignselect, 'change', this.setAlign, this);
-        addEventHandler(this.titleinput, 'change', this.setTitle, this);
-        this.editor.logMessage('Image tool initialized');
-    };
-
-    this.createContextMenuElements = function(selNode, event) {
-        return new Array(new ContextMenuElement('Create image', getImage, this));
-    };
-
-    this.updateState = function(selNode, event) {
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (image) {
-            this.editel.style.display = 'block';
-            var src = image.getAttribute('src');
-            this.urlinput.value = src;
-            var target = image.getAttribute('target');
-            if (!target) {
-                target = '_self';
-            };
-            selectSelectItem(this.targetselect, target);
-            var hires = image.getAttribute('link_to_hires') == '1';
-            if (!hires) {
-                var link = image.getAttribute('link');
-                this.linklinkradio.checked = 'selected';
-                this.linkinput.value = link == null ? '' : link;
-            } else {
-                this.hireslinkradio.checked = 'checked';
-                this.linkinput.value = '';
-            };
-            if (this.toolboxel) {
-                this.toolboxel.className = this.activeclass;
-            };
-            var align = image.getAttribute('alignment');
-            if (!align) {
-                align = 'left';
-            };
-            var title = image.getAttribute('title');
-            if (!title) {
-                title = '';
-            };
-            this.titleinput.value = title;
-            selectSelectItem(this.alignselect, align);
-        } else {
-            this.editel.style.display = 'none';
-            this.urlinput.value = '';
-            this.titleinput.value = '';
-            if (this.toolboxel) {
-                this.toolboxel.className = this.plainclass;
-            };
-        };
-    };
-
-    this.setTarget = function() {
-        var target = this.targetselect.options[this.targetselect.selectedIndex].value;
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-        };
-        image.setAttribute('target', target);
-    };
-
-    this.setSrc = function() {
-        var selNode = this.editor.getSelectedNode();
-        var img = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!img) {
-            this.editor.logMessage('Not inside an image!', 1);
-        };
-        
-        var src = this.urlinput.value;
-        img.setAttribute('src', src);
-        this.editor.logMessage('Image updated');
-    };
-
-    this.setHires = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        image.setAttribute('link_to_hires', '1');
-        image.removeAttribute('link');
-        this.linkinput.value = '';
-    };
-
-    this.setNoHires = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('Not inside an image!', 1);
-            return;
-        };
-        var link = this.linkinput.value;
-        image.setAttribute('link_to_hires', '0');
-        image.setAttribute('link', link);
-        this.linklinkradio.setAttribute('selected', 'selected');
-    };
-
-    this.setLink = function() {
-        var link = this.linkinput.value;
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        image.setAttribute('link', link);
-        image.setAttribute('link_to_hires', '0');
-    };
-
-    this.setTitle = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        var title = this.titleinput.value;
-        image.setAttribute('title', title);
-    };
-
-    this.setAlign = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('Not inside an image', 1);
-            return;
-        };
-        var align = this.alignselect.options[this.alignselect.selectedIndex].value;
-        image.setAttribute('alignment', align);
-    };
-}
+};
 
 SilvaImageTool.prototype = new ImageTool;
+
+SilvaImageTool.prototype.initialize = function(editor) {
+    this.editor = editor;
+    addEventHandler(this.targetselect, 'change', this.setTarget, this);
+    addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.targetinput, 'change', this.setTarget, this);
+    addEventHandler(this.urlinput, 'change', this.setSrc, this);
+    addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
+    addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
+    addEventHandler(this.linkinput, 'keypress', this.setLink, this);
+    addEventHandler(this.linkinput, 'change', this.setLink, this);
+    addEventHandler(this.alignselect, 'change', this.setAlign, this);
+    addEventHandler(this.titleinput, 'change', this.setTitle, this);
+    this.targetinput.style.display = 'none';
+    this.editor.logMessage('Image tool initialized');
+};
+
+SilvaImageTool.prototype.createContextMenuElements = function(selNode, event) {
+    return new Array(new ContextMenuElement('Create image', getImage, this));
+};
+
+SilvaImageTool.prototype.selectTargetHandler = function(event) {
+    var select = this.targetselect;
+    var input = this.targetinput;
+
+    var selvalue = select.options[select.selectedIndex].value;
+    if (selvalue != 'input') {
+        input.style.display = 'none';
+    } else {
+        input.style.display = 'inline';
+    };
+};
+
+SilvaImageTool.prototype.updateState = function(selNode, event) {
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (image) {
+        this.editel.style.display = 'block';
+        var src = image.getAttribute('src');
+        this.urlinput.value = src;
+        var target = image.getAttribute('target');
+        if (!target) {
+            this.targetselect.selectedIndex = 0;
+            this.targetinput.style.display = 'none';
+        } else {
+            var target_found = false;
+            for (var i=0; i < this.targetselect.options.length; i++) {
+                var option = this.targetselect.options[i];
+                if (option.value == target) {
+                    this.targetselect.selectedIndex = i;
+                    target_found = true;
+                    break;
+                };
+            };
+            if (target_found) {
+                this.targetinput.value = '';
+                this.targetinput.style.display = 'none';
+            } else {
+                this.targetselect.selectedIndex = this.targetselect.options.length - 1;
+                this.targetinput.value = target;
+                this.targetinput.style.display = 'inline';
+            };
+        };
+        var hires = image.getAttribute('link_to_hires') == '1';
+        if (!hires) {
+            var link = image.getAttribute('link');
+            this.linklinkradio.checked = 'selected';
+            this.linkinput.value = link == null ? '' : link;
+        } else {
+            this.hireslinkradio.checked = 'checked';
+            this.linkinput.value = '';
+        };
+        if (this.toolboxel) {
+            this.toolboxel.className = this.activeclass;
+        };
+        var align = image.getAttribute('alignment');
+        if (!align) {
+            align = 'left';
+        };
+        var title = image.getAttribute('title');
+        if (!title) {
+            title = '';
+        };
+        this.titleinput.value = title;
+        selectSelectItem(this.alignselect, align);
+    } else {
+        this.editel.style.display = 'none';
+        this.urlinput.value = '';
+        this.titleinput.value = '';
+        if (this.toolboxel) {
+            this.toolboxel.className = this.plainclass;
+        };
+        this.targetselect.selectedIndex = 0;
+        this.targetinput.value = '';
+        this.targetinput.style.display = 'none';
+    };
+};
+
+SilvaImageTool.prototype.setTarget = function() {
+    var target = this.targetselect.options[this.targetselect.selectedIndex].value;
+    if (target == 'input') {
+        target = this.targetinput.value;
+    };
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+    };
+    image.setAttribute('target', target);
+};
+
+SilvaImageTool.prototype.setSrc = function() {
+    var selNode = this.editor.getSelectedNode();
+    var img = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!img) {
+        this.editor.logMessage('Not inside an image!', 1);
+    };
+    
+    var src = this.urlinput.value;
+    img.setAttribute('src', src);
+    this.editor.logMessage('Image updated');
+};
+
+SilvaImageTool.prototype.setHires = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    image.setAttribute('link_to_hires', '1');
+    image.removeAttribute('link');
+    this.linkinput.value = '';
+};
+
+SilvaImageTool.prototype.setNoHires = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('Not inside an image!', 1);
+        return;
+    };
+    var link = this.linkinput.value;
+    image.setAttribute('link_to_hires', '0');
+    image.setAttribute('link', link);
+    this.linklinkradio.setAttribute('selected', 'selected');
+};
+
+SilvaImageTool.prototype.setLink = function() {
+    var link = this.linkinput.value;
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    image.setAttribute('link', link);
+    image.setAttribute('link_to_hires', '0');
+};
+
+SilvaImageTool.prototype.setTitle = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    var title = this.titleinput.value;
+    image.setAttribute('title', title);
+};
+
+SilvaImageTool.prototype.setAlign = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('Not inside an image', 1);
+        return;
+    };
+    var align = this.alignselect.options[this.alignselect.selectedIndex].value;
+    image.setAttribute('alignment', align);
+};
 
 function SilvaTableTool() {
     /* Silva specific table functionality
