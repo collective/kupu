@@ -735,20 +735,31 @@ function ImageTool() {
         imageWindow.focus();
     };
 
-    this.createImage = function(url, floatstyle) {
+    this.createImage = function(url, alttext, imgclass) {
+        /* create an image */
         var img = this.editor.getInnerDocument().createElement('img');
-        if (floatstyle) {
-            if (this.editor.getBrowserName() == 'IE') {
-                img.style.styleFloat = floatstyle;
-            } else {
-                img.style.cssFloat = floatstyle;
-            };
+        img.src = url;
+        img.removeAttribute('height');
+        img.removeAttribute('width');
+        if (alttext) {
+            img.alt = alttext;
         };
-        img.setAttribute('src', url);
+        if (imgclass) {
+            img.className = imgclass;
+        };
         img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage(_('Image inserted'));
         this.editor.updateState();
         return img;
+    };
+
+    this.setImageClass = function(imgclass) {
+        /* set the class of the selected image */
+        var currnode = this.editor.getSelectedNode();
+        var currimg = this.editor.getNearestParentOfType(currnode, 'IMG');
+        if (currimg) {
+            currimg.className = imgclass;
+        };
     };
 
     this.createContextMenuElements = function(selNode, event) {
@@ -758,12 +769,12 @@ function ImageTool() {
 
 ImageTool.prototype = new KupuTool;
 
-function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, plainclass, activeclass) {
+function ImageToolBox(inputfieldid, insertbuttonid, classselectid, toolboxid, plainclass, activeclass) {
     /* toolbox for adding images */
 
     this.inputfield = getFromSelector(inputfieldid);
     this.insertbutton = getFromSelector(insertbuttonid);
-    this.floatselect = getFromSelector(floatselectid);
+    this.classselect = getFromSelector(classselectid);
     this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -771,6 +782,7 @@ function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, pl
     this.initialize = function(tool, editor) {
         this.tool = tool;
         this.editor = editor;
+        addEventHandler(this.classselect, "change", this.setImageClass, this);
         addEventHandler(this.insertbutton, "click", this.addImage, this);
     };
 
@@ -782,12 +794,8 @@ function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, pl
             if (this.toolboxel) {
                 this.toolboxel.className = this.activeclass;
                 this.inputfield.value = imageel.getAttribute('src');
-                if (this.editor.getBrowserName() == 'IE') {
-                    var floatstyle = imageel.style.styleFloat ? imageel.style.styleFloat : 'none';
-                } else {
-                    var floatstyle = imageel.style.cssFloat ? imageel.style.cssFloat : 'none';
-                };
-                selectSelectItem(this.floatselect, floatstyle);
+                var imgclass = imageel.className ? imageel.className : 'image-inline';
+                selectSelectItem(this.classselect, imgclass);
             };
         } else {
             if (this.toolboxel) {
@@ -799,8 +807,16 @@ function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, pl
     this.addImage = function() {
         /* add an image */
         var url = this.inputfield.value;
-        var floatstyle = this.floatselect.options[this.floatselect.selectedIndex].value;
-        this.tool.createImage(url, floatstyle);
+        var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
+        this.tool.createImage(url, null, sel_class);
+        this.editor.focusDocument();
+    };
+
+    this.setImageClass = function() {
+        /* set the class for the current image */
+        var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
+        this.tool.setImageClass(sel_class);
+        this.editor.focusDocument();
     };
 };
 

@@ -56,24 +56,22 @@
             <h1 i18n:translate="">Images</h1>
 
             <div class="kupu-toolbox-label">
-              <span i18n:translate="">
-                Insert image at the following URL:
-              </span>
+              <span i18n:translate="">Image class:</span>
             </div>
+            <select class="wide" id="kupu-image-float-select">
+              <option value="image-inline" i18n:translate="">Inline</option>
+              <option value="image-left" i18n:translate="">Left</option>
+              <option value="image-right" i18n:translate="">Right</option>
+            </select>
 
+            <div class="kupu-toolbox-label">
+              <span i18n:translate="">Insert image at the following URL:</span>
+            </div>
             <input id="kupu-image-input"
                    value="kupuimages/kupu_icon.gif"
                    class="wide" 
                    type="text" />
 
-            <span i18n:translate="">
-              Image float:
-            </span>
-            <select class="wide" id="kupu-image-float-select">
-              <option value="none" i18n:translate="">No float</option>
-              <option value="left" i18n:translate="">Left</option>
-              <option value="right" i18n:translate="">Right</option>
-            </select>
             <div class="kupu-toolbox-buttons">
               <button type="button" id="kupu-image-addbutton"
                       class="kupu-toolbox-action" i18n:translate=""
