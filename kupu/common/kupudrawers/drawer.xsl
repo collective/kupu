@@ -21,6 +21,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     <xsl:param name="drawertype">image</xsl:param>
     <xsl:param name="drawertitle">Image Drawer</xsl:param>
     <xsl:param name="showupload"></xsl:param>
+    <xsl:param name="usecaptions"></xsl:param>
     <xsl:variable name="titlelength" select="20"/>
     <xsl:template match="/">
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -207,12 +208,12 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                 <label for="image-align-inline">Inline</label>
                 <input type="radio" name="image-align" id="image-align-right" value="image-right"/>
                 <label for="image-align-right">Right</label>
-                <tal:block condition="request/captions|nothing">
+                <xsl:if test="$usecaptions='yes'">
                     <br/>
                     <input type="checkbox" name="image-caption"
                         id="image-caption" checked="checked"/>
                     <label for="image-caption">Caption</label>
-                </tal:block>
+                </xsl:if>
             </form>
         </div>
     </xsl:template>
