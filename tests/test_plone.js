@@ -15,7 +15,6 @@
 function KupuPloneTestCase() {
     SelectionTestCase.apply(this);
     this.base_setUp = this.setUp;
-    this.base_tearDown = this.tearDown;
     this.name = 'KupuPloneTestCase';
 
     this.incontext = function(s) {
@@ -39,8 +38,8 @@ function KupuPloneTestCase() {
     this.setUp = function() {
         this.base_setUp();
         this.editor = new KupuEditor(this.kupudoc, {}, null);
-        this.ui = new PloneKupuUI('plone-test-styles');
-        this.editor.registerTool('ui', this.ui);
+        this.ui = new PloneKupuUI('kupu-tb-styles');
+        this.ui.editor = this.editor;
     };
 
     this.testRelativeLinks1 = function() {
@@ -97,11 +96,6 @@ function KupuPloneTestCase() {
         this.verifyResult(actual, expected);
     }
 
-    this.cleanHtml = function(s) {
-        s = s.toLowerCase().replace(/[\r\n]/g, "");
-        s = s.replace(/\>[ ]+\</g, "><");
-        return s;
-    }
     this.testSetTextStyle = function() {
         var data = '<p>line 1</p><div class="Caption">line 2</div><div class="Caption">line 3</div>';
         // select  .....................................|e 2</div><div class="Caption">line|...
@@ -109,14 +103,8 @@ function KupuPloneTestCase() {
         this.body.innerHTML = data;
         this._setSelection(10, null, 18, null, 'e 2line');
         this.ui.setTextStyle('h2');
-        this.assertEquals(this.cleanHtml(this.body.innerHTML), expected);
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     }
-
-    this.tearDown = function() {
-        this.base_tearDown();
-        this.body.innerHTML = '';
-        removeEventHandler(this.ui.tsselect, 'change', this.ui._selectevent);
-    };
 }
 
 KupuPloneTestCase.prototype = new SelectionTestCase;

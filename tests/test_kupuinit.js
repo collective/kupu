@@ -10,19 +10,8 @@
 
 // $Id$
 
-function DummyKupuEditor(doc, config, logger) {
-    this.document = doc;
-
-    this.getInnerDocument = function() {
-        return this.document.getDocument();
-    };
-
-    this.getSelection = function() {
-        return this.document.getSelection();
-    };
-};
-
 function InitKupuCheckersTestCase() {
+    this.name = 'InitKupuCheckersTestCase';
     // Please note that we are cheating here a bit:
     // 1. No idea how to get the real checkers without setting up a complete
     //    Kupu, so we work on a copy here.
@@ -49,6 +38,9 @@ function InitKupuCheckersTestCase() {
        <SUB>spam</SUB>
        <SUP>eggs</SUP>*/
 
+    SelectionTestCase.apply(this);
+    this.base_setUp = this.setUp;
+
     this._makeBoldchecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
@@ -71,17 +63,11 @@ function InitKupuCheckersTestCase() {
         };
 
     this.setUp = function() {
-        var iframe = document.getElementById('iframe');
-        this.doc = iframe.contentWindow.document;
-        this.body = this.doc.getElementsByTagName('body')[0];
-        this.kupudoc = new KupuDocument(iframe);
-        this.selection = this.kupudoc.getSelection();
-        this.editor = new DummyKupuEditor(this.kupudoc, {}, null);
-        this.kupudoc.getWindow().focus();
+        this.base_setUp();
+        this.editor = new KupuEditor(this.kupudoc, {}, null);
     };
 
     this.testBoldcheckerBold = function() {
-        this.editor = new DummyKupuEditor(this.kupudoc, {}, null);
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                        |ar|
         this._setSelection(5, null, 7, false, 'ar');
