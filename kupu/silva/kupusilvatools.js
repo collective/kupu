@@ -1548,7 +1548,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                 
                 var extsource = doc.createElement('div');
                 extsource.setAttribute('source_id', object._id);
-                var header = doc.createElement('h3');
+                var header = doc.createElement('h4');
                 extsource.appendChild(header);
                 extsource.className = 'externalsource';
                 var metatype = 'Silva Code Source'; // a default just in case
@@ -1571,7 +1571,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                         extsource.appendChild(div);
                     };
                 };
-                var htext = doc.createTextNode(metatype + ' "' + object._id + '"');
+                var htext = doc.createTextNode(metatype + ' \xab' + object._id + '\xbb');
                 header.insertBefore(htext, header.firstChild);
                 extsource.appendChild(doc.createElement('br'));
                 if (!currsource) {
