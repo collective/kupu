@@ -277,8 +277,10 @@ function KupuEditor(document, config, logger) {
         
         this.logMessage("Cleanup done, sending document to server");
         
-        // now create the form input
-        var document = form.ownerDocument;
+        // now create the form input, since IE 5.5 doesn't support the 
+        // ownerDocument property we use window.document as a fallback (which
+        // will almost by definition be correct).
+        var document = form.ownerDocument ? form.ownerDocument : window.document;
         var ta = document.createElement('textarea');
         ta.style.visibility = 'hidden';
         var text = document.createTextNode(contents);
@@ -507,10 +509,15 @@ function KupuEditor(document, config, logger) {
     };
 
     this._isDocumentSelected = function() {
-        var doc = this.getInnerDocument();
+        var editable_body = this.getInnerDocument().getElementsByTagName('body')[0];
         var selrange = this.getInnerDocument().selection.createRange();
-        var ownerdoc = selrange.parentElement ? selrange.parentElement().ownerDocument : selrange.item(0).ownerDocument;
-        return (ownerdoc == doc);
+        var someelement = selrange.parentElement ? selrange.parentElement() : selrange.item(0);
+
+        while (someelement.nodeName.toLowerCase() != 'body') {
+            someelement = someelement.parentNode;
+        };
+        
+        return someelement == editable_body;
     };
 
     this._clearSelection = function() {
