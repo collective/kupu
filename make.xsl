@@ -246,7 +246,7 @@ $Id$
     </xsl:choose>
   </xsl:template>
 
-  <!-- Make sure that we stay in expand mdoe once we are in it -->
+  <!-- Make sure that we stay in expand mode once we are in it -->
   <xsl:template match="//kupu:*" mode="expand">
     <xsl:apply-templates mode="expand"/>
   </xsl:template>
