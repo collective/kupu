@@ -30,9 +30,9 @@
 
 <xsl:template match="li:asset">
   <xsl:if test="(contains(dc:source, '.jpg') or contains(dc:source, '.gif') or contains(dc:source, '.png') or contains(dc:source, '.swf'))">
-  <xsl:variable name="resource-url">
-    <xsl:value-of select="concat($resource-path-url, dc:source)"/>
-  </xsl:variable> 
+    <xsl:variable name="resource-url">
+      <xsl:value-of select="concat(substring-after($resource-path-url, '/'), dc:source)"/>
+    </xsl:variable> 
   
   <resource id="{$resource-url}">
     <title><xsl:value-of select="dc:source"/></title>
