@@ -35,7 +35,7 @@ input#kupu-searchbox {
   padding: 2px;
 }
 
-div#kupu-dialogbuttons {
+div.kupu-dialogbuttons {
   xposition: absolute;
   text-align: right;
   margin-top: 6px;
@@ -43,18 +43,18 @@ div#kupu-dialogbuttons {
   margin-right: 20px;
 }
 
-div#kupu-dialogbuttons button {
+div.kupu-dialogbuttons button {
   margin-left: 0.3em;
 }
 
-div#kupu-panels {
+div.kupu-panels {
   margin-left: 6px;
   width: 99%;
   margin-right: 6px;
   background-color: ButtonFace;
 }
 
-div#kupu-panels td {
+div.kupu-panels td {
   font-family: sans-serif;
   font-size: 12px;
   background-color: white;
