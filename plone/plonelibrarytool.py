@@ -23,7 +23,7 @@ import Globals
 from Globals import InitializeClass
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from Products.CMFCore.utils import UniqueObject, format_stx
+from Products.CMFCore.utils import UniqueObject
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
 from Products.kupu.plone import permissions
