@@ -221,12 +221,13 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
                               "configure_kupu")
     def configure_kupu(self,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
-        installBeforeUnload,
+        installBeforeUnload=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
-        self.install_beforeunload = bool(installBeforeUnload)
+        if installBeforeUnload is not None:
+            self.install_beforeunload = bool(installBeforeUnload)
 
         newex = html_exclusions[-1]
             
