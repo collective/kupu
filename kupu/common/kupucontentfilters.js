@@ -84,6 +84,7 @@ function NonXHTMLTagFilter() {
                             'script': 1,
                             'span': 1,
                             'strong': 1,
+                            'style': 1,
                             'sub': 1,
                             'sup': 1,
                             'table': 1,
