@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Unit tests for Kupu</title>
+
+<!-- crucial dependencies -->
+<script type="text/javascript" src="../../ecmaunit/ecmaunit.js"> </script>
+<script type="text/javascript" src="../common/sarissa.js"> </script>
+
+<!-- all tools depend on kupuloggers for debug logging -->
+<script type="text/javascript" src="../common/kupuloggers.js"> </script>
+
+<!-- code to be tested and corresponding test cases -->
+<script type="text/javascript" src="../common/kupueditor.js"> </script>
+<script type="text/javascript" src="test_kupueditor.js"> </script>
+
+<script type="text/javascript" src="../common/kupuhelpers.js"> </script>
+<script type="text/javascript" src="test_kupuhelpers.js"> </script>
+
+<script type="text/javascript">
+//<![CDATA[
+
+    function runTests() {
+        /*
+        var helperscase = new KupuHelpersTestCase();
+        helperscase.initialize('body');
+        helperscase.runTests();
+        */
+
+        var testsuite = new TestSuite('body');
+        testsuite.registerTest('KupuHelpersTestCase', KupuHelpersTestCase);
+        testsuite.registerTest('KupuEditorTestCase', KupuEditorTestCase);
+        testsuite.registerTest('KupuSelectionTestCase', KupuSelectionTestCase);
+        testsuite.runSuite();
+    };
+
+//]]>
+</script>
+</head>
+
+<body onload="runTests()" id="body">
+<!-- some test data for the loadDictFromXML function -->
+<div style="visibility: hidden">
+<xml id="xmlisland">
+    <dict>
+        <foo>bar</foo>
+        <sna>fu</sna>
+        <some_int>1</some_int>
+    </dict>
+</xml>
+</div>
+<iframe style="display: none" id="iframe" />
+</body>
+</html>

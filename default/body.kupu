@@ -1,0 +1,39 @@
+<kupu:feature
+    name="body"
+    implementation="default"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <kupu:part name="body">
+    <body onload="startKupu()">
+      <h1>Kupu Editor Test Page</h1>
+      <kupu:define-slot name="body" />
+    </body>
+  </kupu:part>
+
+  <kupu:part name="fulleditor">
+    <div class="kupu-fulleditor">
+      <kupu:define-slot name="fulleditor" />
+    </div>
+  </kupu:part>
+
+  <kupu:part name="colorchooser">
+    <table id="kupu-colorchooser" cellpadding="0" cellspacing="0"
+           style="position: fixed; border-style: solid; border-color: black; border-width: 1px;">
+    </table>
+  </kupu:part>
+
+  <kupu:part name="editorframe">
+    <div class="kupu-editorframe">
+      <form>
+        <iframe id="kupu-editor" 
+                frameborder="0" 
+                src="fulldoc.html"
+                scrolling="auto">
+        </iframe>
+        <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
+      </form>
+    </div>
+  </kupu:part>
+
+</kupu:feature>

@@ -1,0 +1,11 @@
+<kupu:feature
+    name="saveonpart"
+    implementation="default"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <kupu:part name="jsinclude">
+    <script type="text/javascript" src="kupusaveonpart.js"> </script>
+  </kupu:part>
+
+</kupu:feature>

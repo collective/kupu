@@ -1,0 +1,83 @@
+========
+kupu API
+========
+
+This document explains the kupu API for Zope based applications. 
+The target audience is people who want to customize or extend Kupu
+in Zope on a macro level. A description of the ECMA script API can 
+be found in API.txt for larger customizations.
+
+Overview
+--------
+
+Most of the kupu magic happens client side in the browser. That's why
+kupu is above-all a skin containing code interpreted by the browser.
+While the ECMAScripts and the button images are static, the HTML is
+meant to be internationalized. That is the only dynamic part of kupu
+core.
+
+The real customization is done through custom CSS styles for the looks
+and custom configuration for the logic. That concept - separating
+configuration and presentation from the actual application - allows us
+to use kupu with Apache, Lenya, Silva, Zope2, CMF, and many others.
+
+The 'common' layer contains kupu core elements and default styles and
+configuration. Target platform layers such as 'silva' or 'zope3' contain
+styles and configuration specific to that platform, and are set up on
+top of the 'common' layer.
+
+ZPT macros and slots
+--------------------
+
+The markup necessary to display the editor widget is generated in
+kupumacros.html. This template defines the following macros:
+
+* kupu_styles
+
+  Contains the necessary default CSS includes for kupu.
+
+* kupu_jsincludes
+
+  Includes the java scripts necessary for kupu. Slots:
+
+  - jsincludes: Fill this slot to provide all ECMAScript includes
+    yourself.
+
+  - extra_scripts: Fill this slot if you want to include custom
+    ECMAScripts to override/extend kupu's scripts.
+
+* kupu_fulleditor
+
+  Contains the full editor, i.e. buttons and the rich text widget. No
+  slots are defined on this level. All of the slots of the submacros
+  can be filled, though.
+
+  Submacros:
+
+  * kupu_toolboxes
+
+    Contains kupu tools, such as a search box for making links to
+    other content objects. Slots:
+
+    - extra_toolbox: Fill this slot if you want to add another toolbox
+
+  * kupu_toolbar
+
+    Displays the kupu toolbar containing the format selector and
+    buttons. Slots:
+
+      - extra_buttons: Fill this slot if you want to add more buttons
+        to the toolbar
+
+      - extra_toolbar: Fill this slot if you want to add another widget
+        to the toolbar (which is not a button; use extra_buttons for
+        adding buttons)
+
+  * kupu_editorframe
+
+    Contains the editor iframe and the invisible textarea. Slots::
+
+     - kupu_inputfield: Fill this slot to include your custom input
+       field (typically a text area). This is usefull for telling kupu
+       the name of the field, for example.
+

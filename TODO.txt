@@ -1,0 +1,19 @@
+====
+TODO
+====
+
+- documentation:
+
+  * XML template schema
+
+  * how to customize / make a distribution
+
+  * how to add a feature
+
+- Testing framework for make.xsl
+
+- For some reason, &nbsp; entities are replaced with an empty string,
+  causing tags to be closed in the short syntax. That confuses browsers.
+
+- Get rid of saveonpart code in startkupu and put it in the saveonpart
+  feature
