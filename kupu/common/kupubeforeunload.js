@@ -50,6 +50,13 @@ if (!window.beforeunload) (function() {
         }
         this.forms.push(form);
         form.onsubmit = this.onsubmit;
+        var elements = form.getElementsByTagName('input');
+        for (var j = 0; j < elements.length; j++) {
+            var ele = elements[j];
+            if (ele.type=='hidden') {
+                ele.setAttribute('originalValue', ele.defaultValue);
+            }
+        }
     }
     Class.addForms = function() {
         for (var i = 0; i < arguments.length; i++) {
@@ -74,7 +81,7 @@ if (!window.beforeunload) (function() {
                 for (var j = 0; j < arguments.length; j++) {
                     if (this.forms[j] == element) {
                         this.forms.splice(j--, 1);
-                        delete element.onsubmit;
+                        element.onsubmit=null;
                     }
                 }
             } else {
@@ -94,7 +101,11 @@ if (!window.beforeunload) (function() {
     c.password = c.textarea = c.text = function(ele) {
         return ele.value != ele.defaultValue;
     }
-    // hidden: cannot tell on Mozilla
+    // hidden: cannot tell on Mozilla without special treatment
+    c.hidden = function(ele) {
+        var orig = ele.getAttribute("originalValue");
+        return orig && (ele.value != orig);
+    }
 
     c['select-one'] = function(ele) {
         for (var i=0 ; i < ele.length; i++) {
@@ -130,7 +141,7 @@ if (!window.beforeunload) (function() {
 
     Class.isElementChanged = function(ele) {
         var method = ele.id && this.chkId[ele.id];
-        if (!method && ele.type)
+        if (!method && ele.type && ele.name)
             method = this.chkType[ele.type];
         if (!method && ele.tagName)
             method = this['chk_'+ele.tagName.toLowerCase()];
@@ -140,4 +151,3 @@ if (!window.beforeunload) (function() {
 
     window.onbeforeunload = new BeforeUnloadHandler().execute;
 })();
-

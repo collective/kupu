@@ -35,26 +35,28 @@ The following input field types may be checked::
     <input type="password">
     <select>
     <select multiple>
+    <input type="hidden">
 
 Single selection fields where nothing was initially selected are
 considered to have changed if the first entry is not selected. Single
 selection fields where multiple entries were marked as selected
 initially are always considered changed.
 
+Field which do not have a `name` attribute are assumed to be
+client-side only (as they are not submitted to the server) and are
+ignored when checking.
+
+Note that hidden fields are checked for changes although a bug in
+Mozilla means that this is done by storing their original value when
+the handler is notified of the form.
+
 These field types are always assumed to be unchanged::
 
     <input type="button">
     <input type="file">
-    <input type="hidden">
     <input type="image">
     <input type="reset">
     <input type="submit">
-
-Note that hidden fields are not checked for changes. This is because
-although changes may be detected on hidden fields in IE, the Gecko
-based browsers do not support change detection. If you need to catch
-changes in hidden fields you must add an additional handler for these
-fields.
 
 Handler functions return false to indicate there is no change to be
 lost, true to indicate that something has changed and the default

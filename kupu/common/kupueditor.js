@@ -69,6 +69,7 @@ function KupuDocument(iframe) {
     this.getEditable = function() {
         return this.editable;
     };
+
 };
 
 /* KupuEditor
@@ -102,7 +103,7 @@ function KupuEditor(document, config, logger) {
         /* Should be called on iframe.onload, will initialize the editor */
         //DOM2Event.initRegistration();
         this._initializeEventHandlers();
-        this.getDocument().getWindow().focus();
+        this.focusDocument();
         if (this.getBrowserName() == "IE") {
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
@@ -159,7 +160,7 @@ function KupuEditor(document, config, logger) {
             this._saveSelection();
         };
 
-        if (event.type == 'click' || 
+        if (event.type == 'click' || event.type=='mouseup' ||
                 (event.type == 'keyup' && 
                     interesting_codes.contains(event.keyCode))) {
             // Filthy trick to make the updateState method get called *after*
@@ -203,7 +204,9 @@ function KupuEditor(document, config, logger) {
             this.logMessage(_('No destination URL available!'), 2);
             return;
         }
-    
+        var sourcetool = this.getTool('sourceedittool');
+        if (sourcetool) {sourcetool.cancelSourceMode();};
+
         // make sure people can't edit or save during saving
         if (!this._initialized) {
             return;
@@ -245,6 +248,9 @@ function KupuEditor(document, config, logger) {
             can be used for simple POST support where Kupu is part of a
             form
         */
+        var sourcetool = this.getTool('sourceedittool');
+        if (sourcetool) {sourcetool.cancelSourceMode();};
+
         // make sure people can't edit or save during saving
         if (!this._initialized) {
             return;
@@ -298,7 +304,7 @@ function KupuEditor(document, config, logger) {
         if (this.getBrowserName() == "IE") {
             this._restoreSelection();
         } else {
-            this.getDocument().getWindow().focus();
+            this.focusDocument();
             if (command != 'useCSS') {
                 this.content_changed = true;
                 // note the negation: the argument doesn't work as
@@ -378,7 +384,7 @@ function KupuEditor(document, config, logger) {
 
         var browser = this.getBrowserName();
         if (browser != "IE") {
-            this.getDocument().getWindow().focus();
+            this.focusDocument();
         };
         
         var ret = this.getSelection().replaceWithNode(insertNode, selectNode);
@@ -389,6 +395,10 @@ function KupuEditor(document, config, logger) {
 
         return ret;
     };
+
+    this.focusDocument = function() {
+        this.getDocument().getWindow().focus();
+    }
 
     this.logMessage = function(message, severity) {
         /* log a message using the logger, severity can be 0 (message, default), 1 (warning) or 2 (error) */
@@ -474,6 +484,7 @@ function KupuEditor(document, config, logger) {
         this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true}, this);
+        this._addEventHandler(this.getInnerDocument(), "mouseup", this.updateStateHandler, this);
     };
 
     this._setDesignModeWhenReady = function() {
@@ -574,7 +585,9 @@ function KupuEditor(document, config, logger) {
     };
 
     this.getHTMLBody = function() {
-        var bodies = this.getInnerDocument().documentElement.getElementsByTagName('body');
+        var doc = this.getInnerDocument();
+        var docel = doc.documentElement;
+        var bodies = docel.getElementsByTagName('body');
         var data = '';
         for (var i = 0; i < bodies.length; i++) {
             data += bodies[i].innerHTML;
@@ -695,5 +708,22 @@ function KupuEditor(document, config, logger) {
         
         return contents;
     };
+
+    this.getFullEditor = function() {
+        var fulleditor = this.getDocument().getEditable();
+        while (!/kupu-fulleditor/.test(fulleditor.className)) {
+            fulleditor = fulleditor.parentNode;
+        }
+        return fulleditor;
+    }
+    // Control the className and hence the style for the whole editor.
+    this.setClass = function(name) {
+        this.getFullEditor().className += ' '+name;
+    }
+    
+    this.clearClass = function(name) {
+        var fulleditor = this.getFullEditor();
+        fulleditor.className = fulleditor.className.replace(' '+name, '');
+    }
 }
 

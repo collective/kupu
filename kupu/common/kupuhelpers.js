@@ -177,7 +177,7 @@ function _load_dict_helper(element) {
             };
             var name = child.nodeName.toLowerCase();
             if (dict[name] != undefined) {
-                if (typeof(dict[name]) == typeof('') || typeof(dict[name]) == typeof(0)) {
+                if (!dict[name].push) {
                     dict[name] = new Array(dict[name], value);
                 } else {
                     dict[name].push(value);
@@ -382,26 +382,29 @@ function MozillaSelection(document) {
 
     this.getSelectedNode = function() {
         /* return the selected node (or the node containing the selection) */
-        var selectedNode = this.selection.anchorNode;
-        if (this.selection.rangeCount == 0 || selectedNode.childNodes.length == 0) {
-            return selectedNode;
-        };
-        for (var i=0; i < selectedNode.childNodes.length; i++) {
-            var child = selectedNode.childNodes[i];
-            if (this.selection.containsNode(child, true)) {
-                selectedNode = child;
-            };
-        };
+        var selection = this.selection;
+        var selectedNode = selection.anchorNode;
 
+        var n = selectedNode.parentNode;
+        // Get next sibling at any level
+        while (n) {
+            if ((n.previousSibling && selection.containsNode(n.previousSibling, true)) ||
+                (n.nextSibling && selection.containsNode(n.nextSibling, true))) {
+                selectedNode = n.parentNode;
+            }
+            n = n.parentNode;
+        }
         return selectedNode;
     };
 
     this.collapse = function(collapseToEnd) {
-        if (!collapseToEnd) {
-            this.selection.collapseToStart();
-        } else {
-            this.selection.collapseToEnd();
-        };
+        try {
+            if (!collapseToEnd) {
+                this.selection.collapseToStart();
+            } else {
+                this.selection.collapseToEnd();
+            };
+        } catch(e) {};
     };
 
     this.replaceWithNode = function(node, selectAfterPlace) {
@@ -703,9 +706,6 @@ function MozillaSelection(document) {
             while (currnode) {
                 if (currnode.nodeType == 3) { // XXX need to support CDATA sections
                     var nodelength = currnode.nodeValue.length;
-                    alert('curroffset: ' + curroffset);
-                    alert('nodelength: ' + nodelength);
-                    alert('realoffset: ' + realoffset);
                     if (curroffset + nodelength >= realoffset) {
                         var range = this.selection.getRangeAt(0);
                         //range.setEnd(this.endNode(), this.endOffset());
@@ -772,6 +772,10 @@ function MozillaSelection(document) {
         var range = this.selection.getRangeAt(0);
         return range.cloneContents();
     };
+
+    this.containsNode = function(node) {
+        return this.selection.containsNode(node, true);
+    }
 
     this.toString = function() {
         return this.selection.toString();
@@ -1073,6 +1077,18 @@ function IESelection(document) {
         return docfrag;
     };
 
+    this.containsNode = function(node) {
+        var selected = this.selection.createRange();
+
+        var range = doc.body.createTextRange();
+        range.moveToElementText(node);
+
+        if (selected.compareEndPoints('StartToEnd', range) >= 0 ||
+            selected.compareEndPoints('EndToStart', range) <= 0) {
+            return false;
+        }
+        return true;
+    }
     this.toString = function() {
         return this.selection.createRange().htmlText;
     };

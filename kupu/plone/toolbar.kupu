@@ -11,15 +11,14 @@
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-logo">
       <button type="button" class="kupu-zoom" id="kupu-zoom-button"
                 title="zoom: alt-x" accesskey="x">&#160;</button>
-      <button type="button" class="kupu-logo" title="Kupu 1.2" accesskey="k" id="kupu-logo-button"
+      <button type="button" class="kupu-logo" title="Kupu SVN/unreleased" accesskey="k" id="kupu-logo-button"
               onclick="window.open('http://kupu.oscom.org');"
               tal:attributes="tabindex python:tabindex+1;">&#160;</button>
     </span>
   </kupu:part>
 
   <kupu:part name="select-styles">
-    <select id="kupu-tb-styles"
-             onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+    <select id="kupu-tb-styles">
       <option value="p" i18n:translate="paragraph-normal">Normal</option>
       <option value="h2|Heading">Heading</option>
       <option value="h3|Subheading">Subheading</option>

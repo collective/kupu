@@ -123,6 +123,7 @@ function KupuButton(buttonid, commandfunc, tool) {
     this.execCommand = function() {
         /* exec this button's command */
         this.commandfunc(this, this.editor, this.tool);
+        this.editor.focusDocument();
     };
 
     this.updateState = function(selNode, event) {
@@ -149,6 +150,7 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
         this.commandfunc(this, this.editor);
         this.button.className = (this.pressed ? this.offclass : this.onclass);
         this.pressed = !this.pressed;
+        this.editor.focusDocument();
     };
 
     this.updateState = function(selNode, event) {
@@ -535,12 +537,11 @@ function LinkTool() {
         if (!linkel) {
             this.editor.execCommand("CreateLink", url);
             var currnode = this.editor.getSelectedNode();
-            if (this.editor.getBrowserName() == 'IE') {
-                linkel = this.editor.getNearestParentOfType(currnode, 'A');
-            } else {
-                linkel = currnode.tagName=='A'?currnode:currnode.nextSibling;
+            linkel = this.editor.getNearestParentOfType(currnode, 'A');
+            if (this.editor.getBrowserName() != 'IE') {
+                if (!linkel) linkel = this.editor.getNearestParentOfType(currnode.nextSibling, 'A');
             };
-            if ((!linkel) || linkel.tagName != 'A') {
+            if (!linkel) {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 linkel = doc.createElement("a");
@@ -1472,83 +1473,80 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
         this.editor.logMessage(_('List style tool initialized'));
     };
 
+    this._handleStyles = function(currnode, onselect, offselect) {
+        if (this.editor.config.use_css) {
+            var currstyle = currnode.style.listStyleType;
+        } else {
+            var currstyle = this.type_to_style[currnode.getAttribute('type')];
+        }
+        selectSelectItem(onselect, currstyle);
+        offselect.style.display = "none";
+        onselect.style.display = "inline";
+        offselect.selectedIndex = 0;
+    };
+
     this.updateState = function(selNode) {
         /* update the visibility and selection of the list type pulldowns */
         // we're going to walk through the tree manually since we want to 
         // check on 2 items at the same time
-        var currnode = selNode;
-        while (currnode) {
-            if (currnode.nodeName.toLowerCase() == 'ul') {
-                if (this.editor.config.use_css) {
-                    var currstyle = currnode.style.listStyleType;
-                } else {
-                    var currstyle = this.type_to_style[currnode.getAttribute('type')];
-                }
-                selectSelectItem(this.ulselect, currstyle);
-                this.olselect.style.display = "none";
-                this.ulselect.style.display = "inline";
+        for (var currnode=selNode; currnode; currnode=currnode.parentNode) {
+            var tag = currnode.nodeName.toLowerCase();
+            if (tag == 'ul') {
+                this._handleStyles(currnode, this.ulselect, this.olselect);
                 return;
-            } else if (currnode.nodeName.toLowerCase() == 'ol') {
-                if (this.editor.config.use_css) {
-                    var currstyle = currnode.listStyleType;
-                } else {
-                    var currstyle = this.type_to_style[currnode.getAttribute('type')];
-                }
-                selectSelectItem(this.olselect, currstyle);
-                this.ulselect.style.display = "none";
-                this.olselect.style.display = "inline";
+            } else if (tag == 'ol') {
+                this._handleStyles(currnode, this.olselect, this.ulselect);
                 return;
             }
-
-            currnode = currnode.parentNode;
-            this.ulselect.selectedIndex = 0;
-            this.olselect.selectedIndex = 0;
         }
-
-        this.ulselect.style.display = "none";
-        this.olselect.style.display = "none";
+        with(this.ulselect) {
+            selectedIndex = 0;
+            style.display = "none";
+        };
+        with(this.olselect) {
+            selectedIndex = 0;
+            style.display = "none";
+        };
     };
 
-    this.addUnorderedList = function() {
-        /* add an unordered list */
+    this.addList = function(command) {
         this.ulselect.style.display = "inline";
         this.olselect.style.display = "none";
-        this.editor.execCommand("insertunorderedlist");
+        this.editor.execCommand(command);
+        this.editor.focusDocument();
+    };
+    this.addUnorderedList = function() {
+        /* add an unordered list */
+        this.addList("insertunorderedlist");
     };
 
     this.addOrderedList = function() {
         /* add an ordered list */
-        this.olselect.style.display = "inline";
-        this.ulselect.style.display = "none";
-        this.editor.execCommand("insertorderedlist");
+        this.addList("insertorderedlist");
+    };
+
+    this.setListStyle = function(tag, select) {
+        /* set the type of an ul */
+        var currnode = this.editor.getSelectedNode();
+        var l = this.editor.getNearestParentOfType(currnode, tag);
+        var style = select.options[select.selectedIndex].value;
+        if (this.editor.config.use_css) {
+            l.style.listStyleType = style;
+        } else {
+            l.setAttribute('type', this.style_to_type[style]);
+        }
+        this.editor.focusDocument();
+        this.editor.logMessage(_('List style changed'));
     };
 
     this.setUnorderedListStyle = function() {
         /* set the type of an ul */
-        var currnode = this.editor.getSelectedNode();
-        var ul = this.editor.getNearestParentOfType(currnode, 'ul');
-        var style = this.ulselect.options[this.ulselect.selectedIndex].value;
-        if (this.editor.config.use_css) {
-            ul.style.listStyleType = style;
-        } else {
-            ul.setAttribute('type', this.style_to_type[style]);
-        }
-
-        this.editor.logMessage(_('List style changed'));
+        this.setListStyle('ul', this.ulselect);
     };
 
     this.setOrderedListStyle = function() {
         /* set the type of an ol */
-        var currnode = this.editor.getSelectedNode();
-        var ol = this.editor.getNearestParentOfType(currnode, 'ol');
-        var style = this.olselect.options[this.olselect.selectedIndex].value;
-        if (this.editor.config.use_css) {
-            ol.style.listStyleType = style;
-        } else {
-            ol.setAttribute('type', this.style_to_type[style]);
-        }
-
-        this.editor.logMessage(_('List style changed'));
+        this.setListStyle('ol', this.olselect);
     };
 };
 
@@ -1984,7 +1982,7 @@ KupuZoomTool.prototype.onresize = function() {
     var editor = this.editor;
     var iframe = editor.getDocument().editable;
     var sourcetool = editor.getTool('sourceedittool');
-    var sourceArea = sourcetool?sourcetool.sourceArea:null;
+    var sourceArea = sourcetool?sourcetool.getSourceArea():null;
 
     var fulleditor = iframe.parentNode;
     var body = document.body;
@@ -2021,33 +2019,35 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     var zoom = !button.pressed;
     this.zoomed = zoom;
 
-    var iframe = editor.getDocument().editable;
-    var fulleditor = iframe.parentNode;
+    var zoomClass = 'kupu-fulleditor-zoomed';
+    var iframe = editor.getDocument().getEditable();
+
     var body = document.body;
     var html = document.getElementsByTagName('html')[0];
     if (zoom) {
         html.style.overflow = 'hidden';
         window.scrollTo(0, 0);
-        fulleditor.className = 'kupu-fulleditor-zoomed';
+        editor.setClass(zoomClass);
         this.onresize();
     } else {
         html.style.overflow = '';
+        var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
-        fulleditor.className = '';
+        editor.clearClass(zoomClass);
 
         iframe.style.width = '';
         iframe.style.height = '';
 
         var sourcetool = editor.getTool('sourceedittool');
-        var sourceArea = sourcetool?sourcetool.sourceArea:null;
+        var sourceArea = sourcetool?sourcetool.getSourceArea():null;
         if (sourceArea) {
             sourceArea.style.width = '';
             sourceArea.style.height = '';
-        }
+        };
     }
     var doc = editor.getInnerDocument();
     // Mozilla needs this. Yes, really!
-    if (doc.designMode=='on') { doc.designMode = 'on'; }
+    doc.designMode=doc.designMode;
 
     window.scrollTo(0, iframe.offsetTop);
     editor.getDocument().getWindow().focus();

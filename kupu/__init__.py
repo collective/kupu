@@ -50,8 +50,12 @@ except ImportError:
 # note that CMF/Plone users will still have to run the
 # Extensions/Install.py script
 if have_cmf:
-    from Products.CMFCore.DirectoryView import registerDirectory
+    # Need to do this in case Archetypes isn't present.
+    from Products.CMFCore.FSFile import FSFile
+    from Products.CMFCore.DirectoryView import registerFileExtension, registerDirectory
+    registerFileExtension('xsl', FSFile)
     registerDirectory('common', globals())
+
     if have_plone:
         import plone
         initialize = plone.initialize

@@ -14,8 +14,20 @@
 function SourceEditTool(sourcebuttonid, sourceareaid) {
     /* Source edit tool to edit document's html source */
     this.sourceButton = document.getElementById(sourcebuttonid);
-    this.sourceArea = document.getElementById(sourceareaid);
-    
+    this.sourcemode = false;
+    this._currently_editing = null;
+
+    this.getSourceArea = function() {
+        return document.getElementById(sourceareaid);
+    }
+
+    this.cancelSourceMode = function() {
+        if (this._currently_editing) {
+            this.switchSourceEdit(null, true);
+        }
+    }
+    this.updateState = this.cancelSourceMode;
+
     this.initialize = function(editor) {
         /* attach the event handlers */
         this.editor = editor;
@@ -24,21 +36,24 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
         this.editor.logMessage('Source edit tool initialized');
     };
  
-    this.switchSourceEdit = function(event) {
+    this.switchSourceEdit = function(event, nograb) {
         var kupu = this.editor;
-        var editorframe = kupu.getDocument().getEditable();
-        var sourcearea = this.sourceArea;
-        var kupudoc = kupu.getInnerDocument();
+        var docobj = this._currently_editing||kupu.getDocument();
+        var editorframe = docobj.getEditable();
+        var sourcearea = this.getSourceArea();
+        var kupudoc = docobj.getDocument();
+        var sourceClass = 'kupu-sourcemode';
     
-        if (editorframe.style.display != 'none') {
-            // XXX why do we turn designMode on and off if we can't see the 
-            // iframe anyway?
-            if (kupu.getBrowserName() == 'Mozilla') {
+        if (!this.sourcemode) {
+            if (window.drawertool) {
+                window.drawertool.closeDrawer();
+            }
+            if (/on/i.test(kupudoc.designMode)) {
                 kupudoc.designMode = 'Off';
             };
             kupu._initialized = false;
 
-            var data;
+            var data='';
             if(kupu.config.filtersourceedit) {
                 window.status = 'Cleaning up HTML...';
                 var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
@@ -49,21 +64,31 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
                 data = kupu.getHTMLBody();
             }
             sourcearea.value = data;
+            kupu.setClass(sourceClass);
             editorframe.style.display = 'none';
             sourcearea.style.display = 'block';
+            if (!nograb) {
+                sourcearea.focus();
+            };
+            this._currently_editing = docobj;
           } else {
             kupu.setHTMLBody(sourcearea.value);
+            kupu.clearClass(sourceClass);
             sourcearea.style.display = 'none';
             editorframe.style.display = 'block';
-            if (kupu.getBrowserName() == 'Mozilla') {
+            if (/off/i.test(kupudoc.designMode)) {
                 kupudoc.designMode = 'On';
             };
-            var selection = this.editor.getSelection();
-            selection.collapse();
-            this.editor.getDocument().getWindow().focus();
+            if (!nograb) {
+                docobj.getWindow().focus();
+                var selection = this.editor.getSelection();
+                selection.collapse();
+            };
 
             kupu._initialized = true;
+            this._currently_editing = null;
         };
+        this.sourcemode = !this.sourcemode;
      };
 };
 
@@ -74,55 +99,14 @@ function MultiSourceEditTool(sourcebuttonid, textareaprefix) {
     this.sourceButton = document.getElementById(sourcebuttonid);
     this.textareaprefix = textareaprefix;
 
+    this.getSourceArea = function() {
+        var docobj = this._currently_editing||kupu.getDocument();
+        var sourceareaid = this.textareaprefix + docobj.getEditable().id;
+        return document.getElementById(sourceareaid);
+    }
+
     this._currently_editing = null;
 
-    this.initialize = function(editor) {
-        /* attach the event handlers */
-        this.editor = editor;
-        addEventHandler(this.sourceButton, "click", this.switchSourceEdit, this);
-        this.editor.logMessage('Source edit tool initialized');
-    };
-
-    this.switchSourceEdit = function(event) {
-        var kupu = this.editor;
-        if (!this._currently_editing) {
-            var docobj = kupu.getDocument();
-            var doc = docobj.getDocument();
-            var editorframe = docobj.getEditable();
-            var sourceareaid = this.textareaprefix + editorframe.id;
-            var sourcearea = document.getElementById(sourceareaid);
-
-            this._currently_editing = docobj;
-
-            if (kupu.getBrowserName() == 'Mozilla') {
-                doc.designMode = 'Off';
-            };
-            kupu._initialized = false;
-            var data = doc.documentElement.
-                            getElementsByTagName('body')[0].innerHTML;
-            sourcearea.value = data;
-            editorframe.style.display = 'none';
-            sourcearea.style.display = 'block';
-        } else {
-            var docobj = this._currently_editing;
-            var doc = docobj.getDocument();
-            var editorframe = docobj.getEditable();
-            var sourceareaid = this.textareaprefix + editorframe.id;
-            var sourcearea = document.getElementById(sourceareaid);
-
-            this._currently_editing = null;
-            
-            var data = sourcearea.value;
-            doc.documentElement.
-                    getElementsByTagName('body')[0].innerHTML = data;
-            sourcearea.style.display = 'none';
-            editorframe.style.display = 'block';
-            if (kupu.getBrowserName() == 'Mozilla') {
-                doc.designMode = 'On';
-            };
-            kupu._initialized = true;
-        };
-    };
 };
 
-MultiSourceEditTool.prototype = new KupuTool;
+MultiSourceEditTool.prototype = new SourceEditTool;
