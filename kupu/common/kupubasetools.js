@@ -734,11 +734,15 @@ function ImageTool() {
         imageWindow.imagetool = this;
         imageWindow.focus();
     };
-    
+
     this.createImage = function(url, floatstyle) {
         var img = this.editor.getInnerDocument().createElement('img');
         if (floatstyle) {
-            img.style.cssFloat = floatstyle;
+            if (this.editor.getBrowserName() == 'IE') {
+                img.style.styleFloat = floatstyle;
+            } else {
+                img.style.cssFloat = floatstyle;
+            };
         };
         img.setAttribute('src', url);
         img = this.editor.insertNodeAtSelection(img, 1);
@@ -746,7 +750,7 @@ function ImageTool() {
         this.editor.updateState();
         return img;
     };
-    
+
     this.createContextMenuElements = function(selNode, event) {
         return new Array(new ContextMenuElement(_('Create image'), this.createImageHandler, this));
     };
@@ -778,7 +782,11 @@ function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, pl
             if (this.toolboxel) {
                 this.toolboxel.className = this.activeclass;
                 this.inputfield.value = imageel.getAttribute('src');
-                var floatstyle = imageel.style.cssFloat ? imageel.style.cssFloat : 'left';
+                if (this.editor.getBrowserName() == 'IE') {
+                    var floatstyle = imageel.style.styleFloat ? imageel.style.styleFloat : 'none';
+                } else {
+                    var floatstyle = imageel.style.cssFloat ? imageel.style.cssFloat : 'none';
+                };
                 selectSelectItem(this.floatselect, floatstyle);
             };
         } else {
@@ -787,7 +795,7 @@ function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, pl
             };
         };
     };
-    
+
     this.addImage = function() {
         /* add an image */
         var url = this.inputfield.value;
@@ -830,10 +838,10 @@ function TableTool() {
         var doc = this.editor.getInnerDocument();
 
         table = doc.createElement("table");
-        table.setAttribute("border", "1");
-        table.setAttribute("cellpadding", "8");
-        table.setAttribute("cellspacing", "2");
-        table.setAttribute("class", tableclass);
+        table.border = 1;
+        table.cellPadding = 8;
+        table.cellSpacing = 2;
+        table.className = tableclass;
 
         // If the user wants a row of headings, make them
         if (makeHeader) {
@@ -865,6 +873,7 @@ function TableTool() {
         this._setTableCellHandlers(table);
 
         this.editor.logMessage(_('Table added'));
+        this.editor.updateState();
         return table;
     };
 
@@ -1117,7 +1126,7 @@ function TableTool() {
                     if (cell.nodeType != 1) {
                         continue;
                     }
-                    var colspan = cell.getAttribute('colspan');
+                    var colspan = cell.colSpan;
                     if (currindex == currcolindex) {
                         tr.removeChild(cell);
                         break;
@@ -1206,7 +1215,7 @@ function TableTool() {
             if (prevsib.nodeType == 1 && 
                     (prevsib.tagName.toUpperCase() == "TD" || 
                         prevsib.tagName.toUpperCase() == "TH")) {
-                var colspan = prevsib.getAttribute('colspan');
+                var colspan = prevsib.colSpan;
                 if (colspan) {
                     currcolindex += parseInt(colspan);
                 } else {
@@ -1260,12 +1269,12 @@ function TableTool() {
         var tbody = doc.createElement('tbody');
 
         var allowed_classes = new Array('plain', 'grid', 'list', 'listing', 'data');
-        if (!allowed_classes.contains(table.getAttribute('class'))) {
-            table.setAttribute('class', 'plain');
+        if (!allowed_classes.contains(table.className)) {
+            table.className = 'plain';
         };
-        
-        table.setAttribute('cellpadding', '0');
-        table.setAttribute('cellspacing', '0');
+
+        table.cellPadding = 0;
+        table.cellSpacing = 0;
 
         // now get all the rows of the table, the rows can either be
         // direct descendants of the table or inside a 'tbody', 'thead'
