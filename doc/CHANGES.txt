@@ -2,16 +2,20 @@
 Kupu changes
 ============
 
-- Kupu 1.1 beta 2
+- Kupu 1.1 beta 2 (2004-05-27)
 
-  o Added source editing for Silva
-
-  o Fixed some small bugs for Silva
+  o Added source editing for Silva.
 
   o Fixed the Image tool in Silva: URL's are now editable and will be made
-    relative if at all possible
+    relative if at all possible.
 
-- Kupu 1.1 beta 1
+  o Fixed some small bugs for Silva.
+
+  o Assured proper hiding of RemoveElementButtons in IE.
+
+  o Updated unit tests to reflect new ECMAUnit API
+
+- Kupu 1.1 beta 1 (2004-05-21)
 
   o Added Selection object that provides a cross-browser API for working
     with the document's selection and cursor. This can be used to e.g. add

@@ -6,7 +6,7 @@ Roadmap
 
   * bug day(s): ---
 
-  * scheduled for: ---
+  * scheduled for: around the EuroPython Conference
 
   * released: ---
 
@@ -14,13 +14,13 @@ Roadmap
 
 1.1beta2
 
-  * bug day(s): ---
+  * bug day(s): 2004-05-27
 
-  * scheduled for: ---
+  * scheduled for: 2004-05-27
 
-  * released: ---
+  * released: 2004-05-27 (on time)
 
-  * coordinator: ---
+  * coordinator: Guido Wesdorp
 
 1.1beta1
 
@@ -28,9 +28,9 @@ Roadmap
 
   * scheduled for: 2004-05-21
 
-  * released: ---
+  * released: 2004-05-21 (on time)
 
-  * coordinator: Guido Wesdorp
+  * coordinator: Guido Wesdorp, Philipp von Weitershausen
 
 1.0.3
 
@@ -60,7 +60,7 @@ Roadmap
 
   * released: 2003-12-10
 
-  * coordinator: Philipp von Weitershaused, Guido Wesdorp
+  * coordinator: Philipp von Weitershausen, Guido Wesdorp
 
 1.0
 
