@@ -155,20 +155,15 @@ function initPloneKupu(iframe, fieldname) {
 
     // let's register saveOnPart(), to ask the user if he wants to save when 
     // leaving after editing
+    
     if (kupu.getBrowserName() == 'IE') {
         // IE supports onbeforeunload, so let's use that
         addEventHandler(window, 'beforeunload', saveOnPart);
     } else {
-        // some versions of Mozilla support onbeforeunload (starting with 1.7)
-        // so let's try to register and if it fails fall back on onunload
-        var re = /rv:([0-9\.]+)/;
-        var match = re.exec(navigator.userAgent);
-        if (match[1] && parseFloat(match[1]) > 1.6) {
-            addEventHandler(window, 'beforeunload', saveOnPart);
-        } else {
-            addEventHandler(window, 'unload', saveOnPart);
-        };
-    };
+        // Not implemented in all versions of Mozilla, so this may have
+        // no effect...
+        document.body.setAttribute('onBeforeUnload', 'return saveOnPart();');
+    }
 
     // Drawers...
 
