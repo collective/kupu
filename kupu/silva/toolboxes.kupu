@@ -91,40 +91,10 @@
 
     <div class="kupu-toolbox" id="kupu-toolbox-images">
 
-    <script type="text/javascript">
-    //<![CDATA[
-
-    lookupWindow = null;
-    textArea = null;
-    referenceFormat = null;
-    appendValue = false;
-    // Called from getAssetReference
-    function openAssetLookupWindow(url_to_open) {
-      // Do the opening
-      width = 760;
-      height = 500;
-      leftPos = (screen.width - width) / 2;
-      topPos = (screen.height - height) / 2;
-      aspects = 'toolbar=yes,status=yes,scrollbars=yes,resizable=yes,width='+width+',height='+height+',left='+leftPos+',top='+topPos;
-      lookupWindow = window.open(
-        url_to_open, 'AssetLookupWindow', aspects);
-      lookupWindow.focus();
-    }
-    // Called from "asset lookup window"
-    function insertAssetReference(id, reference, wndw) {
-      // for Kupu we need to place the image as well
-      var imagetool = kupu.getTool('imagetool');
-    
-      imagetool.createImage(reference);
-      // Close LookupWindow
-      wndw.close();
-    }
-
-    //]]>
-    </script>
-    <script type="text/javascript" tal:define="container model/get_container" tal:content="string:
+    <script type="text/javascript" tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
+    <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
       function getImage() {
-        openAssetLookupWindow('${container/absolute_url}/edit/asset_lookup?filter=Silva+Image');
+        openAssetLookupWindow('${container/absolute_url}/edit/asset_lookup?filter=Silva+Image', '${folder_context}');
       }
     "></script>
 
