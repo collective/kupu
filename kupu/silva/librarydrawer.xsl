@@ -13,7 +13,7 @@
 XSL transformation from Kupu Library XML to HTML for the library
 drawer.
 
-$Id$
+$Id: librarydrawer.xsl 4205 2004-04-29 14:08:31Z philikon $
 -->
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -39,14 +39,14 @@ $Id$
           </form>
           </div>
           <div id="kupu-panels">
-            <table width="95%">
+            <table width="95%" border="1">
               <tr class="kupu-panelsrow">
-                <td id="kupu-librariespanel" width="30%">
+                <td id="kupu-librariespanel" width="10%">
                   <div id="kupu-librariesitems" class="overflow">
                     <xsl:apply-templates select="/libraries/library"/>
                   </div>
                 </td>
-                <td id="kupu-resourcespanel" width="30%">
+                <td id="kupu-resourcespanel" width="10%">
                   <div id="kupu-resourceitems" class="overflow">
                     <xsl:apply-templates
                       select="/libraries/*[@selected]"
@@ -66,11 +66,11 @@ $Id$
             </table>
           </div>
           <div id="kupu-dialogbuttons">
-            <button type="button"
+            <button type="button" class="button"
               onclick="drawertool.current_drawer.reloadCurrent();">Reload current</button>
-            <button type="button"
+            <button type="button" class="button"
               onclick="drawertool.closeDrawer();">Cancel</button>
-            <button type="button"
+            <button type="button" class="button"
               onclick="drawertool.current_drawer.save();">Ok</button>
           </div>
         </div>
@@ -85,7 +85,7 @@ $Id$
         <xsl:value-of select="@id" />
       </xsl:attribute>
       <xsl:if test="icon">
-        <img src="{icon}" title="{title}" alt="{title}" />
+        <img src="{icon}" title="{title}" alt="{title}" />&#xa0;
       </xsl:if>
       <xsl:apply-templates select="title"/>
     </div>
@@ -112,7 +112,7 @@ $Id$
         <xsl:attribute name="style">background-color: #C0C0C0</xsl:attribute>
       </xsl:if>
       <xsl:if test="icon">
-        <img src="{icon}" title="{title}" alt="{title}" />
+        <img src="{icon}" title="{title}" alt="{title}" />&#xa0;
       </xsl:if>
       <xsl:apply-templates select="title"/>
     </div>

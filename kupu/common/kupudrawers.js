@@ -299,9 +299,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this.deselectActiveCollection = function() {
         /* Deselect the currently active collection or library */
-        var selected = this.xmldata.selectSingleNode('//*[@selected]');
-        if (selected) {
+        while (1) {
             // deselect selected DOM node
+            var selected = this.xmldata.selectSingleNode('//*[@selected]');
+            if (!selected) {
+                return;
+            };
             selected.removeAttribute('selected');
         };
     };
