@@ -565,6 +565,9 @@ function XhtmlValidation(editor) {
         }
 
         var kids = htmlnode.childNodes;
+        if (kids && /base|meta|link|hr|param|img|area|input|br|basefont|isindex|col/.exec(nodename)) {
+            kids = []; // IE bug: base can think it has children
+        }
         var permittedChildren = this.States[parentnode.tagName] || permitted;
 
         if (kids.length == 0) {
