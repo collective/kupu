@@ -72,7 +72,7 @@ goto :eof
     goto :eof
 
 :target_plonemacros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o plone\kupu_plone_layer\wysiwyg_support.html %XSL_FILE% dist-plone.kupu
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o plone\kupu_plone_layer\kupu_wysiwyg_support.html %XSL_FILE% dist-plone.kupu
     goto :eof
 
 :target_silvamacros
@@ -98,7 +98,7 @@ goto :eof
 
 :target_clean
     SET FILES=common\kupumacros.html common\kupu.html common\kupuform.html
-    SET FILES=%FILES% plone\kupu_plone_layer\wysiwyg_support.html silva\kupumacros.html
+    SET FILES=%FILES% plone\kupu_plone_layer\kupu_wysiwyg_support.html silva\kupumacros.html
     SET FILES=%FILES% common\kupumulti.html common\kupucnf.html
     for %%F in (%FILES%) DO (
         IF EXIST %%F ( %X%echo del %%F && %X%del %%F )
