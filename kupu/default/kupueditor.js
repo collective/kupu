@@ -65,6 +65,10 @@ function KupuDocument(iframe) {
             return new IESelection(this);
         };
     };
+
+    this.getEditable = function() {
+        return this.editable;
+    };
 };
 
 /* KupuEditor
