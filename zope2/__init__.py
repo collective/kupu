@@ -34,7 +34,7 @@ def initialize(context):
 
 #_dirreg = DirectoryRegistry()
 from Products.FileSystemSite.DirectoryView import _dirreg
-_dirreg.registerDirectory('../common', globals())
+_dirreg.registerDirectory('../default', globals())
 
 class KupuEditor(DirectoryView):
     meta_type = 'kupu editor'
