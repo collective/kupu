@@ -477,7 +477,8 @@ function PropertyTool(titlefieldid, descfieldid) {
         var descset = 0;
         for (var i=0; i < metas.length; i++) {
             var meta = metas[i];
-            if (meta.getAttribute('name').toLowerCase() == 'description') {
+            if (meta.getAttribute('name') && 
+                    meta.getAttribute('name').toLowerCase() == 'description') {
                 meta.setAttribute('content', this.descfield.value);
             }
         }
