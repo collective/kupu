@@ -51,7 +51,7 @@ except ImportError:
 # Extensions/Install.py script
 if have_cmf:
     from Products.CMFCore.DirectoryView import registerDirectory
-    registerDirectory('default', globals())
+    registerDirectory('common', globals())
     if have_plone:
         import plone
         initialize = plone.initialize

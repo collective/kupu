@@ -77,7 +77,7 @@ def install(self):
     out = StringIO()
 
     # register the core layer
-    register_layer(self, 'default', 'kupu', out)
+    register_layer(self, 'common', 'kupu', out)
 
     # try for plone
     try:
