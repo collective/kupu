@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<kupu:feature
+    name="html"
+    implementation="default"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+  <!-- XXX kupu:fill-slot -->
+  <kupu:part name="html">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <kupu:define-slot name="html" />
+
+</html>
+  </kupu:part>
+</kupu:feature>

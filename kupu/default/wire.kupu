@@ -1,0 +1,60 @@
+<kupu:dist
+  xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+  >
+
+  <!-- Wire this implementation -->
+
+  <!-- we'll probably also define the implementation order here
+
+  <kupu:implementationOrder>
+    <kupu:implementation name="default" />
+  </kupu:implementationOrder>
+
+  -->
+
+  <!--
+   Order matters!
+   -->
+
+  <kupu:wire append-slot="start" feature="html" part="html" />
+
+  <kupu:wire append-slot="html" feature="head" part="head" />
+  <kupu:wire append-slot="html" feature="body" part="body" />
+
+  <kupu:wire append-slot="head" feature="head" part="meta" />
+  <kupu:wire append-slot="head" feature="head" part="styles" />
+  <kupu:wire append-slot="head" feature="head" part="jsincludes" />
+  <kupu:wire append-slot="head" feature="head" part="bootstrap-editor" />
+  <kupu:wire append-slot="head" feature="saveonpart" part="jsinclude" />
+  <kupu:wire append-slot="head" feature="sourceedit" part="jsinclude" />
+
+  <kupu:wire append-slot="body" feature="xmlconfig" part="xmlconfig" />
+  <kupu:wire append-slot="body" feature="body" part="fulleditor" />
+
+  <kupu:wire append-slot="fulleditor" feature="toolbar" part="toolbar" />
+  <kupu:wire append-slot="fulleditor" feature="toolboxes" part="toolboxes" />
+  <kupu:wire append-slot="fulleditor" feature="body" part="colorchooser" />
+  <kupu:wire append-slot="fulleditor" feature="body" part="editorframe" />
+
+  <kupu:wire append-slot="toolbar" feature="toolbar" part="buttons" />
+  <kupu:wire append-slot="toolbar" feature="toolbar" part="liststyles" />
+
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="logo" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="select-styles" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-save" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-basicmarkup" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-subsuper" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-color" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-justify" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-list" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-indent" />
+  <kupu:wire append-slot="toolbar-buttons" feature="toolbar" part="buttongroup-undo" />
+  <kupu:wire append-slot="toolbar-buttons" feature="sourceedit" part="button" />
+
+  <kupu:wire append-slot="toolboxes" feature="toolboxes" part="properties" />
+  <kupu:wire append-slot="toolboxes" feature="toolboxes" part="links" />
+  <kupu:wire append-slot="toolboxes" feature="toolboxes" part="images" />
+  <kupu:wire append-slot="toolboxes" feature="toolboxes" part="tables" />
+  <kupu:wire append-slot="toolboxes" feature="toolboxes" part="debug" />
+
+</kupu:dist>
