@@ -541,8 +541,11 @@ function LinkTool() {
             linkel.removeAttribute('href');
             linkel.setAttribute('name', name);
         } else {
-            if (target) {
+            if (target && target != '') {
                 linkel.setAttribute('target', target);
+            }
+            else {
+                linkel.removeAttribute('target');
             };
         };
         

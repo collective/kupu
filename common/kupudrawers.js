@@ -772,7 +772,10 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // little too much I think. (philiKON)
         var type = null;
         var name = document.getElementById('link_name').value;
-        var target = document.getElementById('link_target').value;
+        var target = null;
+        if (document.getElementById('link_target') && document.getElementById('link_target').value != '')
+            target = document.getElementById('link_target').value;
+        
         this.tool.createLink(uri, type, name, target, title);
     };
 };
