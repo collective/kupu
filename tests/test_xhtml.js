@@ -39,14 +39,14 @@ function KupuXhtmlTestCase() {
     this.arrayContains = function(ary, test) {
         for (var i = 0; i < ary.length; i++) {
             if (ary[i]==test) {
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
     this.testExclude = function() {
         // Check that the exclude functions work as expected.
-        var validator = new XhtmlValidation();
+        var validator = new XhtmlValidation(this.editor);
         var events = ['onclick', 'ondblclick', 'onmousedown',
         'onmouseup', 'onmouseover', 'onmousemove',
         'onmouseout', 'onkeypress', 'onkeydown',
@@ -65,15 +65,15 @@ function KupuXhtmlTestCase() {
         this.assertTrue(this.arrayContains(attrs, 'charoff'));
         validator._excludeAttributes(['charoff']);
         this.assertTrue(!this.arrayContains(attrs, 'charoff'));
-        this.assertTrue(this.arrayContains(validator.Attributes.img, 'height'));
+        this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
         this.assertTrue(this.arrayContains(validator.Attributes.th, 'height'));
-        validator._excludeAttributesForTags(['width','height'],['table','th','td']);
-        this.assertTrue(this.arrayContains(validator.Attributes.img, 'height'));
+        validator._excludeAttributesForTags(['width','height'],['table','th']);
+        this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
         this.assertFalse(this.arrayContains(validator.Attributes.th, 'height'));
     }
 
     this.testSet = function() {
-        var validator = new XhtmlValidation();
+        var validator = new XhtmlValidation(this.editor);
 
         var set1 = new validator.Set(['a','b','c']);
         this.assertTrue(set1.a && set1.b && set1.c);
@@ -81,10 +81,7 @@ function KupuXhtmlTestCase() {
         this.assertTrue(set2.a && set2.b && set2.c);
     }
     this.testValidator = function() {
-        var validator = new XhtmlValidation();
-        //alert("p attrs="+validator.Attributes['p']);
-        //alert("attrs ="+validator.attrs);
-        //alert("td attrs="+validator.Attributes['td']);
+        var validator = new XhtmlValidation(this.editor);
         var table = validator.States['table'];
         var tags = [];
         for (var tag in table) {
@@ -105,6 +102,21 @@ function KupuXhtmlTestCase() {
         this.assertEquals(newdoc.xml,
             this.incontext('<p class="blue">This is a test</p>'));
     }
+    this.testXmlAttrs = function() {
+        var doc = this.doc.documentElement;
+        var editor = this.editor;
+        this.body.innerHTML = '<pre xml:space="preserve" xml:lang="fr">This is a test</pre>';
+        var xhtmldoc = Sarissa.getDomDocument();
+        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
+        this.assertEquals(newdoc.xml,
+            this.incontext('<pre xml:lang="fr" xml:space="preserve">This is a test</pre>'));
+        
+        this.editor.xhtmlvalid._excludeAttributes(['xml:lang','xml:space']);
+        var xhtmldoc = Sarissa.getDomDocument();
+        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
+        this.assertEquals(newdoc.xml,
+            this.incontext('<pre>This is a test</pre>'));
+    }
     this.testConvertToSarissa2 = function() {
         var doc = this.doc.documentElement;
         var editor = this.editor;
@@ -122,6 +134,54 @@ function KupuXhtmlTestCase() {
         var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
         this.assertEquals(newdoc.xml,
                           this.incontext('<div>centered<p>Test</p>zzz</div>'));
+    }
+    this.skip_testnbsp = function() {
+        var data = '<p>Text with&nbsp;non-break space</p>';
+        var expected = data
+        var doc = this.doc.documentElement;
+        var editor = this.editor;
+        this.body.innerHTML = data;
+        var xhtmldoc = Sarissa.getDomDocument();
+        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
+        this.assertEquals(newdoc.xml, this.incontext(expected));
+    };
+    this.testTable = function() {
+        var data = '<TABLE class="listing"><THEAD><TR><TH>Col 01</TH><TH class=align-center>Col 11</TH>'+
+            '<TH class=align-right>Col 21</TH></TR></THEAD>'+
+            '<TBODY><TR>'+
+            '<TD>text</TD>'+
+            '<TD class=align-center>a</TD>'+
+            '<TD class=align-right>r</TD></TR>'+
+            '<TR>'+
+            '<TD>more text</TD>'+
+            '<TD class=align-center>aaa</TD>'+
+            '<TD class=align-right>rr</TD></TR>'+
+            '<TR>'+
+            '<TD>yet more text</TD>'+
+            '<TD class=align-center>aaaaa</TD>'+
+            '<TD class=align-right>rrr</TD></TR></TBODY></TABLE>';
+        var expected = '<table class="listing"><thead><tr><th>Col 01</th><th class="align-center">Col 11</th>'+
+            '<th class="align-right">Col 21</th></tr></thead>'+
+            '<tbody><tr>'+
+            '<td>text</td>'+
+            '<td class="align-center">a</td>'+
+            '<td class="align-right">r</td></tr>'+
+            '<tr>'+
+            '<td>more text</td>'+
+            '<td class="align-center">aaa</td>'+
+            '<td class="align-right">rr</td></tr>'+
+            '<tr>'+
+            '<td>yet more text</td>'+
+            '<td class="align-center">aaaaa</td>'+
+            '<td class="align-right">rrr</td></tr></tbody></table>';
+        
+        var doc = this.doc.documentElement;
+        var editor = this.editor;
+        this.body.innerHTML = data;
+        var xhtmldoc = Sarissa.getDomDocument();
+        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
+        this.assertEquals(newdoc.xml, this.incontext(expected));
+
     }
 }
 
