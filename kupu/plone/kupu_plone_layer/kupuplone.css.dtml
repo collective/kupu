@@ -98,6 +98,16 @@ iframe.kupu-editor-iframe{
   margin-right: 0;
 }
 
+div.kupu-fulleditor-zoomed .kupu-editor-iframe {
+  border: none;
+  margin: 0;
+}
+
+.kupu-fulleditor-zoomed .kupu-tb {
+  width:100%;
+}
+
+
 span#kupu-tb-buttons .kupu-bold-pressed,
 span#kupu-tb-buttons .kupu-italic-pressed,
 span#kupu-tb-buttons .kupu-subscript-pressed,
@@ -177,6 +187,7 @@ div.kupu-drawer {
   width: 520px;
   z-index: 2;
 }
+
 
 
 
