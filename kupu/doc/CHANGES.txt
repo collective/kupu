@@ -52,10 +52,10 @@ Kupu changes
     Zope specific
 
   o Added toolboxes, a plugin for tools, to seperate functionality from
-    view dependencies (this means a change in initKupu, so custom versions
+    view dependencies (this means a change in initEpoz, so custom versions
     need to be updated!)
 
-  o Chopped kupueditor.js into several pieces (this means all existing
+  o Chopped epozeditor.js into several pieces (this means all existing
     installations need to be updated!)
 
   o Table editing in IE 5.5 is fixed, the tables don't end up
@@ -79,7 +79,7 @@ Kupu changes
   
   o Fixed bug that caused saving to fail in Mozilla 1.3.1
 
-  o Fixed bug that prevented Zope from booting when Kupu and Plone were
+  o Fixed bug that prevented Zope from booting when Epoz and Plone were
     installed on the same instance
 
   o Added an example pagetemplate for Zope 2 integration
@@ -88,7 +88,7 @@ Kupu changes
 
   o Fixed text style support for IE
 
-  o Renamed kuputoolbar macro to kupu_toolbar for consistency
+  o Renamed epoztoolbar macro to epoz_toolbar for consistency
 
   o Added style sheet and headers to prevent caching in the
     example document fulldoc.html
@@ -111,12 +111,12 @@ Kupu changes
 
 - 1.0 alpha 2 (2003-11-07)
 
-  o Refactored kupueditor.js to a MVC-style component architecture.
+  o Refactored epozeditor.js to a MVC-style component architecture.
     [Issue 26]
 
   o Added a path tool [Issue 24]
 
-  o Added kupu logo
+  o Added epoz logo
 
 - 1.0 alpha 1 (2003-10-24)
 
@@ -130,14 +130,14 @@ Kupu changes
   o Let the iframe src work from Apache via a tal:attributes to
     replace the src with nothing when served from Zope
 
-  o Added new attributes on <iframe> to configure the Kupu instance:
+  o Added new attributes on <iframe> to configure the Epoz instance:
 
     - dst specifices the URL to PUT to.
   
     - usecss is either 0 or 1, to tell Midas whether to use CSS or
       element styles like <b>.
 
-    - reloadsrc is either 0 or 1, to tell Kupu whether the server
+    - reloadsrc is either 0 or 1, to tell Epoz whether the server
       wants the editor to reload the source after saving.  This is
       true in Silva, which transforms the XHTML after saving.
 
