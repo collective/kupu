@@ -9,6 +9,8 @@
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
   <title i18n_translate="box_recentitems">Recent Items</title>
   <description>Recently published items.</description>
+  <src tal:define="resource_type request/resource_type | string:mediaobject;"
+       tal:content="string:${here/absolute_url}/${template/getId}?resource_type=${resource_type}">Source</src>
 
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
     <metal:slot fill-slot="defineItems">
