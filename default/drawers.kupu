@@ -38,6 +38,128 @@
     </div>
   </kupu:part>
 
+  <kupu:part name="add-table">
+    <script type="text/javascript">
+      function createTable() {
+        var rows = document.getElementById('kupu-addtable-newrows').value;
+        var cols = document.getElementById('kupu-addtable-newcols').value;
+        var style = document.getElementById('kupu-addtable-classchooser').value;
+        var add_header = document.getElementById('kupu-addtable-makeheader').checked;
+        tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
+        drawertool.closeDrawer();
+      };
+    </script>
+
+    <div class="kupu-drawer">
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td class="kupu-toolbox-label">Table Class</td>
+          <td width="1%">
+            <select id="kupu-addtable-classchooser">
+              <option value="plain">Plain</option>
+              <option value="listing">Listing</option>
+              <option value="grid">Grid</option>
+              <option value="data">Data</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%">
+              <tr>
+                <td class="kupu-toolbox-label" width="50%">Rows</td>
+                <td><input id="kupu-addtable-newrows"/></td>
+              </tr>
+              <tr>
+                <td class="kupu-toolbox-label">Columns</td>
+                <td><input id="kupu-addtable-newcols"/></td>
+              </tr>
+              <tr>
+                <td class="kupu-toolbox-label">Headings</td>
+                <td class="kupu-toolbox-label">
+                  <input id="kupu-addtable-makeheader" type="checkbox"/> Create
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center">
+                  <br />
+                  <button type="button" onclick="createTable()">Add Table</button>
+                  <button type="button" onclick="drawertool.closeDrawer()">Close</button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+  </kupu:part>
+
+  <kupu:part name="edit-table">
+
+    <script type="text/javascript">
+    function createTable() {
+      var rows = document.getElementById('kupu-edittable-newrows').value;
+      var cols = document.getElementById('kupu-edittable-newcols').value;
+      var style = document.getElementById('kupu-edittable-classchooser').value;
+      var add_header = document.getElementById('kupu-edittable-makeheader').checked;
+      tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
+      drawertool.closeDrawer();
+    };
+
+    </script>
+
+    <div class="kupu-drawer">
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td class="kupu-toolbox-label">Table Class</td>
+          <td width="1%">
+            <select id="kupu-edittable-classchooser">
+              <option value="plain">Plain</option>
+              <option value="listing">Listing</option>
+              <option value="grid">Grid</option>
+              <option value="data">Data</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table width="100%">
+              <tr>
+                <td width="50%">Col Align</td>
+                <td>
+                  <select id="kupu-edittable-alignchooser">
+                    <option value="left">Left</option>
+                    <option value="center">Center</option>
+                    <option value="right">Right</option>
+                    </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Column</td>
+                <td>
+                    <button type="button" id="kupu-table-addcolumn-button">Add</button>
+                    <button type="button" id="kupu-table-delcolumn-button">Remove</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Row</td>
+                <td>
+                  <button type="button" id="kupu-table-addrow-button">Add</button> 
+                  <button type="button" id="kupu-table-delrow-button">Remove</button>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </kupu:part>
+
   <kupu:part name="xmlconfig">
     <image_xsl_uri>kupudrawers/imagedrawer.xsl</image_xsl_uri>
     <link_xsl_uri>kupudrawers/linkdrawer.xsl</link_xsl_uri>
