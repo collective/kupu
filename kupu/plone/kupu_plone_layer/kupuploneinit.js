@@ -156,10 +156,8 @@ function initPloneKupu(iframe, fieldname) {
     // Use the generic beforeUnload handler if we have it:
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {
-        function kupuchanged() {
-            return kupu.content_changed;
-        }
-        beforeunloadTool.addHandler(kupuchanged);
+        var initialBody = ibody.innerHTML;
+        beforeunloadTool.addHandler(function() {return ibody.innerHTML != initialBody;});
         var form = iframe;
         while (form && form.tagName != 'FORM') form = form.parentNode;
         beforeunloadTool.addForm(form);

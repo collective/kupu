@@ -49,3 +49,6 @@ iframe.kupu-editor-iframe {
 .kupu-linkdrawer-target-row, .kupu-linkdrawer-name-row {
   display: none
 }
+
+textarea { width: 99%; } /* Override buggy Plone setting */
+
