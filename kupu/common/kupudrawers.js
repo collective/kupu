@@ -323,7 +323,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // XXX this is slow, but we can't do XPath, unfortunately
         var divs = this.element.getElementsByTagName('div');
         for (var i=0; i<divs.length; i++ ) {
-          if (divs[i].className == 'selected') {
+          if (divs[i].className == 'kupu-libsource-selected') {
             divs[i].className = 'kupu-libsource';
           };
         };
@@ -352,7 +352,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // instead of running the full transformations again we get a 
         // reference to the element and set the classname...
         var newseldiv = document.getElementById(id);
-        newseldiv.className = 'selected';
+	newseldiv.className = 'kupu-libsource-selected';
     };
 
     this._libraryContentCallback = function(dom, src_uri) {
@@ -367,6 +367,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
         // IE does not support importNode on XML document nodes. As an
         // evil hack, clonde the node instead.
+
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
         } else {
@@ -632,6 +633,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // XXX it seems that IE doesn't allow hacks like these
         // no need to worry anyway, since the transformed HTML seems
         // to have the right JS context variables anyway.
+
         if (this.editor.getBrowserName() != 'IE') {
             container.ownerDocument.contentWindow = doc.contentWindow;
         };
