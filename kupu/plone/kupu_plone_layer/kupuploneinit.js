@@ -193,9 +193,7 @@ function initPloneKupu(iframe, fieldname) {
                                       conf['image_libraries_uri'], conf['search_images_uri']);
     drawertool.registerDrawer('imagedrawer', imagedrawer);
 
-    var tabledrawer = new TableDrawer('kupu-table-drawer-add',
-                                      'kupu-table-drawer-edit',
-                                       tabletool);
+    var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
 
     // register form submit handler, remove the drawer's contents before submitting 
