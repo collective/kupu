@@ -82,7 +82,7 @@ function addEventHandler(element, event, method, context) {
             element.attachEvent("on" + event, wrappedmethod.execute);
         } else {
             throw "Unsupported browser!";
-        }
+        };
     } catch(e) {
         alert('exception ' + e.message + ' while registering an event handler for element ' + element + ', event ' + event + ', method ' + method);
     };
@@ -150,6 +150,45 @@ function ParentWithStyleChecker(tagnames, style, stylevalue) {
     };
 };
 
+function _load_dict_helper(element) {
+    /* walks through a set of XML nodes and builds a nested tree of objects */
+    var dict = {};
+    for (var i=0; i < element.childNodes.length; i++) {
+        var child = element.childNodes[i];
+        if (child.nodeType == 1) {
+            var value = '';
+            for (var j=0; j < child.childNodes.length; j++) {
+                // test if we can recurse, if so ditch the string (probably
+                // ignorable whitespace) and dive into the node
+                if (child.childNodes[j].nodeType == 1) {
+                    value = _load_dict_helper(child);
+                } else if (typeof(value) == typeof('')) {
+                    value += child.childNodes[j].nodeValue;
+                };
+            };
+            if (typeof(value) == typeof('') && !isNaN(parseInt(value)) && 
+                    parseInt(value).toString().length == value.length) {
+                value = parseInt(value);
+            } else if (typeof(value) != typeof('')) {
+                if (value.length == 1) {
+                    value = value[0];
+                };
+            };
+            var name = child.nodeName.toLowerCase();
+            if (dict[name] != undefined) {
+                if (typeof(dict[name]) == typeof('') || typeof(dict[name]) == typeof(0)) {
+                    dict[name] = new Array(dict[name], value);
+                } else {
+                    dict[name].push(value);
+                };
+            } else {
+                dict[name] = value;
+            };
+        };
+    };
+    return dict;
+};
+
 function loadDictFromXML(document, islandid) {
     /* load configuration values from an XML chunk
 
@@ -169,19 +208,7 @@ function loadDictFromXML(document, islandid) {
     if (!root) {
         throw('No element found in the config island!');
     };
-    for (var i=0; i < root.childNodes.length; i++) {
-        var child = root.childNodes[i];
-        if (child.nodeType == 1) {
-            var value = '';
-            for (var j=0; j < child.childNodes.length; j++) {
-                value += child.childNodes[j].nodeValue;
-            };
-            if (!isNaN(parseInt(value)) && parseInt(value).toString().length == value.length) {
-                value = parseInt(value);
-            };
-            dict[child.nodeName.toLowerCase()] = value;
-        };
-    };
+    dict = _load_dict_helper(root);
     return dict;
 };
 

@@ -158,7 +158,9 @@ function initKupu(iframe) {
 
     var imagetool = new ImageTool();
     kupu.registerTool('imagetool', imagetool);
-    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 'kupu-toolbox-images', 'kupu-toolbox', 'kupu-toolbox-active');
+    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 
+                                        'kupu-image-float-select', 'kupu-toolbox-images', 
+                                        'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
     var tabletool = new TableTool();
@@ -166,15 +168,16 @@ function initKupu(iframe) {
     var tabletoolbox = new TableToolBox('kupu-toolbox-addtable', 
         'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
         'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
-        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
-        'kupu-table-delcolumn-button', 'kupu-toolbox-tables',
+        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 
+        'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button', 
+        'kupu-table-fix-button', 'kupu-table-fixall-button', 'kupu-toolbox-tables',
         'kupu-toolbox', 'kupu-toolbox-active'
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
-    
+
     var sourceedittool = new SourceEditTool('kupu-source-button',
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
