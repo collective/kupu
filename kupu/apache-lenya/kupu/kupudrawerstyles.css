@@ -44,3 +44,7 @@ td#kupu-propertiespanel {
   width: 340px;
   height: 260px;
 }
+
+.resource-properties td {
+  margin-bottom: 10px;
+}
