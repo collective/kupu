@@ -24,11 +24,11 @@ function ContextMenu() {
         /* set the event handlers and such */
         this.editor = editor;
         // needs some work since it won't work for more than one editor
-        addEventHandler(editor.getInnerDocument(), "contextmenu", this.createContextMenu, this);
-        addEventHandler(editor.getInnerDocument(), "focus", this.hideContextMenu, this);
+        addEventHandler(this.editor.getInnerDocument(), "contextmenu", this.createContextMenu, this);
+        //addEventHandler(editor.getInnerDocument(), "focus", this.hideContextMenu, this);
         addEventHandler(document, "focus", this.hideContextMenu, this);
-        addEventHandler(editor.getInnerDocument(), "click", this.hideContextMenu, this);
-        addEventHandler(document, "click", this.hideContextMenu, this);
+        addEventHandler(editor.getInnerDocument(), "mousedown", this.hideContextMenu, this);
+        addEventHandler(document, "mousedown", this.hideContextMenu, this);
     };
 
     this.createContextMenu = function(event) {
@@ -70,7 +70,7 @@ function ContextMenu() {
         /* remove the context menu from view */
         if (this.contextmenu) {
             try {
-                this.editor.getInnerDocument().getElementsByTagName('body')[0].removeChild(this.contextmenu);
+                window.document.getElementsByTagName('body')[0].removeChild(this.contextmenu);
             } catch (e) {
                 // after some commands, the contextmenu will be removed by 
                 // the browser, ignore those cases
@@ -81,7 +81,7 @@ function ContextMenu() {
 
     this._createNewContextMenu = function(elements, event) {
         /* add the elements to the contextmenu and show it */
-        var doc = this.editor.getInnerDocument();
+        var doc = window.document;
         var menu = doc.createElement('div');
         menu.contentEditable = false;
         menu.designMode = 'Off';
@@ -106,18 +106,28 @@ function ContextMenu() {
             };
         };
         // now move the menu to the right position
-        if (this.editor.getBrowserName() == 'Mozilla') {
-            var left = event.layerX;
-            var top = event.layerY;
-            var clienttop = event.clientY;
-            if (clienttop > (parseInt(this.editor.getDocument().getWindow().innerHeight) - 
-                        (parseInt(menu.style.lineHeight) * elements.length))) {
-                top -= parseInt(menu.style.lineHeight) * elements.length;
+        var iframe = this.editor.getDocument().getEditable();
+        var left = 0;
+        var top = 0;
+        if (this.editor.getBrowserName() == 'IE') {
+            var orgnode = event.srcElement;
+            left = event.clientX;
+            top = event.clientY;
+            var currnode = iframe;
+            while (currnode) {
+                left += currnode.offsetLeft + currnode.clientLeft;
+                top += currnode.offsetTop + currnode.clientTop;
+                currnode = currnode.offsetParent;
             };
         } else {
-            var left = event.clientX;
-            var top = event.clientY;
+            left = event.pageX + iframe.offsetLeft;
+            top = event.pageY + iframe.offsetTop;
         };
+        //var clienttop = event.clientY;
+        /*if (clienttop > (parseInt(this.editor.getDocument().getWindow().innerHeight) - 
+                    (parseInt(menu.style.lineHeight) * elements.length))) {
+            top -= parseInt(menu.style.lineHeight) * elements.length;
+        };*/
         menu.style.left = left + 'px';
         menu.style.top = top + 'px';
         menu.style.visibility = 'visible';
@@ -144,7 +154,7 @@ function ContextMenu() {
     };
 
     this._showOriginalMenu = function(event) {
-        this.editor.getInnerDocument().dispatchEvent(this._last_event);
+        window.document.dispatchEvent(this._last_event);
     };
 };
 
