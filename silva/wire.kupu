@@ -70,12 +70,16 @@
     <kupu:insert-part feature="toolboxes" part="indexes" />
     <kupu:insert-part feature="toolboxes" part="images" />
     <kupu:insert-part feature="toolboxes" part="abbr" />
+    <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="citation" />
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="toc" />
-    <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="typochars" />
     <kupu:insert-part feature="toolboxes" part="save" />
+  </kupu:fill-slot>
+
+  <kupu:fill-slot name="drawers">
+    <!-- <kupu:insert-part feature="drawers" part="librarydrawer" /> -->
   </kupu:fill-slot>
 
 </kupu:wire>

@@ -86,7 +86,7 @@ function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, too
 SilvaLinkToolBox.prototype = new LinkToolBox;
 
 function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
-                        alignselectid, toolboxid, plainclass, activeclass) {
+                        alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
     /* Silva specific image tool */
     this.editel = document.getElementById(editelid);
     this.urlinput = document.getElementById(urlinputid);
@@ -95,6 +95,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.linklinkradio = document.getElementById(linklinkradioid);
     this.linkinput = document.getElementById(linkinputid);
     this.alignselect = document.getElementById(alignselectid);
+    this.titleinput = document.getElementById(titleinputid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -108,6 +109,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
         addEventHandler(this.linkinput, 'keypress', this.setLink, this);
         addEventHandler(this.linkinput, 'change', this.setLink, this);
         addEventHandler(this.alignselect, 'change', this.setAlign, this);
+        addEventHandler(this.titleinput, 'change', this.setTitle, this);
         this.editor.logMessage('Image tool initialized');
     };
 
@@ -142,10 +144,16 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             if (!align) {
                 align = 'left';
             };
+            var title = image.getAttribute('title');
+            if (!title) {
+                title = '';
+            };
+            this.titleinput.value = title;
             selectSelectItem(this.alignselect, align);
         } else {
             this.editel.style.display = 'none';
             this.urlinput.value = '';
+            this.titleinput.value = '';
             if (this.toolboxel) {
                 this.toolboxel.className = this.plainclass;
             };
@@ -209,6 +217,17 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
         };
         image.setAttribute('link', link);
         image.setAttribute('link_to_hires', '0');
+    };
+
+    this.setTitle = function() {
+        var selNode = this.editor.getSelectedNode();
+        var image = this.editor.getNearestParentOfType(selNode, 'img');
+        if (!image) {
+            this.editor.logMessage('No image selected!', 1);
+            return;
+        };
+        var title = this.titleinput.value;
+        image.setAttribute('title', title);
     };
 
     this.setAlign = function() {
@@ -277,11 +296,7 @@ function SilvaTableTool() {
         };
         this.editor.insertNodeAtSelection(table);
 
-        if (contentcell) {
-            var selection = this.editor.getSelection();
-            selection.selectNodeContents(contentcell);
-            selection.collapse(setcursoratend);
-        };
+        this._setTableCellHandlers(table);
 
         this.editor.logMessage('Table added');
     };
@@ -638,7 +653,7 @@ SilvaTableTool.prototype = new TableTool;
 function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
                         newcolsinputid, makeheaderinputid, classselectid, alignselectid, widthinputid,
                         addtablebuttonid, addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, 
-                        fixbuttonid, toolboxid, plainclass, activeclass) {
+                        fixbuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* Silva specific table functionality
         overrides most of the table functionality, required because Silva requires
         a completely different format for tables
@@ -658,6 +673,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.addcolbutton = document.getElementById(addcolbuttonid);
     this.delcolbutton = document.getElementById(delcolbuttonid);
     this.fixbutton = document.getElementById(fixbuttonid);
+    this.delbutton = document.getElementById(delbuttonid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -672,6 +688,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.addcolbutton, "click", this.tool.addTableColumn, this.tool);
         addEventHandler(this.delcolbutton, "click", this.tool.delTableColumn, this.tool);
         addEventHandler(this.fixbutton, "click", this.fixTable, this);
+        addEventHandler(this.delbutton, "click", this.tool.delTable, this);
         addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
         addEventHandler(this.widthinput, "change", this.setColumnWidths, this);
@@ -689,7 +706,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             var td = this.editor.getNearestParentOfType(selNode, 'td');
             if (!td) {
                 td = this.editor.getNearestParentOfType(selNode, 'th');
-                this.inputwidth.value = '';
+                this.widthinput.value = '';
             } else {
                 this.widthinput.value = this.tool.getColumnWidths(table);
             };
@@ -911,7 +928,12 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
         addEventHandler(this.addbutton, 'click', this.addIndex, this);
         addEventHandler(this.updatebutton, 'click', this.updateIndex, this);
         addEventHandler(this.deletebutton, 'click', this.deleteIndex, this);
-        addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnIndex, this);
+        if (this.editor.getBrowserName() == 'IE') {
+            // need to catch some additional events for IE
+            addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnIndex, this);
+            addEventHandler(editor.getInnerDocument(), 'keydown', this.handleKeyPressOnIndex, this);
+        };
+        addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnIndex, this);
         this.updatebutton.style.display = 'none';
         this.deletebutton.style.display = 'none';
     };
@@ -936,7 +958,9 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
                 var name = '';
                 var currnode = null;
                 while (currnode = iterator.next()) {
-                    name += currnode.nodeValue;
+                    if (currnode.nodeValue) {
+                        name += currnode.nodeValue;
+                    };
                 };
                 if (name) {
                     this.input.value = name;
@@ -999,12 +1023,35 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
         var keyCode = event.keyCode;
         if (keyCode == 8 || keyCode == 46) {
             a.parentNode.removeChild(a);
+        } else if (keyCode == 9 || keyCode == 39) {
+            var next = a.nextSibling;
+            if (!next) {
+                var doc = this.editor.getInnerDocument();
+                next = doc.createTextNode('\xa0');
+                a.parentNode.appendChild(next);
+            };
+            var selection = this.editor.getSelection();
+            // XXX I fear I'm working around bugs here... because of a bug in 
+            // selection.moveStart() I can't use the same codepath in IE as in Moz
+            if (this.editor.getBrowserName() == 'IE') {
+                selection.selectNodeContents(a);
+                // XXX are we depending on a bug here? shouldn't we move the 
+                // selection one place to get out of the anchor? it works,
+                // but seems wrong...
+                selection.collapse(true);
+            } else {
+                selection.selectNodeContents(next);
+                selection.collapse();
+                var selection = this.editor.getSelection();
+            };
+            this.editor.updateState();
         };
         if (event.preventDefault) {
             event.preventDefault();
         } else {
             event.returnValue = false;
         };
+        return false;
     };
 
     this.updateState = function(selNode) {
@@ -1054,7 +1101,11 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
         addEventHandler(this.addbutton, 'click', this.addOrUpdateToc, this);
         addEventHandler(this.depthselect, 'change', this.updateToc, this);
         addEventHandler(this.delbutton, 'click', this.deleteToc, this);
-        addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnToc, this);
+        addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnToc, this);
+        if (this.editor.getBrowserName() == 'IE') {
+            addEventHandler(editor.getInnerDocument(), 'keydown', this.handleKeyPressOnToc, this);
+            addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnToc, this);
+        };
     };
 
     this.handleKeyPressOnToc = function(event) {
@@ -1067,7 +1118,7 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
             var toc = this.getNearestToc(selNode);
             toc.parentNode.removeChild(toc);
         };
-        if (keyCode == 13) {
+        if (keyCode == 13 || keyCode == 9 || keyCode == 39) {
             var selNode = this.editor.getSelectedNode();
             var toc = this.getNearestToc(selNode);
             var doc = this.editor.getInnerDocument();
@@ -1084,6 +1135,7 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
                 p.appendChild(text);
                 selection.selectNodeContents(p);
             };
+            this._inside_toc = false;
         };
         if (event.preventDefault) {
             event.preventDefault();
@@ -1332,7 +1384,7 @@ function SilvaAbbrTool(abbrradioid, acronymradioid, radiocontainerid, titleinput
     };
 };
 
-SilvaCitationTool.prototype = new KupuTool;
+SilvaAbbrTool.prototype = new KupuTool;
 
 function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebuttonid, delbuttonid, 
                             toolboxid, plainclass, activeclass) {
@@ -1352,15 +1404,19 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
         addEventHandler(this.addbutton, 'click', this.addCitation, this);
         addEventHandler(this.updatebutton, 'click', this.updateCitation, this);
         addEventHandler(this.delbutton, 'click', this.deleteCitation, this);
-        addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnCitation, this);
-        addEventHandler(editor.getInnerDocument(), 'keyup', this.cancelEnterPress, this);
+        if (editor.getBrowserName() == 'IE') {
+            addEventHandler(editor.getInnerDocument(), 'keyup', this.cancelEnterPress, this);
+            addEventHandler(editor.getInnerDocument(), 'keydown', this.handleKeyPressOnCitation, this);
+        } else {
+            addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnCitation, this);
+        };
         
         this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
     };
 
     this.cancelEnterPress = function(event) {
-        if (!this._inside_citation || event.keyCode != 13) {
+        if (!this._inside_citation || (event.keyCode != 13 && event.keyCode != 9)) {
             return;
         };
         if (event.preventDefault) {
@@ -1371,19 +1427,35 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
     };
 
     this.handleKeyPressOnCitation = function(event) {
-        var keyCode = event.keyCode;
-        if (!this._inside_citation || keyCode != 13 || this.editor.getBrowserName() != 'IE') {
+        if (!this._inside_citation) {
             return;
         };
-        var citation = this.getNearestCitation();
+        var keyCode = event.keyCode;
+        var citation = this.getNearestCitation(this.editor.getSelectedNode());
         var doc = this.editor.getInnerDocument();
-        var br = doc.createElement('br');
         var selection = this.editor.getSelection();
-        var currnode = selection.getSelectedNode();
-        selection.replaceWithNode(br);
-        selection.selectNodeContents(br);
-        selection.collapse(true);
-        event.returnValue = false;
+        if (keyCode == 13 && this.editor.getBrowserName() == 'IE') {
+            var br = doc.createElement('br');
+            var currnode = selection.getSelectedNode();
+            selection.replaceWithNode(br);
+            selection.selectNodeContents(br);
+            selection.collapse(true);
+            event.returnValue = false;
+        } else if (keyCode == 9) {
+            var next = citation.nextSibling;
+            if (!next) {
+                next = doc.createElement('p');
+                next.appendChild(doc.createTextNode('\xa0'));
+                citation.parentNode.appendChild(next);
+            };
+            selection.selectNodeContents(next);
+            selection.collapse();
+            if (event.preventDefault) {
+                event.preventDefault();
+            };
+            event.returnValue = false;
+            this._inside_citation = false;
+        };
     };
 
     this.updateState = function(selNode, event) {
@@ -1522,6 +1594,10 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         addEventHandler(this.updatebutton, 'click', this.startExternalSourceAddEdit, this);
         addEventHandler(this.delbutton, 'click', this.delExternalSource, this);
         addEventHandler(editor.getInnerDocument(), 'keypress', this.handleKeyPressOnExternalSource, this);
+        if (this.editor.getBrowserName() == 'IE') {
+            addEventHandler(editor.getInnerDocument(), 'keydown', this.handleKeyPressOnExternalSource, this);
+            addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnExternalSource, this);
+        };
         
         this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
@@ -1554,15 +1630,16 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         if (!this._insideExternalSource) {
             return;
         };
-        if (event.keyCode == 13) {
-            var selNode = this.editor.getSelectedNode();
-            var div = this.getNearestExternalSource(selNode);
+        var keyCode = event.keyCode;
+        var selNode = this.editor.getSelectedNode();
+        var div = this.getNearestExternalSource(selNode);
+        var doc = this.editor.getInnerDocument();
+        if (keyCode == 13 || keyCode == 9 || keyCode == 39) {
             if (div.nextSibling) {
                 var selection = this.editor.getSelection();
                 selection.selectNodeContents(div.nextSibling);
                 selection.collapse();
             } else {
-                var doc = this.editor.getInnerDocument();
                 var p = doc.createElement('p');
                 var nbsp = doc.createTextNode('\xa0');
                 p.appendChild(nbsp);
@@ -1571,6 +1648,18 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                 selection.selectNodeContents(p);
                 selection.collapse();
             };
+            this._insideExternalSource = false;
+        } else if (keyCode == 8) {
+            var selectnode = div.nextSibling;
+            if (!selectnode) {
+                selectnode = doc.createElement('p');
+                selectnode.appendChild(doc.createTextNode('\xa0'));
+                doc.appendChild(selectnode);
+            };
+            var selection = this.editor.getSelection();
+            selection.selectNodeContents(selectnode);
+            div.parentNode.removeChild(div);
+            selection.collapse();
         };
         if (event.preventDefault) {
             event.preventDefault();

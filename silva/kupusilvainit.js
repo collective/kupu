@@ -10,6 +10,43 @@
 
 // $Id$
 
+KupuEditor.prototype.afterInit = function() {
+    // select the line after the first heading, if the document is correctly
+    // formatted
+    this.getDocument().getWindow().focus();
+    var doc = this.getInnerDocument();
+    var body = doc.getElementsByTagName('body')[0];
+    var h = null;
+    var iterator = new NodeIterator(body);
+    while (h = iterator.next()) {
+        if (h.nodeType == 1 && h.nodeName.toLowerCase() == 'h2') {
+            var selection = this.getSelection();
+            // okay, the first element node is a h2, select
+            // next node, if it doesn't exist create and select
+            var next = h.nextSibling;
+            var nodeName = next.nodeName.toLowerCase();
+            if (nodeName == 'table') {
+                next = next.getElementsByTagName('td')[0];
+            } else if (nodeName == 'ul' || nodeName == 'ol') {
+                next = next.getElementsByTagName('li')[0];
+            };
+            if (!next) {
+                next = doc.createElement('p');
+                next.appendChild(doc.createTextNode('\xa0'));
+                body.appendChild(next);
+            };
+            selection.selectNodeContents(next);
+            selection.collapse();
+            break;
+        } else if (h.nodeType == 1) {
+            break;
+        };
+    };
+    // if we don't first focus the outer window, Mozilla won't show a cursor
+    window.focus();
+    this.getDocument().getWindow().focus();
+};
+
 function initSilvaKupu(iframe) {
     // first we create a logger
     var l = new DummyLogger();
@@ -125,8 +162,7 @@ function initSilvaKupu(iframe) {
     var citationtool = new SilvaCitationTool(
         'kupu-citation-authorinput', 'kupu-citation-sourceinput',
 	'kupu-citation-addbutton', 'kupu-citation-updatebutton',
-	'kupu-citation-deletebutton', 'kupu-toolbox-citation',
-        'kupu-toolbox', 'kupu-toolbox-active');
+	'kupu-citation-deletebutton');
     kupu.registerTool('citationtool', citationtool);
   
     var abbrtool = new SilvaAbbrTool('kupu-abbr-type-abbr', 'kupu-abbr-type-acronym', 
@@ -140,7 +176,8 @@ function initSilvaKupu(iframe) {
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
 	'kupu-toolbox-image-target', 'kupu-toolbox-image-link-radio-hires',
 	'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
-	'kupu-toolbox-image-align', 'kupu-toolbox-images', 'kupu-toolbox',
+	'kupu-toolbox-image-align', 'kupu-toolbox-image-alt', 
+        'kupu-toolbox-images', 'kupu-toolbox',
 	'kupu-toolbox-active');
     kupu.registerTool('imagetool', imagetool);
 
@@ -153,7 +190,8 @@ function initSilvaKupu(iframe) {
 	'kupu-table-addtable-button', 'kupu-table-addrow-button',
 	'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
         'kupu-table-delcolumn-button', 'kupu-table-fix-button',
-	'kupu-toolbox-tables', 'kupu-toolbox', 'kupu-toolbox-active'
+        'kupu-table-delete-button', 'kupu-toolbox-tables', 
+        'kupu-toolbox', 'kupu-toolbox-active'
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
@@ -166,6 +204,40 @@ function initSilvaKupu(iframe) {
 
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
+    
+    // Function that returns function to open a drawer
+    var opendrawer = function(drawerid) {
+        return function(button, editor) {
+            drawertool.openDrawer(drawerid);
+        };
+    };
+
+    /*
+    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button',
+                                              opendrawer('imagelibdrawer'));
+    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
+
+    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
+                                             opendrawer('linklibdrawer'));
+    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
+    */
+
+    // create some drawers, drawers are some sort of popups that appear when a 
+    // toolbar button is clicked
+    var drawertool = new DrawerTool();
+    kupu.registerTool('drawertool', drawertool);
+
+    /*
+    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
+                                              conf['link_libraries_uri'],
+                                              conf['link_images_uri']);
+    drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
+                                                conf['image_libraries_uri'],
+                                                conf['search_images_uri']);
+    drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+    */
     
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);

@@ -672,6 +672,7 @@ function ImageTool() {
         img.setAttribute('src', url);
         img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage('Image inserted');
+        this.editor.updateState();
         return img;
     };
     
@@ -790,7 +791,42 @@ function TableTool() {
         table.appendChild(tbody);
         this.editor.insertNodeAtSelection(table);
 
+        this._setTableCellHandlers(table);
+
         this.editor.logMessage('Table added');
+        return table;
+    };
+
+    this._setTableCellHandlers = function(table) {
+        // make each cell select its full contents if it's clicked
+        var cells = table.getElementsByTagName('td');
+        for (var i=0; i < cells.length; i++) {
+            addEventHandler(cells[i], 'click', this._selectContentIfEmpty, this);
+        };
+        // select the nbsp in the first cell
+        var firstcell = cells[0];
+        if (firstcell) {
+            var children = firstcell.childNodes;
+            if (children.length == 1 && children[0].nodeType == 3 && 
+                    children[0].nodeValue == '\xa0') {
+                var selection = this.editor.getSelection();
+                selection.selectNodeContents(firstcell);
+            };
+        };
+    };
+    
+    this._selectContentIfEmpty = function() {
+        var selNode = this.editor.getSelectedNode();
+        var cell = this.editor.getNearestParentOfType(selNode, 'td');
+        if (!cell) {
+            return;
+        };
+        var children = cell.childNodes;
+        if (children.length == 1 && children[0].nodeType == 3 && 
+                children[0].nodeValue == '\xa0') {
+            var selection = this.editor.getSelection();
+            selection.selectNodeContents(cell);
+        };
     };
 
     this.addTableRow = function() {
