@@ -228,7 +228,7 @@ function NodeIterator(node, continueatnextsibling) {
     
     this.next = function() {
         /* return the next node */
-        if (this.current == false) {
+        if (this.current === false) {
             // restart
             this.current = this.node;
         };
