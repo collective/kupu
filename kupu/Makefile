@@ -15,6 +15,8 @@ XSL_DEBUG = --param debug true\(\)
 XSLTPROC_PARAMS = --nonet --novalid --xinclude
 XSL_FILE = make.xsl
 
+all: clean kupu.html kupuform.html zope2macros plonemacros silvamacros
+
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
 
@@ -29,9 +31,6 @@ plonemacros:
 
 silvamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o silva/kupumacros.html $(XSL_FILE) dist-silva.kupu
-
-all:
-	kupu.html
 
 clean:
 	rm -f common/kupu.html
