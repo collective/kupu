@@ -318,21 +318,19 @@ function KupuEditor(document, config, logger) {
     
     this.getSelection = function() {
         /* returns a Selection object wrapping the current selection */
-        this._restoreSelection();
+        if (this.getBrowserName() == "IE") {
+            this._restoreSelection();
+        };
         return this.getDocument().getSelection();
     };
     
     this.getSelectedNode = function() {
         /* returns the selected node (read: parent) or none */
-        this._restoreSelection();
-        var sel = this.getSelection();
-        return sel.getSelectedNode();
+        return this.getSelection().getSelectedNode();
     };
 
     this.getNearestParentOfType = function(node, type) {
         /* well the title says it all ;) */
-        // just to be sure...
-        this._restoreSelection();
         var type = type.toLowerCase();
         while (node) {
             if (node.nodeName.toLowerCase() == type) {
@@ -340,7 +338,6 @@ function KupuEditor(document, config, logger) {
             }   
             var node = node.parentNode;
         }
-    
         return false;
     };
 
@@ -377,12 +374,9 @@ function KupuEditor(document, config, logger) {
 
         this.content_changed = true;
 
-        var win = this.getDocument().getWindow();
         var browser = this.getBrowserName();
-        if (browser == "IE") {
-            this._restoreSelection();
-        } else {
-            win.focus();
+        if (browser != "IE") {
+            this.getDocument().getWindow().focus();
         };
         
         var ret = this.getSelection().replaceWithNode(insertNode, selectNode);
@@ -477,9 +471,6 @@ function KupuEditor(document, config, logger) {
         this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true}, this);
-        if (this.getBrowserName() == "IE") {
-            this._addEventHandler(this.getInnerDocument(), "focus", this._clearSelection, this);
-        };
     };
 
     this._setDesignModeWhenReady = function() {
@@ -517,15 +508,18 @@ function KupuEditor(document, config, logger) {
     };
 
     this._saveSelection = function() {
-        /* Save the selection, works around a problem with IE 
-        where the selection in the iframe gets lost */
-        this._clearSelection();
-        var currange = this.getInnerDocument().selection.createRange();
-        this._previous_range = currange;
+        /* Save the selection, works around a problem with IE where the 
+         selection in the iframe gets lost. We only save if the current 
+         selection in the document */
+        if (this._isDocumentSelected()) {
+            var currange = this.getInnerDocument().selection.createRange();
+            this._previous_range = currange;
+        };
     };
 
     this._restoreSelection = function() {
-        /* re-selects the previous selection in IE */
+        /* re-selects the previous selection in IE. We only restore if the
+         current selection is not in the document.*/
         if (this._previous_range && !this._isDocumentSelected()) {
             try {
                 this._previous_range.select();
