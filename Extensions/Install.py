@@ -75,7 +75,7 @@ def install_libraries(self, out):
     # add the library tool
     addTool = self.manage_addProduct['kupu'].manage_addTool
     try:
-        addTool('kupu Library Tool')
+        addTool('Kupu Library Tool')
         print >>out, "Added the Kupu Library Tool to the plone Site"
     except:
         #heuristics for testing if an instance with the same name already exists
