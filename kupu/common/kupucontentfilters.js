@@ -437,6 +437,9 @@ function XhtmlValidation(editor) {
         }
     }(this.elements, this);
 
+    // Permitted elements for style.
+    this.StyleWhitelist = new this.Set(['text-align', 'list-style-type']);
+
     // Set up filters for attributes.
     this.AttrFilters = new function(validation, editor) {
         function defaultCopyAttribute(name, htmlnode, xhtmlnode) {
@@ -464,7 +467,24 @@ function XhtmlValidation(editor) {
             var val = htmlnode.getAttribute(name);
             if (val && val != '1') xhtmlnode.setAttribute(name, val);
         }
-        delete this['style'];
+        this.style = function(name, htmlnode, xhtmlnode) {
+            var val = htmlnode.style.cssText;
+            if (val) {
+                var styles = val.split(/; */);
+                for (var i = styles.length; i >= 0; i--) if (styles[i]) {
+                    var parts = /^([^:]+): *(.*)$/.exec(styles[i]);
+                    var name = parts[1].toLowerCase();
+                    if (validation.StyleWhitelist[name]) {
+                        styles[i] = name+': '+parts[2];
+                    } else {
+                        styles.splice(i,1); // delete
+                    }
+                }
+                if (styles[styles.length-1]) styles.push('');
+                val = styles.join('; ').strip();
+            }
+            if (val) xhtmlnode.setAttribute('style', val);
+        }
     }(this, editor);
 
     // Exclude unwanted tags.

@@ -18,6 +18,30 @@ function KupuXhtmlTestCase() {
     this.incontext = function(s) {
         return '<html><head><title>test</title></head><body>'+s+'</body></html>';
     }
+    this.verifyResult = function(newdoc, exp) {
+        var expected = this.incontext(exp);
+        var actual = newdoc.xml;
+
+        if (actual == expected)
+            return;
+
+        var context = /<html><head><title>test<\/title><\/head><body>(.*)<\/body><\/html>/;
+        if (context.test(actual) && context.test(expected)) {
+            var a = context.exec(actual)[1];
+            var e = context.exec(expected)[1];
+            throw('Assertion failed: ' + a + ' != ' + e);
+        }
+        throw('Assertion failed: ' + var1 + ' != ' + var2);
+    }
+
+    this.conversionTest = function(data, expected) {
+        var doc = this.doc.documentElement;
+        var editor = this.editor;
+        this.body.innerHTML = data;
+        var xhtmldoc = Sarissa.getDomDocument();
+        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
+        this.verifyResult(newdoc, expected);
+    }
 
     this.setUp = function() {
         this.editor = new KupuEditor(null, {}, null);
@@ -94,56 +118,42 @@ function KupuXhtmlTestCase() {
     };
 
     this.testConvertToSarissa = function() {
-        var doc = this.doc.documentElement;
-        var editor = this.editor;
-        this.body.innerHTML = '<p class="blue">This is a test</p>';
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml,
-            this.incontext('<p class="blue">This is a test</p>'));
+        var data = '<p class="blue">This is a test</p>';
+        this.conversionTest(data, data);
     }
     this.testXmlAttrs = function() {
-        var doc = this.doc.documentElement;
-        var editor = this.editor;
-        this.body.innerHTML = '<pre xml:space="preserve" xml:lang="fr">This is a test</pre>';
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml,
-            this.incontext('<pre xml:lang="fr" xml:space="preserve">This is a test</pre>'));
-        
+        var data = '<pre xml:space="preserve" xml:lang="fr">This is a test</pre>';
+        var expected1 = '<pre xml:lang="fr" xml:space="preserve">This is a test</pre>';
+        this.conversionTest(data, expected1);
+        var expected2 = '<pre>This is a test</pre>';
         this.editor.xhtmlvalid._excludeAttributes(['xml:lang','xml:space']);
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml,
-            this.incontext('<pre>This is a test</pre>'));
+        this.conversionTest(data, expected2);
     }
     this.testConvertToSarissa2 = function() {
-        var doc = this.doc.documentElement;
-        var editor = this.editor;
-        this.body.innerHTML = '<div id="div1">This is a test</div>';
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml,
-                          this.incontext('<div id="div1">This is a test</div>'));
+        var data = '<div id="div1">This is a test</div>';
+        this.conversionTest(data, data);
     }
     this.testbadTags = function() {
-        var doc = this.doc.documentElement;
-        var editor = this.editor;
-        this.body.innerHTML = '<div><center>centered</center><p>Test</p><o:p>zzz</o:p></div>';
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml,
-                          this.incontext('<div>centered<p>Test</p>zzz</div>'));
+        var data =  '<div><center>centered</center><p>Test</p><o:p>zzz</o:p></div>';
+        var expected = '<div>centered<p>Test</p>zzz</div>';
+        this.conversionTest(data, expected);
     }
     this.skip_testnbsp = function() {
         var data = '<p>Text with&nbsp;<b>non-break</b> space</p>';
-        var expected = data
+        this.conversionTest(data, data);
+    };
+    this.teststyle = function() {
+        var data = '<p style="text-align:right; mso-silly: green">Text aligned right</p>';
+        var expected = '<p style="text-align: left;">Text aligned right</p>';
         var doc = this.doc.documentElement;
         var editor = this.editor;
         this.body.innerHTML = data;
+        this.body.firstChild.style.textAlign = 'left';
+        this.body.firstChild.style.display = 'block';
+        //alert(this.body.firstChild.style.cssText);
         var xhtmldoc = Sarissa.getDomDocument();
         var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml, this.incontext(expected));
+        this.verifyResult(newdoc, expected);
     };
     this.testTable = function() {
         // N.B. This table contains text and a <P> tag where they
@@ -178,14 +188,8 @@ function KupuXhtmlTestCase() {
             '<td>yet more text</td>'+
             '<td class="align-center">aaaaa</td>'+
             '<td class="align-right">rrr</td></tr></tbody></table>';
-        
-        var doc = this.doc.documentElement;
-        var editor = this.editor;
-        this.body.innerHTML = data;
-        var xhtmldoc = Sarissa.getDomDocument();
-        var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
-        this.assertEquals(newdoc.xml, this.incontext(expected));
 
+        this.conversionTest(data, expected);
     }
 }
 
