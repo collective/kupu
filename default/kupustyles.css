@@ -78,6 +78,7 @@ div.kupu-smalleditor {
 .kupu-save {background-image: url("kupuimages/save.gif");}
 .kupu-save-and-exit {background-image: url("kupuimages/exit.gif");}
 .kupu-space {background-image: url("kupuimages/space.gif");}
+.kupu-source {background-image: url("kupuimages/source.gif");}
 .kupu-subscript {background-image: url("kupuimages/subscript.gif");}
 .kupu-subscript-pressed {background-image: url("kupuimages/subscript.gif"); background-color: white}
 .kupu-superscript {background-image: url("kupuimages/superscript.gif");}
