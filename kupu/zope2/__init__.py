@@ -33,7 +33,7 @@ def initialize(context):
         constructors=(('manage_addKupuEditorForm', manage_addKupuEditorForm),
                       manage_addKupuEditor
                       ),
-        icon='default/kupuimages/kupu_icon.gif'
+        icon='common/kupuimages/kupu_icon.gif'
     )
 
 #_dirreg = DirectoryRegistry()
