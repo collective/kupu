@@ -48,6 +48,7 @@ function KupuPloneTestCase() {
         var actual = this.editor.makeLinksRelative(data, base);
         this.verifyResult(actual, expected);
     }
+
     this.testRelativeLinks2 = function() {
         var data =  '<a href="http://localhost/cms/folder/otherdoc#key">[1]</a>';
         var expected = '<a href="otherdoc#key">[1]</a>';
@@ -56,10 +57,29 @@ function KupuPloneTestCase() {
         var actual = this.editor.makeLinksRelative(data, base);
         this.verifyResult(actual, expected);
     }
+
     this.testRelativeLinks3 = function() {
         var data =  '<a href="http://localhost/cms/otherfolder/otherdoc">[1]</a>';
         var expected = '<a href="../otherfolder/otherdoc">[1]</a>';
         var base = 'http://localhost/cms/folder/';
+
+        var actual = this.editor.makeLinksRelative(data, base);
+        this.verifyResult(actual, expected);
+    }
+
+    this.testRelativeLinks4 = function() {
+        var data =  '<a href="http://localhost:9080/plone/Members/admin/art1">[1]</a>';
+        var expected = '<a href="art1">[1]</a>';
+        var base = 'http://localhost:9080/plone/Members/admin/art1';
+
+        var actual = this.editor.makeLinksRelative(data, base);
+        this.verifyResult(actual, expected);
+    }
+
+    this.testRelativeLinks5 = function() {
+        var data =  '<a href="http://localhost:9080/plone/Members/admin/art1/subitem">[1]</a>';
+        var expected = '<a href="art1/subitem">[1]</a>';
+        var base = 'http://localhost:9080/plone/Members/admin/art1';
 
         var actual = this.editor.makeLinksRelative(data, base);
         this.verifyResult(actual, expected);

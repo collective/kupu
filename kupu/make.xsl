@@ -153,6 +153,16 @@ $Id$
 
   </xsl:template>
 
+  <xsl:template match="//kupu:insert-ids" mode="expand">
+     <xsl:apply-templates select="//kupu:id" mode="expand" />
+  </xsl:template>
+  <xsl:template match="//kupu:id" mode="expand">
+    <xsl:comment><xsl:value-of select="." /></xsl:comment>
+    <xsl:text>
+    </xsl:text>
+
+  </xsl:template>
+
   <!-- Handle part insertion; we delegate the work to the named
        template below -->
   <xsl:template match="//kupu:insert-part" mode="expand">

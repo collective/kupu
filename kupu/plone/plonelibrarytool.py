@@ -26,7 +26,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import UniqueObject
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
-from Products.kupu.plone import permissions
+from Products.kupu.plone import permissions, scanner
 from Products.kupu import kupu_globals
 
 _default_libraries = (
@@ -66,7 +66,7 @@ _excluded_html = [
 ]
 
 # Default should list all styles used by Kupu
-_style_whitelist = ['text-align', 'list-style-type']
+_style_whitelist = ['text-align', 'list-style-type', 'float']
 
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
@@ -106,7 +106,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         except AttributeError:
             return 1
 
-    security.declareProtected('View', "getTableClasses")
+    security.declareProtected('View', "getTableClassnames")
     def getTableClassnames(self):
         """Return a list of classnames supported in tables"""
         try:
@@ -151,10 +151,20 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
          dict(label='Config', action='kupu_config'),
          dict(label='Libraries', action='zmi_libraries'),
          dict(label='Resource types', action='zmi_resource_types'),
-         dict(label='Resource types', action='zmi_resource_types'),
          dict(label='Documentation', action='zmi_docs'),
+         dict(label='Status', action='sanity_check'),
          ))
 
+
+    security.declarePublic('scanIds')
+    def scanIds(self):
+        """Finds the relevant source files and the doller/Id/dollar strings they contain"""
+        return scanner.scanIds()
+
+    security.declarePublic('scanKWS')
+    def scanKWS(self):
+        """Check that kupu_wysiwyg_support is up to date"""
+        return scanner.scanKWS()
 
     security.declarePublic('docs')
     def docs(self):
@@ -167,6 +177,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     security.declareProtected(permissions.ManageLibraries, "zmi_docs")
     zmi_docs = PageTemplateFile("zmi_docs.pt", globals())
     zmi_docs.title = 'kupu configuration'
+
+    security.declareProtected(permissions.ManageLibraries, "sanity_check")
+    sanity_check = PageTemplateFile("sanity_check.pt", globals())
+    sanity_check.title = 'kupu status'
 
     security.declareProtected(permissions.ManageLibraries, "kupu_config")
     kupu_config = PageTemplateFile("kupu_config.pt", globals())

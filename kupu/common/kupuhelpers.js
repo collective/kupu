@@ -387,7 +387,14 @@ function MozillaSelection(document) {
         /* return the selected node (or the node containing the selection) */
         var selection = this.selection;
         var selectedNode = selection.anchorNode;
-
+        if (!selectedNode) {
+            selectedNode = this.document.body;
+            while (selectedNode.firstChild)
+                selectedNode = selectedNode.firstChild;
+        }
+        while (selectedNode.firstChild && !selectedNode.childNodes.length > 1) {
+            selectedNode = selectedNode.firstChild;
+        }
         var n = selectedNode;
         // Get next sibling at any level
         while (n.parentNode) {
@@ -1084,16 +1091,26 @@ function IESelection(document) {
 
     this.containsNode = function(node) {
         var selected = this.selection.createRange();
+        
+        if (this.selection.type.toLowerCase()=='text') {
+            var range = doc.body.createTextRange();
+            range.moveToElementText(node);
 
-        var range = doc.body.createTextRange();
-        range.moveToElementText(node);
-
-        if (selected.compareEndPoints('StartToEnd', range) >= 0 ||
-            selected.compareEndPoints('EndToStart', range) <= 0) {
+            if (selected.compareEndPoints('StartToEnd', range) >= 0 ||
+                selected.compareEndPoints('EndToStart', range) <= 0) {
+                return false;
+            }
+            return true;
+        } else {
+            for (var i = 0; i < selected.length; i++) {
+                if (selected.item(i).contains(node)) {
+                    return true;
+                }
+            }
             return false;
         }
-        return true;
-    }
+    };
+    
     this.toString = function() {
         return this.selection.createRange().text;
     };

@@ -3,6 +3,7 @@
     implementation="default"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
+  <kupu:id>$Id$</kupu:id>
 
   <!--
     This file defines the wiring of this implementation. Wiring means

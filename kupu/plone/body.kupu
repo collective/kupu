@@ -5,7 +5,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
-
+  <kupu:id>$Id$</kupu:id>
   <kupu:part name="editorframe">
     <iframe
         id="kupu-editor"

@@ -6,6 +6,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
+  <kupu:id>$Id$</kupu:id>
 
   <!-- Default configuration -->
   <kupu:part name="defaultconfig">

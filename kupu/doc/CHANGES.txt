@@ -4,8 +4,11 @@ Kupu changes
 
 - Since 1.2rc1
 
-  Creating links was broken by the fixes to #146, rewrote link
-  creation to be more robust and predictable.
+  - Creating links was broken by the fixes to #146, rewrote link
+    creation to be more robust and predictable.
+
+  - Changed 'halign' as the attribute to set the alignment of tables
+    and tablecells to 'align'.
 
   Apache Lenya enhancements:
   

@@ -26,7 +26,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     // Instead we can find the base from the DOM and do replace on the
     // text until all our links are relative.
 
-    var href = base;
+    var href = base.replace(/\/[^\/]*$/, '/');
     var hrefparts = href.split('/');
     return contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {

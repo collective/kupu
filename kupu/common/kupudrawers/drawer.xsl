@@ -120,7 +120,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                 </xsl:choose>
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
-            <xsl:apply-templates select="title"/>
+            <xsl:apply-templates select="(label|title)[1]"/>
         </div>
     </xsl:template>
     <xsl:template match="uploadbutton" mode="currentpanel">
@@ -137,7 +137,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
             </xsl:attribute>
         </img>
     </xsl:template>
-    <xsl:template match="title">
+    <xsl:template match="label|title">
         <span class="drawer-item-title">
             <xsl:if test="../@selected">
                 <xsl:attribute name="style">background-color: #C0C0C0</xsl:attribute>
@@ -270,7 +270,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
         </form>
 
         <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
-                src="" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
+                src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
     </xsl:template>
     
