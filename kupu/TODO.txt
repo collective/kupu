@@ -22,13 +22,13 @@ completed.
 - Get rid of saveonpart code in startkupu and put it in the saveonpart
   feature
 
-- Since the common layer does not exist anymore, mergine plone-drawers
-  branch will be a little tricky:
+- Command for the plone-drawers merge:
 
-  o subversion might recreate the common layer because plone-drawers
-  contains a lot of changes to it.
+    svn merge \
+      http://codespeak.net/svn/epoz/branch/duncan-plone-branch@3123 \
+      http://codespeak.net/svn/kupu/branch/plone-drawers@HEAD \
+      trunk/kupu
 
-  o Extensions/Install.py should register the 'default' implementation
-  as a layer, not 'common' (since it does not exist). Maybe we should
-  come up with a new place for resoures like JS, CSS, XSLT files. Or
-  maybe not :).
+  Resulting conflicts (there will be a lot) will have to be resolved
+  carefully. There will be conflicts even of unchanged files such as
+  the button images. These need to be reverted
