@@ -655,8 +655,11 @@ function ImageTool() {
         imageWindow.focus();
     };
     
-    this.createImage = function(url) {
+    this.createImage = function(url, floatstyle) {
         var img = this.editor.getInnerDocument().createElement('img');
+        if (floatstyle) {
+            img.style.cssFloat = floatstyle;
+        };
         img.setAttribute('src', url);
         img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage('Image inserted');
@@ -670,11 +673,12 @@ function ImageTool() {
 
 ImageTool.prototype = new KupuTool;
 
-function ImageToolBox(inputfieldid, insertbuttonid, toolboxid, plainclass, activeclass) {
+function ImageToolBox(inputfieldid, insertbuttonid, floatselectid, toolboxid, plainclass, activeclass) {
     /* toolbox for adding images */
 
     this.inputfield = document.getElementById(inputfieldid);
     this.insertbutton = document.getElementById(insertbuttonid);
+    this.floatselect = document.getElementById(floatselectid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -692,6 +696,9 @@ function ImageToolBox(inputfieldid, insertbuttonid, toolboxid, plainclass, activ
             // check first before setting a class for backward compatibility
             if (this.toolboxel) {
                 this.toolboxel.className = this.activeclass;
+                this.inputfield.value = imageel.getAttribute('src');
+                var floatstyle = imageel.style.cssFloat ? imageel.style.cssFloat : 'left';
+                selectSelectItem(this.floatselect, floatstyle);
             };
         } else {
             if (this.toolboxel) {
@@ -703,7 +710,8 @@ function ImageToolBox(inputfieldid, insertbuttonid, toolboxid, plainclass, activ
     this.addImage = function() {
         /* add an image */
         var url = this.inputfield.value;
-        this.tool.createImage(url);
+        var floatstyle = this.floatselect.options[this.floatselect.selectedIndex].value;
+        this.tool.createImage(url, floatstyle);
     };
 };
 

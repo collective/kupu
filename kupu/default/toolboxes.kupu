@@ -49,7 +49,7 @@
 
         <input id="kupu-link-input"
                class="kupu-toolbox-st" 
-               type="text" size="14"
+               type="text" style="width: 98%"
                />
         <div style="text-align: center">
           <button type="button" id="kupu-link-button"
@@ -73,7 +73,19 @@
             <input id="kupu-image-input"
                    value="kupuimages/kupu_icon.gif"
                    class="kupu-toolbox-st" 
-                   type="text" size="14" />
+                   type="text" style="width: 98%" />
+            <div class="kupu-toolbox-label">
+              <span i18n:translate="">
+                Image float
+              </span>:
+            </div>
+
+            <select id="kupu-image-float-select"
+                    class="kupu-toolbox-st">
+              <option value="none">No float</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+            </select>
             <div style="text-align: center">
               <button type="button" id="kupu-image-addbutton"
                       class="kupu-toolbox-action">Insert Image</button>
