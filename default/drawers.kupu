@@ -41,7 +41,7 @@
 
   <kupu:part name="linkdrawer">
     <div id="kupu-linkdrawer" class="kupu-drawer">
-      <h1 i18n:translate="links">Links</h1>
+      <h1 i18n:translate="">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink">
         <div class="kupu-toolbox-label">
@@ -69,7 +69,7 @@
 
   <kupu:part name="tabledrawer">
     <div id="kupu-tabledrawer" class="kupu-drawer">
-    <p>&#xa0;</p>
+    <h1>Table</h1>
     <div class="kupu-panels">
       <table width="99%">
         <tr class="kupu-panelsrow">
