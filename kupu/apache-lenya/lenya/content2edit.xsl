@@ -15,24 +15,25 @@
 
 <xsl:param name="css"/>
 
-
 <xsl:template match="lenya:meta"/>
 
-
 <xsl:template match="xhtml:head">
-	<head>
-		<xsl:copy-of select="*"/> 
-		<link rel="stylesheet" href="{$css}" mime-type="text/css"/>
-	</head>
+  <head>
+    <xsl:apply-templates/> 
+    <link rel="stylesheet" href="{$css}" mime-type="text/css" />
+    <!-- 
+      Fix for IE: Special characters e.g. german umlauts are displayed correct in the document being edited.
+      NOTE: This should normally be done by the serialization, 
+      but it doen't work in case of usecase=kupu step=content.
+    -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+  </head>
 </xsl:template>
 
-
-
 <xsl:template match="@*|node()">
-	<xsl:copy>
-		<xsl:apply-templates select="@*|node()"/>
-	</xsl:copy>
-</xsl:template>  
-
+  <xsl:copy>
+    <xsl:apply-templates select="@*|node()"/>
+  </xsl:copy>
+</xsl:template> 
 
 </xsl:stylesheet>
