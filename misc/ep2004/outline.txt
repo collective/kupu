@@ -1,15 +1,51 @@
-Developing fatter CMS clients
+===============
+Talk submission
+===============
+
+Information
+-----------
+Title: Kupu -- Developing fatter CMS clients
+Track: Zope
+Time: 45 minutes (???)
+Speakers: Guido Wesdorp, Rotterdam (NL), Infrae
+          Philipp von Weitershausen, Dresden (D)
+
+
+Abstract
+--------
+
+For years, client side programming in web browsers was not possible
+due to the lack of feature support and browser incompatabilies.
+However, thanks to recent developments, Zope-based content management
+systems (CMS) such as Plone and Silva have successfully integrated
+WYSIWYG editors, making a start at fatter client side applications.
+In this talk, the authors of the cross-browser and cross-platform
+WYSIWYG editor Kupu present their ideas on client-side applications
+such as Kupu, the achievements they have made integrating Kupu in
+different CMS and the hurdles that had to be taken so far.
+
+
+Outline
+-------
+
+Part I.: The Problem of Client-side Apps
+----------------------------------------
 
 1. Interaction required - to what level?
+
+   XXX I don't understand this point (PvW)
   
   - user experience grows with level of interaction
   - too much moving stuff distracts
   - but too little makes the application feel static
-  - what is and what is not allowed (viewing and editing
-    data, animations, relying on Javascript on the client,
-    client-side validation)
+  - what is and what is not allowed (viewing and editing data,
+    animations, relying on Javascript on the client, client-side
+    validation)
 
 2. Do not rely on JS for public pages
+
+  XXX i'm not sure about the point you want to get through in slides 2
+  and 3. Maybe rephrase and combine in one slide. (PvW)
 
   - this page is best viewed with... telnet?
   - turning off browser features
@@ -24,7 +60,7 @@ Developing fatter CMS clients
 
 4. Client-side programming
 
-  - Java stinks. (mind the period)
+  - Java is too heavy.
   - We can't use VBScript...
   - ...or Active-X...
   - ...or XUL for that matter
@@ -48,22 +84,65 @@ Developing fatter CMS clients
 7. ...but someone's gotta do it...
 
   - if you have to do it, do it right
-  - finding patterns - to boldly go where no JS programmer has gone before...
-  - abstractions, abstractions, abstractions...
+  - finding patterns - to boldly go where no JS programmer has gone
+    before...
+  - abstractions, abstractions, abstractions... (sarissa, component
+    framework)
   - IE is old crap...
-  - but still owns 98% of the market
+  - but still owns 92% of the market
   - bad excuse for not improving your client
 
 8. So here we are!
 
   - Kupu
-  - some code
   - XMLRPC
   - WebDAV
   - fat generic clients, XML editors and IDEs
   - 3D shoot-em-ups? ;)
 
-9. Conclusion
 
-  - JavaScript may not be the best language, but it's usable
+Part II.: Kupu
+--------------
+
+9. Kupu is...
+
+  - a WYSIWYG editor
+  - produces well-formed XHTML
+  - cross-browser
+  - cross-platform
+
+10. Aren't there already editors like this?
+
+  - not just a replacement for your textarea
+  - document-centric editing
+  - feels more like an application than a form
+  - extensibility: component framework
+  - integration into nearly any CMS
+
+11. Features
+
+  - asynchronous save w/o page reload
+  - "file dialogs" for image/link/... insertion
+  - XXX
+
+12. Based on standards
+
+  - XML configuration
+  - XML communication w/ server
+  - XHTML templates
+  - CSS layout
+  - HTTP (PUT)
+
+  => the only way to ensure cross-browser and cross-platform
+     compatability
+
+12. Working integrations
+
+  - Silva (show)
+  - Plone (show)
+  - XXX
+
+13. Future
+
+  - XXX
   - World domination within reach!
