@@ -172,7 +172,7 @@ function initPloneKupu(iframe, fieldname) {
                                                opendrawer('imagedrawer'));
     kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
 
-    var linkdrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
+    var linkdrawerbutton = new KupuBaseButton('kupu-linkdrawer-button',
                                               opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
