@@ -3,6 +3,7 @@
   xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
+  <kupu:id>$Id$</kupu:id>
 
   <!-- Include features -->
   <xi:include href="wire.kupu" />

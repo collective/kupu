@@ -5,6 +5,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
+  <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="toolboxes">
     <div class="kupu-toolboxes">

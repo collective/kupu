@@ -6,6 +6,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
+<kupu:id>$Id$</kupu:id>
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-logo">
