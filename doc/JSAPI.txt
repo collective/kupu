@@ -115,6 +115,9 @@ Helper functions (kupuhelpers.js)
 Methods on KupuObject (kupueditor.js)
 -------------------------------------
 
+    setContextMenu(menu)
+        - register a ContextMenu object
+
     registerTool(id, tool) 
         - register a tool
 
@@ -138,12 +141,20 @@ Methods on KupuObject (kupueditor.js)
     execCommand(command[, param])
         - perform an execCommand on the editor iframe
 
+    getSelection()
+        - get a Selection object, a high-level API to work with selections
+            in a cross-browser way
+
     getSelectedNode()
         - returns the currently selected node
 
     getNearestParentOfType(node, type)
         - returns the nearest parent of node (or node itself) of 
             element type
+
+    removeNearestParentOfType(node, type)
+        - removes the nearest parent of node (or node itself) of
+            element type from the document
             
     getDocument()
         - returns the document object
@@ -160,6 +171,11 @@ Methods on KupuObject (kupueditor.js)
             1 for warnings and 2 for errors (different loggers can be plugged
             into Kupu, but a severity of 2 will usually make the logger raise
             an exception).
+
+    registerContentChanger(element)
+        - register an element to monitor, if the content of the element
+            changes the 'content_changed' variable on the KupuEditor object
+            will be set to 'true' (this is used in saveOnPart)
 
     getBrowserName()
         - return the name of the client browser, will return IE, Mozilla
@@ -241,7 +257,6 @@ Tool implementations (depending on the complexity of the tool a tool either
         deleteLink()
             - delete the current link, if any
 
-
     ImageTool - add images
 
         createImage(url)
@@ -293,6 +308,84 @@ Tool implementations (depending on the complexity of the tool a tool either
     ShowPathTool - show the path to the current node in the status bar
 
         no methods besides updateState()
+
+Selection objects
+-----------------
+
+Selection objects provide a cross-browser high-level API to work with the
+    editable document's selection. They have a set of methods of which part 
+    should not be called on the selection objects directly but for which a 
+    method is defined on KupuEditor that should be called instead, that method 
+    performs some additional actions. Never instantiate a Selection object 
+    yourself, instead call KupuEditor.getSelection().
+
+    splitNodeAtSelection()
+        - split the node containing the selection at the selection, removing any
+            selected test, when done returns the removed text
+
+    selectionInsideNode(node)
+        - returns true if the selection is (fully or partially) inside the
+            node
+
+    selectNodeContents(node)
+        - select the contents of node, overwriting the current selection
+
+    getSelectedNode()
+        - returns the deepest node containing the full selection, don't use
+            from custom Kupu code, instead call the method on KupuEditor
+
+    collapse(collapseToEnd)
+        - collapse the selection to a single point, either at the beginning
+            (default) or the end of the selection
+
+    replaceWithNode(node, selectAfterReplace)
+        - replace the current selection with node, optionally select the full
+            contents, don't use this method from custom Kupu code, use
+            KupuEditor.insertNodeAtSelection() instead
+
+    startOffset()
+        - returns the number of chars the node is positioned from the start of 
+            startNode
+
+    startNode()
+        - returns the node in which the start of the selection is positioned
+
+    endOffset()
+        - returns the number of chars the node is positioned from the start of 
+            the endNode
+
+    endNode()
+        - returns the node in which the end of the selection is positioned
+
+    getContentLength()
+        - returns the length of the selection, in chars
+
+    cutChunk(startOffset, endOffset)
+        - cut a chunk from the selection and return that as a document
+            fragment
+
+    getElementLength(element)
+        - helper function to get the length of an element in chars 
+
+    parentElement()
+        - return the deepest element in the document that contains the full 
+            selection
+
+    moveStart(offset)
+        - move the start of the selection offset chars
+
+    moveEnd(offset)
+        - not yet implemented
+
+    reset()
+        - refreshes the selection object by getting it's properties from the 
+            document again
+
+    cloneContents()
+        - returns a copy of the contents as a document fragment or node
+
+    toString()
+        - returns a string representation of the selection
 
 Additional helper functions, objects and methods:
 -------------------------------------------------
