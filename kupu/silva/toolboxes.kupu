@@ -9,9 +9,9 @@
 
   <kupu:part name="links">
     <div class="kupu-toolbox" id="kupu-toolbox-links">
-      <script type="text/javascript" tal:define="container model/get_container" tal:content="string:
+      <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
         function getLink() {
-          getObjectReference('${container/absolute_url}/edit/document_lookup', '_reference_');
+          getObjectReference('${container/absolute_url}/edit/document_lookup', '_reference_', '${folder_context}');
         }
       "></script>
 
