@@ -168,8 +168,9 @@ function initKupu(iframe) {
     var tabletoolbox = new TableToolBox('kupu-toolbox-addtable', 
         'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
         'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
-        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
-        'kupu-table-delcolumn-button', 'kupu-toolbox-tables',
+        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 
+        'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button', 
+        'kupu-table-fix-button', 'kupu-table-fixall-button', 'kupu-toolbox-tables',
         'kupu-toolbox', 'kupu-toolbox-active'
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);

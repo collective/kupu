@@ -881,15 +881,6 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
 
         this.editor.logMessage('Table cleaned up');
     };
-
-    this._fixAllTables = function() {
-        /* fix all the tables in the document at once */
-        return;
-        var tables = this.editor.getInnerDocument().getElementsByTagName('table');
-        for (var i=0; i < tables.length; i++) {
-            this.fixTable(tables[i]);
-        };
-    };
 }
 
 SilvaTableToolBox.prototype = new TableToolBox;

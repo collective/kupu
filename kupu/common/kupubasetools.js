@@ -1121,14 +1121,134 @@ function TableTool() {
         };
         return align;
     };
+
+    this.fixTable = function(event) {
+        /* fix the table so it can be processed by Kupu */
+        // since this can be quite a nasty creature we can't just use the
+        // helper methods
+        
+        // first we create a new tbody element
+        var currnode = this.editor.getSelectedNode();
+        var table = this.editor.getNearestParentOfType(currnode, 'TABLE');
+        if (!table) {
+            this.editor.logMessage('Not inside a table!');
+            return;
+        };
+        this._fixTableHelper(table);
+    };
+
+    this._fixTableHelper = function(table) {
+        /* the code to actually fix tables */
+        var doc = this.editor.getInnerDocument();
+        var tbody = doc.createElement('tbody');
+
+        var allowed_classes = new Array('plain', 'grid', 'list', 'listing', 'data');
+        if (!allowed_classes.contains(table.getAttribute('class'))) {
+            table.setAttribute('class', 'plain');
+        };
+        
+        table.setAttribute('cellpadding', '0');
+        table.setAttribute('cellspacing', '0');
+
+        // now get all the rows of the table, the rows can either be
+        // direct descendants of the table or inside a 'tbody', 'thead'
+        // or 'tfoot' element
+        var rows = new Array();
+        var parents = new Array('thead', 'tbody', 'tfoot');
+        for (var i=0; i < table.childNodes.length; i++) {
+            var node = table.childNodes[i];
+            if (node.nodeName.toLowerCase() == 'tr') {
+                rows.push(node);
+            } else if (parents.contains(node.nodeName.toLowerCase())) {
+                for (var j=0; j < node.childNodes.length; j++) {
+                    var inode = node.childNodes[j];
+                    if (inode.nodeName.toLowerCase() == 'tr') {
+                        rows.push(inode);
+                    };
+                };
+            };
+        };
+        
+        // now find out how many cells our rows should have
+        var numcols = 0;
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var currnumcols = 0;
+            for (var j=0; j < row.childNodes.length; j++) {
+                var node = row.childNodes[j];
+                if (node.nodeName.toLowerCase() == 'td' ||
+                        node.nodeName.toLowerCase() == 'th') {
+                    var colspan = 1;
+                    if (node.getAttribute('colSpan')) {
+                        colspan = parseInt(node.getAttribute('colSpan'));
+                    };
+                    currnumcols += colspan;
+                };
+            };
+            if (currnumcols > numcols) {
+                numcols = currnumcols;
+            };
+        };
+
+        // now walk through all rows to clean them up
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var newrow = doc.createElement('tr');
+            var currcolnum = 0;
+            while (row.childNodes.length > 0) {
+                var node = row.childNodes[0];
+                if (node.nodeName.toLowerCase() != 'td' && node.nodeName.toLowerCase() != 'th') {
+                    row.removeChild(node);
+                    continue;
+                };
+                node.removeAttribute('colSpan');
+                node.removeAttribute('rowSpan');
+                newrow.appendChild(node);
+            };
+            if (newrow.childNodes.length) {
+                tbody.appendChild(newrow);
+            };
+        };
+
+        // now make sure all rows have the correct length
+        for (var i=0; i < tbody.childNodes.length; i++) {
+            var row = tbody.childNodes[i];
+            var cellname = row.childNodes[0].nodeName;
+            while (row.childNodes.length < numcols) {
+                var cell = doc.createElement(cellname);
+                var nbsp = doc.createTextNode('\u00a0');
+                cell.appendChild(nbsp);
+                row.appendChild(cell);
+            };
+        };
+        
+        // now remove all the old stuff from the table and add the new tbody
+        var tlength = table.childNodes.length;
+        for (var i=0; i < tlength; i++) {
+            table.removeChild(table.childNodes[0]);
+        };
+        table.appendChild(tbody);
+
+        this.editor.getDocument().getWindow().focus();
+
+        this.editor.logMessage('Table cleaned up');
+    };
+
+    this.fixAllTables = function() {
+        /* fix all the tables in the document at once */
+        var tables = this.editor.getInnerDocument().getElementsByTagName('table');
+        for (var i=0; i < tables.length; i++) {
+            this._fixTableHelper(tables[i]);
+        };
+    };
 };
 
 TableTool.prototype = new KupuTool;
 
 function TableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
                     newcolsinputid, makeheaderinputid, classselectid, alignselectid, addtablebuttonid,
-                    addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid,
-                    toolboxid, plainclass, activeclass) {
+                    addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, fixbuttonid,
+                    fixallbuttonid, toolboxid, plainclass, activeclass) {
     /* The table tool */
 
     // XXX There are some awfully long methods in here!!
@@ -1148,6 +1268,8 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.delrowbutton = document.getElementById(delrowbuttonid);
     this.addcolbutton = document.getElementById(addcolbuttonid);
     this.delcolbutton = document.getElementById(delcolbuttonid);
+    this.fixbutton = document.getElementById(fixbuttonid);
+    this.fixallbutton = document.getElementById(fixallbuttonid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -1179,6 +1301,8 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.delcolbutton, "click", this.tool.delTableColumn, this.tool);
         addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
+        addEventHandler(this.fixbutton, "click", this.tool.fixTable, this.tool);
+        addEventHandler(this.fixallbutton, "click", this.tool.fixAllTables, this.tool);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
         this.editor.logMessage('Table tool initialized');

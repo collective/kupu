@@ -119,8 +119,12 @@
                       </tr>
                       <tr>
                         <td colspan="2" style="text-align: center">
-                          <br />
                             <button type="button" onclick="drawertool.current_drawer.createTable()">Add Table</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: center">
+                            <button type="button" onclick="drawertool.current_drawer.tool.fixAllTables()">Fix All Tables</button>
                         </td>
                       </tr>
                     </table>
@@ -159,8 +163,10 @@
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="2" style="text-align: center">
-                          <br />
+                        <td>Fix Table</td>
+                        <td>
+                          <button type="button" id="kupu-tabledrawer-addrow-button"
+                                  onclick="drawertool.current_drawer.tool.fixTable()">Fix</button> 
                         </td>
                       </tr>
                     </table>
