@@ -24,11 +24,13 @@ $Id$
                 <link type="text/css" rel="stylesheet" href="../kupudrawerstyles.css"/>
             </head>
             <body>
-                <div style="width: 500px; border: solid black 1px">
+                <div style="width: 500px; border: solid black 1px; width: 100px">
                     <div id="kupu-librarydrawer">
-                        <div id="kupu-searchbox">
+                        <h1 style="padding: 0;float: left;">
+                            <xsl:call-template name="drawer-title"/> Drawer</h1>
+                        <div id="kupu-searchbox" style="text-align: right">
                             <form onsubmit="return false;">
-                                <input id="kupu-searchbox" name="searchbox" value="search"
+                                <input id="kupu-searchbox-input" name="searchbox" value="search"
                                     style="font-style: italic"
                                     onclick="if (this.value == 'search') this.value = ''; this.style.fontStyle='normal';" onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();"/>
                             </form>
@@ -43,12 +45,13 @@ $Id$
                                     </td>
                                     <td id="kupu-resourcespanel">
                                         <div id="kupu-resourceitems" class="overflow">
-                                             <xsl:apply-templates select="/libraries/*[@selected]/items" />
+                                            <xsl:apply-templates select="/libraries/*[@selected]/items"/>
                                         </div>
                                     </td>
                                     <td id="kupu-propertiespanel">
                                         <div id="kupu-properties" class="overflow">
-                                            <xsl:apply-templates select="/libraries/*[@selected]//resource[@selected]" mode="properties"/>
+                                            <xsl:apply-templates
+                                                select="/libraries/*[@selected]//resource[@selected]" mode="properties"/>
                                         </div>
                                     </td>
                                 </tr>
@@ -86,7 +89,8 @@ $Id$
         <div id="{@id}" class="kupu-{local-name()}" title="{title}">
             <xsl:attribute name="onclick">
                 <xsl:choose>
-                    <xsl:when test="local-name()='collection'">drawertool.current_drawer.selectCollection('<xsl:value-of select="@id"/>');</xsl:when>
+                    <xsl:when
+                            test="local-name()='collection'">drawertool.current_drawer.selectCollection('<xsl:value-of select="@id"/>');</xsl:when>
                     <xsl:otherwise>drawertool.current_drawer.selectItem('<xsl:value-of select="@id"/>')</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>

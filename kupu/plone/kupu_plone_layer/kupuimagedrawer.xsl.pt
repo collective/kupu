@@ -73,4 +73,5 @@ $Id$
             </form>
         </div>
     </xsl:template>
+    <xsl:template name="drawer-title">Image</xsl:template>
 </xsl:stylesheet>
