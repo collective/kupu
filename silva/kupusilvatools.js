@@ -1128,6 +1128,9 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
             a.parentNode.removeChild(a);
         } else if (keyCode == 9 || keyCode == 39) {
             var next = a.nextSibling;
+            while (next && next.nodeName.toLowerCase() == 'br') {
+                next = next.nextSibling;
+            };
             if (!next) {
                 var doc = this.editor.getInnerDocument();
                 next = doc.createTextNode('\xa0');
