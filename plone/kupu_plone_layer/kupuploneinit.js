@@ -191,7 +191,7 @@ function initPloneKupu(iframe, fieldname) {
     kupu.registerTool('drawertool', drawertool);
 
     var linkdrawer = new LinkDrawer(linktool, conf['link_xsl_uri'],
-                                    conf['link_libraries_uri'], conf['link_images_uri']);
+                                    conf['link_libraries_uri'], conf['search_links_uri']);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
 
     var imagedrawer = new ImageDrawer(imagetool, conf['image_xsl_uri'],
