@@ -187,10 +187,8 @@
                         <label for="kupu-table-makeheader">create</label>
                     </td>
                   </tr>
-                  <tr>
-                    <td colspan="2"><input type="button" class="button" id="kupu-table-addtable-button" value="add table" /></td>
-                  </tr>
                 </table>
+                <input type="button" class="button" id="kupu-table-addtable-button" value="add table" />
               </div>
               <div id="kupu-toolbox-edittable" style="display: none">
                 <table width="100%">
