@@ -613,6 +613,9 @@ function KupuEditor(document, config, logger) {
         return this.xhtmlvalid._convertToSarissaNode(ownerdoc, htmlnode);
     };
 
+    this._fixupSingletons = function(xml) {
+        return xml.replace(/<([^>]+)\/>/g, "<$1 />");
+    }
     this._serializeOutputToString = function(transform) {
         // XXX need to fix this.  Sometimes a spurious "\n\n" text 
         // node appears in the transform, which breaks the Moz 
@@ -633,7 +636,7 @@ function KupuEditor(document, config, logger) {
         };
 
         if (this.config.compatible_singletons) {
-            contents = contents.replace(/<([^>]+)\/>/g, "<$1 />");
+            contents = this._fixupSingletons(contents);
         };
         
         return contents;
