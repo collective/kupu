@@ -279,7 +279,11 @@ function MozillaSelection(document) {
             } else {
                 // else simply insert the node
                 var afterNode = container.childNodes[pos];
-                container.insertBefore(node, afterNode);
+                if (afterNode) {
+                    container.insertBefore(node, afterNode);
+                } else {
+                    container.appendChild(node);
+                };
             }
 
             range.setEnd(afterNode, 0);
