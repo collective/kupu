@@ -28,6 +28,8 @@
         tal:attributes="src string:${kupu_url}/kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
         tal:attributes="src string:${kupu_url}/kupucontentfilters.js"> </script>
+    <script type="text/javascript" src="kupucleanupexpressions.js"
+        tal:attributes="src string:${kupu_url}/kupucleanupexpressions.js"> </script>
   </kupu:part>
 
   <!-- XXX this could be a separate feature, maybe -->

@@ -95,6 +95,7 @@
   <kupu:fill-slot name="toolbar-buttons">
     <metal:slot define-slot="buttongroup_logo">
       <kupu:insert-part feature="toolbar" part="logo" />
+      <kupu:insert-part feature="toolbar" part="zoom" />
     </metal:slot>
 
     <metal:slot define-slot="tb_select_styles">
@@ -168,6 +169,7 @@
 
     <metal:slot define-slot="toolbox_tables">
       <kupu:insert-part feature="toolboxes" part="tables" />
+      <kupu:insert-part feature="toolboxes" part="cleanupexpressions" />
     </metal:slot>
     
     <metal:slot define-slot="toolbox_extra" />
