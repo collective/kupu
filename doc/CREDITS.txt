@@ -75,11 +75,15 @@ kupu credits
 
   - Jan Smith for finding bugs (and believe us, she did! ;)
 
+  - Ver.di and project di.ver for funding the multi-editor feature
+
   - Doron Rosenberg for providing a solution to a nasty selection
     bug in Mozilla.
 
   - Damian Gajda for providing the SourceEdit tool (a rewrite of some 
     function).
+
+  - Donovan Baarda for a number of patches.
 
   - Kit Blake for documentation and administrative tasks.
 

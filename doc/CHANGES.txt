@@ -10,6 +10,12 @@ Kupu changes
 
   o Fixed problem where empty title tags broke rendering on IE after a save.
 
+  o Added support for editing more than one iframe with a single toolbar and
+    set of toolboxes
+
+  o Cleaned up Zope 2 example and templates, this causes breakage of existing
+    setups
+
 - Kupu 1.1
 
   o Re-added experimental dist with inspector.
