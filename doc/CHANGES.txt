@@ -7,6 +7,7 @@ Kupu changes
   The following issues have been resolved (see the `issue tracker`_
   for details of the numbered ones):
 
+  - 153: Exit from bulleted list: next paragraph becomes a list item
   - 152: Install.py does not work with CMF
   - 151: This function requires better XML support in your browser
   - 150: Javscript error in IE when viewing empty html source and style select changed

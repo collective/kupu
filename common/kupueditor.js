@@ -103,7 +103,7 @@ function KupuEditor(document, config, logger) {
         /* Should be called on iframe.onload, will initialize the editor */
         //DOM2Event.initRegistration();
         this._initializeEventHandlers();
-        this.getDocument().getWindow().focus();
+        this.focusDocument();
         if (this.getBrowserName() == "IE") {
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
@@ -302,7 +302,7 @@ function KupuEditor(document, config, logger) {
         if (this.getBrowserName() == "IE") {
             this._restoreSelection();
         } else {
-            this.getDocument().getWindow().focus();
+            this.focusDocument();
             if (command != 'useCSS') {
                 this.content_changed = true;
                 // note the negation: the argument doesn't work as
@@ -381,7 +381,7 @@ function KupuEditor(document, config, logger) {
 
         var browser = this.getBrowserName();
         if (browser != "IE") {
-            this.getDocument().getWindow().focus();
+            this.focusDocument();
         };
         
         var ret = this.getSelection().replaceWithNode(insertNode, selectNode);
@@ -392,6 +392,10 @@ function KupuEditor(document, config, logger) {
 
         return ret;
     };
+
+    this.focusDocument = function() {
+        this.getDocument().getWindow().focus();
+    }
 
     this.logMessage = function(message, severity) {
         /* log a message using the logger, severity can be 0 (message, default), 1 (warning) or 2 (error) */
