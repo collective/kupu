@@ -1,515 +1,515 @@
 <?xml version="1.0" ?>
 <catalog>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Deprecation warning: KupuTool._selectSelectItem
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Deprecation warning: KupuTool._selectSelectItem
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Deprecation warning: KupuToolBox._selectSelectItem
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Deprecation warning: KupuToolBox._selectSelectItem
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Cut
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Cut
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Copy
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Copy
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Paste
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Paste
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Colorchooser tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Colorchooser tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Color chosen
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Color chosen
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			No head in document!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			No head in document!
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Property tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Property tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Properties modified
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Properties modified
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Link tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Link tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Link added
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Link added
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Not inside link
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Not inside link
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Link removed
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Link removed
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Delete link
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Delete link
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Create link
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Create link
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Link modified
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Link modified
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Image tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Image tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Image inserted
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Image inserted
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Create image
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Create image
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Add table
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Add table
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Add row
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Add row
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Delete row
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Delete row
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Add column
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Add column
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Delete column
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Delete column
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Delete Table
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Delete Table
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table added
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table added
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table row added
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table row added
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			No row to delete
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			No row to delete
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table row removed
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table row removed
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			No parentcolumn found!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			No parentcolumn found!
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			tdindex: ${tdindex}
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			tdindex: ${tdindex}
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table column added
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table column added
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table column deleted
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table column deleted
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Not inside a table!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Not inside a table!
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table removed
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table removed
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Recursion detected when counting column position
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Recursion detected when counting column position
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Table cleaned up
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Table cleaned up
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			List style tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			List style tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			List style changed
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			List style changed
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Could not set status bar message, check your browser\'s security settings.
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Could not set status bar message, check your browser\'s security settings.
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			View source
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			View source
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Not inside a definition list element!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Not inside a definition list element!
 		</msgstr>
 	</message>
-	<message filenames="common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js">
 		<msgid>
 			Zoom tool initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Zoom tool initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Editor initialized
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Editor initialized
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Exception while processing updateState on ${id}: ${msg}
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Exception while processing updateState on ${id}: ${msg}
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			No destination URL available!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			No destination URL available!
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Please wait while saving document...
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Please wait while saving document...
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Starting HTML cleanup
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Starting HTML cleanup
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Cleanup done, sending document to server
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Cleanup done, sending document to server
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Request sent to server
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Request sent to server
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Sending request to server
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Sending request to server
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Editor not initialized yet!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Editor not initialized yet!
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Command ${command} executed
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Command ${command} executed
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Command ${command} executed with parameter ${param}
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Command ${command} executed with parameter ${param}
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Browser not supported!
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Browser not supported!
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Error saving your data.\nResponse status: ${status}.\nCheck your server log for more information.
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Error saving your data.\nResponse status: ${status}.\nCheck your server log for more information.
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Error saving document
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Error saving document
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Document saved
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Document saved
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Couldn\'t set design mode. Kupu will not work on this browser.
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Couldn\'t set design mode. Kupu will not work on this browser.
 		</msgstr>
 	</message>
-	<message filenames="common/kupueditor.js">
+	<message filenames="./common/kupueditor.js">
 		<msgid>
 			Error placing back selection
 		</msgid>
-		<msgstr>
-			 
+		<msgstr i18n:translate="">
+			Error placing back selection
 		</msgstr>
 	</message>
 </catalog>
