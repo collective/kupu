@@ -74,7 +74,28 @@ Kupu Frequently Asked Questions
   applications, but the major drawback is they work in only one browser (as of 
   this writing). Kupu was created to work in both Mozilla/Netscape and Internet 
   Explorer.
-  
+
+* What's with the xsltproc error when 'make'ing kupu?
+
+  xsltproc wants to load external entities references in the XML
+  files, such as DTDs. External entities that are referenced by URIs
+  are typically loaded when you have a network
+  connection. Alternatively, you can install the DTD on your harddrive
+  and point xsltproc to an XML catalog that resolves the URIs to local
+  harddrive directories.
+
+  Most users that generate the kupu macros probably don't have the
+  DTDs installed on their harddrive. When they invoke xsltproc, it
+  will load them from the net. If you don't have an internet
+  connection, you'll see the above error.
+
+  To stop xsltproc from getting resources from the net (because it is
+  time consuming and unnecessary), we pass it the --nonet switch. A
+  bug (?) in xsltproc makes it then complain about not being able to
+  load entities from the net--but that's exactly what we want to
+  achieve! So, this error message is not an error message for us--it
+  is the contrary!
+
 Other questions
 ---------------
 Additional questions for the FAQ are welcome. Please post them on:
