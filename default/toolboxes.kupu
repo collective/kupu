@@ -4,6 +4,7 @@
     implementation="default"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="kupu"
     >
 
   <kupu:part name="toolboxes">

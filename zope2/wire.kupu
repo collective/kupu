@@ -2,7 +2,8 @@
 <kupu:wire
     implementation="zope2"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-    xmlns:metal="http://xml.zope.org/namespaces/metal">
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    metal:define-macro="dummy">
 
   <kupu:fill-slot name="head">
     <metal:macro define-macro="head">

@@ -5,6 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
+    metal:define-macro="dummy"
     >
 
   <kupu:part name="defaultconfig">

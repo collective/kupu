@@ -5,6 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="kupu"
     >
 
   <kupu:part name="body">
