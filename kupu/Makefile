@@ -12,7 +12,7 @@
 
 XSLTPROC = /usr/bin/xsltproc
 XSL_DEBUG = --param debug true\(\)
-XSLTPROC_PARAMS = --novalid --xinclude
+XSLTPROC_PARAMS = --nonet --novalid --xinclude
 XSL_FILE = make.xsl
 
 kupu.html:
