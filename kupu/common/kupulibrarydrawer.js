@@ -12,14 +12,13 @@
 
 function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     /* a drawer that loads XSLT and XML from the server 
-    
-        and converts the XML to XHTML for the drawer using the XSLT
+       and converts the XML to XHTML for the drawer using the XSLT
 
-        there are 2 types of XML file loaded from the server: the first
-        contains a list of 'libraries', partitions for the data items, 
-        and the second a list of data items for a certain library
+       there are 2 types of XML file loaded from the server: the first
+       contains a list of 'libraries', partitions for the data items, 
+       and the second a list of data items for a certain library
 
-        all XML loading is done async, since sync loading can freeze Mozilla
+       all XML loading is done async, since sync loading can freeze Mozilla
     */
 
     this.init = function(tool, xsluri, libsuri, searchuri) {
@@ -169,8 +168,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             this.updateDisplay(this.resourcespanelid);
         } else {
             // We have to load the library from XML first.
-            var uri_node = libnode.selectSingleNode('src/text()');
-            var src_uri = uri_node.nodeValue;
+            var src_uri = libnode.selectSingleNode('src/text()').nodeValue;
             src_uri = src_uri.strip(); // needs kupuhelpers.js
             // Now load the library into the items pane. Since we have
             // to load the XML, do this via a call back
@@ -186,14 +184,15 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this._libraryContentCallback = function(dom, src_uri) {
         /* callback for when a library's contents (item list) is loaded
 
-        XXX with slight modifications to the below xpath, this can
-        also be as the handler for reloading a standard collection.
+        This is also used as he handler for reloading a standard
+        collection.
         */
         var libnode = this.xmldata.selectSingleNode('//*[@selected]');
         var itemsnode = libnode.selectSingleNode("items");
         var newitemsnode = dom.selectSingleNode("//items");
 
-        // IE does not support importNode on XML documet nodes
+        // IE does not support importNode on XML document nodes. As an
+        // evil hack, clonde the node instead.
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
         } else {
@@ -248,8 +247,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // this is just so we can find the leafnode much easier in the
         // callback.
         leafnode.setAttribute('selected', '1');
-        var uri_node = leafnode.selectSingleNode('src/text()');
-        var src_uri = uri_node.nodeValue;
+        var src_uri = leafnode.selectSingleNode('src/text()').nodeValue;
         src_uri = src_uri.strip(); // needs kupuhelpers.js
         var wrapped_callback = new ContextFixer(this._collectionContentCallback, this);
         this._loadXML(src_uri, wrapped_callback.execute, null);
@@ -257,9 +255,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this._collectionContentCallback = function(dom, src_uri) {
         // Unlike with libraries, we don't have to find a node to hook
-        // our results into, UNLESS we've hit the reload button. Maybe
-        // use a different callback for that
-        // (--> _libraryContentCallback).
+        // our results into (UNLESS we've hit the reload button, but
+        // that is handled in _libraryContentCallback anyway).
 
         // We need to give the newly retrieved data a unique ID, we
         // just use the time.
@@ -286,6 +283,32 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         }
         libraries.appendChild(collnode);
         this.updateDisplay(this.resourcespanelid);
+    };
+
+    /*** Reloading a collection or library ***/
+
+    this.reloadCurrent = function() {
+        // Reload current collection or library
+        var current = this.xmldata.selectSingleNode('//*[@selected]');
+        // make sure we're dealing with a collection even though a
+        // resource might be selected
+        if (current.tagName == "resource") {
+            current.removeAttribute("selected");
+            current = current.parentNode;
+            current.setAttribute("selected", "1");
+        };
+        var src_node = current.selectSingleNode('src');
+        if (!src_node) {
+            // simply do nothing if the library cannot be reloaded. This
+            // is currently the case w/ search result libraries.
+            return;
+        };
+
+        var src_uri = src_node.selectSingleNode('text()').nodeValue;
+        src_uri = src_uri.strip(); // needs kupuhelpers.js
+
+        var wrapped_callback = new ContextFixer(this._libraryContentCallback, this);
+        this._loadXML(src_uri, wrapped_callback.execute);
     };
 
     /*** Selecting a resource ***/

@@ -67,6 +67,8 @@ $Id$
           </div>
           <div id="kupu-dialogbuttons">
             <button type="button"
+              onclick="drawertool.current_drawer.reloadCurrent();">Reload current</button>
+            <button type="button"
               onclick="drawertool.closeDrawer();">Cancel</button>
             <button type="button"
               onclick="drawertool.current_drawer.save();">Ok</button>
