@@ -35,11 +35,9 @@ $Id$
     >
 
   <xsl:output
-    method="html"
+    method="xml"
     indent="yes"
     omit-xml-declaration="yes"
-    doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-    doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
     />
 
 
