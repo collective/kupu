@@ -107,6 +107,8 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
                         this.targetinput.value = '';
                         this.targetinput.style.display = 'none';
                     } else {
+                        // XXX this is pretty hard-coded...
+                        this.targetselect.selectedIndex = 2;
                         this.targetinput.value = target;
                         this.targetinput.style.display = 'inline';
                     };
