@@ -15,4 +15,4 @@ portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
 
 if includeCollections:
     portal_types += coll_types
-return [types_tool.getTypeInfo(p_type).Metatype() for p_type in portal_types]
+return [types_tool.getTypeInfo(p_type).Metatype() for p_type in portal_types if types_tool.getTypeInfo(p_type)]
