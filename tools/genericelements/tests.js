@@ -15,20 +15,20 @@ var xml1 = '<?xml version="1.0" encoding="UTF-8" ?>' +
             '   <element>' +
             '       <id>foo</id>' +
             '       <name>Foo</name>' +
-            '       <form>' +
+            '       <formdef>' +
             '           <field>' +
             '               <id>some_string</id>' +
-            '               <title>Some String Element</title>' +
+            '               <name>Some String Element</name>' +
             '               <type>text</type>' +
             '               <validator>requiredString</validator>' +
             '           </field>' +
             '           <field>' +
             '               <id>some_int</id>' +
-            '               <title>Some Integer Element</title>' +
+            '               <name>Some Integer Element</name>' +
             '               <type>text</type>' +
             '               <validator>requiredInteger</validator>' +
             '           </field>' +
-            '       </form>' +
+            '       </formdef>' +
             '       <replacement>' +
             '           <name>div</name>' +
             '           <properties>' +
