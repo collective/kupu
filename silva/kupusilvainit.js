@@ -130,6 +130,9 @@ function initSilvaKupu(iframe) {
     var propertytool = new SilvaPropertyTool('propsrow');
     kupu.registerTool('propstool', propertytool);
 
+    var characterstool = new SilvaCharactersTool('charselect');
+    kupu.registerTool('characterstool', characterstool);
+
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
 				'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
