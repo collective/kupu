@@ -14,6 +14,23 @@ completed.
 
   * how to add a feature
 
+- build framework: I'd like to see a build system such as the following:
+
+  $ make default
+
+  or
+
+  $ make plone
+
+  where make first generates a dist.kupu file (or whatever it'd be
+  called) and then runs the XSLT transformation such that the correct
+  files are generated and placed in the correct locations (such as
+  'kupu.html' in 'default' for the default implementation and
+  'wywiwyg_support.html' in 'plone/kupu_plone_layer' for the plone
+  implementation).
+
+  XXX: What do windoze users do? Use cygwin's make? Ant (ick)?
+
 - Testing framework for make.xsl
 
 - For some reason, &nbsp; entities are replaced with an empty string,
