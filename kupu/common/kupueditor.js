@@ -116,7 +116,7 @@ function KupuEditor(document, config, logger) {
         } else {
             this._setDesignModeWhenReady();
         };
-        this.logMessage('Editor initialized');
+        this.logMessage(_('Editor initialized'));
     };
 
     this.setContextMenu = function(menu) {
@@ -183,7 +183,9 @@ function KupuEditor(document, config, logger) {
                     this.updateState(event);
                     break;
                 } else {
-                    this.logMessage('Exception while processing updateState on ' + id + ': ' + e, 2);
+                    this.logMessage(
+                        _('Exception while processing updateState on ' +
+                            '${id}: ${msg}', {'id': id, 'msg': e}), 2);
                 };
             };
         };
@@ -198,7 +200,7 @@ function KupuEditor(document, config, logger) {
         
         // if no dst is available, bail out
         if (!this.config.dst) {
-            this.logMessage('No destination URL available!', 2);
+            this.logMessage(_('No destination URL available!'), 2);
             return;
         }
     
@@ -209,16 +211,16 @@ function KupuEditor(document, config, logger) {
         this._initialized = false;
         
         // set the window status so people can see we're actually saving
-        window.status= "Please wait while saving document...";
+        window.status= _("Please wait while saving document...");
 
         // pass the content through the filters
-        this.logMessage("Starting HTML cleanup");
+        this.logMessage(_("Starting HTML cleanup"));
         var transform = this._filterContent(this.getInnerDocument().documentElement);
 
         // serialize to a string
         var contents = this._serializeOutputToString(transform);
         
-        this.logMessage("Cleanup done, sending document to server");
+        this.logMessage(_("Cleanup done, sending document to server"));
         var request = Sarissa.getXmlHttpRequest();
     
         if (!synchronous) {
@@ -227,9 +229,9 @@ function KupuEditor(document, config, logger) {
             request.open("PUT", this.config.dst, true);
             request.setRequestHeader("Content-type", this.config.content_type);
             request.send(contents);
-            this.logMessage("Request sent to server");
+            this.logMessage(_("Request sent to server"));
         } else {
-            this.logMessage('Sending request to server');
+            this.logMessage(_('Sending request to server'));
             request.open("PUT", this.config.dst, false);
             request.setRequestHeader("Content-type", this.config.content_type);
             request.send(contents);
@@ -250,7 +252,7 @@ function KupuEditor(document, config, logger) {
         this._initialized = false;
         
         // set the window status so people can see we're actually saving
-        window.status= "Please wait while saving document...";
+        window.status= _("Please wait while saving document...");
 
         // set a default id
         if (!id) {
@@ -258,7 +260,7 @@ function KupuEditor(document, config, logger) {
         };
         
         // pass the content through the filters
-        this.logMessage("Starting HTML cleanup");
+        this.logMessage(_("Starting HTML cleanup"));
         var transform = this._filterContent(this.getInnerDocument().documentElement);
         
         // XXX need to fix this.  Sometimes a spurious "\n\n" text 
@@ -266,7 +268,7 @@ function KupuEditor(document, config, logger) {
         // serializer on .xml
         var contents =  this._serializeOutputToString(transform);
         
-        this.logMessage("Cleanup done, sending document to server");
+        this.logMessage(_("Cleanup done, sending document to server"));
         
         // now create the form input, since IE 5.5 doesn't support the 
         // ownerDocument property we use window.document as a fallback (which
@@ -290,7 +292,7 @@ function KupuEditor(document, config, logger) {
             and adding basic elements such as lists
             */
         if (!this._initialized) {
-            this.logMessage('Editor not initialized yet!');
+            this.logMessage(_('Editor not initialized yet!'));
             return;
         };
         if (this.getBrowserName() == "IE") {
@@ -307,9 +309,10 @@ function KupuEditor(document, config, logger) {
             };
         };
         this.getDocument().execCommand(command, param);
-        var message = 'Command ' + command + ' executed';
+        var message = _('Command ${command} executed', {'command': command});
         if (param) {
-            message += ' with parameter ' + param;
+            message = _('Command ${command} executed with parameter ${param}',
+                            {'command': command, 'param': param});
         }
         this.updateState();
         this.logMessage(message);
@@ -367,7 +370,7 @@ function KupuEditor(document, config, logger) {
     this.insertNodeAtSelection = function(insertNode, selectNode) {
         /* insert a newly created node into the document */
         if (!this._initialized) {
-            this.logMessage('Editor not initialized yet!');
+            this.logMessage(_('Editor not initialized yet!'));
             return;
         };
 
@@ -407,16 +410,17 @@ function KupuEditor(document, config, logger) {
         } else if (_SARISSA_IS_IE) {
             return "IE";
         } else {
-            throw "Browser not supported!";
+            throw _("Browser not supported!");
         }
     };
     
     this.handleSaveResponse = function(request, redirect) {
         if (request.status != '200' && request.status != '204'){
-            alert('Error saving your data.\nResponse status: ' + 
-                  request.status + 
-                  '.\nCheck your server log for more information.')
-            window.status = "Error saving document"
+            var msg = _('Error saving your data.\nResponse status: ' + 
+                            '${status}.\nCheck your server log for more ' +
+                            'information.', {'status': request.status});
+            alert(msg);
+            window.status = _("Error saving document");
         } else if (redirect) { // && (!request.status || request.status == '200' || request.status == '204'))
             window.document.location = redirect;
             this.content_changed = false;
@@ -427,7 +431,7 @@ function KupuEditor(document, config, logger) {
                 this.reloadSrc();
             };
             // we're done so we can start editing again
-            window.status= "Document saved";
+            window.status= _("Document saved");
         };
         this._initialized = true;
     };
@@ -478,7 +482,7 @@ function KupuEditor(document, config, logger) {
         */
         this._designModeSetAttempts++;
         if (this._designModeSetAttempts > 25) {
-            alert('Couldn\'t set design mode. Kupu will not work on this browser.');
+            alert(_('Couldn\'t set design mode. Kupu will not work on this browser.'));
             return;
         };
         var success = false;
@@ -523,7 +527,7 @@ function KupuEditor(document, config, logger) {
             try {
                 this._previous_range.select();
             } catch (e) {
-                this.logMessage('Error placing back selection');
+                this.logMessage(_('Error placing back selection'));
             };
         };
     };
