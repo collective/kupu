@@ -1549,10 +1549,9 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                 var extsource = doc.createElement('div');
                 extsource.setAttribute('source_id', object._id);
                 var header = doc.createElement('h3');
-                var htext = doc.createTextNode('External Source "' + object._id + '"');
-                header.appendChild(htext);
                 extsource.appendChild(header);
                 extsource.className = 'externalsource';
+                var metatype = 'Silva Code Source'; // a default just in case
                 for (var i=0; i < this.responseXML.documentElement.childNodes.length; i++) {
                     var child = this.responseXML.documentElement.childNodes[i];
                     if (child.nodeName.toLowerCase() == 'parameter') {
@@ -1561,6 +1560,10 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                         for (var j=0; j < child.childNodes.length; j++) {
                             value += child.childNodes[j].nodeValue;
                         };
+                        if (key == 'metatype') {
+                            metatype = value;
+                            continue;
+                        };
                         extsource.setAttribute(key, value);
                         var div = doc.createElement('div');
                         var textel = doc.createTextNode('Key: ' + key + ', value: ' + value.toString());
@@ -1568,6 +1571,8 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                         extsource.appendChild(div);
                     };
                 };
+                var htext = doc.createTextNode(metatype + ' "' + object._id + '"');
+                header.insertBefore(htext, header.firstChild);
                 extsource.appendChild(doc.createElement('br'));
                 if (!currsource) {
                     object.editor.insertNodeAtSelection(extsource);
