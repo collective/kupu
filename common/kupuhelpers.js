@@ -177,7 +177,7 @@ function _load_dict_helper(element) {
             };
             var name = child.nodeName.toLowerCase();
             if (dict[name] != undefined) {
-                if (typeof(dict[name]) == typeof('') || typeof(dict[name]) == typeof(0)) {
+                if (!dict[name].push) {
                     dict[name] = new Array(dict[name], value);
                 } else {
                     dict[name].push(value);
