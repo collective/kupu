@@ -81,6 +81,7 @@ function NonXHTMLTagFilter() {
                             'pre': 1,
                             'q': 1,
                             'samp': 1,
+                            'script': 1,
                             'span': 1,
                             'strong': 1,
                             'sub': 1,
