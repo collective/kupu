@@ -174,6 +174,10 @@ function initKupu(iframe) {
 
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
+    
+    var sourceedittool = new SourceEditTool('kupu-source-button',
+                                            'kupu-editor-textarea');
+    kupu.registerTool('sourceedittool', sourceedittool);
 
     // Drawers...
 
