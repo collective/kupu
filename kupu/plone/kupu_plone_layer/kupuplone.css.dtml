@@ -145,8 +145,6 @@ span#kupu-tb-buttons .kupu-underline-pressed {
 .kupu-undo {background-image: url("plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("plonekupuimages/delete_icon.gif");}
 .kupu-removeimage {background-image: url("plonekupuimages/delete_icon.gif");}
-.kupu-zoom {background-image: url("plonekupuimages/zoom-in.gif");}
-.kupu-zoom-pressed {background-image: url("plonekupuimages/zoom-out.gif");}
 
 
 div.kupu-drawer {
