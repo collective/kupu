@@ -188,6 +188,25 @@ KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
 
+    this.testReplaceWithNode = function() {
+        this.body.innerHTML = '<p>foo bar baz</p>';
+        // select                    |bar|
+        this._setSelection(4, null, 7, null, 'bar');
+        node = this.doc.createElement('img');
+        this.selection.replaceWithNode(node, true);
+        this.assertEquals(this.body.innerHTML.toLowerCase(), '<p>foo <img> baz</p>');
+    };
+
+    this.testReplaceWithNodeTwice = function() {
+        this.body.innerHTML = '<p>foo bar baz</p>';
+        // select                    |bar|
+        this._setSelection(4, null, 7, null, 'bar');
+        node = this.doc.createElement('img');
+        this.selection.replaceWithNode(node, true);
+        this.selection.replaceWithNode(node, true);
+        this.assertEquals(this.body.innerHTML.toLowerCase(), '<p>foo <img> baz</p>');
+    };
+
     this.testParentElementMissing = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
         // remove selection
