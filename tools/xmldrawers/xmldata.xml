@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<treemenu>
+    <node text='/' icon='folder.gif' expandedicon='folder-expanded.gif' >
+      <node text='kupupopups' icon='folder.gif' expandedicon='folder-expanded.gif'/>
+      <node text='image.html' icon='fileicon.gif' expandedicon='fileicon.gif' link="#"  onClick="drawertool.current_drawer.save('/kupupopups/image.html')"/>
+      <node text='link.html' icon='fileicon.gif' expandedicon='fileicon.gif' link="#"  onClick="drawertool.current_drawer.save('/kupupopups/link.html')"/>
+    </node>
+    <node text='kupuimages' icon='folder.gif' expandedicon='folder-expanded.gif' >
+      <node text='bgcolor.gif' icon='fileicon.gif' expandedicon='fileicon.gif' link="#"  onClick="drawertool.current_drawer.save('/kupuimages/bgcolor.gif')"/>
+      <node text='bold.gif' icon='fileicon.gif' expandedicon='fileicon.gif' link="#"  onClick="drawertool.current_drawer.save('/kupuimages/bold.gif')" />
+      <node text='centre.gif' icon='fileicon.gif' expandedicon='fileicon.gif' link="#"  onClick="drawertool.current_drawer.save('/kupuimages/centre.gif')"/>
+    </node>
+</treemenu>

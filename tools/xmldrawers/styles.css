@@ -1,0 +1,63 @@
+#kupu-linkintdrawer	{
+  width:570px;
+  height:400px;
+
+}
+
+#kupu-linkdrawer	{
+  width:280px;
+  height:100px;
+
+}
+
+
+#fxLinkIntDrawerMenu	{
+  border: 1px solid black;
+  overflow: scroll;
+  height:270px;
+  width:500px;
+  font-family: Arial;
+  font-size: 12px;
+  background: threedface;
+}
+
+#fxImageDrawerMenu	{
+  border: 1px solid black;
+  overflow: scroll;
+  height:270px;
+  width:500px;
+  font-family: Arial;
+  font-size: 12px;
+  background: threedface;
+}
+
+a.treeMenu:link    {text-decoration:none; color:black;}
+a.treeMenu:active  {text-decoration:none; color:black;}
+a.treeMenu:visited {text-decoration:none; color:black;} 
+a.treeMenu:hover   {text-decoration:none; color:black;}
+
+
+.kupu-drawer-topdiv-left	{
+	margin:0px;
+	padding:0px;
+	margin-top:2px;
+	margin-left:3px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	color: white;
+	font-weight: bold;
+	font-family: verdana, arial;
+	font-size: 12px;
+	
+}
+
+
+.kupu-drawer-fxclose	{
+	width:15px; 
+	height:14px;
+	margin:0px;
+	margin-top:2px;
+	margin-right:2px;
+	padding:0px;
+}
