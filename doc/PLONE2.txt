@@ -47,7 +47,7 @@ download the zipfiles for libxslt, libxml2, iconv and zlib.
 Extracting all of the .dll and .exe files into c:\libxslt is
 sufficient for the make command to work (ignore subdirectories in the
 zipfiles). The just start a command prompt in the kupu directory and
-run the same command as for other users (one windows it runs make.bat
+run the same command as for other users (on windows it runs make.bat
 so you don't need a separate make program):
 
    C:\>cd \Plone 2\Data\Products\kupu
