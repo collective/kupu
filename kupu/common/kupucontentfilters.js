@@ -156,11 +156,8 @@ function NonXHTMLTagFilter() {
 //
 // This class is the XHTML 1.0 transitional DTD expressed as Javascript
 // data structures.
-// Some attributes are deliberately excluded: class needs special
-// treatment (IE), style and xml: namespace are not currently supported
-// (IE).
 //
-function XhtmlValidation() {
+function XhtmlValidation(editor) {
     // Support functions
     this.Set = function(ary) {
         if (ary instanceof String) ary = [ary];
@@ -198,7 +195,7 @@ function XhtmlValidation() {
         for (var tag in tags) {
             var val = this.Attributes[tag];
             for (var i = val.length; i >= 0; i--) {
-                if (bad[val[i]]==1) {
+                if (bad[val[i]]) {
                     val.splice(i,1);
                 }
             }
@@ -216,24 +213,61 @@ function XhtmlValidation() {
             var tag = tags[j];
             var val = this.Attributes[tag];
             for (var i = val.length; i >= 0; i--) {
-                if (bad[val[i]]==1) {
+                if (bad[val[i]]) {
+                    val = val.concat(); // Copy
                     val.splice(i,1);
                 }
             }
+            this.Attributes[tag] = val;
         }
     }
-    // Supporting declarations
-    this.elements = new function() {
-        // Core attributes
-        this.coreattrs = ['id', 'title']; // 'style', 'class'
-        this.i18n = ['lang', 'dir']; // 'xml:lang'
-        this.events = [
-                      'onclick', 'ondblclick', 'onmousedown',
-                      'onmouseup', 'onmouseover', 'onmousemove',
-                      'onmouseout', 'onkeypress', 'onkeydown',
-                      'onkeyup'];
+    if (editor.getBrowserName()=="IE") {
+        this._getTagName = function(htmlnode) {
+            var nodename = htmlnode.nodeName.toLowerCase();
+            if (htmlnode.scopeName && htmlnode.scopeName != "HTML") {
+                nodename = htmlnode.scopeName+':'+nodename;
+            }
+            return nodename;
+        }
+    } else {
+        this._getTagName = function(htmlnode) {
+            return htmlnode.nodeName.toLowerCase();
+        }
+    };
 
-        this.focus = ['accesskey', 'tabindex', 'onfocus', 'onblur'];
+    // Supporting declarations
+    this.elements = new function(validation) {
+        // A list of all attributes
+        this.attributes = [
+            'abbr','accept','accept-charset','accesskey','action','align','alink',
+            'alt','archive','axis','background','bgcolor','border','cellpadding',
+            'cellspacing','char','charoff','charset','checked','cite','class',
+            'classid','clear','code','codebase','codetype','color','cols','colspan',
+            'compact','content','coords','data','datetime','declare','defer','dir',
+            'disabled','enctype','face','for','frame','frameborder','halign','headers',
+            'height','href','hreflang','hspace','http-equiv','id','ismap','label',
+            'lang','language','link','longdesc','marginheight','marginwidth',
+            'maxlength','media','method','multiple','name','nohref','noshade','nowrap',
+            'object','onblur','onchange','onclick','ondblclick','onfocus','onkeydown',
+            'onkeypress','onkeyup','onload','onmousedown','onmousemove','onmouseout',
+            'onmouseover','onmouseup','onreset','onselect','onsubmit','onunload',
+            'profile','prompt','readonly','rel','rev','rows','rowspan','rules',
+            'scheme','scope','scrolling','selected','shape','size','span','src',
+            'standby','start','style','summary','tabindex','target','text','title',
+            'type','usemap','valign','value','valuetype','vlink','vspace','width',
+            'xml:lang','xml:space','xmlns'];
+
+        // Core attributes
+        this.coreattrs = ['id', 'title', 'style', 'class'];
+        this.i18n = ['lang', 'dir', 'xml:lang'];
+        // All event attributes are here but commented out so we don't
+        // have to remove them later.
+        this.events = []; // 'onclick|ondblclick|onmousedown|onmouseup|onmouseover|onmousemove|onmouseout|onkeypress|onkeydown|onkeyup'.split('|');
+        this.focusevents = []; // ['onfocus','onblur']
+        this.loadevents = []; // ['onload', 'onunload']
+        this.formevents = []; // ['onsubmit','onreset']
+        this.inputevents = [] ; // ['onselect', 'onchange']
+        this.focus = ['accesskey', 'tabindex'].concat(this.focusevents);
         this.attrs = [].concat(this.coreattrs, this.i18n, this.events);
 
         // entities
@@ -261,29 +295,30 @@ function XhtmlValidation() {
                      this.heading, this.lists, this.blocktext);
 
         this.Flow = ['#PCDATA','form'].concat(this.block, this.inline);
-    }();
+    }(this);
 
     this._commonsetting = function(self, names, value) {
         for (var n = 0; n < names.length; n++) {
             self[names[n]] = value;
         }
     }
+    
     // The Attributes class returns all valid attributes for a tag,
     // e.g. a = this.Attributes.head
     // a.head -> [ 'lang', 'xml:lang', 'dir', 'id', 'profile' ]
     this.Attributes = new function(el, validation) {
-        this.html = el.i18n.concat('id','xmlns');
-        this.head = el.i18n.concat('id', 'profile');
         this.title = el.i18n.concat('id');
+        this.html = this.title.concat('xmlns');
+        this.head = this.title.concat('profile');
         this.base = ['id', 'href', 'target'];
-        this.meta =  el.i18n.concat('id','http-equiv','name','content', 'scheme');
+        this.meta =  this.title.concat('http-equiv','name','content', 'scheme');
         this.link = el.attrs.concat('charset','href','hreflang','type', 'rel','rev','media','target');
-        this.style = el.i18n.concat('id','type','media','title', 'xml:space');
+        this.style = this.title.concat('type','media','title', 'xml:space');
         this.script = ['id','charset','type','language','src','defer', 'xml:space'];
         this.iframe = [
                       'longdesc','name','src','frameborder','marginwidth',
                       'marginheight','scrolling','align','height','width'].concat(el.coreattrs);
-        this.body = ['onload','onunload','background','bgcolor','text','link','vlink','alink'].concat(el.attrs);
+        this.body = ['background','bgcolor','text','link','vlink','alink'].concat(el.attrs, el.loadevents);
         validation._commonsetting(this,
                                   ['p','div'].concat(el.heading),
                                   ['align'].concat(el.attrs));
@@ -293,7 +328,7 @@ function XhtmlValidation() {
         this.li = el.attrs.concat('type','value');
         this.hr = el.attrs.concat('align','noshade','size','width');
         this.pre = el.attrs.concat('width','xml:space');
-        this.blockquote = el.attrs.concat('cite');
+        this.blockquote = this.q = el.attrs.concat('cite');
         this.ins = this.del = this.blockquote.concat('datetime');
         this.a = el.attrs.concat(el.focus,'charset','type','name','href','hreflang','rel','rev','shape','coords','target');
         this.bdo = el.coreattrs.concat(el.events, 'lang','xml:lang','dir');
@@ -301,33 +336,30 @@ function XhtmlValidation() {
         validation._commonsetting(this,
                                   ['noscript','noframes','dt', 'dd', 'address','center','span','em', 'strong', 'dfn','code',
                                   'samp','kbd','var','cite','abbr','acronym','sub','sup','tt',
-                                  'i','b','big','small','u','s','strike'],
+                                  'i','b','big','small','u','s','strike', 'fieldset'],
                                   el.attrs);
 
-        this.q = el.attrs.concat('cite');
         this.basefont = ['id','size','color','face'];
         this.font = el.coreattrs.concat(el.i18n, 'size','color','face');
         this.object = el.attrs.concat('declare','classid','codebase','data','type','codetype','archive','standby','height','width','usemap','name','tabindex','align','border','hspace','vspace');
         this.param = ['id','name','value','valuetype','type'];
         this.applet = el.coreattrs.concat('codebase','archive','code','object','alt','name','width','height','align','hspace','vspace');
         this.img = el.attrs.concat('src','alt','name','longdesc','height','width','usemap','ismap','align','border','hspace','vspace');
-        this.map = el.i18n.concat('id','title','name', el.events); // 'style', 'class'
+        this.map = this.title.concat('title','name', 'style', 'class', el.events);
         this.area = el.attrs.concat('shape','coords','href','nohref','alt','target', el.focus);
-        this.form = el.attrs.concat('action','method','name','enctype','onsubmit','onreset','accept','accept-charset','target');
-        this.label = el.attrs.concat('for','accesskey','onfocus','onblur');
-        this.input = el.attrs.concat('type','name','value','checked','disabled','readonly','size','maxlength','src','alt','usemap','onselect','onchange','accept','align', el.focus);
-        this.select = el.attrs.concat('name','size','multiple','disabled','tabindex','onfocus','onblur','onchange');
+        this.form = el.attrs.concat('action','method','name','enctype',el.formevents,'accept','accept-charset','target');
+        this.label = el.attrs.concat('for','accesskey', el.focusevents);
+        this.input = el.attrs.concat('type','name','value','checked','disabled','readonly','size','maxlength','src','alt','usemap',el.input,'accept','align', el.focus);
+        this.select = el.attrs.concat('name','size','multiple','disabled','tabindex', el.focusevents,el.input);
         this.optgroup = el.attrs.concat('disabled','label');
         this.option = el.attrs.concat('selected','disabled','label','value');
-        this.textarea = el.attrs.concat('name','rows','cols','disabled','readonly','onselect','onchange', el.focus);
-        this.fieldset = el.attrs;
+        this.textarea = el.attrs.concat('name','rows','cols','disabled','readonly', el.inputevents, el.focus);
         this.legend = el.attrs.concat('accesskey','align');
         this.button = el.attrs.concat('name','value','type','disabled',el.focus);
         this.isindex = el.coreattrs.concat('prompt', el.i18n);
         this.table = el.attrs.concat('summary','width','border','frame','rules','cellspacing','cellpadding','align','bgcolor');
         this.caption = el.attrs.concat('align');
-        this.colgroup = el.attrs.concat('span','width','halign','char','charoff','valign');
-        this.col = this.colgroup;
+        this.col = this.colgroup = el.attrs.concat('span','width','halign','char','charoff','valign');
         this.thead =  el.attrs.concat('halign','char','charoff','valign');
         this.tfoot = this.tbody = this.thead;
         this.tr = this.thead.concat('bgcolor');
@@ -339,7 +371,7 @@ function XhtmlValidation() {
     // tags (yet).
     this.States = new function(el, validation) {
         this.html = ['head','body'];
-        this.head = ['title','base','script','meta','link','object','isindex']; // 'style'
+        this.head = ['title','base','script','style', 'meta','link','object','isindex'];
         this.title = ['#PCDATA'];
         this.base = this.meta = this.link = [];
         this.style = ['#PCDATA'];
@@ -404,7 +436,64 @@ function XhtmlValidation() {
             this[tag] = new validation.Set(this[tag]);
         }
     }(this.elements, this);
+
+    // Set up filters for attributes.
+    this.AttrFilters = new function(validation, editor) {
+        function defaultCopyAttribute(name, htmlnode, xhtmlnode) {
+            var val = htmlnode.getAttribute(name);
+            if (val) xhtmlnode.setAttribute(name, val);
+        }
+        var attrs = validation.elements.attributes;
+        for (var i=0; i < attrs.length; i++) {
+            this[attrs[i]] = defaultCopyAttribute;
+        }
+        if (editor.getBrowserName()=="IE") {
+            this['class'] = function(name, htmlnode, xhtmlnode) {
+                var val = htmlnode.getAttribute('className');
+                if (val) xhtmlnode.setAttribute(name, val);
+            }
+            this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
+                try {
+                    var val = htmlnode.getAttribute(name);
+                    if (val) xhtmlnode.setAttribute(name, val);
+                } catch(e) {
+                }
+            }
+        }
+        this.rowspan = this.colspan = function(name, htmlnode, xhtmlnode) {
+            var val = htmlnode.getAttribute(name);
+            if (val && val != '1') xhtmlnode.setAttribute(name, val);
+        }
+        delete this['style'];
+    }(this, editor);
+
+    // Exclude unwanted tags.
+    this._excludeTags(['center']);
+
+    if (editor.config && editor.config.exclude) {
+        var exclude = editor.config.exclude;
+        if (exclude.a)
+            this._excludeAttributes(exclude.a);
+        if (exclude.t)
+            this._excludeTags(exclude.t);
+        if (exclude.c) {
+            var c = exclude.c;
+            if (!c.length) c = [c];
+            for (var i = 0; i < c.length; i++) {
+                this._excludeAttributesForTags(c[i].a, c[i].t);
+            }
+        }
+    };
+
+    // Copy all valid attributes from htmlnode to xhtmlnode.
+    this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
+        for (var i = 0; i < valid.length; i++) {
+            var name = valid[i];
+            var filter = this.AttrFilters[name];
+            if (filter) filter(name, htmlnode, xhtmlnode);
+        }
+    }
+
 }
 
-//xhtmlvalid = new XhtmlValidation();
 

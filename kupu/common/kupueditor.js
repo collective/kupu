@@ -591,56 +591,8 @@ function KupuEditor(document, config, logger) {
         };
     };
 
-    // IE needs special help for some functions
-    if (this.getBrowserName()=="IE") {
-        this._getTagName = function(htmlnode) {
-            var nodename = htmlnode.nodeName.toLowerCase();
-            if (htmlnode.scopeName && htmlnode.scopeName != "HTML") {
-                nodename = htmlnode.scopeName+':'+nodename;
-            }
-            return nodename;
-        }
-        // Reading 'class' attribute from the html dom has to be done
-        // specially on IE!
-        this._className = "className";
-    } else {
-        this._getTagName = function(htmlnode) {
-            return htmlnode.nodeName.toLowerCase();
-        }
-        this._className = "class";
-    };
+    this.xhtmlvalid = new XhtmlValidation(this);
 
-    this.xhtmlvalid = new XhtmlValidation();
-    // Exclude attributes we can't support, and all the event attributes.
-    this.xhtmlvalid._excludeAttributes(
-        this.xhtmlvalid.elements.events.concat(
-        'style','class','xml:lang','xml:space',
-        'onfocus','onblur','onselect','onchange','onsubmit','onreset'));
-    // Exclude unwanted tags.
-    this.xhtmlvalid._excludeTags(['center']);
-
-    if (this.config && this.config.exclude) {
-        if (this.config.exclude.a)
-            this.xhtmlvalid._excludeAttributes(this.config.exclude.a);
-        if (this.config.exclude.t)
-            this.xhtmlvalid._excludeTags(this.config.exclude.t);
-        if (this.config.exclude.c) {
-            var c = this.config.exclude.c;
-            if (!c.length) c = [c];
-            for (var i = 0; i < c.length; i++) {
-                this.xhtmlvalid._excludeAttributesForTags(c[i].a, c[i].t);
-            }
-        }
-    };
-    this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
-        for (var i = 0; i < valid.length; i++) {
-            var name = valid[i];
-            val = htmlnode.getAttribute(name);
-            if (val) xhtmlnode.setAttribute(name, val);
-        }
-        val = htmlnode.getAttribute(this._className);
-        if (val) xhtmlnode.setAttribute('class', val);
-    }
     this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
         /* Given a string of non-well-formed HTML, return a string of 
            well-formed XHTML.
@@ -659,8 +611,8 @@ function KupuEditor(document, config, logger) {
            Tag and attribute tables added by Duncan
         */
 
-        var name, parentnode;
-        var nodename = this._getTagName(htmlnode);
+        var name, parentnode = xhtmlparent;
+        var nodename = this.xhtmlvalid._getTagName(htmlnode);
         
         // TODO: This permits valid tags anywhere. it should use the state
         // table in xhtmlvalid to only permit tags where the XHTML DTD
@@ -670,13 +622,10 @@ function KupuEditor(document, config, logger) {
             try {
                 var xhtmlnode = ownerdoc.createElement(nodename);
                 parentnode = xhtmlnode;
-                this._copyAttributes(htmlnode, xhtmlnode, validattrs);
-            } catch (e) {
-                parentnode = xhtmlparent;
-            };
-        } else {
-            // Invalid node: append any children to the parent node.
-            parentnode = xhtmlparent;
+            } catch (e) { };
+
+            if (xhtmlnode)
+                this.xhtmlvalid._copyAttributes(htmlnode, xhtmlnode, validattrs);
         }
 
         var kids = htmlnode.childNodes;
