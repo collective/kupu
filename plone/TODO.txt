@@ -13,9 +13,6 @@ TODO for drawers
 
 - issue 63: set text/html as content type when editing w/ kupu
 
-- Description in the rightmost bar needs to be trimmed, in case it's a
-  long string. Can XSLT do that?!? --> paul?
-
 - Reload libraries / current collection functionality
   A lot of it is already in place. See comments in JS
 
