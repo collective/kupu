@@ -135,12 +135,25 @@ def install_transform(self, out):
         print >>out, "No MimetypesRegistry, captioning not supported."
 
 def install_customisation(self, out):
-    cpscript = getattr(self, 'kupu-customisation-policy', None)
+    """Default settings may be stored in a customisation policy script so
+    that the entire setup may be 'productised'"""
+
+    # For some reason, recently added products might not be searched
+    # properly when we try to access them through self. Instead,
+    # access the skin directly:
+    st=getToolByName(self, 'portal_skins')
+    skin = st.getSkinByName(st.default_skin)
+
+    scriptname = '%s-customisation-policy' % PROJECTNAME.lower()
+    cpscript = getattr(skin, scriptname, None)
     if cpscript:
-        print >>out, "Customising Kupu"
-        print >>out, cpscript()
+        cpscript = cpscript.__of__(self)
+
+    if cpscript:
+        print >>out,"Customising %s" % PROJECTNAME
+        print >>out,cpscript()
     else:
-        print >>out, "No kupu customisation policy"
+        print >>out,"No customisation policy"
 
 def install(self):
     out = StringIO()
