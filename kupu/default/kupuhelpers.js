@@ -619,6 +619,12 @@ Array.prototype.contains = function(element, objectequality) {
     return false;
 };
 
+// JavaScript has a friggin' blink() function, but not for string stripping...
+String.prototype.strip = function() {
+    var stripspace = /^\s*(.*)\s*$/;
+    return stripspace.exec(this)[0];
+};
+
 //----------------------------------------------------------------------------
 // Exceptions
 //----------------------------------------------------------------------------
@@ -632,4 +638,3 @@ function Exception() {
 // update, may be required in situations where updateState changes the structure
 // of the document (e.g. does a cleanup or so)
 UpdateStateCancelBubble = new Exception();
-

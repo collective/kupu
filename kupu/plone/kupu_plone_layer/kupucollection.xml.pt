@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<collection
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    >
+
+  <tal:with define="info python:context.kupuInfoForObjects([context])[0]">
+    <metal:macro use-macro="template/macros/commonToAllItems" />
+  </tal:with>
+
+  <items metal:define-macro="collectionItems">
+     <metal:slot define-slot="defineItems">
+       <tal:comment condition="nothing">
+         The default resource type is mediaobject
+       </tal:comment>
+       <tal:var define="
+           resource_type request/resource_type | string:mediaobject;
+           meta_types    python:context.kupuMetaTypesForResourceType(resource_type, True);
+           values        python:context.contentValues(meta_types);
+           global items  python:context.kupuInfoForObjects(values);
+           global resource_type request/resource_type | string:mediaobject;" />
+     </metal:slot>
+
+     <metal:slot define-slot="parentCollection">
+       <tal:if define="
+           getToolByName nocall:modules/Products/CMFCore/utils/getToolByName;
+           url_tool      python:getToolByName(context, 'portal_url');
+           portal        url_tool/getPortalObject;"
+               condition="python:portal is not context">
+         <collection tal:define="
+             parent python:context.aq_parent;
+             info   python:context.kupuInfoForObjects([parent])[0]"
+                     tal:attributes="id parent/absolute_url">
+           <metal:macro use-macro="template/macros/commonToAllItems">
+           <title metal:fill-slot="title"
+                  i18n_translate="">.. (Parent folder)</title>
+           </metal:macro>
+           <src tal:content="string:${info/url}/${template/getId}?resource_type=${resource_type}">Source</src>
+         </collection>
+       </tal:if>
+     </metal:slot>
+
+    <tal:loop repeat="info items">
+
+      <tal:comment condition="nothing">
+        We use the URI as ID here, because all resource need to have a
+        site-wide unique id
+      </tal:comment>
+
+      <resource tal:attributes="id info/url"
+                tal:condition="not:info/collection">
+        <metal:macro define-macro="commonToAllItems">
+          <uri metal:define-slot="uri"
+               tal:content="info/url">URI</uri>
+          <icon metal:define-slot="icon"
+                tal:content="info/icon">icon</icon>
+          <size metal:define-slot="size"
+                tal:condition="info/size"
+                tal:content="info/size">size</size>
+          <preview metal:define-slot="preview"
+                   tal:condition="info/preview"
+                   tal:content="string:${info/url}/${info/preview}"></preview>
+          <title metal:define-slot="title"
+                 tal:content="info/title">title</title>
+          <description metal:define-slot="description"
+                       tal:content="info/description">description</description>
+        </metal:macro>
+      </resource>
+
+      <collection tal:attributes="id info/url"
+                  tal:condition="info/collection">
+        <metal:insert use-macro="template/macros/commonToAllItems" />
+        <src tal:content="string:${info/url}/${template/getId}?resource_type=${resource_type}">Source</src>
+      </collection>
+
+    </tal:loop>
+  </items>
+
+</collection>

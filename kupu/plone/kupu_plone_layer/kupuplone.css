@@ -1,0 +1,19 @@
+div.kupu-toolboxes {display: none}
+
+/*select#kupu-tb-styles {display: block}*/
+
+div.kupu-fulleditor .kupu-editorframe {
+  margin-right: 2em;
+}
+
+.drawer {
+    left: 25%;
+}
+
+/* Kupu pulls in Plone stylesheets. If you want a paragraph to look
+different in Kupu from Plone, then don't add rules here, add them in
+ploneCustom.css and use the kupu class to distinguish them. e.g.
+
+.pullQuote { float: right; width: 30%; }
+.kupu .pullQuote { float:none; width: auto; }
+*/

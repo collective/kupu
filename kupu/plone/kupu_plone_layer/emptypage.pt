@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>Kupu contentarea</title>
+  <base href="emptypage" tal:attributes="href string:${here/absolute_url}/" />
+  </head>
+  <body class="kupu">
+   
+   <tal:comment replace="nothing">    
+      This template is an empty placeholder, used for loading contents
+      into the Kupu editof-iframe.
+   </tal:comment>
+   
+  </body>
+</html>

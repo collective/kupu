@@ -1,0 +1,18 @@
+TODO for drawers
+
+- improve library drawer UI
+
+- IE support --> guido
+
+- Description in the rightmost bar needs to be trimmed, in case it's a
+  long string. Can XSLT do that?!? --> paul?
+
+- Reload libraries / current collection functionality
+  A lot of it is already in place. See comments in JS
+
+- test xml output, or rather the corresponding python methods
+
+- provide automatic preview views?
+
+- i18n of xml? --> currently not possible because ZPT deliberately
+  disable i18n for xml (at least in Zope2).
