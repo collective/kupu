@@ -17,9 +17,9 @@ LINKABLE = ('MyObjectType',
             'AnotherObjectType',)
 
 MEDIAOBJECT = ('MyImage',
-               'Portal Image',)
+               'Image',)
 
-COLLECTION = ('Plone Folder',
+COLLECTION = ('Folder',
               'ATFolder',
               'Large Plone Folder')
 

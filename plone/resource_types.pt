@@ -48,6 +48,7 @@ identifies portal types that are to be treated as collections.</p>
     <td valign="top">
       <textarea name="type_info.portal_types:lines:records"
                 rows="5" cols="50"
+                style="width:40em;"
                 tal:content="python:'\n'.join(portal_types)">
       </textarea>
     </td>

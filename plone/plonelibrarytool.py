@@ -53,9 +53,9 @@ _default_libraries = (
     )
 
 _default_resource_types = {
-    'collection': ('Plone Site', 'Plone Folder', 'Large Plone Folder'),
-    'mediaobject': ('Portal Image',),
-    'linkable': ('Document', 'Portal Image', 'Portal File', 'News Item', 'CMF Event')
+    'collection': ('Plone Site', 'Folder', 'Large Plone Folder'),
+    'mediaobject': ('Image',),
+    'linkable': ('Document', 'Image', 'File', 'News Item', 'Event')
     }
 
 # Tidy up html by exlcluding lots of things.
