@@ -33,15 +33,20 @@ function TestCase() {
         /* this will be called after each test method that has been ran */
     };
 
-    this.assertEquals = function(var1, var2) {
+    this.assertEquals = function(var1, var2, message) {
         /* assert whether 2 vars have the same value */
+        if (!message)  {
+            message = '';
+        } else {
+            message = "'" + message + "' ";
+        }
         if (var1 && var1.toSource && var2 && var2.toSource) {
             if (var1.toSource() != var2.toSource()) {
-                throw('Assertion failed: ' + var1 + ' != ' + var2);
+                throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
             };
         } else {
             if (var1 != var2) {
-                throw('Assertion failed: ' + var1 + ' != ' + var2);
+                throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
             };
         };
     };
@@ -49,19 +54,21 @@ function TestCase() {
     this.debug = function(msg) {
         this._reporter.debug(msg);
     }
-    this.assert = function(statement) {
+    this.assert = function(statement, message) {
         /* assert whether a variable resolves to true */
         if (!statement) {
-            throw('Assertion ' + (statement.toString ? statement.toString() : statement) + ' failed');
+            if (!message) message = statement.toString ? statement.toString() : statement;
+            throw('Assertion \'' + message + '\' failed');
         };
     };
 
     this.assertTrue = this.assert;
 
-    this.assertFalse = function(statement) {
+    this.assertFalse = function(statement, message) {
         /* assert whether a variable resolves to false */
         if (statement) {
-            throw('AssertFalse ' + statement.toString() + ' failed');
+            if (!message) message = statement.toString ? statement.toString() : statement;
+            throw('AssertFalse \'' + message + '\' failed');
         };
     };
 
