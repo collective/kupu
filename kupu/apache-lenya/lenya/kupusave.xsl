@@ -37,7 +37,14 @@
       <object>
         <xsl:attribute name="data">
           <!-- strip the nodeid out again (it is not saved in the object @data) -->
-          <xsl:value-of select="substring-after(@src, '/')"/>
+          <xsl:choose>
+            <xsl:when test="starts-with(@src, '/')">
+              <xsl:value-of select="@src"/>              
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="substring-after(@src, '/')"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:attribute>
         <xsl:attribute name="title">
           <xsl:value-of select="@alt"/>
