@@ -33,6 +33,65 @@ var VALIDATORS = {
     }
 };
 
+var SPECIAL_FUNCTIONS = {
+    /* an object that contains functions to produce content for 'special' elements */
+    'createCheckBoxList': function(doc, editor, tool, formvalues, elementstruct) {
+        // this method is created according to a previous implementation made by James of
+        // Codename Future, not sure whether it's behaving as it should but if not it's
+        // probably a useful example...
+
+        // assume the question is the value of the first form field, like in the previous
+        // version
+        var question = formvalues[elementstruct[2][0][0]];
+        var div = doc.createElement('div');
+        var title = doc.createTextNode(question);
+        div.appendChild(title);
+        // XXX I think we want a break here but it wasn't in the original so 
+        // let's comment it out for now...
+        // div.appendChild(doc.createElement('br'));
+        // now generate checkboxes according to the 'checkbox_choices' field in the
+        // formvalues
+        var choices = formvalues['checkbox_choices'].split(';');
+        for (var i=0; i < choices.length; i++) {
+            var choice = choices[i].strip();
+            var span = doc.createElement('span');
+            var nbsp = doc.createTextNode('\xa0');
+            span.appendChild(nbsp);
+            
+            var input = doc.createElement('input');
+            input.setAttribute('type', 'checkbox');
+            input.setAttribute('disabled', 'disabled');
+            if (choice == question) {
+                input.setAttribute('checked', 'checked');
+            };
+            span.appendChild(input);
+            var text = doc.createTextNode(choice);
+            span.appendChild(text);
+
+            div.appendChild(span);
+        };
+        return div;
+    }
+};
+
+var getNodeText = function(node) {
+    /* returns all text content of a node (recursively) */
+    var text = '';
+    if (node.nodeType == 3) {
+        text = node.nodeValue;
+    } else {
+        for (var i=0; i < node.childNodes.length; i++) {
+            var child = node.childNodes[i];
+            if (child.nodeType == 1) {
+                text += getNodeText(child);
+            } else if (child.nodeType == 3) {
+                text += child.nodeValue;
+            };
+        };
+    };
+    return text;
+};
+
 // a list of elements that are likely to get used as a placeholder and 
 // that must get content in XHTML, they will get an &nbsp; as content
 var NON_SINGLE = new Array('div', 'span', 'p', 'textarea');
@@ -156,39 +215,23 @@ function GenericElementsTool(xmlid) {
             throw(error);
         };
         
-        var node = this.editor.getInnerDocument().createElement(el[3]);
-        node.setAttribute('genericelement_id', elid);
-        node.setAttribute('genericelements_uniqueid', this.createUniqueId());
-        for (var i=0; i < el[4].length; i++) {
-            node.setAttribute(el[4][i][0], el[4][i][1]);
-        };
+        // handle the replacement
+        var nodeName = el[3][0][0];
+        var nodeProps = el[3][0][1];
+        var nodeChildren = el[3][0][2];
+        var node = this._createReplacementElement(nodeName, elid, nodeProps, nodeChildren, properties, el);
 
+        // set the properties on the element
         for (var id in properties) {
             var value = properties[id];
+           
             if (typeof(value) != typeof('')) {
                 value = value.join('||');
             };
             node.setAttribute('genelprop_' + id, value);
         };
 
-        if (NON_SINGLE.contains(el[3])) {
-            var doc = this.editor.getInnerDocument();
-            var title = doc.createElement('h3');
-            var titlecontent = doc.createTextNode(el[1]);
-            title.appendChild(titlecontent);
-            node.appendChild(title);
-
-            for (var i=0; i < el[2].length; i++) {
-                var id = el[2][i][0];
-                var name = el[2][i][1];
-                var div = doc.createElement('div');
-                var content = name + ': ' + properties[id];
-                var text = doc.createTextNode(content);
-                div.appendChild(text);
-                node.appendChild(div);
-            };
-        };
-
+        // add or replace the replacement element
         var currgenericel = this.getNearestGenericElement(selNode);
         if (currgenericel) {
             currgenericel.parentNode.replaceChild(node, currgenericel);
@@ -252,7 +295,7 @@ function GenericElementsTool(xmlid) {
     // XXX because of some stupid bug in IE we have to pass the formholder
     // in as an argument, when we didn't IE wouldn't check any checkboxes
     // (seems IE can only check them if they're visible?!?)
-    this.getForm = function(elid,values, formholder) {
+    this.getForm = function(elid, values, formholder) {
         /* get the form for a specific type of element */
         if (!values) {
             values = {};
@@ -454,13 +497,28 @@ function GenericElementsTool(xmlid) {
                     ...
                   </form>
                   <replacement>
-                    <name>[name of replacement element]</name>
-                    <properties>
-                        <property>
-                            <name>[propertyname]</name>
-                            <value>[property value]</value>
-                        </property>
-                    </properties>
+                    <!-- note that <replacement> is only allowed to have 1 child -->
+                    <element name="name of element" value="value of element">
+                      <property name="name of property">value of property</property>
+                      ...
+                      <children>
+                        <!-- child element node -->
+                        <element name="...">
+                          <property name="...">...</property>
+                          <children>
+                            ...
+                          </children>
+                        </element>
+                        <!-- child text node -->
+                        text
+                        <!-- special element node, can be used to insert a node from a function -->
+                        <element name="special">
+                          <!-- this type of element should only have 1 property and no children!! -->
+                          <property name="function">[name of function to call]</property>
+                        </element>
+                        ...
+                      </children>
+                    </element>
                   </replacement>
                 </element>
                 ...
@@ -481,25 +539,35 @@ function GenericElementsTool(xmlid) {
                         ...
                         ],
                     ],
-                    <replacement_name>,
-                    [
-                        [<replacement_property_name>,
-                            <replacement_property_value>],
-                        ...
+                    [<replacement_name>,
+                        [
+                            [<replacement_property_name>,
+                                <replacement_property_value>,
+                                ],
+                            ...
+                        ],
+                        [
+                            [<name>, [<props>], [<children>]],
+                            <text>,
+                            ...
+                        ]
                     ]
                 ]
 
             (so essentially it's a list of tuples 
-            (id, name, form, replacementid, replacementproperties))
+            (id, name, form, replacement))
 
         */
-        var elements = dom.getElementsByTagName('element');
+        var elements = dom.getElementsByTagName('elements')[0];
         var elementlist = new Array();
-        for (var i=0; i < elements.length; i++) {
+        for (var i=0; i < elements.childNodes.length; i++) {
             // handle each element
             // get each property from the XML one by one
+            var el = elements.childNodes[i];
+            if (el.nodeType != 1 || el.nodeName.toLowerCase() != 'element') {
+                continue;
+            };
             var eltuple = new Array();
-            var el = elements[i];
             
             // first basic stuff, id, name
             var id = el.getElementsByTagName('id')[0].
@@ -572,50 +640,147 @@ function GenericElementsTool(xmlid) {
 
             // now do the replacement element, also nested so also somewhat messier
             var replacementel = el.getElementsByTagName('replacement')[0];
-            var repname = undefined;
-            var repprops = new Array();
-            for (var j=0; j < replacementel.childNodes.length; j++) {
-                var repchild = replacementel.childNodes[j];
-                if (repchild.nodeType != 1) {
-                    continue;
-                };
-                var nodeName = repchild.nodeName.toLowerCase();
-                if (nodeName == 'name') {
-                    repname = repchild.childNodes[0].nodeValue.strip();
-                } else if (nodeName == 'properties') {
-                    var props = repchild.getElementsByTagName('property');
-                    for (var k=0; k < props.length; k++) {
-                        var prop = props[k];
-                        var propname = undefined;
-                        var propvalue = undefined;
-                        for (var l=0; l < prop.childNodes.length; l++) {
-                            // XXX WAAAAAAAH!!! QUADRUPLE NESTED FOR-LOOP ALERT!!!
-                            // /me notes: ignorable whitespace SUCKS!!!
-                            var propchild = prop.childNodes[l];
-                            if (propchild.nodeType != 1) {
-                                continue;
-                            };
-                            var propNodeName = propchild.nodeName.toLowerCase();
-                            if (propNodeName == 'name') {
-                                propname = propchild.childNodes[0].nodeValue;
-                            } else if (propNodeName == 'value') {
-                                propvalue = propchild.childNodes[0].nodeValue;
-                            };
-                        };
-                        repprops.push(new Array(propname, propvalue));
-                    };
-                };
-            };
-            eltuple.push(repname);
-            eltuple.push(repprops);
+            var replacements = this._getReplacementElements(replacementel);
+            eltuple.push(replacements);
             
             elementlist.push(eltuple);
         };
         return elementlist;
     };
 
+    this._getReplacementElements = function(repel) {
+        /* return a nested array of replacement content
+        
+            see the _parseXML method's docstring for more details about the 
+            return value
+        */
+        var repels = new Array();
+        for (var i=0; i < repel.childNodes.length; i++) {
+            var repchild = repel.childNodes[i];
+            if (repchild.nodeType != 1 || repchild.nodeName.toLowerCase() != 'element') {
+                continue;
+            };
+            repels.push(this._getReplacementElementHelper(repchild));
+        };
+        return repels;
+    };
+
+    this._getReplacementElementHelper = function(repchild) {
+        var repname = repchild.getAttribute('name');
+        var repprops = new Array(); // will contain [key, value] pairs
+        var children = new Array(); // will contain nested content
+        for (var i=0; i < repchild.childNodes.length; i++) {
+            var child = repchild.childNodes[i];
+            if (child.nodeType != 1) {
+                continue;
+            };
+            var nodeName = child.nodeName.toLowerCase();
+            if (nodeName == 'property') {
+                var propname = child.getAttribute('name');
+                var propvalue = getNodeText(child);
+                repprops.push(new Array(propname, propvalue));
+            } else if (nodeName == 'children') {
+                for (var j=0; j < child.childNodes.length; j++) {
+                    var childchild = child.childNodes[j];
+                    if (childchild.nodeType == 1) {
+                        var rettuple = this._getReplacementElementHelper(childchild);
+                        children.push(rettuple);
+                    } else if (childchild.nodeType == 3) {
+                        var nodeValue = getNodeText(childchild).strip();
+                        if (nodeValue == '') {
+                            continue;
+                        };
+                        children.push(nodeValue);
+                    };
+                };
+            };
+        };
+        return (new Array(repname, repprops, children));
+    };    
+
     this._getValidator = function(id) {
         return VALIDATORS[id];
+    };
+
+    this._createReplacementElement = function(nodeName, elid, props, children, formvalues, fullelstruct) {
+        /* create the HTML for the replacement element */
+        var node = this._createReplacementElementHelper(nodeName, props, children, formvalues, fullelstruct);
+        node.setAttribute('genericelement_id', elid);
+        node.setAttribute('genericelement_uniqueid', this.createUniqueId());
+        return node;
+    };
+
+    this._createReplacementElementHelper = function(nodeName, props, children, formvalues, fullelstruct) {
+        var doc = this.editor.getInnerDocument();
+        if (nodeName == 'special') {
+            return this._createSpecialNode(props, children, formvalues);
+        };
+        var node = doc.createElement(nodeName);
+        for (var i=0; i < props.length; i++) {
+            var proptuple = props[i];
+            node.setAttribute(proptuple[0], this._interpolateValues(proptuple[1], formvalues));
+        };
+        for (var i=0; i < children.length; i++) {
+            var child = children[i];
+            if (typeof(child) == 'string') {
+                var nodeValue = this._interpolateValues(child, formvalues);
+                node.appendChild(doc.createTextNode(nodeValue));
+            } else {
+                var childname = child[0];
+                var props = child[1];
+                var childchildren = child[2];
+                if (childname == 'special') {
+                    var func = '';
+                    for (var j=0; j < props.length; j++) {
+                        var proptuple = props[j];
+                        if (proptuple[0] == 'function') {
+                            func = proptuple[1];
+                        };
+                    };
+                    if (func == '') {
+                        throw('No function property available for special element inside ' + nodeName);
+                    };
+                    node.appendChild(this._callSpecialElementFunction(func, formvalues, fullelstruct));
+                } else {
+                    node.appendChild(
+                        this._createReplacementElementHelper(
+                            childname, props, childchildren, formvalues, fullelstruct
+                        )
+                    );
+                };
+            };
+        };
+
+        return node;
+    };
+
+    this._interpolateValues = function(data, values) {
+        /* interpolate keys for values from the values mapping
+        
+            syntax: {{<key>}} (so e.g. {{foo}} will be replaced
+            by the value of foo from the mapping)
+        */
+        for (var name in values) {
+            var reg = new RegExp('{{' + name + '}}', 'g');
+            var value = values[name];
+            if (typeof(value) != 'string') {
+                value = ';'.join(value);
+            };
+            data = data.replace(reg, value);
+        };
+        data = data.replace(/\{/g, '{');
+        return data;
+    };
+
+    this._callSpecialElementFunction = function(funcname, formvalues, elementstruct) {
+        /* call a special function, see _parseXML for an explanation of those 
+        
+            should return a single node
+        */
+        var doc = this.editor.getInnerDocument();
+        var editor = this.editor;
+        var tool = this;
+        return SPECIAL_FUNCTIONS[funcname](doc, editor, tool, formvalues, elementstruct);
     };
 
     this._getValidatorForField = function(el, fieldid) {
