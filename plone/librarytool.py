@@ -17,6 +17,9 @@ from Acquisition import aq_parent, aq_inner, aq_base
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import createExprContext
 from Products.kupu.plone.interfaces import IKupuLibraryTool
+from Products.CMFCore.utils import getToolByName
+
+class KupuError(Exception): pass
 
 class KupuLibraryTool:
     """A tool to aid Kupu libraries"""
@@ -118,19 +121,29 @@ class KupuLibraryTool:
             return default
         return self._res_types[resource_type][:]
 
+    def _validate_portal_types(self, resource_type, portal_types):
+        typetool = getToolByName(self, 'portal_types')
+        all_meta_types = dict([ (t.content_meta_type, 1) for t in typetool.listTypeInfo()])
+
+        portal_types = [ptype.strip() for ptype in portal_types if ptype]
+        for p in portal_types:
+            if p not in all_meta_types:
+                raise KupuError, "Resource type: %s, invalid type: %s" % (resource_type, p)
+        return portal_types
+
     def addResourceType(self, resource_type, portal_types):
         """See IResourceTypeMapper"""
-        portal_types = [ptype.strip() for ptype in portal_types if ptype]
+        portal_types = self._validate_portal_types(resource_type, portal_types)
         self._res_types[resource_type] = tuple(portal_types)
 
     def updateResourceTypes(self, type_info):
         """See IResourceTypeMapper"""
         type_map = self._res_types
         for type in type_info:
+            resource_type = type['resource_type']
+            portal_types = self._validate_portal_types(resource_type, type['portal_types'])
             del type_map[type['old_type']]
-            portal_types = [ptype.strip() for ptype
-                            in type['portal_types'] if ptype]
-            type_map[type['resource_type']] = tuple(portal_types)
+            type_map[resource_type] = tuple(portal_types)
 
     def deleteResourceTypes(self, resource_types):
         """See IResourceTypeMapper"""
