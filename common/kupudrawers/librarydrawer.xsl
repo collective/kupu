@@ -110,7 +110,7 @@ $Id$
         <xsl:attribute name="style">background-color: #C0C0C0</xsl:attribute>
       </xsl:if>
       <xsl:if test="icon">
-        1<img src="{icon}" title="{title}" alt="{title}" />2
+        <img src="{icon}" title="{title}" alt="{title}" />
       </xsl:if>
       <xsl:apply-templates select="title"/>
     </div>
