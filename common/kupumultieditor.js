@@ -167,7 +167,7 @@ function KupuMultiEditor(documents, config, logger) {
         for (var i=0; i < contents.length; i++) {
             var ta = document.createElement('textarea');
             ta.style.visibility = 'hidden';
-            var text = document.createTextNode(contents);
+            var text = document.createTextNode(contents[i]);
             ta.appendChild(text);
             ta.setAttribute('name', idprefix + '_' + i);
             
