@@ -17,4 +17,6 @@
     <kupu:implementation name="default" />
   </kupu:implementation-order>
 
+  <kupu:disable-feature name="drawers" /> <!-- for now -->
+
 </kupu:dist>

@@ -56,7 +56,9 @@
     <link type="text/css" rel="stylesheet"
           tal:attributes="href string:${kupuurl}/kupudrawerstyles.css" />
 
-    <metal:macro metal:use-macro="macros/xmlconfig" />
+    <metal:macro metal:use-macro="macros/xmlconfig">
+      <metal:slot fill-slot="dst"><tal:block replace="documenturl" /></metal:slot>
+    </metal:macro>
 
   </head>
   
