@@ -77,4 +77,8 @@
     <kupu:insert-part feature="toolboxes" part="save" />
   </kupu:fill-slot>
 
+  <kupu:fill-slot name="drawers">
+    <kupu:insert-part feature="drawers" part="librarydrawer" />
+  </kupu:fill-slot>
+
 </kupu:wire>
