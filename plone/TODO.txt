@@ -4,6 +4,12 @@ TODO for drawers
 
 - IE support --> guido
 
+  + xsl:import needs provide a valid URI; it seems IE cannot import an
+    XSL file that is linked with a relative path (as reported by duncan)
+
+  + container.ownerDocument.contentWindow = doc.contentWindow;
+    fails: "object doesn't support this property or method"
+
 - Description in the rightmost bar needs to be trimmed, in case it's a
   long string. Can XSLT do that?!? --> paul?
 
