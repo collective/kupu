@@ -138,6 +138,12 @@
                               id="kupu-table-addtable-button">Add Table</button>
                     </td>
                   </tr>
+                  <tr>
+                    <td>Fix all tables</td>
+                    <td>
+                      <button type="button" id="kupu-table-fixall-button">Fix</button> 
+                    </td>
+                  </tr>
                 </table>
               </div>
               <div id="kupu-toolbox-edittable">
@@ -164,6 +170,12 @@
                     <td>
                       <button type="button" id="kupu-table-addrow-button">Add</button> 
                       <button type="button" id="kupu-table-delrow-button">Remove</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Fix table</td>
+                    <td>
+                      <button type="button" id="kupu-table-fix-button">Fix</button> 
                     </td>
                   </tr>
                 </table>
