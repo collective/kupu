@@ -35,7 +35,7 @@ function KupuDocument(iframe) {
     this.execCommand = function(command, arg) {
         /* delegate execCommand */
         // XXX Is the command always a string? Can't it be '' or 0 or so?
-        if (!arg) arg = null;
+        if (arg === undefined) arg = null;
         this.document.execCommand(command, false, arg);
     };
     
