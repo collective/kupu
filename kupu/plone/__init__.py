@@ -25,5 +25,5 @@ def initialize(context):
     utils.ToolInit("kupu Library Tool",
                    tools=(PloneKupuLibraryTool,),
                    product_name='kupu',
-                   icon="common/kupuimages/kupu_icon.gif",
+                   icon="kupu_icon.gif",
                    ).initialize(context)
