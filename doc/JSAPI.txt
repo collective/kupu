@@ -307,6 +307,9 @@ Additional helper functions, objects and methods:
     selectSelectItem(select, item)
         - select item <item> from HTML optionlist <select>
 
+    loadDictFromXML(document, islandid)
+        - load configuration values from an XML chunk
+
     Logger objects:
 
         When the KupuEditor gets initialized, it expects a logging
@@ -343,3 +346,9 @@ Additional helper functions, objects and methods:
 
         - a helper method added to the prototype of Array that will
           return true if element is in the array, false if it isn't.
+
+    String.prototype.strip(string):
+
+        - a helper method added to the prototype of String that strips
+          all outer whitespace. The original string is not affected; a
+          new instance of String is returned.
