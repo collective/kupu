@@ -14,7 +14,7 @@
 
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupudrawers.js"
-        tal:attributes="href container/kupudrawers.js/absolute_url"> </script>
+          tal:attributes="href container/kupudrawers.js/absolute_url"> </script>
   </kupu:part>
 
 </kupu:feature>

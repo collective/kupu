@@ -4,11 +4,12 @@
     implementation="zope2"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupucontextmenu.js"> </script>
+    <script type="text/javascript" src="kupucontextmenu.js"
+            tal:attributes="href container/kupucontextmenu.js/absolute_url"> </script>
   </kupu:part>
 
 </kupu:feature>
