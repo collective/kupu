@@ -26,7 +26,7 @@ from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest
 
 try:
-    from MimetypesRegistry import MimeTypeItem
+    from Products.MimetypesRegistry import MimeTypeItem
 except ImportError:
     pass # Plone not available
 
