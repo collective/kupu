@@ -233,7 +233,7 @@ function initPloneKupu(editorId) {
     // register form submit handler, remove the drawer's contents before submitting 
     // the form since it seems to crash IE if we leave them alone
     function prepareForm(event) {
-        kupu.saveDataToField(this.form, field);
+        kupu.saveDataToField(this.form, this);
         var drawer = window.document.getElementById('kupu-librarydrawer');
         if (drawer) {
             drawer.parentNode.removeChild(drawer);
