@@ -46,6 +46,9 @@ function TestCase() {
         };
     };
 
+    this.debug = function(msg) {
+        this._reporter.debug(msg);
+    }
     this.assert = function(statement) {
         /* assert whether a variable resolves to true */
         if (!statement) {
