@@ -1,0 +1,28 @@
+<kupu:feature
+    name="toolbar"
+    implementation="plone"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <kupu:part name="select-styles">
+    <select id="kupu-tb-styles"
+             onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+      <option value="p" i18n:translate="paragraph-normal">Normal</option>
+      <option value="h2|Heading">Heading</option>
+      <option value="h3|Subheading">Subheading</option>
+      <option value="pre">Formatted</option>
+      <tal:block tal:condition="field/widget/parastyles|nothing">
+        <option
+            tal:condition="field/widget/parastyles"
+            tal:repeat="style field/widget/parastyles"
+            tal:attributes="value python:style[0]"
+            tal:content="python:style[1]"
+            />
+      </tal:block>
+    </select>
+  </kupu:part>
+
+</kupu:feature>

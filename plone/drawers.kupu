@@ -1,0 +1,24 @@
+<kupu:feature
+    name="drawers"
+    implementation="plone"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <kupu:part name="xmlconfig">
+    <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/imagedrawer.xsl" />
+    <link_xsl_uri tal:content="string:${portal_url}/kupudrawers/linkdrawer.xsl" />
+    <tal:var tal:define="
+        lib_prefix    string:${here/absolute_url}/kupulibraries.xml?resource_type=;
+        search_prefix string:${portal_url}/kupusearch.xml?resource_type=;"
+        >
+      <image_libraries_uri tal:content="string:${lib_prefix}mediaobject" />
+      <link_libraries_uri tal:content="string:${lib_prefix}linkable" />
+      <search_images_uri tal:content="string:${search_prefix}mediaobject" />
+      <search_links_uri tal:content="string:${search_prefix}linkable" />
+    </tal:var>
+  </kupu:part>
+
+</kupu:feature>

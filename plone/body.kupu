@@ -1,0 +1,29 @@
+<kupu:feature
+    name="body"
+    implementation="plone"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <kupu:part name="editorframe">
+    <iframe
+        id="kupu-editor"
+        frameborder="0"
+        src="emptypage"
+        >
+    </iframe>
+    <textarea cols="80" rows="25"
+        tabindex="" style="display:none"
+        name="description" id="kupu-editor-textarea"
+        tal:content="inputvalue"
+        tal:attributes="name inputname;
+                        onfocus onfocus|nothing;
+                        onblur onblur|nothing;
+                        tabindex tabindex|nothing;
+                        rows rows|default;
+                        cols cols|default;">
+    </textarea>
+  </kupu:part>
+
+</kupu:feature>
