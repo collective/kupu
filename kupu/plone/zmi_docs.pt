@@ -107,11 +107,11 @@ div.system-message p.system-message-title {
 div.topic {
   margin: 2em }
 
-h1.title {
-  text-align: center }
-
-h2.subtitle {
-  text-align: center }
+h2.title {
+  background-image: url(kupuimages/kupu_icon.gif);
+  background-repeat: no-repeat;
+  background-position: center left;
+  padding-left: 32px; }
 
 hr {
   width: 75% }

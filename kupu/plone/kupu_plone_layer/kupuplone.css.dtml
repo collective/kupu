@@ -130,7 +130,7 @@ span#kupu-tb-buttons .kupu-underline-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
-.kupu-image {background-image: url("plonekupuimages/image.gif");}
+.kupu-image {background-image: url("kupuimages/image.png");}
 
 .kupu-indent {background-image: url("kupuimages/indent.gif");}
 .kupu-inserthorizontalrule {background-image: url("plonekupuimages/hr.gif");}
