@@ -620,8 +620,11 @@ function ImageTool() {
     };
     
     this.createImage = function(url) {
-        this.editor.execCommand("InsertImage", url);
+        var img = this.editor.getInnerDocument().createElement('img');
+        img.setAttribute('src', url);
+        img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage('Image inserted');
+        return img;
     };
     
     this.createContextMenuElements = function(selNode, event) {
