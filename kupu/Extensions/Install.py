@@ -14,6 +14,7 @@ This is best executed using CMFQuickInstaller
 $Id$
 """
 import os.path
+import sys
 from StringIO import StringIO
 
 from App.Common import package_home
@@ -70,8 +71,17 @@ def install_libraries(self, out):
     """
     # add the library tool
     addTool = self.manage_addProduct['kupu'].manage_addTool
-    addTool('kupu Library Tool')
-    print >>out, "Added the Kupu Tibrary Tool to the plone Site"
+    try:
+        addTool('kupu Library Tool')
+        print >>out, "Added the Kupu Library Tool to the plone Site"
+    except:
+        #heuristics for testing if an instance with the same name already exists
+        #only this error will be swallowed.
+        #Zope raises in an unelegant manner a 'Bad Request' error
+        e=sys.exc_info()
+        if e[0] != 'Bad Request':
+            raise
+        print >>out, "Kupu library Tool already added"    
 
 def install(self):
     out = StringIO()
