@@ -4,11 +4,12 @@
     implementation="default"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
 
   <kupu:part name="body">
     <body onload="kupu = startKupu()">
-      <h1>Kupu Editor Test Page</h1>
+      <h1 i18n:translate="">Kupu Editor Test Page</h1>
       <kupu:define-slot name="body" />
     </body>
   </kupu:part>

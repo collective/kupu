@@ -33,7 +33,7 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
         this.editor = editor;
         this._fixTabIndex(this.sourceButton);
         addEventHandler(this.sourceButton, "click", this.switchSourceEdit, this);
-        this.editor.logMessage('Source edit tool initialized');
+        this.editor.logMessage(_('Source edit tool initialized'));
     };
  
     this.switchSourceEdit = function(event, nograb) {
@@ -55,7 +55,7 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
 
             var data='';
             if(kupu.config.filtersourceedit) {
-                window.status = 'Cleaning up HTML...';
+                window.status = _('Cleaning up HTML...');
                 var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
                 data = kupu.getXMLBody(transform);
                 data = kupu._fixupSingletons(data).replace(/<\/?body[^>]*>/g, "");

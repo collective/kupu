@@ -5,8 +5,8 @@ if (!window.beforeunload) (function() {
 
         this.message = "Your form has not been saved. All changes you have made will be lost";
         if (window._) {
-            this.message = window._(this.message);
-        }
+            this.message = _("Your form has not been saved. All changes you have made will be lost");
+        };
         this.forms = [];
         this.chkId = [];
         this.chkType = new this.CheckType();

@@ -632,6 +632,38 @@
 			There was a problem initializing the drawers. Most likely the XSLT or XML files aren\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error}).
 		</msgstr>
 	</message>
+	<message filenames="common/kupusaveonpart.js">
+		<msgid>
+			You have unsaved changes. Do you want to save before leaving the page?
+		</msgid>
+		<msgstr i18n:translate="">
+			You have unsaved changes. Do you want to save before leaving the page?
+		</msgstr>
+	</message>
+	<message filenames="common/kupusourceedit.js">
+		<msgid>
+			Source edit tool initialized
+		</msgid>
+		<msgstr i18n:translate="">
+			Source edit tool initialized
+		</msgstr>
+	</message>
+	<message filenames="common/kupusourceedit.js">
+		<msgid>
+			Cleaning up HTML...
+		</msgid>
+		<msgstr i18n:translate="">
+			Cleaning up HTML...
+		</msgstr>
+	</message>
+	<message filenames="common/kupustart.js common/kupustart_form.js common/kupustart_multi.js">
+		<msgid>
+			Error loading translation (status ${status} ), falling back to english
+		</msgid>
+		<msgstr i18n:translate="">
+			Error loading translation (status ${status} ), falling back to english
+		</msgstr>
+	</message>
 	<message filenames="common/sarissa.js">
 		<msgid>
 			xml
