@@ -12,16 +12,10 @@ coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 linkbyuid = kupu_tool.getLinkbyuid()
 preview_action = 'kupupreview'
 
-def maybeGetAttr(obj, name):
-    '''Get an attribute if it exists.
-    Call it if callable
-    '''
-    if not hasattr(obj, name):
-        return None
-    val = getattr(obj, name)
-    if callable(val):
-        return val()
-    return val
+def info(obj):
+    id = obj.getId()
+    portal_type = obj.portal_type
+    collection = portal_type in coll_types
 
     if linkbyuid and not collection and hasattr(obj, 'UID'):
         url = 'resolveuid/%s' % obj.UID()
