@@ -162,6 +162,7 @@ function initSilvaKupu(iframe) {
         };
     };
 
+    /*
     var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button',
                                               opendrawer('imagelibdrawer'));
     kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
@@ -169,12 +170,14 @@ function initSilvaKupu(iframe) {
     var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
                                              opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
+    */
 
     // create some drawers, drawers are some sort of popups that appear when a 
     // toolbar button is clicked
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
+    /*
     var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
                                               conf['link_libraries_uri'],
                                               conf['link_images_uri']);
@@ -184,7 +187,8 @@ function initSilvaKupu(iframe) {
                                                 conf['image_libraries_uri'],
                                                 conf['search_images_uri']);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
-
+    */
+    
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);
 
