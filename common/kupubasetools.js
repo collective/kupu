@@ -71,6 +71,12 @@ function KupuTool() {
     this._selectSelectItem = function(select, item) {
         this.editor.logMessage('Deprecation warning: KupuTool._selectSelectItem');
     };
+    this._fixTabIndex = function(element) {
+        var tabIndex = this.editor.document.editable.tabIndex-1;
+        if (tabIndex && !element.tabIndex) {
+            element.tabIndex = tabIndex;
+        }
+    }
 }
 
 function KupuToolBox() {
@@ -103,6 +109,7 @@ function KupuButton(buttonid, commandfunc, tool) {
 
     this.initialize = function(editor) {
         this.editor = editor;
+        this._fixTabIndex(this.button);
         addEventHandler(this.button, 'click', this.execCommand, this);
     };
 
@@ -195,6 +202,7 @@ function KupuUI(textstyleselectid) {
     this.initialize = function(editor) {
         /* initialize the ui like tools */
         this.editor = editor;
+        this._fixTabIndex(this.tsselect);
         addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
     };
 
@@ -1440,6 +1448,10 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
     this.initialize = function(editor) {
         /* attach event handlers */
         this.editor = editor;
+        this._fixTabIndex(this.addulbutton);
+        this._fixTabIndex(this.addolbutton);
+        this._fixTabIndex(this.ulselect);
+        this._fixTabIndex(this.olselect);
 
         addEventHandler(this.addulbutton, "click", this.addUnorderedList, this);
         addEventHandler(this.addolbutton, "click", this.addOrderedList, this);
@@ -1605,6 +1617,7 @@ function DefinitionListTool(dlbuttonid) {
     this.initialize = function(editor) {
         /* initialize the tool */
         this.editor = editor;
+        this._fixTabIndex(this.dlbutton);
         addEventHandler(this.dlbutton, 'click', this.createDefinitionList, this);
         addEventHandler(editor.getInnerDocument(), 'keyup', this._keyDownHandler, this);
         addEventHandler(editor.getInnerDocument(), 'keypress', this._keyPressHandler, this);

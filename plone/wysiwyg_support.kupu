@@ -27,7 +27,8 @@
   </kupu:part>
 
   <kupu:part name="eventhandler">
-    <script type="text/javascript" tal:content="string:
+    <script type="text/javascript"
+      tal:content="string:
       addEventHandler(window, 'load',  function() {
           window.kupu = initPloneKupu(document.getElementById('kupu-editor'), 'kupu-editor-textarea');
           window.kupuui = window.kupu.getTool('ui');
@@ -56,8 +57,7 @@
 
 <div metal:define-macro="textFormatSelector"
      class="field"
-     tal:define="tabindex    tabindex/next;
-                 text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
+     tal:define="text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
 
   <tal:editor tal:condition="haskupu">
      <input type="hidden" name="text_format" value="html" />
@@ -88,7 +88,7 @@
            tabindex=""
            id="cb_html"
            tal:attributes="checked python:test(text_format=='html', 1, None);
-                           tabindex tabindex;"
+                           tabindex tabstop;"
            />
     <label for="cb_html" i18n:translate="html">HTML</label> <br />
 
@@ -99,7 +99,7 @@
            tabindex=""
            id="cb_plain"
            tal:attributes="checked python:test(text_format=='plain', 1, None);
-                           tabindex tabindex;"
+                           tabindex tabstop;"
            />
     <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
 

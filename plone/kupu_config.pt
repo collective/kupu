@@ -162,7 +162,7 @@ renamed or moved elsewhere on the site.</div>
         name="configure_kupu:method"
         value="Save"
         i18n:attributes="value"
-        tal:attributes="tabindex tabindex/next;"
+        tal:attributes="tabindex tabindex|nothing;"
         />
 </form>
     </div>
