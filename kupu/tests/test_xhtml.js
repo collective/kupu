@@ -65,7 +65,13 @@ function KupuXhtmlTestCase() {
         this.assertTrue(this.arrayContains(attrs, 'charoff'));
         validator._excludeAttributes(['charoff']);
         this.assertTrue(!this.arrayContains(attrs, 'charoff'));
+        this.assertTrue(this.arrayContains(validator.Attributes.img, 'height'));
+        this.assertTrue(this.arrayContains(validator.Attributes.th, 'height'));
+        validator._excludeAttributesForTags(['width','height'],['table','th','td']);
+        this.assertTrue(this.arrayContains(validator.Attributes.img, 'height'));
+        this.assertFalse(this.arrayContains(validator.Attributes.th, 'height'));
     }
+
     this.testSet = function() {
         var validator = new XhtmlValidation();
 

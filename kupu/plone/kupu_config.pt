@@ -58,7 +58,7 @@ renamed or moved elsewhere on the site.</div>
 <fieldset>
 <legend>Tables</legend>
 
-<div class="formHelp">Enter a list of class names to be made available in the table drawer<div>
+<div class="formHelp">Enter a list of class names to be made available in the table drawer</div>
 
 <textarea name="table_classnames:lines"
          rows="5" cols="30"
@@ -66,6 +66,60 @@ renamed or moved elsewhere on the site.</div>
 </textarea>
 
 </fieldset>
+
+<fieldset>
+<legend>HTML Filter</legend>
+<div class="formHelp">Enter HTML tags and attributes to be removed when saving documents. (Uncheck to remove entries)</div>
+
+<table>
+  <tr>
+    <td></td>
+    <th>Tags</th>
+    <th>Attributes</th>
+  </tr>
+
+  <tr tal:repeat="exclusion_tuple here/getHtmlExclusions">
+    <tal:with define="tags python:exclusion_tuple[0];
+                      attributes python:exclusion_tuple[1]">
+    <td valign="top">
+      <input type="checkbox" name="html_exclusions.keep:records" checked="1"
+             tal:attributes="value python:1;" />
+      <input type="hidden" name="html_exclusions.tags:records:list"
+             tal:repeat="tag tags"
+             tal:attributes="value tag" />
+      <input type="hidden" name="html_exclusions.attributes:records:list"
+             tal:repeat="attr attributes"
+             tal:attributes="value attr" />
+    </td>
+
+    <td valign="top"><div tal:replace="python:', '.join(tags)"></div>
+        <em tal:condition="not:tags">Any tag</em>
+    </td>
+    <td valign="top"><div tal:replace="python:', '.join(attributes)"></div>
+        <em tal:condition="not:attributes">Whole tag removed</em>
+    </td>
+
+    </tal:with>
+  </tr>
+  <tr>
+    <td valign="top">
+      <input type="checkbox" name="html_exclusions.keep:records" checked="1" disabled="1"
+             tal:attributes="value python:1;" />
+    </td>
+    <td valign="top">
+      <textarea name="html_exclusions.tags:records"
+                rows="5" cols="30"></textarea>
+    </td>
+
+    <td valign="top">
+      <textarea name="html_exclusions.attributes:records"
+                rows="5" cols="30"></textarea>
+    </td>
+  </tr>
+</table>
+
+</fieldset>
+
 <input class="context"
         tabindex=""
         type="submit"
