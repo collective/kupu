@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="body"
+    implementation="zope2"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    >
+
+  <kupu:part name="fulleditor">
+    <metal:macro define-macro="fulleditor">
+    <div class="kupu-fulleditor">
+      <kupu:define-slot name="fulleditor" />
+    </div>
+    </metal:macro>
+  </kupu:part>
+
+  <kupu:part name="editorframe">
+    <div class="kupu-editorframe">
+      <form>
+        <iframe metal:define-slot="editorframe"
+                id="kupu-editor"
+                frameborder="0"
+                src=""
+                tal:attributes="src here/absolute_url"
+                scrolling="auto">
+        </iframe>
+        <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
+      </form>
+    </div>
+  </kupu:part>
+
+</kupu:feature>

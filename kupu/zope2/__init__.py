@@ -20,8 +20,12 @@ $Id$
 import Globals
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
-from Products.FileSystemSite.DirectoryView import DirectoryRegistry, \
-     DirectoryView, DirectoryViewSurrogate, manage_listAvailableDirectories
+from Products.FileSystemSite.DirectoryView import DirectoryView
+from Products.FileSystemSite.DirectoryView import DirectoryViewSurrogate
+from Products.FileSystemSite.DirectoryView import DirectoryRegistry
+from Products.FileSystemSite.DirectoryView import registerFileExtension
+from Products.FileSystemSite.DirectoryView import manage_listAvailableDirectories
+from Products.FileSystemSite.FSFile import FSFile
 
 def initialize(context):
     context.registerClass(
@@ -35,6 +39,10 @@ def initialize(context):
 #_dirreg = DirectoryRegistry()
 from Products.FileSystemSite.DirectoryView import _dirreg
 _dirreg.registerDirectory('../default', globals())
+
+# for library drawers
+registerFileExtension('xsl', FSFile)
+registerFileExtension('xml', FSFile)
 
 class KupuEditor(DirectoryView):
     meta_type = 'kupu editor'
