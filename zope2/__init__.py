@@ -29,7 +29,7 @@ def initialize(context):
         constructors=(('manage_addKupuEditorForm', manage_addKupuEditorForm),
                       manage_addKupuEditor
                       ),
-        icon='zope2/kupueditor.png'
+        icon='default/kupuimages/kupu_icon.gif'
     )
 
 #_dirreg = DirectoryRegistry()
