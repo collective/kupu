@@ -5,9 +5,9 @@ objTextArea = null;
 objReferenceFormat = null;
 objAppendValue = false;
 
-function openObjectLookupWindow(url_to_open) {
+function openObjectLookupWindow(url_to_open, folder_context) {
   // open the lookup window, will be called by getObjectReference
-
+  url_to_open = url_to_open + '?folder_context=' + folder_context;
   width = 760;
   height = 500;
   leftPos = (screen.width - width) / 2;
@@ -17,10 +17,10 @@ function openObjectLookupWindow(url_to_open) {
   objLookupWindow.focus();
 }
 
-function getObjectReference(url, format) {
+function getObjectReference(url, format, folder_context) {
   // should be called by pagetemplate
   referenceFormat = format;
-  openObjectLookupWindow(url);
+  openObjectLookupWindow(url, folder_context);
 }
 
 function insertObjectReference(id, reference, wndw) {
