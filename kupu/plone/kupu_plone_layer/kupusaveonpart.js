@@ -10,15 +10,14 @@
 
 // $Id$
 
-function saveOnPart() {
+function saveOnPart(evt) {
     /* ask the user if (s)he wants to save the document before leaving */
-
-    /*
-    if (kupu.content_changed && 
-        confirm('You have unsaved changes. Do you want to save before leaving the page?')) {
-        kupu.config.reload_src = 0;
-        form.submit();
-        kupu.saveDocument(false, true);
+    if (!evt) evt = window.event;
+    if (kupu.content_changed) {
+        var msg = 'You have unsaved changes in Kupu.';
+        if (evt) {
+            evt.returnValue = msg;
+        }
+        return msg;
     };
-    */
 };
