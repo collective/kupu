@@ -535,7 +535,7 @@ function LinkTool() {
             if (this.editor.getBrowserName() == 'IE') {
                 linkel = this.editor.getNearestParentOfType(currnode, 'A');
             } else {
-                linkel = currnode.nextSibling;
+                linkel = currnode.tagName=='A'?currnode:currnode.nextSibling;
             };
             if ((!linkel) || linkel.tagName != 'A') {
                 // Insert link with no text selected, insert the title
