@@ -294,6 +294,9 @@ function KupuEditor(document, config, logger) {
         
         // and add it to the form
         form.appendChild(ta);
+
+        // let the calling code know we have added the textarea
+        return true;
     };
 
     this.execCommand = function(command, param) {
