@@ -138,14 +138,13 @@ def install_customisation(self, out):
     """Default settings may be stored in a customisation policy script so
     that the entire setup may be 'productised'"""
 
-    # For some reason, recently added products might not be searched
-    # properly when we try to access them through self. Instead,
-    # access the skin directly:
-    st=getToolByName(self, 'portal_skins')
-    skin = st.getSkinByName(st.default_skin)
+    # Skins are cached during the request so we (in case new skin
+    # folders have just been added) we need to force a refresh of the
+    # skin.
+    self.changeSkin(None)
 
     scriptname = '%s-customisation-policy' % PROJECTNAME.lower()
-    cpscript = getattr(skin, scriptname, None)
+    cpscript = getattr(self, scriptname, None)
     if cpscript:
         cpscript = cpscript.__of__(self)
 
