@@ -152,6 +152,10 @@ function initSilvaKupu(iframe) {
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
 
+    var sourceedittool = new SourceEditTool('kupu-source-button',
+                                            'kupu-editor-textarea');
+    kupu.registerTool('sourceedittool', sourceedittool);
+
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
     

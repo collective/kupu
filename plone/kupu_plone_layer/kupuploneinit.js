@@ -137,6 +137,10 @@ function initPloneKupu(iframe, fieldname) {
     var showpathtool = new ShowPathTool('kupu-showpath-field');
     kupu.registerTool('showpathtool', showpathtool);
 
+    var sourceedittool = new SourceEditTool('kupu-source-button',
+                                            'kupu-editor-textarea');
+    kupu.registerTool('sourceedittool', sourceedittool);
+
     var jumplinks = new JumpLinkTool();
     kupu.registerTool('jumplinktool', jumplinks);
 
