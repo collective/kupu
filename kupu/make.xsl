@@ -154,11 +154,19 @@ $Id$
   <!-- Handle part insertion; we delegate the work to the named
        template below -->
   <xsl:template match="//kupu:insert-part" mode="expand">
+    <xsl:variable
+      name="feature"
+      select="@feature"
+      />
+    <xsl:variable
+      name="part"
+      select="@part"
+      />
     <xsl:choose>
-      <xsl:when test="//kupu:disableFeature[@name=@feature]">
+      <xsl:when test="//kupu:disable-feature[@name=$feature]">
         <xsl:if test="$debug">
           <xsl:comment>
-            Feature '<xsl:value-of select="@feature" />' was disabled.
+            Feature '<xsl:value-of select="$feature" />' was disabled.
           </xsl:comment>
         </xsl:if>
       </xsl:when>
@@ -166,11 +174,11 @@ $Id$
         <xsl:call-template name="insert-part">
           <xsl:with-param
             name="feature"
-            select="@feature"
+            select="$feature"
             />
           <xsl:with-param
             name="part"
-            select="@part"
+            select="$part"
             />
         </xsl:call-template>
       </xsl:otherwise>
