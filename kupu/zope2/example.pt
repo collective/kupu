@@ -5,9 +5,9 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:define="kupu here/kupu; 
-                  kupuurl kupu/absolute_url;
                   macros kupu/kupumacros/macros;
-                  documenturl here/REQUEST/URL1">
+                  kupu_url kupu/absolute_url;
+                  document_url here/REQUEST/URL1">
 
   <!--
    Create a 'kupu editor' object in the folder where you want to
@@ -18,59 +18,39 @@
    or something like that. You can now point your browser at any object's
    URL, append '/kupu_edit' and you will be able to edit the object
    with kupu.
+
+   Note: kupumacros requires kupu_url to be defined.
    -->
 
   <head>
     <title>Kupu Editor example template</title>
 
-    <!-- need to load javascripts and stylehsheets by hand here since
-         we need the correct url prefix -->
-
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/sarissa.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuhelpers.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupueditor.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupubasetools.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuloggers.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupucontentfilters.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuinit.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupucontextmenu.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupusaveonpart.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupustart.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupusourceedit.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupudrawers.js"> </script>
-  
-    <link type="text/css" rel="stylesheet"
-          tal:attributes="href string:${kupuurl}/kupustyles.css" />
-    <link type="text/css" rel="stylesheet"
-          tal:attributes="href string:${kupuurl}/kupudrawerstyles.css" />
-
-    <metal:macro metal:use-macro="macros/xmlconfig">
-      <metal:slot fill-slot="dst"><tal:block replace="documenturl" /></metal:slot>
+    <!-- include the standard scripts/stylesheets -->
+    <metal:macro metal:use-macro="macros/head">
     </metal:macro>
 
   </head>
-  
+
   <body onload="kupu = startKupu();">
+
+    <!-- include the xmlconfig -->
+    <metal:macro metal:use-macro="macros/xmlconfig">
+      <metal:slot fill-slot="dst"><tal:block replace="document_url" /></metal:slot>
+    </metal:macro>
+
+    <!-- include the fulleditor -->
     <div class="kupu-fulleditor" metal:use-macro="macros/fulleditor">
+      <!-- 
+      you can fiddle with slots in this macro to add/remove/change
+      functionality, but anything more than minor changes here will also
+      require your own startKupu() and initKupu() alternatives to match
+      the slot changes.
+      -->
       <iframe metal:fill-slot="editorframe"
-              id="kupu-editor" 
-              tal:attributes="src documenturl;"
-              reloadsrc="0" 
-              usecss="1"
-              strict_output="1"
-              content_type="application/xhtml+xml"
+              id="kupu-editor"
+              src=""
+              tal:attributes="src document_url;"
+              frameborder="0"
               scrolling="auto"
               ></iframe>
     </div>
