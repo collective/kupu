@@ -43,9 +43,14 @@ function SelectionTestCase() {
         var node = element.firstChild;
         for (var i=0; i < element.childNodes.length; i++) {
             if (node.nodeType == node.TEXT_NODE) {
-                if ((lastnode && (offset < node.length)) ||
-                    (!lastnode && (offset <= node.length))) {
+                var endcounts = !node.nextSibling &&
+                         blockElements.contains(element.tagName.toUpperCase());
+                if ((offset < node.length) ||
+                    ((offset == node.length) && (!lastnode || endcounts))) {
                     return [node, offset];
+                };
+                if (endcounts) {
+                    offset -= 1;
                 };
                 offset -= node.length;
             } else if (node.nodeType == node.ELEMENT_NODE) {
@@ -67,9 +72,6 @@ function SelectionTestCase() {
                 };
             };
             node = node.nextSibling;
-        };
-        if (blockElements.contains(element.tagName.toUpperCase())) {
-            offset -= 1;
         };
         return [node, offset];
     };
@@ -256,7 +258,7 @@ function KupuSelectionTestCase() {
     this.testParentElement_r9516 = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/></p><p>baz</p>';
         // select                              |<img/></p><p>baz|
-        this._setSelection(7, true, 13, false, 'baz');
+        this._setSelection(7, true, 12, false, 'baz');
         node = this.doc.getElementsByTagName('body')[0];
         this.assertEquals(this.selection.parentElement(), node);
     };
