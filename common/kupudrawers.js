@@ -153,6 +153,22 @@ function TableDrawer(elementid, tool) {
 
     this.createContent = function() {
         var selNode = this.editor.getSelectedNode();
+        if (this.editor.config.table_classes) {
+            var classselect = document.getElementById('kupu-tabledrawer-classchooser');
+            var classes = this.editor.config.table_classes['class'];
+            while (classselect.hasChildNodes()) {
+                classselect.removeChild(classselect.firstChild);
+            };
+            for (var i=0; i < classes.length; i++) {
+                var classname = classes[i];
+                var option = document.createElement('option');
+                var content = document.createTextNode(classname);
+                option.appendChild(content);
+                option.setAttribute('value', classname);
+                classselect.appendChild(option);
+            };
+        };
+        
         var table = this.editor.getNearestParentOfType(selNode, 'table');
 
         if (!table) {
@@ -163,6 +179,11 @@ function TableDrawer(elementid, tool) {
             // show edit table drawer
             show = this.editpanel;
             hide = this.addpanel;
+            var align = this.tool._getColumnAlign(selNode);
+            var alignselect = document.getElementById('kupu-tabledrawer-alignchooser');
+            selectSelectItem(alignselect, align);
+            var classselect = document.getElementById('kupu-tabledrawer-classchooser');
+            selectSelectItem(classselect, table.className);
         };
         hide.style.display = 'none';
         show.style.display = 'block';
