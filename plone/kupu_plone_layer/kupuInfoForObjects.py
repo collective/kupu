@@ -9,6 +9,7 @@
 from Products.CMFCore.utils import getToolByName
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
+linkbyuid = kupu_tool.getLinkbyuid()
 preview_action = 'kupupreview'
 
 def maybeGetAttr(obj, name):
@@ -22,18 +23,29 @@ def maybeGetAttr(obj, name):
         return val()
     return val
 
-# A list comprehension might seem a little cryptic here (although it
-# should be readable just fine). The reason we use it is that it is
-# much faster instead of iterating and appending manually.
-items = [{'id':          obj.getId(),
-          'url':         obj.absolute_url(),
-          'portal_type': obj.portal_type,
-          'collection':  obj.portal_type in coll_types,
-          'icon':        context.portal_url() + '/' + obj.getIcon(),
-          'size':        hasattr(obj, 'get_size') and context.getObjSize(obj) or None,
-          'width':       maybeGetAttr(obj, 'width'),
-          'height':      maybeGetAttr(obj, 'height'),
-          'preview':     obj.getTypeInfo().getActionById(preview_action, None),
-          'title':       obj.Title() or obj.getId(),
-          'description': obj.Description()} for obj in values]
-return items
+    if linkbyuid and not collection and hasattr(obj, 'UID'):
+        url = 'resolveuid/%s' % obj.UID()
+    else:
+        url = obj.absolute_url()
+
+    icon = "%s/%s" % (context.portal_url(), obj.getIcon())
+    width = height = size = None
+    preview = obj.getTypeInfo().getActionById(preview_action, None)
+
+    if hasattr(obj, 'get_size'):
+        size = context.getObjSize(obj)
+    width = getattr(obj, 'width', None)
+    height = getattr(obj, 'height', None)
+    if callable(width): width = width()
+    if callable(height): height = height()
+        
+    title = obj.Title() or obj.getId()
+    description = obj.Description()
+
+    return {'id': id, 'url': url, 'portal_type': portal_type,
+          'collection':  collection, 'icon': icon, 'size': size,
+          'width': width, 'height': height,
+          'preview': preview, 'title': title, 'description': description,
+          }
+
+return [info(obj) for obj in values]

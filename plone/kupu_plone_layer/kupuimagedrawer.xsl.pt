@@ -66,10 +66,17 @@ $Id$
             <xsl:value-of select="description"/>
         </div>
         <div>
-            <strong>ALT-text</strong>
-            <br/>
             <form onsubmit="return false;">
+                <strong>ALT-text</strong>
+                <br />
                 <input type="text" id="image_alt" size="20" value="{title}"/>
+                <br />
+                <input type="radio" name="image-align" id="image-align-left" checked="checked" value="image-left" />
+                <label for="image-align-left">Left</label>
+                <input type="radio" name="image-align" id="image-align-inline" value="image-inline" />
+                <label for="image-align-inline">Inline</label>
+                <input type="radio" name="image-align" id="image-align-right" value="image-right" />
+                <label for="image-align-right">Right</label>
             </form>
         </div>
     </xsl:template>

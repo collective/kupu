@@ -725,6 +725,14 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
         var alt = document.getElementById('image_alt').value;
         img.setAttribute('alt', alt);
 
+        // Set image class from the alignment radio buttons
+        var radios = document.getElementsByName('image-align');
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                img.className = radios[i].value;
+            }
+        }
+
         // XXX for some reason, image drawers aren't closed
         // automatically like Link Library Drawers. This is definitely
         // a bug and should be fixed. Until that happens, close the

@@ -23,6 +23,8 @@ from Products.CMFCore.utils import getToolByName, minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.kupu import kupu_globals
 
+PROJECTNAME = 'Kupu'
+
 kupu_package_dir = package_home(kupu_globals)
 
 def register_layer(self, relpath, name, out):
@@ -65,6 +67,7 @@ def install_plone(self, out):
             site_props._updateProperty(attrname, editors)        
             print >>out, "Added 'Kupu' to available editors in Plone."
     install_libraries(self, out)
+    install_configlet(self, out)
 
 def install_libraries(self, out):
     """Install everything necessary to support Kupu Libraries
@@ -83,6 +86,25 @@ def install_libraries(self, out):
             raise
         print >>out, "Kupu library Tool already added"    
 
+def install_configlet(self, out):
+    portal_conf=getToolByName(self,'portal_controlpanel')
+    try:
+        portal_conf.registerConfiglet( 'kupu'
+               , 'Kupu'      
+               , 'string:${portal_url}/kupu_library_tool/kupu_config' 
+               , ''                 # a condition   
+               , 'Manage portal'    # access permission
+               , 'Products'         # section to which the configlet should be added: 
+                                    #(Plone,Products,Members) 
+               , 1                  # visibility
+               , PROJECTNAME
+               , 'kupuimages/kupu_icon.gif' # icon in control_panel
+               , 'Kupu Library Tool'
+               , None
+               )
+    except KeyError:
+        pass # Get KeyError when registering duplicate configlet.
+
 def install(self):
     out = StringIO()
 
@@ -97,4 +119,16 @@ def install(self):
         pass
 
     print >>out, "kupu successfully installed"
+    return out.getvalue()
+
+def uninstall(self):
+    out = StringIO()
+
+    # remove the configlet from the portal control panel
+    configTool = getToolByName(self, 'portal_controlpanel', None)
+    if configTool:
+        configTool.unregisterConfiglet('kupu')
+        out.write('Removed kupu configlet\n')
+
+    print >> out, "Successfully uninstalled %s." % PROJECTNAME
     return out.getvalue()
