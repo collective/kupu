@@ -42,15 +42,15 @@ echo where target is one of %TARGETS%
 goto :eof
 
 :target_kupu.html
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%default\kupu.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%common\kupu.html
     goto :eof
 
 :target_kupuform.html:
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-form.kupu %REDIR%default\kupuform.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-form.kupu %REDIR%common\kupuform.html
     goto :eof
 
 :target_zope2macros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-zope2.kupu %REDIR%default\kupumacros.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-zope2.kupu %REDIR%common\kupumacros.html
     goto :eof
 
 :target_plonemacros
@@ -71,11 +71,11 @@ goto :eof
     goto :eof
 
 :target_debug
-    %X%%XSLTPROC% %XSL_DEBUG% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%default\kupu.html
+    %X%%XSLTPROC% %XSL_DEBUG% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%common\kupu.html
     goto :eof
 
 :target_clean
-    SET FILES=default\kupumacros.html default\kupu.html default\kupuform.html
+    SET FILES=common\kupumacros.html common\kupu.html common\kupuform.html
     SET FILES=%FILES% plone\kupu_plone_layer\wysiwyg_support.html silva\kupumacros.html
     for %%F in (%FILES%) DO (
         IF EXIST %%F ( %X%echo del %%F && %X%del %%F )
