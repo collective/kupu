@@ -43,23 +43,23 @@ function CNFTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
                     addcolbuttonid, delcolbuttonid, fixbuttonid,
                     fixallbuttonid, toolboxid, plainclass, activeclass) {
 
-    this.addtablediv = document.getElementById(addtabledivid);
-    this.edittablediv = document.getElementById(edittabledivid);
-    this.newrowsinput = document.getElementById(newrowsinputid);
-    this.newcolsinput = document.getElementById(newcolsinputid);
-    this.makeheaderinput = document.getElementById(makeheaderinputid);
-    this.classselect = document.getElementById(classselectid);
-    this.alignselect = document.getElementById(alignselectid);
-    this.addtablebutton = document.getElementById(addtablebuttonid);
-    this.addrowbutton = document.getElementById(addrowbuttonid);
-    this.delrowbutton = document.getElementById(delrowbuttonid);
-    this.setrowrepeatbutton = document.getElementById(setrowrepeatbuttonid);
-    this.delrowrepeatbutton = document.getElementById(delrowrepeatbuttonid);
-    this.addcolbutton = document.getElementById(addcolbuttonid);
-    this.delcolbutton = document.getElementById(delcolbuttonid);
-    this.fixbutton = document.getElementById(fixbuttonid);
-    this.fixallbutton = document.getElementById(fixallbuttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.addtablediv = getFromSelector(addtabledivid);
+    this.edittablediv = getFromSelector(edittabledivid);
+    this.newrowsinput = getFromSelector(newrowsinputid);
+    this.newcolsinput = getFromSelector(newcolsinputid);
+    this.makeheaderinput = getFromSelector(makeheaderinputid);
+    this.classselect = getFromSelector(classselectid);
+    this.alignselect = getFromSelector(alignselectid);
+    this.addtablebutton = getFromSelector(addtablebuttonid);
+    this.addrowbutton = getFromSelector(addrowbuttonid);
+    this.delrowbutton = getFromSelector(delrowbuttonid);
+    this.setrowrepeatbutton = getFromSelector(setrowrepeatbuttonid);
+    this.delrowrepeatbutton = getFromSelector(delrowrepeatbuttonid);
+    this.addcolbutton = getFromSelector(addcolbuttonid);
+    this.delcolbutton = getFromSelector(delcolbuttonid);
+    this.fixbutton = getFromSelector(fixbuttonid);
+    this.fixallbutton = getFromSelector(fixallbuttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 

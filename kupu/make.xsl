@@ -284,4 +284,23 @@ $Id$
     </xsl:copy>
   </xsl:template>
 
+  <!-- Copy nodes through verbatim, but omit the id attribute
+       from most of them -->
+<!--  <xsl:template match="*" mode="expand">
+    <xsl:choose>
+     <xsl:when test="local-name()='xml' or local-name='iframe'">
+        <xsl:copy>
+          <xsl:copy-of select="@*" />
+          <xsl:apply-templates mode="expand" />
+        </xsl:copy>
+     </xsl:when>
+     <xsl:otherwise>
+        <xsl:copy>
+          <xsl:copy-of select="@*[local-name() != 'id']" />
+          <xsl:apply-templates mode="expand" />
+        </xsl:copy>
+     </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template> -->
+
 </xsl:stylesheet>

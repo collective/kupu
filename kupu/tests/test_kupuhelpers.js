@@ -117,6 +117,7 @@ function KupuHelpersTestCase() {
         var iframe = document.getElementById('iframe');
         this.doc = iframe.contentWindow.document;
         this.body = this.doc.getElementsByTagName('body')[0];
+        this._testdiv = document.getElementById('testdiv');
     };
         
     this.testSelectSelectItem = function() {
@@ -185,8 +186,22 @@ function KupuHelpersTestCase() {
         this.assertEquals(dict['list'].length, 2);
     };
 
+    this.testGetFromSelector = function() {
+        data = '<div><span id="xspan" class="xyzzy"></span></div>';
+        this._testdiv.innerHTML = data;
+        node = getFromSelector("xspan");
+        this.assertEquals(node && node.id, "xspan");
+        node = getFromSelector("#testdiv span.xyzzy");
+        this.assertEquals(node && node.id, "xspan");
+        data = '<div><button class="xyzzy"></button><span id="xspan" class="foo xyzzy bar"></span></div>';
+        this._testdiv.innerHTML = data;
+        node = getFromSelector("#testdiv span.xyzzy");
+        this.assertEquals(node && node.id, "xspan");
+    };
+
     this.tearDown = function() {
         this.body.innerHTML = '';
+        this._testdiv.innerHTML = '';
     };
 };
 

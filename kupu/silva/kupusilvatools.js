@@ -31,11 +31,11 @@ SilvaLinkTool.prototype = new LinkTool;
 function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
-    this.input = document.getElementById(inputid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.updatebutton = document.getElementById(updatebuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.input = getFromSelector(inputid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.updatebutton = getFromSelector(updatebuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
     
@@ -88,15 +88,15 @@ SilvaLinkToolBox.prototype = new LinkToolBox;
 function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
                         alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
     /* Silva specific image tool */
-    this.editel = document.getElementById(editelid);
-    this.urlinput = document.getElementById(urlinputid);
-    this.targetselect = document.getElementById(targetselectid);
-    this.hireslinkradio = document.getElementById(hireslinkradioid);
-    this.linklinkradio = document.getElementById(linklinkradioid);
-    this.linkinput = document.getElementById(linkinputid);
-    this.alignselect = document.getElementById(alignselectid);
-    this.titleinput = document.getElementById(titleinputid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.editel = getFromSelector(editelid);
+    this.urlinput = getFromSelector(urlinputid);
+    this.targetselect = getFromSelector(targetselectid);
+    this.hireslinkradio = getFromSelector(hireslinkradioid);
+    this.linklinkradio = getFromSelector(linklinkradioid);
+    this.linkinput = getFromSelector(linkinputid);
+    this.alignselect = getFromSelector(alignselectid);
+    this.titleinput = getFromSelector(titleinputid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -659,22 +659,22 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         a completely different format for tables
     */
 
-    this.addtablediv = document.getElementById(addtabledivid);
-    this.edittablediv = document.getElementById(edittabledivid);
-    this.newrowsinput = document.getElementById(newrowsinputid);
-    this.newcolsinput = document.getElementById(newcolsinputid);
-    this.makeheaderinput = document.getElementById(makeheaderinputid);
-    this.classselect = document.getElementById(classselectid);
-    this.alignselect = document.getElementById(alignselectid);
-    this.widthinput = document.getElementById(widthinputid);
-    this.addtablebutton = document.getElementById(addtablebuttonid);
-    this.addrowbutton = document.getElementById(addrowbuttonid);
-    this.delrowbutton = document.getElementById(delrowbuttonid);
-    this.addcolbutton = document.getElementById(addcolbuttonid);
-    this.delcolbutton = document.getElementById(delcolbuttonid);
-    this.fixbutton = document.getElementById(fixbuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.addtablediv = getFromSelector(addtabledivid);
+    this.edittablediv = getFromSelector(edittabledivid);
+    this.newrowsinput = getFromSelector(newrowsinputid);
+    this.newcolsinput = getFromSelector(newcolsinputid);
+    this.makeheaderinput = getFromSelector(makeheaderinputid);
+    this.classselect = getFromSelector(classselectid);
+    this.alignselect = getFromSelector(alignselectid);
+    this.widthinput = getFromSelector(widthinputid);
+    this.addtablebutton = getFromSelector(addtablebuttonid);
+    this.addrowbutton = getFromSelector(addrowbuttonid);
+    this.delrowbutton = getFromSelector(delrowbuttonid);
+    this.addcolbutton = getFromSelector(addcolbuttonid);
+    this.delcolbutton = getFromSelector(delcolbuttonid);
+    this.fixbutton = getFromSelector(fixbuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -737,7 +737,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         var rows = parseInt(this.newrowsinput.value);
         var cols = parseInt(this.newcolsinput.value);
         var makeHeader = this.makeheaderinput.checked;
-        var classchooser = document.getElementById("kupu-table-classchooser-add");
+        var classchooser = getFromSelector("kupu-table-classchooser-add");
         var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
         this.tool.createTable(rows, cols, makeHeader, tableclass);
     };
@@ -913,11 +913,11 @@ SilvaTableToolBox.prototype = new TableToolBox;
 
 function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, toolboxid, plainclass, activeclass) {
     /* a tool to manage index items (named anchors) for Silva */
-    this.input = document.getElementById(inputid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.updatebutton = document.getElementById(updatebuttonid);
-    this.deletebutton = document.getElementById(deletebuttonid);
-    this.toolboxel = document.getElementById(toolboxid);
+    this.input = getFromSelector(inputid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.updatebutton = getFromSelector(updatebuttonid);
+    this.deletebutton = getFromSelector(deletebuttonid);
+    this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -1088,10 +1088,10 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
 SilvaIndexTool.prototype = new KupuTool;
 
 function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
-    this.depthselect = document.getElementById(depthselectid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolbox = document.getElementById(toolboxid);
+    this.depthselect = getFromSelector(depthselectid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolbox = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
     this._inside_toc = false;
@@ -1267,14 +1267,14 @@ function SilvaAbbrTool(abbrradioid, acronymradioid, radiocontainerid, titleinput
                             addbuttonid, updatebuttonid, delbuttonid,
                             toolboxid, plainclass, activeclass) {
     /* tool to manage citation elements */
-    this.abbrradio = document.getElementById(abbrradioid);
-    this.acronymradio = document.getElementById(acronymradioid);
-    this.radiocontainer = document.getElementById(radiocontainerid);
-    this.titleinput = document.getElementById(titleinputid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.updatebutton = document.getElementById(updatebuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolbox = document.getElementById(toolboxid);
+    this.abbrradio = getFromSelector(abbrradioid);
+    this.acronymradio = getFromSelector(acronymradioid);
+    this.radiocontainer = getFromSelector(radiocontainerid);
+    this.titleinput = getFromSelector(titleinputid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.updatebutton = getFromSelector(updatebuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolbox = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
     
@@ -1389,12 +1389,12 @@ SilvaAbbrTool.prototype = new KupuTool;
 function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebuttonid, delbuttonid, 
                             toolboxid, plainclass, activeclass) {
     /* tool to manage citation elements */
-    this.authorinput = document.getElementById(authorinputid);
-    this.sourceinput = document.getElementById(sourceinputid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.updatebutton = document.getElementById(updatebuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolbox = document.getElementById(toolboxid);
+    this.authorinput = getFromSelector(authorinputid);
+    this.sourceinput = getFromSelector(sourceinputid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.updatebutton = getFromSelector(updatebuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolbox = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
     this._inside_citation = false;
@@ -1565,13 +1565,13 @@ SilvaCitationTool.prototype = new KupuTool;
 
 function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cancelbuttonid,
                                     updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
-    this.idselect = document.getElementById(idselectid);
-    this.formcontainer = document.getElementById(formcontainerid);
-    this.addbutton = document.getElementById(addbuttonid);
-    this.cancelbutton = document.getElementById(cancelbuttonid);
-    this.updatebutton = document.getElementById(updatebuttonid);
-    this.delbutton = document.getElementById(delbuttonid);
-    this.toolbox = document.getElementById(toolboxid);
+    this.idselect = getFromSelector(idselectid);
+    this.formcontainer = getFromSelector(formcontainerid);
+    this.addbutton = getFromSelector(addbuttonid);
+    this.cancelbutton = getFromSelector(cancelbuttonid);
+    this.updatebutton = getFromSelector(updatebuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
+    this.toolbox = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
 
@@ -1935,7 +1935,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
 SilvaExternalSourceTool.prototype = new KupuTool;
 
 function SilvaKupuUI(textstyleselectid) {
-    this.tsselect = document.getElementById(textstyleselectid);
+    this.tsselect = getFromSelector(textstyleselectid);
 
     this.updateState = function(selNode) {
         /* set the text-style pulldown */

@@ -103,7 +103,6 @@ function KupuEditor(document, config, logger) {
         /* Should be called on iframe.onload, will initialize the editor */
         //DOM2Event.initRegistration();
         this._initializeEventHandlers();
-        this.focusDocument();
         if (this.getBrowserName() == "IE") {
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');

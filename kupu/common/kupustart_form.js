@@ -12,7 +12,7 @@
 
 function startKupu() {
     // initialize the editor, initKupu groks 1 arg, a reference to the iframe
-    var frame = document.getElementById('kupu-editor'); 
+    var frame = getFromSelector('kupu-editor'); 
     var kupu = initKupu(frame);
     
     // first let's load the message catalog

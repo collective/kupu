@@ -11,7 +11,7 @@
 // $Id$
 
 function PloneKupuUI(textstyleselectid) {
-    this.tsselect = document.getElementById(textstyleselectid);
+    this.tsselect = getFromSelector(textstyleselectid);
     this.otherstyle = null;
     this.styles = {};
     var styles = this.styles; // use an object here so we can use the 'in' operator later on

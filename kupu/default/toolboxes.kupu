@@ -91,7 +91,7 @@
         <select class="wide" id="kupu-table-classchooser"> </select>
       </div>
 
-      <div id="kupu-toolbox-addtable">
+      <div id="kupu-toolbox-addtable" class="kupu-toolbox-addtable">
         <div class="kupu-toolbox-label" i18n:translate="">Rows:</div>
         <input class="wide" type="text" id="kupu-table-newrows" />
 
@@ -114,7 +114,7 @@
 
       </div>
 
-      <div id="kupu-toolbox-edittable">
+      <div id="kupu-toolbox-edittable" class="kupu-toolbox-edittable">
       
           <div class="kupu-toolbox-label">
             <span i18n:translate="">Col Align:</span>

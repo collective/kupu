@@ -11,7 +11,10 @@
 
   <kupu:part name="editorbox">
 
-    <div metal:define-macro="wysiwygEditorBox">
+    <div metal:define-macro="wysiwygEditorBox" id="kupu-editor"
+        tal:define="name fieldName|inputname;
+                editorid string:kupu-editor-${name}"
+        tal:attributes="id editorid">
       <tal:block tal:define="wysiwyg python: here.portal_membership.getAuthenticatedMember().getProperty('wysiwyg_editor');">
         <tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu' and here.browserSupportsKupu();" />
       </tal:block>
@@ -31,7 +34,7 @@
     <script type="text/javascript"
       tal:content="string:
       addEventHandler(window, 'load',  function() {
-          window.kupu = initPloneKupu(document.getElementById('kupu-editor'), 'kupu-editor-textarea');
+          window.kupu = initPloneKupu('${editorid}');
           window.kupuui = window.kupu.getTool('ui');
           window.drawertool = window.kupu.getTool('drawertool');
           window.kupu.initialize();}  , document);"></script>

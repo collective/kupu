@@ -4,7 +4,7 @@ window._ = function(msgid, interpolations) {
         for (var id in interpolations) {
             var value = interpolations[id];
             var reg = new RegExp('\\\$\\\{' + id + '\\\}', 'g');
-            msgid = msgid.replace(reg, value);
+            msgid = msgid.replace(reg, ""+value);
         };
     };
     return msgid;

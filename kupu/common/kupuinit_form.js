@@ -222,10 +222,12 @@ function initKupu(iframe) {
     // make the prepareForm method get called on form submit
     // some bug in IE makes it crash on saving the form when a lib drawer
     // was added to the page at some point, remove it on form submit
-    var savebutton = document.getElementById('kupu-save-button');
+    var savebutton = getFromSelector('kupu-save-button');
     function prepareForm() {
-        var drawer = document.getElementById('kupu-librarydrawer');
-        drawer.parentNode.removeChild(drawer);
+        var drawer = window.document.getElementById('kupu-librarydrawer');
+        if (drawer) {
+            drawer.parentNode.removeChild(drawer);
+        }
         kupu.prepareForm(savebutton.form, 'kupu');
         savebutton.form.submit();
     };

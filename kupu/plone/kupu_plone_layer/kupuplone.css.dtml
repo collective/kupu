@@ -26,7 +26,7 @@ expires="_.DateTime()+7" >
 
 div.kupu-toolboxes {display: none}
 
-/*select#kupu-tb-styles {display: block}*/
+/*select.kupu-tb-styles {display: block}*/
 
 div.kupu-tb { margin: 0; }
 div.kupu-fulleditor { margin-right: 0; }
@@ -79,7 +79,7 @@ textarea { width: 90%; } /* Override buggy Plone setting */
   border:1px solid &dtml-contentViewBorderColor;;
 }
 
-span#kupu-tb-buttons button {
+span.kupu-tb-buttons button {
   width: 24px;
   height: 24px;
   border-color:&dtml-contentViewBackgroundColor;;
@@ -93,7 +93,7 @@ div div.kupu-panels {
   background-color: &dtml-contentViewBackgroundColor;;
 }
 
-span#kupu-tb-buttons button:hover {
+span.kupu-tb-buttons button:hover {
   border:1px solid;
   border-color:  &dtml-buttonhighlight; &dtml-buttonshadow; &dtml-buttonshadow; &dtml-buttonhighlight;;
 }
@@ -102,7 +102,7 @@ div.kupu-tb-buttongroup {
   margin-right:1px;
 }
 
-#kupu-tb-styles, #kupu-ulstyles, #kupu-olstyles {
+.kupu-tb-styles, .kupu-ulstyles, .kupu-olstyles {
   margin-top:3px;
   margin-bottom:4px;
 }
@@ -129,11 +129,11 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 
 
-span#kupu-tb-buttons .kupu-bold-pressed,
-span#kupu-tb-buttons .kupu-italic-pressed,
-span#kupu-tb-buttons .kupu-subscript-pressed,
-span#kupu-tb-buttons .kupu-superscript-pressed,
-span#kupu-tb-buttons .kupu-underline-pressed {
+span.kupu-tb-buttons .kupu-bold-pressed,
+span.kupu-tb-buttons .kupu-italic-pressed,
+span.kupu-tb-buttons .kupu-subscript-pressed,
+span.kupu-tb-buttons .kupu-superscript-pressed,
+span.kupu-tb-buttons .kupu-underline-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
@@ -176,7 +176,7 @@ span#kupu-tb-buttons .kupu-underline-pressed {
 .kupu-justifyright,
 .kupu-justifyright-pressed {background-image: url("plonekupuimages/right_just.gif");}
 
-.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
+button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-outdent {background-image: url("plonekupuimages/outdent.gif");}
 .kupu-redo {background-image: url("plonekupuimages/redo.gif");}
 .kupu-save {background-image: url("kupuimages/save.png");}

@@ -13,12 +13,12 @@
 
 function SourceEditTool(sourcebuttonid, sourceareaid) {
     /* Source edit tool to edit document's html source */
-    this.sourceButton = document.getElementById(sourcebuttonid);
+    this.sourceButton = getFromSelector(sourcebuttonid);
     this.sourcemode = false;
     this._currently_editing = null;
 
     this.getSourceArea = function() {
-        return document.getElementById(sourceareaid);
+        return getFromSelector(sourceareaid);
     }
 
     this.cancelSourceMode = function() {
@@ -96,13 +96,13 @@ SourceEditTool.prototype = new KupuTool;
 
 function MultiSourceEditTool(sourcebuttonid, textareaprefix) {
     /* Source edit tool to edit document's html source */
-    this.sourceButton = document.getElementById(sourcebuttonid);
+    this.sourceButton = getFromSelector(sourcebuttonid);
     this.textareaprefix = textareaprefix;
 
     this.getSourceArea = function() {
         var docobj = this._currently_editing||kupu.getDocument();
         var sourceareaid = this.textareaprefix + docobj.getEditable().id;
-        return document.getElementById(sourceareaid);
+        return getFromSelector(sourceareaid);
     }
 
     this._currently_editing = null;
