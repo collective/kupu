@@ -370,6 +370,8 @@ function KupuEditor(document, config, logger) {
         if (browser == 'IE') {
             this._saveSelection();
         };
+
+        return ret;
     };
 
     this.logMessage = function(message, severity) {
