@@ -30,11 +30,10 @@ portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
 max = 20
 
 results = catalog.searchResults(
-    #modified={'query':last_login_time, 'range':'min'},
     portal_type=portal_types,
     sort_on='modified',
     sort_order='reverse',
-    creator=member,
+    Creator=member.getMemberId(),
     )[:max]
 
 return context.kupuInfoForBrains(results)
