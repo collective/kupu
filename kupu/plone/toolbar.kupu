@@ -7,6 +7,14 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
+  <kupu:part name="logo">
+    <span class="kupu-tb-buttongroup" style="float: right" id="kupu-logo">
+      <button type="button" class="kupu-logo" title="Kupu 1.1" accesskey="k"
+              onclick="window.open('http://kupu.oscom.org');"
+              tal:attributes="tabindex python:tabindex+1;">&#160;</button>
+    </span>
+  </kupu:part>
+
   <kupu:part name="select-styles">
     <select id="kupu-tb-styles"
              onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">

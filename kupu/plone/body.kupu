@@ -17,7 +17,7 @@
                 base here/absolute_url;
                 posfactory python:base.find('/portal_factory/');
                 base python:posfactory > 0 and base[:posfactory] or base;"
-        tal:attributes="src string:${base}/emptypage"
+        tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1"
         >
     </iframe>
     <textarea cols="80" rows="25"

@@ -19,6 +19,7 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
     this.initialize = function(editor) {
         /* attach the event handlers */
         this.editor = editor;
+        this._fixTabIndex(this.sourceButton);
         addEventHandler(this.sourceButton, "click", this.switchSourceEdit, this);
         this.editor.logMessage('Source edit tool initialized');
     };
