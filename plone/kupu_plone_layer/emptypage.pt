@@ -1,9 +1,9 @@
 <html>
   <head>
     <title>Kupu contentarea</title>
-    <link rel="stylesheet" type="text/css" href="${portal_url}/kupuplone.css"></link>
-    <link rel="stylesheet" type="text/css" href="${portal_url}/plone.css"></link>
-    <link rel="stylesheet" type="text/css" href="${portal_url}/ploneCustom.css"></link>
+    <link rel="stylesheet" type="text/css" href="${portal_url}/kupuplone.css" />
+    <link rel="stylesheet" type="text/css" href="${portal_url}/plone.css" />
+    <link rel="stylesheet" type="text/css" href="${portal_url}/ploneCustom.css" />
     <base href="emptypage" tal:attributes="href string:${here/absolute_url}/" />
   </head>
   <body class="kupu">
