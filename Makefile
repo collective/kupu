@@ -18,10 +18,10 @@ XSL_FILE = make.xsl
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
 
-wysiwyg_support.html:
+plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 
-kupumacros.html:
+silvamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-silva.kupu > silva/kupumacros.html
 
 all:

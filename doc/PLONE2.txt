@@ -20,7 +20,7 @@ Installation
 Drop the 'kupu' directory into your instance home's Products
 directory. Now generate the Plone template by typing:
 
-  $ make wysiwyg_support.html
+  $ make plonemacros
 
 Then restart the Zope instance. Now go to the Plone Control Panel,
 section Add/remove Products and select 'kupu' for installation.
