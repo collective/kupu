@@ -93,8 +93,8 @@ function SelectionTestCase() {
                 innerSelection.extend(position[0], position[1]);
             };
         };
-        this.assertEquals(this.selection.toString().replace(/\r|\n/g, ''),
-                          verificationString);
+        this.assertEquals('"'+this.selection.toString().replace(/\r|\n/g, '')+'"',
+                          '"'+verificationString+'"');
     };
 
     this.tearDown = function() {
