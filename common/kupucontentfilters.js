@@ -97,7 +97,10 @@ function NonXHTMLTagFilter() {
                             'u': 1,
                             'var': 1,
 
-                            'font': 0,
+                            // even though they're deprecated we should leave
+                            // font tags as they are, since Kupu sometimes
+                            // produces them itself.
+                            'font': 1,
                             'center': 0
                             };
     };
