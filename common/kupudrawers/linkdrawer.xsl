@@ -26,25 +26,25 @@ $Id$
   <xsl:template match="resource|collection" mode="properties">
    <form onsubmit="return false;">
      <table>
-       <tr>
+       <tr class="kupu-linkdrawer-title-row">
          <td>
            <strong>Title</strong><br />
            <xsl:value-of select="title" />
          </td>
        </tr>
-       <tr>
+       <tr class="kupu-linkdrawer-description-row">
          <td>
            <strong>Description</strong><br />
            <xsl:value-of select="description" />
          </td>
        </tr>
-       <tr>
+       <tr class="kupu-linkdrawer-name-row">
          <td>
            <strong>Name</strong><br />
            <input type="text" id="link_name" size="10" />
          </td>
        </tr>
-       <tr>
+       <tr class="kupu-linkdrawer-target-row">
          <td>
            <strong>Target</strong><br />
            <input type="text" id="link_target" value="_self" size="10" />
