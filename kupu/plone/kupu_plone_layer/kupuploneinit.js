@@ -29,7 +29,7 @@ function initPloneKupu(iframe, fieldname) {
     ibody.style.margin = "12px";
 
     ibody.innerHTML = document.getElementById(fieldname).value;
-		
+                
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
 
@@ -101,28 +101,28 @@ function initPloneKupu(iframe, fieldname) {
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
-    var justifyleftbutton = new KupuBaseButton('kupu-justifyleft-button',
-                                               execCommand('justifyleft'));
+    var justifyleftbutton = new KupuButton('kupu-justifyleft-button',
+                                           execCommand('justifyleft'));
     kupu.registerTool('justifyleftbutton', justifyleftbutton);
 
-    var justifycenterbutton = new KupuBaseButton('kupu-justifycenter-button',
-                                                 execCommand('justifycenter'));
+    var justifycenterbutton = new KupuButton('kupu-justifycenter-button',
+                                             execCommand('justifycenter'));
     kupu.registerTool('justifycenterbutton', justifycenterbutton);
 
-    var justifyrightbutton = new KupuBaseButton('kupu-justifyright-button',
-                                                execCommand('justifyright'));
+    var justifyrightbutton = new KupuButton('kupu-justifyright-button',
+                                            execCommand('justifyright'));
     kupu.registerTool('justifyrightbutton', justifyrightbutton);
 
-    var outdentbutton = new KupuBaseButton('kupu-outdent-button', execCommand('outdent'));
+    var outdentbutton = new KupuButton('kupu-outdent-button', execCommand('outdent'));
     kupu.registerTool('outdentbutton', outdentbutton);
 
-    var indentbutton = new KupuBaseButton('kupu-indent-button', execCommand('indent'));
+    var indentbutton = new KupuButton('kupu-indent-button', execCommand('indent'));
     kupu.registerTool('indentbutton', indentbutton);
 
-    var undobutton = new KupuBaseButton('kupu-undo-button', execCommand('undo'));
+    var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'));
     kupu.registerTool('undobutton', undobutton);
 
-    var redobutton = new KupuBaseButton('kupu-redo-button', execCommand('redo'));
+    var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
 
@@ -173,20 +173,20 @@ function initPloneKupu(iframe, fieldname) {
         };
     };
 
-    var imagelibdrawerbutton = new KupuBaseButton('kupu-imagelibdrawer-button',
-						  opendrawer('imagelibdrawer'));
+    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button',
+                                              opendrawer('imagelibdrawer'));
     kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
 
-    var linklibdrawerbutton = new KupuBaseButton('kupu-linklibdrawer-button',
-						 opendrawer('linklibdrawer'));
+    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
+                                             opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
-    var linkdrawerbutton = new KupuBaseButton('kupu-linkdrawer-button',
-                                              opendrawer('linkdrawer'));
+    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
+                                          opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
-    var tabledrawerbutton = new KupuBaseButton('kupu-tabledrawer-button',
-                                               opendrawer('tabledrawer'));
+    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
+                                           opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
 
     // create some drawers, drawers are some sort of popups that appear when a 
@@ -195,13 +195,13 @@ function initPloneKupu(iframe, fieldname) {
     kupu.registerTool('drawertool', drawertool);
 
     var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
-					      conf['link_libraries_uri'],
-					      conf['search_links_uri']);
+                                              conf['link_libraries_uri'],
+                                              conf['search_links_uri']);
     drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
     var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
-						conf['image_libraries_uri'],
-						conf['search_images_uri']);
+                                                conf['image_libraries_uri'],
+                                                conf['search_images_uri']);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
 
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
@@ -219,6 +219,6 @@ function initPloneKupu(iframe, fieldname) {
     };
     var field = document.getElementById(fieldname);
     addEventHandler(field.form, 'submit', prepareForm, field);
-		
+                
     return kupu;
 };

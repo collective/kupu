@@ -95,7 +95,8 @@ function KupuToolBox() {
 // Implementations
 //----------------------------------------------------------------------------
 
-function KupuBaseButton(buttonid, commandfunc, tool) {
+function KupuButton(buttonid, commandfunc, tool) {
+    /* Base prototype for kupu button tools */
     this.button = window.document.getElementById(buttonid);
     this.commandfunc = commandfunc;
     this.tool = tool;
@@ -117,9 +118,11 @@ function KupuBaseButton(buttonid, commandfunc, tool) {
     };
 };
 
-KupuBaseButton.prototype = new KupuTool;
+KupuButton.prototype = new KupuTool;
 
 function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
+    /* A button that can have two states (e.g. pressed and
+       not-pressed) based on CSS classes */
     this.button = window.document.getElementById(buttonid);
     this.commandfunc = commandfunc;
     this.checkfunc = checkfunc;
@@ -156,7 +159,7 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     };
 };
 
-KupuStateButton.prototype = new KupuBaseButton;
+KupuStateButton.prototype = new KupuButton;
 
 function KupuUI(textstyleselectid) {
     /* View 
