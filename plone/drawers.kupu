@@ -20,9 +20,9 @@
   <kupu:part name="xmlconfig">
     <tal:var define="field field|nothing;
         usecaptions python:field and field.default_output_type=='text/x-html-captioned' and '?captions=1' or ''">
-    <image_xsl_uri tal:content="string:${portal_url}/kupuimagedrawer.xsl${usecaptions}" />
+    <image_xsl_uri tal:content="string:${portal_url}/drawer.xsl${usecaptions}" />
     </tal:var>
-    <link_xsl_uri tal:content="string:${portal_url}/kupulinkdrawer.xsl" />
+    <link_xsl_uri tal:content="string:${portal_url}/drawer.xsl" />
     <tal:var define="
         base here/absolute_url;
         posfactory python:base.find('/portal_factory/');
