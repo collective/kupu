@@ -88,6 +88,7 @@ renamed or moved elsewhere on the site.</div>
     <tal:with define="tags python:exclusion_tuple[0];
                       attributes python:exclusion_tuple[1]">
     <td valign="top">
+      <input type="hidden" name="html_exclusions.recordmark:records" value="1" />
       <input type="checkbox" name="html_exclusions.keep:records" checked="1"
              tal:attributes="value python:1;" />
       <input type="hidden" name="html_exclusions.tags:records:list"
