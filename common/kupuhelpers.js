@@ -391,8 +391,6 @@ function MozillaSelection(document) {
             if ((n.previousSibling && selection.containsNode(n.previousSibling, true)) ||
                 (n.nextSibling && selection.containsNode(n.nextSibling, true))) {
                 selectedNode = n.parentNode;
-            } else {
-                break;
             }
             n = n.parentNode;
         }

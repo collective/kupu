@@ -34,6 +34,7 @@ function PloneKupuUI(textstyleselectid) {
         var styles = this.styles;
         var options = this.tsselect.options;
         this.styletag = undefined;
+        this.classname = '';
 
         while (currnode) {
             if (currnode.nodeType==1) {
@@ -50,6 +51,7 @@ function PloneKupuUI(textstyleselectid) {
                 if (/p|div|h.|t.|ul|ol|dl|menu|dir|pre|blockquote|address|center/.test(tag)) {
                     var className = currnode.className;
                     this.styletag = tag;
+                    this.classname = className;
                     var style = tag+'|'+className;
                     if (style in styles) {
                         index = styles[style];
@@ -73,15 +75,19 @@ function PloneKupuUI(textstyleselectid) {
         // '<style>' commands
         var index = undefined;
         var mixed = false;
+        var styletag, classname;
 
         var selection = this.editor.getSelection();
             
         for (var el=selNode.firstChild; el; el=el.nextSibling) {
             if (el.nodeType==1 && selection.containsNode(el)) {
                 var i = this.nodeStyle(el);
-                if (index===undefined)
+                if (index===undefined) {
                     index = i;
-                if (index != i) {
+                    styletag = this.styletag;
+                    classname = this.classname;
+                }
+                if (index != i || styletag!=this.styletag || classname != this.classname) {
                     mixed = true;
                     break;
                 }
@@ -101,7 +107,7 @@ function PloneKupuUI(textstyleselectid) {
             if (mixed) {
                 this.otherstyle.text = 'Mixed styles';
             } else {
-                this.otherstyle.text = 'Other: ' + this.styletag + ' '+ className;
+                this.otherstyle.text = 'Other: ' + this.styletag + ' '+ this.classname;
             }
             index = this.tsselect.length-1;
         } else if (this.otherstyle) {
