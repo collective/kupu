@@ -39,4 +39,6 @@ function startKupu() {
 
     // and now we can initialize...
     kupu.initialize();
+
+    return kupu;
 };
