@@ -1,6 +1,6 @@
-============================================
-Installing and using the GenericElementsTool
-============================================
+==================================
+Installing the GenericElementsTool
+==================================
 
 Installation of the package happens like any other Kupu tool. The template
 you're integrating the tool in should contain the HTML for the toolbox, with
