@@ -1096,7 +1096,7 @@ function IESelection(document) {
         return true;
     }
     this.toString = function() {
-        return this.selection.createRange().htmlText;
+        return this.selection.createRange().text;
     };
 };
 

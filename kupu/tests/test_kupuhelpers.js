@@ -122,6 +122,15 @@ function KupuSelectionTestCase() {
         this.assertEquals(selection.getSelectedNode(), node);
     };
 
+    this.testToString = function() {
+        this.body.innerHTML = '<p>foo <b>bar</b> baz</p>';
+        var selection = this.kupudoc.getSelection();
+        selection.selectNodeContents(this.body);
+        this.assertEquals(selection.toString(), 'foo bar baz');
+        selection.selectNodeContents(this.body.firstChild.childNodes[1]);
+        this.assertEquals(selection.toString(), 'bar');
+    };
+
     this.tearDown = function() {
         this.main_body.removeChild(this.iframe);
     };
