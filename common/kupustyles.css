@@ -72,8 +72,12 @@ div.kupu-smalleditor {
 .kupu-bold-pressed {background-image: url("kupuimages/bold.png"); background-color: white;}
 .kupu-forecolor {background-image: url("kupuimages/text-color.png");}
 .kupu-hilitecolor {background-image: url("kupuimages/background-color.png");}
-.kupu-hyperlink {background-image: url("kupuimages/link.png");}
-.kupu-hyperlink-pressed {background-image: url("kupuimages/link.png"); background-color: white}
+
+.kupu-inthyperlink {background-image: url("kupuimages/inthyperlink.png");}
+.kupu-inthyperlink-pressed {background-image: url("kupuimages/inthyperlink.png"); background-color: white}
+.kupu-exthyperlink {background-image: url("kupuimages/exthyperlink.png");}
+.kupu-exthyperlink-pressed {background-image: url("kupuimages/exthyperlink.png"); background-color: white}
+
 .kupu-image {background-image: url("kupuimages/image.png");}
 .kupu-indent {background-image: url("kupuimages/indent.png");}
 .kupu-inserthorizontalrule {background-image: url("kupuimages/hr.png");}
