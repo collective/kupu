@@ -41,6 +41,18 @@ generate the Plone template by typing::
 If you see xsltproc throw an error about not being able to load
 external entities, ignore it.
 
+Windows users need to first get a copy of xsltproc.exe from
+http://www.zlatkovic.com/pub/libxml/. As a minimum you need to
+download the zipfiles for libxslt, libxml2, iconv and zlib.
+Extracting all of the .dll and .exe files into c:\libxslt is
+sufficient for the make command to work (ignore subdirectories in the
+zipfiles). The just start a command prompt in the kupu directory and
+run the same command as for other users (one windows it runs make.bat
+so you don't need a separate make program):
+
+   C:\>cd \Plone 2\Data\Products\kupu
+   C:\Plone 2\Data\Products\kupu>make plonemacros
+
 Now restart the Zope instance. Now go to the Plone Control Panel,
 section Add/remove Products and select 'kupu' for installation.
 
