@@ -42,11 +42,13 @@ function TestCase() {
         }
         if (var1 && var1.toSource && var2 && var2.toSource) {
             if (var1.toSource() != var2.toSource()) {
-                throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
+                this._throwException('Assertion ' + message + 'failed: ' + 
+                                        var1 + ' != ' + var2);
             };
         } else {
             if (var1 != var2) {
-                throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
+                this._throwException('Assertion ' + message + 'failed: ' + 
+                                        var1 + ' != ' + var2);
             };
         };
     };
@@ -59,7 +61,7 @@ function TestCase() {
         if (!statement) {
             if (!message) message = (statement && statement.toString) ? 
                                         statement.toString() : statement;
-            throw('Assertion \'' + message + '\' failed');
+            this._throwException('Assertion \'' + message + '\' failed');
         };
     };
 
@@ -68,8 +70,9 @@ function TestCase() {
     this.assertFalse = function(statement, message) {
         /* assert whether a variable resolves to false */
         if (statement) {
-            if (!message) message = statement.toString ? statement.toString() : statement;
-            throw('AssertFalse \'' + message + '\' failed');
+            if (!message) message = statement.toString ? 
+                    statement.toString() : statement;
+            this._throwException('AssertFalse \'' + message + '\' failed');
         };
     };
 
@@ -77,9 +80,6 @@ function TestCase() {
         /* assert whether a certain exception is raised */
         if (!context) {
             context = null;
-        };
-        if (!exception) {
-            return;
         };
         var exception_thrown = false;
         // remove the first three args, they're the function's normal args
@@ -90,27 +90,31 @@ function TestCase() {
         try {
             func.apply(context, args);
         } catch(e) {
-            if (exception.toSource && e.toSource) {
-                exception = exception.toSource();
-                e = e.toSource();
-            };
-            if (exception.toString && e.toString) {
-                exception = exception.toString();
-                e = e.toString();
-            };
-            if (e != exception) {
-                throw('Function threw the wrong exception ' + 
-                        e.toString() + ', while expecting ' + 
-                        exception.toString());
+            // allow catching undefined exceptions too
+            if (exception === undefined) {
+            } else if (exception) {
+                if (exception.toSource && e.toSource) {
+                    exception = exception.toSource();
+                    e = e.toSource();
+                };
+                if (exception.toString && e.toString) {
+                    exception = exception.toString();
+                    e = e.toString();
+                };
+                if (e != exception) {
+                    this._throwException('Function threw the wrong ' +
+                            'exception ' + e.toString() + 
+                            ', while expecting ' + exception.toString());
+                };
             };
             exception_thrown = true;
         };
         if (!exception_thrown) {
             if (exception) {
-                throw("function didn\'t raise exception \'" + 
-                        exception.toString() + "'");
+                this._throwException("function didn\'t raise exception \'" + 
+                                        exception.toString() + "'");
             } else {
-                throw('function didn\'t raise exception');
+                this._throwException('function didn\'t raise exception');
             };
         };
     };
@@ -150,6 +154,36 @@ function TestCase() {
         var now = new Date();
         var totaltime = now.getTime() - starttime;
         return new Array(numtests, totaltime);
+    };
+
+    this._throwException = function(message) {
+        var lineno = this._getLineNo();
+        if (lineno) {
+            message = 'line ' + lineno + ' - ' + message;
+        };
+        throw(message);
+    };
+
+    this._getLineNo = function() {
+        /* tries to get the line no in Moz */
+        var stack = undefined;
+        try {notdefined()} catch(e) {stack = e.stack};
+        if (stack) {
+            stack = stack.toString().split('\n');
+            for (var i=0; i < stack.length; i++) {
+                var line = stack[i].split('@')[1];
+                if (line.indexOf('ecmaunit') == -1) {
+                    // return the first line after we get out of ecmaunit
+                    var chunks = line.split(':');
+                    var lineno = chunks[chunks.length - 1];
+                    if (lineno != '0') {
+                        return lineno;
+                    };
+                };
+            };
+        } else {
+            return false;
+        };
     };
 };
 
@@ -250,9 +284,6 @@ function StdoutReporter(verbose) {
                 line = 'function' + line;
             };
             var chunks = line.split('@');
-            if (chunks[1].indexOf('ecmaunit/ecmaunit.js') > -1) {
-                break;
-            };
             toprint.push(chunks);
         };
         toprint.reverse();
@@ -347,7 +378,34 @@ function HTMLReporter(outputelement, verbose) {
     };
 
     this._displayStackTrace = function(exc) {
+        /*
+        if (arguments.caller) {
+            // IE
+            var caller = arguments;
+            toprint = [];
+            while (caller) {
+                var callee = caller.callee.toString();
+                callee = callee.replace('\n', '').replace(/\s+/g, ' ');
+                var funcsig = /(.*?)\s*\{/.exec(callee)[1];
+                var args = caller.callee.arguments;
+                var displayargs = [];
+                for (var i=0; i < args.length; i++) {
+                    displayargs.push(args[i].toString());
+                };
+                toprint.push((funcsig + ' - (' + displayargs + ')'));
+                caller = caller.caller;
+            };
+            toprint.reverse();
+            var pre = this.document.createElement('pre');
+            for (var i=0; i < toprint.length; i++) {
+                pre.appendChild(document.createTextNode(toprint[i]));
+                pre.appendChild(document.createElement('br'));
+            };
+            this.outputelement.appendChild(pre);
+        };
+        */
         if (exc.stack) {
+            // Moz (sometimes)
             var lines = exc.stack.toString().split('\n');
             var toprint = []; // need to reverse this before outputting
             for (var i=0; i < lines.length; i++) {
@@ -356,9 +414,6 @@ function HTMLReporter(outputelement, verbose) {
                     line = 'function' + line;
                 };
                 line = line.split('@');
-                if (line[1].indexOf('ecmaunit/ecmaunit.js') > -1) {
-                    break;
-                };
                 toprint.push(line);
             };
             toprint.reverse();
