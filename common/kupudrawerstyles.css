@@ -59,6 +59,7 @@ div.kupu-panels {
   width: 99%;
   margin-right: 6px;
   background-color: ButtonFace;
+  clear:both;
 }
 
 div.kupu-panels td {
@@ -73,26 +74,26 @@ div.kupu-panels td.kupu-preview-button {
   vertical-align: bottom;
 }
 td#kupu-librariespanel {
-  width: 20%;
-  height: 240px;
+  width: 22%;
+  height: 260px;
 }
 
 td#kupu-resourcespanel {
-  width: 35%;
+  width: 33%;
 }
 
 td#kupu-propertiespanel {
   width: 45%;
-  height: 240px;
+  height: 260px;
 }
 
 div#kupu-resourceitems {
-  height: 230px;
+  height: 100%;
 }
 
 .overflow {
   overflow: auto;
-  height: 230px;
+  height: 100%;
 }
 
 div.kupu-libsource, div.kupu-libsource-selected {

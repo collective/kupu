@@ -28,7 +28,7 @@ from Products.kupu.plone import permissions
 
 _default_libraries = (
     dict(id="string:portal_root",
-         title="string:Portal root",
+         title="string:Home",
          uri="string:${portal_url}",
          src="string:${portal_url}/kupucollection.xml",
          icon="string:${portal_url}/kupuimages/kupulibrary.png"),
@@ -37,6 +37,11 @@ _default_libraries = (
          uri="string:${folder_url}",
          src="string:${folder_url}/kupucollection.xml",
          icon="string:${portal_url}/kupuimages/kupulibrary.png"),
+    dict(id="myitems",
+         title="string:My items",
+         uri="string:${portal_url}/kupumyitems.xml",
+         src="string:${portal_url}/kupumyitems.xml",
+         icon="string:${portal_url}/kupuimages/kupusearch_icon.gif")
     dict(id="recentitems",
          title="string:Recent items",
          uri="string:${portal_url}/kupurecentitems.xml",
