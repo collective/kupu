@@ -9,17 +9,43 @@
 from Products.CMFCore.utils import getToolByName
 types_tool = getToolByName(context, 'portal_types')
 kupu_tool = getToolByName(context, 'kupu_library_tool')
-
+linkbyuid = kupu_tool.getLinkbyuid()
 coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 preview_action = 'kupupreview'
 
-items = [{'id':          brain.getId,
-          'url':         brain.getURL(),
-          'portal_type': brain.portal_type,
-          'collection':  brain.portal_type in coll_types,
-          'icon':        context.portal_url() + '/' + brain.getIcon,
-          'size':        None,
-          'preview':     types_tool.getTypeInfo(brain.portal_type).getActionById(preview_action, None),
-          'title':       brain.Title or brain.getId,
-          'description': brain.Description} for brain in values]
-return items
+def info(brain):
+    # It owuld be nice to do everything from the brain, but
+    # unfortunately we need to get the object to calculate a UID
+    # based URL, and also for the preview size.
+    obj = brain.getObject()
+    id = brain.getId
+    url = brain.getURL()
+    portal_type = brain.portal_type
+    collection = portal_type in coll_types
+
+    if linkbyuid and not collection and hasattr(obj, 'UID'):
+        url = 'resolveuid/%s' % obj.UID()
+    else:
+        url = brain.getURL()
+
+    icon = "%s/%s" % (context.portal_url(), brain.getIcon)
+    width = height = size = None
+    preview = types_tool.getTypeInfo(brain.portal_type).getActionById(preview_action, None)
+
+    if hasattr(obj, 'get_size'):
+        size = context.getObjSize(obj)
+    width = getattr(obj, 'width', None)
+    height = getattr(obj, 'height', None)
+    if callable(width): width = width()
+    if callable(height): height = height()
+        
+    title = brain.Title or brain.getId
+    description = brain.Description
+
+    return {'id': id, 'url': url, 'portal_type': portal_type,
+          'collection':  collection, 'icon': icon, 'size': size,
+          'width': width, 'height': height,
+          'preview': preview, 'title': title, 'description': description,
+          }
+          
+return [info(brain) for brain in values]

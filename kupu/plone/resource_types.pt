@@ -1,8 +1,12 @@
-<h1 tal:replace="structure here/manage_page_header" />
-<h1 tal:replace="structure here/manage_tabs" />
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+    lang="en"
+    metal:use-macro="here/kupu_config/macros/master"
+    i18n:domain="plone">
 
-<h3>Kupu Library Tool</h3>
+<body>
 
+    <div class="documentContent" metal:fill-slot="kupu_content">
+<h3>Kupu Configuration</h3>
 <h4>Map resource types</h4>
 
 <p>While libraries provide abstract locations for objects of any type,
@@ -53,9 +57,9 @@ identifies portal types that are to be treated as collections.</p>
 </table>
 
 <p>
-  <input type="submit" name="zmi_add_resource_type:method" value="Add" />
-  <input type="submit" name="zmi_update_resource_types:method" value="Save" />
-  <input type="submit" name="zmi_delete_resource_types:method" value="Delete" />
+  <input class="context" type="submit" name="zmi_add_resource_type:method" value="Add" />
+  <input class="context" type="submit" name="zmi_update_resource_types:method" value="Save" />
+  <input class="context" type="submit" name="zmi_delete_resource_types:method" value="Delete" />
 </p>
 
 <table>
@@ -69,4 +73,7 @@ identifies portal types that are to be treated as collections.</p>
 </table>
 </form>
 
-<h1 tal:replace="structure here/manage_page_footer" />
+</div>
+</body>
+</html>
+

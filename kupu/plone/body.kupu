@@ -13,6 +13,7 @@
         frameborder="0"
         src="emptypage"
         onfocus="this.contentWindow.focus();"
+        tal:attributes="src here/emptypage/absolute_url"
         >
     </iframe>
     <textarea cols="80" rows="25"

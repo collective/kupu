@@ -21,7 +21,10 @@
     <image_xsl_uri tal:content="string:${portal_url}/kupuimagedrawer.xsl" />
     <link_xsl_uri tal:content="string:${portal_url}/kupulinkdrawer.xsl" />
     <tal:var tal:define="
-        lib_prefix    string:${here/absolute_url}/kupulibraries.xml?resource_type=;
+        base here/absolute_url;
+        posfactory python:base.find('/portal_factory/');
+        base python:posfactory > 0 and base[:posfactory+1] or base;
+        lib_prefix    string:${base}/kupulibraries.xml?resource_type=;
         search_prefix string:${portal_url}/kupusearch.xml?resource_type=;"
         >
       <image_libraries_uri tal:content="string:${lib_prefix}mediaobject" />

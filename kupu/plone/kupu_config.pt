@@ -1,0 +1,79 @@
+<metal:page define-macro="master"
+  ><metal:master use-macro="here/prefs_main_template/macros/master"
+    >
+
+<metal:block metal:fill-slot="top_slot" define-slot="top_slot"
+             tal:define="dummy python:request.set('disable_border',1)" />
+<body>
+
+<div metal:fill-slot="prefs_configlet_main" metal:define-slot="prefs_configlet_main"
+    tal:define="errors python:request.get('errors', {});">
+
+<div class="configlet">
+
+<div class="documentEditable">
+
+    <!-- simulating views -->
+    <ul class="contentViews"
+       tal:define="tabs python:('Config','kupu_config'),('Libraries','zmi_libraries'),('Resource Types','zmi_resource_types');
+                   tabs python:[ {'label':label, 'name':name} for (label,name) in tabs ];"
+    >
+        <li tal:repeat="tab tabs"
+                class="selected" tal:attributes="class python:template.pt_source_file()==tab['name'] and 'selected' or ''">
+        <a href=""
+        tal:attributes="href string:${here/absolute_url}/${tab/name}"
+        i18n:translate="" tal:content="tab/label">Config</a>
+        </li>
+    </ul>
+
+    <div class="contentActions">
+    &nbsp;
+    </div>        
+    <!-- End of tabs -->
+    <div class="documentContent" metal:define-slot="kupu_content">
+<h3>Kupu Configuration</h3>
+<form action=""
+    name="configure_kupu"
+    method="post"
+    tal:attributes="action here/absolute_url">
+
+<fieldset>
+<legend>Link options</legend>
+<div class="field">
+<input type="hidden" name="linkbyuid:int:default" value="0" />
+<input type="checkbox"
+    class="noborder"
+    name="linkbyuid:int"
+    id = "kupu_linkbyuid"
+    value="1"
+    tal:attributes="checked here/getLinkbyuid" />
+<label for="kupu_linkbyuid">Link using UIDs</label>
+
+<div class="formHelp">Links to objects on this site created by Kupu can use unique
+object ids so that the links remain valid even if the target object is
+renamed or moved elsewhere on the site.</div>
+
+</div>
+
+<input class="context"
+        tabindex=""
+        type="submit"
+        name="configure_kupu:method"
+        value="Save"
+        i18n:attributes="value"
+        tal:attributes="tabindex tabindex/next;"
+        />
+</fieldset>
+</form>
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+  </metal:master>
+</metal:page>
+

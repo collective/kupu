@@ -59,8 +59,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
 
     id = "kupu_library_tool"
-    meta_type = "kupu Library Tool"
-    title = "Holds library definitions for the kupu WYSIWYG editor"
+    meta_type = "Kupu Library Tool"
+    title = "Kupu WYSIWYG editor configuration"
     security = ClassSecurityInfo()
 
     # protect methods provided by super class KupuLibraryTool
@@ -75,6 +75,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     def __init__(self):
         self._libraries = PersistentList()
         self._res_types = PersistentMapping()
+        self.linkbyuid = True
 
     def manage_afterAdd(self, item, container):
         # We load default values here, so __init__ can still be used
@@ -84,19 +85,33 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
             self.addLibrary(**lib)
         self._res_types.update(_default_resource_types)
 
-    # ZMI views
+    security.declareProtected('View', "getLinkbyuid")
+    def getLinkbyuid(self):
+        """Delete resource types through the ZMI"""
+        try:
+            return self.linkbyuid
+        except AttributeError:
+            return 1
 
+    # ZMI views
     manage_options = (
-        (dict(label='Libraries', action='zmi_libraries'),
+        (dict(label='Config', action='kupu_config'),
+         dict(label='Libraries', action='zmi_libraries'),
          dict(label='Resource types', action='zmi_resource_types'),)
         + SimpleItem.manage_options[1:]
         )
 
+    security.declareProtected(permissions.ManageLibraries, "kupu_config")
+    kupu_config = PageTemplateFile("kupu_config.pt", globals())
+    kupu_config.title = 'kupu configuration'
+
     security.declareProtected(permissions.ManageLibraries, "zmi_libraries")
     zmi_libraries = PageTemplateFile("libraries.pt", globals())
+    zmi_libraries.title = 'kupu configuration'
 
     security.declareProtected(permissions.ManageLibraries, "zmi_resource_types")
     zmi_resource_types = PageTemplateFile("resource_types.pt", globals())
+    zmi_resource_types.title = 'kupu configuration'
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_get_libraries")
@@ -168,5 +183,12 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         """Delete resource types through the ZMI"""
         self.deleteResourceTypes(resource_types)
         REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
+
+    security.declareProtected(permissions.ManageLibraries,
+                              "configure_kupu")
+    def configure_kupu(self, linkbyuid, REQUEST=None):
+        """Delete resource types through the ZMI"""
+        self.linkbyuid = int(linkbyuid)
+        REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
 InitializeClass(PloneKupuLibraryTool)
