@@ -97,7 +97,7 @@ $Id$
     </xsl:template>
     
     <xsl:template match="resource|collection" mode="currentpanel">
-        <div id="{@id}" class="kupu-{local-name()}" title="{title}">
+        <div id="{@id}" class="kupu-{local-name()}" title="{description}">
             <xsl:attribute name="onclick">
                 <xsl:choose>
                     <xsl:when
