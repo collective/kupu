@@ -51,14 +51,16 @@
 
       <h1>link</h1>
 
-      <div id="kupu-toolbox-addlink"></div>
-      <div id="kupu-toolbox-editlink"></div>
+      <div id="kupu-toolbox-addlink"> </div>
+      <div id="kupu-toolbox-editlink"> </div>
       <div class="kupu-tooltray">
 
         <form name="kupu_link_form" onsubmit="return false;">
           <input type="button" class="transport" style="margin-bottom:0.2em;" onclick="getLink(); return false;" value="get link reference..." />
           <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" />
-          <input type="button" class="button" value="insert link" id="kupu-link-button" />
+          <input type="button" class="transport" value="insert link" id="kupu-link-addbutton" />
+          <input type="button" class="button" value="update link" id="kupu-link-updatebutton" />
+          <input type="button" class="warning" value="remove link" id="kupu-link-delbutton" />
         </form>
 
       </div>
@@ -74,9 +76,9 @@
 
         <form name="kupu_index_form" onsubmit="return false;">
           <input class="store" type="text" id="kupu-index-input" name="kupu_index_href" style="margin-left:0.2em; width:96%" />
-          <input type="button" class="button" value="insert index" id="kupu-index-addbutton" />
+          <input type="button" class="transport" value="insert index" id="kupu-index-addbutton" />
           <input type="button" class="button" value="update index" id="kupu-index-updatebutton" />
-          <input type="button" class="button" value="delete index" id="kupu-index-deletebutton" />
+          <input type="button" class="warning" value="delete index" id="kupu-index-deletebutton" />
         </form>
 
       </div>
@@ -90,7 +92,7 @@
     <div class="kupu-toolbox" id="kupu-toolbox-images">
 
     <script type="text/javascript">
-    <!-- Asset Reference Lookup Window Opener
+    //<![CDATA[
 
     lookupWindow = null;
     textArea = null;
@@ -117,7 +119,8 @@
       // Close LookupWindow
       wndw.close();
     }
-    //-->
+
+    //]]>
     </script>
     <script type="text/javascript" tal:define="container model/get_container" tal:content="string:
       function getImage() {
@@ -169,8 +172,16 @@
       <div class="kupu-tooltray">
 
         <form name="kupu-citation-form">
-          author <input class="store" type="text" id="kupu-citation-authorinput" style="width:81%" /><br />
-          source <input class="store" type="text" id="kupu-citation-sourceinput" style="width:81%" /><br />
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="30%">author</td>
+              <td><input class="store" type="text" id="kupu-citation-authorinput" style="width:81%" /></td>
+            </tr>
+            <tr>
+              <td>source</td>
+              <td><input class="store" type="text" id="kupu-citation-sourceinput" style="width:81%" /></td>
+            </tr>
+          </table>
           <input type="button" class="transport" value="insert citation" id="kupu-citation-addbutton" />
           <input type="button" class="button" value="update citation" id="kupu-citation-updatebutton" />
           <input type="button" class="warning" value="delete citation" id="kupu-citation-deletebutton" />
@@ -191,7 +202,7 @@
 
     <div class="kupu-tooltray">
 
-      <table width="100%" style="color:black;" cellpadding="0">
+      <table width="100%" cellpadding="0">
         <tbody>
           <tr>
             <td>
@@ -213,7 +224,7 @@
           <tr>
             <td colspan="2">
               <div id="kupu-toolbox-addtable">
-                <table width="100%" style="color: #333;">
+                <table width="100%">
                   <tr>
                     <td class="align-right" width="30%">rows</td>
                     <td><input id="kupu-table-newrows"/></td>
@@ -230,13 +241,12 @@
                     </td>
                   </tr>
                   <tr>
-                    <td></td>
-                    <td><button class="button" id="kupu-table-addtable-button">add</button></td>
+                    <td colspan="2"><input type="button" class="button" id="kupu-table-addtable-button" value="insert table" /></td>
                   </tr>
                 </table>
               </div>
               <div id="kupu-toolbox-edittable" style="display: none">
-                <table width="100%" style="color: black;">
+                <table width="100%">
                   <tr>
                     <td class="align-right" style="padding-right:0.3em" width="30%">column align</td>
                     <td>
@@ -244,26 +254,30 @@
                         <option value="left">left</option>
                         <option value="center">center</option>
                         <option value="right">right</option>
-                        </select>
+                      </select>
                     </td>
+                  </tr>
+                  <tr>
+                    <td class="align-right" style="padding-right: 0.3em">column widths</td>
+                    <td><input type="text" id="kupu-table-columnwidth" /></td>
                   </tr>
                   <tr>
                     <td class="align-right">column</td>
                     <td>
-                        <button class="button" id="kupu-table-addcolumn-button">add</button>
-                        <button class="button" id="kupu-table-delcolumn-button">remove</button>
+                        <input type="button" class="button" id="kupu-table-addcolumn-button" value="add column" />
+                        <input type="button"  class="warning" id="kupu-table-delcolumn-button" value="remove column" />
                     </td>
                   </tr>
                   <tr>
                     <td class="align-right">row</td>
                     <td>
-                      <button class="button" id="kupu-table-addrow-button">add</button> 
-                      <button class="button" id="kupu-table-delrow-button">remove</button></td>
+                      <input type="button"  class="button" id="kupu-table-addrow-button" value="insert row" />
+                      <input type="button"  class="warning" id="kupu-table-delrow-button" value="remove row" /></td>
                   </tr>
                   <tr>
                     <td class="align-right">cleanup cells</td>
                     <td>
-                      <button class="button" id="kupu-table-fix-button">fix</button>
+                      <input type="button" class="button" id="kupu-table-fix-button" value="fix table" />
                     </td>
                   </tr>
                 </table>
@@ -301,7 +315,7 @@
             <option value="9">9 levels</option>
             <option value="-1">unlimited</option>
           </select>
-          <input class="button" type="button" value="add toc" id="kupu-toc-add-button" />
+          <input class="transport" type="button" value="add toc" id="kupu-toc-add-button" />
           <input class="warning" type="button" value="delete toc" id="kupu-toc-del-button" />
         </form>
         
@@ -311,6 +325,36 @@
 
   </kupu:part>
 
+  <kupu:part name="external_source">
+    <div class="kupu-toolbox" id="kupu-toolbox-extsource">
+
+      <h1>external source</h1>
+
+      <div class="kupu-tooltray">
+        
+        <div id="kupu-extsource-formcontainer">
+        </div>
+           
+        <form name="kupu_extsource_form" onsubmit="return false">
+          <select id="kupu-toolbox-extsource-id">
+            <tal:block repeat="extsource here/get_available_sources">
+              <tal:block define="id python: extsource[0]; object python:extsource[1]">
+                <option tal:attributes="value id" tal:content="python:object.title and object.title or id" />
+              </tal:block>
+            </tal:block>
+          </select><br />
+          
+          <input class="transport" type="button" value="add external source" id="kupu-extsource-addbutton" />
+          <input class="button" type="button" value="update external source" id="kupu-extsource-updatebutton" />
+          <input class="button" type="button" value="cancel" id="kupu-extsource-cancelbutton" />
+          <input class="warning" type="button" value="delete external source" id="kupu-extsource-delbutton" />
+        </form>
+      
+      </div>
+    
+    </div>
+  </kupu:part>
+  
   <kupu:part name="typochars">
     <div class="kupu-toolbox">
     
@@ -322,5 +366,6 @@
 
     </div>
   </kupu:part>
+
 
 </kupu:feature>

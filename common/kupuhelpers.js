@@ -180,9 +180,170 @@ function loadDictFromXML(document, islandid) {
     return dict;
 };
 
+function NodeIterator(node, continueatnextsibling) {
+    /* simple node iterator
+
+        can be used to recursively walk through all children of a node,
+        the next() method will return the next node until either the next
+        sibling of the startnode is reached (when continueatnextsibling is 
+        false, the default) or when there's no node left (when 
+        continueatnextsibling is true)
+
+        returns false if no nodes are left
+    */
+    
+    this.node = node;
+    this.current = node;
+    this.stopatnextsibling = !continueatnextsibling;
+    
+    this.next = function() {
+        /* return the next node */
+        if (this.current == false) {
+            // restart
+            this.current = this.node;
+        };
+        if (this.stopatnextsibling && this.current == this.node.nextSibling) {
+            return false;
+        };
+        var current = this.current;
+        if (current.firstChild) {
+            this.current = current.firstChild;
+        } else {
+            while (!current.nextSibling) {
+                if (!current.parentNode || current == this.node.nextSibling) {
+                    this.current = false;
+                    return false;
+                };
+                current = current.parentNode;
+            }
+            this.current = current.nextSibling;
+        };
+        return this.current;
+    };
+
+    this.reset = function() {
+        /* reset the iterator so it starts at the first node */
+        this.current = this.node;
+    };
+
+    this.setCurrent = function(node) {
+        /* change the current node
+            
+            can be really useful for specific hacks, the user must take
+            care that the node is inside the iterator's scope or it will
+            go wild
+        */
+        this.current = node;
+    };
+};
+
 /* selection classes, these are wrappers around the browser-specific
     selection objects to provide a generic abstraction layer
 */
+function BaseSelection() {
+    /* superclass for the Selection objects
+    
+        this will contain higher level methods that don't contain 
+        browser-specific code
+    */
+    this.splitNodeAtSelection = function(node) {
+        /* split the node at the current selection
+
+            remove any selected text, then split the node on the location
+            of the selection, thus creating a new node, this is attached to
+            the node's parent after the node
+
+            this will fail if the selection is not inside the node
+        */
+        if (!this.selectionInsideNode(node)) {
+            throw('Selection not inside the node!');
+        };
+        // a bit sneaky: what we'll do is insert a new br node to replace
+        // the current selection, then we'll walk up to that node in both
+        // the original and the cloned node, in the original we'll remove
+        // the br node and everything that's behind it, on the cloned one
+        // we'll remove the br and everything before it
+        // anyway, we'll end up with 2 nodes, the first already in the 
+        // document (the original node) and the second we can just attach
+        // to the doc after the first one
+        var doc = this.document.getDocument();
+        var br = doc.createElement('br');
+        br.setAttribute('node_splitter', 'indeed');
+        this.replaceWithNode(br);
+        
+        var clone = node.cloneNode(true);
+
+        // now walk through the original node
+        var iterator = new NodeIterator(node);
+        var currnode = iterator.next();
+        var remove = false;
+        while (currnode) {
+            if (currnode.nodeName.toLowerCase() == 'br' && currnode.getAttribute('node_splitter') == 'indeed') {
+                // here's the point where we should start removing
+                remove = true;
+            };
+            // we should fetch the next node before we remove the current one, else the iterator
+            // will fail (since the current node is removed)
+            var lastnode = currnode;
+            currnode = iterator.next();
+            // XXX this will leave nodes that *became* empty in place, since it doesn't visit it again,
+            // perhaps we should do a second pass that removes the rest(?)
+            if (remove && (lastnode.nodeType == 3 || !lastnode.hasChildNodes())) {
+                lastnode.parentNode.removeChild(lastnode);
+            };
+        };
+
+        // and through the clone
+        var iterator = new NodeIterator(clone);
+        var currnode = iterator.next();
+        var remove = true;
+        while (currnode) {
+            var lastnode = currnode;
+            currnode = iterator.next();
+            if (lastnode.nodeName.toLowerCase() == 'br' && lastnode.getAttribute('node_splitter') == 'indeed') {
+                // here's the point where we should stop removing
+                lastnode.parentNode.removeChild(lastnode);
+                remove = false;
+            };
+            if (remove && (lastnode.nodeType == 3 || !lastnode.hasChildNodes())) {
+                lastnode.parentNode.removeChild(lastnode);
+            };
+        };
+
+        // next we need to attach the node to the document
+        if (node.nextSibling) {
+            node.parentNode.insertBefore(clone, node.nextSibling);
+        } else {
+            node.parentNode.appendChild(clone);
+        };
+
+        // this will change the selection, so reselect
+        this.reset();
+
+        // return a reference to the clone
+        return clone;
+    };
+
+    this.selectionInsideNode = function(node) {
+        /* returns a Boolean to indicate if the selection is resided
+            inside the node
+        */
+        var iterator = new NodeIterator(node);
+        var currnode = iterator.next();
+        var anchornode = node;
+        var focusnode = node;
+        if (node == anchornode || node == focusnode) {
+            return true;
+        };
+        while (currnode) {
+            if (currnode == anchornode || currnode == focusnode) {
+                return true;
+            };
+            currnode = iterator.next();
+        };
+    };
+};
+
 function MozillaSelection(document) {
     this.document = document;
     this.selection = document.getWindow().getSelection();
@@ -218,6 +379,7 @@ function MozillaSelection(document) {
     };
 
     this.replaceWithNode = function(node, selectAfterPlace) {
+        // XXX this should be on a range object
         /* replaces the current selection with a new node
             returns a reference to the inserted node 
 
@@ -298,16 +460,295 @@ function MozillaSelection(document) {
             // contents, else select the newly added node's
             this.selection = this.document.getWindow().getSelection();
             this.selection.addRange(range);
-            if (selectAfterPlace.nodeType) {
+            if (selectAfterPlace.nodeType == 1) {
                 this.selection.selectAllChildren(selectAfterPlace);
             } else {
-                this.selection.selectAllChildren(node);
+                if (node.hasChildNodes()) {
+                    this.selection.selectAllChildren(node);
+                } else {
+                    var range = this.selection.getRangeAt(0).cloneRange();
+                    this.selection.removeAllRanges();
+                    range.selectNode(node);
+                    this.selection.addRange(range);
+                };
             };
             this.document.getWindow().focus();
         };
         return node;
     };
+
+    this.startOffset = function() {
+        // XXX this should be on a range object
+        var startnode = this.startNode();
+        var startnodeoffset = 0;
+        if (startnode == this.selection.anchorNode) {
+            startnodeoffset = this.selection.anchorOffset;
+        } else {
+            startnodeoffset = this.selection.focusOffset;
+        };
+        var parentnode = this.parentElement();
+        if (startnode == parentnode) {
+            return startnodeoffset;
+        };
+        var currnode = parentnode.firstChild;
+        var offset = 0;
+        if (!currnode) {
+            // 'Control range', range consists of a single element, so startOffset is 0
+            if (startnodeoffset != 0) {
+                // just an assertion to see if my assumption about this case is right
+                throw('Start node offset detected in a node without children!');
+            };
+            return 0;
+        };
+        while (currnode != startnode) {
+            if (currnode.nodeType == 3) {
+                offset += currnode.nodeValue.length;
+            };
+            currnode = currnode.nextSibling;
+        };
+        return offset + startnodeoffset;
+    };
+
+    this.startNode = function() {
+        // XXX this should be on a range object
+        var anode = this.selection.anchorNode;
+        var aoffset = this.selection.anchorOffset;
+        var onode = this.selection.focusNode;
+        var ooffset = this.selection.focusOffset;
+        var arange = this.document.getDocument().createRange();
+        arange.setStart(anode, aoffset);
+        var orange = this.document.getDocument().createRange();
+        orange.setStart(onode, ooffset);
+        return arange.compareBoundaryPoints('START_TO_START', orange) <= 0 ? anode : onode;
+    };
+
+    this.endOffset = function() {
+        // XXX this should be on a range object
+        var endnode = this.endNode();
+        var endnodeoffset = 0;
+        if (endnode = this.selection.focusNode) {
+            endnodeoffset = this.selection.focusOffset;
+        } else {
+            endnodeoffset = this.selection.anchorOffset;
+        };
+        var parentnode = this.parentElement();
+        var currnode = parentnode.firstChild;
+        var offset = 0;
+        if (parentnode == endnode) {
+            for (var i=0; i < parentnode.childNodes.length; i++) {
+                var child = parentnode.childNodes[i];
+                if (i == endnodeoffset) {
+                    return offset;
+                };
+                if (child.nodeType == 3) {
+                    offset += child.nodeValue.length;
+                };
+            };
+        };
+        if (!currnode) {
+            // node doesn't have any content, so offset is always 0
+            if (endnodeoffset != 0) {
+                // just an assertion to see if my assumption about this case is right
+                alert('End node offset detected in a node without children!');
+                throw('End node offset detected in a node without children!');
+            };
+            return 0;
+        };
+        while (currnode != endnode) {
+            if (currnode.nodeType == 3) { // should account for CDATA nodes as well
+                offset += currnode.nodeValue.length;
+            };
+            currnode = currnode.nextSibling;
+        };
+        return offset + endnodeoffset;
+    };
+
+    this.endNode = function() {
+        // XXX this should be on a range object
+        var anode = this.selection.anchorNode;
+        var aoffset = this.selection.anchorOffset;
+        var onode = this.selection.focusNode;
+        var ooffset = this.selection.focusOffset;
+        var arange = this.document.getDocument().createRange();
+        arange.setStart(anode, aoffset);
+        var orange = this.document.getDocument().createRange();
+        orange.setStart(onode, ooffset);
+        return arange.compareBoundaryPoints('START_TO_START', orange) > 0 ? anode : onode;
+    };
+
+    this.getContentLength = function() {
+        // XXX this should be on a range object
+        return this.selection.toString().length;
+    };
+
+    this.cutChunk = function(startOffset, endOffset) {
+        // XXX this should be on a range object
+        var range = this.selection.getRangeAt(0);
+        
+        // set start point
+        var offsetParent = this.parentElement();
+        var currnode = offsetParent.firstChild;
+        var curroffset = 0;
+
+        var startparent = null;
+        var startparentoffset = 0;
+        
+        while (currnode) {
+            if (currnode.nodeType == 3) { // XXX need to add CDATA support
+                var nodelength = currnode.nodeValue.length;
+                if (curroffset + nodelength < startOffset) {
+                    curroffset += nodelength;
+                } else {
+                    startparent = currnode;
+                    startparentoffset = startOffset - curroffset;
+                    break;
+                };
+            };
+            currnode = currnode.nextSibling;
+        };
+        // set end point
+        var currnode = offsetParent.firstChild;
+        var curroffset = 0;
+
+        var endparent = null;
+        var endoffset = 0;
+        
+        while (currnode) {
+            if (currnode.nodeType == 3) { // XXX need to add CDATA support
+                var nodelength = currnode.nodeValue.length;
+                if (curroffset + nodelength < endOffset) {
+                    curroffset += nodelength;
+                } else {
+                    endparent = currnode;
+                    endparentoffset = endOffset - curroffset;
+                    break;
+                };
+            };
+            currnode = currnode.nextSibling;
+        };
+        
+        // now cut the chunk
+        if (!startparent) {
+            throw('Start offset out of range!');
+        };
+        if (!endparent) {
+            throw('End offset out of range!');
+        };
+
+        var newrange = range.cloneRange();
+        newrange.setStart(startparent, startparentoffset);
+        newrange.setEnd(endparent, endparentoffset);
+        return newrange.extractContents();
+    };
+
+    this.getElementLength = function(element) {
+        // XXX this should be a helper function
+        var length = 0;
+        var currnode = element.firstChild;
+        while (currnode) {
+            if (currnode.nodeType == 3) { // XXX should support CDATA as well
+                length += currnode.nodeValue.length;
+            };
+            currnode = currnode.nextSibling;
+        };
+        return length;
+    };
+
+    this.parentElement = function() {
+        // XXX this should be on a range object
+        var parent = this.selection.getRangeAt(0).commonAncestorContainer;
+        if (parent.nodeType == 3) {
+            parent = parent.parentNode;
+        };
+        return parent;
+    };
+
+    this.moveStart = function(offset) {
+        // XXX this should be on a range object
+        var offsetparent = this.parentElement();
+        // the offset within the offsetparent
+        var realoffset = offset + this.startOffset();
+        if (realoffset >= 0) {
+            var currnode = offsetparent.firstChild;
+            var curroffset = 0;
+            var startparent = null;
+            var startoffset = 0;
+            while (currnode) {
+                if (currnode.nodeType == 3) { // XXX need to support CDATA sections
+                    var nodelength = currnode.nodeValue.length;
+                    if (curroffset + nodelength >= realoffset) {
+                        var range = this.selection.getRangeAt(0);
+                        //range.setEnd(this.endNode(), this.endOffset());
+                        range.setStart(currnode, realoffset - curroffset);
+                        return;
+                        //this.selection.removeAllRanges();
+                        //this.selection.addRange(range);
+                    };
+                };
+                currnode = currnode.nextSibling;
+            };
+            // if we still haven't found the startparent we should walk to 
+            // all nodes following offsetparent as well
+            var currnode = offsetparent.nextSibling;
+            while (currnode) {
+                if (currnode.nodeType == 3) {
+                    var nodelength = currnode.nodeValue.length;
+                    if (curroffset + nodelength >= realoffset) {
+                        var range = this.selection.getRangeAt(0);
+                        // XXX does IE switch the begin and end nodes here as well?
+                        var endnode = this.endNode();
+                        var endoffset = this.endOffset();
+                        range.setEnd(currnode, realoffset - curroffset);
+                        range.setStart(endnode, endoffset);
+                        return;
+                    };
+                    curroffset += nodelength;
+                };
+                currnode = currnode.nextSibling;
+            };
+            throw('Offset out of document range');
+        } else if (realoffset < 0) {
+            var currnode = offsetparent.prevSibling;
+            var curroffset = 0;
+            while (currnode) {
+                if (currnode.nodeType == 3) { // XXX need to support CDATA sections
+                    var currlength = currnode.nodeValue.length;
+                    if (curroffset - currlength < realoffset) {
+                        var range = this.selection.getRangeAt(0);
+                        range.setStart(currnode, realoffset - curroffset);
+                    };
+                    curroffset -= currlength;
+                };
+                currnode = currnode.prevSibling;
+            };
+        } else {
+            var range = this.selection.getRangeAt(0);
+            range.setStart(offsetparent, 0);
+            //this.selection.removeAllRanges();
+            //this.selection.addRange(range);
+        };
+    };
+
+    this.moveEnd = function(offset) {
+        // XXX this should be on a range object
+    };
+
+    this.reset = function() {
+        this.selection = this.document.getWindow().getSelection();
+    };
+
+    this.cloneContents = function() {
+        /* returns a document fragment with a copy of the contents */
+        var range = this.selection.getRangeAt(0);
+        return range.cloneContents();
+    };
+
+    this.toString = function() {
+        return this.selection.toString();
+    };
 };
+
+MozillaSelection.prototype = new BaseSelection;
 
 function IESelection(document) {
     this.document = document;
@@ -315,9 +756,18 @@ function IESelection(document) {
     
     this.selectNodeContents = function(node) {
         /* select the contents of a node */
+        // a bit nasty, when moveToElementText is called it will move the selection start
+        // to just before the element instead of inside it, and since IE doesn't reserve
+        // an index for the element itself as well the way to get it inside the element is
+        // by moving the start one pos and then moving it back (yuck!)
         var range = this.selection.createRange().duplicate();
         range.moveToElementText(node);
+        range.moveStart('character', 1);
+        range.moveStart('character', -1);
+        range.moveEnd('character', -1);
+        range.moveEnd('character', 1);
         range.select();
+        this.selection = this.document.getDocument().selection;
     };
 
     this.getSelectedNode = function() {
@@ -336,6 +786,7 @@ function IESelection(document) {
         };
         return selectedNode;
     };
+
 
     this.collapse = function(collapseToEnd) {
         var range = this.selection.createRange();
@@ -376,28 +827,16 @@ function IESelection(document) {
             var endpoint = selrange.duplicate();
             endpoint.collapse(false);
             var parent = selrange.parentElement();
-            
-            // now find the start parent and offset
-            var startnode = parent;
-            var startoffset = 0;
-            var endnode = parent;
-            var endoffset = 0;
-            // first see if the endpoint and startpoint can be found directly in the parent
+
             var elrange = selrange.duplicate();
             elrange.moveToElementText(parent);
-            var tempstart = startpoint.duplicate();
-            while (elrange.compareEndPoints('StartToStart', tempstart) < 0) {
-                startoffset++;
-                tempstart.moveStart('character', -1);
-            };
-            var tempend = endpoint.duplicate();
-            while (elrange.compareEndPoints('EndToEnd', tempend) > 0) {
-                endoffset++;
-                tempend.moveEnd('character', 1);
-            };
-
+            
+            // now find the start parent and offset
+            var startoffset = this.startOffset();
+            var endoffset = this.endOffset();
+            
             // copy parent to contain new nodes, don't copy its children (false arg)
-            var newparent = this.document.getDocument().createElement('span'); // parent.cloneNode(false);
+            var newparent = this.document.getDocument().createElement('span');
             // also make a temp node to copy some temp nodes into later
             var tempparent = newparent.cloneNode(false);
 
@@ -419,6 +858,7 @@ function IESelection(document) {
                     newparent.appendChild(parent.firstChild);
                 };
             } else {
+                // using htmlText here should fix markup problems (opening tags without closing ones etc.)
                 newparent.insertAdjacentHTML('afterBegin', temprange.htmlText);
             };
 
@@ -461,7 +901,7 @@ function IESelection(document) {
                 // see MozillaSelection.replaceWithNode() for some comments about
                 // selectAfterPlace
                 var temprange = this.document.getDocument().body.createTextRange();
-                if (selectAfterPlace.nodeType) {
+                if (selectAfterPlace.nodeType == 1) {
                     temprange.moveToElementText(selectAfterPlace);
                 } else {
                     temprange.moveToElementText(newnode);
@@ -476,23 +916,122 @@ function IESelection(document) {
         return newnode;
     };
 
-    // XXX this isn't used, is it? if not, we should remove it...
-    this._getTextLength = function(node) {
-        /* recursively walks through a node to get the total length of all
-            contained text nodes
+    this.startOffset = function() {
+        var startoffset = 0;
+        var selrange = this.selection.createRange();
+        var parent = selrange.parentElement();
+        var elrange = selrange.duplicate();
+        elrange.moveToElementText(parent);
+        var tempstart = selrange.duplicate();
+        while (elrange.compareEndPoints('StartToStart', tempstart) < 0) {
+            startoffset++;
+            tempstart.moveStart('character', -1);
+        };
+
+        return startoffset;
+    };
+
+    this.endOffset = function() {
+        var endoffset = 0;
+        var selrange = this.selection.createRange();
+        var parent = selrange.parentElement();
+        var elrange = selrange.duplicate();
+        elrange.moveToElementText(parent);
+        var tempend = selrange.duplicate();
+        while (elrange.compareEndPoints('EndToEnd', tempend) > 0) {
+            endoffset++;
+            tempend.moveEnd('character', 1);
+        };
+
+        return endoffset;
+    };
+
+    this.getContentLength = function() {
+        var contentlength = 0;
+        var range = this.selection.createRange().duplicate();
+        var startpoint = range.duplicate();
+        startpoint.collapse();
+        var endpoint = range.duplicate();
+        endpoint.collapse(false);
+        while (!startpoint.isEqual(endpoint)) {
+            startpoint.moveEnd('character', 1);
+            startpoint.moveStart('character', 1);
+            contentlength++;
+        };
+        return contentlength;
+    };
+
+    this.cutChunk = function(startOffset, endOffset) {
+        /* cut a chunk of HTML from the selection
+
+            this *should* return the chunk of HTML but doesn't yet
+        */
+        var range = this.selection.createRange().duplicate();
+        range.moveStart('character', startOffset);
+        range.moveEnd('character', -endOffset);
+        range.pasteHTML('');
+        // XXX here it should return the chunk
+    };
+
+    this.getElementLength = function(element) {
+        /* returns the length of an element *including* 1 char for each child element
+
+            this is defined on the selection since it returns results that can be used
+            to work with selection offsets
         */
         var length = 0;
-        for (var i=0; i < node.childNodes.length; i++) {
-            var child = node.childNodes[i];
-            if (child.nodeType == 3) {
-                length += child.nodeValue.length;
-            } else {
-                length += this._getTextLength(child);
-            };
+        var range = this.selection.createRange().duplicate();
+        range.moveToElementText(element);
+        range.moveStart('character', 1);
+        range.moveEnd('character', -1);
+        var endpoint = range.duplicate();
+        endpoint.collapse(false);
+        range.collapse();
+        while (!range.isEqual(endpoint)) {
+            range.moveEnd('character', 1);
+            range.moveStart('character', 1);
+            length++;
         };
         return length;
     };
+
+    this.parentElement = function() {
+        return this.selection.createRange().parentElement();
+    };
+
+    this.moveStart = function(offset) {
+        /* move the start of the selection */
+        var range = this.selection.createRange();
+        range.moveStart('character', offset);
+        range.select();
+    };
+
+    this.moveEnd = function(offset) {
+        /* moves the end of the selection */
+        var range = this.selection.createRange();
+        range.moveEnd('character', offset);
+        range.select();
+    };
+
+    this.reset = function() {
+       this.selection = this.document.getDocument().selection;
+    };
+
+    this.cloneContents = function() {
+        /* returns a document fragment with a copy of the contents */
+        var contents = this.selection.createRange().htmlText;
+        var doc = this.document.getDocument();
+        var docfrag = doc.createElement('span');
+        docfrag.innerHTML = contents;
+        return docfrag;
+    };
+
+    this.toString = function() {
+        return this.selection.createRange().htmlText;
+    };
 };
+
+IESelection.prototype = new BaseSelection;
 
 /* ContextFixer, fixes a problem with the prototype based model
 
@@ -625,7 +1164,7 @@ Array.prototype.contains = function(element, objectequality) {
 
 // JavaScript has a friggin' blink() function, but not for string stripping...
 String.prototype.strip = function() {
-    var stripspace = /^\s*((\S+\s*\S+)*)\s*$/;
+    var stripspace = /^\s*([\s\S]*?)\s*$/;
     return stripspace.exec(this)[1];
 };
 

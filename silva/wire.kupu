@@ -56,11 +56,11 @@
     <!--kupu:insert-part feature="colorchooser" part="buttons" /-->
     <!--kupu:insert-part feature="toolbar" part="buttongroup-justify" /-->
     <kupu:insert-part feature="toolbar" part="buttongroup-list" />
+    <kupu:insert-part feature="definitions" part="buttons" />
     <!--kupu:insert-part feature="toolbar" part="buttongroup-indent" /-->
     <kupu:insert-part feature="drawers" part="buttons" />
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
     <!--kupu:insert-part feature="sourceedit" part="buttons" /-->
-    <kupu:insert-part feature="definitions" part="buttons" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolboxes">
@@ -68,6 +68,7 @@
     <kupu:insert-part feature="toolboxes" part="links" />
     <kupu:insert-part feature="toolboxes" part="indexes" />
     <kupu:insert-part feature="toolboxes" part="images" />
+    <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="citation" />
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="toc" />

@@ -516,9 +516,13 @@ function LinkTool() {
             };
         };
         
+        var selection = this.editor.getSelection();
+        selection.selectNodeContents(linkel);
+        
         linkel.style.color = this.linkcolor;
         
         this.editor.logMessage('Link added');
+        this.editor.updateState();
     };
     
     this.deleteLink = function() {
@@ -533,6 +537,9 @@ function LinkTool() {
             linkel.parentNode.insertBefore(linkel.childNodes[0], linkel);
         };
         linkel.parentNode.removeChild(linkel);
+        
+        this.editor.logMessage('Link removed');
+        this.editor.updateState();
     };
     
     this.createContextMenuElements = function(selNode, event) {
@@ -1024,6 +1031,7 @@ function TableTool() {
                         } else {
                             cell.setAttribute('align', newalign);
                         }
+                        cell.className = 'align-' + newalign;
                     }
                     index++;
                 }
