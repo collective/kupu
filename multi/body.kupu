@@ -17,24 +17,53 @@
 
   <kupu:part name="editorframe">
     <div class="kupu-editorframe">
-      <iframe id="kupu_1" 
-              frameborder="0" 
-              src="fulldoc.html"
-              fieldid="kupu_1"
-              scrolling="auto">
-      </iframe>
-      <iframe id="kupu_2" 
-              frameborder="0" 
-              src="fulldoc.html"
-              fieldid="kupu_2"
-              scrolling="auto">
-      </iframe>
-      <iframe id="kupu_3" 
-              frameborder="0" 
-              src="fulldoc.html"
-              fieldid="kupu_3"
-              scrolling="auto">
-      </iframe>
+      <table width="100%">
+        <tr>
+          <td>
+            <iframe id="kupu_1" 
+                    frameborder="0" 
+                    src="fulldoc.html"
+                    fieldid="kupu_1"
+                    style="height: 200px;"
+                    scrolling="auto">
+            </iframe>
+            <textarea class="kupu-editor-textarea" 
+                      id="kupu-editor-textarea-kupu_1" 
+                      style="display: none; width: 99%; height: 200px;"> 
+            </textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <iframe id="kupu_2" 
+                    frameborder="0" 
+                    src="fulldoc.html"
+                    fieldid="kupu_2"
+                    style="height: 200px;"
+                    scrolling="auto">
+            </iframe>
+            <textarea class="kupu-editor-textarea" 
+                      id="kupu-editor-textarea-kupu_2"
+                      style="display: none; width: 99%; height: 200px;"> 
+            </textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <iframe id="kupu_3" 
+                    frameborder="0" 
+                    src="fulldoc.html"
+                    fieldid="kupu_3"
+                    style="height: 200px;"
+                    scrolling="auto">
+            </iframe>
+            <textarea class="kupu-editor-textarea" 
+                      id="kupu-editor-textarea-kupu_3" 
+                      style="display: none; width: 99%; height: 200px;"> 
+            </textarea>
+          </td>
+        </tr>
+      </table>
     </div>
   </kupu:part>
 

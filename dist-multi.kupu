@@ -25,7 +25,4 @@
   <!-- contextmenu should be made to appear in all iframes -->
   <kupu:disable-feature name="contextmenu" />
 
-  <!-- source editing may be adjusted to handle more iframes later -->
-  <kupu:disable-feature name="sourceedit" />
-
 </kupu:dist>
