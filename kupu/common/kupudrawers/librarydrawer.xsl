@@ -25,7 +25,7 @@ $Id$
                 <title>Imagedrawer</title>
                 <link type="text/css" rel="stylesheet">
                   <xsl:attribute name="href">
-                    ../kupudrawerstyles.css
+                    <xsl:call-template name="url-prefix"/>../kupudrawerstyles.css
                   </xsl:attribute>
                 </link>
             </head>
@@ -137,4 +137,5 @@ $Id$
     </xsl:template>
     
     <xsl:template name="drawer-title">[Override xsl:template name=drawer-title]</xsl:template>
+    <xsl:template name="url-prefix"/>
 </xsl:stylesheet>
