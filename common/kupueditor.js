@@ -419,12 +419,13 @@ function KupuEditor(document, config, logger) {
             window.document.location = redirect;
             this.content_changed = false;
         } else {
+            // clear content_changed before reloadSrc so saveOnPart is not triggered
+            this.content_changed = false;
             if (this.config.reload_after_save) {
                 this.reloadSrc();
             };
             // we're done so we can start editing again
             window.status= "Document saved";
-            this.content_changed = false;
         };
         this._initialized = true;
     };
