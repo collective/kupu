@@ -12,8 +12,11 @@
 
 /* $Id$ */
 
-div.kupu-fulleditor .kupu-fulleditor-zoomed {
+.kupu-fulleditor, .kupu-fulleditor-zoomed, .kupu-toolboxes {
   font-family: Verdana, "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+div.kupu-fulleditor .kupu-fulleditor-zoomed {
   border: solid 3px ButtonHighlight;
   margin: 0.2em;
   height: 100%;
@@ -152,7 +155,6 @@ div.kupu-editorframe {
 div.kupu-toolboxes {
   float: right;	
   border: solid 2px ButtonFace;
-  height: 100%;
   width: 19.4em;
   margin-right: 0.3em;
   margin-bottom: 0.3em;
@@ -172,14 +174,26 @@ div.kupu-toolbox h1, div.kupu-toolbox-active h1 {
 }
 
 div.kupu-toolbox-label, span.kupu-toolbox-searchterm, 
-input.kupu-toolbox-st, button.kupu-toolbox-action, 
+input.wide, select.wide, textarea.wide, button.kupu-toolbox-action, 
 div.kupu-toolbox-results {
   margin-left: 0.2em;
   margin-right: 0.2em;
 }
 
+.wide {
+  width: 95%;
+}
+
 div.kupu-toolbox-label {
   margin-bottom: 0.4em;
+}
+
+.kupu-toolbox-buttons {
+  text-align: center;
+}
+
+.kupu-toolbox-buttons button {
+  width: 45%;
 }
 
 div.kupu-toolbox-results {
@@ -199,11 +213,6 @@ div.kupu-toolbox-active {
   background-color: ButtonFace;
 }
 
-table#kupu-toolbox-addtable {
-
-}
-
-
 div.kupu-toolbox button {
   font-size: 0.9em;
   border: 1px solid;
@@ -214,7 +223,6 @@ div.kupu-toolbox button:active {
   border: 1px solid;
   border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
 }
-
 
 #kupu-toolbox-editlink, #kupu-toolbox-edittable,
 #kupu-ulstyles, #kupu-olstyles {
@@ -231,19 +239,11 @@ div#kupu-colorchooser {
   font-size: small;
 }
 
+.kupu-toolboxes input, .kupu-toolboxes select, .kupu-toolboxes textarea {
+  font-size: x-small;
+  font-family: Verdana, "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
 div#kupu-fgcolorchooser div:hover {
   /* border: outset 1px; */
 }
-
-#kupu-toolbox-properties input {
-  width: 16em;
-}
-
-textarea#kupu-properties-description {
-  width: 22em;
-}
-
-/*textarea, input {*/
-  /*font-size: x-small;*/
-  /*font-family: Verdana, "Lucida Grande", Helvetica, Arial, sans-serif;*/
-/*}*/

@@ -16,10 +16,10 @@
     <div class="kupu-toolbox" id="kupu-toolbox-properties">
       <h1>Properties</h1>
 
-      <div class="kupu-toolbox-label">Title</div>
-      <input id="kupu-properties-title" />
-      <div class="kupu-toolbox-label">Description</div>
-      <textarea style="width: 90%" id="kupu-properties-description"> </textarea>
+      <div class="kupu-toolbox-label">Title:</div>
+      <input class="wide" id="kupu-properties-title" />
+      <div class="kupu-toolbox-label">Description:</div>
+      <textarea class="wide" id="kupu-properties-description"> </textarea>
     </div>
   </kupu:part>
 
@@ -31,15 +31,15 @@
         <div class="kupu-toolbox-label">
           <!-- Link to items matching the keyword  -->
           <span i18n:translate="items-matching-keyword">
-            Link the highlighted text to this URL
-          </span>:
+            Link the highlighted text to this URL:
+          </span>
         </div>
 
         <input id="kupu-link-input"
-               class="kupu-toolbox-st" 
-               type="text" style="width: 98%"
+               class="wide" 
+               type="text" 
                />
-        <div style="text-align: center">
+        <div class="kupu-toolbox-buttons">
           <button type="button" id="kupu-link-button"
                   class="kupu-toolbox-action">Make Link</button>
         </div>
@@ -54,27 +54,24 @@
 
             <div class="kupu-toolbox-label">
               <span i18n:translate="">
-                Insert image at the following URL
-              </span>:
+                Insert image at the following URL:
+              </span>
             </div>
 
             <input id="kupu-image-input"
                    value="kupuimages/kupu_icon.gif"
-                   class="kupu-toolbox-st" 
-                   type="text" style="width: 98%" />
-            <div class="kupu-toolbox-label">
-              <span i18n:translate="">
-                Image float
-              </span>:
-            </div>
+                   class="wide" 
+                   type="text" />
 
-            <select id="kupu-image-float-select"
-                    class="kupu-toolbox-st">
+            <span i18n:translate="">
+              Image float:
+            </span>
+            <select class="wide" id="kupu-image-float-select">
               <option value="none">No float</option>
               <option value="left">Left</option>
               <option value="right">Right</option>
             </select>
-            <div style="text-align: center">
+            <div class="kupu-toolbox-buttons">
               <button type="button" id="kupu-image-addbutton"
                       class="kupu-toolbox-action">Insert Image</button>
             </div>
@@ -85,19 +82,19 @@
     <div class="kupu-toolbox" id="kupu-toolbox-tables">
       <h1 i18n:translate="table-inspector">Tables</h1>
 
-      <div class="kupu-toolbox-label">Table Class
-        <select id="kupu-table-classchooser"> </select>
+      <div class="kupu-toolbox-label">Table Class:
+        <select class="wide" id="kupu-table-classchooser"> </select>
       </div>
 
       <div id="kupu-toolbox-addtable">
-        <div class="kupu-toolbox-label">Rows</div>
-        <input type="text" id="kupu-table-newrows" style="width: 98%" />
+        <div class="kupu-toolbox-label">Rows:</div>
+        <input class="wide" type="text" id="kupu-table-newrows" />
 
-        <div class="kupu-toolbox-label">Columns</div>
-        <input type="text" id="kupu-table-newcols" style="width: 98%" />
+        <div class="kupu-toolbox-label">Columns:</div>
+        <input class="wide" type="text" id="kupu-table-newcols" />
 
         <div class="kupu-toolbox-label">
-          Headings
+          Headings:
           <input name="kupu-table-makeheader"
                  id="kupu-table-makeheader"
                  type="checkbox"
@@ -105,7 +102,7 @@
           <label for="kupu-table-makeheader">Create</label>
         </div>
 
-        <div style="text-align: center">
+        <div class="kupu-toolbox-buttons">
           <button type="button" id="kupu-table-fixall-button">Fix Table</button> 
           <button type="button" id="kupu-table-addtable-button">Add Table</button> 
         </div>
@@ -114,23 +111,23 @@
 
       <div id="kupu-toolbox-edittable">
       
-          <div class="kupu-toolbox-label">Col Align
-            <select id="kupu-table-alignchooser">
+          <div class="kupu-toolbox-label">Col Align:
+            <select class="wide" id="kupu-table-alignchooser">
               <option value="left">Left</option>
               <option value="center">Center</option>
               <option value="right">Right</option>
             </select>
           </div>
       
-          <br />
-          <button type="button" id="kupu-table-addcolumn-button">Add Column</button>
-          <button type="button" id="kupu-table-delcolumn-button">Remove Column</button>
+          <div class="kupu-toolbox-buttons">
+            <br />
+            <button type="button" id="kupu-table-addcolumn-button">Add Column</button>
+            <button type="button" id="kupu-table-delcolumn-button">Remove Column</button>
+            
+            <br />
+            <button type="button" id="kupu-table-addrow-button">Add Row</button>
+            <button type="button" id="kupu-table-delrow-button">Remove Row</button>
           
-          <br />
-          <button type="button" id="kupu-table-addrow-button">Add Row</button>
-          <button type="button" id="kupu-table-delrow-button">Remove Row</button>
-          
-          <div style="text-align: center">
             <button type="button" id="kupu-table-fix-button">Fix</button>
           </div>
           
@@ -143,8 +140,7 @@
     <div class="kupu-toolbox" id="kupu-toolbox-debug">
       <h1 i18n:translate="debug-log">Debug Log</h1>
       <div id="kupu-toolbox-debuglog"
-           class="kupu-toolbox-label"
-           style="height: 150px;">
+           class="kupu-toolbox-label">
       </div>
     </div>
   </kupu:part>
