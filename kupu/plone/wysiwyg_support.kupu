@@ -37,7 +37,6 @@
   </kupu:part>
 
   <kupu:part name="textarea">
-
     <textarea
         cols="80"
         rows="25"
@@ -52,15 +51,14 @@
                         rows rows|default;
                         cols cols|default;">
     </textarea>
-
   </kupu:part>
 
   <kupu:part name="textformatselector">
 
 <div metal:define-macro="textFormatSelector"
      class="field"
-     tal:define="tabindex tabindex/next;
-                     text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
+     tal:define="tabindex    tabindex/next;
+                 text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
 
   <tal:editor tal:condition="haskupu">
      <input type="hidden" name="text_format" value="html" />
@@ -106,7 +104,6 @@
            />
     <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
 
-                
   </tal:noeditor>
 </div>
 
