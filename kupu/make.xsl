@@ -165,6 +165,14 @@ $Id$
           </xsl:comment>
         </xsl:if>
       </xsl:when>
+      <xsl:when test="//kupu:disable-part[@feature=$feature and @part=$part]">
+        <xsl:if test="$debug">
+          <xsl:comment>
+            Part '<xsl:value-of select="$part" />' in feature
+            '<xsl:value-of select="$feature" />' was disabled.
+          </xsl:comment>
+        </xsl:if>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:call-template name="insert-part">
           <xsl:with-param
