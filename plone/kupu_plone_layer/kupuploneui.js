@@ -93,6 +93,14 @@ function PloneKupuUI(textstyleselectid) {
         // now get a reference to the element just added
         var selNode = this.editor.getSelectedNode();
         var el = this.editor.getNearestParentOfType(selNode, eltype);
+        var parent = el.parentNode;
+        if (parent.tagName=='DIV' && parent.childNodes.length==1) {
+            // fixup buggy formatting
+            var gp = parent.parentNode;
+            gp.insertBefore(el, parent);
+            gp.removeChild(parent);
+            this.editor.getSelection().selectNodeContents(el);
+        }
 
         // now set the classname
         el.className = classname;
