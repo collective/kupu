@@ -117,6 +117,54 @@ function PloneKupuUI(textstyleselectid) {
         this.tsselect.selectedIndex = Math.max(index,0);
     };
   
+    this._cleanNode = function(node) {
+            /* Clean up a block style node (e.g. P, DIV, Hn)
+             * Remove trailing whitespace, then also remove up to one
+             * trailing <br>
+             * If the node is now empty, remove the node itself.
+             */
+        var len = node.childNodes.length;
+        function stripspace() {
+            var c;
+            while ((c = node.lastChild) && c.nodeType==3 && /^\s*$/.test(c.data)) {
+                node.removeChild(c);
+            }
+        }
+        stripspace();
+        var c = node.lastChild;
+        if (c && c.nodeType==1 && c.tagName=='BR') {
+            node.removeChild(c);
+        }
+        stripspace();
+        if (node.childNodes.length==0) {
+            node.parentNode.removeChild(node);
+        };
+    }
+
+    this._setClass = function(el, classname) {
+        var parent = el.parentNode;
+        if (parent.tagName=='DIV') {
+                // fixup buggy formatting
+            var gp = parent.parentNode;
+            if (el != parent.firstChild) {
+                var previous = parent.cloneNode(false);
+                while (el != parent.firstChild) {
+                    previous.appendChild(parent.firstChild);
+                }
+                gp.insertBefore(previous, parent);
+                this._cleanNode(previous);
+            }
+            gp.insertBefore(el, parent);
+            this._cleanNode(el);
+            this._cleanNode(parent);
+        }
+        // now set the classname
+        if (classname) {
+            el.className = classname;
+        } else {
+            el.removeAttribute("class");
+        }
+    }
     this.setTextStyle = function(style, noupdate) {
         /* parse the argument into a type and classname part
            generate a block element accordingly 
@@ -129,18 +177,6 @@ function PloneKupuUI(textstyleselectid) {
             classname = style[1];
         };
 
-        function setClass(el) {
-            var parent = el.parentNode;
-            if (parent.tagName=='DIV' && parent.childNodes.length==1) {
-            // fixup buggy formatting
-                var gp = parent.parentNode;
-                gp.insertBefore(el, parent);
-                gp.removeChild(parent);
-                this.editor.getSelection().selectNodeContents(el);
-            }
-            // now set the classname
-            el.className = classname;
-        }
         var command = eltype;
         // first create the element, then find it and set the classname
         if (this.editor.getBrowserName() == 'IE') {
@@ -152,14 +188,17 @@ function PloneKupuUI(textstyleselectid) {
         var selNode = this.editor.getSelectedNode();
         var el = this.editor.getNearestParentOfType(selNode, eltype);
         if (el) {
-            setClass(el);
+            this._setClass(el, classname);
         } else {
             var selection = this.editor.getSelection();
             for (el = selNode.firstChild; el; el=el.nextSibling) {
                 if (el.tagName==eltype && selection.containsNode(el)) {
-                    setClass(el);
+                    this._setClass(el, classname);
                 }
             }
+        }
+        if (el) {
+            this.editor.getSelection().selectNodeContents(el);
         }
         if (!noupdate) {
             this.editor.updateState();

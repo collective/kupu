@@ -19,9 +19,10 @@
 
   <kupu:part name="xmlconfig">
     <tal:var define="field field|nothing;
-        usecaptions python:field and field.default_output_type=='text/x-html-captioned' and '?captions=1' or ''">
-    <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl${usecaptions}" />
+        usecaptions python:field and field.default_output_type=='text/x-html-captioned'">
+        <captions tal:condition="usecaptions">1</captions>
     </tal:var>
+    <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
     <link_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
     <tal:var define="
         base here/absolute_url;
