@@ -362,7 +362,7 @@ function BaseSelection() {
         /* returns a Boolean to indicate if the selection is resided
             inside the node
         */
-        var currnode = self.getSelectedNode();
+        var currnode = this.parentElement();
         while (currnode) {
             if (currnode == node) {
                 return true;

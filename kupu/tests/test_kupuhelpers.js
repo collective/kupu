@@ -188,54 +188,54 @@ KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
 
-    this.testGetSelectedNodeMissing = function() {
+    this.testParentElementMissing = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
         // remove selection
         var selection = this.selection.selection;
         _SARISSA_IS_IE ? selection.empty() : selection.removeAllRanges();
         node = this.doc.getElementsByTagName('p')[0];
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
-    this.testGetSelectedNodeBold = function() {
+    this.testParentElementBold = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
         // select                       |bar|
         this._setSelection(4, true, 7, false, 'bar');
         node = this.doc.getElementsByTagName('b')[0];
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
-    this.testGetSelectedNodeImg = function() {
+    this.testParentElementImg = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
         // select                              |<img/>|
         this._setSelection(7, true, 8, false, '');
         node = this.doc.getElementsByTagName('img')[0];
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
-    this.testGetSelectedNodeImgSpecial = function() {
+    this.testParentElementImgSpecial = function() {
         this.body.innerHTML = '<p>foo <a><img/></a></p>';
         // select                       |<img/>|
         this._setSelection(4, true, 5, null, '');
         node = this.doc.getElementsByTagName('img')[0];
-        foo = this.selection.getSelectedNode();
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        foo = this.selection.parentElement();
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
-    this.testGetSelectedNodeMixed = function() {
+    this.testParentElementMixed = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
         // select                        |ar</b><img><img> b|
         this._setSelection(5, null, 11, null, 'ar b');
         node = this.doc.getElementsByTagName('p')[0];
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
-    this.testGetSelectedNode_r9516 = function() {
+    this.testParentElement_r9516 = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/></p><p>baz</p>';
         // select                              |<img/></p><p>baz|
         this._setSelection(7, true, 12, false, 'baz');
         node = this.doc.getElementsByTagName('body')[0];
-        this.assertEquals(this.selection.getSelectedNode(), node);
+        this.assertEquals(this.selection.parentElement(), node);
     };
 
     this.testToString = function() {
