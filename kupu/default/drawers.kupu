@@ -57,7 +57,7 @@
         <button type="button" onclick="drawertool.current_drawer.preview()">Preview</button>
         </td></tr>
         <tr><td colspan="2" align="center">
-        <iframe frameborder="1" scrolling="auto" width="480" height="219"
+        <iframe frameborder="1" scrolling="auto" width="440" height="198"
                 id="kupu-linkdrawer-preview">
         </iframe>
         </td></tr>

@@ -93,6 +93,9 @@ function Drawer(elementid, tool) {
         // here's where any intelligence and XSLT transformation and such 
         // is done
         this.element.style.display = 'block';
+        if (this.editor.getBrowserName() == 'IE') {
+            this.element.focus();
+        }
     };
 
     this.hide = function() {
@@ -118,6 +121,9 @@ function LinkDrawer(elementid, tool) {
             input.value = 'http://';
         };
         this.element.style.display = 'block';
+        if (this.editor.getBrowserName() == 'IE') {
+            this.element.focus();
+        }
     };
 
     this.save = function() {
@@ -208,6 +214,9 @@ function TableDrawer(elementid, tool) {
         hide.style.display = 'none';
         show.style.display = 'block';
         this.element.style.display = 'block';
+        if (this.editor.getBrowserName() == 'IE') {
+            this.element.focus();
+        }
     };
 
     this.createTable = function() {
@@ -296,6 +305,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
         // display the drawer div
         this.element.style.display = 'block';
+        if (this.editor.getBrowserName() == 'IE') {
+            this.element.focus();
+        }
     };
 
     this._singleLibsXslCallback = function(dom) {
