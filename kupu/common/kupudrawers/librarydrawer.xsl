@@ -48,7 +48,7 @@ $Id$
                                     </td>
                                     <td id="kupu-propertiespanel" width="39%">
                                         <div id="kupu-properties" class="overflow">
-                                            <xsl:apply-templates select="/libraries/library[@selected]/resource[@selected]" mode="properties"/>
+                                            <xsl:apply-templates select="/libraries/library[@selected]//resource[@selected]" mode="properties"/>
                                         </div>
                                     </td>
                                 </tr>
