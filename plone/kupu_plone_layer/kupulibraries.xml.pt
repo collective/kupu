@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<libraries
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+<tal:with define="
+    getToolByName nocall:modules/Products/CMFCore/utils/getToolByName;
+    kupu_tool     python:getToolByName(context, 'kupu_library_tool');
+    libraries     python:kupu_tool.getLibraries(context);
+    resource_type request/resource_type | string:mediaobject;
+    ">
+
+  <library tal:repeat="library libraries"
+           tal:attributes="id library/id">
+    <uri tal:content="library/uri">URI</uri>
+    <title tal:content="library/title">Title</title>
+    <src tal:content="string:${library/src}?resource_type=${resource_type}">Source</src>
+    <icon tal:content="library/icon">Icon</icon>
+  </library>
+
+</tal:with>
+
+</libraries>

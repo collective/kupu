@@ -1,0 +1,174 @@
+<html i18n:domain="plone">
+
+<div metal:define-macro="wysiwygEditorBox">
+<tal:block tal:define="wysiwyg python: here.portal_membership.getAuthenticatedMember().getProperty('wysiwyg_editor');">
+<tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu' and here.browserSupportsKupu();" />
+</tal:block>
+<div tal:condition="haskupu">
+  <div class="kupu-fulleditor">
+    <metal:css use-macro="here/kupumacros/macros/kupu_styles" />
+    <link href="#" tal:attributes="href string:${portal_url}/kupuplone.css"
+          rel="stylesheet" type="text/css" />
+
+    <div metal:use-macro="here/kupumacros/macros/kupu_fulleditor" xmlns:kupu="kupu:">
+      <metal:toolboxes fill-slot="kupu_toolboxes_slot" />
+      <metal:slot fill-slot="tb_select_styles">
+        <select id="kupu-tb-styles"
+                 onchange="kupuui.setTextStyle(this.options[this.selectedIndex].value);">
+          <option value="p" i18n:translate="paragraph-normal">Normal</option>
+          <option value="h2|Heading">Heading</option>
+          <option value="h3|Subheading">Subheading</option>
+          <option value="pre">Formatted</option>
+          <tal:block tal:condition="field/widget/parastyles|nothing">
+          <option tal:condition="field/widget/parastyles"
+                  tal:repeat="style field/widget/parastyles"
+                  tal:attributes="value python:style[0]"
+                  tal:content="python:style[1]"
+                  />
+          </tal:block>
+        </select>
+      </metal:slot>
+
+      <metal:slot fill-slot="buttongroup_save" />
+      <metal:slot fill-slot="buttongroup_subsuper" />
+      <metal:slot fill-slot="buttongroup_color" />
+
+      <div class="kupu-editorframe" metal:fill-slot="kupu_editorframe">
+
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/sarissa.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupubasetools.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupucontextmenu.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupudrawertool.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupulibrarydrawer.js"> </script>
+
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuplonetools.js"> </script>
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
+
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupusaveonpart.js"> </script>
+
+        <metal:css use-macro="here/kupumacros/macros/kupu_sourceedit" />
+        <script type="text/javascript"
+                tal:attributes="src string:${portal_url}/kupuploneinit.js"></script>
+
+        <iframe
+            id="kupu-editor"
+            frameborder="0"
+            src="emptypage"
+            usecss="1"
+            tal:define="lib_prefix string:${here/absolute_url}/kupulibraries.xml?resource_type=;
+                        search_prefix string:${portal_url}/kupusearch.xml?resource_type=;"
+            tal:attributes="image_libraries_uri string:${lib_prefix}mediaobject;
+                            link_libraries_uri  string:${lib_prefix}linkable;
+                            search_images_uri   string:${search_prefix}mediaobject;
+                            search_links_uri    string:${search_prefix}linkable;">
+        </iframe>
+        <textarea cols="80" rows="25"
+            tabindex="" style="display:none"
+            name="description" id="kupu-editor-textarea"
+            tal:content="inputvalue"
+            tal:attributes="name inputname;
+                            onfocus onfocus|nothing;
+                            onblur onblur|nothing;
+                            tabindex tabindex|nothing;
+                            rows rows|default;
+                            cols cols|default;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" tal:content="string:
+      addEventHandler(window, 'load',  function() {
+        window.kupu = initPloneKupu(document.getElementById('kupu-editor'), 'kupu-editor-textarea');
+        window.kupuui = window.kupu.getTool('ui');
+        window.drawertool = window.kupu.getTool('drawertool');
+        window.kupu.initialize();}  , document);">
+    </script>
+</div>
+
+<textarea tal:condition="not:haskupu" 
+            cols="80"
+            rows="25"
+            tabindex=""
+            name="description"
+            tal:content="inputvalue"
+            tal:attributes="name inputname;
+                            id inputname;
+                            onfocus onfocus|nothing;
+                            onblur onblur|nothing;
+                            tabindex tabindex|nothing;
+                            rows rows|default;
+                            cols cols|default;"></textarea>
+</div>
+
+
+<div metal:define-macro="textFormatSelector"
+     class="field"
+     tal:define="tabindex tabindex/next;
+                     text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
+
+  <tal:editor tal:condition="haskupu">
+     <input type="hidden" name="text_format" value="html" />
+  </tal:editor>                 
+  <tal:noeditor  tal:condition="not:haskupu">
+    <label for="text_format" i18n:translate="label_format">Format</label>
+
+    <div class="formHelp" i18n:translate="help_format">
+      If you are unsure of which format to use, just select Plain
+      Text and type the document as you usually do.
+    </div>
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="structured-text"
+           tabindex=""
+           id="cb_structuredtext"
+           tal:attributes="checked python:test(text_format=='structured-text', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="html"
+           tabindex=""
+           id="cb_html"
+           tal:attributes="checked python:test(text_format=='html', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_html" i18n:translate="html">HTML</label> <br />
+
+    <input class="noborder"
+           type="radio"
+           name="text_format"
+           value="plain"
+           tabindex=""
+           id="cb_plain"
+           tal:attributes="checked python:test(text_format=='plain', 1, None);
+                           tabindex tabindex;"
+           />
+    <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
+
+                
+  </tal:noeditor>
+</div>
+</html>

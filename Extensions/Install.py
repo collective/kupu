@@ -13,7 +13,6 @@ This is best executed using CMFQuickInstaller
 
 $Id$
 """
-
 import os.path
 from StringIO import StringIO
 
@@ -52,7 +51,7 @@ def install_plone(self, out):
     """Install with plone
     """
     # register the plone skin layer
-    register_layer(self, 'plone', 'kupu_plone', out)
+    register_layer(self, 'plone/kupu_plone_layer', 'kupu_plone', out)
 
     # register as editor
     portal_props = getToolByName(self, 'portal_properties')
@@ -64,12 +63,21 @@ def install_plone(self, out):
             editors.append('Kupu')
             site_props._updateProperty(attrname, editors)        
             print >>out, "Added 'Kupu' to available editors in Plone."
+    install_libraries(self, out)
+
+def install_libraries(self, out):
+    """Install everything necessary to support Kupu Libraries
+    """
+    # add the library tool
+    addTool = self.manage_addProduct['kupu'].manage_addTool
+    addTool('kupu Library Tool')
+    print >>out, "Added the Kupu Tibrary Tool to the plone Site"
 
 def install(self):
     out = StringIO()
 
     # register the core layer
-    register_layer(self, 'common', 'kupu', out)
+    register_layer(self, 'default', 'kupu', out)
 
     # try for plone
     try:

@@ -51,9 +51,10 @@ except ImportError:
 # Extensions/Install.py script
 if have_cmf:
     from Products.CMFCore.DirectoryView import registerDirectory
-    registerDirectory('common', globals())
+    registerDirectory('default', globals())
     if have_plone:
-        registerDirectory('plone', globals())
+        import plone
+        initialize = plone.initialize
 elif have_zope2 and have_fss:
     import zope2
     initialize = zope2.initialize

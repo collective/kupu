@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<library
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n_domain="plone"
+    >
+  <uri tal:content="template/absolute_url">URI</uri>
+  <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
+  <title i18n_translate="box_recentitems">Recent Items</title>
+  <description>Recently published items.</description>
+
+  <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
+    <metal:slot fill-slot="defineItems">
+       <tal:var define="global items context/kupuRecentItems"/>
+    </metal:slot>
+    <metal:slot fill-slot="parentCollection" />
+  </items>
+</library>

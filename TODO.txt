@@ -31,6 +31,10 @@ completed.
 
   XXX: What do windoze users do? Use cygwin's make? Ant (ick)?
 
+     subsystem:
+             cd subdir && $(MAKE)
+
+
 - Testing framework for make.xsl
 
 - For some reason, &nbsp; entities are replaced with an empty string,

@@ -477,7 +477,7 @@ function LinkTool() {
     
     this.createLinkHandler = function(event) {
         /* create a link according to a url entered in a popup */
-        var linkWindow = openPopup('popups/link.html', 300, 200);
+        var linkWindow = openPopup('kupupopups/link.html', 300, 200);
         linkWindow.linktool = this;
         linkWindow.focus();
     };
@@ -614,7 +614,7 @@ function ImageTool() {
 
     this.createImageHandler = function(event) {
         /* create an image according to a url entered in a popup */
-        var imageWindow = openPopup('popups/image.html', 300, 200);
+        var imageWindow = openPopup('kupupopups/image.html', 300, 200);
         imageWindow.imagetool = this;
         imageWindow.focus();
     };
