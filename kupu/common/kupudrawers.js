@@ -574,7 +574,22 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this._transformXml = function() {
         /* transform this.xmldata to HTML using this.xsl and return it */
         var doc = Sarissa.getDomDocument();
-        this.xmldata.transformNodeToObject(this.xsl, doc);
+
+	
+	// If this is Moz 1.7 or Firefox 0.9, work around the 
+	// bug in XHTML namespaces on transforms.  XXX Find a condition 
+	// that only gets Moz 1.7, instead of all Moz/FF versions
+	if (this.editor.getBrowserName() != 'IExxx') {
+	    var xsl = this.xsl;
+	    var xsluri = "http://www.w3.org/1999/XSL/Transform";
+	    var html = xsl.createElementNS(xsluri, "output");
+	    html.setAttribute("method", "html");
+	    xsl.documentElement.appendChild(html);
+	    this.xmldata.transformNodeToObject(xsl, doc);
+	} else {
+	    this.xmldata.transformNodeToObject(this.xsl, doc);
+	}
+
         return doc;
     };
 
@@ -611,23 +626,19 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this._replaceNodeContents = function(doc, target, container) {
         /* replace all childnodes in target with all childnodes in container */
-        var importedContainer = doc.importNode(container, true);
-        // XXX it seems that IE doesn't allow hacks like these
-        // no need to worry anyway, since the transformed HTML seems
-        // to have the right JS context variables anyway.
 
-        if (this.editor.getBrowserName() != 'IE') {
-            container.ownerDocument.contentWindow = doc.contentWindow;
-        };
-        while (target.hasChildNodes()) {
-            target.removeChild(target.firstChild);
-        };
-        // XXX don't know if this works since i'm not sure whether 
-        // appendChild actually removes a child from a previous
-        // location (although i think it does)
-        while (importedContainer.hasChildNodes()) {
-            target.appendChild(importedContainer.firstChild);
-        };
+        if (this.editor.getBrowserName() == 'IE') {
+	    // Unpack contents into a temporary node because 
+	    // .xml and innerHTML work differently
+	    var placeholder = document.createElement("div");
+	    placeholder.innerHTML = container.xml;
+	    target.innerHTML = placeholder.innerHTML;
+	} else {
+	    var importedContainer = doc.importNode(container, true);
+	    target.parentNode.replaceChild(importedContainer, target);
+	}
+
+	return;
     };
 
     this._sarissaCallback = function(user_callback, uri) {
