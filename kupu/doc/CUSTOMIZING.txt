@@ -2,19 +2,22 @@
 Customizing Kupu
 ================
 
+XXX - cover customizing a feature (templating system)
+
 Abstract
 --------
 
-This is a document describing in detail how to customize Kupu on different
-levels: using CSS and HTML to change or remove parts of the UI, overriding
-initKupu() to reduce or extend the amount of tools used and hook in custom
-tools, writing tools and overriding default Kupu behaviour.
+This is a document describing in detail how to customize Kupu on
+different levels: using CSS and HTML to change or remove parts of the
+UI, overriding initKupu() to reduce or extend the amount of tools used
+and hook in custom tools, writing tools and overriding default Kupu
+behaviour.
 
-Sidenote: in the Kupu package there's a subdirectory called 'silva' which
-contains the customizing code used for a Zope based CMS (well, not strictly
-but anyway ;) called 'Silva'. This code uses all the customization techniques 
-described below, and can serve as an example for how to perform heavy 
-customizations.
+Sidenote: in the Kupu package there's a subdirectory called 'silva'
+which contains the customizing code used for a Zope based CMS (well,
+not strictly but anyway ;) called 'Silva'. This code uses all the
+customization techniques described below, and can serve as an example
+for how to perform heavy customizations.
 
 Integration and customization
 -----------------------------
