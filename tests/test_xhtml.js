@@ -156,8 +156,13 @@ function KupuXhtmlTestCase() {
         this.verifyResult(newdoc, expected);
     };
     this.testclass = function() {
-        var data = '<div class="msoNormal fred">This is a test</div>';
+        var data = '<div class="MsoNormal fred">This is a test</div>';
         var expected = '<div class="fred">This is a test</div>';
+        this.conversionTest(data, expected);
+    }
+    this.testclass2 = function() {
+        var data = '<div class="MsoNormal">This is a test</div>';
+        var expected = '<div>This is a test</div>';
         this.conversionTest(data, expected);
     }
     this.testTable = function() {

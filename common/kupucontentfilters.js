@@ -370,76 +370,56 @@ function XhtmlValidation(editor) {
     // I'm not attempting to check the order or number of contained
     // tags (yet).
     this.States = new function(el, validation) {
-        this.html = ['head','body'];
-        this.head = ['title','base','script','style', 'meta','link','object','isindex'];
-        this.title = ['#PCDATA'];
-        this.base = this.meta = this.link = [];
-        this.style = ['#PCDATA'];
-        this.script = ['#PCDATA'];
-        this.noscript = el.Flow;
-        this.iframe = el.Flow;
-        this.noframes = el.Flow;
-        this.body = el.Flow;
-        this.div = el.Flow;
-        this.p = el.Inline;
-        var t = el.heading;
-        for (var h = 0; h < t.length; h++) {
-            this[t[h]] = el.Inline;
-        }
-        this.ul = ['li'];
-        this.ol = this.menu = this.dir = this.ul;
-        this.dl = ['dt','dd'];
-        this.dt = el.Inline;
-        this.dd = el.Flow;
-        this.address = ['#PCDATA','p['].concat(el.inline, el.misc.inline);
-        this.hr = [];
-        this.pre = validation._exclude(el.Inline, "img|object|applet|big|small|sub|sup|font|basefont");
-        this.blockquote = el.Flow;
-        this.center = this.ins = this.del = el.Flow;
-        this.a = validation._exclude(el.Inline, "a");
-        this.span = this.bdo = el.Inline;
-        this.br = this.basefont = [];
-        var tags = [
-                   'em', 'strong', 'dfn','code','samp','kbd','var',
-                   'cite','abbr','acronym','q','sub','sup','tt','i',
-                   'b','big','small','u','s','strike','font','label',
-                   'legend'];
-        for (var i = 0; i < tags.length; i++) {
-            this[tags[i]] = el.Inline;
-        }
-        this.object = ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc);
-        this.param = [];
-        this.applet = this.object;
-        this.img = [];
-        this.map = ['form', 'area'].concat(el.block, el.misc);
-        this.area = [];
-        this.form = validation._exclude(el.Flow, ['form']);
-        this.input = [];
-        this.select = ['optgroup','option'];
-        this.optgroup = ['option'];
-        this.option = ['#PCDATA'];
-        this.textarea = this.option;
-        this.fieldset = ['#PCDATA','legend','form'].concat(el.block,el.inline,el.misc);
-        this.button = validation._exclude(el.Flow, ['a','form','iframe'].concat(el.inline_forms));
-        this.isindex = [];
-        this.table = ['caption','col','colgroup','thead','tfoot','tbody','tr'];
-        this.caption = el.Inline;
-        this.thead = this.tfoot = this.tbody = ['tr'];
-        this.colgroup = ['col'];
-        this.col = [];
-        this.tr = ['th','td'];
-        this.th = this.td = el.Flow;
 
-        // We actually want all the states to be objects rather than
-        // arrays
-        for (var tag in this) {
-            this[tag] = new validation.Set(this[tag]);
+        var here = this;
+        function setStates(tags, value) {
+            var valset = new validation.Set(value);
+
+            for (var i = 0; i < tags.length; i++) {
+                here[tags[i]] = valset;
+            }
         }
+        
+        setStates(['html'], ['head','body']);
+        setStates(['head'], ['title','base','script','style', 'meta','link','object','isindex']);
+        setStates([
+            'base', 'meta', 'link', 'hr', 'param', 'img', 'area', 'input',
+            'br', 'basefont', 'isindex', 'col',
+            ], []);
+
+        setStates(['title','style','script','option','textarea'], ['#PCDATA']);
+        setStates([ 'noscript', 'iframe', 'noframes', 'body', 'div',
+            'li', 'dd', 'blockquote', 'center', 'ins', 'del', 'td', 'th',
+            ], el.Flow);
+
+        setStates(el.heading, el.Inline);
+        setStates([ 'p', 'dt', 'address', 'span', 'bdo', 'caption',
+            'em', 'strong', 'dfn','code','samp','kbd','var',
+            'cite','abbr','acronym','q','sub','sup','tt','i',
+            'b','big','small','u','s','strike','font','label',
+            'legend'], el.Inline);
+
+        setStates(['ul', 'ol', 'menu', 'dir', 'ul', ], ['li']);
+        setStates(['dl'], ['dt','dd']);
+        setStates(['pre'], validation._exclude(el.Inline, "img|object|applet|big|small|sub|sup|font|basefont"));
+        setStates(['a'], validation._exclude(el.Inline, "a"));
+        setStates(['applet', 'object'], ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc));
+        setStates(['map'], ['form', 'area'].concat(el.block, el.misc));
+        setStates(['form'], validation._exclude(el.Flow, ['form']));
+        setStates(['select'], ['optgroup','option']);
+        setStates(['optgroup'], ['option']);
+        setStates(['fieldset'], ['#PCDATA','legend','form'].concat(el.block,el.inline,el.misc));
+        setStates(['button'], validation._exclude(el.Flow, ['a','form','iframe'].concat(el.inline_forms)));
+        setStates(['table'], ['caption','col','colgroup','thead','tfoot','tbody','tr']);
+        setStates(['thead', 'tfoot', 'tbody'], ['tr']);
+        setStates(['colgroup'], ['col']);
+        setStates(['tr'], ['th','td']);
     }(this.elements, this);
 
     // Permitted elements for style.
     this.StyleWhitelist = new this.Set(['text-align', 'list-style-type']);
-    this.ClassBlacklist = new this.Set(['msoNormal']);
+    this.ClassBlacklist = new this.Set(['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
+        'Bullet1', 'Bullet2']);
 
     this.classFilter = function(value) {
         var classes = value.split(' ');
@@ -464,12 +444,14 @@ function XhtmlValidation(editor) {
         }
         this['class'] = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute('class');
-            if (val) xhtmlnode.setAttribute('class', validation.classFilter(val));
+            if (val) val = validation.classFilter(val);
+            if (val) xhtmlnode.setAttribute('class', val);
         }
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.getAttribute('className');
-                if (val) xhtmlnode.setAttribute('class', validation.classFilter(val));
+                if (val) val = validation.classFilter(val);
+                if (val) xhtmlnode.setAttribute('class', val);
             }
             this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
                 try {
@@ -565,15 +547,16 @@ function XhtmlValidation(editor) {
         }
 
         var kids = htmlnode.childNodes;
+        var permittedChildren = this.States[parentnode.tagName] || permitted;
+
         if (kids.length == 0) {
-            if (htmlnode.text && htmlnode.text != "") {
+            if (htmlnode.text && htmlnode.text != "" && permittedChildren['#PCDATA']) {
                 var text = htmlnode.text;
                 var tnode = ownerdoc.createTextNode(text);
                 parentnode.appendChild(tnode);
             }
-        } else { 
+        } else {
             for (var i = 0; i < kids.length; i++) {
-                var permittedChildren = this.States[nodename] || permitted;
                 var kid = kids[i];
                 if (kid.nodeType == 1) {
                     var newkid = this._convertNodes(ownerdoc, kid, parentnode, permittedChildren);
