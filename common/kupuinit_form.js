@@ -95,28 +95,28 @@ function initKupu(iframe) {
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
-    var justifyleftbutton = new KupuBaseButton('kupu-justifyleft-button',
+    var justifyleftbutton = new KupuButton('kupu-justifyleft-button',
                                                execCommand('justifyleft'));
     kupu.registerTool('justifyleftbutton', justifyleftbutton);
 
-    var justifycenterbutton = new KupuBaseButton('kupu-justifycenter-button',
+    var justifycenterbutton = new KupuButton('kupu-justifycenter-button',
                                                  execCommand('justifycenter'));
     kupu.registerTool('justifycenterbutton', justifycenterbutton);
 
-    var justifyrightbutton = new KupuBaseButton('kupu-justifyright-button',
+    var justifyrightbutton = new KupuButton('kupu-justifyright-button',
                                                 execCommand('justifyright'));
     kupu.registerTool('justifyrightbutton', justifyrightbutton);
 
-    var outdentbutton = new KupuBaseButton('kupu-outdent-button', execCommand('outdent'));
+    var outdentbutton = new KupuButton('kupu-outdent-button', execCommand('outdent'));
     kupu.registerTool('outdentbutton', outdentbutton);
 
-    var indentbutton = new KupuBaseButton('kupu-indent-button', execCommand('indent'));
+    var indentbutton = new KupuButton('kupu-indent-button', execCommand('indent'));
     kupu.registerTool('indentbutton', indentbutton);
 
-    var undobutton = new KupuBaseButton('kupu-undo-button', execCommand('undo'));
+    var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'));
     kupu.registerTool('undobutton', undobutton);
 
-    var redobutton = new KupuBaseButton('kupu-redo-button', execCommand('redo'));
+    var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
     // add some tools
@@ -167,20 +167,20 @@ function initKupu(iframe) {
         };
     };
 
-    var imagelibdrawerbutton = new KupuBaseButton('kupu-imagelibdrawer-button',
-                                                  opendrawer('imagelibdrawer'));
+    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button',
+                                              opendrawer('imagelibdrawer'));
     kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
 
-    var linklibdrawerbutton = new KupuBaseButton('kupu-linklibdrawer-button',
-                                                 opendrawer('linklibdrawer'));
+    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
+                                             opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
-    var linkdrawerbutton = new KupuBaseButton('kupu-linkdrawer-button',
-                                              opendrawer('linkdrawer'));
+    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
+                                          opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
-    var tabledrawerbutton = new KupuBaseButton('kupu-tabledrawer-button',
-                                               opendrawer('tabledrawer'));
+    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
+                                           opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
 
     // create some drawers, drawers are some sort of popups that appear when a 

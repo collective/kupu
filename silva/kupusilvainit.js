@@ -31,7 +31,7 @@ function initSilvaKupu(iframe) {
     kupu.registerTool('ui', ui);
 
     var savebuttonfunc = function(button, editor) {editor.saveDocument()};
-    var savebutton = new KupuBaseButton('kupu-save-button', savebuttonfunc);
+    var savebutton = new KupuButton('kupu-save-button', savebuttonfunc);
     kupu.registerTool('savebutton', savebutton);
 
     // function that returns a function to execute a button command
@@ -86,10 +86,10 @@ function initSilvaKupu(iframe) {
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
-    var undobutton = new KupuBaseButton('kupu-undo-button', execCommand('undo'))
+    var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'))
     kupu.registerTool('undobutton', undobutton);
 
-    var redobutton = new KupuBaseButton('kupu-redo-button', execCommand('redo'))
+    var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'))
     kupu.registerTool('redobutton', redobutton);
 
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
