@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<kupu:wire
+    implementation="form"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <kupu:fill-slot name="head">
+    <kupu:insert-part feature="head" part="meta" />
+    <kupu:insert-part feature="head" part="styles" />
+    <kupu:insert-part feature="drawers" part="styles" />
+    <kupu:insert-part feature="head" part="jsincludes" />
+    <kupu:insert-part feature="contextmenu" part="jsincludes" />
+    <kupu:insert-part feature="head" part="bootstrap-editor" />
+    <kupu:insert-part feature="sourceedit" part="jsincludes" />
+    <kupu:insert-part feature="drawers" part="jsincludes" />
+  </kupu:fill-slot>
+
+</kupu:wire>
