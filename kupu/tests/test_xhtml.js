@@ -136,7 +136,7 @@ function KupuXhtmlTestCase() {
                           this.incontext('<div>centered<p>Test</p>zzz</div>'));
     }
     this.skip_testnbsp = function() {
-        var data = '<p>Text with&nbsp;non-break space</p>';
+        var data = '<p>Text with&nbsp;<b>non-break</b> space</p>';
         var expected = data
         var doc = this.doc.documentElement;
         var editor = this.editor;
@@ -146,7 +146,11 @@ function KupuXhtmlTestCase() {
         this.assertEquals(newdoc.xml, this.incontext(expected));
     };
     this.testTable = function() {
-        var data = '<TABLE class="listing"><THEAD><TR><TH>Col 01</TH><TH class=align-center>Col 11</TH>'+
+        // N.B. This table contains text and a <P> tag where they
+        // aren't legal. Mozilla strips out the <P> tag but lets the
+        // text through, IE lets both through.
+        
+        var data = '<TABLE class="listing">BADTEXT!<THEAD><TR><TH>Col 01</TH><TH class=align-center>Col 11</TH>'+
             '<TH class=align-right>Col 21</TH></TR></THEAD>'+
             '<TBODY><TR>'+
             '<TD>text</TD>'+
@@ -159,7 +163,7 @@ function KupuXhtmlTestCase() {
             '<TR>'+
             '<TD>yet more text</TD>'+
             '<TD class=align-center>aaaaa</TD>'+
-            '<TD class=align-right>rrr</TD></TR></TBODY></TABLE>';
+            '<TD class=align-right>rrr</TD></TR></TBODY><P></TABLE>';
         var expected = '<table class="listing"><thead><tr><th>Col 01</th><th class="align-center">Col 11</th>'+
             '<th class="align-right">Col 21</th></tr></thead>'+
             '<tbody><tr>'+
