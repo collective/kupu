@@ -32,8 +32,7 @@ Kupu changes
   o Added double-click catching, now double-clicking stuff results in correct
     behaviour.
 
-  o Fixed bug in String.strip(), now it converts one-char strings correctly
-    as well.
+  o Added a few useful helpers, such as a strip() method to String objects.
 
 - 1.0.3 (2004-03-25)
 
