@@ -332,9 +332,14 @@ function KupuEditor(document, config, logger) {
         return this.getDocument().getSelection();
     };
     
-    this.getSelectedNode = function() {
+    this.parentElement = function() {
         /* returns the selected node (read: parent) or none */
-        return this.getSelection().getSelectedNode();
+        return this.getSelection().parentElement();
+    };
+
+    this.getSelectedNode = function() {
+        this.editor.logMessage(_('KupuEditor.getSelectedNode() is deprecated: use KupuEditor.parentElement() instead!'));
+        return this.parentElement();
     };
 
     this.getNearestParentOfType = function(node, type) {
