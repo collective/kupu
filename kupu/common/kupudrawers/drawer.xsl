@@ -15,7 +15,8 @@ drawer.
 
 $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns="http://www.w3.org/1999/xhtml">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+    xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml">
     <xsl:param name="drawertype">image</xsl:param>
     <xsl:param name="drawertitle">Image Drawer</xsl:param>
     <xsl:variable name="titlelength" select="20"/>
@@ -32,175 +33,13 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
             <body>
                 <div style="width: 500px; border: solid black 1px; width: 100px">
                     <div id="kupu-librarydrawer">
-                        <!--                    
-<style>
-
-img {
-    vertical-align: middle;
-    border: none;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 0.2em;
-}
-
-.kupudrawer {
-    background-color: #eeeeee;
-    padding: 0.5em;
-    width: 43em;
-}
-
-.kupudrawer-search {
-    float: right;
-    margin: 1em;
-}
-
-
-/* Favorites section */
-.kupudrawer-favorites {
-    padding: 0.5em;
-    background-color: white;
-    height: 15em;
-    width: 6em;
-    margin: 0.2em;
-    float: left;
-    text-align: center;
-    border: 1px solid Black;
-}
-
-.kupudrawer-favorites a {
-    text-decoration: none;
-    display: block;
-    color: Black;
-    overflow: auto;
-}
-
-.kupudrawer-favorites a:hover {
-    background-color: #cccccc;
-}
-
-
-.kupudrawer-favorites img {
-    display:block;
-    margin: auto;
-}
-
-/* The listing */
-.kupudrawer-listing {
-    padding: 0.5em;
-    background-color: white;
-    height: 15em;
-    width: 12em;
-    margin: 0.2em;
-    float: left;
-    overflow: auto;
-    border: 1px solid Black;
-}
-
-.kupudrawer-listing a {
-    display: block;
-    text-decoration: none;
-    color: Black;
-}
-
-.kupudrawer-listing a.selected {
-    background-color: #cccccc;
-}
-
-.kupudrawer-listing a:hover {
-    background-color: #cccccc;
-}
-
-/* The detail view */
-.kupudrawer-details {
-    padding: 0.5em;
-    height: 15.7em;
-    width: 18em;
-    margin: 0.2em;
-    margin-top: -0.5em;
-    float: left;
-    overflow: auto;
-    border: 1px solid Black;
-}
-
-.kupudrawer-controls {
-    float: right;
-    margin-right: 1em;
-}
-
-.visualClear {
-    clear: both;
-}
-
-
-</style>
-                        <div class="kupudrawer">
-                            <input type="text" class="kupudrawer-search" value="search"/>
-                            <h1>
-                                <xsl:value-of select="/libraries/title"/>
-                            </h1>
-                            <div class="kupudrawer-favorites">
-                                <a href="#">
-                                    <img src="folder.gif"/> Favorite 1 </a>
-                                <a href="#">
-                                    <img src="folder.gif"/> Favorite 2 </a>
-                            </div>
-                            <div class="kupudrawer-listing">
-                                <a href="#">
-                                    <img src="document_icon.gif"/> Document 1 </a>
-                                <a href="#">
-                                    <img src="image_icon.gif"/> Image 1 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Newsletter 1 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Report 1 </a>
-                                <a href="#">
-                                    <img src="document_icon.gif"/> Document 2 </a>
-                                <a href="#">
-                                    <img src="image_icon.gif"/> Image 2 </a>
-                                <a href="#" class="selected">
-                                    <img src="newsitem_icon.gif"/> Newsletter 2 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Report 2 </a>
-                                <a href="#">
-                                    <img src="document_icon.gif"/> Document 3 </a>
-                                <a href="#">
-                                    <img src="image_icon.gif"/> Image 3 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Newsletter 3 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Report 3 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Newsletter 4 </a>
-                                <a href="#">
-                                    <img src="newsitem_icon.gif"/> Report 4 </a>
-                            </div>
-                            <fieldset class="kupudrawer-details">
-                                <legend>Details</legend>
-                                <img src="newsletter.png"/> Newsletter 2 <label>Title</label>
-                                <input type="Text" size="30" value="That was the year that was" title="You can change the title of the tooltip for the link here. Default is the item's title."/>
-                                <label>Description</label> This is a short summary of what happened
-                                in the past year. </fieldset>
-                            <div class="visualClear"/>
-                            <div class="kupudrawer-controls">
-                                <input type="submit" value="Cancel"/>
-                                <input type="submit" value="OK"/>
-                            </div>
-                            <div class="visualClear"/>
-                        </div>
-                        -->
-                        
-                        
-                        
-                        
                         <h1 style="padding: 0;float: left;">
                             <xsl:value-of select="$drawertitle"/>
                         </h1>
                         <div id="kupu-searchbox" style="text-align: right">
                             <form onsubmit="return false;">
-                                <input id="kupu-searchbox-input" name="searchbox" value="search"
+                                <input id="kupu-searchbox-input"
+                                    name="searchbox" value="search"
                                     style="font-style: italic"
                                     onclick="if (this.value == 'search') this.value = ''; this.style.fontStyle='normal';" onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();"/>
                             </form>
@@ -210,26 +49,26 @@ label {
                                 <tr class="kupu-panelsrow">
                                     <td id="kupu-librariespanel" class="panel">
                                         <div id="kupu-librariesitems" class="overflow">
-                                            <xsl:apply-templates select="/libraries/library"/>
+                                        <xsl:apply-templates select="/libraries/library"/>
                                         </div>
                                     </td>
                                     <td id="kupu-resourcespanel" class="panel">
                                         <div id="kupu-resourceitems" class="overflow">
-                                            <xsl:apply-templates select="/libraries/*[@selected]/items"/>
+                                        <xsl:apply-templates select="/libraries/*[@selected]/items"/>
                                         </div>
                                     </td>
                                     <td id="kupu-propertiespanel" class="panel">
                                         <div id="kupu-properties" class="overflow">
-                                            <xsl:choose>
-                                                <xsl:when test="$drawertype='image'">
-                                                  <xsl:apply-templates
-                                                  select="/libraries/*[@selected]//resource[@selected]" mode="image-properties"/>
-                                                </xsl:when>
-                                                <xsl:when test="$drawertype='link'">
-                                                  <xsl:apply-templates
-                                                  select="/libraries/*[@selected]//resource[@selected]" mode="link-properties"/>
-                                                </xsl:when>
-                                            </xsl:choose>
+                                        <xsl:choose>
+                                        <xsl:when test="$drawertype='image'">
+                                        <xsl:apply-templates
+                                        select="/libraries/*[@selected]//resource[@selected]" mode="image-properties"/>
+                                        </xsl:when>
+                                        <xsl:when test="$drawertype='link'">
+                                        <xsl:apply-templates
+                                        select="/libraries/*[@selected]//resource[@selected]" mode="link-properties"/>
+                                        </xsl:when>
+                                        </xsl:choose>
                                         </div>
                                     </td>
                                 </tr>
@@ -249,8 +88,8 @@ label {
         </html>
     </xsl:template>
     <xsl:template match="library">
-        <div onclick="drawertool.current_drawer.selectLibrary('{@id}');" class="kupu-libsource"
-            title="{title}" style="">
+        <div onclick="drawertool.current_drawer.selectLibrary('{@id}');"
+            class="kupu-libsource" title="{title}" style="">
             <xsl:attribute name="id">
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
@@ -271,6 +110,7 @@ label {
                 <xsl:choose>
                     <xsl:when
                             test="local-name()='collection'">drawertool.current_drawer.selectCollection('<xsl:value-of select="@id"/>');</xsl:when>
+
                     <xsl:otherwise>drawertool.current_drawer.selectItem('<xsl:value-of select="@id"/>')</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
@@ -307,38 +147,70 @@ label {
                 <img src="{preview}" title="{title}" alt="{title}"/>
             </div>
         </xsl:if>
-        <table>
-            <tr>
-                <td>
-                    <strong>Title</strong>
+        <div>
+            <xsl:value-of select="title"/>
+        </div>
+        <xsl:choose>
+            <xsl:when test="width">
+                <div>
+                    <xsl:variable name="h" select="number(height) div 120"/>
+                    <xsl:variable name="w" select="number(width) div 100"/>
+                    <xsl:choose>
+                        <xsl:when test="($h&gt;$w) and $h&gt;1">
+                            <img src="{uri}" title="{title}" height="120"
+                                width="{width div $h}" alt="{title}"/>
+                        </xsl:when>
+                        <xsl:when test="($w&gt;$h) and $w&gt;1">
+                            <img src="{uri}" title="{title}"
+                                height="{height div $w}" width="100" alt="{title}"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <img src="{uri}" title="{title}" height="{height}"
+                                width="{width}" alt="{title}"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </div>
+            </xsl:when>
+            <xsl:when test="preview">
+                <tr>
+                    <td>
+                        <strong>Preview</strong>
+                        <br/>
+                        <img src="{preview}" title="{title}" height="{height}"
+                            width="{width}" alt="{title}"/>
+                    </td>
+                </tr>
+            </xsl:when>
+        </xsl:choose>
+        <div>
+            <xsl:value-of select="size"/>
+            <xsl:if test="width"> (<xsl:value-of select="width"/> by
+                    <xsl:value-of select="height"/>)</xsl:if>
+        </div>
+        <div>
+            <xsl:value-of select="description"/>
+        </div>
+        <div>
+            <form onsubmit="return false;">
+                <strong>ALT-text</strong>
+                <br/>
+                <input type="text" id="image_alt" size="20" value="{title}"/>
+                <br/>
+                <input type="radio" name="image-align" id="image-align-left"
+                    checked="checked" value="image-left"/>
+                <label for="image-align-left">Left</label>
+                <input type="radio" name="image-align" id="image-align-inline" value="image-inline"/>
+                <label for="image-align-inline">Inline</label>
+                <input type="radio" name="image-align" id="image-align-right" value="image-right"/>
+                <label for="image-align-right">Right</label>
+                <tal:block condition="request/captions|nothing">
                     <br/>
-                    <xsl:value-of select="title"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <strong>Size</strong>
-                    <br/>
-                    <xsl:value-of select="size"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <strong>Description</strong>
-                    <br/>
-                    <xsl:value-of select="description"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <strong>ALT-text</strong>
-                    <br/>
-                    <form onsubmit="return false;">
-                        <input type="text" id="image_alt" size="10"/>
-                    </form>
-                </td>
-            </tr>
-        </table>
+                    <input type="checkbox" name="image-caption"
+                        id="image-caption" checked="checked"/>
+                    <label for="image-caption">Caption</label>
+                </tal:block>
+            </form>
+        </div>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <form onsubmit="return false;">
