@@ -236,7 +236,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
         self.style_whitelist = list(style_whitelist)
         self.class_blacklist = list(class_blacklist)
-        
-        REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
+
+        if REQUEST:
+            REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
 InitializeClass(PloneKupuLibraryTool)
