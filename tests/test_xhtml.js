@@ -85,15 +85,16 @@ function KupuXhtmlTestCase() {
         this.assertEquals(actual.toString(), expected.toString());
 
         // Check we have a bgcolor attribute
-        var attrs = validator.Attributes.thead;
-        this.assertTrue(this.arrayContains(attrs, 'charoff'));
+        this.assertTrue(this.arrayContains(validator.tagAttributes.thead, 'charoff'));
+        this.assertTrue(validator.attrFilters['charoff'] != null);
         validator.excludeAttributes(['charoff']);
-        this.assertTrue(!this.arrayContains(attrs, 'charoff'));
-        this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
-        this.assertTrue(this.arrayContains(validator.Attributes.th, 'height'));
-        validator.excludeAttributesForTags(['width','height'],['table','th']);
-        this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
-        this.assertFalse(this.arrayContains(validator.Attributes.th, 'height'));
+        this.assertTrue(validator.attrFilters['charoff']==null);
+        this.assertTrue(!this.arrayContains(validator.tagAttributes.thead, 'charoff'));
+        this.assertTrue(this.arrayContains(validator.tagAttributes.td, 'height'));
+        this.assertTrue(this.arrayContains(validator.tagAttributes.th, 'height'));
+        validator.excludeTagAttributes(['table','th'], ['width','height']);
+        this.assertTrue(this.arrayContains(validator.tagAttributes.td, 'height'));
+        this.assertFalse(this.arrayContains(validator.tagAttributes.th, 'height'));
     }
 
     this.testSet = function() {
@@ -204,7 +205,8 @@ function KupuXhtmlTestCase() {
     }
     this.testCustomAttribute = function() {
         var data = '<div special="magic">This is a test</div>';
-        this.editor.xhtmlvalid.newAttributes(['special'], ['div']);
+        this.editor.xhtmlvalid.includeTagAttributes(['div'],['special']);
+        this.editor.xhtmlvalid.setAttrFilter(['special']);
         this.conversionTest(data, data);
     }
 }

@@ -283,16 +283,16 @@ and 'font' tags, the 'cellspacing' attribute everywhere, and the
         </htmlfilter>
 
 From Javascript you can use the excludeAttributes, excludeTags and
-excludeAttributesForTags methods of editor.xhtmlvalid to get the same
+excludeTagAttributes methods of editor.xhtmlvalid to get the same
 effect.
 
 The 'style' attribute filters its content to permit 'text-align' and
 'list-style-type' styles and reject all others (these styles are used
 by kupu). The style whitelist may be extended by adding additional
-entries to editor.xhtmlvalid.StyleWhitelist.
+entries to editor.xhtmlvalid.styleWhitelist.
 
 The 'class' attribute is filtered to reject classnames which appear in
-the class blacklist. Add entries to editor.xhtmlvalid.ClassBlacklist
+the class blacklist. Add entries to editor.xhtmlvalid.classBlacklist
 to reject additional classes.
 
 Entries may be added to the style whitelist or the class blacklist
@@ -305,14 +305,74 @@ through the <htmlfilter> section of the configuration:
         </htmlfilter>
 
 Additional attributes may be added to existing tags by calling the
-'newAttributes' method. e.g.
+'setTagAttributes' and 'setAttrFilter' methods. e.g.
 
-editor.xhtmlvalid.newAttributes(['special'], ['div'])
+    editor.xhtmlvalid.setTagAttributes(['div'], ['special']);
+    editor.xhtmlvalid.setAttrFilter(['special']);
 
 adds an attribute 'special' to the 'div' tag. The method tags three
 parameters: a list of attributes, a list of tags, and optionally a
 filter method to be called for that attribute. If the filter method is
 omitted the attribute is simply copied.
+
+The validation API is as follows (for the purposes of this api, a
+'dict' means an object whose property names are the dict keys):
+
+Set
+  a javascript class used to quickly create a 'dict' where all
+  the values are 1. The constructor takes a single keyname, or a list
+  of keynames, or a Set.
+
+attrFilters
+  a dict keyed by attributeName, of filter functions for each
+  attribute. Any attribute not in this dict is invalid.
+
+tagAttributes
+  a dict keyed by tagName, of arrays of valid attribute names for
+  each tag. Any tag not in this dict is invalid.  N.B. Tags which share
+  a common set of attributes may be sharing the same array.
+
+  All attributeNames in the sets in tagAttributes must exist in
+  attrFilters.
+
+setAttrFilter(attributes,filter)
+  sets the filter function in attrFilters for the list of attributes,
+  adding the attributes if they don't already exist. A simple copy
+  function is used if filter is not provided.
+
+setTagAttributes(tags,attributes)
+  for each tag in the list of tags, sets tagAttributes[tag] to the list of
+  attributes. An empty list of attributes is used if attributes is
+  omitted.
+ 
+includeTagAttributes(tags, attributes)
+  for each tag in the list of tags, adds the list of attributes to
+  tagAttributes[tag]
+ 
+excludeTagAttributes(tags, attributes)
+  for each tag in the list of tags, removes any attribute in the list
+  of attributes from the list in tagAttributes[tag].
+ 
+excludeTags(tags)
+   removes the list of tags from tagAttributes.
+ 
+excludeAttributes(attributes)
+  removes the set of attributes from attrFilters and all tags in
+  tagAttributes.
+
+styleWhitelist
+  a Set. Each key is the css name of a style. e.g. text-align.
+  Only those elements of the style attribute which are present in this
+  set are permitted through the filtering.
+  The default setting includes only those styles which may be set by
+  kupu.
+
+classBlacklist
+  a Set. Each key is a classname which should not be permitted. All
+  other classnames are allowed through the filtering. The default
+  setting is a list of styles likely to be present when a pasting text
+  copied out of Microsoft Word.
+ 
 
 7. Loggers
 ----------
