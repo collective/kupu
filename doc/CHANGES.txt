@@ -10,6 +10,7 @@ Kupu changes
   Apache Lenya enhancements:
   
   * improved handling of image assets
+  * fixed bug that inserted multiple meta charset entries per save.
   * slight wording changes here and there
   
 - Kupu 1.2rc1
