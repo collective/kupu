@@ -60,7 +60,11 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                 while (common < urlparts.length) {
                     path[i++] = urlparts[common++];
                 };
-                str = tag + [path.join('/'),anchor].join('#')+'"';
+                str = path.join('/');
+                if (anchor) {
+                    str = [str,anchor].join('#');
+                }
+                str = tag + str+'"';
             };
             return str;
         });

@@ -12,35 +12,43 @@
 
 // Test form beforeUnload processing
 
+// The handler is careful not to use any global variables, so we have
+// to work a bit to find out its class.
+var BeforeUnloadHandler = window.onbeforeunload.tool.constructor;
+
 function KupuBeforeUnloadTestCase() {
     this.name = 'KupuBeforeUnloadTestCase';
 
     function Submit(index) { return '<input type="submit" id="SUBMIT'+index+'" value="submit" />'; }
     // Field types to test
-    this.INPUTTEXT = '<input type="text" value="42" id="INPUTTEXT" />';
-    this.TEXTAREA = '<textarea id="TEXTAREA">42</textarea>';
+    this.INPUTTEXT = '<input type="text" value="42" id="INPUTTEXT" name="i1" />';
+    this.INPUTCLIENT = '<input type="text" value="42" id="INPUTTEXT2" />';
+    this.TEXTAREA = '<textarea id="TEXTAREA" name="i2">42</textarea>';
     this.RADIO = '<INPUT type="radio" id="radio1" name="radio" CHECKED>1-10 years old \
         <INPUT type="radio" id="radio2" name="radio">11 years old\
         <INPUT type="radio" id="radio3" name="radio">12-120 years old';
-    this.BUTTON = '<input type="button" value="click me" id="BUTTON" />';
-    this.CHECKBOX = '<input type="checkbox" checked id="chk1">Uncheck me<br>\
-        <input type="checkbox" id="chk2">check me';
+    this.BUTTON = '<input type="button" value="click me" id="BUTTON" name="b1" />';
+    this.CHECKBOX = '<input type="checkbox" checked id="chk1" name="c1">Uncheck me<br>\
+        <input type="checkbox" id="chk2" name="c2">check me';
 
-    this.FILE = '<input type="file" id="FILE" value="hello" />';
-    this.HIDDEN = '<input type="hidden" id="HIDDEN" value="42" />';
-    this.IMAGE = '<input type="image" id="IMAGE" />';
-    this.PASSWORD = '<input type="password" value="secret" id="PASSWORD" />';
-    this.RESET = '<input type="reset" id="RESET" value="reset" />';
+    this.FILE = '<input type="file" id="FILE" value="hello" name="f1" />';
+    
+    this.HIDDEN = '<input type="hidden" id="HIDDEN" value="42" name="h1" />';
+    this.HIDDEN = '<form id="FORMHIDDEN">'+this.HIDDEN+'</form>';
+    
+    this.IMAGE = '<input type="image" id="IMAGE" name="im1" />';
+    this.PASSWORD = '<input type="password" value="secret" id="PASSWORD" name="pass1" />';
+    this.RESET = '<input type="reset" id="RESET" value="reset" "name="reset1" />';
     this.SUBMIT = Submit('');
-    this.SELECTONE = '<select id="SELECTONE" id="SELECT">\
+    this.SELECTONE = '<select id="SELECTONE" id="SELECT" name="select1">\
         <OPTION VALUE="1">Red\
         <OPTION VALUE="2">Green\
         <OPTION VALUE="3">Blue</SELECT>';
-    this.SELECTONEA = '<select id="SELECTONE" id="SELECT">\
+    this.SELECTONEA = '<select id="SELECTONE" id="SELECT" name="select2">\
         <OPTION VALUE="1">Red\
         <OPTION VALUE="2" SELECTED>Green\
         <OPTION VALUE="3">Blue</SELECT>';
-    this.SELECTMULTIPLE = '<select id="SELECTMULTIPLE" id="SELECT" MULTIPLE>\
+    this.SELECTMULTIPLE = '<select id="SELECTMULTIPLE" id="SELECT" MULTIPLE name="select3">\
         <OPTION VALUE="1">Red\
         <OPTION VALUE="2" SELECTED>Green\
         <OPTION VALUE="3">Blue</SELECT>';
@@ -93,6 +101,18 @@ Class.testInputField = function() {
     this.simpleFieldTest(this.INPUTTEXT, "INPUTTEXT", 37);
 }
 
+Class.testClientIgnored = function() {
+    var id = "INPUTTEXT2";
+    this.setHtml(this.INPUTCLIENT);
+    this.assertNotChanged(id);
+    var field = document.getElementById(id);
+    field.value = 25;
+    this.assertNotChanged(id);
+    // Give the field a name and then we pick up the change
+    field.name = "ANINPUT";
+    this.assertChanged(id);
+}
+
 Class.testTextArea = function() {
     this.simpleFieldTest(this.TEXTAREA, "TEXTAREA");
     this.simpleFieldTest(this.TEXTAREA, "TEXTAREA", 37);
@@ -135,7 +155,9 @@ Class.testFile = function() {
 
 Class.testHidden = function() {
     this.simpleFieldTest(this.HIDDEN, "HIDDEN");
-    // this.simpleFieldTest(this.HIDDEN, "HIDDEN", "37");
+    var form = document.getElementById("FORMHIDDEN");
+    this.bu.addForms(form);
+    this.assertChanged("HIDDEN", "37");
 }
 Class.testImage = function() {
     this.simpleFieldTest(this.IMAGE, "IMAGE");

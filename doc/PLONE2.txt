@@ -47,7 +47,10 @@ section Add/remove Products and select 'kupu' for installation.
 Usually, every user has to explicitly set their preferred editor to
 'kupu' in 'My Preferences' in order to use kupu. Kupu and recent
 versions of Epoz may both be installed on the same Plone site allowing
-users to choose whichever they prefer.
+users to choose whichever they prefer. You can specify Kupu as the
+default editor for new users from the ZMI::
+
+  "portal_memberdata" -> "Properties" -> "wysiwyg_editor" = "Kupu"
 
 When attempting to use Kupu, if you see the message::
 
