@@ -288,13 +288,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         this.updateDisplay(this.resourcespanelid);
     };
 
-
-    //XXXXX simply reinsert the whole damn thing
-    this.displayMiddlePane = function(update_libraries_panel) {
-      this.updateDisplay(this.resourcespanelid);
-
-    };
-
     /*** Selecting a resource ***/
 
     this.selectItem = function(id) {
