@@ -38,6 +38,14 @@ fixed or otherwise outdated, which do we fix and which are unfixable.
 
 Make it easier to enable the output transforms. Hotfix ATCT?
 
+====================
+Backport into common
+====================
+Merge PloneKupuUI class back into common so that other variants of
+kupu can support classnames on styles.
+
+Code to make links relative should also be shareable.
+
 ================
 TODO for drawers
 ================
