@@ -32,6 +32,7 @@
     <kupu:insert-part feature="head" part="bootstrap-editor" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="sourceedit" part="jsincludes" />
+    <kupu:insert-part feature="drawers" part="jsincludes" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="body">
@@ -41,6 +42,7 @@
 
   <kupu:fill-slot name="kupuconfig">
     <kupu:insert-part feature="xmlconfig" part="defaultconfig" />
+    <kupu:insert-part feature="drawers" part="xmlconfig" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="fulleditor">
@@ -53,6 +55,7 @@
   <kupu:fill-slot name="toolbar">
     <kupu:insert-part feature="toolbar" part="buttons" />
     <kupu:insert-part feature="toolbar" part="liststyles" />
+    <kupu:insert-part feature="drawers" part="drawers" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">
@@ -65,6 +68,7 @@
     <kupu:insert-part feature="toolbar" part="buttongroup-justify" />
     <kupu:insert-part feature="toolbar" part="buttongroup-list" />
     <kupu:insert-part feature="toolbar" part="buttongroup-indent" />
+    <kupu:insert-part feature="drawers" part="buttons" />
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
     <kupu:insert-part feature="sourceedit" part="buttons" />
   </kupu:fill-slot>

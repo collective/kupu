@@ -161,10 +161,48 @@ function initKupu(iframe) {
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
 
+    // Drawers...
+
+    var opendrawer = function(drawerid) {
+        return function(button, editor) {
+            drawertool.openDrawer(drawerid);
+	};
+    };
+
+    var imagedrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
+					       opendrawer('imagedrawer'));
+    kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
+
+    var linkdrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
+					      opendrawer('linkdrawer'));
+    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
+
+    var tabledrawerbutton = new KupuBaseButton('kupu-tabledrawer-button',
+					       opendrawer('tabledrawer'));
+    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
+
+    // create some drawers, drawers are some sort of popups that appear when a 
+    // toolbar button is clicked
+    var drawertool = new DrawerTool();
+    kupu.registerTool('drawertool', drawertool);
+
+    var linkdrawer = new LinkDrawer(linktool, conf['link_xsl_uri'],
+                                    conf['link_libraries_uri'], conf['link_images_uri']);
+    drawertool.registerDrawer('linkdrawer', linkdrawer);
+
+    var imagedrawer = new ImageDrawer(imagetool, conf['image_xsl_uri'],
+                                      conf['image_libraries_uri'], conf['search_images_uri']);
+    drawertool.registerDrawer('imagedrawer', imagedrawer);
+
+    var tabledrawer = new TableDrawer('kupu-table-drawer-add',
+                                      'kupu-table-drawer-edit',
+                                       tabletool);
+    drawertool.registerDrawer('tabledrawer', tabledrawer);
+
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);
 
     return kupu;
-}
+};
