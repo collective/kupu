@@ -52,6 +52,29 @@ function KupuHelpersTestCase() {
         this.assertFalse(array.contains('1', 1));
     };
 
+    this.testStringStrip = function() {
+        // an empty string
+        var str = "";
+	this.assertEquals(str.strip(), str);
+	// a string only containg whitespace
+	str = " \n  \t ";
+	this.assertEquals(str.strip(), "");
+        // a string not containg any whitespaces
+	str = "foo"
+	this.assertEquals(str.strip(), str);
+	// a word wrapped around whitespace
+	str = "\n  foo \t  ";
+	this.assertEquals(str.strip(), "foo");
+	// a string containing whitespace in the middle
+        str = "foo bar baz";
+	this.assertEquals(str.strip(), str);
+	// a string containing spaces around it and in it
+	str = " \t  foo bar\n baz  ";
+	this.assertEquals(str.strip(), "foo bar\n baz");
+	str = "  tu quoque Brute filie mee  ";
+	this.assertEquals(str.strip(), "tu quoque Brute filie mee");
+    };
+
     this.testLoadDictFromXML = function() {
         var dict = loadDictFromXML(document, 'xmlisland');
         this.assertEquals(dict['foo'], 'bar');
