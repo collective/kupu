@@ -81,6 +81,8 @@ kupu credits
   - Damian Gajda for providing the SourceEdit tool (a rewrite of some 
     function).
 
+  - Donovan Baarda for a number of patches.
+
   - Kit Blake for documentation and administrative tasks.
 
   - The guys at ETH for inspiration.
