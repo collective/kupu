@@ -59,6 +59,12 @@
           <size metal:define-slot="size"
                 tal:condition="info/size"
                 tal:content="info/size">size</size>
+          <tal:block condition="python:info.get('width') and info.get('height')">
+              <width metal:define-slot="width"
+                     tal:content="info/width">width</width>
+              <height metal:define-slot="height"
+                     tal:content="info/height">height</height>
+          </tal:block>
           <preview metal:define-slot="preview"
                    tal:condition="info/preview"
                    tal:content="string:${info/url}/${info/preview}"></preview>
