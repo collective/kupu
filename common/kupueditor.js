@@ -211,13 +211,27 @@ function KupuEditor(document, config, logger) {
         // set the window status so people can see we're actually saving
         window.status= "Please wait while saving document...";
 
+        // call (optional) beforeSave() method on all tools
+        for (var id in this.tools) {
+            var tool = this.tools[id];
+            if (tool.beforeSave) {
+                try {
+                    tool.beforeSave();
+                } catch(e) {
+                    alert(e);
+                    this._initialized = true;
+                    return;
+                };
+            };
+        };
+        
         // pass the content through the filters
         this.logMessage("Starting HTML cleanup");
         var transform = this._filterContent(this.getInnerDocument().documentElement);
 
         // serialize to a string
         var contents = this._serializeOutputToString(transform);
-        
+
         this.logMessage("Cleanup done, sending document to server");
         var request = Sarissa.getXmlHttpRequest();
     
@@ -266,6 +280,20 @@ function KupuEditor(document, config, logger) {
         // set the window status so people can see we're actually saving
         window.status= "Please wait while saving document...";
 
+        // call (optional) beforeSave() method on all tools
+        for (var id in this.tools) {
+            var tool = this.tools[id];
+            if (tool.beforeSave) {
+                try {
+                    tool.beforeSave();
+                } catch(e) {
+                    alert(e);
+                    this._initialized = true;
+                    return;
+                };
+            };
+        };
+        
         // set a default id
         if (!id) {
             id = 'kupu';
