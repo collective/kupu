@@ -31,10 +31,6 @@
     <script type="text/javascript" src="kupucontentfilters.js"> </script>
   </kupu:part>
 
-  <kupu:part name="contextmenujs">
-    <script type="text/javascript" src="kupucontextmenu.js"> </script>
-  </kupu:part>
-
   <!-- XXX this could be a separate feature, maybe -->
   <kupu:part name="bootstrap-editor">
     <script type="text/javascript" src="kupuinit.js"> </script>
