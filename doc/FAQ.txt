@@ -44,27 +44,6 @@ Kupu Frequently Asked Questions
   For an example of which meta-tags to use, see fulldoc.html (the example
   content page).
 
-* Can I really open the files straight off the file system?
-
-  At least the files in the 'common' layer are supposed to work this
-  way. The kupu.html and kupumacros.html pages (the first is usually a
-  copy of the first one, stripped from all TAL (see below)).
-
-* What is all this gibberish in kupumacros.html?
-
-  This is TAL, Template Attribute Language, one way of server-side generation
-  of HTML in Zope. Since Kupu was originally Zope based (does it show?) you
-  will find some Zope specific stuff here and there in the product. The idea
-  is to move all that to a Zope specific one, but the kupumacros.html is still
-  used as the base file to test implementations and such, and will therefore
-  not be moved until now.
-  Note that this does *not* mean that Kupu runs only on Zope! (see above)
-
-* File extensions look different in Zope!
-
-  In fact, they look normal. Thanks to CMF 1.4, we can use .js, .html,
-  and friends as file extensions.
-
 * Does Kupu produce valid XHTML?
 
   Well... Kupu produces *well-formed XML*, which out-of-the-box does not 
@@ -99,4 +78,4 @@ Kupu Frequently Asked Questions
 Other questions
 ---------------
 Additional questions for the FAQ are welcome. Please post them on:
-kupu-development@lists.sourceforge.net.
+kupu-dev@codespeak.net
