@@ -78,6 +78,9 @@ kupu credits
   - Doron Rosenberg for providing a solution to a nasty selection
     bug in Mozilla.
 
+  - Damian Gajda for providing the SourceEdit tool (a rewrite of some 
+    function).
+
   - Kit Blake for documentation and administrative tasks.
 
   - The guys at ETH for inspiration.
