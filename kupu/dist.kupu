@@ -3,19 +3,13 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
-  <!-- Boiler plate -->
-
   <!-- Include implementations -->
-  <xi:include href="default/include.kupu" />
-  <xi:include href="plone/include.kupu" />
+  <xi:include href="include.kupu" />
 
   <!-- Define the default slot to start with -->
   <kupu:expand>
     <kupu:define-slot name="start" />
   </kupu:expand>
-
-
-  <!-- Now it gets Distribution specific -->
 
   <!-- Define an implementation order. Default contains only one
        implementation, itself. -->
