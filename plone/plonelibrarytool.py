@@ -106,7 +106,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         except AttributeError:
             return 1
 
-    security.declareProtected('View', "getTableClasses")
+    security.declareProtected('View', "getTableClassnames")
     def getTableClassnames(self):
         """Return a list of classnames supported in tables"""
         try:
