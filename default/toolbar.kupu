@@ -42,7 +42,7 @@
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu" accesskey="k"
+      <button type="button" class="kupu-logo" title="Kupu: alt-k" accesskey="k"
               onclick="window.open('http://kupu.oscom.org');">&#160;</button>
     </span>
   </kupu:part>
@@ -78,35 +78,35 @@
 
   <kupu:part name="buttongroup-basicmarkup">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-bold" id="kupu-bold-button" title="Bold"
+      <button type="button" class="kupu-bold" id="kupu-bold-button" title="bold: alt-b"
               i18n:attributes="title" accesskey="b">&#160;</button>
-      <button type="button" class="kupu-italic" id="kupu-italic-button" title="Italic"
+      <button type="button" class="kupu-italic" id="kupu-italic-button" title="italic: alt-i"
               i18n:attributes="title" accesskey="i">&#160;</button>
-      <button type="button" class="kupu-underline" id="kupu-underline-button" title="Underline"
+      <button type="button" class="kupu-underline" id="kupu-underline-button" title="underline: alt-u"
               i18n:attributes="title" accesskey="u">&#160;</button>
     </span>
   </kupu:part>
 
   <kupu:part name="buttongroup-subsuper">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-subscript" id="kupu-subscript-button" title="Subscript"
-              i18n:attributes="title" accesskey="v">&#160;</button>
-      <button type="button" class="kupu-superscript" id="kupu-superscript-button" title="Superscript"
-              i18n:attributes="title" accesskey="^">&#160;</button>
+      <button type="button" class="kupu-subscript" id="kupu-subscript-button" title="subscript: alt--"
+              i18n:attributes="title" accesskey="-">&#160;</button>
+      <button type="button" class="kupu-superscript" id="kupu-superscript-button" title="superscript: alt-+"
+              i18n:attributes="title" accesskey="+">&#160;</button>
     </span>
   </kupu:part>
 
   <kupu:part name="buttongroup-justify">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-justifyleft" id="kupu-justifyleft-button" 
-              title="Left Justify" i18n:attributes="title"
+              title="left justify: alt-l" i18n:attributes="title"
               accesskey="l">&#160;</button>
       <button type="button" class="kupu-justifycenter" 
-              id="kupu-justifycenter-button" title="Center" 
+              id="kupu-justifycenter-button" title="center justify: alt-c" 
               i18n:attributes="title" accesskey="c">&#160;</button>
       <button type="button" class="kupu-justifyright" 
-              id="kupu-justifyright-button" title="Right Justify"
-              i18n:attributes="title" accesskey="l">&#160;</button>
+              id="kupu-justifyright-button" title="right justify: alt-r"
+              i18n:attributes="title" accesskey="r">&#160;</button>
     </span>
   </kupu:part>
 
@@ -114,11 +114,11 @@
               <span class="kupu-tb-buttongroup">
       <!-- list button events are set on the list tool -->
       <button type="button" class="kupu-insertorderedlist" 
-              title="Numbered List" id="kupu-list-ol-addbutton" 
-              i18n:attributes="title" accesskey="1">&#160;</button>
+              title="numbered list: alt-#" id="kupu-list-ol-addbutton" 
+              i18n:attributes="title" accesskey="#">&#160;</button>
       <button type="button" class="kupu-insertunorderedlist" 
-              title="Unordered List" id="kupu-list-ul-addbutton" 
-              i18n:attributes="title" accesskey="-">&#160;</button>
+              title="unordered list: alt-*" id="kupu-list-ul-addbutton" 
+              i18n:attributes="title" accesskey="*">&#160;</button>
               </span>
   </kupu:part>
 
@@ -126,18 +126,18 @@
     <span class="kupu-tb-buttongroup">
       <!-- list button events are set on the list tool -->
       <button type="button" class="kupu-insertdefinitionlist" 
-              title="Definition List" id="kupu-list-dl-addbutton" 
-              i18n:attributes="title" accesskey="1">&#160;</button>
+              title="definition list: alt-=" id="kupu-list-dl-addbutton" 
+              i18n:attributes="title" accesskey="=">&#160;</button>
     </span>
   </kupu:part>
 
   <kupu:part name="buttongroup-indent">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-outdent" 
-              id="kupu-outdent-button" title="Outdent"
+              id="kupu-outdent-button" title="outdent: alt-&lt;"
               i18n:attributes="title" accesskey="&lt;">&#160;</button>
       <button type="button" class="kupu-indent" 
-              id="kupu-indent-button" title="Indent"
+              id="kupu-indent-button" title="indent: alt-&gt;"
               i18n:attributes="title" accesskey="&gt;">&#160;</button>
     </span>
   </kupu:part>
@@ -145,20 +145,22 @@
   <kupu:part name="buttongroup-undo">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-undo" 
-              id="kupu-undo-button" title="Undo"
+              id="kupu-undo-button" title="undo: alt-z"
               i18n:attributes="title" accesskey="z">&#160;</button>
       <button type="button" class="kupu-redo" 
-              id="kupu-redo-button" title="Redo"
+              id="kupu-redo-button" title="redo: alt-y"
               i18n:attributes="title" accesskey="y">&#160;</button>
     </span>
   </kupu:part>
 
   <kupu:part name="buttongroup-remove">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-removeimage" id="kupu-removeimage-button"
-              title="Remove image" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-removelink" id="kupu-removelink-button"
-              title="Remove link" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-removeimage invisible"
+              id="kupu-removeimage-button" title="Remove image"
+              i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-removelink invisible"
+              id="kupu-removelink-button" title="Remove link"
+              i18n:attributes="title">&#160;</button>
     </span>
   </kupu:part>
 

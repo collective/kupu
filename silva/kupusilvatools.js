@@ -102,6 +102,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.initialize = function(editor) {
         this.editor = editor;
         addEventHandler(this.targetselect, 'click', this.setTarget, this);
+        addEventHandler(this.urlinput, 'change', this.setSrc, this);
         addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
         addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
         addEventHandler(this.linkinput, 'keypress', this.setLink, this);
@@ -129,7 +130,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             if (!hires) {
                 var link = image.getAttribute('link');
                 this.linklinkradio.checked = 'selected';
-                this.linkinput.value = link;
+                this.linkinput.value = link == null ? '' : link;
             } else {
                 this.hireslinkradio.checked = 'checked';
                 this.linkinput.value = '';
@@ -159,6 +160,18 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
             this.editor.logMessage('No image selected!', 1);
         };
         image.setAttribute('target', target);
+    };
+
+    this.setSrc = function() {
+        var selNode = this.editor.getSelectedNode();
+        var img = this.editor.getNearestParentOfType(selNode, 'img');
+        if (!img) {
+            this.editor.logMessage('Not inside an image!', 1);
+        };
+        
+        var src = this.urlinput.value;
+        img.setAttribute('src', src);
+        this.editor.logMessage('Image updated');
     };
 
     this.setHires = function() {
@@ -249,14 +262,14 @@ function SilvaTableTool() {
             };
         };
         
+        var selection = this.editor.getSelection();
+        var docfrag = selection.cloneContents();
         var setcursoratend = false;
-        if (contentcell) {
+        if (contentcell && docfrag.hasChildNodes()) {
             while (contentcell.hasChildNodes()) {
                 contentcell.removeChild(contentcell.firstChild);
             };
             
-            var selection = this.editor.getSelection();
-            var docfrag = selection.cloneContents();
             while (docfrag.hasChildNodes()) {
                 contentcell.appendChild(docfrag.firstChild);
                 setcursoratend = true;
@@ -1391,6 +1404,10 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         if (extsource) {
             this._insideExternalSource = true;
             selectSelectItem(this.idselect, extsource.getAttribute('source_id'));
+            this.addbutton.style.display = 'none';
+            this.cancelbutton.style.display = 'none';
+            this.updatebutton.style.display = 'inline';
+            this.delbutton.style.display = 'inline';
             this.startExternalSourceUpdate(extsource);
         } else {
             this._insideExternalSource = false;
@@ -1481,10 +1498,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         };
         var text = document.createTextNode('Loading...');
         this.formcontainer.appendChild(text);
-        this.addbutton.style.display = 'none';
-        this.cancelbutton.style.display = 'none';
-        this.updatebutton.style.display = 'inline';
-        this.delbutton.style.display = 'inline';
     };
 
     this._addFormToTool = function(object) {
@@ -1587,7 +1600,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         this.idselect.style.display = 'inline';
         this.addbutton.style.display = 'inline';
         this.cancelbutton.style.display = 'none';
-        this.cancelbutton.style.display = 'none';
+        this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
         //this.editor.updateState();
         this._editing = false;

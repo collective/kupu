@@ -20,6 +20,5 @@
   <!-- Silva does not want to use certain features -->
   <kupu:disable-feature name="drawers" /> <!-- for now -->
   <kupu:disable-feature name="colorchooser" />
-  <kupu:disable-feature name="sourceedit" />
 
 </kupu:dist>

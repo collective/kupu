@@ -17,10 +17,10 @@
     <span class="kupu-tb-buttongroup">
       <!-- Note: the event handlers are attached to these buttons dynamically, like for tools -->
       <button type="button" class="kupu-forecolor" id="kupu-forecolor-button" 
-              title="Text Color" i18n:attributes="title" 
+              title="text color: alt-f" i18n:attributes="title" 
               accesskey="f">&#160;</button>
       <button type="button" class="kupu-hilitecolor" id="kupu-hilitecolor-button"
-              title="Background Color" i18n:attributes="title"
+              title="background color: alt-h" i18n:attributes="title"
               accesskey="h">&#160;</button>
     </span>
   </kupu:part>

@@ -49,6 +49,7 @@
               charset="UTF-8">
       </iframe>
     </div>
+    <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
   </kupu:part>
 
 </kupu:feature>

@@ -11,6 +11,8 @@
 // $Id$
 
 function KupuHelpersTestCase() {
+    this.name = 'KupuHelpersTestCase';
+
     this.setUp = function() {
         this.doc = document.getElementById('iframe').contentWindow.document;
         var html = this.doc.createElement('html');
