@@ -120,8 +120,17 @@ function ContextMenu() {
                 currnode = currnode.offsetParent;
             };
         } else {
-            left = event.pageX + iframe.offsetLeft;
-            top = event.pageY + iframe.offsetTop;
+            left = event.pageX;
+            top = event.pageY;
+            var body = this.editor.getInnerDocument().body;
+            left -= body.scrollLeft;
+            top -= body.scrollTop;
+            var node = iframe;
+            while (node) {
+                left += node.offsetLeft;
+                top += node.offsetTop;
+                node = node.offsetParent;
+            }
         };
         //var clienttop = event.clientY;
         /*if (clienttop > (parseInt(this.editor.getDocument().getWindow().innerHeight) - 
