@@ -464,9 +464,13 @@ function XhtmlValidation(editor) {
         }
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
-                var val = htmlnode.getAttribute('className');
+                var val = htmlnode.className;
                 if (val) val = validation.classFilter(val);
                 if (val) xhtmlnode.setAttribute('class', val);
+            }
+            this['http-equiv'] = function(name, htmlnode, xhtmlnode) {
+                var val = htmlnode.httpEquiv;
+                if (val) xhtmlnode.setAttribute('http-equiv', val);
             }
             this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
                 try {
