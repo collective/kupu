@@ -10,6 +10,18 @@
 
 // $Id$
 
+function DummyKupuEditor(doc, config, logger) {
+    this.document = doc;
+
+    this.getInnerDocument = function() {
+        return this.document.getDocument();
+    };
+
+    this.getSelection = function() {
+        return this.document.getSelection();
+    };
+};
+
 function InitKupuCheckersTestCase() {
     // Please note that we are cheating here a bit:
     // 1. No idea how to get the real checkers without setting up a complete
@@ -40,31 +52,42 @@ function InitKupuCheckersTestCase() {
     this._makeBoldchecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-                                                 'fontWeight', 'bold');
+                                                 'fontWeight', 'bold', 'bold');
         return boldchecker;
         };
 
     this._makeItalicschecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-                                                    'fontStyle', 'italic');
+                                              'fontStyle', 'italic', 'italic');
         return italicschecker;
         };
 
     this._makeUnderlinechecker = function() {
         // XXX copied from initKupu, must be synced manually!
         var underlinechecker = ParentWithStyleChecker(new Array('u'),
-                                                'textDecoration', 'underline');
+                                   'textDecoration', 'underline', 'underline');
         return underlinechecker;
         };
 
+    this.setUp = function() {
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
+        this.kupudoc = new KupuDocument(iframe);
+        this.selection = this.kupudoc.getSelection();
+        this.editor = new DummyKupuEditor(this.kupudoc, {}, null);
+        this.kupudoc.getWindow().focus();
+    };
+
     this.testBoldcheckerBold = function() {
+        this.editor = new DummyKupuEditor(this.kupudoc, {}, null);
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
         // select                        |ar|
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testBoldcheckerMixed = function() {
@@ -73,7 +96,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(2, null, 7, false, 'o bar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), false);
+        this.assertEquals(boldchecker(selNode, null, this.editor), false);
     };
 
     this.testBoldcheckerBoldLeftOuter = function() {
@@ -82,7 +105,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(4, false, 7, false, 'bar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testBoldcheckerBoldInner = function() {
@@ -91,7 +114,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(4, true, 7, false, 'bar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testBoldcheckerExecCommand = function() {
@@ -101,17 +124,19 @@ function InitKupuCheckersTestCase() {
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
-    this.XXXtestBoldcheckerExecCommandCollapsed = function() {
+    this.testBoldcheckerExecCommandCollapsed = function() {
+        // XXX: the feature seems to work, but test is broken on IE
+        if (_SARISSA_IS_IE) return;
         this.body.innerHTML = '<p>foo bar</p>';
         // select                   ||
         this._setSelection(3, null, 3, null, '');
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testBoldcheckerExecCommandNoCSS = function() {
@@ -124,7 +149,7 @@ function InitKupuCheckersTestCase() {
         this.doc.execCommand('bold', null, null);
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
 
         this.doc.execCommand('useCSS', null, false);
     };
@@ -135,7 +160,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testBoldcheckerStyle = function() {
@@ -145,7 +170,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
-        this.assertEquals(boldchecker(selNode), true);
+        this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
 
     this.testItalicscheckerItalics = function() {
@@ -154,7 +179,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
-        this.assertEquals(italicschecker(selNode), true);
+        this.assertEquals(italicschecker(selNode, null, this.editor), true);
     };
 
     this.testItalicscheckerEmphasis = function() {
@@ -163,7 +188,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
-        this.assertEquals(italicschecker(selNode), true);
+        this.assertEquals(italicschecker(selNode, null, this.editor), true);
     };
 
     this.testItalicscheckerStyle = function() {
@@ -173,7 +198,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var italicschecker = this._makeItalicschecker();
-        this.assertEquals(italicschecker(selNode), true);
+        this.assertEquals(italicschecker(selNode, null, this.editor), true);
     };
 
     this.testUnderlinecheckerStyle = function() {
@@ -183,7 +208,7 @@ function InitKupuCheckersTestCase() {
         this._setSelection(5, null, 7, false, 'ar');
         var selNode = this.selection.parentElement();
         var underlinechecker = this._makeUnderlinechecker();
-        this.assertEquals(underlinechecker(selNode), true);
+        this.assertEquals(underlinechecker(selNode, null, this.editor), true);
     };
 };
 
