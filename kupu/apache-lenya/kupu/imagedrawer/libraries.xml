@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<libraries>
+
+  <library id="library1">
+    <uri>/kupu/apache-lenya/kupu/imagedrawer/library.xml</uri>
+    <title>Library I</title>
+    <src>/kupu/apache-lenya/kupu/imagedrawer/library.xml</src>
+    <icon>/kupu/common/kupuimages/kupu_icon.gif</icon>
+  </library>
+
+</libraries>
