@@ -309,10 +309,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this.createContent = function() {
         // load the initial XML
         if(!this.xmldata) {
+	    /*
             if (!this.xsltproc.template) {
                 alert("This function requires a newer browser version");
                 return;
             }
+	    */
             this.loadLibraries();
         } else {
             this.updateDisplay();
