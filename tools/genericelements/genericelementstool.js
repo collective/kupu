@@ -761,14 +761,14 @@ function GenericElementsTool(xmlid) {
             by the value of foo from the mapping)
         */
         for (var name in values) {
-            var reg = new RegExp('{{' + name + '}}', 'g');
+            var reg = new RegExp('\\\{\\\{' + name + '\\\}\\\}', 'g');
             var value = values[name];
             if (typeof(value) != 'string') {
                 value = ';'.join(value);
             };
             data = data.replace(reg, value);
         };
-        data = data.replace(/\{/g, '{');
+        data = data.replace(/\\\{/g, '{');
         return data;
     };
 
