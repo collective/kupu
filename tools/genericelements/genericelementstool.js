@@ -96,7 +96,7 @@ var getNodeText = function(node) {
 // that must get content in XHTML, they will get an &nbsp; as content
 var NON_SINGLE = new Array('div', 'span', 'p', 'textarea');
 
-function GenericElementsTool(xmlid) {
+function GenericElementsTool(xmlid, popupprops) {
     /* a tool to add placeholders for generic elements to the document
 
         the placeholders can later on be replaced by their real counterparts
@@ -107,6 +107,7 @@ function GenericElementsTool(xmlid) {
     */
     
     this.xmlid = xmlid;
+    this.popupprops = popupprops ? popupprops : 'height=200,width=400,notoolbar';
     
     this.initialize = function(editor) {
         this.editor = editor;
@@ -318,7 +319,7 @@ function GenericElementsTool(xmlid) {
             var id = field[0];
             var title = field[1];
             var type = field[2];
-            var defaultValue = values[id] ? values[id] : field[5];
+            var value = values[id] ? values[id] : field[5];
             var items = field[6];
             
             // add the title of the field
@@ -333,8 +334,8 @@ function GenericElementsTool(xmlid) {
             if (type == 'textarea') {
                 inputel = document.createElement('textarea');
                 var content = undefined;
-                if (defaultValue) {
-                    content = defaultValue;
+                if (value) {
+                    content = value;
                 } else {
                     content = document.createTextNode('&#xa0;');
                 };
@@ -356,7 +357,7 @@ function GenericElementsTool(xmlid) {
                     var inputtext = document.createElement(item);
                     form.appendChild(inputtext);
                     form.appendChild(document.createElement('br'));
-                    if (defaultValue.contains(item)) {
+                    if (value.contains(item)) {
                         inputel.setAttribute('checked', 'checked');
                     };
                 };
@@ -368,17 +369,33 @@ function GenericElementsTool(xmlid) {
                     var option = document.createElement('option');
                     option.setAttribute('value', item);
                     option.appendChild(document.createTextNode(item));
-                    if (item == defaultValue) {
+                    if (item == value) {
                         option.setAttribute('selected', true);
                     };
                     select.appendChild(option);
                 };
                 form.appendChild(select);
+            } else if (type == 'button_field') {
+                var button = document.createElement('input');
+                button.setAttribute('type', 'button');
+                button.setAttribute('value', title);
+                button.setAttribute('id', id + '-button');
+                addEventHandler(button, 'click', 
+                                    function() {
+                                        window.open(value, 'popup', this.popupprops);
+                                    }, this);
+                form.appendChild(button);
+                var input = document.createElement('input');
+                input.setAttribute('type', 'text');
+                input.setAttribute('id', id + '-input');
+                input.setAttribute('name', id);
+                input.setAttribute('disabled', 'disabled');
+                form.appendChild(input);
             } else {
                 inputel = document.createElement('input');
                 inputel.setAttribute('type', type);
-                if (defaultValue) {
-                    inputel.value = defaultValue;
+                if (value) {
+                    inputel.value = value;
                 };
                 inputel.setAttribute('className', 'genericelement-form-field');
                 inputel.setAttribute('name', id);
@@ -487,9 +504,10 @@ function GenericElementsTool(xmlid) {
                       <title>[title]</title>
                       <type>[fieldtype]</type>
                       <validator>[validator id]</validator>
-                      <default>[default value (optional, '||'-seperated list 
+                      <value>[default value (optional, '||'-seperated list 
                                 for checkbox or radio, single value for the
-                                rest)]</default>
+                                rest) *or* (in case of type="button_field")
+                                a URL]</value>
                       <items>[list of items (optional, only useful when type 
                                 == checkbox, radio or select, '||'-seperated
                                 list of values)
@@ -595,7 +613,7 @@ function GenericElementsTool(xmlid) {
                 var type = undefined;
                 var valid = undefined;
                 var validator = undefined;
-                var defaultValue = undefined;
+                var value = undefined;
                 var items = undefined;
                 for (var k=0; k < field.childNodes.length; k++) {
                     var fieldchild = field.childNodes[k];
@@ -612,13 +630,13 @@ function GenericElementsTool(xmlid) {
                     } else if (nodeName == 'validator') {
                         valid = fieldchild.childNodes[0].nodeValue.strip();
                         validator = this._getValidator(valid);
-                    } else if (nodeName == 'default') {
-                        defaultValue = fieldchild.childNodes[0].nodeValue.strip();
+                    } else if (nodeName == 'value') {
+                        value = fieldchild.childNodes[0].nodeValue.strip();
                         if (type == 'radio' || type == 'checkbox') {
-                            var chunks = defaultValue.split('||');
-                            defaultValue = new Array();
+                            var chunks = value.split('||');
+                            value = new Array();
                             for (var l=0; l < chunks.length; l++) {
-                                defaultValue.push(chunks[l].strip());
+                                value.push(chunks[l].strip());
                             };
                         };
                     } else if (nodeName == 'items') {
@@ -635,7 +653,7 @@ function GenericElementsTool(xmlid) {
                         };
                     };
                 };
-                formfields.push(new Array(id, title, type, valid, validator, defaultValue, items));
+                formfields.push(new Array(id, title, type, valid, validator, value, items));
             };
             eltuple.push(formfields);
 
