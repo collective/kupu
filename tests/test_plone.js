@@ -74,6 +74,22 @@ function KupuPloneTestCase() {
         var actual = this.editor.makeLinksRelative(data, base);
         this.verifyResult(actual, expected);
     }
+    this.testRelativeLinks4 = function() {
+        var data =  '<a href="http://localhost:9080/plone/Members/admin/art1">[1]</a>';
+        var expected = '<a href="art1">[1]</a>';
+        var base = 'http://localhost:9080/plone/Members/admin/art1';
+
+        var actual = this.editor.makeLinksRelative(data, base);
+        this.verifyResult(actual, expected);
+    }
+    this.testRelativeLinks5 = function() {
+        var data =  '<a href="http://localhost:9080/plone/Members/admin/art1/subitem">[1]</a>';
+        var expected = '<a href="art1/subitem">[1]</a>';
+        var base = 'http://localhost:9080/plone/Members/admin/art1';
+
+        var actual = this.editor.makeLinksRelative(data, base);
+        this.verifyResult(actual, expected);
+    }
 
 }
 

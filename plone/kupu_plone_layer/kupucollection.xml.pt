@@ -15,36 +15,19 @@
   </tal:with>
 
   <items metal:define-macro="collectionItems">
+     <tal:var define="global resource_type request/resource_type | string:mediaobject;" />
      <metal:slot define-slot="defineItems">
        <tal:comment condition="nothing">
          The default resource type is mediaobject
        </tal:comment>
        <tal:var define="
-           resource_type request/resource_type | string:mediaobject;
            meta_types    python:context.kupuMetaTypesForResourceType(resource_type, True);
+           linkable_meta python:context.kupuMetaTypesForResourceType(resource_type, False);
            values        python:context.contentValues(meta_types);
-           global items  python:context.kupuInfoForObjects(values);
-           global resource_type request/resource_type | string:mediaobject;" />
+           global items  python:context.kupuInfoForObjects(values, linkhere=context.meta_type in linkable_meta, linkparent=True);
+           " />
      </metal:slot>
 
-     <metal:slot define-slot="parentCollection">
-       <tal:if define="
-           getToolByName nocall:modules/Products/CMFCore/utils/getToolByName;
-           url_tool      python:getToolByName(context, 'portal_url');
-           portal        url_tool/getPortalObject;"
-               condition="python:portal is not context">
-         <collection tal:define="
-             parent python:context.aq_parent;
-             info   python:context.kupuInfoForObjects([parent])[0]"
-                     tal:attributes="id parent/absolute_url">
-           <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems">
-           <title metal:fill-slot="title"
-                  i18n_translate="">.. (Parent folder)</title>
-           </metal:macro>
-           <src tal:content="string:${info/url}/${template/getId}?resource_type=${resource_type}">Source</src>
-         </collection>
-       </tal:if>
-     </metal:slot>
 
     <tal:loop repeat="info items">
 
@@ -72,6 +55,9 @@
           <preview metal:define-slot="preview"
                    tal:condition="info/preview"
                    tal:content="string:${info/url}/${info/preview}"></preview>
+          <label metal:define-slot="label"
+                tal:condition="info/label|nothing"
+                tal:content="info/label">label</label>
           <title metal:define-slot="title"
                  tal:content="info/title">title</title>
           <description metal:define-slot="description"

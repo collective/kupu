@@ -384,7 +384,14 @@ function MozillaSelection(document) {
         /* return the selected node (or the node containing the selection) */
         var selection = this.selection;
         var selectedNode = selection.anchorNode;
-
+        if (!selectedNode) {
+            selectedNode = this.document.body;
+            while (selectedNode.firstChild)
+                selectedNode = selectedNode.firstChild;
+        }
+        while (selectedNode.firstChild && !selectedNode.childNodes.length > 1) {
+            selectedNode = selectedNode.firstChild;
+        }
         var n = selectedNode;
         // Get next sibling at any level
         while (n.parentNode) {
