@@ -7,6 +7,11 @@ Kupu changes
   Creating links was broken by the fixes to #146, rewrote link
   creation to be more robust and predictable.
 
+  Apache Lenya enhancements:
+  
+  * improved handling of image assets
+  * slight wording changes here and there
+  
 - Kupu 1.2rc1
 
   The following issues have been resolved (see the `issue tracker`_
