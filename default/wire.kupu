@@ -1,7 +1,7 @@
 <kupu:wire
-  implementation="default"
-  xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-  >
+    implementation="default"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
 
   <!--
     This file defines the wiring of this implementation. Wiring means
@@ -28,6 +28,7 @@
   <kupu:fill-slot name="head">
     <kupu:insert-part feature="head" part="meta" />
     <kupu:insert-part feature="head" part="styles" />
+    <kupu:insert-part feature="drawers" part="styles" />
     <kupu:insert-part feature="head" part="jsincludes" />
     <kupu:insert-part feature="head" part="bootstrap-editor" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />

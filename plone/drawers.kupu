@@ -7,6 +7,11 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
+  <kupu:part name="styles">
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css"
+          tal:attributes="href string:${portal_url}/kupudrawerstyles.css" />
+  </kupu:part>
+
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupudrawertool.js"
             tal:attributes="src string:${portal_url}/kupudrawertool.js"> </script>
