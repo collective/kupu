@@ -58,7 +58,7 @@ function TestCase() {
     this.assertFalse = function(statement) {
         /* assert whether a variable resolves to false */
         if (statement) {
-            throw('Assertion ' + statement.toString() + ' failed');
+            throw('AssertFalse ' + statement.toString() + ' failed');
         };
     };
 
