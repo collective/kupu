@@ -50,6 +50,8 @@ IMAGE_TEMPLATE = '''\
 </div>
 '''
 
+UID_PATTERN = re.compile('(?P<tag><(?:a|img) [^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^"]*))"')
+
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
     __implements__ = itransform
@@ -104,6 +106,18 @@ class HTMLToCaptioned:
                 return match.group(0) # No change
 
             html = IMAGE_PATTERN.sub(replaceImage, data)
+
+            # Replace urls that use UIDs with human friendly urls.
+            def replaceUids(match):
+                tag = match.group('tag')
+                uid = match.group('uid')
+                target = at_tool.reference_catalog.lookupObject(uid)
+                if target:
+                    return tag + target.absolute_url() + '"'
+                return match.group(0)
+
+            html = UID_PATTERN.sub(replaceUids, html)
+            
             idata.setData(html)
             return idata
 
