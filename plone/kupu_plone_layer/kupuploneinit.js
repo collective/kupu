@@ -225,3 +225,23 @@ function initPloneKupu(iframe, fieldname) {
                 
     return kupu;
 };
+
+// override LinkDrawer.save so all links have a _self target
+LinkDrawer.prototype.save = function() {
+    /* add or modify a link */
+    var input = document.getElementById('kupu-linkdrawer-input');
+    var url = input.value;
+    var currnode = this.editor.getSelectedNode();
+    var linkel = this.editor.getNearestParentOfType(currnode, 'a');
+    if (linkel) {
+        linkel.setAttribute('href', url);
+    } else {
+        this.tool.createLink(url, null, null, '_blank');
+    };
+    input.value = '';
+
+    // XXX when reediting a link, the drawer does not close for
+    // some weird reason. BUG! Close the drawer manually until we
+    // find a fix:
+    this.drawertool.closeDrawer();
+};
