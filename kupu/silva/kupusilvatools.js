@@ -638,7 +638,7 @@ SilvaTableTool.prototype = new TableTool;
 function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
                         newcolsinputid, makeheaderinputid, classselectid, alignselectid, widthinputid,
                         addtablebuttonid, addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, 
-                        fixbuttonid, toolboxid, plainclass, activeclass) {
+                        fixbuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* Silva specific table functionality
         overrides most of the table functionality, required because Silva requires
         a completely different format for tables
@@ -658,6 +658,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.addcolbutton = document.getElementById(addcolbuttonid);
     this.delcolbutton = document.getElementById(delcolbuttonid);
     this.fixbutton = document.getElementById(fixbuttonid);
+    this.delbutton = document.getElementById(delbuttonid);
     this.toolboxel = document.getElementById(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
@@ -672,6 +673,7 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.addcolbutton, "click", this.tool.addTableColumn, this.tool);
         addEventHandler(this.delcolbutton, "click", this.tool.delTableColumn, this.tool);
         addEventHandler(this.fixbutton, "click", this.fixTable, this);
+        addEventHandler(this.delbutton, "click", this.tool.delTable, this);
         addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
         addEventHandler(this.widthinput, "change", this.setColumnWidths, this);
