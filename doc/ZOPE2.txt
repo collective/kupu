@@ -13,8 +13,9 @@ Requirements
 Installation
 ------------
 
-Drop the 'kupu' directory into your instance home's Products directory
-and restart the Zope instance.
+Drop the 'kupu' directory into your instance home's Products
+directory. XXX generate HTML template XXX. Then restart the Zope
+instance.
 
 Using the kupu editor macro
 ---------------------------
