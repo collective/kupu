@@ -734,14 +734,10 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
         }
 
         var caption = document.getElementsByName('image-caption');
-        if (caption && caption[0].checked) {
+        if (caption.length>0 && caption[0].checked) {
             img.className = img.className + " captioned";
         }
 
-        // XXX for some reason, image drawers aren't closed
-        // automatically like Link Library Drawers. This is definitely
-        // a bug and should be fixed. Until that happens, close the
-        // drawer manually:
         this.drawertool.closeDrawer();
     };
 };
