@@ -179,6 +179,10 @@ function TestSuite(reporter) {
 function StdoutReporter(verbose) {
   this.verbose = verbose; //XXX verbose not yet supported
 
+    this.debug = function(text) {
+      print(text+"\n");
+    }
+
     this.reportSuccess = function(testcase, attr) {
         /* report a test success */
         print('.');
@@ -210,6 +214,12 @@ function HTMLReporter(outputelement, verbose) {
     this.document = outputelement.ownerDocument;
     this.verbose = verbose; //XXX verbose not yet supported
 
+    this.debug = function(text) {
+        var msg = this.document.createTextNode(text);
+        var div = this.document.createElement('div');
+        div.appendChild(msg);
+        this.outputelement.appendChild(div);
+    }
     this.reportSuccess = function(testcase, attr) {
         /* report a test success */
         // a single dot looks rather small
