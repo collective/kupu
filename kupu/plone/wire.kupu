@@ -21,8 +21,9 @@
   </kupu:fill-slot>
 
   <kupu:fill-slot name="fulleditor">
-    <!-- because we don't have access to the right slots in Plone, we
-         need to put styles and JS includes in fulleditor -->
+    <!-- because we don't have access to the head tag from the wysiwyg 
+         macro in Plone, we need to put styles and JS includes in 
+         fulleditor -->
     <kupu:insert-part feature="head" part="styles" />
     <kupu:insert-part feature="drawers" part="styles" />
     <kupu:insert-part feature="head" part="jsincludes" />
