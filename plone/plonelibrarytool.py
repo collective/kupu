@@ -14,17 +14,20 @@ tool.
 
 $Id$
 """
+import os
 from ZODB.PersistentList import PersistentList
 from ZODB.PersistentMapping import PersistentMapping
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
+import Globals
 from Globals import InitializeClass
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
-from Products.CMFCore.utils import UniqueObject
+from Products.CMFCore.utils import UniqueObject, format_stx
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
 from Products.kupu.plone import permissions
+from Products.kupu import kupu_globals
 
 _default_libraries = (
     dict(id="string:portal_root",
@@ -147,7 +150,23 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     manage_options = (SimpleItem.manage_options[1:] + (
          dict(label='Config', action='kupu_config'),
          dict(label='Libraries', action='zmi_libraries'),
-         dict(label='Resource types', action='zmi_resource_types'),))
+         dict(label='Resource types', action='zmi_resource_types'),
+         dict(label='Resource types', action='zmi_resource_types'),
+         dict(label='Documentation', action='zmi_docs'),
+         ))
+
+
+    security.declarePublic('docs')
+    def docs(self):
+        """Returns FormController docs formatted as HTML"""
+        docpath = os.path.join(Globals.package_home(kupu_globals), 'doc')
+        f = open(os.path.join(docpath, 'PLONE2.txt'), 'r')
+        _docs = f.read()
+        return _docs
+
+    security.declareProtected(permissions.ManageLibraries, "zmi_docs")
+    zmi_docs = PageTemplateFile("zmi_docs.pt", globals())
+    zmi_docs.title = 'kupu configuration'
 
     security.declareProtected(permissions.ManageLibraries, "kupu_config")
     kupu_config = PageTemplateFile("kupu_config.pt", globals())

@@ -1,12 +1,29 @@
 <metal:page define-macro="master"
-  ><metal:master use-macro="here/prefs_main_template/macros/master"
+  ><metal:master use-macro="here/main_template/macros/master"
     >
 
 <metal:block metal:fill-slot="top_slot" define-slot="top_slot"
              tal:define="dummy python:request.set('disable_border',1)" />
-<body>
 
-<div metal:fill-slot="prefs_configlet_main" metal:define-slot="prefs_configlet_main"
+<metal:fillbase fill-slot="base">
+  <metal:baseslot define-slot="base">
+    <base href="" tal:attributes="href template/absolute_url" />
+  </metal:baseslot>
+</metal:fillbase>
+
+    <metal:cssslot fill-slot="css_slot">
+      <!-- A slot where you can insert CSS in the header from a template -->
+      <metal:cssslot define-slot="css_slot" />
+    </metal:cssslot>
+
+    <metal:override fill-slot="portlets_one_slot">
+      <metal:prefs use-macro="here/portlet_prefs/macros/portlet" />
+    </metal:override>
+
+    <metal:override fill-slot="column_two_slot" />
+
+<body>
+<div metal:fill-slot="main" metal:define-slot="prefs_configlet_main"
     tal:define="errors python:request.get('errors', {});">
 
 <div class="configlet">
@@ -15,7 +32,8 @@
 
     <!-- simulating views -->
     <ul class="contentViews"
-       tal:define="tabs python:('Config','kupu_config'),('Libraries','zmi_libraries'),('Resource Types','zmi_resource_types');
+       tal:define="tabs python:('Config','kupu_config'),('Libraries','zmi_libraries'),('Resource Types','zmi_resource_types'),
+        ('Documentation', 'zmi_docs'),;
                    tabs python:[ {'label':label, 'name':name} for (label,name) in tabs ];"
     >
         <li tal:repeat="tab tabs"
