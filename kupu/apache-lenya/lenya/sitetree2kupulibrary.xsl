@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
-  Transform lenya info assets about a pages resources
-  to Kupu's library format.
+  Transform lenya Sitetree to Kupu's library format
+  for usage in the link drawer.
   
   @version $Id$
 -->
