@@ -94,12 +94,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
             return 1
 
     # ZMI views
-    manage_options = (
-        (dict(label='Config', action='kupu_config'),
+    manage_options = (SimpleItem.manage_options[1:] + (
+         dict(label='Config', action='kupu_config'),
          dict(label='Libraries', action='zmi_libraries'),
-         dict(label='Resource types', action='zmi_resource_types'),)
-        + SimpleItem.manage_options[1:]
-        )
+         dict(label='Resource types', action='zmi_resource_types'),))
 
     security.declareProtected(permissions.ManageLibraries, "kupu_config")
     kupu_config = PageTemplateFile("kupu_config.pt", globals())
