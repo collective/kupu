@@ -1,0 +1,34 @@
+=========================
+Installing Kupu in Plone2
+=========================
+
+Requirements
+------------
+
+  - Zope 2.7
+
+  - Plone 2.0
+
+  - CMF 1.4
+
+  - CMFQuickInstaller (comes w/ Plone 2.0)
+
+Installation
+------------
+
+Drop the 'kupu' directory into your instance home's Products directory
+and restart the Zope instance. Now go to the Plone Control Panel,
+section Add/remove Products and select 'kupu' for installation.
+
+Usually, every user has to explicitly set its preferred editor to
+'kupu' in 'My Preferences' in order to use kupu.
+
+Configuration
+-------------
+
+XXX
+
+Migrating from Epoz
+-------------------
+
+XXX
