@@ -157,7 +157,6 @@ function initPloneKupu(iframe, fieldname) {
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {
         function kupuchanged() {
-            if (kupu.content_changed) alert("kupu changed");
             return kupu.content_changed;
         }
         beforeunloadTool.addHandler(kupuchanged);
