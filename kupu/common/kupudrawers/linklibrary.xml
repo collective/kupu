@@ -2,16 +2,10 @@
 <libraries>
 
   <library id="library1">
-    <uri>kupudrawers/demolibrary1.xml</uri>
-    <title>Library I</title>
-    <src>kupudrawers/demolibrary1.xml</src>
-    <icon></icon>
-  </library>
-  <library id="library2">
-    <uri>kupudrawers/demolibrary2.xml</uri>
-    <title>Library II</title>
-    <src>kupudrawers/demolibrary2.xml</src>
-    <icon></icon>
+    <uri>kupudrawers/logos.xml</uri>
+    <title>Logos</title>
+    <src>kupudrawers/logos.xml</src>
+    <icon>kupuimages/kupulibrary.png</icon>
   </library>
 
 </libraries>
