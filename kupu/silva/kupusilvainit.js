@@ -10,6 +10,43 @@
 
 // $Id$
 
+KupuEditor.prototype.afterInit = function() {
+    // select the line after the first heading, if the document is correctly
+    // formatted
+    this.getDocument().getWindow().focus();
+    var doc = this.getInnerDocument();
+    var body = doc.getElementsByTagName('body')[0];
+    var h = null;
+    var iterator = new NodeIterator(body);
+    while (h = iterator.next()) {
+        if (h.nodeType == 1 && h.nodeName.toLowerCase() == 'h2') {
+            var selection = this.getSelection();
+            // okay, the first element node is a h2, select
+            // next node, if it doesn't exist create and select
+            var next = h.nextSibling;
+            var nodeName = next.nodeName.toLowerCase();
+            if (nodeName == 'table') {
+                next = next.getElementsByTagName('td')[0];
+            } else if (nodeName == 'ul' || nodeName == 'ol') {
+                next = next.getElementsByTagName('li')[0];
+            };
+            if (!next) {
+                next = doc.createElement('p');
+                next.appendChild(doc.createTextNode('\xa0'));
+                body.appendChild(next);
+            };
+            selection.selectNodeContents(next);
+            selection.collapse();
+            break;
+        } else if (h.nodeType == 1) {
+            break;
+        };
+    };
+    // if we don't first focus the outer window, Mozilla won't show a cursor
+    window.focus();
+    this.getDocument().getWindow().focus();
+};
+
 function initSilvaKupu(iframe) {
     // first we create a logger
     var l = new DummyLogger();
