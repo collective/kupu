@@ -49,7 +49,7 @@ function initKupu(iframe) {
     };
 
     var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-					     'font-weight', 'bold');
+                                             'fontWeight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
                                          boldchecker,
@@ -58,7 +58,7 @@ function initKupu(iframe) {
     kupu.registerTool('boldbutton', boldbutton);
 
     var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-						'font-style', 'italic');
+                                                'fontStyle', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
                                            italicschecker, 
@@ -66,7 +66,8 @@ function initKupu(iframe) {
                                            'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
-    var underlinechecker = ParentWithStyleChecker(new Array('u'));
+    var underlinechecker = ParentWithStyleChecker(new Array('u'),
+                                                'textDecoration', 'underline');
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
                                               underlinechecker,
@@ -148,7 +149,9 @@ function initKupu(iframe) {
 
     var imagetool = new ImageTool();
     kupu.registerTool('imagetool', imagetool);
-    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 'kupu-toolbox-images', 'kupu-toolbox', 'kupu-toolbox-active');
+    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 
+                                        'kupu-image-float-select', 'kupu-toolbox-images', 
+                                        'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
     var tabletool = new TableTool();
