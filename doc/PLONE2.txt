@@ -81,6 +81,14 @@ setting for z-index in::
     }
 
 
+This function requires better XML support in your browser.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can get this alert in Firefox and Mozilla if your Plone site has
+an incompatible copy of Sarissa installed. Check your Plone skin
+folders to see if there is a second copy of sarissa.js present and
+if so ensure that the kupu skin folders are higher priority.
+
 Plone Configlet
 ---------------
 

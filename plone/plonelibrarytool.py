@@ -61,7 +61,7 @@ _default_resource_types = {
 # Tidy up html by exlcluding lots of things.
 _excluded_html = [
   (('center', 'span', 'tt', 'big', 'small', 'u', 's', 'strike', 'basefont', 'font'), ()),
-  ((), ('dir','lang','valign','halign','border','frame','rules','cellspacing','cellpadding','align','bgcolor','style')),
+  ((), ('dir','lang','valign','halign','border','frame','rules','cellspacing','cellpadding','bgcolor','style')),
   (('table','th','td'),('width','height')),
 ]
 

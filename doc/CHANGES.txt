@@ -4,23 +4,23 @@ Kupu changes
 
 - Since 1.2 beta 1
 
-  * Fixed 'phantom whitespace' problem. Saved format was 'text/html'
+  The following issues have been resolved (see the `issue tracker`_
+  for details of the numbered ones):
+
+  - 151: This function requires better XML support in your browser
+  - 149: When using Zoom on Plone site, the right portlets are not disabled
+  - 146: kupu 1.2b tagName is null or not an object javascript error in IE
+  - 143: Invalid request error when trying to edit raw HTML using Safari
+  - 141: Inserting links in Gecko browsers sometimes replaced the selected
+    text with the link title.
+  - Fixed 'phantom whitespace' problem. Saved format was 'text/html'
     which non-AT content types interpret as an alias for 'stx'. Now
     sets format to 'html' for non-AT content types.
-
-  * Opening a drawer gave error 404 on Plone systems when Archetypes 
+  - Opening a drawer gave error 404 on Plone systems when Archetypes 
     was not installed.
 
-  * Other issues fixed:
 
-        - 149_: When using Zoom on Plone site, the right portlets are not disabled
-        - 146_: kupu 1.2b tagName is null or not an object javascript error in IE
-        - 141_: Inserting links in Gecko browsers sometimes replaced the selected
-          text with the link title.
-
-.. _149: http://codespeak.net/issues/kupu/issue149
-.. _146: http://codespeak.net/issues/kupu/issue146
-.. _141: http://codespeak.net/issues/kupu/issue141
+.. _`issue tracker`: http://codespeak.net/issues/kupu/
 
 - Kupu 1.2 beta 1
 
