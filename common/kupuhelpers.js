@@ -383,6 +383,8 @@ function MozillaSelection(document) {
         this.selection.selectAllChildren(node);
     };
 
+    // XXX wrong name, should be getSelectedElement, since it won't return
+    // text nodes...
     this.getSelectedNode = function() {
         /* return the selected node (or the node containing the selection) */
         var selection = this.selection;
@@ -855,6 +857,8 @@ function IESelection(document) {
         this.selection = this.document.getDocument().selection;
     };
 
+    // XXX wrong name, should be getSelectedElement, since it won't return
+    // text nodes...
     this.getSelectedNode = function() {
         /* return the selected node (or the node containing the selection) */
         range = null;
