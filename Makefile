@@ -33,7 +33,7 @@ kupucnf.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupucnf.html $(XSL_FILE) dist-cnf.kupu
 
 plonemacros:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) -o plone/kupu_plone_layer/wysiwyg_support.html $(XSL_FILE) dist-plone.kupu
+	$(XSLTPROC) $(XSLTPROC_PARAMS) -o plone/kupu_plone_layer/kupu_wysiwyg_support.html $(XSL_FILE) dist-plone.kupu
 
 silvamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o silva/kupumacros.html $(XSL_FILE) dist-silva.kupu
@@ -45,7 +45,7 @@ clean:
 	rm -f common/kupu.html
 	rm -f common/kupumacros.html
 	rm -f common/kupuform.html
-	rm -f plone/kupu_plone_layer/wysiwyg_support.html
+	rm -f plone/kupu_plone_layer/kupu_wysiwyg_support.html
 	rm -f silva/kupumacros.html
 	rm -f common/kupumulti.html
 	rm -f common/kupucnf.html
