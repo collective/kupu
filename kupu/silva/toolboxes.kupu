@@ -253,7 +253,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <td colspan="2"><input type="button" class="button" id="kupu-table-addtable-button" value="insert table" /></td>
+                    <td colspan="2"><input type="button" class="transport" id="kupu-table-addtable-button" value="insert table" /></td>
                   </tr>
                 </table>
               </div>
@@ -276,14 +276,14 @@
                   <tr>
                     <td class="align-right">column</td>
                     <td>
-                        <input type="button" class="button" id="kupu-table-addcolumn-button" value="add column" />
+                        <input type="button" class="transport" id="kupu-table-addcolumn-button" value="add column" />
                         <input type="button"  class="warning" id="kupu-table-delcolumn-button" value="remove column" />
                     </td>
                   </tr>
                   <tr>
                     <td class="align-right">row</td>
                     <td>
-                      <input type="button"  class="button" id="kupu-table-addrow-button" value="insert row" />
+                      <input type="button"  class="transport" id="kupu-table-addrow-button" value="insert row" />
                       <input type="button"  class="warning" id="kupu-table-delrow-button" value="remove row" /></td>
                   </tr>
                   <tr>
