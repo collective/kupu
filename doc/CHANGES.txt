@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- post 1.2rc2
+
+  - Linking to the current folder produced an empty link. Now it links to "."
+
 - 1.2rc2
 
   - Fixed getSelectedNode, this should now behave correctly even in edge 
