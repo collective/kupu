@@ -9,17 +9,17 @@
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:lenya="http://apache.org/cocoon/lenya/page-envelope/1.0"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
  >
 
-<!-- FIXME: Insert doctype declaration.  -->
-<!--
-<xsl:output method="xml" version="1.0" indent="yes" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
--->
-
 <xsl:template match="edit-envelope">
-  <html>
+  <!-- 
+       FIXME: The _keepmes_ are needed for our incredible from(s) editor :) 
+       I hope we can remove this someday. 
+  -->
+  <html dc:dummy="FIXME:keepNamespace" dcterms:dummy="FIXME:keepNamespace" lenya:dummy="FIXME:keepNamespace" xhtml:dummy="FIXME:keepNamespace">
     <xsl:copy-of select="original/xhtml:html/lenya:meta"/>
     <head>
       <xsl:apply-templates select="edited/xhtml:html/xhtml:head/*"/>
