@@ -20,8 +20,8 @@
   </kupu:part>
 
   <kupu:part name="xmlconfig">
-    <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/imagedrawer.xsl" />
-    <link_xsl_uri tal:content="string:${portal_url}/kupudrawers/linkdrawer.xsl" />
+    <image_xsl_uri tal:content="string:${portal_url}/kupuimagedrawer.xsl" />
+    <link_xsl_uri tal:content="string:${portal_url}/kupulinkdrawer.xsl" />
     <tal:var tal:define="
         lib_prefix    string:${here/absolute_url}/kupulibraries.xml?resource_type=;
         search_prefix string:${portal_url}/kupusearch.xml?resource_type=;"
