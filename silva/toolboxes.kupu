@@ -177,10 +177,10 @@
                       <td>
                         <input type="radio" id="kupu-abbr-type-abbr" 
                               name="kupu-abbr-type" value="abbr" checked="checked" /> 
-                        Abbreviation
+                        <label for="kupu-abbr-type-abbr">abbreviation</label>
                         <input type="radio" id="kupu-abbr-type-acronym" 
                               name="kupu-abbr-type" value="acronym" /> 
-                        Acronym
+                        <label for="kupu-abbr-type-acronym">acronym</label>
                       </td>
                     </tr>
                   </table>
