@@ -103,6 +103,12 @@ function SelectionTestCase() {
                           '"'+verificationString+'"');
     };
 
+    this._cleanHtml = function(s) {
+        s = s.toLowerCase().replace(/[\r\n]/g, "");
+        s = s.replace(/\>[ ]+\</g, "><");
+        return s;
+    };
+
     this.tearDown = function() {
         this.body.innerHTML = '';
     };
