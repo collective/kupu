@@ -6,10 +6,10 @@
 # configuration parameters
 # THIS DIR WILL BE DELETED BY THE SCRIPT!!!
 KUPU_DIR="/tmp/kupu_build"
-BRANCH="tag/kupu-1.1.1b1"
+BRANCH="branch/kupu-1.1"
 DATE=`date +%Y-%m-%d`
 #TARBALLNAME="kupu-nightly-$DATE.tgz"
-TARBALLNAME="kupu-1.1.1b1.tar.gz"
+TARBALLNAME="kupu-1.1-branch.tar.gz"
 PROC="/usr/bin/xsltproc"
 XSL_PAR="--nonet --novalid --xinclude"
 LINT="/usr/bin/xmllint"

@@ -37,8 +37,8 @@ for f in os.listdir(path):
                 'title': '.'.join(f.split('.')[:-1]),
                 'path': '%s/%s' % (path, f),
                 'size': os.path.getsize('%s/%s' % (path, f)),
-                'width': img.size[1],
-                'height': img.size[0],
+                'width': img.size[0],
+                'height': img.size[1],
                 }
         chunks.append(('        <resource id="%(filename)s">\n'
                         '            <uri>%(path)s</uri>\n'
