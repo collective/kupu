@@ -18,7 +18,8 @@ customised (and driven from plone cpanel.
 Add user-level documentation to kupu.oscom.org. Make the Plone
 butterfly direct to a plone specific documentation page?
 
-Improved source editing mode?
+Improved source editing mode? At the least we should apply the content
+filtering when switching into source mode.
 
 Need a pulldown to set classes on non-block tags: e.g. span, a, etc.
 
@@ -26,7 +27,7 @@ Make the ul/li pulldown options customisable through cpanel, allow
 them to set classes as well as list-style-type.
 
 Refactor classes to do proper base class initialisation. This also
-means we need to use .prototype. consitently for methods.
+means we need to use .prototype. consistently for methods.
 
 Move Plone paragraph styling back into the common code.
 
@@ -46,6 +47,18 @@ kupu can support classnames on styles.
 
 Code to make links relative should also be shareable.
 
+Collapse saveDataField and prepareForm together:
+
+-  Maybe make _serializeOutputToString use config to select body or
+   full html.
+
+-  prepareForm should accept field name or field object and only
+   create output field if it doesn't already exist.
+
+-  makeLinksRelative should accept configurable pattern for URLs which
+   are to lose their path completely. For Plone this should default to
+   resolveuid.
+
 ================
 TODO for drawers
 ================
@@ -63,6 +76,13 @@ These are probably core issues rather than specifically Plone.
   upload handler should simply refresh the drawer with the uploaded
   file selected, then you can set all the usual image options on an
   uploaded image.
+
+And a Plone one:
+
+- Want an Archetypes widget which uses Kupu drawers so we can easily
+  incorporate them into reference pickers etc. This should be easier
+  now we have multi-instance Kupu as we no longer need to care whether
+  or not there is already a Kupu on the page.
 
 =====================
 IE problems and fixes
