@@ -8,14 +8,14 @@
     <uri>FIXME URI</uri>
     <title>Sitetree Links</title>
     <src>${parameters.getParameter('pubLibUrl')}</src>
-    <icon>${parameters.getParameter('imageBaseUrl')}/pub-image.png</icon>
+    <icon>${parameters.getParameter('imageBaseUrl')}/sitetree-link.png</icon>
   </library>
   
   <library id="other">
     <uri>FIXME URI</uri>
     <title>Other Links</title>
     <src>${parameters.getParameter('pageLibUrl')}</src>
-    <icon>${parameters.getParameter('imageBaseUrl')}/page-image.png</icon>
+    <icon>${parameters.getParameter('imageBaseUrl')}/emblem-generic.png</icon>
   </library>
 
 </libraries>
