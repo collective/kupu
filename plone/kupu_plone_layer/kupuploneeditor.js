@@ -71,6 +71,9 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
 };
 
 KupuEditor.prototype.saveDataToField = function(form, field) {
+    var sourcetool = this.getTool('sourceedittool');
+    if (sourcetool) {sourcetool.cancelSourceMode();};
+
     if (!this._initialized) {
         return;
     };

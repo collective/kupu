@@ -22,7 +22,7 @@
               src="fulldoc.html"
               scrolling="auto">
       </iframe>
-      <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
+      <textarea class="kupu-editor-textarea" id="kupu-editor-textarea"> </textarea>
     </div>
   </kupu:part>
 

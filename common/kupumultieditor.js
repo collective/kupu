@@ -143,6 +143,9 @@ function KupuMultiEditor(documents, config, logger) {
     this.prepareForm = function(form, idprefix) {
         /* add some fields to the form and place the contents of the iframes 
         */
+        var sourcetool = this.getTool('sourceedittool');
+        if (sourcetool) {sourcetool.cancelSourceMode();};
+
         // make sure people can't edit or save during saving
         if (!this._initialized) {
             return;

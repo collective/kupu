@@ -398,11 +398,13 @@ function MozillaSelection(document) {
     };
 
     this.collapse = function(collapseToEnd) {
-        if (!collapseToEnd) {
-            this.selection.collapseToStart();
-        } else {
-            this.selection.collapseToEnd();
-        };
+        try {
+            if (!collapseToEnd) {
+                this.selection.collapseToStart();
+            } else {
+                this.selection.collapseToEnd();
+            };
+        } catch(e) {};
     };
 
     this.replaceWithNode = function(node, selectAfterPlace) {

@@ -19,7 +19,7 @@
                 src="fulldoc"
                 tal:attributes="src document_url">
         </iframe>
-        <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
+        <textarea class="kupu-editor-textarea" id="kupu-editor-textarea"> </textarea>
       </form>
     </div>
   </kupu:part>

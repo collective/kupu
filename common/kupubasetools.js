@@ -1979,7 +1979,7 @@ KupuZoomTool.prototype.onresize = function() {
     var editor = this.editor;
     var iframe = editor.getDocument().editable;
     var sourcetool = editor.getTool('sourceedittool');
-    var sourceArea = sourcetool?sourcetool.sourceArea:null;
+    var sourceArea = sourcetool?sourcetool.getSourceArea():null;
 
     var fulleditor = iframe.parentNode;
     var body = document.body;
@@ -2016,33 +2016,35 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     var zoom = !button.pressed;
     this.zoomed = zoom;
 
-    var iframe = editor.getDocument().editable;
-    var fulleditor = iframe.parentNode;
+    var zoomClass = 'kupu-fulleditor-zoomed';
+    var iframe = editor.getDocument().getEditable();
+
     var body = document.body;
     var html = document.getElementsByTagName('html')[0];
     if (zoom) {
         html.style.overflow = 'hidden';
         window.scrollTo(0, 0);
-        fulleditor.className = 'kupu-fulleditor-zoomed';
+        editor.setClass(zoomClass);
         this.onresize();
     } else {
         html.style.overflow = '';
+        var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
-        fulleditor.className = '';
+        editor.clearClass(zoomClass);
 
         iframe.style.width = '';
         iframe.style.height = '';
 
         var sourcetool = editor.getTool('sourceedittool');
-        var sourceArea = sourcetool?sourcetool.sourceArea:null;
+        var sourceArea = sourcetool?sourcetool.getSourceArea():null;
         if (sourceArea) {
             sourceArea.style.width = '';
             sourceArea.style.height = '';
-        }
+        };
     }
     var doc = editor.getInnerDocument();
     // Mozilla needs this. Yes, really!
-    if (doc.designMode=='on') { doc.designMode = 'on'; }
+    doc.designMode=doc.designMode;
 
     window.scrollTo(0, iframe.offsetTop);
     editor.getDocument().getWindow().focus();

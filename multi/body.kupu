@@ -9,7 +9,7 @@
   <kupu:part name="body">
     <body onload="kupu = startKupu()">
       <h1>Kupu Editor Test Page</h1>
-      <form action="http://localhost/printpost.cgi" method="POST">
+      <form  action="http://debris.demon.nl/printpost" method="POST">
         <kupu:define-slot name="body" />
       </form>
     </body>
@@ -26,7 +26,7 @@
       </iframe>
       <textarea class="kupu-editor-textarea" 
                 id="kupu-editor-textarea-kupu_1" 
-                style="display: none; width: 99%; height: 200px;"> 
+                style="width: 99%; height: 200px;"> 
       </textarea>
       <iframe id="kupu_2" 
               frameborder="0" 
@@ -37,7 +37,7 @@
       </iframe>
       <textarea class="kupu-editor-textarea" 
                 id="kupu-editor-textarea-kupu_2"
-                style="display: none; width: 99%; height: 200px;"> 
+                style="width: 99%; height: 200px;"> 
       </textarea>
       <iframe id="kupu_3" 
               frameborder="0" 
@@ -48,7 +48,7 @@
       </iframe>
       <textarea class="kupu-editor-textarea" 
                 id="kupu-editor-textarea-kupu_3" 
-                style="display: none; width: 99%; height: 200px;"> 
+                style="width: 99%; height: 200px;"> 
       </textarea>
     </div>
   </kupu:part>
