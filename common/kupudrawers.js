@@ -136,6 +136,24 @@ function LinkDrawer(elementid, tool) {
 	// find a fix:
         this.drawertool.closeDrawer();
     };
+    
+    this.preview = function() {
+        var input = document.getElementById('kupu-linkdrawer-input');
+        var preview = document.getElementById('kupu-linkdrawer-preview');
+        preview.src = input.value;
+        if (this.editor.getBrowserName() == 'IE') {
+            preview.width = "800";
+            preview.height = "365";
+            preview.style.zoom = "60%";
+        };
+    }
+    this.preview_loaded = function() {
+        var input = document.getElementById('kupu-linkdrawer-input');
+        var preview = document.getElementById('kupu-linkdrawer-preview');
+        if (input.value  != preview.src) {
+            input.value = preview.src;
+        }
+    }
 };
 
 LinkDrawer.prototype = new Drawer;

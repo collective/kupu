@@ -55,8 +55,12 @@
             id="kupu-linkdrawer-input"
             class="kupu-toolbox-st" 
             type="text"
-            size="14"
+            size="40"
             />
+        <button type="button" onclick="drawertool.current_drawer.preview()">Preview</button><br />
+        <iframe frameborder="1" scrolling="auto" width="480" height="219"
+                id="kupu-linkdrawer-preview">
+        </iframe>
 
         <div style="text-align: center">
           <button type="button" onclick="drawertool.closeDrawer()">Cancel</button>
