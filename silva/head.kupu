@@ -19,6 +19,8 @@
             tal:attributes="src string:${root_url}/kupu/kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
             tal:attributes="src string:${root_url}/kupu/kupucontentfilters.js"> </script>
+    <script type="text/javascript" src="lookupwindowscripts.js"
+            tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
 
     <script type="text/javascript" src="kupusilvatools.js"
             tal:attributes="src string:${root_url}/kupu_silva/kupusilvatools.js"> </script>
