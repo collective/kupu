@@ -155,6 +155,11 @@ function KupuXhtmlTestCase() {
         var newdoc = editor._convertToSarissaNode(xhtmldoc, this.doc.documentElement);
         this.verifyResult(newdoc, expected);
     };
+    this.testclass = function() {
+        var data = '<div class="msoNormal fred">This is a test</div>';
+        var expected = '<div class="fred">This is a test</div>';
+        this.conversionTest(data, expected);
+    }
     this.testTable = function() {
         // N.B. This table contains text and a <P> tag where they
         // aren't legal. Mozilla strips out the <P> tag but lets the

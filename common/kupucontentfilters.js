@@ -439,7 +439,19 @@ function XhtmlValidation(editor) {
 
     // Permitted elements for style.
     this.StyleWhitelist = new this.Set(['text-align', 'list-style-type']);
+    this.ClassBlacklist = new this.Set(['msoNormal']);
 
+    this.classFilter = function(value) {
+        var classes = value.split(' ');
+        var filtered = [];
+        for (var i = 0; i < classes.length; i++) {
+            var c = classes[i];
+            if (c && !this.ClassBlacklist[c]) {
+                filtered.push(c);
+            }
+        }
+        return filtered.join(' ');
+    }
     // Set up filters for attributes.
     this.AttrFilters = new function(validation, editor) {
         function defaultCopyAttribute(name, htmlnode, xhtmlnode) {
@@ -450,10 +462,14 @@ function XhtmlValidation(editor) {
         for (var i=0; i < attrs.length; i++) {
             this[attrs[i]] = defaultCopyAttribute;
         }
+        this['class'] = function(name, htmlnode, xhtmlnode) {
+            var val = htmlnode.getAttribute('class');
+            if (val) xhtmlnode.setAttribute('class', validation.classFilter(val));
+        }
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.getAttribute('className');
-                if (val) xhtmlnode.setAttribute(name, val);
+                if (val) xhtmlnode.setAttribute('class', validation.classFilter(val));
             }
             this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
                 try {
@@ -490,8 +506,8 @@ function XhtmlValidation(editor) {
     // Exclude unwanted tags.
     this._excludeTags(['center']);
 
-    if (editor.config && editor.config.exclude) {
-        var exclude = editor.config.exclude;
+    if (editor.config && editor.config.htmlfilter) {
+        var exclude = editor.config.htmlfilter;
         if (exclude.a)
             this._excludeAttributes(exclude.a);
         if (exclude.t)
@@ -501,6 +517,18 @@ function XhtmlValidation(editor) {
             if (!c.length) c = [c];
             for (var i = 0; i < c.length; i++) {
                 this._excludeAttributesForTags(c[i].a, c[i].t);
+            }
+        }
+        if (exclude.style) {
+            var s = exclude.style;
+            for (var i = 0; i < s.length; i++) {
+                this.StyleWhitelist[s[i]] = 1;
+            }
+        }
+        if (exclude['class']) {
+            var c = exclude['class'];
+            for (var i = 0; i < c.length; i++) {
+                this.ClassBlacklist[c[i]] = 1;
             }
         }
     };
