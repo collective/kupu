@@ -129,12 +129,12 @@ function TableDrawer(elementid, tool) {
     };
 
     this.createTable = function() {
-      var rows = document.getElementById('kupu-tabledrawer-newrows').value;
-      var cols = document.getElementById('kupu-tabledrawer-newcols').value;
-      var style = document.getElementById('kupu-tabledrawer-classchooser').value;
-      var add_header = document.getElementById('kupu-tabledrawer-makeheader').checked;
-      this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
-      this.drawertool.closeDrawer();
+        var rows = document.getElementById('kupu-tabledrawer-newrows').value;
+        var cols = document.getElementById('kupu-tabledrawer-newcols').value;
+        var style = document.getElementById('kupu-tabledrawer-classchooser').value;
+        var add_header = document.getElementById('kupu-tabledrawer-makeheader').checked;
+        this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
+        this.drawertool.closeDrawer();
     };
 
 };
