@@ -256,14 +256,18 @@ defined in XHTML 1.0 transitional, as well as any attributes except
 for the event attributes (those beginning with 'on'). Tags not in the
 html namespace are stripped.
 
-A tag is permitted if it is defined in XHTML, not blacklisted, and is
-allowed within the current context (e.g. you cannot nest <A> tags
-directly inside other <A> tags, so any nested <A> tags will be
-stripped). If a tag is stripped its content will still be present.
-An attribute is permitted if it is defined in XHTML and not
-blacklisted for that tag. Text data is stripped if it occurs in a
-context not valid in XHTML (e.g. inside a table but outside <TH> or
-<TD>).
+A tag is permitted if it is defined in XHTML and not blacklisted.
+Optionally kupu can also filter to maintain a valid XHTML nesting of
+tags, but this option is off by default (put a
+<filterstructure>1</filterstructure> tags into the htmlfilter
+configuration to turn it on, or set editor.xhtmlvalid.filterstructure
+to true. When the structure filtering is turned on a tag is permitted
+if it is allowed within the current context (e.g. you cannot nest <A>
+tags directly inside other <A> tags, so any nested <A> tags will be
+stripped). If a tag is stripped its content will still be present.  An
+attribute is permitted if it is defined in XHTML and not blacklisted
+for that tag. Text data is stripped if it occurs in a context not
+valid in XHTML (e.g. inside a table but outside <TH> or <TD>).
 
 The blacklist is taken from Kupu's xml configuration. An <htmlfilter> tag
 encloses the blacklist, <t> marks a tag to be blacklisted, <a> marks
@@ -278,8 +282,8 @@ and 'font' tags, the 'cellspacing' attribute everywhere, and the
                 <c><t>th</t><t>td</t><a>width</a></c>
         </htmlfilter>
 
-From Javascript you can use the _excludeAttributes, _excludeTags and
-_excludeAttributesForTags methods of editor.xhtmlvalid to get the same
+From Javascript you can use the excludeAttributes, excludeTags and
+excludeAttributesForTags methods of editor.xhtmlvalid to get the same
 effect.
 
 The 'style' attribute filters its content to permit 'text-align' and
@@ -299,6 +303,16 @@ through the <htmlfilter> section of the configuration:
             <style>list-style-image</style>
             <class>badClassName</class>
         </htmlfilter>
+
+Additional attributes may be added to existing tags by calling the
+'newAttributes' method. e.g.
+
+editor.xhtmlvalid.newAttributes(['special'], ['div'])
+
+adds an attribute 'special' to the 'div' tag. The method tags three
+parameters: a list of attributes, a list of tags, and optionally a
+filter method to be called for that attribute. If the filter method is
+omitted the attribute is simply copied.
 
 7. Loggers
 ----------

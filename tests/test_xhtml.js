@@ -87,11 +87,11 @@ function KupuXhtmlTestCase() {
         // Check we have a bgcolor attribute
         var attrs = validator.Attributes.thead;
         this.assertTrue(this.arrayContains(attrs, 'charoff'));
-        validator._excludeAttributes(['charoff']);
+        validator.excludeAttributes(['charoff']);
         this.assertTrue(!this.arrayContains(attrs, 'charoff'));
         this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
         this.assertTrue(this.arrayContains(validator.Attributes.th, 'height'));
-        validator._excludeAttributesForTags(['width','height'],['table','th']);
+        validator.excludeAttributesForTags(['width','height'],['table','th']);
         this.assertTrue(this.arrayContains(validator.Attributes.td, 'height'));
         this.assertFalse(this.arrayContains(validator.Attributes.th, 'height'));
     }
@@ -126,7 +126,7 @@ function KupuXhtmlTestCase() {
         var expected1 = '<pre xml:lang="fr" xml:space="preserve">This is a test</pre>';
         this.conversionTest(data, expected1);
         var expected2 = '<pre>This is a test</pre>';
-        this.editor.xhtmlvalid._excludeAttributes(['xml:lang','xml:space']);
+        this.editor.xhtmlvalid.excludeAttributes(['xml:lang','xml:space']);
         this.conversionTest(data, expected2);
     }
     this.testConvertToSarissa2 = function() {
@@ -199,7 +199,13 @@ function KupuXhtmlTestCase() {
             '<td class="align-center">aaaaa</td>'+
             '<td class="align-right">rrr</td></tr></tbody></table>';
 
+        this.editor.xhtmlvalid.filterstructure = true;
         this.conversionTest(data, expected);
+    }
+    this.testCustomAttribute = function() {
+        var data = '<div special="magic">This is a test</div>';
+        this.editor.xhtmlvalid.newAttributes(['special'], ['div']);
+        this.conversionTest(data, data);
     }
 }
 
