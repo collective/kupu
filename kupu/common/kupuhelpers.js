@@ -83,6 +83,7 @@ function addEventHandler(element, event, method, context) {
         } else {
             throw _("Unsupported browser!");
         };
+        return wrappedmethod.execute;
     } catch(e) {
         alert(_('exception ${message} while registering an event handler ' +
                 'for element ${element}, event ${event}, method ${method}',
