@@ -2,6 +2,10 @@
 TODO
 ====
 
+This is a todo list that described items related to the new templating
+system and inflicted changes. It is to be removed once everything is
+completed.
+
 - documentation:
 
   * XML template schema
@@ -17,3 +21,14 @@ TODO
 
 - Get rid of saveonpart code in startkupu and put it in the saveonpart
   feature
+
+- Since the common layer does not exist anymore, mergine plone-drawers
+  branch will be a little tricky:
+
+  o subversion might recreate the common layer because plone-drawers
+  contains a lot of changes to it.
+
+  o Extensions/Install.py should register the 'default' implementation
+  as a layer, not 'common' (since it does not exist). Maybe we should
+  come up with a new place for resoures like JS, CSS, XSLT files. Or
+  maybe not :).
