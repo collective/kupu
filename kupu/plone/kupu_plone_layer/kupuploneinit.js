@@ -198,11 +198,15 @@ function initPloneKupu(iframe, fieldname) {
                                        tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
 
-    // register form submit handler
-    document.getElementById(fieldname).form.onsubmit = function() {
-        kupu.saveDataToField(document.getElementById(fieldname).form,
-			     document.getElementById(fieldname));
+    // register form submit handler, remove the drawer's contents before submitting 
+    // the form since it seems to crash IE if we leave them alone
+    function prepareForm(event) {
+        kupu.saveDataToField(this.form, field);
+        var drawer = document.getElementById('kupu-librarydrawer');
+        drawer.parentNode.removeChild(drawer);
     };
+    var field = document.getElementById(fieldname);
+    addEventHandler(field.form, 'submit', prepareForm, field);
 		
     return kupu;
 };
