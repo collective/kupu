@@ -9,7 +9,9 @@
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-logo">
-      <button type="button" class="kupu-logo" title="Kupu 1.1" accesskey="k"
+      <button type="button" class="kupu-zoom" id="kupu-zoom-button"
+                title="Maximise" accesskey="x">&#160;</button>
+      <button type="button" class="kupu-logo" title="Kupu 1.1" accesskey="k" id="kupu-logo-button"
               onclick="window.open('http://kupu.oscom.org');"
               tal:attributes="tabindex python:tabindex+1;">&#160;</button>
     </span>
@@ -32,5 +34,4 @@
       </tal:block>
     </select>
   </kupu:part>
-
 </kupu:feature>
