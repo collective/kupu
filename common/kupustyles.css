@@ -100,6 +100,8 @@ div.kupu-smalleditor {
 .kupu-underline {background-image: url("kupuimages/underline.png");}
 .kupu-underline-pressed {background-image: url("kupuimages/underline.png"); background-color: white}
 .kupu-undo {background-image: url("kupuimages/undo.png");}
+.kupu-removelink {background-image: url("kupuimages/remove.png");}
+.kupu-removeimage {background-image: url("kupuimages/remove.png");}
 
 #kupu-tb-buttons button.invisible { 
   display: none;
