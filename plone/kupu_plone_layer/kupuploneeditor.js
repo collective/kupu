@@ -35,15 +35,18 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                 str = tag + url.substr(resolveuid+1)+'"';
                 return str;
             }
+            var urlparts = url.split('#');
+            var anchor = urlparts[1] || '';
+            url = urlparts[0];
             var urlparts = url.split('/');
             var common = 0;
             while (common < urlparts.length &&
                    common < hrefparts.length &&
                    urlparts[common]==hrefparts[common])
                 common++;
-            var tail = /emptypage([#?].*)/.exec(urlparts[common]);
-            if (common+1 == urlparts.length && tail) {
-                urlparts[common] = tail[1];
+            var last = urlparts[common];
+            if (common+1 == urlparts.length && last=='emptypage') {
+                urlparts[common] = '';
             }
             // The base and the url have 'common' parts in common.
             // First two are the protocol, so only do stuff if more
@@ -57,7 +60,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                 while (common < urlparts.length) {
                     path[i++] = urlparts[common++];
                 };
-                str = tag + path.join('/')+'"';
+                str = tag + [path.join('/'),anchor].join('#')+'"';
             };
             return str;
         });
