@@ -162,15 +162,28 @@ function _load_dict_helper(element) {
                 // ignorable whitespace) and dive into the node
                 if (child.childNodes[j].nodeType == 1) {
                     value = _load_dict_helper(child);
-                    break;
-                } else {
+                } else if (typeof(value) == typeof('')) {
                     value += child.childNodes[j].nodeValue;
                 };
             };
-            if (!isNaN(parseInt(value)) && parseInt(value).toString().length == value.length) {
+            if (typeof(value) == typeof('') && !isNaN(parseInt(value)) && 
+                    parseInt(value).toString().length == value.length) {
                 value = parseInt(value);
+            } else if (typeof(value) != typeof('')) {
+                if (value.length == 1) {
+                    value = value[0];
+                };
             };
-            dict[child.nodeName.toLowerCase()] = value;
+            var name = child.nodeName.toLowerCase();
+            if (dict[name] != undefined) {
+                if (typeof(dict[name]) == typeof('') || typeof(dict[name]) == typeof(0)) {
+                    dict[name] = new Array(dict[name], value);
+                } else {
+                    dict[name].push(value);
+                };
+            } else {
+                dict[name] = value;
+            };
         };
     };
     return dict;
