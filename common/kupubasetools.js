@@ -147,10 +147,8 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     this.execCommand = function() {
         /* exec this button's command */
         this.commandfunc(this, this.editor);
-        if (this.editor.getBrowserName() == 'Mozilla') {
-            this.button.className = (this.pressed ? this.offclass : this.onclass);
-            this.pressed = !this.pressed;
-        };
+        this.button.className = (this.pressed ? this.offclass : this.onclass);
+        this.pressed = !this.pressed;
     };
 
     this.updateState = function(selNode, event) {
@@ -1922,3 +1920,113 @@ function DefinitionListTool(dlbuttonid) {
 
 DefinitionListTool.prototype = new KupuTool;
 
+function KupuZoomTool(buttonid) {
+    this.button = window.document.getElementById(buttonid);
+
+    this.initialize = function(editor) {
+        this.offclass = 'kupu-zoom';
+        this.onclass = 'kupu-zoom-pressed';
+        this.pressed = false;
+
+        this.baseinitialize(editor);
+        this.button.tabIndex = this.editor.document.editable.tabIndex;
+        addEventHandler(window, "resize", this.onresize, this);
+        addEventHandler(window, "scroll", this.onscroll, this);
+
+        /* Toolbar tabbing */
+        var lastbutton = window.document.getElementById('kupu-logo-button');
+        var firstbutton = window.document.getElementById('kupu-tb-styles');
+        var iframe = editor.getInnerDocument();
+        this.setTabbing(iframe, firstbutton, lastbutton);
+        this.setTabbing(firstbutton, null, editor.getDocument().getWindow());
+
+        this.editor.logMessage('Zoom tool initialized');
+    };
+};
+
+KupuZoomTool.prototype = new KupuStateButton;
+KupuZoomTool.prototype.baseinitialize = KupuZoomTool.prototype.initialize;
+
+KupuZoomTool.prototype.onscroll = function() {
+    if (!this.zoomed) return;
+    /* XXX Problem here: Mozilla doesn't generate onscroll when window is
+     * scrolled by focus move or selection. */
+    var top = window.pageYOffset!=undefined ? window.pageYOffset : document.documentElement.scrollTop;
+    var left = window.pageXOffset!=undefined ? window.pageXOffset : document.documentElement.scrollLeft;
+    if (top || left) window.scrollTo(0, 0);
+}
+
+// Handle tab pressed from a control.
+KupuZoomTool.prototype.setTabbing = function(control, forward, backward) {
+    function TabDown(event) {
+        if (event.keyCode != 9 || !this.zoomed) return;
+
+        var target = event.shiftKey ? backward : forward;
+        if (!target) return;
+
+        if (event.stopPropogation) event.stopPropogation();
+        event.cancelBubble = true;
+        event.returnValue = false;
+
+        target.focus();
+        return false;
+    }
+    addEventHandler(control, "keydown", TabDown, this);
+}
+
+KupuZoomTool.prototype.onresize = function() {
+    if (!this.zoomed) return;
+
+    var iframe = this.editor.getDocument().editable;
+    var fulleditor = iframe.parentNode;
+    var body = document.body;
+
+    if (window.innerWidth) {
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+    } else if (document.documentElement) {
+        var width = document.documentElement.offsetWidth-5;
+        var height = document.documentElement.offsetHeight-5;
+    } else {
+        var width = document.body.offsetWidth-5;
+        var height = document.body.offsetHeight-5;
+    }
+    width = width + 'px';
+    fulleditor.style.width = width; /*IE needs this*/
+    iframe.style.width = width;
+    iframe.style.height = height - iframe.offsetTop -1/*top border*/ + 'px';
+}
+
+KupuZoomTool.prototype.checkfunc = function(selNode, button, editor, event) {
+    return this.zoomed;
+}
+
+KupuZoomTool.prototype.commandfunc = function(button, editor) {
+    /* Toggle zoom state */
+    var zoom = !button.pressed;
+    this.zoomed = zoom;
+
+    var iframe = editor.getDocument().editable;
+    var fulleditor = iframe.parentNode;
+    var body = document.body;
+    var html = document.getElementsByTagName('html')[0];
+    if (zoom) {
+        html.style.overflow = 'hidden';
+        window.scrollTo(0, 0);
+        fulleditor.className = 'kupu-fulleditor-zoomed';
+        this.onresize();
+    } else {
+        html.style.overflow = '';
+        fulleditor.style.width = '';
+        fulleditor.className = '';
+
+        iframe.style.width = '';
+        iframe.style.height = '';
+    }
+    var doc = editor.getInnerDocument();
+    // Mozilla needs this. Yes, really!
+    if (doc.designMode=='on') { doc.designMode = 'on'; }
+
+    window.scrollTo(0, iframe.offsetTop);
+    editor.getDocument().getWindow().focus();
+}

@@ -32,7 +32,7 @@ function JumpLinkTool() {
 
         for (var j = nodes.length-1; j >= 0; j--) {
             var node = nodes[j];
-            var classname=node.className; // node.getAttribute("class") for Mozilla?
+            var classname=node.className;
             if (classname=="jumpLinkTable" || classname=="backToTop") {
                 node.parentNode.removeChild(node);
             };
@@ -63,7 +63,6 @@ function JumpLinkTool() {
                 caption = headings[i].innerText;
             } else {
                 caption = headings[i].textContent;
-                alert("caption="+caption);
             }
             
             entry.setAttribute("href", "#section"+(i+1));

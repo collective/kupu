@@ -150,6 +150,9 @@ function initPloneKupu(iframe, fieldname) {
     var linktool = NoContextMenu(new LinkTool());
     kupu.registerTool('linktool', linktool);
 
+    var zoom = new KupuZoomTool('kupu-zoom-button');
+    kupu.registerTool('zoomtool', zoom);
+
     // let's register saveOnPart(), to ask the user if he wants to save when 
     // leaving after editing
     if (kupu.getBrowserName() == 'IE') {
