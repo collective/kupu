@@ -4,6 +4,30 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:metal="http://xml.zope.org/namespaces/metal">
 
+  <kupu:fill-slot name="head">
+    <metal:macro define-macro="head">
+      <kupu:insert-part feature="head" part="meta" />
+      <kupu:insert-part feature="head" part="styles" />
+      <kupu:insert-part feature="head" part="jsincludes" />
+      <metal:slot define-slot="saveonpart">
+        <kupu:insert-part feature="saveonpart" part="jsincludes" />
+      </metal:slot>
+      <metal:slot define-slot="sourceedit">
+        <kupu:insert-part feature="sourceedit" part="jsincludes" />
+      </metal:slot>
+      <metal:slot define-slot="contextmenu">
+        <kupu:insert-part feature="contextmenu" part="jsincludes" />
+      </metal:slot>
+      <metal:slot define-slot="drawers">
+        <kupu:insert-part feature="drawers" part="styles" />
+        <kupu:insert-part feature="drawers" part="jsincludes" />
+      </metal:slot>
+      <metal:slot define-slot="bootstrap-editor">
+        <kupu:insert-part feature="head" part="bootstrap-editor" />
+      </metal:slot>
+    </metal:macro>
+  </kupu:fill-slot>
+
   <kupu:fill-slot name="body">
     <metal:macro define-macro="xmlconfig">
       <kupu:insert-part feature="xmlconfig" part="xmlconfig" />
@@ -13,16 +37,26 @@
     </metal:macro>
   </kupu:fill-slot>
 
+  <kupu:fill-slot name="kupuconfig">
+    <metal:slot define-slot="config_default">
+      <kupu:insert-part feature="xmlconfig" part="defaultconfig" />
+    </metal:slot>
+    <metal:slot define-slot="config_drawers">
+      <kupu:insert-part feature="drawers" part="xmlconfig" />
+    </metal:slot>
+    <metal:slot define-slot="config_extra" />
+  </kupu:fill-slot>
+
   <kupu:fill-slot name="fulleditor">
-    <metal:toolbar define-slot="kupu_toolbar_slot">
+    <metal:slot define-slot="toolbar">
       <kupu:insert-part feature="toolbar" part="toolbar" />
-    </metal:toolbar>
+    </metal:slot>
 
-    <metal:macro define-macro="toolboxes">
+    <metal:slot define-slot="toolboxes">
       <kupu:insert-part feature="toolboxes" part="toolboxes" />
-    </metal:macro>
+    </metal:slot>
 
-    <metal:slot define-slot="kupu_colorchoosertable">
+    <metal:slot define-slot="colorchooser">
       <kupu:insert-part feature="colorchooser" part="colorchooser" />
     </metal:slot>
 
@@ -36,9 +70,9 @@
       <kupu:insert-part feature="toolbar" part="liststyles" />
     </metal:slot>
 
-    <metal:macro define-macro="drawers">
+    <metal:slot define-slot="drawers">
       <kupu:insert-part feature="drawers" part="drawers" />
-    </metal:macro>
+    </metal:slot>
   </kupu:fill-slot>
 
   <kupu:fill-slot name="drawers">
@@ -53,6 +87,9 @@
     <metal:slot define-slot="tabledrawer">
       <kupu:insert-part feature="drawers" part="tabledrawer" />
     </metal:slot>
+    
+    <metal:slot define-slot="extradrawer" />
+    
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">
@@ -111,6 +148,9 @@
     <metal:slot define-slot="buttongroup_source">
       <kupu:insert-part feature="sourceedit" part="buttons" />
     </metal:slot>
+    
+    <metal:slot define-slot="buttongroup_extra" />
+    
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolboxes">
@@ -129,6 +169,8 @@
     <metal:slot define-slot="toolbox_tables">
       <kupu:insert-part feature="toolboxes" part="tables" />
     </metal:slot>
+    
+    <metal:slot define-slot="toolbox_extra" />
 
     <metal:slot define-slot="toolbox_debug">
       <kupu:insert-part feature="toolboxes" part="debug" />
