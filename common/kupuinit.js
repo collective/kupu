@@ -124,6 +124,15 @@ function initKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
+    var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
+							'img',
+							'kupu-removeimage');
+    kupu.registerTool('removeimagebutton', removeimagebutton);
+    var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
+						       'a',
+						       'kupu-removelink');
+    kupu.registerTool('removelinkbutton', removelinkbutton);
+
     // add some tools
     // XXX would it be better to pass along elements instead of ids?
     var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
