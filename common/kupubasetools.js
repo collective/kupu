@@ -961,6 +961,7 @@ function TableTool() {
             currtbody.insertBefore(newrow, nextrow);
         }
         
+        this.editor.focusDocument();
         this.editor.logMessage(_('Table row added'));
     };
 
@@ -973,9 +974,20 @@ function TableTool() {
             return;
         }
 
+        // move selection aside
+        // XXX: doesn't work if parentrow is the only row of thead/tbody/tfoot
+        // XXX: doesn't preserve the colindex
+        var selection = this.editor.getSelection();
+        if (parentrow.nextSibling) {
+            selection.selectNodeContents(parentrow.nextSibling.firstChild);
+        } else if (parentrow.previousSibling) {
+            selection.selectNodeContents(parentrow.previousSibling.firstChild);
+        };
+
         // remove the row
         parentrow.parentNode.removeChild(parentrow);
 
+        this.editor.focusDocument();
         this.editor.logMessage(_('Table row removed'));
     };
 
@@ -1070,6 +1082,7 @@ function TableTool() {
                 }
             }
         }
+        this.editor.focusDocument();
         this.editor.logMessage(_('Table column added'));
     };
 
@@ -1082,6 +1095,14 @@ function TableTool() {
         }
         var currcolindex = this._getColIndex(currtd);
         var currtable = this.editor.getNearestParentOfType(currnode, 'TABLE');
+
+        // move selection aside
+        var selection = this.editor.getSelection();
+        if (currtd.nextSibling) {
+            selection.selectNodeContents(currtd.nextSibling);
+        } else if (currtd.previousSibling) {
+            selection.selectNodeContents(currtd.previousSibling);
+        };
 
         // remove the theaders
         var heads = currtable.getElementsByTagName('THEAD');
@@ -1135,6 +1156,7 @@ function TableTool() {
                 }
             }
         }
+        this.editor.focusDocument();
         this.editor.logMessage(_('Table column deleted'));
     };
 
@@ -1355,8 +1377,7 @@ function TableTool() {
         };
         table.appendChild(tbody);
 
-        this.editor.getDocument().getWindow().focus();
-
+        this.editor.focusDocument();
         this.editor.logMessage(_('Table cleaned up'));
     };
 
@@ -1885,8 +1906,8 @@ function DefinitionListTool(dlbuttonid) {
         var selection = this.editor.getSelection();
         selection.selectNodeContents(dt);
         selection.collapse();
-        this.editor.getDocument().getWindow().focus();
 
+        this.editor.focusDocument();
         return dt;
     };
 
@@ -1951,7 +1972,7 @@ function DefinitionListTool(dlbuttonid) {
         var selection = this.editor.getSelection();
         selection.selectNodeContents(p);
         selection.collapse();
-        this.editor.getDocument().getWindow().focus();
+        this.editor.focusDocument();
     };
 
     this._fixStructure = function(doc, dl, offsetnode) {
@@ -2110,5 +2131,5 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     doc.designMode=doc.designMode;
 
     window.scrollTo(0, iframe.offsetTop);
-    editor.getDocument().getWindow().focus();
+    editor.focusDocument();
 }
