@@ -124,7 +124,7 @@
         <img src="{$kupu-logo}" style="vertical-align: top; border: 0;" 
           alt="Kupu logo"/>
       </a>
-      <a href="http://cocoon.apache.org/lenya/" target="_blank">
+      <a href="http://lenya.apache.org" target="_blank">
         <img src="{$lenya-logo}" 
           alt="Lenya project logo" style="border: 0;"/>
       </a>
