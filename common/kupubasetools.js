@@ -210,7 +210,7 @@ function KupuUI(textstyleselectid) {
         /* initialize the ui like tools */
         this.editor = editor;
         this._fixTabIndex(this.tsselect);
-        addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
+        this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
     };
 
     this.setTextStyleHandler = function(event) {

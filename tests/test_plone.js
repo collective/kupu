@@ -15,6 +15,7 @@
 function KupuPloneTestCase() {
     SelectionTestCase.apply(this);
     this.base_setUp = this.setUp;
+    this.base_tearDown = this.tearDown;
     this.name = 'KupuPloneTestCase';
 
     this.incontext = function(s) {
@@ -103,7 +104,9 @@ function KupuPloneTestCase() {
     }
 
     this.tearDown = function() {
+        this.base_tearDown();
         this.body.innerHTML = '';
+        removeEventHandler(this.ui.tsselect, 'change', this.ui._selectevent);
     };
 }
 
