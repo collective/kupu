@@ -5,9 +5,9 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:define="kupu here/kupu; 
-                  kupuurl kupu/absolute_url;
                   macros kupu/kupumacros/macros;
-                  documenturl here/REQUEST/URL1">
+                  kupu_url kupu/absolute_url;
+                  document_url here/REQUEST/URL1">
 
   <!--
    Create a 'kupu editor' object in the folder where you want to
@@ -18,61 +18,44 @@
    or something like that. You can now point your browser at any object's
    URL, append '/kupu_edit' and you will be able to edit the object
    with kupu.
+   
+   Note: kupumacros require kupu_url and document_url be defined.
    -->
 
   <head>
     <title>Kupu Editor example template</title>
 
-    <!-- need to load javascripts and stylehsheets by hand here since
-         we need the correct url prefix -->
-
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/sarissa.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuhelpers.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupueditor.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupubasetools.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuloggers.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupucontentfilters.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupuinit.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupucontextmenu.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupusaveonpart.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupustart.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupusourceedit.js"> </script>
-    <script type="text/javascript" 
-          tal:attributes="src string:${kupuurl}/kupudrawers.js"> </script>
-  
-    <link type="text/css" rel="stylesheet"
-          tal:attributes="href string:${kupuurl}/kupustyles.css" />
-    <link type="text/css" rel="stylesheet"
-          tal:attributes="href string:${kupuurl}/kupudrawerstyles.css" />
-
-    <metal:macro metal:use-macro="macros/xmlconfig">
-      <metal:slot fill-slot="dst"><tal:block replace="documenturl" /></metal:slot>
+    <!-- include the standard scripts/stylesheets -->
+    <metal:macro use-macro="macros/head">
+    <!-- 
+    Slots in this macro can be used to add/remove/change functionality.
+    As a miniumum the kupu_bootstrap slot should be used for your own
+    startKupu() and initKupu() javascripts.
+    Changes here usually require corresponding changes to slots in the
+    fulleditor macro below.
+    -->
     </metal:macro>
 
   </head>
-  
+
   <body onload="kupu = startKupu();">
-    <div class="kupu-fulleditor" metal:use-macro="macros/fulleditor">
-      <iframe metal:fill-slot="editorframe"
-              id="kupu-editor" 
-              tal:attributes="src documenturl;"
-              reloadsrc="0" 
-              usecss="1"
-              strict_output="1"
-              content_type="application/xhtml+xml"
-              scrolling="auto"
-              ></iframe>
-    </div>
+
+    <!-- include the xmlconfig -->
+    <metal:macro use-macro="macros/xmlconfig">
+      <!-- 
+      Slots in this macro can be used to add/remove/change config settings.
+      -->
+      <metal:slot fill-slot="dst"><tal:block replace="document_url" /></metal:slot>
+    </metal:macro>
+
+    <!-- include the fulleditor -->
+    <metal:macro use-macro="macros/fulleditor">
+      <!-- 
+      Slots in this macro can be used to add/remove/change functionality.
+      Anything more than minor changes here will also require changes to
+      coresponding slots in the head macro above.
+      -->
+    </metal:macro>
+    
   </body>
 </html>

@@ -8,42 +8,34 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     >
 
-  <kupu:part name="head">
-    <head>
-      <metal:macro define-macro="head">
-        <kupu:define-slot name="head" />
-      </metal:macro>
-    </head>
-  </kupu:part>
-
   <kupu:part name="meta" />
 
   <kupu:part name="styles">
-    <link href="kupustyles.css" rel="stylesheet" type="text/css"
-          tal:attributes="href container/kupustyles.css/absolute_url" />
+    <link rel="stylesheet" type="text/css" href="kupustyles.css"
+          tal:attributes="href string:${kupu_url}/kupustyles.css" />
   </kupu:part>
 
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="sarissa.js"
-        tal:attributes="href container/sarissa.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/sarissa.js"> </script>
     <script type="text/javascript" src="kupuhelpers.js"
-        tal:attributes="href container/kupuhelpers.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupuhelpers.js"> </script>
     <script type="text/javascript" src="kupueditor.js"
-        tal:attributes="href container/kupueditor.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupueditor.js"> </script>
     <script type="text/javascript" src="kupubasetools.js"
-        tal:attributes="href container/kupubasetools.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupubasetools.js"> </script>
     <script type="text/javascript" src="kupuloggers.js"
-        tal:attributes="href container/kupuloggers.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupuloggers.js"> </script>
     <script type="text/javascript" src="kupucontentfilters.js"
-        tal:attributes="href container/kupucontentfilters.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupucontentfilters.js"> </script>
   </kupu:part>
 
   <!-- XXX this could be a separate feature, maybe -->
   <kupu:part name="bootstrap-editor">
     <script type="text/javascript" src="kupuinit.js"
-        tal:attributes="href container/kupuinit.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupuinit.js"> </script>
     <script type="text/javascript" src="kupustart.js"
-        tal:attributes="href container/kupustart.js/absolute_url"> </script>
+        tal:attributes="src string:${kupu_url}/kupustart.js"> </script>
   </kupu:part>
 
 </kupu:feature>
