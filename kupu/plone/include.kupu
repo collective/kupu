@@ -11,7 +11,7 @@
   <xi:include href="body.kupu" />
   <xi:include href="toolbar.kupu" />
   <xi:include href="drawers.kupu" />
-  <xi:include href="saveonpart.kupu" />
+  <xi:include href="beforeunload.kupu" />
   <xi:include href="sourceedit.kupu" />
   <xi:include href="wysiwyg_support.kupu" />
 

@@ -27,6 +27,9 @@ the local machine aren't allowed to run scripts.-->
 <script type="text/javascript" src="../plone/kupu_plone_layer/kupuploneeditor.js"> </script>
 <script type="text/javascript" src="test_plone.js"> </script>
 
+<script type="text/javascript" src="../plone/kupu_plone_layer/kupubeforeunload.js"> </script>
+<script type="text/javascript" src="test_beforeunload.js"> </script>
+
 <script type="text/javascript">
 //<![CDATA[
 
@@ -38,6 +41,7 @@ the local machine aren't allowed to run scripts.-->
         testsuite.registerTest(KupuSelectionTestCase);
         testsuite.registerTest(KupuXhtmlTestCase);
         testsuite.registerTest(KupuPloneTestCase);
+        testsuite.registerTest(KupuBeforeUnloadTestCase);
         testsuite.runSuite();
     };
 
@@ -61,6 +65,7 @@ the local machine aren't allowed to run scripts.-->
     </dict>
 </xml>
 </div>
-<iframe style="display: none" id="iframe" />
+<iframe style="display: none" id="iframe" ></iframe>
+<div style="display:none" id="testdiv" ></div>
 </body>
 </html>

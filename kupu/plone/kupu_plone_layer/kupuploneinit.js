@@ -153,16 +153,17 @@ function initPloneKupu(iframe, fieldname) {
     var zoom = new KupuZoomTool('kupu-zoom-button');
     kupu.registerTool('zoomtool', zoom);
 
-    // let's register saveOnPart(), to ask the user if he wants to save when 
-    // leaving after editing
-    
-    if (kupu.getBrowserName() == 'IE') {
-        // IE supports onbeforeunload, so let's use that
-        addEventHandler(window, 'beforeunload', saveOnPart);
-    } else {
-        // Not implemented in all versions of Mozilla, so this may have
-        // no effect...
-        document.body.setAttribute('onBeforeUnload', 'return saveOnPart();');
+    // Use the generic beforeUnload handler if we have it:
+    var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
+    if (beforeunloadTool) {
+        function kupuchanged() {
+            if (kupu.content_changed) alert("kupu changed");
+            return kupu.content_changed;
+        }
+        beforeunloadTool.addHandler(kupuchanged);
+        var form = iframe;
+        while (form && form.tagName != 'FORM') form = form.parentNode;
+        beforeunloadTool.addForm(form);
     }
 
     // Drawers...
