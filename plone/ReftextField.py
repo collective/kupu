@@ -4,6 +4,7 @@ from Products.Archetypes.public import *
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.Archetypes.Field import TextField
 from Products.Archetypes.ReferenceEngine import Reference
+from ZPublisher.HTTPRequest import FileUpload
 import re
 
 # UID_PATTERN matches a UID in an anchor or image tag.
@@ -35,6 +36,10 @@ class ReftextField(TextField):
             return
 
         TextField.set(self, instance, value, **kwargs)
+
+        if not isinstance(value, basestring):
+            value.seek(0);
+            value = value.read()
 
         uids = UID_PATTERN.findall(value) # XXX: build list of uids from the value here
         uids = dict.fromkeys(uids).keys() # Remove duplicate uids.
