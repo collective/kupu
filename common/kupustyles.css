@@ -121,8 +121,8 @@ div.kupu-smalleditor {
 .kupu-undo {background-image: url("kupuimages/undo.png");}
 .kupu-removelink {background-image: url("kupuimages/remove.png");}
 .kupu-removeimage {background-image: url("kupuimages/remove.png");}
-.kupu-zoom {background-image: url("kupuimages/zoom.png");}
-.kupu-zoom-pressed {background-image: url("kupuimages/restore.png");}
+.kupu-zoom {background-image: url("kupuimages/zoom-in.gif");}
+.kupu-zoom-pressed {background-image: url("kupuimages/zoom-out.gif");}
 
 #kupu-tb-buttons button.invisible { 
   display: none;
