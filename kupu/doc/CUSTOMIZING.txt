@@ -136,7 +136,7 @@ The KupuTool and KupuToolBox APIs
 ---------------------------------
 
 For a reference of the KupuTool and KupuToolBox API's, see
-API.txt. For a description of how to write them, see EXTENDING.txt.
+JSAPI.txt. For a description of how to write them, see EXTENDING.txt.
 
 Overriding KupuEditor methods
 -----------------------------
