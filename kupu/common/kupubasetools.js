@@ -147,9 +147,9 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
 
     this.execCommand = function() {
         /* exec this button's command */
-        this.commandfunc(this, this.editor);
         this.button.className = (this.pressed ? this.offclass : this.onclass);
         this.pressed = !this.pressed;
+        this.commandfunc(this, this.editor);
         this.editor.focusDocument();
     };
 

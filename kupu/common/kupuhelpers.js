@@ -126,11 +126,17 @@ function selectSelectItem(select, item) {
     select.selectedIndex = 0;
 };
 
-function ParentWithStyleChecker(tagnames, style, stylevalue) {
+function ParentWithStyleChecker(tagnames, style, stylevalue, command) {
     /* small wrapper that provides a generic function to check if a
        button should look pressed in */
     return function(selNode, button, editor, event) {
         /* check if the button needs to look pressed in */
+        if (command) {
+            var result = editor.getInnerDocument().queryCommandState(command)
+            if (result || editor.getSelection().getContentLength() == 0) {
+                return result;
+            };
+        };
         var currnode = selNode;
         while (currnode && currnode.style) {
             for (var i=0; i < tagnames.length; i++) {
@@ -928,6 +934,9 @@ function IESelection(document) {
     };
 
     this.getContentLength = function() {
+        if (this.selection.type == 'Control') {
+            return this.selection.createRange().length;
+        };
         var contentlength = 0;
         var range = this.selection.createRange().duplicate();
         var startpoint = range.duplicate();
