@@ -13,10 +13,8 @@
   </kupu:part>
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupudrawertool.js"
-        tal:attributes="href container/kupudrawertool.js/absolute_url"> </script>
-    <script type="text/javascript" src="kupulibrarydrawer.js"
-        tal:attributes="href container/kupulibrarydrawer.js/absolute_url"> </script>
+    <script type="text/javascript" src="kupudrawers.js"
+        tal:attributes="href container/kupudrawers.js/absolute_url"> </script>
   </kupu:part>
 
 </kupu:feature>

@@ -1,7 +1,5 @@
 TODO for drawers
 
-- merge kupudrawertool.js and kupulibrarydrawers.js to kupudrawers.js
-
 - improve library drawer UI
 
   + particular problem: "Current location: ..." is only shown when a

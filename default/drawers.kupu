@@ -12,8 +12,7 @@
   </kupu:part>
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupudrawertool.js"> </script>
-    <script type="text/javascript" src="kupulibrarydrawer.js"> </script>
+    <script type="text/javascript" src="kupudrawers.js"> </script>
   </kupu:part>
 
   <kupu:part name="buttons">
