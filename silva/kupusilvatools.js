@@ -2281,3 +2281,42 @@ SilvaPropertyTool.prototype._addMetaTag = function(doc, name, scheme, value, par
     head.appendChild(tag);
 };
 
+function SilvaCharactersTool(charselectid) {
+    /* a tool to add non-standard characters */
+    this._charselect = document.getElementById(charselectid);
+};
+
+SilvaCharactersTool.prototype = new KupuTool;
+
+SilvaCharactersTool.prototype.initialize = function(editor) {
+    this.editor = editor;
+    addEventHandler(this._charselect, 'change', this.addCharacter, this);
+    var chars = this.editor.config.nonstandard_chars.split(' ');
+    for (var i=0; i < chars.length; i++) {
+        var option = document.createElement('option');
+        option.value = chars[i];
+        var text = document.createTextNode(chars[i]);
+        option.appendChild(text);
+        this._charselect.appendChild(option);
+    };
+};
+
+SilvaCharactersTool.prototype.addCharacter = function() {
+    var select = this._charselect;
+    var c = select.options[select.selectedIndex].value;
+    if (!c.strip()) {
+        return;
+    };
+    var selection = this.editor.getSelection();
+    var textnode = this.editor.getInnerDocument().createTextNode(c);
+    var span = this.editor.getInnerDocument().createElement('span');
+    span.appendChild(textnode);
+    selection.replaceWithNode(span);
+    var selection = this.editor.getSelection();
+    selection.selectNodeContents(span);
+    selection.moveEnd(1);
+    selection.collapse(true);
+    this.editor.logMessage('Character ' + c + ' inserted');
+    this.editor.getDocument().getWindow().focus();
+    select.selectedIndex = 0;
+};
