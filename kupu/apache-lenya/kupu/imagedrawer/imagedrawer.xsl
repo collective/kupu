@@ -17,10 +17,11 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
 -->
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:i18n="http://apache.org/cocoon/i18n/2.1" 
   xmlns:jx="http://apache.org/cocoon/templates/jx/1.0"
   version="1.0">
 
-  <xsl:import href="${parameters.getParameter('root')}librarydrawer.xsl"/>
+  <xsl:import href="${parameters.getParameter('import-stylesheet-url')}"/>
     
   <xsl:template match="resource|collection" mode="properties">
     <table class="resource-properties">
@@ -58,5 +59,4 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
   </xsl:template>
   
   <xsl:template name="drawer-title">Image</xsl:template>  
-  <xsl:template name="url-prefix">${parameters.getParameter('root')}</xsl:template>
 </xsl:stylesheet>
