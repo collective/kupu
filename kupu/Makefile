@@ -19,7 +19,7 @@ kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
 
 wysiwyg_support.html:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) plone-dist.kupu > plone/kupu_plone_layer/wysiwyg_support.html
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 
 all:
 	kupu.html
