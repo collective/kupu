@@ -69,7 +69,7 @@ function KupuTool() {
     addEventHandler = addEventHandler;
     
     this._selectSelectItem = function(select, item) {
-        this.editor.logMessage('Deprecation warning: KupuTool._selectSelectItem');
+        this.editor.logMessage(_('Deprecation warning: KupuTool._selectSelectItem'));
     };
     this._fixTabIndex = function(element) {
         var tabIndex = this.editor.getDocument().getEditable().tabIndex-1;
@@ -93,7 +93,7 @@ function KupuToolBox() {
     };
     
     this._selectSelectItem = function(select, item) {
-        this.editor.logMessage('Deprecation warning: KupuToolBox._selectSelectItem');
+        this.editor.logMessage(_('Deprecation warning: KupuToolBox._selectSelectItem'));
     };
 };
 
@@ -237,7 +237,7 @@ function KupuUI(textstyleselectid) {
             this.editor.execCommand('Cut');
         } catch (e) {
             if (this.editor.getBrowserName() == 'Mozilla') {
-                alert('Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html');
+                alert(_('Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html'));
             } else {
                 throw e;
             };
@@ -250,7 +250,7 @@ function KupuUI(textstyleselectid) {
             this.editor.execCommand('Copy');
         } catch (e) {
             if (this.editor.getBrowserName() == 'Mozilla') {
-                alert('Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html');
+                alert(_('Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html'));
             } else {
                 throw e;
             };
@@ -263,7 +263,7 @@ function KupuUI(textstyleselectid) {
             this.editor.execCommand('Paste');
         } catch (e) {
             if (this.editor.getBrowserName() == 'Mozilla') {
-                alert('Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html');
+                alert(_('Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html'));
             } else {
                 throw e;
             };
@@ -305,9 +305,12 @@ function KupuUI(textstyleselectid) {
   
     this.createContextMenuElements = function(selNode, event) {
         var ret = new Array();
-        ret.push(new ContextMenuElement('Cut', this.cutButtonHandler, this));
-        ret.push(new ContextMenuElement('Copy', this.copyButtonHandler, this));
-        ret.push(new ContextMenuElement('Paste', this.pasteButtonHandler, this));
+        ret.push(new ContextMenuElement(_('Cut'), 
+                    this.cutButtonHandler, this));
+        ret.push(new ContextMenuElement(_('Copy'), 
+                    this.copyButtonHandler, this));
+        ret.push(new ContextMenuElement(_('Paste'), 
+                    this.pasteButtonHandler, this));
         return ret;
     };
 }
@@ -334,7 +337,7 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
 
         this.hide();
 
-        this.editor.logMessage('Colorchooser tool initialized');
+        this.editor.logMessage(_('Colorchooser tool initialized'));
     };
 
     this.updateState = function(selNode) {
@@ -365,7 +368,7 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
         this.editor.execCommand(this.command, cell.getAttribute('bgColor'));
         this.hide();
     
-        this.editor.logMessage('Color chosen');
+        this.editor.logMessage(_('Color chosen'));
     };
 
     this.show = function(command) {
@@ -438,7 +441,7 @@ function PropertyTool(titlefieldid, descfieldid) {
         // set the fields
         var heads = this.editor.getInnerDocument().getElementsByTagName('head');
         if (!heads[0]) {
-            this.editor.logMessage('No head in document!', 1);
+            this.editor.logMessage(_('No head in document!'), 1);
         } else {
             var head = heads[0];
             var titles = head.getElementsByTagName('title');
@@ -459,7 +462,7 @@ function PropertyTool(titlefieldid, descfieldid) {
             }
         }
 
-        this.editor.logMessage('Property tool initialized');
+        this.editor.logMessage(_('Property tool initialized'));
     };
 
     this.updateProperties = function() {
@@ -467,7 +470,7 @@ function PropertyTool(titlefieldid, descfieldid) {
         var doc = this.editor.getInnerDocument();
         var heads = doc.getElementsByTagName('HEAD');
         if (!heads) {
-            this.editor.logMessage('No head in document!', 1);
+            this.editor.logMessage(_('No head in document!'), 1);
             return;
         }
 
@@ -503,7 +506,7 @@ function PropertyTool(titlefieldid, descfieldid) {
             head.appendChild(meta);
         }
 
-        this.editor.logMessage('Properties modified');
+        this.editor.logMessage(_('Properties modified'));
     };
 }
 
@@ -514,7 +517,7 @@ function LinkTool() {
     
     this.initialize = function(editor) {
         this.editor = editor;
-        this.editor.logMessage('Link tool initialized');
+        this.editor.logMessage(_('Link tool initialized'));
     };
     
     this.createLinkHandler = function(event) {
@@ -570,7 +573,7 @@ function LinkTool() {
         
         linkel.style.color = this.linkcolor;
         
-        this.editor.logMessage('Link added');
+        this.editor.logMessage(_('Link added'));
         this.editor.updateState();
     };
     
@@ -579,7 +582,7 @@ function LinkTool() {
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'a');
         if (!linkel) {
-            this.editor.logMessage('Not inside link');
+            this.editor.logMessage(_('Not inside link'));
             return;
         };
         while (linkel.childNodes.length) {
@@ -587,7 +590,7 @@ function LinkTool() {
         };
         linkel.parentNode.removeChild(linkel);
         
-        this.editor.logMessage('Link removed');
+        this.editor.logMessage(_('Link removed'));
         this.editor.updateState();
     };
     
@@ -596,9 +599,9 @@ function LinkTool() {
         var ret = new Array();
         var link = this.editor.getNearestParentOfType(selNode, 'a');
         if (link) {
-            ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
+            ret.push(new ContextMenuElement(_('Delete link'), this.deleteLink, this));
         } else {
-            ret.push(new ContextMenuElement('Create link', this.createLinkHandler, this));
+            ret.push(new ContextMenuElement(_('Create link'), this.createLinkHandler, this));
         };
         return ret;
     };
@@ -658,7 +661,7 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
         var url = this.input.value;
         linkel.setAttribute('href', url);
 
-        this.editor.logMessage('Link modified');
+        this.editor.logMessage(_('Link modified'));
     };
 };
 
@@ -670,7 +673,7 @@ function ImageTool() {
     this.initialize = function(editor) {
         /* attach the event handlers */
         this.editor = editor;
-        this.editor.logMessage('Image tool initialized');
+        this.editor.logMessage(_('Image tool initialized'));
     };
 
     this.createImageHandler = function(event) {
@@ -687,13 +690,13 @@ function ImageTool() {
         };
         img.setAttribute('src', url);
         img = this.editor.insertNodeAtSelection(img, 1);
-        this.editor.logMessage('Image inserted');
+        this.editor.logMessage(_('Image inserted'));
         this.editor.updateState();
         return img;
     };
     
     this.createContextMenuElements = function(selNode, event) {
-        return new Array(new ContextMenuElement('Create image', this.createImageHandler, this));
+        return new Array(new ContextMenuElement(_('Create image'), this.createImageHandler, this));
     };
 }
 
@@ -751,16 +754,16 @@ function TableTool() {
         var table =  this.editor.getNearestParentOfType(selNode, 'table');
         if (!table) {
             ret = new Array();
-            var el = new ContextMenuElement('Add table', this.addPlainTable, this);
+            var el = new ContextMenuElement(_('Add table'), this.addPlainTable, this);
             ret.push(el);
             return ret;
         } else {
             var ret = new Array();
-            ret.push(new ContextMenuElement('Add row', this.addTableRow, this));
-            ret.push(new ContextMenuElement('Delete row', this.delTableRow, this));
-            ret.push(new ContextMenuElement('Add column', this.addTableColumn, this));
-            ret.push(new ContextMenuElement('Delete column', this.delTableColumn, this));
-            ret.push(new ContextMenuElement('Delete Table', this.delTable, this));
+            ret.push(new ContextMenuElement(_('Add row'), this.addTableRow, this));
+            ret.push(new ContextMenuElement(_('Delete row'), this.delTableRow, this));
+            ret.push(new ContextMenuElement(_('Add column'), this.addTableColumn, this));
+            ret.push(new ContextMenuElement(_('Delete column'), this.delTableColumn, this));
+            ret.push(new ContextMenuElement(_('Delete Table'), this.delTable, this));
             return ret;
         };
     };
@@ -809,7 +812,7 @@ function TableTool() {
 
         this._setTableCellHandlers(table);
 
-        this.editor.logMessage('Table added');
+        this.editor.logMessage(_('Table added'));
         return table;
     };
 
@@ -897,7 +900,7 @@ function TableTool() {
             currtbody.insertBefore(newrow, nextrow);
         }
         
-        this.editor.logMessage('Table row added');
+        this.editor.logMessage(_('Table row added'));
     };
 
     this.delTableRow = function() {
@@ -905,14 +908,14 @@ function TableTool() {
         var currnode = this.editor.getSelectedNode();
         var parentrow = this.editor.getNearestParentOfType(currnode, "TR");
         if (!parentrow) {
-            this.editor.logMessage('No row to delete', 1);
+            this.editor.logMessage(_('No row to delete'), 1);
             return;
         }
 
         // remove the row
         parentrow.parentNode.removeChild(parentrow);
 
-        this.editor.logMessage('Table row removed');
+        this.editor.logMessage(_('Table row removed'));
     };
 
     this.addTableColumn = function() {
@@ -923,7 +926,7 @@ function TableTool() {
             currtd = this.editor.getNearestParentOfType(currnode, 'TH');
         }
         if (!currtd) {
-            this.editor.logMessage('No parentcolumn found!', 1);
+            this.editor.logMessage(_('No parentcolumn found!'), 1);
             return;
         }
         var currtr = this.editor.getNearestParentOfType(currnode, 'TR');
@@ -931,7 +934,8 @@ function TableTool() {
         
         // get the current index
         var tdindex = this._getColIndex(currtd);
-        this.editor.logMessage('tdindex: ' + tdindex);
+        // XXX this looks like a debug message, remove
+        this.editor.logMessage(_('tdindex: ${tdindex}'));
 
         // now add a column to all rows
         // first the thead
@@ -1005,7 +1009,7 @@ function TableTool() {
                 }
             }
         }
-        this.editor.logMessage('Table column added');
+        this.editor.logMessage(_('Table column added'));
     };
 
     this.delTableColumn = function() {
@@ -1070,7 +1074,7 @@ function TableTool() {
                 }
             }
         }
-        this.editor.logMessage('Table column deleted');
+        this.editor.logMessage(_('Table column deleted'));
     };
 
     this.delTable = function() {
@@ -1078,11 +1082,11 @@ function TableTool() {
         var currnode = this.editor.getSelectedNode();
         var table = this.editor.getNearestParentOfType(currnode, 'table');
         if (!table) {
-            this.editor.logMessage('Not inside a table!');
+            this.editor.logMessage(_('Not inside a table!'));
             return;
         };
         table.parentNode.removeChild(table);
-        this.editor.logMessage('Table removed');
+        this.editor.logMessage(_('Table removed'));
     };
 
     this.setColumnAlign = function(newalign) {
@@ -1159,7 +1163,7 @@ function TableTool() {
             }
             prevsib = prevsib.previousSibling;
             if (currcolindex > 30) {
-                alert("Recursion detected when counting column position");
+                alert(_("Recursion detected when counting column position"));
                 return;
             }
         }
@@ -1192,7 +1196,7 @@ function TableTool() {
         var currnode = this.editor.getSelectedNode();
         var table = this.editor.getNearestParentOfType(currnode, 'TABLE');
         if (!table) {
-            this.editor.logMessage('Not inside a table!');
+            this.editor.logMessage(_('Not inside a table!'));
             return;
         };
         this._fixTableHelper(table);
@@ -1292,7 +1296,7 @@ function TableTool() {
 
         this.editor.getDocument().getWindow().focus();
 
-        this.editor.logMessage('Table cleaned up');
+        this.editor.logMessage(_('Table cleaned up'));
     };
 
     this.fixAllTables = function() {
@@ -1465,7 +1469,7 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
         this.ulselect.style.display = "none";
         this.olselect.style.display = "none";
 
-        this.editor.logMessage('List style tool initialized');
+        this.editor.logMessage(_('List style tool initialized'));
     };
 
     this.updateState = function(selNode) {
@@ -1530,7 +1534,7 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
             ul.setAttribute('type', this.style_to_type[style]);
         }
 
-        this.editor.logMessage('List style changed');
+        this.editor.logMessage(_('List style changed'));
     };
 
     this.setOrderedListStyle = function() {
@@ -1544,7 +1548,7 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
             ol.setAttribute('type', this.style_to_type[style]);
         }
 
-        this.editor.logMessage('List style changed');
+        this.editor.logMessage(_('List style changed'));
     };
 };
 
@@ -1565,9 +1569,9 @@ function ShowPathTool() {
         try {
             window.status = path;
         } catch (e) {
-            this.editor.logMessage('Could not set status bar message, ' +
-                                    'check your browser\'s security settings.', 
-                                    1);
+            this.editor.logMessage(_('Could not set status bar message, ' +
+                                    'check your browser\'s security settings.'
+                                    ), 1);
         };
     };
 };
@@ -1604,7 +1608,7 @@ function ViewSourceTool() {
     
     this.createContextMenuElements = function(selNode, event) {
         /* create the context menu element */
-        return new Array(new ContextMenuElement('View source', this.viewSource, this));
+        return new Array(new ContextMenuElement(_('View source'), this.viewSource, this));
     };
 };
 
@@ -1671,7 +1675,7 @@ function DefinitionListTool(dlbuttonid) {
             } else {
                 var dd = this.editor.getNearestParentOfType(selNode, 'dd');
                 if (!dd) {
-                    this.editor.logMessage('Not inside a definition list element!');
+                    this.editor.logMessage(_('Not inside a definition list element!'));
                     return;
                 };
                 if (dd.childNodes.length == 1 && dd.childNodes[0].nodeValue == '\xa0') {
@@ -1940,7 +1944,7 @@ function KupuZoomTool(buttonid) {
         this.setTabbing(iframe, firstbutton, lastbutton);
         this.setTabbing(firstbutton, null, editor.getDocument().getWindow());
 
-        this.editor.logMessage('Zoom tool initialized');
+        this.editor.logMessage(_('Zoom tool initialized'));
     };
 };
 
