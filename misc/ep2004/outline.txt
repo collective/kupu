@@ -14,11 +14,12 @@ Speakers: Guido Wesdorp, Rotterdam (NL), Infrae
 Abstract
 --------
 
-For years, client side programming in web browsers was not possible
-due to the lack of feature support and browser incompatabilies.
-However, thanks to recent developments, Zope-based content management
-systems (CMS) such as Plone and Silva have successfully integrated
-WYSIWYG editors, making a start at fatter client side applications.
+For years, writing decent client-side applications was almost
+impossible due to the lack of feature support and browser 
+incompatibilies. However, thanks to recent developments, 
+Zope-based content management systems (CMS) such as Silva and Plone
+have successfully integrated WYSIWYG editors, making a start at 
+fatter client side applications.
 In this talk, the authors of the cross-browser and cross-platform
 WYSIWYG editor Kupu present their ideas on client-side applications
 such as Kupu, the achievements they have made integrating Kupu in
@@ -34,6 +35,8 @@ Part I.: The Problem of Client-side Apps
 1. Interaction required - to what level?
 
    XXX I don't understand this point (PvW)
+   XXX Trying to make a point against the traditional way of doing it all
+        on the server (GW)
   
   - user experience grows with level of interaction
   - too much moving stuff distracts
