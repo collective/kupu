@@ -12,6 +12,26 @@ Kupu changes
 
   o Fixed problem where empty title tags broke rendering on IE after a save.
 
+  o Configurable filtering with whitelists and blacklists which
+    significantly speeds up save time on IE.
+
+  o Zoom mode to make Kupu fill the browser window.
+
+  o BeforeUnload handler added which controls all form fields.
+
+  o Plone enhancements:
+
+    - Drawer support now fully integrated.
+    - Customisation by control panel or Python script.
+    - Paragraph styles may be defined globally or for Archetypes
+      fields.
+    - Links to Archetypes objects done by UID.
+    - Optionally Archetypes can store references for links created by
+      Kupu.
+    - Optional output transform to hide UIDs and add captions to
+      images.
+    - Kupu and Epoz can now coexist on the same Plone site.
+
 - Kupu 1.1
 
   o Re-added experimental dist with inspector.

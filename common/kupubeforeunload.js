@@ -1,5 +1,5 @@
 /* BeforeUnload form processing */
-if (!window.beforeunload) {
+if (!window.beforeunload) function() {
     var BeforeUnloadHandler = function() {
         var self = this;
 
@@ -139,4 +139,5 @@ if (!window.beforeunload) {
     }
 
     window.onbeforeunload = new BeforeUnloadHandler().execute;
-}
+}();
+
