@@ -97,7 +97,6 @@ function KupuMultiEditor(documents, config, logger) {
             this._addEventHandler(doc, "click", this.updateStateHandler, this);
             this._addEventHandler(doc, "keyup", this.updateStateHandler, this);
             if (this.getBrowserName() == "IE") {
-                this._addEventHandler(doc, "focus", this._clearSelection, this);
                 this._addEventHandler(doc, "dblclick", this.updateStateHandler, this);
                 this._addEventHandler(doc, "select", this.updateStateHandler, this);
             };

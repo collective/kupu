@@ -359,19 +359,14 @@ function BaseSelection() {
         /* returns a Boolean to indicate if the selection is resided
             inside the node
         */
-        var iterator = new NodeIterator(node);
-        var currnode = iterator.next();
-        var anchornode = node;
-        var focusnode = node;
-        if (node == anchornode || node == focusnode) {
-            return true;
-        };
+        var currnode = self.getSelectedNode();
         while (currnode) {
-            if (currnode == anchornode || currnode == focusnode) {
+            if (currnode == node) {
                 return true;
             };
-            currnode = iterator.next();
+            currnode = currnode.parentNode;
         };
+        return false;
     };
 };
 
