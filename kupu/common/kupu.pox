@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<catalog>
+<catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupu">
 	<message filenames="common/kupubasetools.js">
 		<msgid>
 			Deprecation warning: KupuTool._selectSelectItem
