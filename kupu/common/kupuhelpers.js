@@ -162,6 +162,7 @@ function _load_dict_helper(element) {
                 // ignorable whitespace) and dive into the node
                 if (child.childNodes[j].nodeType == 1) {
                     value = _load_dict_helper(child);
+                    break;
                 } else if (typeof(value) == typeof('')) {
                     value += child.childNodes[j].nodeValue;
                 };
