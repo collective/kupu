@@ -238,10 +238,12 @@ function initKupu(iframe) {
                                                     conf['search_images_uri']);
         drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
     } catch(e) {
-        alert('There was a problem initializing the drawers. Most likely the ' +
-                'XSLT or XML files aren\'t available. If this is not the ' +
-                'Kupu demo version, check your files or the service that ' +
-                'provide them (error: ' + (e.message || e.toString()) + ').');
+        var msg = _('There was a problem initializing the drawers. Most ' +
+                'likely the XSLT or XML files aren\'t available. If this ' +
+                'is not the Kupu demo version, check your files or the ' +
+                'service that provide them (error: ${error}).',
+                {'error': (e.message || e.toString())});
+        alert(msg);
     };
 
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
