@@ -46,7 +46,7 @@ kupu credits
   - Silva integration (most of that is in Silva itself, though)
 
   - Many, many features, such as context menus, stateful buttons, DOM
-    inspector.
+    inspector, unit tests.
 
 * Duncan Booth
 
