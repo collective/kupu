@@ -76,7 +76,11 @@
     <!-- ignore these -->
    <xsl:template match="@shape"/>
    <xsl:template match="@align"/>
-   <xsl:template match="a/@name"/>
+   <xsl:template match="@name"/>
+   <xsl:template match="@type"/>
+   <xsl:template match="@style"/>
+   <xsl:template match="@start"/>
+   <xsl:template match="@clear"/>
 
     <!-- kupu seems to use those for hidden anchors, but does not get the nesting right. -->
    <xsl:template match="a[@href = '']"/>
