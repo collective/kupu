@@ -216,6 +216,18 @@ function initKupu(iframe) {
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
 
+    // make the prepareForm method get called on form submit
+    // some bug in IE makes it crash on saving the form when a lib drawer
+    // was added to the page at some point, remove it on form submit
+    var savebutton = document.getElementById('kupu-save-button');
+    function prepareForm() {
+        var drawer = document.getElementById('kupu-librarydrawer');
+        drawer.parentNode.removeChild(drawer);
+        kupu.prepareForm(savebutton.form, 'kupu');
+        savebutton.form.submit();
+    };
+    addEventHandler(savebutton, 'click', prepareForm, kupu);
+
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
