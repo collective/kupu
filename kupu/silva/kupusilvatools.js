@@ -1272,6 +1272,9 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
             this.authorinput.value = citation.getAttribute('author');
             this.sourceinput.value = citation.getAttribute('source');
             this._inside_citation = true;
+            if (this.toolbox) {
+                this.toolbox.className = this.activeclass;
+            };
         } else {
             this.addbutton.style.display = 'inline';
             this.updatebutton.style.display = 'none';
@@ -1279,6 +1282,9 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
             this.authorinput.value = '';
             this.sourceinput.value = '';
             this._inside_citation = false;
+            if (this.toolbox) {
+                this.toolbox.className = this.plainclass;
+            };
         };
     };
 
@@ -1409,9 +1415,15 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             this.updatebutton.style.display = 'inline';
             this.delbutton.style.display = 'inline';
             this.startExternalSourceUpdate(extsource);
+            if (this.toolbox) {
+                this.toolbox.className = this.activeclass;
+            };
         } else {
             this._insideExternalSource = false;
             this.resetTool();
+            if (this.toolbox) {
+                this.toolbox.className = this.plainclass;
+            };
         };
     };
 
@@ -1636,7 +1648,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                                 data[name].push(child.value);
                             };
                         } else {
-                            data[name] = value;
+                            data[name] = child.value;
                         };
                     };
                 };
