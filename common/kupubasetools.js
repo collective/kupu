@@ -835,12 +835,14 @@ function TableTool() {
 
     this.createTable = function(rows, cols, makeHeader, tableclass) {
         /* add a table */
+        if (rows < 1 || rows > 99 || cols < 1 || cols > 99) {
+            this.editor.logMessage(_('Invalid table size'), 1);
+            return;
+        };
+
         var doc = this.editor.getInnerDocument();
 
         table = doc.createElement("table");
-        table.border = 1;
-        table.cellPadding = 8;
-        table.cellSpacing = 2;
         table.className = tableclass;
 
         // If the user wants a row of headings, make them
@@ -879,12 +881,10 @@ function TableTool() {
 
     this._setTableCellHandlers = function(table) {
         // make each cell select its full contents if it's clicked
-        var cells = table.getElementsByTagName('td');
-        for (var i=0; i < cells.length; i++) {
-            addEventHandler(cells[i], 'click', this._selectContentIfEmpty, this);
-        };
+        addEventHandler(table, 'click', this._selectContentIfEmpty, this);
+
         // select the nbsp in the first cell
-        var firstcell = cells[0];
+        var firstcell = table.getElementsByTagName('td')[0];
         if (firstcell) {
             var children = firstcell.childNodes;
             if (children.length == 1 && children[0].nodeType == 3 && 
@@ -1290,13 +1290,20 @@ function TableTool() {
         var doc = this.editor.getInnerDocument();
         var tbody = doc.createElement('tbody');
 
-        var allowed_classes = new Array('plain', 'grid', 'list', 'listing', 'data');
-        if (!allowed_classes.contains(table.className)) {
-            table.className = 'plain';
+        if (this.editor.config.table_classes) {
+            var allowed_classes = this.editor.config.table_classes['class'];
+            if (!allowed_classes.contains(table.className)) {
+                table.className = allowed_classes[0];
+            };
+        } else {
+            table.removeAttribute('class');
+            table.removeAttribute('className');
         };
-
-        table.cellPadding = 0;
-        table.cellSpacing = 0;
+        table.removeAttribute('border');
+        table.removeAttribute('cellpadding');
+        table.removeAttribute('cellPadding');
+        table.removeAttribute('cellspacing');
+        table.removeAttribute('cellSpacing');
 
         // now get all the rows of the table, the rows can either be
         // direct descendants of the table or inside a 'tbody', 'thead'
