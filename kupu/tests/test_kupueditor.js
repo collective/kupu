@@ -21,7 +21,7 @@ function KupuEditorTestCase() {
         var doc = Sarissa.getDomDocument();
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
         doc.loadXML(xmlstring);
-        this.assertEquals(doc.xml, xmlstring);
+        this.assertEquals(doc.xml.strip(),xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
@@ -41,20 +41,20 @@ function KupuEditorTestCase() {
         var doc = Sarissa.getDomDocument();
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
         doc.loadXML(xmlstring);
-        this.assertEquals(doc.xml, xmlstring);
+        this.assertEquals(doc.xml.strip(), xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
         // first try to remove a parent we don't have; we expect the
         // xml not to change.
         this.editor.removeNearestParentOfType(span, 'br');
-        this.assertEquals(doc.xml, xmlstring);  
+        this.assertEquals(doc.xml.strip(), xmlstring);  
 
         // now remove a real parent; we expect it to be gone in the
         // resulting xml.
         this.editor.removeNearestParentOfType(span, 'a');
         var expected = '<p><a id="outer"><b><span>some link</span></b> Even more</a></p>';
-        this.assertEquals(doc.xml, expected);
+        this.assertEquals(doc.xml.strip(), expected);
     };
 
     this.test_serializeOutputToString = function() {

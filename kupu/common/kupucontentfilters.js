@@ -150,3 +150,249 @@ function NonXHTMLTagFilter() {
     };
 };
 
+//-----------------------------------------------------------------------------
+//
+// XHTML validation support
+//
+// This class is the XHTML 1.0 transitional DTD expressed as Javascript
+// data structures.
+// Some attributes are deliberately excluded: class needs special
+// treatment (IE), style and xml: namespace are not currently supported
+// (IE).
+//
+function XhtmlValidation() {
+    // Support functions
+    this.Set = function(ary) {
+        if (ary instanceof String) ary = [ary];
+        if (ary instanceof Array) {
+            for (var i = 0; i < ary.length; i++) {
+                this[ary[i]] = 1;
+            }
+        }
+        else {
+            for (var v in ary) { // already a set?
+                this[v] = 1;
+            }
+        }
+    }
+
+    this._exclude = function(array, exceptions) {
+        var ex;
+        if (exceptions.split) {
+            ex = exceptions.split("|");
+        } else {
+            ex = exceptions;
+        }
+        var exclude = new this.Set(ex);
+        var res = [];
+        for (var k=0; k < array.length;k++) {
+            if (!exclude[array[k]]) res.push(array[k]);
+        }
+        return res;
+    }
+    this._excludeAttributes = function(badattrs) {
+        // convert badattrs to a set
+        var bad = new this.Set(badattrs);
+
+        var tags = this.Attributes;
+        for (var tag in tags) {
+            var val = this.Attributes[tag];
+            for (var i = val.length; i >= 0; i--) {
+                if (bad[val[i]]==1) {
+                    val.splice(i,1);
+                }
+            }
+        }
+    }
+    this._excludeTags = function(badtags) {
+        if (badtags instanceof String) badtags = [badtags];
+        for (var i = 0; i < badtags.length; i++) {
+            delete this.Attributes[badtags[i]];
+        }
+    }
+    // Supporting declarations
+    this.elements = new function() {
+        // Core attributes
+        this.coreattrs = ['id', 'title']; // 'style', 'class'
+        this.i18n = ['lang', 'dir']; // 'xml:lang'
+        this.events = [
+                      'onclick', 'ondblclick', 'onmousedown',
+                      'onmouseup', 'onmouseover', 'onmousemove',
+                      'onmouseout', 'onkeypress', 'onkeydown',
+                      'onkeyup'];
+
+        this.focus = ['accesskey', 'tabindex', 'onfocus', 'onblur'];
+        this.attrs = [].concat(this.coreattrs, this.i18n, this.events);
+
+        // entities
+        this.special_extra = ['object','applet','img','map','iframe'];
+        this.special_basic=['br','span','bdo'];
+        this.special = [].concat(this.special_basic, this.special_extra);
+        this.fontstyle_extra = ['big','small','font','basefont'];
+        this.fontstyle_basic = ['tt','i','b','u','s','strike'];
+        this.fontstyle = [].concat(this.fontstyle_basic, this.fontstyle_extra);
+        this.phrase_extra = ['sub','sup'];
+        this.phrase_basic=[
+                          'em','strong','dfn','code','q',
+                          'samp','kbd','var', 'cite','abbr','acronym'];
+        this.inline_forms = ['input','select','textarea','label','button'];
+        this.misc_inline = ['ins','del'];
+        this.misc = ['noscript'].concat(this.misc_inline);
+        this.inline = ['a'].concat(this.special, this.fontstyle, this.phrase, this.inline_forms);
+
+        this.Inline = ['#PCDATA'].concat(this.inline, this.misc_inline);
+
+        this.heading = ['h1','h2','h3','h4','h5','h6'];
+        this.lists = ['ul','ol','dl','menu','dir'];
+        this.blocktext = ['pre','hr','blockquote','address','center','noframes'];
+        this.block = ['p','div','isindex','fieldset','table'].concat(
+                     this.heading, this.lists, this.blocktext);
+
+        this.Flow = ['#PCDATA','form'].concat(this.block, this.inline);
+    }();
+
+    this._commonsetting = function(self, names, value) {
+        for (var n = 0; n < names.length; n++) {
+            self[names[n]] = value;
+        }
+    }
+    // The Attributes class returns all valid attributes for a tag,
+    // e.g. a = new Attributes(this)
+    // a.head -> [ 'lang', 'xml:lang', 'dir', 'id', 'profile' ]
+    this.Attributes = new function(el, validation) {
+        this.html = el.i18n.concat('id','xmlns');
+        this.head = el.i18n.concat('id', 'profile');
+        this.title = el.i18n.concat('id');
+        this.base = ['id', 'href', 'target'];
+        this.meta =  el.i18n.concat('id','http-equiv','name','content', 'scheme');
+        this.link = el.attrs.concat('charset','href','hreflang','type', 'rel','rev','media','target');
+        this.style = el.i18n.concat('id','type','media','title', 'xml:space');
+        this.script = ['id','charset','type','language','src','defer', 'xml:space'];
+        this.iframe = [
+                      'longdesc','name','src','frameborder','marginwidth',
+                      'marginheight','scrolling','align','height','width'].concat(el.coreattrs);
+        this.body = ['onload','onunload','background','bgcolor','text','link','vlink','alink'].concat(el.attrs);
+        validation._commonsetting(this,
+                                  ['p','div'].concat(el.heading),
+                                  ['align'].concat(el.attrs));
+        this.dl = this.dir = this.menu = el.attrs.concat('compact');
+        this.ul = this.menu.concat('type');
+        this.ol = this.ul.concat('start');
+        this.li = el.attrs.concat('type','value');
+        this.hr = el.attrs.concat('align','noshade','size','width');
+        this.pre = el.attrs.concat('width','xml:space');
+        this.blockquote = el.attrs.concat('cite');
+        this.ins = this.del = this.blockquote.concat('datetime');
+        this.a = el.attrs.concat(el.focus,'charset','type','name','href','hreflang','rel','rev','shape','coords','target');
+        this.bdo = el.coreattrs.concat(el.events, 'lang','xml:lang','dir');
+        this.br = el.coreattrs.concat('clear');
+        validation._commonsetting(this,
+                                  ['noscript','noframes','dt', 'dd', 'address','center','span','em', 'strong', 'dfb','code',
+                                  'samp','kbd','var','cite','abbr','acronym','sub','sup','tt',
+                                  'i','b','big','small','u','s','strike'],
+                                  el.attrs);
+
+        this.q = el.attrs.concat('cite');
+        this.basefont = ['id','size','color','face'];
+        this.font = el.coreattrs.concat(el.i18n, 'size','color','face');
+        this.object = el.attrs.concat('declare','classid','codebase','data','type','codetype','archive','standby','height','width','usemap','name','tabindex','align','border','hspace','vspace');
+        this.param = ['id','name','value','valuetype','type'];
+        this.applet = el.coreattrs.concat('codebase','archive','code','object','alt','name','width','height','align','hspace','vspace');
+        this.img = el.attrs.concat('src','alt','name','longdesc','height','width','usemap','ismap','align','border','hspace','vspace');
+        this.map = el.i18n.concat('id','title','name', el.events); // 'style', 'class'
+        this.area = el.attrs.concat('shape','coords','href','nohref','alt','target', el.focus);
+        this.form = el.attrs.concat('action','method','name','enctype','onsubmit','onreset','accept','accept-charset','target');
+        this.label = el.attrs.concat('for','accesskey','onfocus','onblur');
+        this.input = el.attrs.concat('type','name','value','checked','disabled','readonly','size','maxlength','src','alt','usemap','onselect','onchange','accept','align', el.focus);
+        this.select = el.attrs.concat('name','size','multiple','disabled','tabindex','onfocus','onblur','onchange');
+        this.optgroup = el.attrs.concat('disabled','label');
+        this.option = el.attrs.concat('selected','disabled','label','value');
+        this.textarea = el.attrs.concat('name','rows','cols','disabled','readonly','onselect','onchange', el.focus);
+        this.fieldset = el.attrs;
+        this.legend = el.attrs.concat('accesskey','align');
+        this.button = el.attrs.concat('name','value','type','disabled',el.focus);
+        this.isindex = el.coreattrs.concat('prompt', el.i18n);
+        this.table = el.attrs.concat('summary','width','border','frame','rules','cellspacing','cellpadding','align','bgcolor');
+        this.caption = el.attrs.concat('align');
+        this.colgroup = el.attrs.concat('span','width','halign','char','charoff','valign');
+        this.col = this.colgroup;
+        this.thead =  el.attrs.concat('halign','char','charoff','valign');
+        this.tfoot = this.tbody = this.thead;
+        this.tr = this.thead.concat('bgcolor');
+        this.td = this.th = this.tr.concat('abbr','axis','headers','scope','rowspan','colspan','nowrap','width','height');
+    }(this.elements, this);
+
+    // State array. For each tag identifies what it can contain.
+    // I'm not attempting to check the order or number of contained
+    // tags (yet).
+    this.States = new function(el, validation) {
+        this.html = ['head','body'];
+        this.head = ['title','base','script','meta','link','object','isindex']; // 'style'
+        this.title = ['#PCDATA'];
+        this.base = this.meta = this.link = [];
+        this.style = ['#PCDATA'];
+        this.script = ['#PCDATA'];
+        this.noscript = el.Flow;
+        this.iframe = el.Flow;
+        this.noframes = el.Flow;
+        this.body = el.Flow;
+        this.div = el.Flow;
+        this.p = el.Inline;
+        var t = el.heading;
+        for (var h = 0; h < t.length; h++) {
+            this[t[h]] = el.Inline;
+        }
+        this.ul = ['li'];
+        this.ol = this.menu = this.dir = this.ul;
+        this.dl = ['dt','dd'];
+        this.dt = el.Inline;
+        this.dd = el.Flow;
+        this.address = ['#PCDATA','p['].concat(el.inline, el.misc.inline);
+        this.hr = [];
+        this.pre = validation._exclude(el.Inline, "img|object|applet|big|small|sub|sup|font|basefont");
+        this.blockquote = el.Flow;
+        this.center = this.ins = this.del = el.Flow;
+        this.a = validation._exclude(el.Inline, "a");
+        this.span = this.bdo = el.Inline;
+        this.br = this.basefont = [];
+        var tags = [
+                   'em', 'strong', 'dfb','code','samp','kbd','var',
+                   'cite','abbr','acronym','q','sub','sup','tt','i',
+                   'b','big','small','u','s','strike','font','label',
+                   'legend'];
+        for (var i = 0; i < tags.length; i++) {
+            this[tags[i]] = el.Inline;
+        }
+        this.object = ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc);
+        this.param = [];
+        this.applet = this.object;
+        this.img = [];
+        this.map = ['form', 'area'].concat(el.block, el.misc);
+        this.area = [];
+        this.form = validation._exclude(el.Flow, ['form']);
+        this.input = [];
+        this.select = ['optgroup','option'];
+        this.optgroup = ['option'];
+        this.option = ['#PCDATA'];
+        this.textarea = this.option;
+        this.fieldset = ['#PCDATA','legend','form'].concat(el.block,el.inline,el.misc);
+        this.button = validation._exclude(el.Flow, ['a','form','iframe'].concat(el.inline_forms));
+        this.isindex = [];
+        this.table = ['caption','col','colgroup','thead','tfoot','tbody','tr'];
+        this.caption = el.Inline;
+        this.thead = this.tfoot = this.tbody = ['tr'];
+        this.colgroup = ['col'];
+        this.col = [];
+        this.tr = ['th','td'];
+        this.th = this.td = el.Flow;
+
+        // We actually want all the states to be objects rather than
+        // arrays
+        for (var tag in this) {
+            this[tag] = new validation.Set(this[tag]);
+        }
+    }(this.elements, this);
+}
+
+//xhtmlvalid = new XhtmlValidation();
+

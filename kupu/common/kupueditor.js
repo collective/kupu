@@ -346,16 +346,16 @@ function KupuEditor(document, config, logger) {
 
     this.removeNearestParentOfType = function(node, type) {
         var nearest = this.getNearestParentOfType(node, type);
-	if (!nearest) {
-	    return false;
-	};
-	var parent = nearest.parentNode;
-	while (nearest.childNodes.length) {
-	    var child = nearest.firstChild;
-	    child = nearest.removeChild(child);
-	    parent.insertBefore(child, nearest);
-	};
-	parent.removeChild(nearest);
+        if (!nearest) {
+            return false;
+        };
+        var parent = nearest.parentNode;
+        while (nearest.childNodes.length) {
+            var child = nearest.firstChild;
+            child = nearest.removeChild(child);
+            parent.insertBefore(child, nearest);
+        };
+        parent.removeChild(nearest);
     };
 
     this.getDocument = function() {
@@ -591,65 +591,102 @@ function KupuEditor(document, config, logger) {
         };
     };
 
-    this._convertToSarissaNode = function(ownerdoc, htmlnode) {
+    // IE needs special help for some functions
+    if (this.getBrowserName()=="IE") {
+        this._getTagName = function(htmlnode) {
+            var nodename = htmlnode.nodeName.toLowerCase();
+            if (htmlnode.scopeName && htmlnode.scopeName != "HTML") {
+                nodename = htmlnode.scopeName+':'+nodename;
+            }
+            return nodename;
+        }
+        // Reading 'class' attribute from the html dom has to be done
+        // specially on IE!
+        this._className = "className";
+    } else {
+        this._getTagName = function(htmlnode) {
+            return htmlnode.nodeName.toLowerCase();
+        }
+        this._className = "class";
+    };
+
+    this.xhtmlvalid = new XhtmlValidation();
+    // Exclude attributes we can't support, and all the event attributes.
+    this.xhtmlvalid._excludeAttributes(
+        this.xhtmlvalid.elements.events.concat(
+        'style','class','xml:lang','xml:space',
+                                               'onfocus','onblur','onselect','onchange','onsubmit','onreset'));
+    // Exclude unwanted tags.
+    this.xhtmlvalid._excludeTags(['center']);
+
+    this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
+        for (var i = 0; i < valid.length; i++) {
+            var name = valid[i];
+            val = htmlnode.getAttribute(name);
+            if (val) xhtmlnode.setAttribute(name, val);
+        }
+        val = htmlnode.getAttribute(this._className);
+        if (val) xhtmlnode.setAttribute('class', val);
+    }
+    this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
         /* Given a string of non-well-formed HTML, return a string of 
            well-formed XHTML.
-        
+
            This function works by leveraging the already-excellent HTML 
            parser inside the browser, which generally can turn a pile 
            of crap into a DOM.  We iterate over the HTML DOM, appending 
            new nodes (elements and attributes) into a node.
-        
+
            The primary problems this tries to solve for crappy HTML: mixed 
            element names, elements that open but don't close, 
            and attributes that aren't in quotes.  This can also be adapted 
            to filter out tags that you don't want and clean up inline styles.
-        
-           Inspired by Guido, adapted by Paul from something in usenet. 
+
+           Inspired by Guido, adapted by Paul from something in usenet.
+           Tag and attribute tables added by Duncan
         */
 
-        var i, name, val;
-        var nodename = htmlnode.nodeName;
-        try {
-            var xhtmlnode = ownerdoc.createElement(nodename.toLowerCase());
-        } catch (e) {
-            var xhtmlnode = ownerdoc.createElement('span');
-        };
-    
-        var atts = htmlnode.attributes;
-        for (var i = 0; i < atts.length; i++) {
-            name = atts[i].nodeName;
-            val = atts[i].nodeValue;
-            // XXX Seems like a bug to me: why do col- and rowspan get set
-            // *only* if the value == 1?
-            if (!(val == null || val == "" || name == "contentEditable" ||
-                  ((name == "rowSpan" || name == "colSpan") && val == 1) )) {
-                xhtmlnode.setAttribute(name.toLowerCase(), val);
-            }
-        } 
-    
+        var name, parentnode;
+        var nodename = this._getTagName(htmlnode);
+        
+        // TODO: This permits valid tags anywhere. it should use the state
+        // table in xhtmlvalid to only permit tags where the XHTML DTD
+        // says they are valid.
+        var validattrs = this.xhtmlvalid.Attributes[nodename];
+        if (validattrs) {
+            try {
+                var xhtmlnode = ownerdoc.createElement(nodename);
+                parentnode = xhtmlnode;
+                this._copyAttributes(htmlnode, xhtmlnode, validattrs);
+            } catch (e) {
+                parentnode = xhtmlparent;
+            };
+        } else {
+            // Invalid node: append any children to the parent node.
+            parentnode = xhtmlparent;
+        }
+
         var kids = htmlnode.childNodes;
         if (kids.length == 0) {
             if (htmlnode.text && htmlnode.text != "") {
                 var text = htmlnode.text;
                 var tnode = ownerdoc.createTextNode(text);
-                xhtmlnode.appendChild(tnode);
+                parentnode.appendChild(tnode);
             }
         } else { 
             for (var i = 0; i < kids.length; i++) {
                 if (kids[i].nodeType == 1) {
-                    var newkid = this._convertToSarissaNode(ownerdoc, kids[i]);
+                    var newkid = this._convertToSarissaNode(ownerdoc, kids[i], parentnode);
                     if (newkid != null) {
-                        xhtmlnode.appendChild(newkid);
+                        parentnode.appendChild(newkid);
                     };
                 } else if (kids[i].nodeType == 3) {
-                    xhtmlnode.appendChild(ownerdoc.createTextNode(kids[i].nodeValue));
+                    parentnode.appendChild(ownerdoc.createTextNode(kids[i].nodeValue));
                 } else if (kids[i].nodeType == 4) {
-                    xhtmlnode.appendChild(ownerdoc.createCDATASection(kids[i].nodeValue));
-                } 
+                    parentnode.appendChild(ownerdoc.createCDATASection(kids[i].nodeValue));
+                }
             }
         } 
-    
         return xhtmlnode;
     };
 
