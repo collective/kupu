@@ -18,7 +18,8 @@
   border: solid 1px gray;
   border-top: solid 10px #c0c0c0;
   background-color: ButtonFace;
-  height: 340px;
+  padding: 0 8px 8px 8px;
+  height: auto;
   width: 520px;
   z-index: 2;
 }
@@ -44,7 +45,6 @@ input#kupu-linkdrawer-input {
 
 div#kupu-librarydrawer h1, div.kupu-drawer h1 {
   margin-top: 12px;
-  margin-left: 6px;
 }
 
 div.kupu-dialogbuttons {
@@ -52,7 +52,6 @@ div.kupu-dialogbuttons {
   text-align: right;
   margin-top: 6px;
   margin-bottom: 6px;
-  margin-right: 20px;
 }
 
 div.kupu-dialogbuttons button {
@@ -60,9 +59,7 @@ div.kupu-dialogbuttons button {
 }
 
 div.kupu-panels {
-  margin-left: 6px;
-  width: 99%;
-  margin-right: 6px;
+  width: 100%;
   background-color: ButtonFace;
   clear:both;
 }
@@ -78,9 +75,20 @@ div.kupu-panels td {
 div.kupu-panels td.kupu-preview-button {
   vertical-align: bottom;
 }
+
+div.kupu-panels table {
+ width: 100%; 
+ margin: 0; 
+ padding: 0; 
+ border: 0;
+}
+
+td.panel {
+  height: 260px;
+}
+
 td#kupu-librariespanel {
   width: 22%;
-  height: 260px;
 }
 
 td#kupu-resourcespanel {
@@ -89,7 +97,6 @@ td#kupu-resourcespanel {
 
 td#kupu-propertiespanel {
   width: 45%;
-  height: 260px;
 }
 
 div#kupu-resourceitems {
