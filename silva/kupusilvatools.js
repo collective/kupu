@@ -1636,7 +1636,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                                 data[name].push(child.value);
                             };
                         } else {
-                            data[name] = value;
+                            data[name] = child.value;
                         };
                     };
                 };
