@@ -18,6 +18,9 @@ XSL_FILE = make.xsl
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
 
+zope2macros:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-zope2.kupu > default/kupumacros.html
+
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 

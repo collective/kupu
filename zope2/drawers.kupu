@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="drawers"
+    implementation="zope2"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <kupu:part name="styles">
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css"
+          tal:attributes="href container/kupudrawerstyles.css/absolute_url" />
+  </kupu:part>
+
+  <kupu:part name="jsincludes">
+    <script type="text/javascript" src="kupudrawertool.js"
+        tal:attributes="href container/kupudrawertool.js/absolute_url"> </script>
+    <script type="text/javascript" src="kupulibrarydrawer.js"
+        tal:attributes="href container/kupulibrarydrawer.js/absolute_url"> </script>
+  </kupu:part>
+
+</kupu:feature>
