@@ -54,49 +54,44 @@ function initPloneKupu(iframe, fieldname) {
         };
     };
 
-    var boldcheckfunc = new StateButtonCheckFunction(
-                            new Array('b', 'strong'), 'font-weight', 'bold');
+    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
+					     'font-weight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
-                                         boldcheckfunc.execute,
+                                         boldchecker,
                                          'kupu-bold',
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italiccheckfunc = new StateButtonCheckFunction(
-                            new Array('i', 'em'), 'font-style', 'italic');
-    var italicbutton = new KupuStateButton('kupu-italic-button', 
+    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
+						'font-style', 'italic');
+    var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
-                                           italiccheckfunc.execute, 
+                                           italicschecker, 
                                            'kupu-italic', 
                                            'kupu-italic-pressed');
-    kupu.registerTool('italicbutton', italicbutton);
+    kupu.registerTool('italicsbutton', italicsbutton);
 
-    var underlinebuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('u'));
+    var underlinechecker = ParentWithStyleChecker(new Array('u'));
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
-                                              underlinebuttoncheckfunc.execute, 
+                                              underlinechecker,
                                               'kupu-underline', 
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptbuttonfunc = function(button, editor) {editor.execCommand('subscript')};
-    var subscriptbuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('sub'));
-    var subscriptbutton = new KupuStateButton('kupu-subscript-button', 
+    var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
+    var subscriptbutton = new KupuStateButton('kupu-subscript-button',
                                               execCommand('subscript'),
-                                              subscriptbuttoncheckfunc.execute, 
-                                              'kupu-subscript', 
+                                              subscriptchecker,
+                                              'kupu-subscript',
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptbuttonfunc = function(button, editor) {editor.execCommand('superscript')};
-    var superscriptbuttoncheckfunc = new StateButtonCheckFunction(
-                            new Array('super'));
+    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'));
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
                                                 execCommand('superscript'),
-                                                superscriptbuttoncheckfunc.execute, 
+                                                superscriptchecker,
                                                 'kupu-superscript', 
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
