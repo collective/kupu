@@ -14,6 +14,8 @@ Kupu changes
     (http://issues.apache.org/bugzilla/show_bug.cgi?id=29164)
   * fixed bug that inserted multiple meta charset entries per save.
   * slight wording changes here and there
+  * strip out XHTML attributes that are not XHTML strict upon save, and
+    convert b to strong, and i to em.
   
 - Kupu 1.2rc1
 

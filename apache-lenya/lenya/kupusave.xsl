@@ -58,6 +58,28 @@
         </xsl:if>         
       </object>
    </xsl:template>
+
+    <!-- convert to semantic markup -->
+   <xsl:template match="xhtml:b">
+    <strong>
+      <xsl:apply-templates/>
+    </strong>
+   </xsl:template>
+
+    <!-- convert to semantic markup -->
+   <xsl:template match="xhtml:i">
+    <em>
+      <xsl:apply-templates/>
+    </em>
+   </xsl:template>
+
+    <!-- ignore these -->
+   <xsl:template match="@shape"/>
+   <xsl:template match="@align"/>
+   <xsl:template match="a/@name"/>
+
+    <!-- kupu seems to use those for hidden anchors, but does not get the nesting right. -->
+   <xsl:template match="a[@href = '']"/>
   
   <xsl:template match="@*|node()">
   <xsl:copy>
