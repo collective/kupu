@@ -12,7 +12,8 @@
 
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
     <metal:slot fill-slot="defineItems">
-       <tal:var define="global items context/kupuSearch"/>
+       <tal:var define="global items context/kupuSearch;
+           global resource_type request/resource_type | string:mediaobject;"/>
     </metal:slot>
     <metal:slot fill-slot="parentCollection" />
   </items>

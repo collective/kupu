@@ -5,7 +5,7 @@
     >
 
   <tal:with define="info python:context.kupuInfoForObjects([context])[0]">
-    <metal:macro use-macro="template/macros/commonToAllItems" />
+    <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems" />
     <src tal:define="resource_type request/resource_type | string:mediaobject;"
          tal:content="string:${here/absolute_url}/${template/getId}?resource_type=${resource_type}">Source</src>
   </tal:with>
@@ -33,7 +33,7 @@
              parent python:context.aq_parent;
              info   python:context.kupuInfoForObjects([parent])[0]"
                      tal:attributes="id parent/absolute_url">
-           <metal:macro use-macro="template/macros/commonToAllItems">
+           <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems">
            <title metal:fill-slot="title"
                   i18n_translate="">.. (Parent folder)</title>
            </metal:macro>
@@ -77,7 +77,7 @@
 
       <collection tal:attributes="id info/url"
                   tal:condition="info/collection">
-        <metal:insert use-macro="template/macros/commonToAllItems" />
+        <metal:insert use-macro="here/kupucollection.xml/macros/commonToAllItems" />
         <src tal:content="string:${info/url}/${template/getId}?resource_type=${resource_type}">Source</src>
       </collection>
 

@@ -561,7 +561,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
     this.search = function() {
         /* search */
-        var searchvalue = document.getElementById('kupu-searchbox').value;
+        var searchvalue = document.getElementById('kupu-searchbox-input').value;
         //XXX make search variable configurable
         var body = 'SearchableText=' + escape(searchvalue);
 
