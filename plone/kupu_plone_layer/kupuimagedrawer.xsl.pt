@@ -77,6 +77,11 @@ $Id$
                 <label for="image-align-inline">Inline</label>
                 <input type="radio" name="image-align" id="image-align-right" value="image-right" />
                 <label for="image-align-right">Right</label>
+                <tal:block condition="request/captions|nothing">
+                  <br />
+                  <input type="checkbox" name="image-caption" id="image-caption" checked="checked" />
+                  <label for="image-caption">Caption</label>
+                </tal:block>
             </form>
         </div>
     </xsl:template>

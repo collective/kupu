@@ -75,7 +75,7 @@ very easily.</p>
 
 </form>
 
-<form action="zmi_add_library" method="post">
+<form action="" tal:attributes="action string:${here/absolute_url}/zmi_add_library" method="post">
 <table>
 
   <tr>

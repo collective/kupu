@@ -22,7 +22,13 @@ from App.Common import package_home
 from Products.CMFCore.utils import getToolByName, minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.kupu import kupu_globals
+from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest
+
+try:
+    from MimetypesRegistry import MimeTypeItem
+except ImportError:
+    pass # Plone not available
 
 PROJECTNAME = 'Kupu'
 
@@ -69,6 +75,7 @@ def install_plone(self, out):
             print >>out, "Added 'Kupu' to available editors in Plone."
     install_libraries(self, out)
     install_configlet(self, out)
+    install_transform(self, out)
 
 def install_libraries(self, out):
     """Install everything necessary to support Kupu Libraries
@@ -79,8 +86,8 @@ def install_libraries(self, out):
         addTool('Kupu Library Tool')
         print >>out, "Added the Kupu Library Tool to the plone Site"
     except BadRequest:
-        print >>out, "Kupu library Tool already added"
-    except:
+        print >>out, "Kupu library Tool already added"    
+    except: # Older Zopes
         #heuristics for testing if an instance with the same name already exists
         #only this error will be swallowed.
         #Zope raises in an unelegant manner a 'Bad Request' error
@@ -108,6 +115,23 @@ def install_configlet(self, out):
     except KeyError:
         pass # Get KeyError when registering duplicate configlet.
 
+def install_transform(self, out):
+    print >>out, "Adding new mimetype"
+    mimetypes_tool = getToolByName(self, 'mimetypes_registry')
+    newtype = MimeTypeItem.MimeTypeItem('HTML with captioned images',
+        ('text/x-html-captioned',), ('html-captioned',), 0)
+    mimetypes_tool.register(newtype)
+
+    print "Add transform"
+    transform_tool = getToolByName(self, 'portal_transforms')
+    try:
+        transform_tool.manage_delObjects(['html-to-captioned'])
+    except: # XXX: get rid of bare except
+        pass
+    transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
+    #print "Add policy"
+    #transform_tool.manage_addPolicy('text/x-html-captioned', ('html-to-captioned',))
+
 def install(self):
     out = StringIO()
 
@@ -117,9 +141,10 @@ def install(self):
     # try for plone
     try:
         import Products.CMFPlone
-        install_plone(self, out)
     except ImportError:
         pass
+    else:
+        install_plone(self, out)
 
     print >>out, "kupu successfully installed"
     return out.getvalue()
