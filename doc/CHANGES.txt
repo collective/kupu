@@ -2,6 +2,15 @@
 Kupu changes
 ============
 
+- Kupu 1.1 beta 2
+
+  o Added source editing for Silva
+
+  o Fixed some small bugs for Silva
+
+  o Fixed the Image tool in Silva: URL's are now editable and will be made
+    relative if at all possible
+
 - Kupu 1.1 beta 1
 
   o Added Selection object that provides a cross-browser API for working
