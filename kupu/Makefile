@@ -16,13 +16,13 @@ XSLTPROC_PARAMS = --nonet --novalid --xinclude
 XSL_FILE = make.xsl
 
 kupu.html:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > common/kupu.html
 
 zope2macros:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-zope2.kupu > default/kupumacros.html
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-zope2.kupu > common/kupumacros.html
 
 kupuform.html:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-form.kupu > default/kupuform.html
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-form.kupu > common/kupuform.html
 
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist-plone.kupu > plone/kupu_plone_layer/wysiwyg_support.html
@@ -34,11 +34,11 @@ all:
 	kupu.html
 
 clean:
-	rm -f default/kupu.html
-	rm -f default/kupumacros.html
-	rm -f default/kupuform.html
+	rm -f common/kupu.html
+	rm -f common/kupumacros.html
+	rm -f common/kupuform.html
 	rm -f plone/kupu_plone_layer/wysiwyg_support.html
 	rm -f silva/kupumacros.html
 
 debug:
-	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
+	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > common/kupu.html
