@@ -2,6 +2,15 @@
 Kupu changes
 ============
 
+- Kupu 1.1.2
+
+  o Fixed some documentation that said Netscape 7.0 was supported, which
+    it never was, the minimal Netscape version required to use Kupu has
+    always been 7.0
+
+  o Fixed problem where empty title tags broke rendering on IE after a save.
+
+
 - Kupu 1.1
 
   o Re-added experimental dist with inspector.

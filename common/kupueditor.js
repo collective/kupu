@@ -577,7 +577,7 @@ function KupuEditor(document, config, logger) {
         };
         // create a closing element for all elements that require one in XHTML
         // XXX probably need more of those here...
-        var dualtons = new Array('script', 'textarea');
+        var dualtons = new Array('script', 'textarea', 'title');
         for (var i=0; i < dualtons.length; i++) {
             var elname = dualtons[i];
             var els = doc.getElementsByTagName(elname);
