@@ -2,7 +2,32 @@
 Kupu changes
 ============
 
-- Current development version
+- Since 1.2 beta 1
+
+  The following issues have been resolved (see the `issue tracker`_
+  for details of the numbered ones):
+
+  - 153: Exit from bulleted list: next paragraph becomes a list item
+  - 152: Install.py does not work with CMF
+  - 151: This function requires better XML support in your browser
+  - 150: Javscript error in IE when viewing empty html source and style select changed
+  - 149: When using Zoom on Plone site, the right portlets are not disabled
+  - 146: kupu 1.2b tagName is null or not an object javascript error in IE
+  - 143: Invalid request error when trying to edit raw HTML using Safari
+  - 141: Inserting links in Gecko browsers sometimes replaced the selected
+    text with the link title.
+  - 94: Using kupu with Plone via SSL gives error on IE
+    (this was already marked as resolved but had recurred).
+  - Fixed 'phantom whitespace' problem. Saved format was 'text/html'
+    which non-AT content types interpret as an alias for 'stx'. Now
+    sets format to 'html' for non-AT content types.
+  - Opening a drawer gave error 404 on Plone systems when Archetypes 
+    was not installed.
+
+
+.. _`issue tracker`: http://codespeak.net/issues/kupu/
+
+- Kupu 1.2 beta 1
 
   * Added image upload.
 
@@ -228,3 +253,4 @@ Kupu changes
 
   * When the cursor is in a list, a drop-down appears to set the style
     of the list symbols (e.g. disc for ul, roman numerals for ol)
+

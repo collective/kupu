@@ -160,7 +160,7 @@ function NonXHTMLTagFilter() {
 function XhtmlValidation(editor) {
     // Support functions
     this.Set = function(ary) {
-        if (ary instanceof String) ary = [ary];
+        if (typeof(ary)==typeof('')) ary = [ary];
         if (ary instanceof Array) {
             for (var i = 0; i < ary.length; i++) {
                 this[ary[i]] = 1;
@@ -224,7 +224,7 @@ function XhtmlValidation(editor) {
     }
 
     this.excludeTags = function(badtags) {
-        if (badtags instanceof String) badtags = [badtags];
+        if (typeof(badtags)==typeof('')) badtags = [badtags];
         for (var i = 0; i < badtags.length; i++) {
             delete this.tagAttributes[badtags[i]];
         }

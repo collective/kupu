@@ -23,7 +23,7 @@ portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
 search_params = {}
 search_params.update(request.form)
 search_params['portal_type'] = portal_types
-search_params['review_state'] = 'published'
+search_params['review_state'] = 'visible', 'published'
 
 # Get the maximum number of results with 500 being the default and
 # absolute maximum.

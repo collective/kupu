@@ -21,7 +21,8 @@
         >
     </iframe>
     <textarea cols="80" rows="25"
-        tabindex="" style="display:none"
+        tabindex=""
+        class="kupu-editor-textarea"
         name="description" id="kupu-editor-textarea"
 
         tal:define="pss modules/Products/PythonScripts/standard;

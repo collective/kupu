@@ -30,7 +30,7 @@ EXCLUDED_HTML = [
   
   {'tags':(),
   'attributes': ('dir','lang','valign','halign','border','frame',
-      'rules','cellspacing','cellpadding','align','bgcolor'),
+      'rules','cellspacing','cellpadding','bgcolor'),
    'keep': 1},
 
   {'tags': ('table','th','td'),
