@@ -6,9 +6,11 @@
   <description>Fixme Decsription</description>
   <items>
     <resource id="globalres">
+      <title>GResource1</title>
       <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
-      <icon></icon>
+      <icon>/kupu/apache-lenya/kupu/images/right_arrow.png</icon>
       <description>Demo Resource one</description>
+      <preview>/kupu/apache-lenya/kupu/images/exit.gif</preview>
     </resource>
     <!--
     <resource id="res2">
