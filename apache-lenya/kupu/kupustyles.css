@@ -4,11 +4,17 @@
 
 html, body { height: 100%; }
 
+body {
+  font-family: Verdana, Sans-Serif;
+  font-size: 13px;
+}
+
 div.kupu-fulleditor {
   height: 560px;
-  margin: auto;
   padding: 0;
   width: 99%;
+  margin: 0;
+  vertical-align: top;
 }
 
 div.kupu-editorframe, .kupu-editorframe {

@@ -124,8 +124,9 @@
   <xsl:template match="xhtml:title">
     <title>Edit <xsl:value-of select="$document-path"/> - Apache Lenya</title>
   </xsl:template>
+  
   <xsl:template match="xhtml:h1[1]">
-    <div style="float:left; width: 50%;">
+    <div style="float:left; width: 50%; margin-left: 5px;">
       <h1 style="margin: 0; padding: 0;">Edit document</h1>
       <span 
         style="font-style: italic; font-size: 1.3em; letter-spacing: 1px; color: gray;">
