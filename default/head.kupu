@@ -19,7 +19,6 @@
 
   <kupu:part name="styles">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" />
-    <link href="kupucustom.css" rel="stylesheet" type="text/css" />
   </kupu:part>
 
   <kupu:part name="jsincludes">
