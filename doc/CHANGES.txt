@@ -8,6 +8,9 @@ Kupu changes
     which non-AT content types interpret as an alias for 'stx'. Now
     sets format to 'html' for non-AT content types.
 
+  * Opening a drawer gave error 404 on Plone systems when Archetypes 
+    was not installed.
+
   * Other issues fixed:
 
         - 149_: When using Zoom on Plone site, the right portlets are not disabled
