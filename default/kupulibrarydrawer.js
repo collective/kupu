@@ -425,7 +425,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this._replaceNodeContents = function(doc, target, container) {
         /* replace all childnodes in target with all childnodes in container */
         var importedContainer = doc.importNode(container, true);
-        container.ownerDocument.contentWindow = doc.contentWindow;
+        if (this.editor.getBrowserName() != 'IE') {
+            container.ownerDocument.contentWindow = doc.contentWindow;
+        }
         while (target.hasChildNodes()) {
             target.removeChild(target.firstChild);
         };
