@@ -52,9 +52,20 @@
 <div class="formHelp">Links to objects on this site created by Kupu can use unique
 object ids so that the links remain valid even if the target object is
 renamed or moved elsewhere on the site.</div>
-
 </div>
 
+</fieldset>
+<fieldset>
+<legend>Tables</legend>
+
+<div class="formHelp">Enter a list of class names to be made available in the table drawer<div>
+
+<textarea name="table_classnames:lines"
+         rows="5" cols="30"
+         tal:content="python:'\n'.join(here.getTableClassnames())">
+</textarea>
+
+</fieldset>
 <input class="context"
         tabindex=""
         type="submit"
@@ -63,7 +74,6 @@ renamed or moved elsewhere on the site.</div>
         i18n:attributes="value"
         tal:attributes="tabindex tabindex/next;"
         />
-</fieldset>
 </form>
     </div>
 

@@ -16,10 +16,11 @@
     <content_type>application/xhtml+xml</content_type>
     <compatible_singletons>1</compatible_singletons>
     <!-- example of how to create a list of classnames for the table tool -->
-    <table_classes tal:condition="here/get_table_classnames|nothing"
-        tal:repeat="class here/get_table_classnames">
-      <class tal:content="class" />
+    <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
+    <table_classes tal:condition="table_classnames">
+      <class tal:content="class" tal:repeat="class table_classnames" />
     </table_classes>
+    </tal:block>
   </kupu:part>
  
 </kupu:feature>

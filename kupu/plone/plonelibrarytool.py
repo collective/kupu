@@ -87,11 +87,19 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected('View', "getLinkbyuid")
     def getLinkbyuid(self):
-        """Delete resource types through the ZMI"""
+        """Returns 'is linking by UID enabled'?"""
         try:
             return self.linkbyuid
         except AttributeError:
             return 1
+
+    security.declareProtected('View', "getTableClasses")
+    def getTableClassnames(self):
+        """Return a list of classnames supported in tables"""
+        try:
+            return self.table_classnames
+        except AttributeError:
+            return ('plain', 'listing', 'grid', 'data')
 
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (
@@ -184,9 +192,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
-    def configure_kupu(self, linkbyuid, REQUEST=None):
+    def configure_kupu(self, linkbyuid, table_classnames, REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
+        self.table_classnames = table_classnames
         REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
 InitializeClass(PloneKupuLibraryTool)
