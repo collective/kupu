@@ -1,0 +1,26 @@
+<kupu:feature
+    name="head"
+    implementation="silva"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    >
+
+  <kupu:part name="silva_jsincludes">
+    <script type="text/javascript" src="kupu_silva/silva_kupu.js"></script>
+  </kupu:part>
+
+  <kupu:part name="bootstrap-editor">
+    <script type="text/javascript">
+	var kupu = null;
+	var kupuui = null;
+	function startKupu() {
+	    var frame = document.getElementById('kupu-editor'); 
+	    kupu = initSilvaKupu(frame); 
+	    kupuui = kupu.getTool('ui'); 
+	    kupu.initialize();
+	};
+    </script>
+  </kupu:part>
+
+</kupu:feature>

@@ -1,0 +1,33 @@
+<kupu:dist
+  xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+
+  <!-- Boiler plate -->
+
+  <!-- Include implementations -->
+  <xi:include href="default/include.kupu" />
+  <xi:include href="silva/include.kupu" />
+
+  <!-- Define the default slot to start with -->
+  <kupu:expand>
+    <kupu:define-slot name="start" />
+  </kupu:expand>
+
+
+  <!-- Now it gets Distribution specific -->
+
+  <!-- Define an implementation order. Default contains only one
+       implementation, itself. -->
+  <kupu:implementation-order>
+    <kupu:implementation name="silva" />
+    <kupu:implementation name="default" />
+  </kupu:implementation-order>
+
+
+  <!-- Silva does not want to use certain features -->
+  <kupu:disable-feature name="drawers" /> <!-- for now -->
+  <kupu:disable-feature name="colorchooser" />
+  <kupu:disable-feature name="sourceedit" />
+
+</kupu:dist>
