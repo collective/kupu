@@ -55,12 +55,20 @@ goto :eof
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupu.html %XSL_FILE% dist.kupu 
     goto :eof
 
+:target_zope2macros
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupumacros.html %XSL_FILE% dist-zope2.kupu
+    goto :eof
+
 :target_kupuform.html:
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupuform.html %XSL_FILE% dist-form.kupu
     goto :eof
 
-:target_zope2macros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupumacros.html %XSL_FILE% dist-zope2.kupu
+:target_kupumulti.html:
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupumulti.html %XSL_FILE% dist-multi.kupu
+    goto :eof
+
+:target_kupucnf.html:
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupucnf.html %XSL_FILE% dist-cnf.kupu
     goto :eof
 
 :target_plonemacros
@@ -71,18 +79,27 @@ goto :eof
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o silva\kupumacros.html %XSL_FILE% dist-silva.kupu
     goto :eof
 
+:target_lenyamacros
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o apache-lenya\kupu\kupumacros.html %XSL_FILE% dist-apache-lenya.kupu
+    goto :eof
+
 :target_
 :target_all
+    call :target_clean
     call :target_kupu.html
     call :target_kupuform.html
+    call :target_kupumulti.html
     call :target_zope2macros
     call :target_plonemacros
     call :target_silvamacros
+    call :target_lenyamacros
+    call :target_kupucnf.html
     goto :eof
 
 :target_clean
     SET FILES=common\kupumacros.html common\kupu.html common\kupuform.html
     SET FILES=%FILES% plone\kupu_plone_layer\wysiwyg_support.html silva\kupumacros.html
+    SET FILES=%FILES% common\kupumulti.html common\kupucnf.html
     for %%F in (%FILES%) DO (
         IF EXIST %%F ( %X%echo del %%F && %X%del %%F )
     )
