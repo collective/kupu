@@ -2,27 +2,27 @@
 kupu credits
 ============
 
-* Maik Jablonski
-
-  - wrote the original Epoz rich text editor (for Zope2/Plone)
-
 * Paul Everitt
+
+  - leadership and guidance in Kupu development
 
   - JavaScript God
 
-  - made the original proposal to refactor Kupu using Page Template
-    macros and XML configuration.
+  - made the original proposal to refactor Epoz using Page Template
+    macros and CSS styles.
 
   - much of the initial hacking, conversion to OO, async saving etc.
 
 * Philipp von Weitershausen
 
   - Came up with the directory structure that lets Kupu be both a
-    Zope2 and Zope3 product
+    Zope2, CMF, and Plone product as well as a Zope3 package.
 
-  - Internationalization
+  - Invented and implemented XML/XSLT based templating system.
 
-  - Zope2, CMF, Plone and Zope3 integration
+  - Implemented library drawers with help from Paul and Guido.
+
+  - Zope2, CMF, Plone 2 and Zope3 integration
 
   - Administrative tasks, thanks again Philipp...
 
@@ -45,7 +45,8 @@ kupu credits
 
   - Silva integration (most of that is in Silva itself, though)
 
-  - Implemented context menus.
+  - Many, many features, such as context menus, stateful buttons, DOM
+    inspector.
 
 * Duncan Booth
 
@@ -59,9 +60,12 @@ kupu credits
 
 * Also thanks to:
 
-  - Holger Krekel for being so kind to provide resources on his Codespeak
-    server (subversion, the issuetracker and the checkin mailinglist). See 
-    http://codespeak.net for more information about this cool project.
+  - Holger Krekel for being so kind to provide resources on his
+    Codespeak server (subversion, the issuetracker and the
+    mailinglists). See http://codespeak.net for more information about
+    this cool project.
+
+  - Micheal Wechner and OSCOM for providing us with a new home.
 
   - Eric Casteleijn for the new name.
 
@@ -70,8 +74,8 @@ kupu credits
   - Jan Smith for finding bugs (and believe us, she did! ;)
 
   - Doron Rosenberg for providing a solution to a nasty selection
-    bug in Mozilla
+    bug in Mozilla.
 
-  - Kit Blake for documentation and administrative tasks...
+  - Kit Blake for documentation and administrative tasks.
 
-  - The guys at ETH for inspiration!
+  - The guys at ETH for inspiration.
