@@ -14,29 +14,13 @@
   <xsl:param name="context-prefix" select="/"/>
   <xsl:param name="kupu-common-dir" 
     select="concat($context-prefix,'/kupu/common/')"/>
-  <xsl:param name="lenya-kupu-style" 
-    select="concat($context-prefix,'/kupu/apache-lenya/kupu/kupustyles.css')"/>
   <xsl:param name="kupu-logo" 
     select="concat($kupu-common-dir, 'kupuimages/kupu_icon.gif')"/>
   <xsl:param name="lenya-logo" 
     select="concat($context-prefix, '/lenya/images/project-logo-small.png')"/>
   <xsl:param name="imagedrawer-xsl-uri"/>
   <xsl:param name="imagedrawer-libraries-uri"/>
-    
-  <!--
-    Kupu head (i.e. CSS overriden by Lenya)
-  -->
-  <xsl:template match="xhtml:head">
-    <head>
-      <xsl:apply-templates/>
-      <link rel="stylesheet" type="text/css">
-        <xsl:attribute name="href">
-          <xsl:value-of select="$lenya-kupu-style"/>
-        </xsl:attribute>
-      </link>
-    </head>
-  </xsl:template>
-  
+      
   <!--
     Kupu config
   -->

@@ -23,43 +23,40 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
   <xsl:import href="${parameters.getParameter('root')}librarydrawer.xsl"/>
     
   <xsl:template match="resource|collection" mode="properties">
-    <xsl:if test="preview">      
-    <div><strong>Preview</strong></div>
-    <div id="epd-imgpreview">
-      <img src="{preview}" title="{title}" alt="{title}" />
-    </div>
-    </xsl:if>
-    <table>
+    <table class="resource-properties">
       <tr>
         <td>
-          <strong>Title</strong><br />
-          <xsl:value-of select="title" />
+          <div>
+            <strong>Title</strong><br />
+            <xsl:value-of select="title" />
+          </div>
+          <div>
+            <strong>Size</strong><br />
+            <xsl:value-of select="size" />
+          </div>
+          <div>
+            <strong>Description</strong><br />
+            <xsl:value-of select="description" />
+          </div>
+          <div>
+            <strong>ALT-text</strong><br />
+            <form onsubmit="return false;">
+              <input type="text" id="image_alt" size="10" />
+            </form>
+          </div>
         </td>
-      </tr>
-      <tr>
+        <xsl:if test="preview">
         <td>
-          <strong>Size</strong><br />
-          <xsl:value-of select="size" />
+          <div><strong>Preview</strong></div>
+          <div id="epd-imgpreview">
+            <img src="{preview}" title="{title}" alt="{title}"/>
+          </div>
         </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Description</strong><br />
-          <xsl:value-of select="description" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>ALT-text</strong><br />
-          <form onsubmit="return false;">
-            <input type="text" id="image_alt" size="10" />
-          </form>
-        </td>
+        </xsl:if>
       </tr>
     </table>
   </xsl:template>
   
-  <xsl:template name="drawer-title">Image</xsl:template>
-  
+  <xsl:template name="drawer-title">Image</xsl:template>  
   <xsl:template name="url-prefix">${parameters.getParameter('root')}</xsl:template>
 </xsl:stylesheet>

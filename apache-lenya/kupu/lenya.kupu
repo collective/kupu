@@ -11,5 +11,10 @@
     <script type="text/javascript" src="../apache-lenya/kupu/lenya.js">
     </script>
   </kupu:part>
+  
+  <kupu:part name="styles">
+    <link href="../apache-lenya/kupu/kupudrawerstyles.css" rel="stylesheet" type="text/css" />
+    <link href="../apache-lenya/kupu/kupustyles.css" rel="stylesheet" type="text/css" />
+  </kupu:part>
 
 </kupu:feature>
