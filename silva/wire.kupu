@@ -27,7 +27,6 @@
 
   <kupu:fill-slot name="fulleditor">
     <kupu:insert-part feature="head" part="jsincludes" />
-    <kupu:insert-part feature="head" part="silvajsincludes" />
     <kupu:insert-part feature="drawers" part="styles" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="sourceedit" part="jsincludes" />

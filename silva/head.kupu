@@ -6,11 +6,24 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
-  <kupu:part name="silva_jsincludes">
-    <script type="text/javascript" src="kupu_silva/silva_kupu.js"></script>
+  <kupu:part name="jsincludes">
+    <script type="text/javascript" src="sarissa.js"
+            tal:attributes="src string:${root_url}/kupu/sarissa.js"> </script>
+    <script type="text/javascript" src="kupuhelpers.js"
+            tal:attributes="src string:${root_url}/kupu/kupuhelpers.js"> </script>
+    <script type="text/javascript" src="kupueditor.js"
+            tal:attributes="src string:${root_url}/kupu/kupueditor.js"> </script>
+    <script type="text/javascript" src="kupubasetools.js"
+            tal:attributes="src string:${root_url}/kupu/kupubasetools.js"> </script>
+    <script type="text/javascript" src="kupuloggers.js"
+            tal:attributes="src string:${root_url}/kupu/kupuloggers.js"> </script>
+    <script type="text/javascript" src="kupucontentfilters.js"
+            tal:attributes="src string:${root_url}/kupu/kupucontentfilters.js"> </script>
   </kupu:part>
 
   <kupu:part name="bootstrap-editor">
+    <script type="text/javascript" src="silva_kupu.js"
+            tal:attributes="src string:${root_url}/kupu_silva/silva_kupu.js"> </script>
     <script type="text/javascript">
 	var kupu = null;
 	var kupuui = null;
