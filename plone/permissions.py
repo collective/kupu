@@ -11,7 +11,11 @@
 
 $Id$
 """
-from Products.CMFCore.CMFCorePermissions import setDefaultRoles
+try:
+    from Products.CMFCore.permissions import setDefaultRoles
+except ImportError:
+    # for CMF 1.4
+    from Products.CMFCore.CMFCorePermissions import setDefaultRoles
 
 QueryLibraries = "Kupu: Query libraries"
 ManageLibraries = "Kupu: Manage libraries"
