@@ -8,13 +8,13 @@
         <items>
             <resource id="res1" selected="1">
                 <uri>kupudrawers/res1</uri>
-                <title>Resource 1</title>
+                <title>Document 1</title>
                 <icon>../kupuimages/document.gif</icon>
                 <description>Demo Resource one</description>
             </resource>
             <resource id="res2">
                 <uri>kupudrawers/res2</uri>
-                <title>Resource 2</title>
+                <title>Another long document title</title>
                 <icon>../kupuimages/document.gif</icon>
                 <description>Demo Resource two</description>
             </resource>
@@ -22,6 +22,25 @@
                 <uri>kupudrawers/coll1</uri>
                 <icon>../kupuimages/folder.png</icon>
                 <title>Some folder goes here</title>
+                <description>Container for portal members' home directories</description>
+                <src>kupudrawers/democollection.xml</src>
+            </collection>
+            <resource id="res3">
+                <uri>kupudrawers/res3</uri>
+                <title>Document 2</title>
+                <icon>../kupuimages/document.gif</icon>
+                <description>Demo Resource one</description>
+            </resource>
+            <resource id="res4">
+                <uri>kupudrawers/res4</uri>
+                <title>Document 3</title>
+                <icon>../kupuimages/document.gif</icon>
+                <description>Demo Resource two</description>
+            </resource>
+            <collection id="collection2">
+                <uri>kupudrawers/coll2</uri>
+                <icon>../kupuimages/folder.png</icon>
+                <title>Reference material</title>
                 <description>Container for portal members' home directories</description>
                 <src>kupudrawers/democollection.xml</src>
             </collection>
