@@ -20,8 +20,8 @@ function initPloneKupu(iframe, fieldname) {
     var form = textarea.form;
     ibody.style.margin = "12px";
     ibody.className = "kupu"; // This is set in emptypage but gets lost for some reason.
-    ibody.innerHTML = textarea.value;
-                
+    ibody.innerHTML = textarea.value || '<p class=""><br></p>';
+
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
 
@@ -158,7 +158,10 @@ function initPloneKupu(iframe, fieldname) {
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {
         var initialBody = ibody.innerHTML;
-        beforeunloadTool.addHandler(function() {return ibody.innerHTML != initialBody;});
+        beforeunloadTool.addHandler(function() {
+            return ibody.innerHTML != initialBody;
+        });
+        beforeunloadTool.chkId['kupu-tb-styles'] = beforeunloadTool.chkId[fieldname] = function() { return false; }
         beforeunloadTool.addForm(form);
     }
     // Patch for bad AT format pulldown.
