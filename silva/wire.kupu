@@ -30,7 +30,6 @@
     <kupu:insert-part feature="drawers" part="styles" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="contextmenu" part="jsincludes" />
-    <kupu:insert-part feature="jsincludes" part="jsincludes" />
 
     <kupu:insert-part feature="head" part="bootstrap-editor" />
   </kupu:fill-slot>
@@ -70,6 +69,7 @@
     <kupu:insert-part feature="toolboxes" part="indexes" />
     <kupu:insert-part feature="toolboxes" part="images" />
     <kupu:insert-part feature="toolboxes" part="abbr" />
+    <kupu:insert-part feature="toolboxes" part="cleanupexpressions" />
     <kupu:insert-part feature="toolboxes" part="external_source" />
     <kupu:insert-part feature="toolboxes" part="citation" />
     <kupu:insert-part feature="toolboxes" part="tables" />

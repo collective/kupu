@@ -14,16 +14,22 @@
 
 .kupu-fulleditor, .kupu-toolboxes {
   font-family: Verdana, "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: white;
 }
 
 div.kupu-fulleditor .kupu-fulleditor-zoomed {
-  border: solid 3px ButtonHighlight;
-  margin: 0.2em;
+  /*border: solid 3px ButtonHighlight;*/
   height: 100%;
+   padding: 0px;
 }
 
 div.kupu-fulleditor .kupu-editorframe {
   margin-right: 20em;
+}
+
+div.kupu-fulleditor-zoomed .kupu-editorframe {
+   margin: 0px;
+   border: none;
 }
 
 div.kupu-fulleditor-zoomed {
@@ -31,6 +37,11 @@ div.kupu-fulleditor-zoomed {
    margin: 0; border: none;
    position: fixed;
    top: 0; left: 0;
+   background-color: white;
+}
+
+div.kupu-fulleditor-zoomed div.kupu-toolboxes {
+  display: none;
 }
 
 * html div.kupu-fulleditor-zoomed {
@@ -39,8 +50,7 @@ div.kupu-fulleditor-zoomed {
 
 div.kupu-fulleditor-zoomed .kupu-editor-iframe {
   border: none;
-  border-top: solid black 1px;
-  margin: 0;
+  margin: 0px;
 }
 
 div.kupu-smalleditor .kupu-editorframe {
@@ -100,7 +110,6 @@ div.kupu-smalleditor {
   margin-left: 2px;
   margin-right: 2px;
 }
-
 
 .kupu-bold {background-image: url("kupuimages/bold.png");}
 .kupu-bold-pressed {background-image: url("kupuimages/bold.png"); background-color: white;}

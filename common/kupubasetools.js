@@ -1582,14 +1582,20 @@ function ShowPathTool() {
     this.updateState = function(selNode) {
         /* calculate and display the path */
         var path = '';
+        var url = null; // for links we want to display the url too
         var currnode = selNode;
         while (currnode != null && currnode.nodeName != '#document') {
+            if (currnode.nodeName.toLowerCase() == 'a') {
+                url = currnode.getAttribute('href');
+            };
             path = '/' + currnode.nodeName.toLowerCase() + path;
             currnode = currnode.parentNode;
         }
         
         try {
-            window.status = path;
+            window.status = url ? 
+                    (path.toString() + ' - contains link to \'' + url.toString() + '\'') :
+                    path;
         } catch (e) {
             this.editor.logMessage('Could not set status bar message, ' +
                                     'check your browser\'s security settings.', 

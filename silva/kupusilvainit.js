@@ -10,6 +10,7 @@
 
 // $Id$
 
+// XXX Port this to the default dist?
 KupuEditor.prototype.afterInit = function() {
     // select the line after the first heading, if the document is correctly
     // formatted
@@ -61,6 +62,23 @@ function initSilvaKupu(iframe) {
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
     
+    kupu.registerContentChanger(document.getElementById('kupu-editor-textarea'));
+
+    if (kupu.getBrowserName() == 'IE') {
+        // IE supports onbeforeunload, so let's use that
+        addEventHandler(window, 'beforeunload', saveOnPart);
+    } else {
+        // some versions of Mozilla support onbeforeunload (starting with 1.7)
+        // so let's try to register and if it fails fall back on onunload
+        var re = /rv:([0-9\.]+)/
+        var match = re.exec(navigator.userAgent)
+        if (match[1] && parseFloat(match[1]) > 1.6) {
+            addEventHandler(window, 'beforeunload', saveOnPart);
+        } else {
+            addEventHandler(window, 'unload', saveOnPart);
+        };
+    };
+
     var cm = new ContextMenu();
     kupu.setContextMenu(cm);
 
@@ -80,7 +98,7 @@ function initSilvaKupu(iframe) {
     };
 
     var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-					     'font-weight', 'bold');
+                                                'font-weight', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
                                          boldchecker,
@@ -89,7 +107,7 @@ function initSilvaKupu(iframe) {
     kupu.registerTool('boldbutton', boldbutton);
 
     var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-						'font-style', 'italic');
+                                                    'font-style', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
                                            italicschecker, 
@@ -128,7 +146,7 @@ function initSilvaKupu(iframe) {
     kupu.registerTool('redobutton', redobutton);
 
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
-				'kupu-ulstyles', 'kupu-olstyles');
+                                    'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
     var dltool = new DefinitionListTool('kupu-list-dl-addbutton');
@@ -136,34 +154,35 @@ function initSilvaKupu(iframe) {
 
     var toctool = new SilvaTocTool(
         'kupu-toolbox-toc-depth', 'kupu-toc-add-button', 'kupu-toc-del-button',
-	'kupu-toolbox-toc', 'kupu-toolbox', 'kupu-toolbox-active');
+        'kupu-toolbox-toc', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('toctool', toctool);
     
     var linktool = new SilvaLinkTool();
     kupu.registerTool('linktool', linktool);
     var linktoolbox = new SilvaLinkToolBox(
-        "kupu-link-input", "kupu-link-addbutton", 'kupu-link-updatebutton',
-	'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox',
-	'kupu-toolbox-active');
+        "kupu-link-input", 'kupu-linktarget-select', 'kupu-linktarget-input',
+        "kupu-link-addbutton", 'kupu-link-updatebutton',
+        'kupu-link-delbutton', 'kupu-toolbox-links', 'kupu-toolbox',
+        'kupu-toolbox-active');
     linktool.registerToolBox("linktoolbox", linktoolbox);
   
     var indextool = new SilvaIndexTool(
         "kupu-index-input", 'kupu-index-addbutton', 'kupu-index-updatebutton',
-	'kupu-index-deletebutton', 'kupu-toolbox-indexes', 'kupu-toolbox',
-	'kupu-toolbox-active');
+        'kupu-index-deletebutton', 'kupu-toolbox-indexes', 'kupu-toolbox',
+        'kupu-toolbox-active');
     kupu.registerTool('indextool', indextool);
 
     var extsourcetool = new SilvaExternalSourceTool(
         'kupu-toolbox-extsource-id', 'kupu-extsource-formcontainer', 
-	'kupu-extsource-addbutton', 'kupu-extsource-cancelbutton',
-	'kupu-extsource-updatebutton', 'kupu-extsource-delbutton',
-	'kupu-toolbox-extsource', 'kupu-toolbox', 'kupu-toolbox-active');
+        'kupu-extsource-addbutton', 'kupu-extsource-cancelbutton',
+        'kupu-extsource-updatebutton', 'kupu-extsource-delbutton',
+        'kupu-toolbox-extsource', 'kupu-toolbox', 'kupu-toolbox-active');
     kupu.registerTool('extsourcetool', extsourcetool);
 
     var citationtool = new SilvaCitationTool(
         'kupu-citation-authorinput', 'kupu-citation-sourceinput',
-	'kupu-citation-addbutton', 'kupu-citation-updatebutton',
-	'kupu-citation-deletebutton');
+        'kupu-citation-addbutton', 'kupu-citation-updatebutton',
+        'kupu-citation-deletebutton');
     kupu.registerTool('citationtool', citationtool);
   
     var abbrtool = new SilvaAbbrTool('kupu-abbr-type-abbr', 'kupu-abbr-type-acronym', 
@@ -175,21 +194,22 @@ function initSilvaKupu(iframe) {
   
     var imagetool = new SilvaImageTool(
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
-	'kupu-toolbox-image-target', 'kupu-toolbox-image-link-radio-hires',
-	'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
-	'kupu-toolbox-image-align', 'kupu-toolbox-image-alt', 
+        'kupu-toolbox-image-target', 'kupu-toolbox-image-target-input', 
+        'kupu-toolbox-image-link-radio-hires',
+        'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
+        'kupu-toolbox-image-align', 'kupu-toolbox-image-alt', 
         'kupu-toolbox-images', 'kupu-toolbox',
-	'kupu-toolbox-active');
+        'kupu-toolbox-active');
     kupu.registerTool('imagetool', imagetool);
 
     var tabletool = new SilvaTableTool(); 
     kupu.registerTool('tabletool', tabletool);
     var tabletoolbox = new SilvaTableToolBox(
         'kupu-toolbox-addtable', 'kupu-toolbox-edittable', 'kupu-table-newrows',
-	'kupu-table-newcols','kupu-table-makeheader', 'kupu-table-classchooser',
-	'kupu-table-alignchooser', 'kupu-table-columnwidth',
-	'kupu-table-addtable-button', 'kupu-table-addrow-button',
-	'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
+        'kupu-table-newcols','kupu-table-makeheader', 'kupu-table-classchooser',
+        'kupu-table-alignchooser', 'kupu-table-columnwidth',
+        'kupu-table-addtable-button', 'kupu-table-addrow-button',
+        'kupu-table-delrow-button', 'kupu-table-addcolumn-button',
         'kupu-table-delcolumn-button', 'kupu-table-fix-button',
         'kupu-table-delete-button', 'kupu-toolbox-tables', 
         'kupu-toolbox', 'kupu-toolbox-active'
@@ -202,6 +222,10 @@ function initSilvaKupu(iframe) {
     var sourceedittool = new SourceEditTool('kupu-source-button',
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
+
+    var cleanupexpressions = new CleanupExpressionsTool(
+            'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');
+    kupu.registerTool('cleanupexpressions', cleanupexpressions);
 
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
@@ -240,8 +264,16 @@ function initSilvaKupu(iframe) {
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
     */
     
-    var nonxhtmltagfilter = new NonXHTMLTagFilter();
-    kupu.registerFilter(nonxhtmltagfilter);
+    //var nonxhtmltagfilter = new NonXHTMLTagFilter();
+    //kupu.registerFilter(nonxhtmltagfilter);
+
+    kupu.xhtmlvalid.setAttrFilter(['is_toc', 'toc_depth', 'is_citation', 'source', 'author',
+                                    'source_id', 'silva_type', 'alignment', 'link_to_hires']);
+    // allow all attributes on div, since ExternalSources require that
+    kupu.xhtmlvalid.includeTagAttributes(['div'], ['*']);
+    kupu.xhtmlvalid.includeTagAttributes(['p'], ['silva_type']);
+    kupu.xhtmlvalid.includeTagAttributes(['h6'], ['silva_type']);
+    kupu.xhtmlvalid.includeTagAttributes(['img'], ['alignment', 'link_to_hires', 'target']);
 
     return kupu;
 };

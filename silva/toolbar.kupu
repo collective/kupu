@@ -20,7 +20,7 @@
         <option value="H4">sub</option>
         <option value="H5">subsub</option>
         <option value="H6">paragraph</option>
-        <option value="H7">subparagraph</option>
+        <option value="H6|sub">subparagraph</option>
       </optgroup>
       <option value="PRE">preformatted</option>
     </select>

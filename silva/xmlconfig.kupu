@@ -13,6 +13,128 @@
     <strict_output>1</strict_output>
     <content_type>application/xhtml+xml</content_type>
     <compatible_singletons>1</compatible_singletons>
+    <cleanup_expressions>
+      <set>
+        <name>Convert single quotes to curly ones</name>
+        <expression>
+          <reg>
+            (\W)'
+          </reg>
+          <replacement>
+            \1‘
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            '
+          </reg>
+          <replacement>
+            ’
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Convert double quotes to curly ones</name>
+        <expression>
+          <reg>
+            (\W)"
+          </reg>
+          <replacement>
+            \1“
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            "
+          </reg>
+          <replacement>
+            ”
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Convert single dashes to n-dashes</name>
+        <expression>
+          <reg>
+            ([^\-])\-([^\-])
+          </reg>
+          <replacement>
+            \1–\2
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ([^\-])\-$
+          </reg>
+          <replacement>
+            \1–
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-([^\-])
+          </reg>
+          <replacement>
+            –\1
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-$
+          </reg>
+          <replacement>
+            –
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Convert double dashes to m-dashes</name>
+        <expression>
+          <reg>
+            ([^\-])\-\-([^\-])
+          </reg>
+          <replacement>
+            \1—\2
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ([^\-])\-\-$
+          </reg>
+          <replacement>
+            \1—
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-\-([^\-])
+          </reg>
+          <replacement>
+            —\1
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            ^\-\-$
+          </reg>
+          <replacement>
+            —
+          </replacement>
+        </expression>
+      </set>
+      <set>
+        <name>Reduce whitespace in source</name>
+        <expression>
+          <reg>
+            [ \n\r\t]{2}
+          </reg>
+          <replacement>
+            \x20
+          </replacement>
+        </expression>
+      </set>
+    </cleanup_expressions>
+
   </kupu:part>
 
 </kupu:feature>

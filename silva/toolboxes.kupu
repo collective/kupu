@@ -7,6 +7,39 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
 
+  <kupu:part name="properties">
+    <div class="kupu-toolbox" id="kupu-toolbox-properties">
+      <h1 style="border-top: none">properties</h1>
+
+      <form name="kupu-properties-form">
+        <table width="100%" style="color: #333;" border="0">
+          <tr id="propsrow">
+            <td valign="top">
+              name
+            </td>
+            <td valign="top">
+              input
+            </td>
+          </tr>
+        </table>
+      </form>
+
+    </div>
+  </kupu:part>
+
+  <kupu:part name="characters">
+    <div class="kupu-toolbox" id="kupu-toolbox-characters">
+      <h1 style="border-top: none">non-standard characters</h1>
+
+      <form name="kupu-characters-form">
+        <select id="charselect">
+          <option value="">select</option>
+        </select>
+      </form>
+
+    </div>
+  </kupu:part>
+
   <kupu:part name="links">
     <div class="kupu-toolbox" id="kupu-toolbox-links">
       <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
@@ -23,7 +56,14 @@
 
         <form name="kupu_link_form" onsubmit="return false;">
           <input type="button" class="transport" style="margin-bottom:0.2em;" onclick="getLink(); return false;" value="get link reference..." />
-          <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" />
+          <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" /><br />
+          &#160;link target 
+          <select id="kupu-linktarget-select">
+            <option value="_self">same window</option>
+            <option value="_blank">new window</option>
+            <option value="input">custom target</option>
+          </select><br />
+          <input class="store" type="text" id="kupu-linktarget-input" name="kupu_link_target" style="margin-left: 0.2em; width: 96%" />
           <input type="button" class="button" value="add link" id="kupu-link-addbutton" />
           <input type="button" class="button" value="update link" id="kupu-link-updatebutton" />
           <input type="button" class="warning" value="remove" id="kupu-link-delbutton" />
@@ -83,7 +123,9 @@
           <select id="kupu-toolbox-image-target" style="margin-left:0.2em">
             <option value="_self">same window</option>
             <option value="_blank">new window</option>
+            <option value="input">custom target</option>
           </select><br />
+          <input class="store" type="text" id="kupu-toolbox-image-target-input" name="kupu_image_target" style="margin-left: 0.2em; width: 96%" />
           &#160;image alignment
           <select id="kupu-toolbox-image-align" style="margin-left:0.2em">
             <option value="default">default</option>
@@ -356,7 +398,7 @@
   </kupu:part>
   
   <kupu:part name="typochars">
-    <div class="kupu-toolbox">
+    <div class="kupu-toolbox" id="kupu-toolbox-typochars">
     
       <h1 i18n:translate="typographical-characters">typographical characters</h1>
       <div class="kupu-tooltray">
@@ -377,6 +419,18 @@
         </form>
       </div>
 
+    </div>
+  </kupu:part>
+
+  <kupu:part name="cleanupexpressions">
+    <div class="kupu-toolbox" id="kupu-toolbox-cleanupexpressions">
+      <h1 i18n:translate="">cleanup</h1>
+      <div class="kupu-tooltray">
+        <select id="kupucleanupexpressionselect" class="kupu-toolbox-st">
+        </select>
+        <input class="button" type="button" id="kupucleanupexpressionbutton"
+                value="perform" />
+      </div>
     </div>
   </kupu:part>
 
