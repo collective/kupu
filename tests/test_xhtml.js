@@ -204,8 +204,14 @@ function KupuXhtmlTestCase() {
         this.conversionTest(data, expected);
     }
     this.testCustomAttribute = function() {
+        var validator = this.editor.xhtmlvalid;
         var data = '<div special="magic">This is a test</div>';
-        this.editor.xhtmlvalid.includeTagAttributes(['div'],['special']);
+        this.assertTrue(validator.tagAttributes.td===validator.tagAttributes.th);
+        this.editor.xhtmlvalid.includeTagAttributes(['div','td'],['special']);
+        // Check that shared arrays are no longer shared...
+        this.assertFalse(validator.tagAttributes.td===validator.tagAttributes.th);
+        this.assertTrue(this.arrayContains(validator.tagAttributes.td, 'special'));
+        this.assertFalse(this.arrayContains(validator.tagAttributes.th, 'special'));
         this.editor.xhtmlvalid.setAttrFilter(['special']);
         this.conversionTest(data, data);
     }
