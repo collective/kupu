@@ -69,100 +69,110 @@
 
   <kupu:part name="tabledrawer">
     <div id="kupu-tabledrawer" class="kupu-drawer">
-    <table width="100%">
-      <tbody>
-        <tr>
-          <td class="kupu-toolbox-label">Table Class</td>
-          <td width="1%">
-            <select id="kupu-tabledrawer-classchooser"
-                    onchange="drawertool.current_drawer.tool.setTableClass(this.options[this.selectedIndex].value)">
-              <option value="plain">Plain</option>
-              <option value="listing">Listing</option>
-              <option value="grid">Grid</option>
-              <option value="data">Data</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td colspan="2">
-
-          <!-- this gets displayed when not in a table -->
-          <div id="kupu-tabledrawer-addtable">
+    <p>&#xa0;</p>
+    <div class="kupu-panels">
+      <table width="99%">
+        <tr class="kupu-panelsrow">
+          <td class="kupu-panel">
             <table width="100%">
-              <tr>
-                <td class="kupu-toolbox-label" width="50%">Rows</td>
-                <td><input type="text" id="kupu-tabledrawer-newrows" /></td>
-              </tr>
-              <tr>
-                <td class="kupu-toolbox-label">Columns</td>
-                <td><input type="text" id="kupu-tabledrawer-newcols" /></td>
-              </tr>
-              <tr>
-                <td class="kupu-toolbox-label">Headings</td>
-                <td class="kupu-toolbox-label">
-                  <input name="kupu-tabledrawer-makeheader"
-                         id="kupu-tabledrawer-makeheader"
-                         type="checkbox"
-                         />
-                  <label for="kupu-tabledrawer-makeheader">Create</label>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style="text-align: center">
-                  <br />
-                  <button type="button" onclick="drawertool.current_drawer.createTable()">Add Table</button>
-                  <button type="button" onclick="drawertool.closeDrawer()">Close</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-
-          <!-- this gets displayed when in a table -->
-          <div id="kupu-tabledrawer-edittable">
-            <table width="100%">
-              <tr>
-                <td width="50%">Col Align</td>
-                <td>
-                  <select id="kupu-tabledrawer-alignchooser"
-                          onchange="drawertool.current_drawer.tool.setColumnAlign(this.options[this.selectedIndex].value)">
-                    <option value="left">Left</option>
-                    <option value="center">Center</option>
-                    <option value="right">Right</option>
+              <tbody>
+                <tr>
+                  <td class="kupu-toolbox-label">Table Class</td>
+                  <td width="50%">
+                    <select id="kupu-tabledrawer-classchooser"
+                            onchange="drawertool.current_drawer.tool.setTableClass(this.options[this.selectedIndex].value)">
+                      <option value="plain">Plain</option>
+                      <option value="listing">Listing</option>
+                      <option value="grid">Grid</option>
+                      <option value="data">Data</option>
                     </select>
-                </td>
-              </tr>
-              <tr>
-                <td>Column</td>
-                <td>
-                  <button type="button" id="kupu-tabledrawer-addcolumn-button"
-                          onclick="drawertool.current_drawer.tool.addTableColumn">Add</button>
-                  <button type="button" id="kupu-tabledrawer-delcolumn-button"
-                          onclick="drawertool.current_drawer.tool.delTableColumn">Remove</button>
-                </td>
-              </tr>
-              <tr>
-                <td>Row</td>
-                <td>
-                  <button type="button" id="kupu-tabledrawer-addrow-button"
-                          onclick="drawertool.current_drawer.addTableRow">Add</button> 
-                  <button type="button" id="kupu-tabledrawer-delrow-button"
-                          onclick="drawertool.current_drawer.delTableRow">Remove</button>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style="text-align: center">
-                  <br />
-                  <button type="button" onclick="drawertool.closeDrawer()">Close</button>
-                </td>
-              </tr>
-            </table>
-          </div>
+                  </td>
+                </tr>
 
+                <tr>
+                  <td colspan="2" class="">
+
+                  <!-- this gets displayed when not in a table -->
+                  <div id="kupu-tabledrawer-addtable">
+                    <table width="100%">
+                      <tr>
+                        <td class="kupu-toolbox-label" width="50%">Rows</td>
+                        <td><input type="text" id="kupu-tabledrawer-newrows" /></td>
+                      </tr>
+                      <tr>
+                        <td class="kupu-toolbox-label">Columns</td>
+                        <td><input type="text" id="kupu-tabledrawer-newcols" /></td>
+                      </tr>
+                      <tr>
+                        <td class="kupu-toolbox-label">Headings</td>
+                        <td class="kupu-toolbox-label">
+                          <input name="kupu-tabledrawer-makeheader"
+                                 id="kupu-tabledrawer-makeheader"
+                                 type="checkbox"
+                                 />
+                          <label for="kupu-tabledrawer-makeheader">Create</label>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: center">
+                          <br />
+                            <button type="button" onclick="drawertool.current_drawer.createTable()">Add Table</button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  <!-- this gets displayed when in a table -->
+                  <div id="kupu-tabledrawer-edittable">
+                    <table width="100%">
+                      <tr>
+                        <td width="50%">Current column alignment</td>
+                        <td>
+                          <select id="kupu-tabledrawer-alignchooser"
+                                  onchange="drawertool.current_drawer.tool.setColumnAlign(this.options[this.selectedIndex].value)">
+                            <option value="left">Left</option>
+                            <option value="center">Center</option>
+                            <option value="right">Right</option>
+                            </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Column</td>
+                        <td>
+                          <button type="button" id="kupu-tabledrawer-addcolumn-button"
+                                  onclick="drawertool.current_drawer.tool.addTableColumn">Add</button>
+                          <button type="button" id="kupu-tabledrawer-delcolumn-button"
+                                  onclick="drawertool.current_drawer.tool.delTableColumn">Remove</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Row</td>
+                        <td>
+                          <button type="button" id="kupu-tabledrawer-addrow-button"
+                                  onclick="drawertool.current_drawer.addTableRow">Add</button> 
+                          <button type="button" id="kupu-tabledrawer-delrow-button"
+                                  onclick="drawertool.current_drawer.delTableRow">Remove</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" style="text-align: center">
+                          <br />
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+      <div class="kupu-dialogbuttons">
+        <button type="button" onclick="drawertool.closeDrawer()">Cancel</button>
+      </div>
+    </div>
     </div>
 
   </kupu:part>

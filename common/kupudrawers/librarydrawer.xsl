@@ -26,14 +26,14 @@ $Id$
             <body>
                 <div style="width: 500px; border: solid black 1px">
                     <div id="kupu-librarydrawer">
-                        <div id="kupu-dialogbuttons">
+                        <div id="kupu-searchbox">
                             <form onsubmit="return false;">
                                 <input id="kupu-searchbox" name="searchbox" value="search"
                                     style="font-style: italic"
                                     onclick="if (this.value == 'search') this.value = ''; this.style.fontStyle='normal';" onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();"/>
                             </form>
                         </div>
-                        <div id="kupu-panels">
+                        <div class="kupu-panels">
                             <table width="99%">
                                 <tr class="kupu-panelsrow">
                                     <td id="kupu-librariespanel" width="30%">
@@ -54,7 +54,7 @@ $Id$
                                 </tr>
                             </table>
                         </div>
-                        <div id="kupu-dialogbuttons">
+                        <div class="kupu-dialogbuttons">
                             <!--
                             <button type="button"
                                 onclick="drawertool.current_drawer.reloadCurrent();">Reload current</button>
