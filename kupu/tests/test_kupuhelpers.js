@@ -189,11 +189,11 @@ KupuHelpersTestCase.prototype = new TestCase;
 function KupuSelectionTestCase() {
 
     this.testGetSelectedNodeMissing = function() {
-        this.body.innerHTML = ' <p>foo <b>bar</b><img><img> baz</p>';
+        this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
         // remove selection
         var selection = this.selection.selection;
         _SARISSA_IS_IE ? selection.empty() : selection.removeAllRanges();
-        node = this.doc.getElementsByTagName('p')[0].firstChild;
+        node = this.doc.getElementsByTagName('p')[0];
         this.assertEquals(this.selection.getSelectedNode(), node);
     };
 
@@ -201,7 +201,7 @@ function KupuSelectionTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
         // select                       |bar|
         this._setSelection(4, true, 7, false, 'bar');
-        node = this.doc.getElementsByTagName('b')[0].firstChild;
+        node = this.doc.getElementsByTagName('b')[0];
         this.assertEquals(this.selection.getSelectedNode(), node);
     };
 

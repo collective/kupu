@@ -388,13 +388,37 @@ function MozillaSelection(document) {
         var selection = this.selection;
         var selectedNode = selection.anchorNode;
         if (!selectedNode) {
-            selectedNode = this.document.body;
-            while (selectedNode.firstChild)
+            selectedNode = this.document.getDocument().body;
+            while (selectedNode.firstChild && selectedNode.firstChild.nodeType == 1)
                 selectedNode = selectedNode.firstChild;
+            // return here, the rest of the code requires an actual selection 
+            // which we don't seem to have
+            return selectedNode;
         }
-        while (selectedNode.firstChild && !selectedNode.childNodes.length > 1) {
+        // this should always return an element node, never a text node
+        while (selectedNode.nodeType != 1) {
+            selectedNode = selectedNode.parentNode;
+        };
+        while (selectedNode.firstChild && selectedNode.firstChild.nodeType == 1 &&
+                    !selectedNode.childNodes.length > 1) {
             selectedNode = selectedNode.firstChild;
         }
+
+        // XXX the following deals with cases where only a single node is selected,
+        // but then entirely (e.g. after a click on an image)
+        var range = this.selection.getRangeAt(0);
+        var cloned = range.cloneContents();
+        if (cloned.childNodes.length == 1 && cloned.childNodes[0].nodeType == 1) {
+            // either we have a single char, or a single node in the range, in the
+            // latter case find out what node it is and return that instead of its
+            // parent
+            for (var i=0; i < selectedNode.childNodes.length; i++) {
+                if (range.compareNode(selectedNode.childNodes[i]) == range.NODE_INSIDE) {
+                    return selectedNode.childNodes[i];
+                };
+            };
+        };
+        
         var n = selectedNode;
         // Get next sibling at any level
         while (n.parentNode) {
