@@ -6,16 +6,13 @@
   <description>FIXME Description</description>
   <items>
     <resource id="pageres">
+      <title>Exit</title>
       <uri>/kupu/apache-lenya/kupu/images/exit.gif</uri>
-      <icon></icon>
+      <icon>/kupu/apache-lenya/kupu/images/right_arrow.png</icon>
       <description>page Demo Resource two</description>
+      <preview>/kupu/apache-lenya/kupu/images/exit.gif</preview>
     </resource>
     <!--
-    <resource id="res2">
-      <uri>kupudrawers/res2</uri>
-      <icon></icon>
-      <description>Demo Resource two</description>
-    </resource>
     <collection id="collection1">
       <uri>kupudrawers/coll1</uri>
       <icon></icon>
