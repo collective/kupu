@@ -167,9 +167,13 @@ function initKupu(iframe) {
         };
     };
 
-    var imagedrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
-                                               opendrawer('imagedrawer'));
-    kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
+    var imagelibdrawerbutton = new KupuBaseButton('kupu-imagelibdrawer-button',
+                                                  opendrawer('imagelibdrawer'));
+    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
+
+    var linklibdrawerbutton = new KupuBaseButton('kupu-linklibdrawer-button',
+                                                 opendrawer('linklibdrawer'));
+    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
     var linkdrawerbutton = new KupuBaseButton('kupu-linkdrawer-button',
                                               opendrawer('linkdrawer'));
@@ -184,17 +188,20 @@ function initKupu(iframe) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linkdrawer = new LinkDrawer(linktool, conf['link_xsl_uri'],
-                                    conf['link_libraries_uri'], conf['link_images_uri']);
+    var linklibdrawer = new LinkLibrarydrawer(linktool, conf['link_xsl_uri'],
+                                              conf['link_libraries_uri'],
+                                              conf['link_images_uri']);
+    drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+
+    var imagelibdrawer = new ImageLibrarydrawer(imagetool, conf['image_xsl_uri'],
+                                                conf['image_libraries_uri'],
+                                                conf['search_images_uri']);
+    drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+
+    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
 
-    var imagedrawer = new ImageDrawer(imagetool, conf['image_xsl_uri'],
-                                      conf['image_libraries_uri'], conf['search_images_uri']);
-    drawertool.registerDrawer('imagedrawer', imagedrawer);
-
-    var tabledrawer = new TableDrawer('kupu-table-drawer-add',
-                                      'kupu-table-drawer-edit',
-                                       tabletool);
+    var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
 
     // register some cleanup filter

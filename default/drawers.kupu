@@ -17,10 +17,12 @@
 
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-image" id="kupu-imagedrawer-button"
+      <button type="button" class="kupu-image" id="kupu-imagelibdrawer-button"
               title="Insert image" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-hyperlink" id="kupu-linkdrawer-button"
+      <button type="button" class="kupu-hyperlink" id="kupu-linklibdrawer-button"
               title="Insert link" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-hyperlink" id="kupu-linkdrawer-button"
+              title="Insert external link" i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-table" id="kupu-tabledrawer-button"
               title="Insert table"  i18n:attributes="title">&#160;</button>
     </span>
@@ -33,6 +35,34 @@
   <kupu:part name="librarydrawer">
     <div style="display:block;">
       <div id="kupu-librarydrawer" class="kupu-drawer">
+      </div>
+    </div>
+  </kupu:part>
+
+  <kupu:part name="linkdrawer">
+    <div id="kupu-linkdrawer" class="kupu-drawer">
+      <h1 i18n:translate="links">Links</h1>
+
+      <div id="kupu-linkdrawer-addlink">
+        <div class="kupu-toolbox-label">
+          <!-- Link to items matching the keyword  -->
+          <span i18n:translate="items-matching-keyword">
+            Link the highlighted text to this URL
+          </span>:
+        </div>
+
+        <input
+            id="kupu-linkdrawer-input"
+            class="kupu-toolbox-st" 
+            type="text"
+            size="14"
+            />
+
+        <div style="text-align: center">
+          <button type="button" onclick="drawertool.closeDrawer()">Cancel</button>
+          <button type="button" onclick="drawertool.current_drawer.save()">Save</button>
+        </div>
+
       </div>
     </div>
   </kupu:part>
