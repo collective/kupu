@@ -14,7 +14,7 @@ function initPloneKupu(iframe, fieldname) {
     var l = new DummyLogger();
 
     var iframehead = iframe.contentWindow.document.getElementsByTagName('head')[0];
-    var styles = Array( 'kupuplone.css', 'plone.css', 'ploneCustom.css');
+    var styles = Array('kupuplone.css', 'plone.css', 'ploneCustom.css');
     for (var i = 0; i < styles.length; i++) {
         var link = iframe.contentWindow.document.createElement('link');
         link.href = styles[i];
@@ -173,9 +173,13 @@ function initPloneKupu(iframe, fieldname) {
         };
     };
 
-    var imagedrawerbutton = new KupuBaseButton('kupu-imagedrawer-button',
-                                               opendrawer('imagedrawer'));
-    kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
+    var imagelibdrawerbutton = new KupuBaseButton('kupu-imagelibdrawer-button',
+						  opendrawer('imagelibdrawer'));
+    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
+
+    var linklibdrawerbutton = new KupuBaseButton('kupu-linklibdrawer-button',
+						 opendrawer('linklibdrawer'));
+    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
     var linkdrawerbutton = new KupuBaseButton('kupu-linkdrawer-button',
                                               opendrawer('linkdrawer'));
@@ -190,13 +194,18 @@ function initPloneKupu(iframe, fieldname) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linkdrawer = new LinkDrawer(linktool, conf['link_xsl_uri'],
-                                    conf['link_libraries_uri'], conf['search_links_uri']);
-    drawertool.registerDrawer('linkdrawer', linkdrawer);
+    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
+					      conf['link_libraries_uri'],
+					      conf['search_links_uri']);
+    drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagedrawer = new ImageDrawer(imagetool, conf['image_xsl_uri'],
-                                      conf['image_libraries_uri'], conf['search_images_uri']);
-    drawertool.registerDrawer('imagedrawer', imagedrawer);
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
+						conf['image_libraries_uri'],
+						conf['search_images_uri']);
+    drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+
+    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
+    drawertool.registerDrawer('linkdrawer', linkdrawer);
 
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);

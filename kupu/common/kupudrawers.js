@@ -100,7 +100,48 @@ function Drawer(elementid, tool) {
     };
 };
 
+function LinkDrawer(elementid, tool) {
+    /* Link drawer */
+    this.element = document.getElementById(elementid);
+    this.tool = tool;
+
+    this.createContent = function() {
+        /* display the drawer */
+        var currnode = this.editor.getSelectedNode();
+        var linkel = this.editor.getNearestParentOfType(currnode, 'a');
+        var input = document.getElementById('kupu-linkdrawer-input');
+        if (linkel) {
+            input.value = linkel.getAttribute('href');
+        } else {
+            input.value = '';
+        };
+        this.element.style.display = 'block';
+    };
+
+    this.save = function() {
+        /* add or modify a link */
+        var input = document.getElementById('kupu-linkdrawer-input');
+        var url = input.value;
+        var currnode = this.editor.getSelectedNode();
+        var linkel = this.editor.getNearestParentOfType(currnode, 'a');
+        if (linkel) {
+            linkel.setAttribute('href', url);
+        } else {
+            this.tool.createLink(url);
+        };
+	input.value = '';
+
+	// XXX when reediting a link, the drawer does not close for
+	// some weird reason. BUG! Close the drawer manually until we
+	// find a fix:
+        this.drawertool.closeDrawer();
+    };
+};
+
+LinkDrawer.prototype = new Drawer;
+
 function TableDrawer(elementid, tool) {
+    /* Table drawer */
     this.element = document.getElementById(elementid);
     this.tool = tool;
 
@@ -136,7 +177,6 @@ function TableDrawer(elementid, tool) {
         this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
         this.drawertool.closeDrawer();
     };
-
 };
 
 TableDrawer.prototype = new Drawer;
@@ -630,13 +670,14 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
 
 LibraryDrawer.prototype = new Drawer;
 
-function ImageDrawer(tool, xsluri, libsuri, searchuri) {
+function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     /* a specific LibraryDrawer for images */
 
     this.init(tool, xsluri, libsuri, searchuri);
 
     this.save = function() {
-        /* create an image in the iframe according to collected data from the drawer */
+        /* create an image in the iframe according to collected data
+           from the drawer */
         var selxpath = '//resource[@selected]';
         var selnode = this.xmldata.selectSingleNode(selxpath);
         if (!selnode) {
@@ -650,22 +691,23 @@ function ImageDrawer(tool, xsluri, libsuri, searchuri) {
         img.setAttribute('alt', alt);
 
         // XXX for some reason, image drawers aren't closed
-        // automatically like Link Drawers. This is definitely a bug
-        // and should be fixed. Until that happens, close the drawer
-        // manually:
+        // automatically like Link Library Drawers. This is definitely
+        // a bug and should be fixed. Until that happens, close the
+        // drawer manually:
         this.drawertool.closeDrawer();
     };
 };
 
-ImageDrawer.prototype = new LibraryDrawer;
+ImageLibraryDrawer.prototype = new LibraryDrawer;
 
-function LinkDrawer(tool, xsluri, libsuri, searchuri) {
+function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     /* a specific LibraryDrawer for links */
 
     this.init(tool, xsluri, libsuri, searchuri);
 
     this.save = function() {
-        /* create a link in the iframe according to collected data from the drawer */
+        /* create a link in the iframe according to collected data
+           from the drawer */
         var selxpath = '//resource[@selected]';
         var selnode = this.xmldata.selectSingleNode(selxpath);
         if (!selnode) {
@@ -684,4 +726,4 @@ function LinkDrawer(tool, xsluri, libsuri, searchuri) {
     };
 };
 
-LinkDrawer.prototype = new LibraryDrawer;
+LinkLibraryDrawer.prototype = new LibraryDrawer;
