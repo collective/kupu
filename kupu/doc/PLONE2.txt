@@ -31,7 +31,96 @@ Usually, every user has to explicitly set its preferred editor to
 Configuration
 -------------
 
+When logged in as a Manager use the 'Plone Setup' to get to the Plone
+control panel. Kupu appears as a configurable product on the control
+panel.
+
 XXX
+
+Paragraph styles
+----------------
+Each rich text field can define its own set of paragraph styles to be
+made available in kupu. These are defined on the parastyles attribute
+of the RichWidget. For example, a typical field definition might be::
+
+        TextField('bodyCopy',
+            allowable_content_types=('text/html',),
+            default_output_type='text/x-html-captioned', # see below
+            required=1,
+            searchable=1,
+            widget=RichWidget
+            (description='Please paste or type your article here',
+                label='Body Copy',
+                parastyles=(
+                 ('div|pullQuote','Pull Quote'),
+                 ('div|Caption','Caption'),
+                 ('div|contactInformation','Contact Information'),
+                 ('div|notesToEditors','Notes to editors'),
+                ),
+            ),
+        ),
+
+parastyles is a sequence of style definitions. Each definition should
+be a 2-tuple of strings. The first string if either the tag to be
+added, or tag, vertical bar, class to be assigned to the tag. The
+second string is the caption that appears in the style pulldown.
+
+Images
+------
+
+The image drawer contains radio buttons to select left, inline or
+right alignment on pasted images. For this to work your CSS must
+define classes image-left, image-inline and image-right. You should
+add these as in the example below even if you do not require the
+optional captioning support.
+
+Optionally kupu can automatically add captions to images. To enable
+this feature you must be linking to an Archetypes based image type,
+and the field you are editing must have its default_output_type set to
+'text/x-html-captioned' in the Archetypes schema. If both of these
+conditions are filled, then the image drawer will include a checkbox
+for captioning an image. By default this is checked, turn it off to
+disable the caption on that image.
+
+The caption is added when the page is viewed. All img tags for
+captioned images are replaced by an img tag in nested divs. The class
+for the img tag is moved to the enclosing div, and the current image
+description is appended in a div with class image-caption. If the
+original image was in a div or paragraph by itself then the enclosing
+tag is also removed. In other words:
+
+    <img class="image-left captioned" width="200" ... />
+
+is replaced by:
+
+    <div class="image-left captioned">
+      <div><img width="200" ... /></div>
+      <div class="image-caption" style="width:200px;">
+         ...description text...
+      </div>
+    </div>
+
+You need to add some styles to your ploneCustom.css. At the least, you
+should set div.image-caption appropriately, you probably also want to
+set classes for displaying images floated left, inline or right::
+
+    div.image-caption {
+      background: #e0e0e0;
+      border: 0 none black;
+      overflow: hidden;
+    }
+    .image-left {
+       float: left;
+       clear: both;
+    }
+    .image-inline {
+       float: none;
+    }
+    .image-right {
+       float: right;
+       clear: both;
+    }
+
 
 Migrating from Epoz
 -------------------
