@@ -373,7 +373,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         if(!id) {
             id = this.drawerid;
         };
-        this.xsltproc.setParameter("", "showupload", this.showupload);
+        try {
+            this.xsltproc.setParameter("", "showupload", this.showupload);
+        } catch(e) {};
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
