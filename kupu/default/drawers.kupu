@@ -140,18 +140,18 @@
                         <td>Column</td>
                         <td>
                           <button type="button" id="kupu-tabledrawer-addcolumn-button"
-                                  onclick="drawertool.current_drawer.tool.addTableColumn">Add</button>
+                                  onclick="drawertool.current_drawer.tool.addTableColumn()">Add</button>
                           <button type="button" id="kupu-tabledrawer-delcolumn-button"
-                                  onclick="drawertool.current_drawer.tool.delTableColumn">Remove</button>
+                                  onclick="drawertool.current_drawer.tool.delTableColumn()">Remove</button>
                         </td>
                       </tr>
                       <tr>
                         <td>Row</td>
                         <td>
                           <button type="button" id="kupu-tabledrawer-addrow-button"
-                                  onclick="drawertool.current_drawer.addTableRow">Add</button> 
+                                  onclick="drawertool.current_drawer.tool.addTableRow()">Add</button> 
                           <button type="button" id="kupu-tabledrawer-delrow-button"
-                                  onclick="drawertool.current_drawer.delTableRow">Remove</button>
+                                  onclick="drawertool.current_drawer.tool.delTableRow()">Remove</button>
                         </td>
                       </tr>
                       <tr>
