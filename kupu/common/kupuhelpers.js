@@ -461,7 +461,7 @@ function MozillaSelection(document) {
                 var textAfter = text.substr(pos);
 
                 var beforeNode = this.document.getDocument().createTextNode(textBefore);
-                var afterNode = this.document.getDocument().createTextNode(textAfter);
+                afterNode = this.document.getDocument().createTextNode(textAfter);
 
                 // insert the 3 new nodes before the old one
                 container.insertBefore(afterNode, textNode);
@@ -472,7 +472,7 @@ function MozillaSelection(document) {
                 container.removeChild(textNode);
             } else {
                 // else simply insert the node
-                var afterNode = container.childNodes[pos];
+                afterNode = container.childNodes[pos];
                 if (afterNode) {
                     container.insertBefore(node, afterNode);
                 } else {
@@ -699,7 +699,8 @@ function MozillaSelection(document) {
         // XXX this should be on a range object
         var offsetparent = this.parentElement();
         // the offset within the offsetparent
-        var realoffset = offset + this.startOffset();
+        var startoffset = this.startOffset();
+        var realoffset = offset + startoffset;
         if (realoffset >= 0) {
             var currnode = offsetparent.firstChild;
             var curroffset = 0;
@@ -708,6 +709,9 @@ function MozillaSelection(document) {
             while (currnode) {
                 if (currnode.nodeType == 3) { // XXX need to support CDATA sections
                     var nodelength = currnode.nodeValue.length;
+                    alert('curroffset: ' + curroffset);
+                    alert('nodelength: ' + nodelength);
+                    alert('realoffset: ' + realoffset);
                     if (curroffset + nodelength >= realoffset) {
                         var range = this.selection.getRangeAt(0);
                         //range.setEnd(this.endNode(), this.endOffset());
@@ -792,16 +796,14 @@ function IESelection(document) {
         // to just before the element instead of inside it, and since IE doesn't reserve
         // an index for the element itself as well the way to get it inside the element is
         // by moving the start one pos and then moving it back (yuck!)
-        if (this.selection.type == "Text") {
-            var range = this.selection.createRange().duplicate();
-            range.moveToElementText(node);
-            range.moveStart('character', 1);
-            range.moveStart('character', -1);
-            range.moveEnd('character', -1);
-            range.moveEnd('character', 1);
-            range.select();
-            this.selection = this.document.getDocument().selection;
-        }
+        var range = this.selection.createRange().duplicate();
+        range.moveToElementText(node);
+        range.moveStart('character', 1);
+        range.moveStart('character', -1);
+        range.moveEnd('character', -1);
+        range.moveEnd('character', 1);
+        range.select();
+        this.selection = this.document.getDocument().selection;
     };
 
     this.getSelectedNode = function() {
@@ -826,6 +828,7 @@ function IESelection(document) {
         var range = this.selection.createRange();
         range.collapse(!collapseToEnd);
         range.select();
+        this.selection = document.getDocument().selection;
     };
 
     this.replaceWithNode = function(newnode, selectAfterPlace) {
