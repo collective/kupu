@@ -13,6 +13,8 @@
 // Various tests for html -> xhtml processing.
 
 function KupuPloneTestCase() {
+    SelectionTestCase.apply(this);
+    this.base_setUp = this.setUp;
     this.name = 'KupuPloneTestCase';
 
     this.incontext = function(s) {
@@ -34,10 +36,10 @@ function KupuPloneTestCase() {
     }
 
     this.setUp = function() {
-        var iframe = document.getElementById('iframe');
-        this.doc = iframe.contentWindow.document;
-        this.body = this.doc.getElementsByTagName('body')[0];
-        this.editor = new KupuEditor(null, {}, null);
+        this.base_setUp();
+        this.editor = new KupuEditor(this.kupudoc, {}, null);
+        this.ui = new PloneKupuUI('plone-test-styles');
+        this.editor.registerTool('ui', this.ui);
     };
 
     this.testRelativeLinks1 = function() {
@@ -85,9 +87,19 @@ function KupuPloneTestCase() {
         this.verifyResult(actual, expected);
     }
 
+    this.testSetTextStyle = function() {
+        var data = '<p>line 1</p><div class="Caption">line 2</div><div class="Caption">line 3</div>';
+        // select  .....................................|e 2</div><div class="Caption">line|...
+        var expected = '<p>line 1</p><h2>line 2</h2><h2>line 3</h2>';
+        this.body.innerHTML = data;
+        this._setSelection(9, null, 16, null, 'e 2line');
+        this.ui.setTextStyle('h2');
+        this.assertEquals(this.body.innerHTML.replace(/[\r\n]/g, ""), expected);
+    }
+
     this.tearDown = function() {
         this.body.innerHTML = '';
     };
 }
 
-KupuPloneTestCase.prototype = new TestCase;
+KupuPloneTestCase.prototype = new SelectionTestCase;
