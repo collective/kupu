@@ -45,11 +45,12 @@ useful for people who want to perform customizations, and we don't
 want to overlook them, ending up doing things from JavaScript that can
 easily be changed in the configuration... ;) Unless special features
 are included, Kupu has a very limited set of configuration options,
-which can all be set through inline XML `islands' within the document
+which can all be set through inline XML 'islands' within the document
 containing Kupu.
 
+===================== ================================================
 Directive             Possible values
-----------------------------------------------------------------------
+===================== ================================================
 src                   the source URL of the document
 dst                   the URL to PUT to (not used for POST setups)
 use_css               whether Kupu should try to (it will succeed in
@@ -64,6 +65,7 @@ strict_output         when set to 1, Kupu will send a full XHTML
                       compliant document, including document type
                       declaration and xmlns namespace declaration to
                       the server
+===================== ================================================
   
 CSS customization
 -----------------

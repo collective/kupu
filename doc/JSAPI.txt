@@ -175,8 +175,8 @@ Methods on KupuObject (kupueditor.js)
 
     setHTMLBody(text)
         - sets the contents of the body to the specified HTML text
-        (which should not include a body tag). If there are multiple
-        bodies they are all replaced.
+          (which should not include a body tag). If there are multiple
+          bodies they are all replaced.
 
 Methods on tools (kupubasetools.js)
 -----------------------------------
@@ -212,9 +212,13 @@ Tool implementations (depending on the complexity of the tool a tool either
             - handle a basic action like Bold or Italic
 
         saveButtonHandler()
+
         saveAndExitButtonHandler()
+
         cutButtonHandler()
+
         copyButtonHandler()
+
         pasteButtonHandler()
             - basic button handlers for a specific action
 

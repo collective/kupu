@@ -62,7 +62,7 @@ Process overview
 
 1. The user opens a drawer in Kupu. Kupu requests a list of available
    libraries. The server answers with a list of libraries possibly
-    containing URIs at which to get the content listing of each library.
+   containing URIs at which to get the content listing of each library.
 
 2. Upon user request, Kupu loads the contents of a library and present
    it to the user. Already opened libraries are not reloaded from the
@@ -88,130 +88,133 @@ Kupu issues a simple HTTP GET request to a URL defined in the
 'libraries' attribute of the iframe. The server returns XML conforming
 to the following schema::
 
-<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+ <grammar xmlns="http://relaxng.org/ns/structure/1.0">
 
-  <start>
-    <ref name="librariesDocumentElement" />
-  </start>
+   <start>
+     <ref name="librariesDocumentElement" />
+   </start>
 
-  <define name="librariesDocumentElement">
-    <element name="libraries">
-      <zeroOrMore>
-        <ref name="library" />
-      </zeroOrMore>
-    </element>
-  </define>
+   <define name="librariesDocumentElement">
+     <element name="libraries">
+       <zeroOrMore>
+         <ref name="library" />
+       </zeroOrMore>
+     </element>
+   </define>
 
-  <define name="library"
-    <element name="library">
-      <interleave>
-        <ref name="commonToAllItems" />
-        <choice>
-          <ref name="collectionItems" />
-          <ref name="itemsSource" />
-        </choice>
-      </interleave>
-      </element>
-  </define>
+   <define name="library"
+     <element name="library">
+       <interleave>
+         <ref name="commonToAllItems" />
+         <choice>
+           <ref name="collectionItems" />
+           <ref name="itemsSource" />
+         </choice>
+       </interleave>
+       </element>
+   </define>
 
-  <define name="commonToAllItems">
-    <attribute name="id">
-      <!-- Must be unique among all libraries, resources and collections. -->
-      <text />
-    </attribute>
+   <define name="commonToAllItems">
+     <attribute name="id">
+       <!-- Must be unique among all libraries, resources and collections. -->
+       <text />
+     </attribute>
 
-    <interleave>
-      <element name="uri">
-        <text />
-      </element>
+     <interleave>
+       <element name="uri">
+         <text />
+       </element>
 
-      <element name="title">
-        <text />
-      </element>
+       <element name="title">
+         <text />
+       </element>
 
-      <optional>
-        <element name="icon">
-          <text />
-        </element>
-      </optional>
-    </interleave>
-  </define>
+       <optional>
+         <element name="icon">
+           <text />
+         </element>
+       </optional>
+     </interleave>
+   </define>
 
-  <define name="collectionItems">
-    <element name="items">
-      <zeroOrMore>
-        <ref name="collectionItem" />
-      </zeroOrMore>
-    </element>
-  </define>
+   <define name="collectionItems">
+     <element name="items">
+       <zeroOrMore>
+         <ref name="collectionItem" />
+       </zeroOrMore>
+       <optional>
+         <element name="uploadbutton" />
+       </optional>
+     </element>
+   </define>
 
-  <define name="itemsSource">
-    <element name="src">
-      <text />
-    </element>
-  </define>
+   <define name="itemsSource">
+     <element name="src">
+       <text />
+     </element>
+   </define>
 
-  <define name="collectionItem">
-    <choice>
-      <element name="resource">
-        <ref name="commonToAllItems" />
-        <ref name="extraResourceInfo" />
-      </element>
-      <element name="collection">
-        <ref name="commonToAllItems" />
-        <ref name="itemsSource" />
-      </element>
-    </choice>
-  <define>
+   <define name="collectionItem">
+     <choice>
+       <element name="resource">
+         <ref name="commonToAllItems" />
+         <ref name="extraResourceInfo" />
+       </element>
+       <element name="collection">
+         <ref name="commonToAllItems" />
+         <ref name="itemsSource" />
+       </element>
+     </choice>
+   <define>
 
-  <define name="extraResourceInfo">
-    <interleave>
-      <optional>
-        <element name="preview">
-          <text />
-        </element>
-      </optional>
+   <define name="extraResourceInfo">
+     <interleave>
+       <optional>
+         <element name="preview">
+           <text />
+         </element>
+       </optional>
 
-      <optional>
-        <element name="size">
-          <text />
-        </element>
-      </optional>
+       <optional>
+         <element name="size">
+           <text />
+         </element>
+       </optional>
 
-      <optional>
-        <element name="type">
-          <text />
-        </element>
-      </optional>
-    </interleave>
-  </define>
+       <optional>
+         <element name="type">
+           <text />
+         </element>
+       </optional>
+     </interleave>
+   </define>
 
-</grammar>
+ </grammar>
 
 
 For example::
 
-<libraries>
+ <libraries>
 
-  <library id="http://path/to/folder">
-    <title>Current Folder</title>
-    <icon>http://path/to/icon.jpg</icon>
-    <src>http://server/current/folder/resources.kupu</src>
-  </library>
+   <library id="http://path/to/folder">
+     <title>Current Folder</title>
+     <icon>http://path/to/icon.jpg</icon>
+     <src>http://server/current/folder/resources.kupu</src>
+   </library>
 
-  <library id="http://path/to/other/someotherfolder">
-    <title>Some Other Folder</title>
-    <icon>http://path/to/icon.jpg</icon>
-    <src>http:/server/other/folder/resources.kupu</src>
-  </library>
+   <library id="http://path/to/other/someotherfolder">
+     <title>Some Other Folder</title>
+     <icon>http://path/to/icon.jpg</icon>
+     <src>http:/server/other/folder/resources.kupu</src>
+   </library>
 
-  <library id="recentitems">
-    <title>Recent Items</title>
-    <icon>http://path/to/icon.jpg</icon>
-    <items />
-  </library>
+   <library id="recentitems">
+     <title>Recent Items</title>
+     <icon>http://path/to/icon.jpg</icon>
+     <items />
+   </library>
 
-</libraries>
+ </libraries>
 
 
 Kupu parses this XML to a DOM managed in JavaScript and displays it
@@ -262,41 +265,41 @@ When a library's contents has to be retrieved with an extra request,
 it is returned according to the following schema (using definitions
 from above)::
 
-<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+ <grammar xmlns="http://relaxng.org/ns/structure/1.0">
 
-  <start>
-    <ref name="libraryDocumentElement" />
-  </start>
+   <start>
+     <ref name="libraryDocumentElement" />
+   </start>
 
-  <define name="libraryDocumentElement">
-    <element name="library">
-      <ref name="commonToAllItems" />
-      <ref name="collectionItems" />
-    </element>
-  </define>
+   <define name="libraryDocumentElement">
+     <element name="library">
+       <ref name="commonToAllItems" />
+       <ref name="collectionItems" />
+     </element>
+   </define>
 
-</grammar>
+ </grammar>
 
 
 For example::
 
-<library id="some_unique_id">
-  <title>Current folder</title>
-  <uri>http://server/current/folder</uri>
-  <icon>http://server/folder.ico</icon>
-  <items>
-    <resource id="another_unique_id">
-      <title>Foo img</title>
-      <uri>http://server/current/folder/foo.jpg</uri>
-      <icon>http://server/image.ico</icon>
-    </resource>
-    <collection id="a_collections_unique_id">
-      <title>Some collection</title>
-      <uri>http://server/current/folder/collection</uri>
-      <icon>http://server/folder.ico</icon>
-    </collection>
-  </items>
-</library>
+ <library id="some_unique_id">
+   <title>Current folder</title>
+   <uri>http://server/current/folder</uri>
+   <icon>http://server/folder.ico</icon>
+   <items>
+     <resource id="another_unique_id">
+       <title>Foo img</title>
+       <uri>http://server/current/folder/foo.jpg</uri>
+       <icon>http://server/image.ico</icon>
+     </resource>
+     <collection id="a_collections_unique_id">
+       <title>Some collection</title>
+       <uri>http://server/current/folder/collection</uri>
+       <icon>http://server/folder.ico</icon>
+     </collection>
+   </items>
+ </library>
 
 
 User opens a collection
@@ -305,75 +308,75 @@ User opens a collection
 Unselect the previously selected collection and try to execute one of
 three cases in order:
 
-  o The node of selected collection is queried for an attribute
-  'loadedInNode'. If it exists, it refers to an id of a node which
-  already contains that collection's items. Select that node and
-  execute the XSLT to present changes.
+  * The node of selected collection is queried for an attribute
+    'loadedInNode'. If it exists, it refers to an id of a node which
+    already contains that collection's items. Select that node and
+    execute the XSLT to present changes.
 
-  o The selected collection node does not have a 'loadedInNode'
-  attribute. Therefore, the selected collection's URI is read and the
-  document element's children are queried with an XPath to check
-  whether the collection with that URI was already loaded before and
-  attached to the document element. If so, the selected collection
-  node receives an attribute 'loadedInNode' with the value of the
-  corresponding collection node below the document element, which is
-  selected (by setting the 'selected' attribute). The XSLT is executed
-  to present the changes.
+  * The selected collection node does not have a 'loadedInNode'
+    attribute. Therefore, the selected collection's URI is read and the
+    document element's children are queried with an XPath to check
+    whether the collection with that URI was already loaded before and
+    attached to the document element. If so, the selected collection
+    node receives an attribute 'loadedInNode' with the value of the
+    corresponding collection node below the document element, which is
+    selected (by setting the 'selected' attribute). The XSLT is executed
+    to present the changes.
 
-  o The selected collection node has no 'loadedInNode' attribute and
-  there is no preloaded collection node of that URI. The selected
-  node's <src> subelement is read. An HTTP GET request is made to that
-  URI and the items XML data retrieved and turned into a DOM tree. The
-  <collection> node of that resulting tree is given a new unique ID,
-  appended to the document element of the library DOM tree and
-  selected (by setting the 'selected' attribute). The selected
-  collection node receives an attribute 'loadedInNode' with the value
-  that newly generated id. The XSLT is executed to present the
-  changes.
+  * The selected collection node has no 'loadedInNode' attribute and
+    there is no preloaded collection node of that URI. The selected
+    node's <src> subelement is read. An HTTP GET request is made to that
+    URI and the items XML data retrieved and turned into a DOM tree. The
+    <collection> node of that resulting tree is given a new unique ID,
+    appended to the document element of the library DOM tree and
+    selected (by setting the 'selected' attribute). The selected
+    collection node receives an attribute 'loadedInNode' with the value
+    that newly generated id. The XSLT is executed to present the
+    changes.
 
 When a collection's contents has to be retrieved with an extra
 request, it is returned according to the following schema (using
-definitions from above):
+definitions from above)::
 
-<grammar xmlns="http://relaxng.org/ns/structure/1.0">
+  <grammar xmlns="http://relaxng.org/ns/structure/1.0">
 
-  <start>
-    <ref name="collectionDocumentElement" />
-  </start>
+    <start>
+      <ref name="collectionDocumentElement" />
+    </start>
 
-  <define name="collectionDocumentElement">
-    <element name="collection">
-      <ref name="commonToAllItems" />
-      <ref name="collectionItems" />
-    </element>
-  </define>
+    <define name="collectionDocumentElement">
+      <element name="collection">
+        <ref name="commonToAllItems" />
+        <ref name="collectionItems" />
+      </element>
+    </define>
 
-</grammar>
+  </grammar>
 
 This grammar is modeled after the WebDAV response grammar, without
 using the namespace parts of WebDAV. For example::
 
-<collection id="some_unique_id">
-  <title>Some folder</title>
-  <uri>http://server/some/folder</uri>
-  <icon>http://server/folder.ico</icon>
+  <collection id="some_unique_id">
+    <title>Some folder</title>
+    <uri>http://server/some/folder</uri>
+    <icon>http://server/folder.ico</icon>
 
-  <items>
-    <resource id="another_unique_id">
-      <title>Foo img</title>
-      <uri>http://server/some/folder/foo.jpg</uri>
-      <icon>http://server/image.ico</icon>
-    </resource>
+    <items>
+      <resource id="another_unique_id">
+        <title>Foo img</title>
+        <uri>http://server/some/folder/foo.jpg</uri>
+        <icon>http://server/image.ico</icon>
+      </resource>
 
-    <collection id="a_subfolders_unique_id">
-      <title>Some subfolder</title>
-      <uri>http://server/some/folder/subfolder</uri>
-      <icon>http://server/folder.ico</icon>
-      <src>http://server/some/folder/resources.kupu</src>
-    </collection>
-  </items>
+      <collection id="a_subfolders_unique_id">
+        <title>Some subfolder</title>
+        <uri>http://server/some/folder/subfolder</uri>
+        <icon>http://server/folder.ico</icon>
+        <src>http://server/some/folder/resources.kupu</src>
+      </collection>
+    </items>
 
-</library>
+  </library>
 
 
 If a collection's parent collection shall be accessible, then the
@@ -457,8 +460,8 @@ version:
 Futures
 -------
 
-  o Cached XSLT (need Sarissa support for this)
+  * Cached XSLT (need Sarissa support for this)
 
-  o Deeper standards support (WebDAV/DASL)
+  * Deeper standards support (WebDAV/DASL)
 
-  o Image/file upload via the library 
+  * Image/file upload via the library 
