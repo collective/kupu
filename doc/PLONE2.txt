@@ -22,7 +22,10 @@ directory. Now generate the Plone template by typing:
 
   $ make plonemacros
 
-Then restart the Zope instance. Now go to the Plone Control Panel,
+If you see xsltproc throw an error about not being able to load
+external entities, ignore it.
+
+Now restart the Zope instance. Now go to the Plone Control Panel,
 section Add/remove Products and select 'kupu' for installation.
 
 Usually, every user has to explicitly set its preferred editor to
