@@ -7,5 +7,6 @@
   <!-- Include features -->
   <xi:include href="body.kupu" />
   <xi:include href="head.kupu" />
+  <xi:include href="toolboxes.kupu" />
 
 </kupu:include>
