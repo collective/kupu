@@ -226,7 +226,7 @@ function NodeIterator(node, continueatnextsibling) {
     
     this.node = node;
     this.current = node;
-    this.stopatnextsibling = !continueatnextsibling;
+    this.terminator = continueatnextsibling ? null : node;
     
     this.next = function() {
         /* return the next node */
@@ -234,21 +234,19 @@ function NodeIterator(node, continueatnextsibling) {
             // restart
             this.current = this.node;
         };
-        if (this.stopatnextsibling && this.current == this.node.nextSibling) {
-            return false;
-        };
         var current = this.current;
         if (current.firstChild) {
             this.current = current.firstChild;
         } else {
-            while (!current.nextSibling) {
-                if (!current.parentNode || current == this.node.nextSibling) {
-                    this.current = false;
-                    return false;
-                };
+            // walk up parents until we finish or find one with a nextSibling
+            while (current != this.terminator && !current.nextSibling) {
                 current = current.parentNode;
-            }
-            this.current = current.nextSibling;
+            };
+            if (curent == this.terminator) {
+                this.current = false;
+            } else {
+                this.current = current.nextSibling;
+            };
         };
         return this.current;
     };
