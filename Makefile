@@ -11,16 +11,22 @@
 # $Id$
 
 XSLTPROC = /usr/bin/xsltproc
-XSL_PARAMS = --param debug true\(\)
-XSLTPROC_PARAMS = $(XSL_PARAMS) --novalid --xinclude
+XSL_DEBUG = --param debug true\(\)
+XSLTPROC_PARAMS = --novalid --xinclude
 XSL_FILE = make.xsl
-DIST_FILE = dist.kupu
 
 kupu.html:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) $(DIST_FILE) > kupu.html
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
+
+wysiwyg_support.html:
+	$(XSLTPROC) $(XSLTPROC_PARAMS) $(XSL_FILE) plone-dist.kupu > plone/kupu_plone_layer/wysiwyg_support.html
 
 all:
 	kupu.html
 
 clean:
-	rm kupu.html
+	rm default/kupu.html
+	rm plone/kupu_plone_layer/wysiwyg_support.html
+
+debug:
+	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) $(XSL_FILE) dist.kupu > default/kupu.html
