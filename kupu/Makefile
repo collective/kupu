@@ -15,7 +15,7 @@ XSL_DEBUG = --param debug true\(\)
 XSLTPROC_PARAMS = --nonet --novalid --xinclude
 XSL_FILE = make.xsl
 
-all: clean kupu.html kupuform.html kupumulti.html zope2macros plonemacros silvamacros lenyamacros
+all: clean kupu.html kupuform.html kupumulti.html zope2macros plonemacros silvamacros lenyamacros kupucnf.html
 
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
@@ -48,6 +48,7 @@ clean:
 	rm -f plone/kupu_plone_layer/wysiwyg_support.html
 	rm -f silva/kupumacros.html
 	rm -f common/kupumulti.html
+	rm -f common/kupucnf.html
 
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
