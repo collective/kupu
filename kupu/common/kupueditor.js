@@ -620,6 +620,8 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < atts.length; i++) {
             name = atts[i].nodeName;
             val = atts[i].nodeValue;
+            // XXX Seems like a bug to me: why do col- and rowspan get set
+            // *only* if the value == 1?
             if (!(val == null || val == "" || name == "contentEditable" ||
                   ((name == "rowSpan" || name == "colSpan") && val == 1) )) {
                 xhtmlnode.setAttribute(name.toLowerCase(), val);
