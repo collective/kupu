@@ -7,7 +7,7 @@
     >
 
   <kupu:part name="body">
-    <body onload="startKupu()">
+    <body onload="kupu = startKupu()">
       <h1>Kupu Editor Test Page</h1>
       <kupu:define-slot name="body" />
     </body>
