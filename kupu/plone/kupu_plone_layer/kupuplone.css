@@ -30,3 +30,9 @@ ploneCustom.css and use the kupu class to distinguish them. e.g.
 .pullQuote { float: right; width: 30%; }
 .kupu .pullQuote { float:none; width: auto; }
 */
+
+
+.kupu-editor-iframe {
+  border: solid black 1px;
+  margin-right: 0.2em;
+}
