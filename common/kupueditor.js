@@ -323,7 +323,7 @@ function KupuEditor(document, config, logger) {
         this.updateState();
         this.logMessage(message);
     };
-    
+
     this.getSelection = function() {
         /* returns a Selection object wrapping the current selection */
         if (this.getBrowserName() == "IE") {
@@ -331,15 +331,10 @@ function KupuEditor(document, config, logger) {
         };
         return this.getDocument().getSelection();
     };
-    
-    this.parentElement = function() {
-        /* returns the selected node (read: parent) or none */
-        return this.getSelection().parentElement();
-    };
 
     this.getSelectedNode = function() {
-        this.editor.logMessage(_('KupuEditor.getSelectedNode() is deprecated: use KupuEditor.parentElement() instead!'));
-        return this.parentElement();
+        /* returns the selected node (read: parent) or none */
+        return this.getSelection().parentElement();
     };
 
     this.getNearestParentOfType = function(node, type) {
