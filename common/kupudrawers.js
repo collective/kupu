@@ -305,6 +305,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             this.xsltproc.setParameter("", "drawertype", this.drawertype);
             this.xsltproc.setParameter("", "drawertitle", this.drawertitle);
             this.xsltproc.setParameter("", "showupload", this.showupload);
+            if (this.editor.config.captions) {
+                this.xsltproc.setParameter("", "usecaptions", 'yes');
+            }
         } catch(e) {
             return; // No XSLT Processor, maybe IE 5.5?
         }
@@ -773,7 +776,10 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     
     // upload, on submit/insert press
     this.uploadImage = function() {
-        if (document.kupu_upload_form.node_prop_caption.value == "") {
+        var form = document.kupu_upload_form;
+        if (!form || form.node_prop_image.value=='') return;
+
+        if (form.node_prop_caption.value == "") {
             alert("Please enter a title for the image you are uploading");
             return;        
         };
@@ -795,7 +801,10 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     
     // called by onLoad within document sent by server
     this.finishUpload = function(url) {
-        this.tool.createImage(url);
+        var img = this.tool.createImage(url);
+        if (this.editor.config.captions) {
+            img.className = img.className + " captioned";
+        }
         this.newimages = 1;
         this.drawertool.closeDrawer();
     };
@@ -809,12 +818,9 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
         
         // If no image resource is selected, check for upload
         if (!selnode) {
-            var selected = this.xmldata.selectSingleNode("/libraries/*[@selected]");
-            if (selected) {
-                var id = selected.getAttribute('id')
-                if (id != "myitems" && id != "recentitems") {
-                    this.uploadImage();
-                };
+            var uploadbutton = this.xmldata.selectSingleNode("/libraries/*[@selected]//uploadbutton");
+            if (uploadbutton) {
+                this.uploadImage();
             };
             return;
         };
@@ -834,7 +840,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
         }
 
         var caption = document.getElementsByName('image-caption');
-        if (caption.length>0 && caption[0].checked) {
+        if (caption && caption.length>0 && caption[0].checked) {
             img.className = img.className + " captioned";
         }
 

@@ -23,14 +23,19 @@ def Error(fmt, *args):
     script = TEMPLATE % ('cancelUpload', msg.replace("'", "\\'"))
     return script
 
+kupu_tool = getToolByName(context, 'kupu_library_tool')
+ctr_tool = getToolByName(context, 'content_type_registry')
+
 id = request['node_prop_image'].filename
+linkbyuid = kupu_tool.getLinkbyuid();
+base = context.absolute_url()
 
 # MTR would also do content-based classification, alas, we don't want it as a dependency here
 # content_type= getToolByName(context,'mimetypes_registry').classify(node_prop_image)
 
 content_type = request['node_prop_image'].headers["Content-Type"]
-typename = getToolByName(context, 'content_type_registry').findTypeName(id, content_type, "")
-   
+typename = ctr_tool.findTypeName(id, content_type, "")
+
 # Permission checks based on code by Danny Bloemendaal
 
 # 1) check if we are allowed to create an Image in folder 
@@ -60,8 +65,10 @@ if not obj:
    return Error("Could not create %s with %s as id and %s as title!", typename,newid, node_prop_caption)
 
 obj.reindexObject() 
-url = obj.absolute_url()
-
+if linkbyuid and hasattr(obj, 'UID'):
+    url = base+'/resolveuid/%s' % obj.UID()
+else:
+    url = obj.absolute_url()
 
 return TEMPLATE % ('finishUpload', url)
 
