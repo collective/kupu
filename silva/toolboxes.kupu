@@ -220,9 +220,10 @@
                       <input type="button"  class="warning" id="kupu-table-delrow-button" value="remove" /></td>
                   </tr>
                   <tr>
-                    <td class="align-right">cleanup cells</td>
+                    <td class="align-right">table</td>
                     <td>
-                      <input type="button" class="button" id="kupu-table-fix-button" value="fix table" />
+                      <input type="button" class="button" id="kupu-table-fix-button" value="cleanup" />
+                      <input type="button" class="warning" id="kupu-table-delete-button" value="remove" />
                     </td>
                   </tr>
                 </table>
