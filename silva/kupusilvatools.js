@@ -1789,7 +1789,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
             request.onreadystatechange = callback.execute;
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            request.setRequestHeader('Content-Length:', formdata.length);
             request.send(formdata);
         };
     };
