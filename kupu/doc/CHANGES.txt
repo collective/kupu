@@ -2,35 +2,46 @@
 Kupu changes
 ============
 
-- Kupu 1.1
+- Kupu 1.1 beta 1
+
+  o Templates for different systems are now generated with an
+    XML/XSLT-based templating system.
 
   o Added state for buttons, if one is inside a tag controlled by a button
     the button gets a new class (this way when inside e.g. a bold tag the
-    bold button can look pressed)
+    bold button can look pressed).
 
-  o Added access keys
+  o Added access key functionality.
 
-- Kupu 1.0.3
+  o Implemented a new way of inserting images and linking to
+    documents, library drawers. Drawers are windows that open up
+    inside the browser without invoking a browser popup. Library
+    drawers load information about linkable/insertable objects from
+    the server via standardized XML.
 
-  o Added classes for the buttons. This allows them to have an updateState
-    as well, which is used to make buttons look 'pressed in' when inside
-    certain markup (when inside a bold piece of text, the bold button will
-    look different).
-    This feature does not break existing installations, but existing initKupu
-    functions need to be modified to use the new button classes.
+- 1.0.3 (2004-03-25)
 
-  o Changed the ids of all buttons in the macro. To be consistent the names of
-    some existing buttons (the ones to set colors) are modified as well, which
-    will break existing installations. Either change the name in the macro or
-    adjust kupuInit to fix this problem.
+  o Renamed epoz to kupu to end the name confusion with Maik
+    Jablonski's editor once and for all. Thanks to Eric Casteleijn for
+    the name suggestion.
 
-  o Added some code to allow tooloboxes to change class when they are 'active',
-    for instance when the cursor is inside a table the table toolbox can look
-    different (different backgroundcolor etc.) This is optional and is written
-    in a backward compatible way, if existing installations want to use it they
-    should modify their custom initKupu (if they use a custom one, that is).
+  o Kupu is distributed under the BSD-style Kupu license. See
+    LICENSE.txt for license text.
 
-- 1.0.2
+  o Kupu is an official OSCOM project now. Its new homepage is
+    available at http://kupu.oscom.org. The development home remains
+    with Codespeak.
+
+  o Improved preliminary Plone support. Thanks to Duncan G. Booth for
+    this work.
+
+  o Fixed bug that made IE throw an exception on re-selecting text in
+    a removed element.
+
+  o Removed the 'locales' directory for the time being. We will
+    support i18n in the future, but not in this Zope-specific way.
+
+- 1.0.2 (2004-03-06)
 
   o Added POST support
 
