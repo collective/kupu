@@ -6,9 +6,11 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
   <kupu:part name="html">
-    <!-- macros use kupu_url for locating kupu -->
+  
+    <!-- define kupu_url and document_url here for macros to use -->
     <html xmlns="http://www.w3.org/1999/xhtml"
-          tal:define="kupu_url here/absolute_url">
+          tal:define="kupu_url here/absolute_url;
+                      document_url here/fulldoc/absolute_url;">
 
       <kupu:define-slot name="html" />
 

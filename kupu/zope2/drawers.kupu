@@ -8,7 +8,7 @@
     >
 
   <kupu:part name="styles">
-    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css"
+    <link rel="stylesheet" type="text/css" href="kupudrawerstyles.css"
           tal:attributes="href string:${kupu_url}/kupudrawerstyles.css" />
   </kupu:part>
 

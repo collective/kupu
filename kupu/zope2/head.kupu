@@ -8,14 +8,6 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     >
 
-  <kupu:part name="head">
-    <head>
-      <metal:macro define-macro="head">
-        <kupu:define-slot name="head" />
-      </metal:macro>
-    </head>
-  </kupu:part>
-
   <kupu:part name="meta" />
 
   <kupu:part name="styles">

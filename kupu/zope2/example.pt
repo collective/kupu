@@ -18,15 +18,22 @@
    or something like that. You can now point your browser at any object's
    URL, append '/kupu_edit' and you will be able to edit the object
    with kupu.
-
-   Note: kupumacros requires kupu_url to be defined.
+   
+   Note: kupumacros require kupu_url and document_url be defined.
    -->
 
   <head>
     <title>Kupu Editor example template</title>
 
     <!-- include the standard scripts/stylesheets -->
-    <metal:macro metal:use-macro="macros/head">
+    <metal:macro use-macro="macros/head">
+    <!-- 
+    Slots in this macro can be used to add/remove/change functionality.
+    As a miniumum the kupu_bootstrap slot should be used for your own
+    startKupu() and initKupu() javascripts.
+    Changes here usually require corresponding changes to slots in the
+    fulleditor macro below.
+    -->
     </metal:macro>
 
   </head>
@@ -34,25 +41,21 @@
   <body onload="kupu = startKupu();">
 
     <!-- include the xmlconfig -->
-    <metal:macro metal:use-macro="macros/xmlconfig">
+    <metal:macro use-macro="macros/xmlconfig">
+      <!-- 
+      Slots in this macro can be used to add/remove/change config settings.
+      -->
       <metal:slot fill-slot="dst"><tal:block replace="document_url" /></metal:slot>
     </metal:macro>
 
     <!-- include the fulleditor -->
-    <div class="kupu-fulleditor" metal:use-macro="macros/fulleditor">
+    <metal:macro use-macro="macros/fulleditor">
       <!-- 
-      you can fiddle with slots in this macro to add/remove/change
-      functionality, but anything more than minor changes here will also
-      require your own startKupu() and initKupu() alternatives to match
-      the slot changes.
+      Slots in this macro can be used to add/remove/change functionality.
+      Anything more than minor changes here will also require changes to
+      coresponding slots in the head macro above.
       -->
-      <iframe metal:fill-slot="editorframe"
-              id="kupu-editor"
-              src=""
-              tal:attributes="src document_url;"
-              frameborder="0"
-              scrolling="auto"
-              ></iframe>
-    </div>
+    </metal:macro>
+    
   </body>
 </html>

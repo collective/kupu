@@ -15,8 +15,9 @@
         <iframe metal:define-slot="editorframe"
                 id="kupu-editor"
                 frameborder="0"
+                scrolling="auto"
                 src="fulldoc"
-                scrolling="auto">
+                tal:attributes="src document_url">
         </iframe>
         <textarea id="kupu-editor-textarea" style="display: none"> </textarea>
       </form>
