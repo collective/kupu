@@ -269,6 +269,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
         // somewhere further down the chain starting with 
         // this._libsXslCallback()
         this.xmldata = null;
+
     };
     this.init(tool, xsluri, libsuri, searchuri);
 
@@ -292,6 +293,15 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
             will also make the first loadLibraries call
         */
         this.xsl = dom;
+
+	// Change by Paul to have cached xslt transformers for reuse of 
+	// multiple transforms and also xslt params
+	this.xsltproc = new XSLTProcessor();
+	this.xsltproc.importStylesheet(dom);
+
+	this.xsltproc.setParameter("", "drawertype", this.drawertype);
+	this.xsltproc.setParameter("", "drawertitle", this.drawertitle);
+
     };
 
     this.createContent = function() {
@@ -625,8 +635,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri) {
     this._transformXml = function() {
         /* transform this.xmldata to HTML using this.xsl and return it */
         var doc = Sarissa.getDomDocument();
-        this.xmldata.transformNodeToObject(this.xsl, doc);
-        return doc;
+
+	//var xsltproc = new XSLTProcessor();
+	var result = this.xsltproc.transformToDocument(this.xmldata);
+
+	// this.xmldata.transformNodeToObject(this.xsl, doc);
+        return result;
     };
 
     this._loadXML = function(uri, callback, body) {
@@ -711,6 +725,8 @@ LibraryDrawer.prototype = new Drawer;
 function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     /* a specific LibraryDrawer for images */
 
+    this.drawertitle = "Image Library";
+    this.drawertype = "image";
     this.init(tool, xsluri, libsuri, searchuri);
 
     this.save = function() {
@@ -750,6 +766,8 @@ ImageLibraryDrawer.prototype = new LibraryDrawer;
 function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri) {
     /* a specific LibraryDrawer for links */
 
+    this.drawertitle = "Link Drawer";
+    this.drawertype = "link";
     this.init(tool, xsluri, libsuri, searchuri);
 
     this.save = function() {
