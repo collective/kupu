@@ -582,8 +582,25 @@ function KupuEditor(document, config, logger) {
             title.appendChild(titletext);
         };
         // create a closing element for all elements that require one in XHTML
-        // XXX probably need more of those here...
-        var dualtons = new Array('script', 'textarea', 'title');
+        var dualtons = new Array('a', 'abbr', 'acronym', 'address', 'applet', 
+                                    'b', 'bdo', 'big', 'blink', 'blockquote', 
+                                    'button', 'caption', 'center', 'cite', 
+                                    'comment', 'del', 'dfn', 'dir', 'div',
+                                    'dl', 'dt', 'em', 'embed', 'fieldset',
+                                    'font', 'form', 'frameset', 'h1', 'h2',
+                                    'h3', 'h4', 'h5', 'h6', 'i', 'iframe',
+                                    'ins', 'kbd', 'label', 'legend', 'li',
+                                    'listing', 'map', 'marquee', 'menu',
+                                    'multicol', 'nobr', 'noembed', 'noframes',
+                                    'noscript', 'object', 'ol', 'optgroup',
+                                    'option', 'p', 'pre', 'q', 's', 'script',
+                                    'select', 'small', 'span', 'strike', 
+                                    'strong', 'style', 'sub', 'sup', 'table',
+                                    'tbody', 'td', 'textarea', 'tfoot',
+                                    'th', 'thead', 'title', 'tr', 'tt', 'u',
+                                    'ul', 'xmp');
+        // XXX I reckon this is *way* slow, can we use XPath instead or
+        // something to speed this up?
         for (var i=0; i < dualtons.length; i++) {
             var elname = dualtons[i];
             var els = doc.getElementsByTagName(elname);
