@@ -7,11 +7,8 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
 
-  <kupu:part name="contextmenujs">
+  <kupu:part name="jsincludes">
     <script type="text/javascript" src="kupucontextmenu.js"> </script>
   </kupu:part>
-
-  <!-- We will have the button tool configuration here, too, once we
-       do tool definitions in XML config. -->
 
 </kupu:feature>
