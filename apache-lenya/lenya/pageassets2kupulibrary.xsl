@@ -29,18 +29,20 @@
 </xsl:template>
 
 <xsl:template match="li:asset">
-  <xsl:variable name="resource-url">
-    <xsl:value-of select="concat($resource-path-url, dc:source)"/>
-  </xsl:variable> 
-  
-  <resource id="{$resource-url}">
-    <title><xsl:value-of select="dc:source"/></title>
-    <uri><xsl:value-of select="$resource-url"/></uri>
-    <icon><xsl:value-of select="$iconUrl"/></icon>
-    <description><xsl:value-of select="dc:title"/></description>
-    <preview><xsl:value-of select="$resource-url"/></preview>
-    <size><xsl:value-of select="dc:extent"/>&#160;kb</size>
-  </resource>
+  <xsl:if test="(contains(dc:source, '.jpg') or contains(dc:source, '.gif') or contains(dc:source, '.png') or contains(dc:source, '.swf'))">
+    <xsl:variable name="resource-url">
+      <xsl:value-of select="concat($resource-path-url, dc:source)"/>
+    </xsl:variable> 
+    
+    <resource id="{$resource-url}">
+      <title><xsl:value-of select="dc:source"/></title>
+      <uri><xsl:value-of select="$resource-url"/></uri>
+      <icon><xsl:value-of select="$iconUrl"/></icon>
+      <description><xsl:value-of select="dc:title"/></description>
+      <preview><xsl:value-of select="$resource-url"/></preview>
+      <size><xsl:value-of select="dc:extent"/>&#160;kb</size>
+    </resource>
+  </xsl:if>
 </xsl:template>
 
 <xsl:template match="@*|node()">
