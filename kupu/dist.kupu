@@ -3,27 +3,24 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
+  <!-- Boiler plate -->
+
   <!-- Include implementations -->
   <xi:include href="default/include.kupu" />
-
-  <!-- Include wiring -->
   <xi:include href="default/wire.kupu" />
 
-  <!-- By default, produce a full HTML document -->
+  <!-- Define the default slot to start with -->
   <kupu:expand>
     <kupu:define-slot name="start" />
   </kupu:expand>
 
-  <!-- Define an order for the implementations that are to be used. The
-       most specific one is located at the top, the last one should
-       always be 'default'. -->
+
+  <!-- Now it gets Distribution specific -->
+
+  <!-- Define an implementation order. Default contains only one
+       implementation, itself. -->
   <kupu:implementationOrder>
-    <!-- most specific one at top -->
-    <kupu:implementation name="plone" />
-    <kupu:implementation name="zope" />
     <kupu:implementation name="default" />
   </kupu:implementationOrder>
-
-  <kupu:disableFeature name="sourceedit" />
 
 </kupu:dist>

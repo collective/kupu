@@ -87,47 +87,95 @@ $Id$
       </xsl:comment>
     </xsl:if>
 
-    <!-- We'll try to find wirings that tell us what should go into
+    <!-- We'll try to find a wiring that tells us what should go into
          our slot -->
-    <xsl:for-each
-      select="//kupu:wire[@append-slot=$slot]"
-      >
 
-      <xsl:variable
-        name="feature"
-        select="@feature"
+    <xsl:call-template name="fill-slot">
+      <xsl:with-param
+        name="slot"
+        select="$slot"
         />
-
-      <xsl:variable
-        name="part"
-        select="@part"
-        />
-
-      <!-- Debug -->
-      <xsl:if test="$debug">
-        <xsl:comment>
-          Feature '<xsl:value-of select="$feature" />',
-          part '<xsl:value-of select="$part" />'
-          wants append to slot '<xsl:value-of select="$slot" />'.
-        </xsl:comment>
-      </xsl:if>
-
-      <!-- test if the feature specified by the wiring is disabled; if
-           so, don't continue -->
-      <xsl:if
-        test="not(//kupu:disableFeature[@name=$feature])"
-        >
-        <!-- look for the part in implementation order and insert it -->
-        <xsl:call-template name="insert-part">
-          <xsl:with-param name="feature" select="$feature" />
-          <xsl:with-param name="part" select="$part" />
-        </xsl:call-template>
-      </xsl:if>
-
-    </xsl:for-each>
+    </xsl:call-template>
 
   </xsl:template>
 
+  <!-- Named template that looks for an appropriate fill-slot element
+       in a wiring. It recursively browses through implementations; that
+       way wirings of different implementations cascade -->
+  <xsl:template name="fill-slot">
+    <xsl:param name="implno" select="1" />
+    <xsl:param name="slot" />
+
+    <xsl:variable
+      name="impl"
+      select="//kupu:implementationOrder/kupu:implementation[$implno]/@name"
+      />
+
+    <xsl:variable
+      name="fillnode"
+      select="//kupu:wire[@implementation=$impl]/kupu:fill-slot[@name=$slot]"
+      />
+
+    <xsl:choose>
+      <!-- if we've found a valid implementation, go for it -->
+      <xsl:when test="$fillnode">
+        <!-- Debug -->
+        <xsl:if test="$debug">
+          <xsl:comment>
+            Found wiring for slot '<xsl:value-of select="$slot" />',
+            at implementation no. <xsl:value-of select="$implno" />,
+            '<xsl:value-of select="$impl" />'.
+          </xsl:comment>
+        </xsl:if>
+        <xsl:apply-templates select="$fillnode" mode="expand" />
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Cascade onto the next implementation under two circumstances:
+             a) A specific implementation wasn't request: not(@implementation)
+             b) We're already in the last implementation -->
+        <xsl:choose>          
+        <xsl:when test="$implno &lt;= count(//kupu:implementationOrder/kupu:implementation)">
+         <xsl:call-template name="fill-slot">
+            <xsl:with-param name="implno" select="$implno+1" />
+            <xsl:with-param name="slot" select="$slot" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:comment>
+            Cannot find wiring for slot '<xsl:value-of select="$slot" />'.
+          </xsl:comment>
+        </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+
+  </xsl:template>
+
+  <!-- Handle part insertion; we delegate the work to the named
+       template below -->
+  <xsl:template match="//kupu:insert-part" mode="expand">
+    <xsl:choose>
+      <xsl:when test="//kupu:disableFeature[@name=@feature]">
+        <xsl:if test="$debug">
+          <xsl:comment>
+            Feature '<xsl:value-of select="@feature" />' was disabled.
+          </xsl:comment>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="insert-part">
+          <xsl:with-param
+            name="feature"
+            select="@feature"
+            />
+          <xsl:with-param
+            name="part"
+            select="@part"
+            />
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
   <!-- This template recursively looks for feature/part
        implementations and inserts the first it finds -->
