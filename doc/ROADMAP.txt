@@ -4,13 +4,13 @@ Roadmap
 
 1.1
 
-  * bug day(s): ---
+  * bug day(s): 2004-07-12
 
-  * scheduled for: around the EuroPython Conference
+  * scheduled for: 2004-07-14
 
   * released: ---
 
-  * coordinator: ---
+  * coordinator: Guido Wesdorp
 
 1.1beta2
 
