@@ -12,20 +12,27 @@ if errorlevel 1 goto :eof
 set XSLTPROC=%RES%
 
 set NOOP=
-if /I "%1" EQU "/n" set NOOP=1 && shift /1
-if /I "%1" EQU "-n" set NOOP=1 && shift /1
+set DEBUG=
+set TRACE=
+:getopt
+if /I "%1" EQU "/n" set NOOP=1 && shift /1 && goto :getopt
+if /I "%1" EQU "-n" set NOOP=1 && shift /1 && goto :getopt
+if /I "%1" EQU "/d" set DEBUG=1 && shift /1 && goto :getopt
+if /I "%1" EQU "-d" set DEBUG=1 && shift /1 && goto :getopt
+if /I "%1" EQU "/t" set TRACE=1 && shift /1 && goto :getopt
+if /I "%1" EQU "-t" set TRACE=1 && shift /1 && goto :getopt
+
 if DEFINED NOOP (
   SET X=echo+
-  SET REDIR=^^^>
 ) ELSE (
   SET X=
-  SET REDIR=^>
 )
 
-set XSL_DEBUG=--param debug true^(^)
+set XSL_DEBUG=--param debug true^^^(^^^)
 set XSLTPROC_PARAMS=--nonet --novalid --xinclude
 set XSL_FILE=make.xsl
-
+if DEFINED DEBUG set XSLTPROC_PARAMS=%XSLTPROC_PARAMS% %XSL_DEBUG%
+if DEFINED TRACE set XSLTPROC_PARAMS=%XSLTPROC_PARAMS% --load-trace
 set TARGET_OK=
 set TARGETS=
 for /F "delims=:_ tokens=1,2" %%L in (%~sf0) DO (
@@ -37,28 +44,31 @@ for /F "delims=:_ tokens=1,2" %%L in (%~sf0) DO (
 if "%TARGET_OK%"=="" goto :usage
 goto :target_%1
 :usage
-echo Usage: make [-n] target
+echo Usage: make [-n][-d][-t] target
 echo where target is one of %TARGETS%
+echo -n (or /n) Display but don't execute commands
+echo -d (or /d) Include XML comments in output files.
+echo -t (or /t) Show XML files as they are loaded
 goto :eof
 
 :target_kupu.html
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%common\kupu.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupu.html %XSL_FILE% dist.kupu 
     goto :eof
 
 :target_kupuform.html:
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-form.kupu %REDIR%common\kupuform.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupuform.html %XSL_FILE% dist-form.kupu
     goto :eof
 
 :target_zope2macros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-zope2.kupu %REDIR%common\kupumacros.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o common\kupumacros.html %XSL_FILE% dist-zope2.kupu
     goto :eof
 
 :target_plonemacros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-plone.kupu %REDIR%plone\kupu_plone_layer\wysiwyg_support.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o plone\kupu_plone_layer\wysiwyg_support.html %XSL_FILE% dist-plone.kupu
     goto :eof
 
 :target_silvamacros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% %XSL_FILE% dist-silva.kupu %REDIR%silva\kupumacros.html
+    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o silva\kupumacros.html %XSL_FILE% dist-silva.kupu
     goto :eof
 
 :target_
@@ -68,10 +78,6 @@ goto :eof
     call :target_zope2macros
     call :target_plonemacros
     call :target_silvamacros
-    goto :eof
-
-:target_debug
-    %X%%XSLTPROC% %XSL_DEBUG% %XSLTPROC_PARAMS% %XSL_FILE% dist.kupu %REDIR%common\kupu.html
     goto :eof
 
 :target_clean
