@@ -6,6 +6,27 @@ Kupu changes
 
   o Added support for CSS 'float' for images.
 
+  o Fixed some documentation that said Netscape 7.0 was supported, which
+    it never was, the minimal Netscape version required to use Kupu has
+    always been 7.0
+
+  o Fixed problem where empty title tags broke rendering on IE after a save.
+
+- Kupu 1.1
+
+  o Re-added experimental dist with inspector.
+
+  o Moved drawers to the experimental dist.
+
+  o Some fixes in the Citation tool and External Source tools
+
+  o Fixed bug that made Kupu break on certain type of meta-tags in the
+    editable document.
+
+  o Moved definition list tool to the main and form dist.
+
+  o Made Damian Gajda's SourceEditTool replace the switchSourceEdit function.
+
 - Kupu 1.1 beta 2 (2004-05-27)
 
   o Added source editing for Silva.
