@@ -20,6 +20,8 @@
     select="concat($kupu-common-dir, 'kupuimages/kupu_icon.gif')"/>
   <xsl:param name="lenya-logo" 
     select="concat($context-prefix, '/lenya/images/project-logo-small.png')"/>
+  <xsl:param name="imagedrawer-xsl-uri"/>
+  <xsl:param name="imagedrawer-libraries-uri"/>
     
   <!--
     Kupu head (i.e. CSS overriden by Lenya)
@@ -60,6 +62,30 @@
     <exit_destination>
       <xsl:value-of select="$exit-destination"/>
     </exit_destination>
+  </xsl:template>
+  
+  <xsl:template match="xhtml:kupuconfig/xhtml:image_xsl_uri">
+    <image_xsl_uri>
+      <xsl:value-of select="$imagedrawer-xsl-uri"/>
+    </image_xsl_uri>
+  </xsl:template>
+  
+  <xsl:template match="xhtml:kupuconfig/xhtml:link_xsl_uri">
+    <link_xsl_uri>
+      <xsl:value-of select="concat($kupu-common-dir, .)"/>
+    </link_xsl_uri>
+  </xsl:template>
+ 
+  <xsl:template match="xhtml:kupuconfig/xhtml:image_libraries_uri">
+    <image_libraries_uri>
+      <xsl:value-of select="$imagedrawer-libraries-uri"/>
+    </image_libraries_uri>
+  </xsl:template>
+  
+  <xsl:template match="xhtml:kupuconfig/xhtml:link_libraries_uri">
+    <link_libraries_uri>
+      <xsl:value-of select="concat($kupu-common-dir, .)"/>
+    </link_libraries_uri>
   </xsl:template>
   
   <!-- 
