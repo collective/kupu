@@ -537,12 +537,12 @@ function LinkTool() {
             } else {
                 linkel = currnode.nextSibling;
             };
-            if (!linkel) {
+            if ((!linkel) || linkel.tagName != 'A') {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 linkel = doc.createElement("a");
                 linkel.setAttribute('href', url);
-                currnode.appendChild(linkel);
+                this.editor.getSelection().replaceWithNode(linkel, true);
             };
         } else {
             linkel.setAttribute('href', url);
