@@ -4,7 +4,7 @@
  * All rights reserved.
  *
  * Tool for KUPU, allows edit only parts of document, which are in the
- * DIV elements that containts attribute "editable" with value "yes". 
+ * DIV elements that contains attribute "editable" with value "yes". 
  * 
  * init: iframe is the edited iframe element
  *
@@ -32,6 +32,7 @@ function fxWritable() {
     };
    
     this.checkWrite = function(ev) {
+        /* check if editing is allowed, prevent event if not */
         if (this.fxWritable_status) {
             return true;
         } else {
