@@ -11,11 +11,12 @@
     <icon>${parameters.getParameter('imageBaseUrl')}/sitetree-link.png</icon>
   </library>
   
+  <!-- Not yet implemented
   <library id="other">
     <uri>FIXME URI</uri>
     <title>Other Links</title>
     <src>${parameters.getParameter('pageLibUrl')}</src>
     <icon>${parameters.getParameter('imageBaseUrl')}/emblem-generic.png</icon>
   </library>
-
+  -->
 </libraries>
