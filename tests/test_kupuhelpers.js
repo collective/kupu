@@ -14,19 +14,9 @@ function KupuHelpersTestCase() {
     this.name = 'KupuHelpersTestCase';
 
     this.setUp = function() {
-        this.doc = document.getElementById('iframe').contentWindow.document;
-        var head = this.doc.createElement('head');
-        var title = this.doc.createElement('title');
-        var titletext = this.doc.createTextNode('test');
-        this.body = this.doc.createElement('body');
-
-        title.appendChild(titletext);
-        head.appendChild(title);
-        var html = this.doc.documentElement;
-        while (html.childNodes.length > 0)
-            html.removeChild(html.childNodes[0]);
-        html.appendChild(head);
-        html.appendChild(this.body);
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
     };
         
     this.testSelectSelectItem = function() {
@@ -94,27 +84,26 @@ function KupuHelpersTestCase() {
         this.assertEquals(dict['list'][0], 0);
         this.assertEquals(dict['list'].length, 2);
     };
+
+    this.tearDown = function() {
+        this.body.innerHTML = '';
+    };
 };
 
 KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
     this.setUp = function() {
-        this.main_body = document.getElementById('body');
-        this.iframe = this.main_body.appendChild(
-                            document.createElement('iframe'));
-        this.kupudoc = new KupuDocument(this.iframe);
-        this.document = this.iframe.contentWindow.document;
-        var doc = this.document;
-        doc.designMode = 'on';
-        var docel = doc.documentElement ? doc.documentElement : doc;
-        this.body = docel.appendChild(doc.createElement('body'));
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
+        this.kupudoc = new KupuDocument(iframe);
         this.kupudoc.getWindow().focus();
     };
 
     this.testReplaceWithNode = function() {
-        var node = this.document.createElement('p');
-        var nbsp = this.document.createTextNode('\xa0');
+        var node = this.doc.createElement('p');
+        var nbsp = this.doc.createTextNode('\xa0');
         node.appendChild(nbsp);
         this.body.appendChild(node);
         var selection = _SARISSA_IS_IE ? new IESelection(this.kupudoc) : new MozillaSelection(this.kupudoc);
@@ -132,7 +121,7 @@ function KupuSelectionTestCase() {
     };
 
     this.tearDown = function() {
-        this.main_body.removeChild(this.iframe);
+        this.body.innerHTML = '';
     };
 };
 

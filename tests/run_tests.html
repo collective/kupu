@@ -36,6 +36,19 @@ the local machine aren't allowed to run scripts.-->
 //<![CDATA[
 
     function runTests() {
+        // global set up
+        // This provides a global sandbox, the only known way to get
+        // execCommand tests working in Mozilla. Don't touch the body node!
+        // Even if you re-add it you'll break other tests!
+
+        var iframe = document.getElementById('iframe');
+        iframe.style.display = 'block';
+        // IE seems to re-initialize the iframe on designMode change,
+        // destroying the blank document. But only Mozilla needs that mode.
+        if (_SARISSA_IS_MOZ) {
+            iframe.contentWindow.document.designMode = 'on';
+        };
+
         var body = document.getElementById('body');
         var testsuite = new TestSuite(new HTMLReporter(body));
         testsuite.registerTest(KupuHelpersTestCase);
@@ -45,6 +58,11 @@ the local machine aren't allowed to run scripts.-->
         testsuite.registerTest(KupuPloneTestCase);
         testsuite.registerTest(KupuBeforeUnloadTestCase);
         testsuite.runSuite();
+
+        // global tear down
+
+        iframe.contentWindow.document.designMode = 'off';
+        iframe.style.display = 'none';
     };
 
 //]]>

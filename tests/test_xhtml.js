@@ -31,7 +31,7 @@ function KupuXhtmlTestCase() {
             var e = context.exec(expected)[1];
             throw('Assertion failed: ' + a + ' != ' + e);
         }
-        throw('Assertion failed: ' + var1 + ' != ' + var2);
+        throw('Assertion failed: ' + actual + ' != ' + expected);
     }
 
     this.conversionTest = function(data, expected) {
@@ -44,20 +44,11 @@ function KupuXhtmlTestCase() {
     }
 
     this.setUp = function() {
+        var iframe = document.getElementById('iframe');
+        this.doc = iframe.contentWindow.document;
+        this.body = this.doc.getElementsByTagName('body')[0];
+        this.doc.getElementsByTagName('title')[0].text = 'test';
         this.editor = new KupuEditor(null, {}, null);
-        this.doc = document.getElementById('iframe').contentWindow.document;
-        var head = this.doc.createElement('head');
-        var title = this.doc.createElement('title');
-        var titletext = this.doc.createTextNode('test');
-        this.body = this.doc.createElement('body');
-
-        title.appendChild(titletext);
-        head.appendChild(title);
-        var html = this.doc.documentElement;
-        while (html.childNodes.length > 0)
-            html.removeChild(html.childNodes[0]);
-        html.appendChild(head);
-        html.appendChild(this.body);
     };
 
     this.arrayContains = function(ary, test) {
@@ -215,6 +206,10 @@ function KupuXhtmlTestCase() {
         this.editor.xhtmlvalid.setAttrFilter(['special']);
         this.conversionTest(data, data);
     }
+
+    this.tearDown = function() {
+        this.body.innerHTML = '';
+    };
 }
 
 KupuXhtmlTestCase.prototype = new TestCase;
