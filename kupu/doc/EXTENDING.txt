@@ -52,7 +52,7 @@ path to the current node in the tree in the status bar. This is an
 actual tool in the current Kupu code and you can see the result in the
 status bar of any default Kupu installation. First we'll write a
 class, and add a method called 'updateState' that will change the
-status bar:
+status bar::
 
     // Example tool class
     function ExampleTool() {
@@ -76,7 +76,7 @@ Now we'll add some functionality to our updateState method. The
 updateState method's first argument will always be a reference to the
 current selected element (or the element currently containing the
 selection). To get a path to that element from the root, we can write
-something like:
+something like::
     
     // Example tool class
     function ExampleTool() {
@@ -112,7 +112,7 @@ this purpose the registerTool method is available on the KupuEditor
 object, which should be called with an id and a tool as arguments
 (note that the KupuEditor is called 'kupu' here, like in the default
 initKupu function, where registration of our tool will most likely be
-done):
+done)::
 
     var exampletool = new ExampleTool();
     kupu.registerTool('exampletool', exampletool);
@@ -125,7 +125,7 @@ ShowPathTool, the most basic Kupu tool.
 
 Now we'll take a look at a more complex example: the ImageTool. This
 will provide a way for users to add images to the iframe. First thing
-we do is write a class like we did for the example tool:
+we do is write a class like we did for the example tool::
 
     function ImageTool() {
         this.initialize = function(editor) {
@@ -141,7 +141,7 @@ a reference to the editor object is stored on the tool and used to
 call logMessage on (which in turn calls the logger registered in
 initKupu).
 
-Now let's add some functionality to the tool:
+Now let's add some functionality to the tool::
 
     function ImageTool() {
 
@@ -167,11 +167,11 @@ by browsers, that provides a limited amount of commands to WYSIWYG
 editor applications. The InsertImage command will, as you may have
 guessed, insert an image at the cursor location.
 
-All that is left to turn the tool into an Kupu Tool is set the prototype:
+All that is left to turn the tool into an Kupu Tool is set the prototype::
 
     ImageTool.prototype = new KupuTool;
 
-register it to the editor (in initKupu or the HTML page):
+register it to the editor (in initKupu or the HTML page)::
 
     var imagetool = new ImageTool();
     kupu.registerTool('imagetool', imagetool);
@@ -198,7 +198,7 @@ A ToolBox is basically a UI part of a Tool, containing references to
 the HTML elements and containing and registering event handlers. For
 the image tool we'd probably want a class with a reference to 2 HTML
 elements: an input field to enter a URL in and a button to click on to
-create the image:
+create the image::
 
     function ImageToolBox(inputel, buttonel) {
         this.inputel = inputel;
@@ -242,7 +242,7 @@ usecase could easily be written I would say ;).
 Before Kupu sends its contents to the server, it is converted from
 HTML to XHTML and then passed through any registered content filters.
 
-Content filters are simple classes that should have 2 methods:
+Content filters are simple classes that should have 2 methods::
 initialize, which will be called on registration of the filter, with a
 single argument which is a reference to the editor, and filter, which
 will be called with 2 arguments: a reference to the owner document
@@ -259,22 +259,22 @@ html namespace are stripped.
 A tag is permitted if it is defined in XHTML and not blacklisted.
 Optionally kupu can also filter to maintain a valid XHTML nesting of
 tags, but this option is off by default (put a
-<filterstructure>1</filterstructure> tags into the htmlfilter
-configuration to turn it on, or set editor.xhtmlvalid.filterstructure
+`<filterstructure>1</filterstructure>` tags into the htmlfilter
+configuration to turn it on, or set `editor.xhtmlvalid.filterstructure`
 to true. When the structure filtering is turned on a tag is permitted
-if it is allowed within the current context (e.g. you cannot nest <A>
-tags directly inside other <A> tags, so any nested <A> tags will be
+if it is allowed within the current context (e.g. you cannot nest `<A>`
+tags directly inside other `<A>` tags, so any nested `<A>` tags will be
 stripped). If a tag is stripped its content will still be present.  An
 attribute is permitted if it is defined in XHTML and not blacklisted
 for that tag. Text data is stripped if it occurs in a context not
-valid in XHTML (e.g. inside a table but outside <TH> or <TD>).
+valid in XHTML (e.g. inside a table but outside `<TH>` or `<TD>`).
 
-The blacklist is taken from Kupu's xml configuration. An <htmlfilter> tag
-encloses the blacklist, <t> marks a tag to be blacklisted, <a> marks
-an attribute to be blacklisted, <c> marks attributes to be excluded
-for specific tags. e.g. the following would blacklist the 'center'
-and 'font' tags, the 'cellspacing' attribute everywhere, and the
-'width' attribute for the 'th' and 'td' tags only.
+The blacklist is taken from Kupu's xml configuration. An `<htmlfilter>` tag
+encloses the blacklist, `<t>` marks a tag to be blacklisted, <a> marks
+an attribute to be blacklisted, `<c>` marks attributes to be excluded
+for specific tags. e.g. the following would blacklist the `center`
+and `font` tags, the `cellspacing` attribute everywhere, and the
+`width` attribute for the `th` and `td` tags only. ::
 
         <htmlfilter>
                 <t>center></t><t>font</t>
@@ -283,20 +283,20 @@ and 'font' tags, the 'cellspacing' attribute everywhere, and the
         </htmlfilter>
 
 From Javascript you can use the excludeAttributes, excludeTags and
-excludeTagAttributes methods of editor.xhtmlvalid to get the same
+excludeTagAttributes methods of `editor.xhtmlvalid` to get the same
 effect.
 
-The 'style' attribute filters its content to permit 'text-align' and
-'list-style-type' styles and reject all others (these styles are used
+The `style` attribute filters its content to permit `text-align` and
+`list-style-type` styles and reject all others (these styles are used
 by kupu). The style whitelist may be extended by adding additional
-entries to editor.xhtmlvalid.styleWhitelist.
+entries to `editor.xhtmlvalid.styleWhitelist`.
 
-The 'class' attribute is filtered to reject classnames which appear in
-the class blacklist. Add entries to editor.xhtmlvalid.classBlacklist
+The `class` attribute is filtered to reject classnames which appear in
+the class blacklist. Add entries to `editor.xhtmlvalid.classBlacklist`
 to reject additional classes.
 
 Entries may be added to the style whitelist or the class blacklist
-through the <htmlfilter> section of the configuration:
+through the `<htmlfilter>` section of the configuration::
 
         <htmlfilter>
           ... as above ...
@@ -305,18 +305,18 @@ through the <htmlfilter> section of the configuration:
         </htmlfilter>
 
 Additional attributes may be added to existing tags by calling the
-'setTagAttributes' and 'setAttrFilter' methods. e.g.
+`setTagAttributes` and `setAttrFilter` methods. e.g. ::
 
     editor.xhtmlvalid.setTagAttributes(['div'], ['special']);
     editor.xhtmlvalid.setAttrFilter(['special']);
 
-adds an attribute 'special' to the 'div' tag. The method tags three
+adds an attribute `special` to the `div` tag. The method tags three
 parameters: a list of attributes, a list of tags, and optionally a
 filter method to be called for that attribute. If the filter method is
 omitted the attribute is simply copied.
 
 The validation API is as follows (for the purposes of this api, a
-'dict' means an object whose property names are the dict keys):
+`dict` means an object whose property names are the dict keys):
 
 Set
   a javascript class used to quickly create a 'dict' where all
@@ -395,5 +395,5 @@ one of the constructor's arguments).
 Of course there's a lot more to Kupu that can be customized, added or
 rewritten. For more details see the source: it should be quite clear
 and simple and is written in a nice object oriented manner. Also make
-sure to check out API.txt, which is a reference to Kupu' JavaScript
+sure to check out JSAPI.txt, which is a reference to Kupu' JavaScript
 JSAPI.

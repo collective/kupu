@@ -14,7 +14,7 @@ is loaded, and provided no other handler has been installed for the
 window.onbeforeunload event.
 
 To test for the presence of the tool and use it if it is present use
-the following code:
+the following code::
 
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) { ... };
@@ -26,7 +26,7 @@ its onsubmit method will be hooked by the tool: if your form needs to
 perform its own onsubmit processing you must replace this event
 after calling addForm.
 
-The following input field types may be checked:
+The following input field types may be checked::
 
     <input type="text">
     <textarea>
@@ -41,7 +41,7 @@ considered to have changed if the first entry is not selected. Single
 selection fields where multiple entries were marked as selected
 initially are always considered changed.
 
-These field types are always assumed to be unchanged:
+These field types are always assumed to be unchanged::
 
     <input type="button">
     <input type="file">
@@ -90,7 +90,8 @@ Appends another handler function to be called when the page is
 unloading. The handler should not assume anything about the value of
 'this' when it is called.
 
-Example:
+Example::
+
         var initialBody = ibody.innerHTML;
         beforeunloadTool.addHandler(function() {
             return ibody.innerHTML != initialBody;
@@ -145,7 +146,7 @@ no such methods. Add a method if you wish to override checking for a
 single control. the method should return true or a string if the field
 has changed, false if it has not.
 
-For example, to ignore a control which is only used client-side:
+For example, to ignore a control which is only used client-side::
 
    beforeunloadTool.chkId['kupu-tb-styles'] = function() { return false; }
 
@@ -153,7 +154,7 @@ chkType
 +++++++
 
 This property contains methods which check a field based on its 'type'
-attribute. For example, to turn off checking for all radio buttons:
+attribute. For example, to turn off checking for all radio buttons::
 
    beforeunloadTool.chkType['radio'] = function() { return false; }
 

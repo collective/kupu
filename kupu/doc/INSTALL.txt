@@ -11,9 +11,12 @@ environment, this document too is very general.
 
 If you need specific instructions on how to install Kupu in
 
-  o Zope 2.x, please refer to ZOPE2.txt
+  o Zope 2.x, please refer to ZOPE2.txt_
 
-  o Plone 2.x, please refer to PLONE2.txt
+  o Plone 2.x, please refer to PLONE2.txt_
+
+.. _ZOPE2.txt: ZOPE2.html
+.. _PLONE2.txt: PLONE2.html
 
 
 Requirements

@@ -52,6 +52,10 @@ kupu credits
 
   - Much work on Plone support.
 
+* Petri Savolainen
+
+  - Image drawer upload code
+
 * Third party products included:
 
   - Sarissa ECMAScript library written by Manos Batsis, released under
