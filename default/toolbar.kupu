@@ -122,6 +122,15 @@
               </span>
   </kupu:part>
 
+  <kupu:part name="buttongroup-definitionlist">
+    <span class="kupu-tb-buttongroup">
+      <!-- list button events are set on the list tool -->
+      <button type="button" class="kupu-insertdefinitionlist" 
+              title="Definition List" id="kupu-list-dl-addbutton" 
+              i18n:attributes="title" accesskey="1">&#160;</button>
+    </span>
+  </kupu:part>
+
   <kupu:part name="buttongroup-indent">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-outdent" 

@@ -79,6 +79,7 @@ div.kupu-smalleditor {
 .kupu-inserthorizontalrule {background-image: url("kupuimages/hr.png");}
 .kupu-insertorderedlist {background-image: url("kupuimages/ordered-list.png");}
 .kupu-insertunorderedlist {background-image: url("kupuimages/unordered-list.png");}
+.kupu-insertdefinitionlist {background-image: url("kupuimages/definitionlist.png");}
 .kupu-italic {background-image: url("kupuimages/italic.png");}
 .kupu-italic-pressed {background-image: url("kupuimages/italic.png"); background-color: white}
 .kupu-justifycenter {background-image: url("kupuimages/justify-center.png");}

@@ -93,7 +93,7 @@ function initSilvaKupu(iframe) {
 				'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
-    var dltool = new SilvaDefinitionListTool('kupu-definitionlist-button');
+    var dltool = new DefinitionListTool('kupu-list-dl-addbutton');
     kupu.registerTool('dltool', dltool);
 
     var toctool = new SilvaTocTool(
