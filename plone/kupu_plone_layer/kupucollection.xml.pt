@@ -68,7 +68,7 @@
       <collection tal:attributes="id info/url"
                   tal:condition="info/collection">
         <metal:insert use-macro="here/kupucollection.xml/macros/commonToAllItems" />
-        <src tal:content="string:${info/url}/${template/getId}?resource_type=${resource_type}">Source</src>
+        <src tal:content="string:${info/url}/kupucollection.xml?resource_type=${resource_type}">Source</src>
       </collection>
 
     </tal:loop>
