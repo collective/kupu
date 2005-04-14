@@ -6,6 +6,7 @@
 ##bind script=script
 ##bind subpath=traverse_subpath
 ##parameters=useragent=''
+from Products.CMFCore.utils import getToolByName
 
 def numerics(s):
     '''Convert a string into a tuple of all digit sequences
@@ -19,8 +20,14 @@ def numerics(s):
             seq.append('')
     return tuple([ int(val) for val in seq if val])
 
+pm = getToolByName(context, 'portal_membership')
+user = pm.getAuthenticatedMember()
+if user.getProperty('wysiwyg_editor').lower() != 'kupu':
+    return False
+
 if not useragent:
     useragent = context.REQUEST['HTTP_USER_AGENT']
+
 
 if 'Opera' in useragent or 'BEOS' in useragent:
     return False
