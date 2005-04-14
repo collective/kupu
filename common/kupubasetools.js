@@ -536,7 +536,11 @@ function LinkTool() {
                 var doc = this.editor.getInnerDocument();
                 linkel.appendChild(doc.createTextNode(title || url));
             }
-            linkel.title = title;
+            if (title) {
+                linkel.title = title;
+            } else {
+                linkel.removeAttribute('title');
+            }
             if (target && target != '') {
                 linkel.setAttribute('target', target);
             }
