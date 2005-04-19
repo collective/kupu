@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- post 1.2rc2
+- 1.2 final
 
   - Linking to the current folder produced an empty link. Now it links to "."
 

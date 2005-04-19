@@ -1,1 +1,1 @@
-kupu 1.2rc2
+kupu 1.2
