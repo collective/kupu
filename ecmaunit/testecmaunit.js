@@ -83,7 +83,7 @@ function TestTestCase2() {
     };
 
     this.testAssertTrue = function() {
-        this.assertTrue(this.foo.returnfoo(), 'foo');
+        this.assertTrue(this.foo.returnfoo() == 'foo');
     };
 
     this.testAssertFalse = function() {
