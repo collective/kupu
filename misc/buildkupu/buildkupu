@@ -6,10 +6,10 @@
 # configuration parameters
 # THIS DIR WILL BE DELETED BY THE SCRIPT!!!
 KUPU_DIR="/tmp/kupu_build"
-BRANCH="tag/kupu-1.2rc2"
+BRANCH="tag/kupu-1.2"
 DATE=`date +%Y-%m-%d`
 #TARBALLNAME="kupu-nightly-$DATE.tgz"
-TARBALLNAME="kupu-1.2rc2.tar.gz"
+TARBALLNAME="kupu-1.2.tar.gz"
 PROC="/usr/bin/xsltproc"
 XSL_PAR="--nonet --novalid --xinclude"
 LINT="/usr/bin/xmllint"
@@ -36,7 +36,7 @@ $PROC $XSL_PAR $XSL dist-form.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > 
 $PROC $XSL_PAR $XSL dist-multi.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > common/kupumulti.html
 $PROC $XSL_PAR $XSL dist-plone.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > plone/kupu_plone_layer/kupu_wysiwyg_support.html
 $PROC $XSL_PAR $XSL dist-silva.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > silva/kupumacros.html
-$PROC $XSL_PAR $XSL dist-zope2.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > default/kupumacros.html
+$PROC $XSL_PAR $XSL dist-zope2.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > common/kupumacros.html
 $PROC $XSL_PAR $XSL dist-experimental.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > common/kupu_experimental.html
 $PROC $XSL_PAR $XSL dist-apache-lenya.kupu | $LINT $LINT_PAR - | sed -e "s/<?.*?>//g" > apache-lenya/kupu/kupumacros.html
 cd ..
