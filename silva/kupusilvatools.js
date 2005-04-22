@@ -1774,28 +1774,31 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         };
     };
 
+    this.getUrlAndContinue = function(id, handler) {
+        if (id == this._id) {
+            // return cached
+            handler.call(this, this._url);
+            return;
+        };
+        var request = Sarissa.getXmlHttpRequest();
+        request.open('GET', this._baseurl + '/edit/get_extsource_url?id=' + id, true);
+        var callback = new ContextFixer(function() {
+                                            if (request.readyState == 4) {
+                                                var url = request.responseText;
+                                                this._id = id;
+                                                this._url = url;
+                                                handler.call(this, url);
+                                            };
+                                        }, this);
+        request.onreadystatechange = callback.execute;
+        request.send('');
+    };
+
     this.startExternalSourceAddEdit = function() {
         // get the appropriate form and display it
         if (!this._editing) {
             var id = this.idselect.options[this.idselect.selectedIndex].value;
-            this._id = id;
-            var url = this._baseurl + '/' + id;
-            this._url = url;
-            url = url + '/get_rendered_form_for_editor';
-            var request = Sarissa.getXmlHttpRequest();
-            request.open('GET', url, true);
-            var callback = new ContextFixer(this._addFormToTool, request, this);
-            request.onreadystatechange = callback.execute;
-            request.send(null);
-            while (this.formcontainer.hasChildNodes()) {
-                this.formcontainer.removeChild(this.formcontainer.firstChild);
-            };
-            var text = document.createTextNode('Loading...');
-            this.formcontainer.appendChild(text);
-            this.updatebutton.style.display = 'none';
-            this.cancelbutton.style.display = 'inline';
-            this.addbutton.style.display = 'inline';
-            this._editing = true;
+            this.getUrlAndContinue(id, this._continueStartExternalSourceEdit);
         } else {
             // validate the data and take further actions
             var formdata = this._gatherFormData();
@@ -1809,10 +1812,31 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         };
     };
 
+    this._continueStartExternalSourceEdit = function(url) {
+        url = url + '/get_rendered_form_for_editor';
+        var request = Sarissa.getXmlHttpRequest();
+        request.open('GET', url, true);
+        var callback = new ContextFixer(this._addFormToTool, request, this);
+        request.onreadystatechange = callback.execute;
+        request.send(null);
+        while (this.formcontainer.hasChildNodes()) {
+            this.formcontainer.removeChild(this.formcontainer.firstChild);
+        };
+        var text = document.createTextNode('Loading...');
+        this.formcontainer.appendChild(text);
+        this.updatebutton.style.display = 'none';
+        this.cancelbutton.style.display = 'inline';
+        this.addbutton.style.display = 'inline';
+        this._editing = true;
+    };
+
     this.startExternalSourceUpdate = function(extsource) {
-        this._id = extsource.getAttribute('source_id');
-        this._url = this._baseurl + '/' + this._id;
-        url = this._url + '/get_rendered_form_for_editor';
+        var id = extsource.getAttribute('source_id');
+        this.getUrlAndContinue(id, this._continueStartExternalSourceUpdate);
+    };
+
+    this._continueStartExternalSourceUpdate = function(url) {
+        url = url + '/get_rendered_form_for_editor';
         var formdata = this._gatherFormDataFromElement();
         var request = Sarissa.getXmlHttpRequest();
         request.open('POST', url, true);
