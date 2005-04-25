@@ -56,6 +56,14 @@
         <name>Reduce whitespace</name>
         <expression>
           <reg>
+            [\n\r\t]
+          </reg>
+          <replacement>
+            \x20
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
             [ ]{2}
           </reg>
           <replacement>

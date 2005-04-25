@@ -126,7 +126,15 @@
         <name>Reduce whitespace in source</name>
         <expression>
           <reg>
-            [ \n\r\t]{2}
+            [\n\r\t]
+          </reg>
+          <replacement>
+            \x20
+          </replacement>
+        </expression>
+        <expression>
+          <reg>
+            [ ]{2}
           </reg>
           <replacement>
             \x20
