@@ -8,9 +8,10 @@
     >
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="../apache-lenya/kupu/lenya.js">
-    </script>
-  </kupu:part>
+    <!-- load the Lenya specific kupu init -->
+    <script type="text/javascript" src="../apache-lenya/kupu/kupulenyainit.js"> </script>
+    <script type="text/javascript" src="kupustart.js"> </script>
+ </kupu:part>
   
   <kupu:part name="styles">
     <link href="../apache-lenya/kupu/kupudrawerstyles.css" rel="stylesheet" type="text/css" />

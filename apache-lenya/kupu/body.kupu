@@ -8,8 +8,7 @@
     <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="body">
-    <body 
-      onload="kupu = startKupu(); new KupuLenyaDist().init();">
+    <body onload="kupu = startKupu();">
       <kupu:define-slot name="body" />
     </body>
   </kupu:part>
