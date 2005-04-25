@@ -4,7 +4,9 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
+  <kupu:id>$Id$</kupu:id>
 
+  <!-- Default configuration -->
   <kupu:part name="defaultconfig">
     <dst/>
     <use_css>1</use_css>
@@ -19,6 +21,19 @@
       <class>data</class>
     </table_classes>
     
+    <cleanup_expressions>
+      <set>
+        <name>Reduce whitespace in source</name>
+        <expression>
+          <reg>
+            [ \n\r\t]{2}
+          </reg>
+          <replacement>
+            \x20
+          </replacement>
+        </expression>
+      </set>
+    </cleanup_expressions>
     <exit_destination/>
   </kupu:part>
 
