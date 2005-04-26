@@ -1704,6 +1704,18 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             addEventHandler(editor.getInnerDocument(), 'keydown', this.handleKeyPressOnExternalSource, this);
             addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnExternalSource, this);
         };
+
+        // search for a special serialized identifier of the current document
+        // which is used to send to the ExternalSource element when sending
+        // requests so the ExternalSources know their context
+        this.docref = null;
+        var metas = this.editor.getInnerDocument().getElementsByTagName('meta');
+        for (var i=0; i < metas.length; i++) {
+            var meta = metas[i];
+            if (meta.getAttribute('name') == 'docref') {
+                this.docref = meta.getAttribute('content');
+            };
+        };
         
         this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
@@ -1813,7 +1825,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     };
 
     this._continueStartExternalSourceEdit = function(url) {
-        url = url + '/get_rendered_form_for_editor';
+        url = url + '/get_rendered_form_for_editor?docref=' + this.docref;
         var request = Sarissa.getXmlHttpRequest();
         request.open('GET', url, true);
         var callback = new ContextFixer(this._addFormToTool, request, this);
@@ -1838,6 +1850,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     this._continueStartExternalSourceUpdate = function(url) {
         url = url + '/get_rendered_form_for_editor';
         var formdata = this._gatherFormDataFromElement();
+        formdata += '&docref=' + this.docref;
         var request = Sarissa.getXmlHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
