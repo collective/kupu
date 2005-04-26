@@ -273,8 +273,8 @@ function KupuEditor(document, config, logger) {
         window.status= "Please wait while saving document...";
 
         // call (optional) beforeSave() method on all tools
-        for (var id in this.tools) {
-            var tool = this.tools[id];
+        for (var tid in this.tools) {
+            var tool = this.tools[tid];
             if (tool.beforeSave) {
                 try {
                     tool.beforeSave();
