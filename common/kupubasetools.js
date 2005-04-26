@@ -483,8 +483,19 @@ function PropertyTool(titlefieldid, descfieldid) {
             title.appendChild(text);
             head.appendChild(title);
         } else {
-            titles[0].childNodes[0].nodeValue = this.titlefield.value;
+            var title = titles[0];
+            // IE6 title has no children, and refuses appendChild.
+            // Delete and recreate the title.
+            if (title.childNodes.length == 0) {
+                title.removeNode(true);
+                title = doc.createElement('title');
+                title.innerText = this.titlefield.value;
+                head.appendChild(title);
+            } else {
+                title.childNodes[0].nodeValue = this.titlefield.value;
+            }
         }
+        document.title = this.titlefield.value;
 
         // let's just fulfill the usecase, not think about more properties
         // set the description
