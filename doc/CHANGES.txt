@@ -2,9 +2,19 @@
 Kupu changes
 ============
 
+- 1.2.1
+
+  The following issue has been resolved:
+
+  - 70: Content duplication (when pasting into IE from Microsoft Word or Works).
+
 - 1.2 final
 
   - Linking to the current folder produced an empty link. Now it links to "."
+  - Changed how kupu in Plone handles non-HTML content e.g. STX. Now it won't
+    load for fields in Archetypes content if the content type isn't HTML (but 
+    it does put in a link allowing you to force a conversion). See
+    http://plone.org/collector/3900
 
 - 1.2rc2
 
