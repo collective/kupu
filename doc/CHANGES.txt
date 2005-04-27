@@ -4,6 +4,10 @@ Kupu changes
 
 - 1.2.1
 
+  - Fixed some context bugs with External Sources (Silva specific), now Kupu
+    uses the same functionality to find code sources as the rest of Silva
+    does.
+
   The following issue has been resolved:
 
   - 70: Content duplication (when pasting into IE from Microsoft Word or Works).
