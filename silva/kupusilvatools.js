@@ -1671,12 +1671,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     this._form = null;
     this._insideExternalSource = false;
 
-    // store the base url, this will be prepended to the id to form the url to
-    // get the codesource from (Zope's acquisition will make sure it ends up on
-    // the right object)
-    var urlparts = document.location.toString().split('/')
-    this._baseurl = urlparts.slice(0, urlparts.length - 2).join('/');
-
     this.initialize = function(editor) {
         this.editor = editor;
         addEventHandler(this.addbutton, 'click', this.startExternalSourceAddEdit, this);
@@ -1795,7 +1789,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
 
     this.startExternalSourceUpdate = function(extsource) {
         this._id = extsource.getAttribute('source_id');
-        this._url = this._baseurl + '/' + this._id;
+        this._url = extsource.getAttribute('source_url');
         url = this._url + '/get_rendered_form_for_editor';
         var formdata = this._gatherFormDataFromElement();
         var request = Sarissa.getXmlHttpRequest();
