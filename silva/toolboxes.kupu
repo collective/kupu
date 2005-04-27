@@ -381,7 +381,7 @@
           <select id="kupu-toolbox-extsource-id">
             <tal:block repeat="extsource here/get_available_sources">
               <tal:block define="id python: extsource[0]; object python:extsource[1]">
-                <option tal:attributes="value id" tal:content="python:object.title and object.title or id" />
+                <option tal:attributes="value id" tal:content="python:object.get_title() or id" />
               </tal:block>
             </tal:block>
           </select>
