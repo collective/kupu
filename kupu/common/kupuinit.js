@@ -185,6 +185,10 @@ function initKupu(iframe) {
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
+    var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
+                                            '../cgi/spellcheck.cgi');
+    kupu.registerTool('spellchecker', spellchecker);
+
     // Drawers...
 
     // Function that returns function to open a drawer

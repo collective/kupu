@@ -130,6 +130,7 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-save-and-exit {background-image: url("kupuimages/exit.gif");}
 .kupu-space {background-image: url("kupuimages/space.gif");}
 .kupu-source {background-image: url("kupuimages/view-source.png");}
+.kupu-spellchecker {background-image: url("kupuimages/text-check.png");}
 .kupu-subscript {background-image: url("kupuimages/subscript.png");}
 .kupu-subscript-pressed {background-image: url("kupuimages/subscript.png"); background-color: white}
 .kupu-superscript {background-image: url("kupuimages/superscript.png");}

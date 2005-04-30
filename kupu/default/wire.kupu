@@ -36,6 +36,7 @@
     <kupu:insert-part feature="head" part="bootstrap-editor" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="sourceedit" part="jsincludes" />
+    <kupu:insert-part feature="spellchecker" part="jsincludes" />
     <kupu:insert-part feature="drawers" part="jsincludes" />
   </kupu:fill-slot>
 
@@ -82,6 +83,7 @@
     <kupu:insert-part feature="drawers" part="buttons" />
     <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
+    <kupu:insert-part feature="spellchecker" part="buttons" />
     <kupu:insert-part feature="sourceedit" part="buttons" />
   </kupu:fill-slot>
 
