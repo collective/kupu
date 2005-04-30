@@ -115,7 +115,7 @@ KupuSpellChecker.prototype.colourText = function(text, mapping) {
         var replacements = mapping[word];
         replacements = replacements.entitize();
         replacements = replacements.replace("'", "\\'", 'g');
-        var reg = new RegExp('([^\w])(' + word + ')([^\w])');
+        var reg = new RegExp('([^\\\w])(' + word + ')([^\\\w])');
         while (true) {
             var match = reg.exec(currtext);
             if (!match) {
