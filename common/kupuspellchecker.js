@@ -31,11 +31,16 @@ KupuSpellChecker.prototype.check = function() {
 
 KupuSpellChecker.prototype.stateChangeHandler = function(request) {
     if (request.readyState == 4) {
-        var result = request.responseText;
-        if (!result) {
-            alert('There were no errors.');
+        if (request.status == '200') {
+            var result = request.responseXML;
+            result = this.xmlToMapping(result);
+            if (!result) {
+                alert('There were no errors.');
+            } else {
+                this.displayUnrecognized(result);
+            };
         } else {
-            this.displayUnrecognized(result);
+            alert('Error loading data, status ' + request.status);
         };
     };
 };
@@ -60,7 +65,7 @@ KupuSpellChecker.prototype.getCurrentContents = function() {
     return bits.join(' ');
 };
 
-KupuSpellChecker.prototype.displayUnrecognized = function(words) {
+KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
     // copy the current editable document into a new window
     var doc = this.editor.getInnerDocument().documentElement;
     var win = window.open('kupublank.html', 'spellchecker', 
@@ -70,12 +75,11 @@ KupuSpellChecker.prototype.displayUnrecognized = function(words) {
     var html = doc.innerHTML;
     win.document.write('<html>' + doc.innerHTML + '</html>');
     win.document.close();
-    addEventHandler(win, 'load', this.continueDisplay, this, win, words);
+    win.deentitize = function(str) {return str.deentitize()};
+    addEventHandler(win, 'load', this.continueDisplay, this, win, mapping);
 };
 
-KupuSpellChecker.prototype.continueDisplay = function(win, words) {
-    words = words.split(' ').removeDoubles();
-
+KupuSpellChecker.prototype.continueDisplay = function(win, mapping) {
     // walk through all elements of the body, colouring the text nodes
     var body = win.document.getElementsByTagName('body')[0];
     var iterator = new NodeIterator(body);
@@ -88,7 +92,7 @@ KupuSpellChecker.prototype.continueDisplay = function(win, words) {
         if (node.nodeType == 3) {
             var span = win.document.createElement('span');
             var before = node.nodeValue;
-            var after = this.colourText(before, words);
+            var after = this.colourText(before, mapping);
             if (before != after) {
                 span.innerHTML = after;
                 var last = span.lastChild;
@@ -104,11 +108,14 @@ KupuSpellChecker.prototype.continueDisplay = function(win, words) {
     };
 };
 
-KupuSpellChecker.prototype.colourText = function(text, words) {
+KupuSpellChecker.prototype.colourText = function(text, mapping) {
     var currtext = text;
     var newtext = '';
-    for (var i=0; i < words.length; i++) {
-        var reg = new RegExp('([^\w])(' + words[i] + ')([^\w])');
+    for (var word in mapping) {
+        var replacements = mapping[word];
+        replacements = replacements.entitize();
+        replacements = replacements.replace("'", "\\'", 'g');
+        var reg = new RegExp('([^\w])(' + word + ')([^\w])');
         while (true) {
             var match = reg.exec(currtext);
             if (!match) {
@@ -120,7 +127,10 @@ KupuSpellChecker.prototype.colourText = function(text, words) {
             var m = match[0];
             newtext += currtext.substr(0, currtext.indexOf(m));
             newtext += match[1] +
-                        '<span style="' + this.spanstyle + '">' +
+                        '<span style="' + this.spanstyle + '" ' +
+                        'onclick="alert(deentitize(\'' + 
+                        replacements + '\'));" ' +
+                        'title="' + replacements + '">' +
                         match[2] +
                         '</span>' +
                         match[3];
@@ -128,4 +138,16 @@ KupuSpellChecker.prototype.colourText = function(text, words) {
         };
     };
     return currtext;
+};
+
+KupuSpellChecker.prototype.xmlToMapping = function(docnode) {
+    var docel = docnode.documentElement;
+    var result = {};
+    var incorrect = docel.getElementsByTagName('incorrect');
+    for (var i=0; i < incorrect.length; i++) {
+        var word = incorrect[i].firstChild.firstChild.nodeValue;
+        var replacements = incorrect[i].lastChild.firstChild.nodeValue;
+        result[word] = replacements;
+    };
+    return result;
 };
