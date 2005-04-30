@@ -1116,7 +1116,7 @@ function ContextFixer(func, context) {
         for (var i=0; i < arguments.length; i++) {
             args.push(arguments[i]);
         };
-        self.func.apply(self.context, args);
+        return self.func.apply(self.context, args);
     };
 };
 
