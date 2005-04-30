@@ -63,10 +63,10 @@ KupuSpellChecker.prototype.getCurrentContents = function() {
 KupuSpellChecker.prototype.displayUnrecognized = function(words) {
     // copy the current editable document into a new window
     var doc = this.editor.getInnerDocument().documentElement;
-    var win = window.open('kupuspellchecker.html', 'spellchecker', 
+    var win = window.open('kupublank.html', 'spellchecker', 
                             'width=' + this.winwidth + ',' +
                             'height=' + this.winheight + ',toolbar=no,' +
-                            'menubar=no,scrollbars=yes,alwaysRaised=yes');
+                            'menubar=no,scrollbars=yes');
     var html = doc.innerHTML;
     win.document.write('<html>' + doc.innerHTML + '</html>');
     win.document.close();
