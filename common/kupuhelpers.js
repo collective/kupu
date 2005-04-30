@@ -75,6 +75,11 @@ Some notes about the scripts:
 function addEventHandler(element, event, method, context) {
     /* method to add an event handler for both IE and Mozilla */
     var wrappedmethod = new ContextFixer(method, context);
+    var args = new Array(null, null);
+    for (var i=4; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    };
+    wrappedmethod.args = args;
     try {
         if (_SARISSA_IS_MOZ) {
             element.addEventListener(event, wrappedmethod.execute, false);
@@ -255,7 +260,6 @@ function NodeIterator(node, continueatnextsibling) {
 
         returns false if no nodes are left
     */
-    
     this.node = node;
     this.current = node;
     this.terminator = continueatnextsibling ? null : node;
@@ -1207,15 +1211,105 @@ Array.prototype.contains = function(element, objectequality) {
     return false;
 };
 
+// return a copy of an array with doubles removed
+Array.prototype.removeDoubles = function() {
+    var ret = [];
+    for (var i=0; i < this.length; i++) {
+        if (!ret.contains(this[i])) {
+            ret.push(this[i]);
+        };
+    };
+    return ret;
+};
+
+Array.prototype.map = function(func) {
+    /* apply 'func' to each element in the array */
+    for (var i=0; i < this.length; i++) {
+        this[i] = func(this[i]);
+    };
+};
+
+Array.prototype.reversed = function() {
+    var ret = [];
+    for (var i = this.length; i > 0; i--) {
+        ret.push(this[i - 1]);
+    };
+    return ret;
+};
+
 // JavaScript has a friggin' blink() function, but not for string stripping...
 String.prototype.strip = function() {
     var stripspace = /^\s*([\s\S]*?)\s*$/;
     return stripspace.exec(this)[1];
 };
 
+String.prototype.reduceWhitespace = function() {
+    /* returns a string in which all whitespace is reduced 
+        to a single, plain space */
+    var spacereg = /(\s+)/g;
+    var copy = this;
+    while (true) {
+        var match = spacereg.exec(copy);
+        if (!match) {
+            return copy;
+        };
+        copy = copy.replace(match[0], ' ');
+    };
+};
+
+String.prototype.entitize = function() {
+    var ret = this.replace(/&/g, '&amp;');
+    ret = ret.replace(/"/g, '&quot;');
+    ret = ret.replace(/</g, '&lt;');
+    ret = ret.replace(/>/g, '&gt;');
+    return ret;
+};
+
+String.prototype.deentitize = function() {
+    var ret = this.replace(/&gt;/g, '>');
+    ret = ret.replace(/&lt;/g, '<');
+    ret = ret.replace(/&quot;/g, '"');
+    ret = ret.replace(/&amp;/g, '&');
+    return ret;
+};
+
+String.prototype.urldecode = function() {
+    var reg = /%([a-fA-F0-9]{2})/g;
+    var str = this;
+    while (true) {
+        var match = reg.exec(str);
+        if (!match || !match.length) {
+            break;
+        };
+        var repl = new RegExp(match[0], 'g');
+        str = str.replace(repl, String.fromCharCode(parseInt(match[1], 16)));
+    };
+    return str;
+};
+
+String.prototype.centerTruncate = function(maxlength) {
+    if (this.length <= maxlength) {
+        return this;
+    };
+    var chunklength = maxlength / 2 - 3;
+    var start = this.substr(0, chunklength);
+    var end = this.substr(this.length - chunklength);
+    return start + ' ... ' + end;
+};
+
 //----------------------------------------------------------------------------
 // Exceptions
 //----------------------------------------------------------------------------
+
+function debug(str, win) {
+    if (!win) {
+        win = window;
+    };
+    var doc = win.document;
+    var div = doc.createElement('div');
+    div.appendChild(doc.createTextNode(str));
+    doc.getElementsByTagName('body')[0].appendChild(div);
+};
 
 // XXX don't know if this is the regular way to define exceptions in JavaScript?
 function Exception() {
