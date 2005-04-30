@@ -2,6 +2,13 @@
 Kupu changes
 ============
 
+- 1.3
+
+  - Added support for i18n - the Kupu interface can now be displayed in
+    multiple languages (provided language catalogs are available).
+
+  - Added support for spell checking.
+
 - Since 1.2rc1
 
   - Creating links was broken by the fixes to #146, rewrote link
