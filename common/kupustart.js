@@ -11,45 +11,28 @@
 // $Id$
 
 function startKupu() {
+    // first let's load the message catalog
+    // if there's no global 'i18n_message_catalog' variable available, don't
+    // try to load any translations
+    if (window.i18n_message_catalog) {
+        var request = Sarissa.getXmlHttpRequest();
+        // sync request, scary...
+        request.open('GET', 'kupu.pox', false);
+        request.send('');
+        if (request.status != '200') {
+            alert('Error loading translation (status ' + status +
+                    '), falling back to english');
+        } else {
+            // load successful, continue
+            var dom = request.responseXML;
+            window.i18n_message_catalog.initialize(dom);
+        };
+    };
+    
     // initialize the editor, initKupu groks 1 arg, a reference to the iframe
     var frame = getFromSelector('kupu-editor'); 
     var kupu = initKupu(frame);
     
-    // first let's load the message catalog
-    // if there's no global 'i18n_message_catalog' variable available, don't
-    // try to load any translations
-    if (!window.i18n_message_catalog) {
-        continueStartKupu(kupu);
-        return kupu;
-    };
-    // loading will be done asynchronously (to keep Mozilla from freezing)
-    // so we'll continue in a follow-up function (continueStartKupu() below)
-    var handler = function(request) {
-        if (this.readyState == 4) {
-            var status = this.status;
-            if (status != '200') {
-                alert(_('Error loading translation (status ${status} ' +
-                        '), falling back to english'), {'status': status});
-                continueStartKupu(kupu);
-                return;
-            };
-            var dom = this.responseXML;
-            window.i18n_message_catalog.initialize(dom);
-            continueStartKupu(kupu);
-        };
-    };
-    var request = Sarissa.getXmlHttpRequest();
-    request.onreadystatechange = (new ContextFixer(handler, request)).execute;
-    request.open('GET', 'kupu.pox', true);
-    request.send('');
-
-    // we need to return a reference to the editor here for certain 'external'
-    // stuff, developers should note that it's not yet initialized though, we
-    // need to wait for i18n data before we can do that
-    return kupu;
-};
-
-function continueStartKupu(kupu) {
     // this makes the editor's content_changed attribute set according to changes
     // in a textarea or input (registering onchange, see saveOnPart() for more
     // details)
