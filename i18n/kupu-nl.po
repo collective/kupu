@@ -39,7 +39,7 @@ msgstr "Kupu initializatie mislukt. Kupu zal niet werken op uw browser."
 
 #: /common/kupu.pox:151
 msgid "No head in document!"
-msgstr "Geen <head> in document!"
+msgstr "Geen head element in document!"
 
 #: /common/kupu.pox:159
 msgid "Property tool initialized"
