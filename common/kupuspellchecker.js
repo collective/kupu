@@ -71,17 +71,22 @@ KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
     var win = window.open('kupublank.html', 'spellchecker', 
                             'width=' + this.winwidth + ',' +
                             'height=' + this.winheight + ',toolbar=no,' +
-                            'menubar=no,scrollbars=yes');
+                            'menubar=no,scrollbars=yes,status=yes');
     var html = doc.innerHTML;
     win.document.write('<html>' + doc.innerHTML + '</html>');
     win.document.close();
     win.deentitize = function(str) {return str.deentitize()};
-    addEventHandler(win, 'load', this.continueDisplay, this, win, mapping);
+    if (!win.document.getElementsByTagName('body').length) {
+        addEventHandler(win, 'load', this.continueDisplay, this, win, mapping);
+    } else {
+        this.continueDisplay(win, mapping);
+    };
 };
 
 KupuSpellChecker.prototype.continueDisplay = function(win, mapping) {
     // walk through all elements of the body, colouring the text nodes
     var body = win.document.getElementsByTagName('body')[0];
+    body.setAttribute('contentEditable', 'false');
     var iterator = new NodeIterator(body);
     var node = iterator.next();
     while (true) {
