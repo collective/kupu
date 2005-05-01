@@ -17,7 +17,7 @@ function startKupu() {
     if (window.i18n_message_catalog) {
         var request = Sarissa.getXmlHttpRequest();
         // sync request, scary...
-        request.open('GET', 'kupu.pox', false);
+        request.open('GET', 'kupu-pox.cgi', false);
         request.send('');
         if (request.status != '200') {
             alert('Error loading translation (status ' + status +
