@@ -10,15 +10,39 @@ STR = 1
 
 I18NNS = 'http://xml.zope.org/namespaces/i18n'
 
-class Nationalizer:
+def ustr(i):
+    if type(i) == unicode:
+        return i
+    else:
+        return unicode(str(i), 'UTF-8')
 
-    not_single = ['script', 'textarea']
+class Nationalizer:
+    """Translates string in an HTML or XML file using i18n: directives"""
+
+    not_single = ['a', 'abbr', 'acronym', 'address', 'applet', 
+                    'b', 'bdo', 'big', 'blink', 'blockquote', 
+                    'button', 'caption', 'center', 'cite', 
+                    'comment', 'del', 'dfn', 'dir', 'div',
+                    'dl', 'dt', 'em', 'embed', 'fieldset',
+                    'font', 'form', 'frameset', 'h1', 'h2',
+                    'h3', 'h4', 'h5', 'h6', 'i', 'iframe',
+                    'ins', 'kbd', 'label', 'legend', 'li',
+                    'listing', 'map', 'marquee', 'menu',
+                    'multicol', 'nobr', 'noembed', 'noframes',
+                    'noscript', 'object', 'ol', 'optgroup',
+                    'option', 'p', 'pre', 'q', 's', 'script',
+                    'select', 'small', 'span', 'strike', 
+                    'strong', 'style', 'sub', 'sup', 'table',
+                    'tbody', 'td', 'textarea', 'tfoot',
+                    'th', 'thead', 'title', 'tr', 'tt', 'u',
+                    'ul', 'xmp']
 
     def __init__(self, htmlfile, language):
         self.htmlfile = htmlfile
         self.language = language
 
     def translate(self):
+        """load and translate everything"""
         popath = self.get_po_file_path(self.language)
         if popath is not None:
             pofp = open(popath)
@@ -42,6 +66,7 @@ class Nationalizer:
         return self.serialize(dom.documentElement)
 
     def parse_po_file(self, pofp):
+        """parse the .po file, create a mapping msgid->msgstr"""
         cat = {}
         state = None
         msgid = None
@@ -66,6 +91,7 @@ class Nationalizer:
         return cat
 
     def apply_i18n(self, dom, msgcat):
+        """apply nationalization of the full dom"""
         nodes = dom.documentElement.getElementsByTagName('*')
         for node in nodes:
             if node.hasAttributeNS(I18NNS, 'translate'):
@@ -74,6 +100,7 @@ class Nationalizer:
                 self.apply_attributes(node, msgcat)
 
     def apply_translate(self, node, msgcat):
+        """handle Zope-style i18n:translate"""
         buf = []
         msgid = msgstr = node.getAttributeNS(I18NNS, 'translate').strip()
         if not msgid:
@@ -85,7 +112,7 @@ class Nationalizer:
                     raise TypeError, \
                         ('illegal element %s in i18n:translate element' % 
                             child.nodeName)
-            msgid = msgstr = self.reduce_whitespace(''.join(buf).strip())
+            msgid = msgstr = self.reduce_whitespace(u''.join(buf).strip())
         if msgcat.has_key(msgid):
             msgstr = msgcat[msgid]
         # now replace the contents of the node with the new contents
@@ -95,7 +122,13 @@ class Nationalizer:
         node.appendChild(node.ownerDocument.createTextNode(msgstr))
 
     def apply_attributes(self, node, msgcat):
-        pass
+        """handle Zope-style i18n:attributes"""
+        attrnames = node.getAttributeNS(I18NNS, 'attributes').split(' ')
+        for attr in attrnames:
+            value = node.getAttribute(attr)
+            if value and msgcat.has_key(value):
+                node.setAttribute(attr, msgcat[value])
+        node.removeAttributeNS(I18NNS, 'attributes')
 
     def reduce_whitespace(self, string):
         for char in ['\n', '\t', '\r']:
@@ -138,7 +171,7 @@ class Nationalizer:
             buf.append(el.nodeValue)
         else:
             print 'ignoring node of type', node.nodeType
-        return ''.join(buf)
+        return ''.join([ustr(b) for b in buf])
 
     def entitize(self, string):
         string = string.replace('&', '&amp;')
