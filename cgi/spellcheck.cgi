@@ -9,7 +9,7 @@ import popen2, re
 class SpellChecker:
     """Simple spell checker, uses ispell (or aspell) with pipes"""
 
-    reg_unknown = re.compile('^& ([\w\']*) \d* \d*: (.*)$', re.U)
+    reg_unknown = re.compile('^& (.*?) \d* \d*: (.*)$', re.U)
 
     def __init__(self):
         self.chout, self.chin = popen2.popen2(COMMAND)
