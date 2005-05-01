@@ -37,15 +37,18 @@ class SpellChecker:
                 if not resline.strip():
                     break
                 if resline.strip() != '*':
-                    match = (self.reg_unknown.match(resline) or 
-                                self.reg_unknown_no_replacement.match(resline))
+                    match = self.reg_unknown.match(resline)
+                    have_replacement = True
+                    if not match:
+                        match = self.reg_unknown_no_replacement.match(resline)
+                        have_replacement = False
                     assert match, 'Unknown formatted line: %s' % resline
                     word = match.group(1)
                     if result.has_key(word):
                         continue
                     replacements = []
-                    if (match.groups()) == 3:
-                        match.group(2).split(', ')
+                    if have_replacement:
+                        replacements = match.group(2).split(', ')
                     result[word] = replacements
         return result
 
