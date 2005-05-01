@@ -35,12 +35,13 @@ KupuSpellChecker.prototype.stateChangeHandler = function(request) {
             var result = request.responseXML;
             result = this.xmlToMapping(result);
             if (!result) {
-                alert('There were no errors.');
+                alert(_('There were no errors.'));
             } else {
                 this.displayUnrecognized(result);
             };
         } else {
-            alert('Error loading data, status ' + request.status);
+            alert(_('Error loading data, status ${status}',
+                    {'status': request.status}));
         };
     };
 };
@@ -154,5 +155,6 @@ KupuSpellChecker.prototype.xmlToMapping = function(docnode) {
         var replacements = incorrect[i].lastChild.firstChild.nodeValue;
         result[word] = replacements;
     };
+    var attrs = [];
     return result;
 };
