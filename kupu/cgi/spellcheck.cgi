@@ -10,6 +10,7 @@ class SpellChecker:
     """Simple spell checker, uses ispell (or aspell) with pipes"""
 
     reg_unknown = re.compile('^& (.*?) \d* \d*: (.*)$', re.U)
+    reg_unknown_no_replacement = re.compile('^\# (.*?) \d*.*$', re.U)
 
     def __init__(self):
         self.chout, self.chin = popen2.popen2(COMMAND)
@@ -36,12 +37,15 @@ class SpellChecker:
                 if not resline.strip():
                     break
                 if resline.strip() != '*':
-                    match = self.reg_unknown.match(resline)
+                    match = (self.reg_unknown.match(resline) or 
+                                self.reg_unknown_no_replacement.match(resline))
                     assert match, 'Unknown formatted line: %s' % resline
                     word = match.group(1)
                     if result.has_key(word):
                         continue
-                    replacements = match.group(2).split(', ')
+                    replacements = []
+                    if (match.groups()) == 3:
+                        match.group(2).split(', ')
                     result[word] = replacements
         return result
 
