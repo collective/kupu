@@ -152,7 +152,10 @@ KupuSpellChecker.prototype.xmlToMapping = function(docnode) {
     var incorrect = docel.getElementsByTagName('incorrect');
     for (var i=0; i < incorrect.length; i++) {
         var word = incorrect[i].firstChild.firstChild.nodeValue;
-        var replacements = incorrect[i].lastChild.firstChild.nodeValue;
+        var replacements = '';
+        if (incorrect[i].lastChild.hasChildNodes()) {
+            replacements = incorrect[i].lastChild.firstChild.nodeValue;
+        };
         result[word] = replacements;
     };
     var attrs = [];
