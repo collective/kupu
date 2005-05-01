@@ -16,6 +16,12 @@ def ustr(i):
     else:
         return unicode(str(i), 'UTF-8')
 
+def get_locale():
+    if os.environ.has_key('HTTP_ACCEPT_LANGUAGE'):
+        charsets = [l.strip() for l in 
+                os.environ['HTTP_ACCEPT_LANGUAGE'].split(';')[0].split(',')]
+        return charsets
+
 class Nationalizer:
     """Translates string in an HTML or XML file using i18n: directives"""
 
@@ -37,13 +43,13 @@ class Nationalizer:
                     'th', 'thead', 'title', 'tr', 'tt', 'u',
                     'ul', 'xmp']
 
-    def __init__(self, htmlfile, language):
+    def __init__(self, htmlfile, locale):
         self.htmlfile = htmlfile
-        self.language = language
+        self.locale = locale
 
     def translate(self):
         """load and translate everything"""
-        popath = self.get_po_file_path(self.language)
+        popath = self.get_po_file_path(self.locale)
         if popath is not None:
             pofp = open(popath)
             try:
@@ -137,20 +143,21 @@ class Nationalizer:
             string = string.replace('  ', ' ')
         return string
 
-    def get_po_file_path(self, language):
-        startdir = '../i18n'
-        language = language.split('-')
-        pathstart = '%s/kupu-%s' % (startdir, language[0])
-        paths = []
-        if len(language) == 2:
-            paths.append('%s-%s.po' % (pathstart, language[1]))
-        paths += [
-            '%s-default.po' % pathstart,
-            '%s.po' % pathstart,
-            ]
-        for path in paths:
-            if os.path.isfile(path):
-                return path
+    def get_po_file_path(self, locale):
+        for language in locale:
+            startdir = '../i18n'
+            language = language.split('-')
+            pathstart = '%s/kupu-%s' % (startdir, language[0])
+            paths = []
+            if len(language) == 2:
+                paths.append('%s-%s.po' % (pathstart, language[1]))
+            paths += [
+                '%s-default.po' % pathstart,
+                '%s.po' % pathstart,
+                ]
+            for path in paths:
+                if os.path.isfile(path):
+                    return path
 
     def serialize(self, el):
         buf = []
@@ -183,5 +190,5 @@ class Nationalizer:
 if __name__ == '__main__':
     # test code
     os.chdir(os.path.abspath(os.path.dirname(__file__)))
-    i = Nationalizer('../common/kupu.html', 'nl')
+    i = Nationalizer('../common/kupu.html', ['nl'])
     print i.translate().encode('UTF-8')
