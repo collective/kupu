@@ -123,7 +123,8 @@ class JSParser:
         for file in files:
             self.parse_file(file, pox)
 
-    _startfuncreg = re.compile('.*?[^a-zA-Z0-9_]*_\(')
+    _startfuncreg = re.compile('.*?[^a-zA-Z0-9_]_\(')
+    _startfuncreg_2 = re.compile('^_\(')
     def parse_file(self, filename, pox):
         lines = open(filename).readlines()
         lineno = 0
@@ -161,7 +162,8 @@ class JSParser:
         """
         line = line.strip()
         if not more:
-            match = self._startfuncreg.search(line)
+            match = self._startfuncreg.search(line) or \
+                        self._startfuncreg_2.search(line)
             line = line.replace(match.group(0), '')
         line = line.strip()
         quote = line[0]
@@ -206,5 +208,8 @@ if __name__ == '__main__':
     js = [f for f in files if f.endswith('.js')]
     XMLParser(xml, pox)
     JSParser(js, pox)
-    print pox.get_result()
+    pres = pox.get_result()
+    pres = pres.replace('<catalog>',
+        ('<catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" '
+        'i18n:domain="kupu">'))
     print >>stderr, 'Done'
