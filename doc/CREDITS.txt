@@ -2,9 +2,12 @@
 kupu credits
 ============
 
+Main developers
+---------------
+
 * Paul Everitt
 
-  - leadership and guidance in Kupu development
+  - Initial leadership and guidance in Kupu development
 
   - JavaScript God
 
@@ -12,19 +15,6 @@ kupu credits
     macros and CSS styles.
 
   - much of the initial hacking, conversion to OO, async saving etc.
-
-* Philipp von Weitershausen
-
-  - Came up with the directory structure that lets Kupu be both a
-    Zope2, CMF, and Plone product as well as a Zope3 package.
-
-  - Invented and implemented XML/XSLT based templating system.
-
-  - Implemented library drawers with help from Paul and Guido.
-
-  - Zope2, CMF, Plone 2 and Zope3 integration
-
-  - Administrative tasks, thanks again Philipp...
 
 * Guido Wesdorp
 
@@ -50,8 +40,28 @@ kupu credits
 
 * Duncan Booth
 
-  - Wrote (more) advanced ContentFilter system, zoom mode and did a lot of
-    Plone work.
+  - Wrote (more) advanced ContentFilter system, zoom mode and a lot of 
+    other smaller features.
+    
+  - Did a most of the Plone integration work.
+
+  - Fixed a *lot* of bugs.
+
+* Philipp von Weitershausen
+
+  - Came up with the directory structure that lets Kupu be both a
+    Zope2, CMF, and Plone product as well as a Zope3 package.
+
+  - Invented and implemented XML/XSLT based templating system.
+
+  - Implemented library drawers with help from Paul and Guido.
+
+  - Zope2, CMF, Plone 2 and Zope3 integration
+
+  - Administrative tasks, thanks again Philipp...
+
+Special thanks to
+-----------------
 
 * Petri Savolainen
 
@@ -69,13 +79,15 @@ kupu credits
 
   - Added Lenya support.
 
-* Third party products included:
+Third party products included
+-----------------------------
 
   - Sarissa ECMAScript library written by Manos Batsis, released under
     the Kupu License with kind permission by the author. See the Sarissa
     homepage at http://sarissa.sourceforge.net for more information.
 
-* Also thanks to:
+Also thanks to
+--------------
 
   - Holger Krekel for being so kind to provide resources on his
     Codespeak server (subversion, the issuetracker and the
