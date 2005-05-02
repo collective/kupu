@@ -121,7 +121,7 @@ KupuSpellChecker.prototype.colourText = function(text, mapping) {
         var replacements = mapping[word];
         replacements = replacements.entitize();
         replacements = replacements.replace("'", "\\'", 'g');
-        var reg = new RegExp('^(.*\\\W)?(' + word + ')(\\\W.*)?', 'mg');
+        var reg = new RegExp('^(.*\\\W)?(' + word + ')(\\\W.*)?$', 'mg');
         while (true) {
             var match = reg.exec(currtext);
             if (!match) {
@@ -130,7 +130,6 @@ KupuSpellChecker.prototype.colourText = function(text, mapping) {
                 newtext = '';
                 break;
             };
-            debug('match: ' + match[0]);
             var m = (match[1] || '') + match[2];
             newtext += currtext.substr(0, currtext.indexOf(m));
             newtext += (match[1] || '') +
