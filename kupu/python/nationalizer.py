@@ -133,7 +133,7 @@ class Nationalizer:
         for attr in attrnames:
             value = node.getAttribute(attr)
             if value and msgcat.has_key(value):
-                node.setAttribute(attr, msgcat[value])
+                node.setAttribute(attr, unicode(msgcat[value], 'UTF-8'))
         node.removeAttributeNS(I18NNS, 'attributes')
 
     def reduce_whitespace(self, string):
