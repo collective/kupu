@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath('../python'))
 from nationalizer import Nationalizer, get_locale
 
 if __name__ == '__main__':
-    print 'Content-Type: text/html'
+    print 'Content-Type: text/html,charset=UTF-8'
     print
     locale = get_locale()
     if locale is None:
