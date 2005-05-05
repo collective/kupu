@@ -26,6 +26,8 @@ if not hasattr(context, 'getField'):
     return True
     
 field = context.getField(fieldname)
+if not field:
+  return True
 text_format = context.getContentType(fieldname)
 content = field.getEditAccessor(context)()
 
