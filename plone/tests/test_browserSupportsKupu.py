@@ -23,6 +23,8 @@ installProduct('kupu')
 class TestBrowserSupportsKupu(PloneTestCase.PloneTestCase):
 
     def afterSetUp(self):
+        md = self.portal.portal_memberdata
+        md._updateProperty('wysiwyg_editor', 'Kupu')
         self.qi = self.portal.portal_quickinstaller
         self.qi.installProduct('kupu')
         self.script = self.portal.portal_skins.kupu_plone.browserSupportsKupu

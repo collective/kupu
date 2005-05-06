@@ -15,19 +15,17 @@
         tal:define="name fieldName|inputname;
                 editorid string:kupu-editor-${name}"
         tal:attributes="id editorid">
-      <tal:block tal:define="wysiwyg python: here.portal_membership.getAuthenticatedMember().getProperty('wysiwyg_editor');">
-        <tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu' and here.browserSupportsKupu();" />
-      </tal:block>
-
-      <div tal:condition="haskupu">
+     <tal:usekupu define="fname fieldName|inputname|nothing;
+                  usekupu python:here.contentUsesKupu(fname);">
+      <div tal:condition="usekupu">
         <kupu:define-slot name="has_kupu" />
       </div>
 
-      <div tal:condition="not:haskupu">
+      <div tal:condition="not:usekupu">
         <kupu:define-slot name="not_has_kupu" />
       </div>
+     </tal:usekupu>
     </div>
-
   </kupu:part>
 
   <kupu:part name="eventhandler">
@@ -59,14 +57,10 @@
 
   <kupu:part name="textformatselector">
 
-<div metal:define-macro="textFormatSelector"
-     class="field"
-     tal:define="text_format python:request.get('text_format', getattr(here,'text_format','structured-text'))">
-
-  <tal:block tal:define="wysiwyg python: here.portal_membership.getAuthenticatedMember().getProperty('wysiwyg_editor');">
-    <tal:haskupu tal:define="global haskupu python:wysiwyg=='Kupu' and here.browserSupportsKupu();" />
-  </tal:block>
-  <tal:editor tal:condition="haskupu">
+<div metal:define-macro="textFormatSelector" class="field">
+ <tal:usekupu define="fname fieldName|inputname|nothing;
+              usekupu python:here.contentUsesKupu(fname);">
+  <tal:editor tal:condition="usekupu">
      <input type="hidden" name="text_format" value="text/html"
         tal:define="fieldName fieldName|inputname|nothing;
                 val python:fieldName and 'text/html' or 'html';
@@ -74,53 +68,56 @@
         tal:attributes="name fieldName;value val;"
      />
   </tal:editor>                 
-  <tal:noeditor  tal:condition="not:haskupu">
+  <tal:noeditor  tal:condition="not:usekupu">
     <tal:archetypes tal:condition="fieldName|nothing">
          <div metal:use-macro="here/widgets/visual/macros/area_format" />
+         <span tal:condition="here/browserSupportsKupu">
+           <a href="#"
+                tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};">Convert to HTML and edit with Kupu</a></span>
     </tal:archetypes>
     <tal:nonat condition="not:fieldName|nothing">
-    <label for="text_format" i18n:translate="label_format">Format</label>
+     <label for="text_format" i18n:translate="label_format">Format</label>
 
-    <div class="formHelp" i18n:translate="help_format">
-      If you are unsure of which format to use, just select Plain
-      Text and type the document as you usually do.
-    </div>
+     <div class="formHelp" i18n:translate="help_format">
+       If you are unsure of which format to use, just select Plain
+       Text and type the document as you usually do.
+     </div>
 
-    <input class="noborder"
-           type="radio"
-           name="text_format"
-           value="structured-text"
-           tabindex=""
-           id="cb_structuredtext"
-           tal:attributes="checked python:test(text_format=='structured-text', 1, None);
-                           tabindex tabindex;"
-           />
-    <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
+     <input class="noborder"
+            type="radio"
+            name="text_format"
+            value="structured-text"
+            tabindex=""
+            id="cb_structuredtext"
+            tal:attributes="checked python:test(text_format=='structured-text', 1, None);
+                            tabindex tabindex;"
+            />
+     <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
 
-    <input class="noborder"
-           type="radio"
-           name="text_format"
-           value="html"
-           tabindex=""
-           id="cb_html"
-           tal:attributes="checked python:test(text_format=='html', 1, None);
-                           tabindex tabindex;"
-           />
-    <label for="cb_html" i18n:translate="html">HTML</label> <br />
+     <input class="noborder"
+            type="radio"
+            name="text_format"
+            value="html"
+            tabindex=""
+            id="cb_html"
+            tal:attributes="checked python:test(text_format=='html', 1, None);
+                            tabindex tabindex;"
+            />
+     <label for="cb_html" i18n:translate="html">HTML</label> <br />
 
-    <input class="noborder"
-           type="radio"
-           name="text_format"
-           value="plain"
-           tabindex=""
-           id="cb_plain"
-           tal:attributes="checked python:test(text_format=='plain', 1, None);
-                           tabindex tabindex;"
-           />
-    <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
-
+     <input class="noborder"
+            type="radio"
+            name="text_format"
+            value="plain"
+            tabindex=""
+            id="cb_plain"
+            tal:attributes="checked python:test(text_format=='plain', 1, None);
+                            tabindex tabindex;"
+            />
+     <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
     </tal:nonat>
   </tal:noeditor>
+ </tal:usekupu>
 </div>
 
   </kupu:part>

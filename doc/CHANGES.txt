@@ -7,6 +7,34 @@ Kupu changes
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
 
+- Post 1.2.1
+
+  - Tidied up zoom mode. Added kupu-fulleditor-zoomed class to body
+  when zoomed so you can use css to hide other controls on page (IE
+  ignores z-index on SELECT boxes).
+
+  - Further adjustment for issue 70 to give slightly prettier
+  formatting.
+
+- 1.2.1
+
+  - Fixed some context bugs with External Sources (Silva specific), now Kupu
+    uses the same functionality to find code sources as the rest of Silva
+    does.
+
+  The following issue has been resolved:
+
+  - 70: Content duplication (when pasting into IE from Microsoft Word or Works).
+
+- 1.2 final
+
+  - Linking to the current folder produced an empty link. Now it links to "."
+
+  - Changed how kupu in Plone handles non-HTML content e.g. STX. Now it won't
+    load for fields in Archetypes content if the content type isn't HTML (but 
+    it does put in a link allowing you to force a conversion). See
+    http://plone.org/collector/3900
+
   - Added support for spell checking.
 
 - Since 1.2rc1
