@@ -2044,7 +2044,7 @@ KupuZoomTool.prototype.onresize = function() {
     }
     width = width + 'px';
     var offset = iframe.offsetTop;
-    if (sourceArea && !offset) offset = sourceArea.offsetTop-1;
+    if (sourceArea) offset = sourceArea.offsetTop-1;
     height = height - offset -1/*top border*/ + 'px';
     fulleditor.style.width = width; /*IE needs this*/
     iframe.style.width = width;
@@ -2073,11 +2073,13 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
         html.style.overflow = 'hidden';
         window.scrollTo(0, 0);
         editor.setClass(zoomClass);
+        body.className += ' '+zoomClass;
         this.onresize();
     } else {
         html.style.overflow = '';
         var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
+        body.className = body.className.replace(' '+zoomClass, '');
         editor.clearClass(zoomClass);
 
         iframe.style.width = '';

@@ -33,7 +33,7 @@ div.kupu-fulleditor-zoomed .kupu-editorframe {
 }
 
 div.kupu-fulleditor-zoomed {
-   z-index: 1;
+   z-index: 100;
    margin: 0; border: none;
    position: fixed;
    top: 0; left: 0;
@@ -57,18 +57,12 @@ div.kupu-smalleditor .kupu-editorframe {
   margin-right: 0.2em;
 }
 
-/*
-div.kupu-sourcemode #kupu-editor {
-   display: none;
-}
-
-div.kupu-sourcemode textarea.kupu-editor-textarea {
-   display: block;
-}*/
-
 div.kupu-sourcemode span.kupu-tb-buttongroup,
-div.kupu-sourcemode select { display: none; }
+body.kupu-fulleditor-zoomed select { display: none; }
+body.kupu-fulleditor-zoomed div.kupu-fulleditor-zoomed select { display: inline; }
+div.kupu-sourcemode select { display: none !IMPORTANT; }
 div.kupu-sourcemode span#kupu-logo,
+div.kupu-sourcemode span#kupu-zoom,
 div.kupu-sourcemode span#kupu-source { display: inline; }
 
 div.kupu-smalleditor {
