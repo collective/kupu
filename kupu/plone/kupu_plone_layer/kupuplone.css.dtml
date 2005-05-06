@@ -74,8 +74,8 @@ textarea { width: 90%; } /* Override buggy Plone setting */
 
 .kupu-tb {
   background-color:&dtml-contentViewBackgroundColor;;
-  padding-bottom:0px;
-  width:98%;
+  padding-bottom:0px; margin:0;
+  width:99%;
   border:1px solid &dtml-contentViewBorderColor;;
 }
 
@@ -195,7 +195,7 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-undo {background-image: url("plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("plonekupuimages/delete_icon.gif");}
 .kupu-removeimage {background-image: url("plonekupuimages/delete_icon.gif");}
-
+.kupu-spellchecker { display:none; }
 
 div.kupu-drawer {
   position: absolute;

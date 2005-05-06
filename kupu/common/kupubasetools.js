@@ -509,8 +509,19 @@ function PropertyTool(titlefieldid, descfieldid) {
             title.appendChild(text);
             head.appendChild(title);
         } else {
-            titles[0].childNodes[0].nodeValue = this.titlefield.value;
+            var title = titles[0];
+            // IE6 title has no children, and refuses appendChild.
+            // Delete and recreate the title.
+            if (title.childNodes.length == 0) {
+                title.removeNode(true);
+                title = doc.createElement('title');
+                title.innerText = this.titlefield.value;
+                head.appendChild(title);
+            } else {
+                title.childNodes[0].nodeValue = this.titlefield.value;
+            }
         }
+        document.title = this.titlefield.value;
 
         // let's just fulfill the usecase, not think about more properties
         // set the description
@@ -562,7 +573,11 @@ function LinkTool() {
                 var doc = this.editor.getInnerDocument();
                 linkel.appendChild(doc.createTextNode(title || url));
             }
-            linkel.title = title;
+            if (title) {
+                linkel.title = title;
+            } else {
+                linkel.removeAttribute('title');
+            }
             if (target && target != '') {
                 linkel.setAttribute('target', target);
             }
@@ -2106,7 +2121,7 @@ KupuZoomTool.prototype.onresize = function() {
     }
     width = width + 'px';
     var offset = iframe.offsetTop;
-    if (sourceArea && !offset) offset = sourceArea.offsetTop-1;
+    if (sourceArea) offset = sourceArea.offsetTop-1;
     // XXX: TODO: Using wrong values here, figure out why.
     var nheight = Math.max(height - offset -1/*top border*/, 10);
     nheight = nheight + 'px';
@@ -2137,11 +2152,13 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
         html.style.overflow = 'hidden';
         window.scrollTo(0, 0);
         editor.setClass(zoomClass);
+        body.className += ' '+zoomClass;
         this.onresize();
     } else {
         html.style.overflow = '';
         var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
+        body.className = body.className.replace(' '+zoomClass, '');
         editor.clearClass(zoomClass);
 
         iframe.style.width = '';
