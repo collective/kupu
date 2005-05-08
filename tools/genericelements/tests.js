@@ -12,7 +12,7 @@
 
 var xml1 = '<?xml version="1.0" encoding="UTF-8" ?>' +
             '<elements>' +
-            '   <element>' +
+            '   <genericelement>' +
             '       <id>foo</id>' +
             '       <name>Foo</name>' +
             '       <formdef>' +
@@ -30,19 +30,18 @@ var xml1 = '<?xml version="1.0" encoding="UTF-8" ?>' +
             '           </field>' +
             '       </formdef>' +
             '       <replacement>' +
-            '           <name>div</name>' +
-            '           <properties>' +
-            '               <property>' +
-            '                   <name>class</name>' +
-            '                   <value>some_element</value>' +
-            '               </property>' +
-            '               <property>' +
-            '                   <name>someattr</name>' +
-            '                   <value>some_value</value>' +
-            '               </property>' +
-            '           </properties>' +
+            '           <element name="div" value="foo">' +
+            '             <property name="class">some_element</property>' +
+            '             <property name="someattr">some_value</property>' +
+            '             <children>' +
+            '               <element name="span">' +
+            '                 <property name="class">some_other_element' +
+                                '</property>' +
+            '               </element>' +
+            '             </children>' +
+            '           </element>' +
             '       </replacement>' +
-            '   </element>' +
+            '   </genericelement>' +
             '</elements>';
 
 function GenericElementsTestCase() {
@@ -70,12 +69,13 @@ function GenericElementsTestCase() {
         this.assertEquals(el[2][1][3], 'requiredInteger')
         this.assertEquals(el[2][0][4], this.tool._getValidator('requiredString'))
         this.assertEquals(el[2][1][4], this.tool._getValidator('requiredInteger'))
-        this.assertEquals(el[3], 'div');
-        this.assertEquals(el[4].length, 2);
-        this.assertEquals(el[4][0][0], 'class');
-        this.assertEquals(el[4][0][1], 'some_element');
-        this.assertEquals(el[4][1][0], 'someattr');
-        this.assertEquals(el[4][1][1], 'some_value');
+        this.assertEquals(el[3][0][0], 'div');
+        this.assertEquals(el[3][0][1].length, 2);
+        // deeply nested? this? :\
+        this.assertEquals(el[3][0][1][0][0], 'class');
+        this.assertEquals(el[3][0][1][0][1], 'some_element');
+        this.assertEquals(el[3][0][1][1][0], 'someattr');
+        this.assertEquals(el[3][0][1][1][1], 'some_value');
     };
 };
 

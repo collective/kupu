@@ -495,10 +495,10 @@ function GenericElementsTool(xmlid, popupprops) {
             format of the XML:
 
               <elements>
-                <element>
+                <genericelement>
                   <id>[id]</id>
                   <name>[element name]</name>
-                  <form>
+                  <formdef>
                     <field>
                       <id>[id]</id>
                       <title>[title]</title>
@@ -514,7 +514,7 @@ function GenericElementsTool(xmlid, popupprops) {
                                 ]</items>
                     </field>
                     ...
-                  </form>
+                  </formdef>
                   <replacement>
                     <!-- note that <replacement> is only allowed to have 1 child -->
                     <element name="name of element" value="value of element">
@@ -539,7 +539,7 @@ function GenericElementsTool(xmlid, popupprops) {
                       </children>
                     </element>
                   </replacement>
-                </element>
+                </genericelement>
                 ...
               </elements>
         
@@ -558,18 +558,21 @@ function GenericElementsTool(xmlid, popupprops) {
                         ...
                         ],
                     ],
-                    [<replacement_name>,
-                        [
-                            [<replacement_property_name>,
-                                <replacement_property_value>,
-                                ],
-                            ...
+                    [
+                        [<replacement_name>,
+                            [
+                                [<replacement_property_name>,
+                                    <replacement_property_value>,
+                                    ],
+                                ...
+                            ],
+                            [ // children
+                                [<name>, [<props>], [<children>]],
+                                <text>,
+                                ...
+                            ]
                         ],
-                        [
-                            [<name>, [<props>], [<children>]],
-                            <text>,
-                            ...
-                        ]
+                        ...
                     ]
                 ]
 
@@ -577,15 +580,12 @@ function GenericElementsTool(xmlid, popupprops) {
             (id, name, form, replacement))
 
         */
-        var elements = dom.getElementsByTagName('elements')[0];
+        var elements = dom.getElementsByTagName('genericelement');
         var elementlist = new Array();
-        for (var i=0; i < elements.childNodes.length; i++) {
+        for (var i=0; i < elements.length; i++) {
             // handle each element
             // get each property from the XML one by one
-            var el = elements.childNodes[i];
-            if (el.nodeType != 1 || el.nodeName.toLowerCase() != 'element') {
-                continue;
-            };
+            var el = elements[i];
             var eltuple = new Array();
             
             // first basic stuff, id, name
@@ -657,7 +657,8 @@ function GenericElementsTool(xmlid, popupprops) {
             };
             eltuple.push(formfields);
 
-            // now do the replacement element, also nested so also somewhat messier
+            // now do the replacement element, also nested so also somewhat 
+            // messier
             var replacementel = el.getElementsByTagName('replacement')[0];
             var replacements = this._getReplacementElements(replacementel);
             eltuple.push(replacements);
@@ -676,7 +677,8 @@ function GenericElementsTool(xmlid, popupprops) {
         var repels = new Array();
         for (var i=0; i < repel.childNodes.length; i++) {
             var repchild = repel.childNodes[i];
-            if (repchild.nodeType != 1 || repchild.nodeName.toLowerCase() != 'element') {
+            if (repchild.nodeType != 1 || 
+                    repchild.nodeName.toLowerCase() != 'element') {
                 continue;
             };
             repels.push(this._getReplacementElementHelper(repchild));
