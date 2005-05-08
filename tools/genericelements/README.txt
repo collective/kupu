@@ -26,3 +26,9 @@ Questions
 =========
 
 If you have questions or remarks, please send an email to guido@infrae.com.
+
+Thanks to
+=========
+
+Joachim Koenig-Baltes for a small patch to improve the format of the XML
+(which makes parsing easier).
