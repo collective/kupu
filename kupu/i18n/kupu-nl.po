@@ -1,13 +1,16 @@
 msgid ""
 msgstr ""
 "POT-Creation-Date: Sun May  1 10:43:26 2005\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2005-05-10 17:58+0200\n"
+"Last-Translator: Guido Wesdorp <guido@infrae.com>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: zope/app/translation_files/extract.py\n"
+"Language-code: nl\n"
+"Language-name: Nederlands\n"
+"Domain: kupu\n"
 
 #: /common/kupu.pox:103
 msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
