@@ -2,6 +2,8 @@
 kupu credits
 ============
 
+Thanks to the people at ETH for initial funding and continuing inspiration.
+
 Main developers
 ---------------
 
@@ -120,8 +122,6 @@ Also thanks to
   - Donovan Baarda for a number of patches.
 
   - Kit Blake for documentation and administrative tasks.
-
-  - The guys at ETH for inspiration.
 
   - Danny Hope from Adaptive Technologies for help on icons.
 
