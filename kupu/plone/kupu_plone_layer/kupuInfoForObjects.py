@@ -78,12 +78,12 @@ if linkhere and portal is not context:
         res.append(data)
 
 if linkparent:
-    if portal is not context and portal is not context.aq_parent:
+    if portal is not context:
         data = info(context.aq_parent, True)
         if data:
             data['label'] = '.. (Parent folder)'
             res.append(data)
-
+            
 for obj in values:
     data = info(obj, True)
     if data:
