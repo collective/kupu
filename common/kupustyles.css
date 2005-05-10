@@ -177,6 +177,10 @@ div.kupu-toolboxes {
   font-size: 0.8em;
 }
 
+div.kupu-fulleditor-zoomed div.kupu-toolboxes {
+  display: none;
+}
+
 div.kupu-toolbox, div.kupu-toolbox-active {
   margin-bottom: 1em;
 }
