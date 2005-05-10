@@ -101,7 +101,7 @@ function addEventHandler(element, event, method, context) {
 function removeEventHandler(element, event, method) {
     /* method to remove an event handler for both IE and Mozilla */
     if (_SARISSA_IS_MOZ) {
-        window.removeEventListener('focus', method, false);
+        window.removeEventListener(event, method, false);
     } else if (_SARISSA_IS_IE) {
         element.detachEvent("on" + event, method);
     } else {
