@@ -462,6 +462,16 @@ function XhtmlValidation(editor) {
             if (val) val = validation.classFilter(val);
             if (val) xhtmlnode.setAttribute('class', val);
         }
+        // allow a * wildcard to make all attributes valid in the filter
+        // note that this is pretty slow on IE
+        this['*'] = function(name, htmlnode, xhtmlnode) {
+            for (var i=0; i < htmlnode.attributes.length; i++) {
+                var attr = htmlnode.attributes[i];
+                if (attr.value !== null && attr.value !== undefined) {
+                    xhtmlnode.setAttribute(attr.name, attr.value);
+                };
+            };
+        };
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.className;
@@ -538,6 +548,11 @@ function XhtmlValidation(editor) {
 
     // Copy all valid attributes from htmlnode to xhtmlnode.
     this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
+        if (valid.contains('*')) {
+            // allow all attributes on this tag
+            this.attrFilters['*'](name, htmlnode, xhtmlnode);
+            return;
+        };
         for (var i = 0; i < valid.length; i++) {
             var name = valid[i];
             var filter = this.attrFilters[name];

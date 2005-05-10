@@ -110,6 +110,7 @@ function NoContextMenu(object) {
 
 function KupuButton(buttonid, commandfunc, tool) {
     /* Base prototype for kupu button tools */
+    this.buttonid = buttonid;
     this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.tool = tool;
@@ -138,6 +139,7 @@ KupuButton.prototype = new KupuTool;
 function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     /* A button that can have two states (e.g. pressed and
        not-pressed) based on CSS classes */
+    this.buttonid = buttonid;
     this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.checkfunc = checkfunc;
@@ -914,8 +916,13 @@ function TableTool() {
         // make each cell select its full contents if it's clicked
         addEventHandler(table, 'click', this._selectContentIfEmpty, this);
 
+        var cells = table.getElementsByTagName('td');
+        for (var i=0; i < cells.length; i++) {
+            addEventHandler(cells[i], 'click', this._selectContentIfEmpty, this);
+        };
+        
         // select the nbsp in the first cell
-        var firstcell = table.getElementsByTagName('td')[0];
+        var firstcell = cells[0];
         if (firstcell) {
             var children = firstcell.childNodes;
             if (children.length == 1 && children[0].nodeType == 3 && 
@@ -1678,14 +1685,21 @@ function ShowPathTool() {
     this.updateState = function(selNode) {
         /* calculate and display the path */
         var path = '';
+        var url = null; // for links we want to display the url too
         var currnode = selNode;
         while (currnode != null && currnode.nodeName != '#document') {
+            if (currnode.nodeName.toLowerCase() == 'a') {
+                url = currnode.getAttribute('href');
+            };
             path = '/' + currnode.nodeName.toLowerCase() + path;
             currnode = currnode.parentNode;
         }
         
         try {
-            window.status = path;
+            window.status = url ? 
+                    (path.toString() + ' - contains link to \'' + 
+                        url.toString() + '\'') :
+                    path;
         } catch (e) {
             this.editor.logMessage(_('Could not set status bar message, ' +
                                     'check your browser\'s security settings.'

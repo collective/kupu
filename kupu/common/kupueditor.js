@@ -34,7 +34,6 @@ function KupuDocument(iframe) {
     // methods
     this.execCommand = function(command, arg) {
         /* delegate execCommand */
-        // XXX Is the command always a string? Can't it be '' or 0 or so?
         if (arg === undefined) arg = null;
         this.document.execCommand(command, false, arg);
     };
@@ -215,6 +214,20 @@ function KupuEditor(document, config, logger) {
         // set the window status so people can see we're actually saving
         window.status= _("Please wait while saving document...");
 
+        // call (optional) beforeSave() method on all tools
+        for (var id in this.tools) {
+            var tool = this.tools[id];
+            if (tool.beforeSave) {
+                try {
+                    tool.beforeSave();
+                } catch(e) {
+                    alert(e);
+                    this._initialized = true;
+                    return;
+                };
+            };
+        };
+        
         // pass the content through the filters
         this.logMessage(_("Starting HTML cleanup"));
         var transform = this._filterContent(this.getInnerDocument().documentElement);
@@ -259,6 +272,20 @@ function KupuEditor(document, config, logger) {
         // set the window status so people can see we're actually saving
         window.status= _("Please wait while saving document...");
 
+        // call (optional) beforeSave() method on all tools
+        for (var tid in this.tools) {
+            var tool = this.tools[tid];
+            if (tool.beforeSave) {
+                try {
+                    tool.beforeSave();
+                } catch(e) {
+                    alert(e);
+                    this._initialized = true;
+                    return;
+                };
+            };
+        };
+        
         // set a default id
         if (!id) {
             id = 'kupu';
