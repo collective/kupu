@@ -10,11 +10,11 @@ Kupu changes
 - Post 1.2.1
 
   - Tidied up zoom mode. Added kupu-fulleditor-zoomed class to body
-  when zoomed so you can use css to hide other controls on page (IE
-  ignores z-index on SELECT boxes).
+    when zoomed so you can use css to hide other controls on page (IE
+    ignores z-index on SELECT boxes).
 
   - Further adjustment for issue 70 to give slightly prettier
-  formatting.
+    formatting.
 
 - 1.2.1
 
