@@ -11,6 +11,7 @@ function KupuSpellChecker(buttonid, scripturl, spanstyle,
 KupuSpellChecker.prototype = new KupuTool;
 
 KupuSpellChecker.prototype.initialize = function(editor) {
+    alert('spellchecker initialized');
     this.editor = editor;
     addEventHandler(this.button, 'click', this.check, this);
 };

@@ -10,87 +10,151 @@
 
 // $Id$
 
+// a mapping from namespace to field names, here you can configure which 
+// metadata fields should be editable with the property editor (needs to
+// be moved to somewhere in Silva or something?)
+EDITABLE_METADATA = {
+    'http://infrae.com/namespaces/metadata/silva-extra': 
+            [['contactname', 'text', 0, 'Contact name'],
+                ['contactemail', 'text', 0, 'Contact email']
+            ],
+    'http://infrae.com/namespaces/metadata/abstract':
+            [['author', 'text', 1, 'Presenting author'],
+                ['co_authors', 'textarea', 0, 'Co-author(s)']]
+}
+ 
 function SilvaLinkTool() {
     /* redefine the contextmenu elements */
-    
-    this.createContextMenuElements = function(selNode, event) {
-        /* create the 'Create link' or 'Remove link' menu elements */
-        var ret = new Array();
-        var link = this.editor.getNearestParentOfType(selNode, 'a');
-        if (link) {
-            ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
-        } else {
-            ret.push(new ContextMenuElement('Create link', getLink, this));
-        };
-        return ret;
-    };
 };
 
 SilvaLinkTool.prototype = new LinkTool;
 
-function SilvaLinkToolBox(inputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
+SilvaLinkTool.prototype.createContextMenuElements = function(selNode, event) {
+    /* create the 'Create link' or 'Remove link' menu elements */
+    var ret = new Array();
+    var link = this.editor.getNearestParentOfType(selNode, 'a');
+    if (link) {
+        ret.push(new ContextMenuElement('Delete link', this.deleteLink, this));
+    } else {
+        ret.push(new ContextMenuElement('Create link', getLink, this));
+    };
+    return ret;
+};
+
+function SilvaLinkToolBox(inputid, targetselectid, targetinputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
     this.input = getFromSelector(inputid);
+    this.targetselect = getFromSelector(targetselectid);
+    this.targetinput = getFromSelector(targetinputid);
     this.addbutton = getFromSelector(addbuttonid);
     this.updatebutton = getFromSelector(updatebuttonid);
     this.delbutton = getFromSelector(delbuttonid);
     this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
-    
-    this.initialize = function(tool, editor) {
-        this.tool = tool;
-        this.editor = editor;
-        addEventHandler(this.addbutton, 'click', this.createLinkHandler, this);
-        addEventHandler(this.updatebutton, 'click', this.createLinkHandler, this);
-        addEventHandler(this.delbutton, 'click', this.tool.deleteLink, this);
-        this.editor.logMessage('Link tool initialized');
-    };
-
-    this.createLinkHandler = function(event) {
-        var url = this.input.value;
-        this.tool.createLink(url);
-    };
-    
-    this.updateState = function(selNode, event) {
-        var currnode = selNode;
-        var link = false;
-        var href = '';
-        while (currnode) {
-            if (currnode.nodeName.toLowerCase() == 'a') {
-                href = currnode.getAttribute('href');
-                if (href) {
-                    if (this.toolboxel) {
-                        this.toolboxel.className = this.activeclass;
-                    };
-                    this.input.value = href;
-                    this.addbutton.style.display = 'none';
-                    this.updatebutton.style.display = 'inline';
-                    this.delbutton.style.display = 'inline';
-                    return;
-                };
-            };
-            currnode = currnode.parentNode;
-        };
-        this.updatebutton.style.display = 'none';
-        this.delbutton.style.display = 'none';
-        this.addbutton.style.display = 'inline';
-        if (this.toolboxel) {
-            this.toolboxel.className = this.plainclass;
-        };
-        this.input.value = '';
-    };
 };
 
 SilvaLinkToolBox.prototype = new LinkToolBox;
 
-function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, linklinkradioid, linkinputid, 
-                        alignselectid, titleinputid, toolboxid, plainclass, activeclass) {
+SilvaLinkToolBox.prototype.initialize = function(tool, editor) {
+    this.tool = tool;
+    this.editor = editor;
+    addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.targetinput, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.addbutton, 'click', this.createLinkHandler, this);
+    addEventHandler(this.updatebutton, 'click', this.createLinkHandler, this);
+    addEventHandler(this.delbutton, 'click', this.tool.deleteLink, this);
+    this.targetinput.style.display = 'none';
+    this.editor.logMessage('Link tool initialized');
+};
+
+SilvaLinkToolBox.prototype.selectTargetHandler = function(event) {
+    var select = this.targetselect;
+    var input = this.targetinput;
+
+    var selvalue = select.options[select.selectedIndex].value;
+    if (selvalue != 'input') {
+        input.style.display = 'none';
+    } else {
+        input.style.display = 'inline';
+    };
+};
+ 
+SilvaLinkToolBox.prototype.createLinkHandler = function(event) {
+    var url = this.input.value;
+    var target = this.targetselect.options[this.targetselect.selectedIndex].value;
+    if (target == 'input') {
+        target = this.targetinput.value;
+     };
+    this.tool.createLink(url, 'link', null, target);
+};
+
+SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
+    var currnode = selNode;
+    var link = false;
+    var href = '';
+    while (currnode) {
+        if (currnode.nodeName.toLowerCase() == 'a') {
+            href = currnode.getAttribute('href');
+            if (href) {
+                if (this.toolboxel) {
+                    this.toolboxel.className = this.activeclass;
+                };
+                this.input.value = href;
+                var target = currnode.getAttribute('target');
+                if (!target) {
+                    this.targetselect.selectedIndex = 0;
+                    this.targetinput.style.display = 'none';
+                } else {
+                    var target_found = false;
+                    for (var i=0; i < this.targetselect.options.length; i++) {
+                        var option = this.targetselect.options[i];
+                        if (option.value == target) {
+                            this.targetselect.selectedIndex = i;
+                            target_found = true;
+                            break;
+                        };
+                    };
+                    if (target_found) {
+                        this.targetinput.value = '';
+                        this.targetinput.style.display = 'none';
+                    } else {
+                        // XXX this is pretty hard-coded...
+                        this.targetselect.selectedIndex = this.targetselect.options.length - 1;
+                        this.targetinput.value = target;
+                        this.targetinput.style.display = 'inline';
+                    };
+                };
+                this.addbutton.style.display = 'none';
+                this.updatebutton.style.display = 'inline';
+                this.delbutton.style.display = 'inline';
+                return;
+            };
+        };
+        currnode = currnode.parentNode;
+    };
+    this.targetselect.selectedIndex = 0;
+    this.targetinput.value = '';
+    this.targetinput.style.display = 'none';
+    this.updatebutton.style.display = 'none';
+    this.delbutton.style.display = 'none';
+    this.addbutton.style.display = 'inline';
+    if (this.toolboxel) {
+        this.toolboxel.className = this.plainclass;
+    };
+    this.input.value = '';
+};
+ 
+function SilvaImageTool(editelid, urlinputid, targetselectid, targetinputid, 
+                        hireslinkradioid, linklinkradioid, linkinputid, 
+                        alignselectid, titleinputid, toolboxid, plainclass, 
+                        activeclass) {
     /* Silva specific image tool */
     this.editel = getFromSelector(editelid);
     this.urlinput = getFromSelector(urlinputid);
     this.targetselect = getFromSelector(targetselectid);
+    this.targetinput = getFromSelector(targetinputid);
     this.hireslinkradio = getFromSelector(hireslinkradioid);
     this.linklinkradio = getFromSelector(linklinkradioid);
     this.linkinput = getFromSelector(linkinputid);
@@ -99,151 +163,190 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, hireslinkradioid, 
     this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
     this.activeclass = activeclass;
-
-    this.initialize = function(editor) {
-        this.editor = editor;
-        addEventHandler(this.targetselect, 'click', this.setTarget, this);
-        addEventHandler(this.urlinput, 'change', this.setSrc, this);
-        addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
-        addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
-        addEventHandler(this.linkinput, 'keypress', this.setLink, this);
-        addEventHandler(this.linkinput, 'change', this.setLink, this);
-        addEventHandler(this.alignselect, 'change', this.setAlign, this);
-        addEventHandler(this.titleinput, 'change', this.setTitle, this);
-        this.editor.logMessage('Image tool initialized');
-    };
-
-    this.createContextMenuElements = function(selNode, event) {
-        return new Array(new ContextMenuElement('Create image', getImage, this));
-    };
-
-    this.updateState = function(selNode, event) {
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (image) {
-            this.editel.style.display = 'block';
-            var src = image.getAttribute('src');
-            this.urlinput.value = src;
-            var target = image.getAttribute('target');
-            if (!target) {
-                target = '_self';
-            };
-            selectSelectItem(this.targetselect, target);
-            var hires = image.getAttribute('link_to_hires') == '1';
-            if (!hires) {
-                var link = image.getAttribute('link');
-                this.linklinkradio.checked = 'selected';
-                this.linkinput.value = link == null ? '' : link;
-            } else {
-                this.hireslinkradio.checked = 'checked';
-                this.linkinput.value = '';
-            };
-            if (this.toolboxel) {
-                this.toolboxel.className = this.activeclass;
-            };
-            var align = image.getAttribute('alignment');
-            if (!align) {
-                align = 'left';
-            };
-            var title = image.getAttribute('title');
-            if (!title) {
-                title = '';
-            };
-            this.titleinput.value = title;
-            selectSelectItem(this.alignselect, align);
-        } else {
-            this.editel.style.display = 'none';
-            this.urlinput.value = '';
-            this.titleinput.value = '';
-            if (this.toolboxel) {
-                this.toolboxel.className = this.plainclass;
-            };
-        };
-    };
-
-    this.setTarget = function() {
-        var target = this.targetselect.options[this.targetselect.selectedIndex].value;
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-        };
-        image.setAttribute('target', target);
-    };
-
-    this.setSrc = function() {
-        var selNode = this.editor.getSelectedNode();
-        var img = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!img) {
-            this.editor.logMessage('Not inside an image!', 1);
-        };
-        
-        var src = this.urlinput.value;
-        img.setAttribute('src', src);
-        this.editor.logMessage('Image updated');
-    };
-
-    this.setHires = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        image.setAttribute('link_to_hires', '1');
-        image.removeAttribute('link');
-        this.linkinput.value = '';
-    };
-
-    this.setNoHires = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('Not inside an image!', 1);
-            return;
-        };
-        var link = this.linkinput.value;
-        image.setAttribute('link_to_hires', '0');
-        image.setAttribute('link', link);
-        this.linklinkradio.setAttribute('selected', 'selected');
-    };
-
-    this.setLink = function() {
-        var link = this.linkinput.value;
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        image.setAttribute('link', link);
-        image.setAttribute('link_to_hires', '0');
-    };
-
-    this.setTitle = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('No image selected!', 1);
-            return;
-        };
-        var title = this.titleinput.value;
-        image.setAttribute('title', title);
-    };
-
-    this.setAlign = function() {
-        var selNode = this.editor.getSelectedNode();
-        var image = this.editor.getNearestParentOfType(selNode, 'img');
-        if (!image) {
-            this.editor.logMessage('Not inside an image', 1);
-            return;
-        };
-        var align = this.alignselect.options[this.alignselect.selectedIndex].value;
-        image.setAttribute('alignment', align);
-    };
 }
 
 SilvaImageTool.prototype = new ImageTool;
 
+SilvaImageTool.prototype.initialize = function(editor) {
+   this.editor = editor;
+    addEventHandler(this.targetselect, 'change', this.setTarget, this);
+    addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
+    addEventHandler(this.targetinput, 'change', this.setTarget, this);
+    addEventHandler(this.urlinput, 'change', this.setSrc, this);
+    addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
+    addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
+    addEventHandler(this.linkinput, 'keypress', this.setLink, this);
+    addEventHandler(this.linkinput, 'change', this.setLink, this);
+    addEventHandler(this.alignselect, 'change', this.setAlign, this);
+    addEventHandler(this.titleinput, 'change', this.setTitle, this);
+    this.targetinput.style.display = 'none';
+    this.editor.logMessage('Image tool initialized');
+};
+
+SilvaImageTool.prototype.createContextMenuElements = function(selNode, event) {
+    return new Array(new ContextMenuElement('Create image', getImage, this));
+};
+
+SilvaImageTool.prototype.selectTargetHandler = function(event) {
+    var select = this.targetselect;
+    var input = this.targetinput;
+
+    var selvalue = select.options[select.selectedIndex].value;
+    if (selvalue != 'input') {
+        input.style.display = 'none';
+    } else {
+        input.style.display = 'inline';
+    };
+};
+
+SilvaImageTool.prototype.updateState = function(selNode, event) {
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (image) {
+        this.editel.style.display = 'block';
+        var src = image.getAttribute('src');
+        this.urlinput.value = src;
+        var target = image.getAttribute('target');
+        if (!target) {
+            this.targetselect.selectedIndex = 0;
+            this.targetinput.style.display = 'none';
+        } else {
+            var target_found = false;
+            for (var i=0; i < this.targetselect.options.length; i++) {
+                var option = this.targetselect.options[i];
+                if (option.value == target) {
+                    this.targetselect.selectedIndex = i;
+                    target_found = true;
+                    break;
+                };
+            };
+            if (target_found) {
+                this.targetinput.value = '';
+                this.targetinput.style.display = 'none';
+            } else {
+                this.targetselect.selectedIndex = this.targetselect.options.length - 1;
+                this.targetinput.value = target;
+                this.targetinput.style.display = 'inline';
+            };
+        };
+        var hires = image.getAttribute('link_to_hires') == '1';
+        if (!hires) {
+            var link = image.getAttribute('link');
+            this.linklinkradio.checked = 'selected';
+            this.linkinput.value = link == null ? '' : link;
+        } else {
+            this.hireslinkradio.checked = 'checked';
+            this.linkinput.value = '';
+        };
+        if (this.toolboxel) {
+            this.toolboxel.className = this.activeclass;
+        };
+        var align = image.getAttribute('alignment');
+        if (!align) {
+            align = 'left';
+        };
+        var title = image.getAttribute('title');
+        if (!title) {
+            title = '';
+        };
+        this.titleinput.value = title;
+        selectSelectItem(this.alignselect, align);
+    } else {
+        this.editel.style.display = 'none';
+        this.urlinput.value = '';
+        this.titleinput.value = '';
+        if (this.toolboxel) {
+            this.toolboxel.className = this.plainclass;
+        };
+        this.targetselect.selectedIndex = 0;
+        this.targetinput.value = '';
+        this.targetinput.style.display = 'none';
+    };
+};
+
+SilvaImageTool.prototype.setTarget = function() {
+    var target = this.targetselect.options[this.targetselect.selectedIndex].value;
+    if (target == 'input') {
+        target = this.targetinput.value;
+    };
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+    };
+    image.setAttribute('target', target);
+};
+
+SilvaImageTool.prototype.setSrc = function() {
+    var selNode = this.editor.getSelectedNode();
+    var img = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!img) {
+        this.editor.logMessage('Not inside an image!', 1);
+    };
+    
+    var src = this.urlinput.value;
+    img.setAttribute('src', src);
+    this.editor.logMessage('Image updated');
+};
+
+SilvaImageTool.prototype.setHires = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    image.setAttribute('link_to_hires', '1');
+    image.removeAttribute('link');
+    this.linkinput.value = '';
+};
+
+SilvaImageTool.prototype.setNoHires = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('Not inside an image!', 1);
+        return;
+    };
+    var link = this.linkinput.value;
+    image.setAttribute('link_to_hires', '0');
+    image.setAttribute('link', link);
+    this.linklinkradio.setAttribute('selected', 'selected');
+};
+
+SilvaImageTool.prototype.setLink = function() {
+    var link = this.linkinput.value;
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    image.setAttribute('link', link);
+    image.setAttribute('link_to_hires', '0');
+};
+
+SilvaImageTool.prototype.setTitle = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('No image selected!', 1);
+        return;
+    };
+    var title = this.titleinput.value;
+    image.setAttribute('title', title);
+};
+
+SilvaImageTool.prototype.setAlign = function() {
+    var selNode = this.editor.getSelectedNode();
+    var image = this.editor.getNearestParentOfType(selNode, 'img');
+    if (!image) {
+        this.editor.logMessage('Not inside an image', 1);
+        return;
+    };
+    var align = this.alignselect.options[this.alignselect.selectedIndex].value;
+    image.setAttribute('alignment', align);
+};
+ 
 function SilvaTableTool() {
     /* Silva specific table functionality
         overrides most of the table functionality, required because Silva requires
@@ -1025,6 +1128,9 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
             a.parentNode.removeChild(a);
         } else if (keyCode == 9 || keyCode == 39) {
             var next = a.nextSibling;
+            while (next && next.nodeName.toLowerCase() == 'br') {
+                next = next.nextSibling;
+            };
             if (!next) {
                 var doc = this.editor.getInnerDocument();
                 next = doc.createTextNode('\xa0');
@@ -1599,6 +1705,18 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             addEventHandler(editor.getInnerDocument(), 'keyup', this.handleKeyPressOnExternalSource, this);
         };
         
+        // search for a special serialized identifier of the current document
+        // which is used to send to the ExternalSource element when sending
+        // requests so the ExternalSources know their context
+        this.docref = null;
+        var metas = this.editor.getInnerDocument().getElementsByTagName('meta');
+        for (var i=0; i < metas.length; i++) {
+            var meta = metas[i];
+            if (meta.getAttribute('name') == 'docref') {
+                this.docref = meta.getAttribute('content');
+            };
+        };
+         
         this.updatebutton.style.display = 'none';
         this.delbutton.style.display = 'none';
         this.cancelbutton.style.display = 'none';
@@ -1668,28 +1786,32 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         };
     };
 
+    this.getUrlAndContinue = function(id, handler) {
+        if (id == this._id) {
+            // return cached
+            handler.call(this, this._url);
+            return;
+        };
+        var request = Sarissa.getXmlHttpRequest();
+        request.open('GET', 
+            this._baseurl + '/edit/get_extsource_url?id=' + id, true);
+        var callback = new ContextFixer(function() {
+                    if (request.readyState == 4) {
+                        var url = request.responseText;
+                        this._id = id;
+                        this._url = url;
+                        handler.call(this, url);
+                    };
+                }, this);
+        request.onreadystatechange = callback.execute;
+        request.send('');
+    };
+
     this.startExternalSourceAddEdit = function() {
         // get the appropriate form and display it
         if (!this._editing) {
             var id = this.idselect.options[this.idselect.selectedIndex].value;
-            this._id = id;
-            var url = this._baseurl + '/' + id;
-            this._url = url;
-            url = url + '/get_rendered_form_for_editor';
-            var request = Sarissa.getXmlHttpRequest();
-            request.open('GET', url, true);
-            var callback = new ContextFixer(this._addFormToTool, request, this);
-            request.onreadystatechange = callback.execute;
-            request.send(null);
-            while (this.formcontainer.hasChildNodes()) {
-                this.formcontainer.removeChild(this.formcontainer.firstChild);
-            };
-            var text = document.createTextNode('Loading...');
-            this.formcontainer.appendChild(text);
-            this.updatebutton.style.display = 'none';
-            this.cancelbutton.style.display = 'inline';
-            this.addbutton.style.display = 'inline';
-            this._editing = true;
+            this.getUrlAndContinue(id, this._continueStartExternalSourceEdit);
         } else {
             // validate the data and take further actions
             var formdata = this._gatherFormData();
@@ -1699,20 +1821,40 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
             request.onreadystatechange = callback.execute;
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            request.setRequestHeader('Content-Length:', formdata.length);
             request.send(formdata);
         };
     };
 
+    this._continueStartExternalSourceEdit = function(url) {
+        url = url + '/get_rendered_form_for_editor?docref=' + this.docref;
+        var request = Sarissa.getXmlHttpRequest();
+        request.open('GET', url, true);
+        var callback = new ContextFixer(this._addFormToTool, request, this);
+        request.onreadystatechange = callback.execute;
+        request.send(null);
+        while (this.formcontainer.hasChildNodes()) {
+            this.formcontainer.removeChild(this.formcontainer.firstChild);
+        };
+        var text = document.createTextNode('Loading...');
+        this.formcontainer.appendChild(text);
+        this.updatebutton.style.display = 'none';
+        this.cancelbutton.style.display = 'inline';
+        this.addbutton.style.display = 'inline';
+        this._editing = true;
+    };
+
     this.startExternalSourceUpdate = function(extsource) {
-        this._id = extsource.getAttribute('source_id');
-        this._url = this._baseurl + '/' + this._id;
-        url = this._url + '/get_rendered_form_for_editor';
+        var id = extsource.getAttribute('source_id');
+        this.getUrlAndContinue(id, this._continueStartExternalSourceUpdate);
+    };
+
+    this._continueStartExternalSourceUpdate = function(url) {
+        url = url + '/get_rendered_form_for_editor';
         var formdata = this._gatherFormDataFromElement();
+        formdata += '&docref=' + this.docref;
         var request = Sarissa.getXmlHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.setRequestHeader('Content-Length:', formdata.length);
         var callback = new ContextFixer(this._addFormToTool, request, this);
         request.onreadystatechange = callback.execute;
         request.send(formdata);
@@ -1980,6 +2122,15 @@ function SilvaKupuUI(textstyleselectid) {
         
             generate a block element accordingly 
         */
+        // XXX somehow this method always gets called twice... I would
+        // really like to know why, but can't find it right now and don't
+        // have time for a full investigation, so fiddle-fixed it this
+        // way. Needless to say this needs some investigation at some point...
+        if (this._cancel_update) {
+            this._cancel_update = false;
+            return;
+        };
+        
         var classname = "";
         var eltype = style;
         if (style.indexOf('|') > -1) {
@@ -2004,8 +2155,223 @@ function SilvaKupuUI(textstyleselectid) {
             el.className = classname;
             el.setAttribute('silva_type', classname);
         };
+        this._cancel_update = true;
         this.editor.updateState();
+        this.editor.getDocument().getWindow().focus();
     };
 };
 
 SilvaKupuUI.prototype = new KupuUI;
+
+function SilvaPropertyTool(tablerowid) {
+    /* a simple tool to edit metadata fields
+
+        the fields' contents are stored in Silva's metadata sets
+    */
+    this.tablerow = document.getElementById(tablerowid);
+    this.table = this.tablerow.parentNode;
+    while (!this.table.nodeName.toLowerCase() == 'table') {
+        this.table = this.table.parentNode;
+    };
+    // remove current content from the fields
+    var tds = this.tablerow.getElementsByTagName('td');
+    for (var i=0; i < tds.length; i++) {
+        while (tds[i].hasChildNodes()) {
+            tds[i].removeChild(tds[i].childNodes[0]);
+        };
+    };
+};
+
+SilvaPropertyTool.prototype = new KupuTool;
+
+SilvaPropertyTool.prototype.initialize = function(editor) {
+    this.editor = editor;
+    
+    // walk through all metadata fields and expose them to the user
+    var metas = this.editor.getInnerDocument().getElementsByTagName('meta');
+    for (var i=0; i < metas.length; i++) {
+        var meta = metas[i];
+        var name = meta.getAttribute('name');
+        if (!name) {
+            // http-equiv type
+            continue;
+        };
+        var rowcopy = this.tablerow.cloneNode(true);
+        var tag = this.parseFormElIntoRow(meta, rowcopy);
+        if (tag) {
+            this.tablerow.parentNode.appendChild(tag);
+        };
+    };
+    // throw away the original row: we don't need it anymore...
+    this.tablerow.parentNode.removeChild(this.tablerow);
+};
+
+SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
+    /* render a field in the properties tool according to a metadata tag
+
+        returns some false value if the meta tag should not be editable
+    */
+    var scheme = metatag.getAttribute('scheme');
+    if (!scheme || !(scheme in EDITABLE_METADATA)) {
+        return;
+    };
+    var name = metatag.getAttribute('name');
+    var namespace = metatag.getAttribute('scheme');
+    var nametypes = EDITABLE_METADATA[scheme];
+    var type = 'text';
+    var mandatory = false;
+    var namefound = false;
+    var fieldtitle = '';
+    for (var i=0; i < nametypes.length; i++) {
+        var nametype = nametypes[i];
+        var elname = nametype[0];
+        var type = nametype[1];
+        var mandatory = nametype[2];
+        var fieldtitle = nametype[3];
+        if (elname == name) {
+            namefound = true;
+            break;
+        };
+    };
+    if (!namefound) {
+        return;
+    };
+    
+    var titlefield = document.createElement('span');
+    var title = document.createTextNode(fieldtitle);
+    titlefield.appendChild(title);
+    tablerow.getElementsByTagName('td')[0].appendChild(titlefield);
+    titlefield.className = 'metadata-field';
+    
+    var input = null;
+    var value = metatag.getAttribute('content');
+    var parentvalue = metatag.getAttribute('parentcontent');
+    if (type == 'text') {
+        input = document.createElement('input');
+        input.value = value;
+        input.setAttribute('type', 'text');
+    } else if (type == 'textarea') {
+        input = document.createElement('textarea');
+        var content = document.createTextNode(value);
+        input.appendChild(content);
+    };
+    input.setAttribute('name', name);
+    input.setAttribute('namespace', namespace);
+    input.className = 'metadata-input';
+    if (mandatory) {
+        input.setAttribute('mandatory', 'true');
+    };
+    var td = tablerow.getElementsByTagName('td')[1]
+    td.appendChild(input);
+    if (parentvalue && parentvalue != '') {
+        td.appendChild(document.createElement('br'));
+        td.appendChild(document.createTextNode('acquired value:'));
+        td.appendChild(document.createElement('br'));
+        td.appendChild(document.createTextNode(parentvalue));
+    };
+
+    return tablerow;
+};
+
+SilvaPropertyTool.prototype.beforeSave = function() {
+    /* save the metadata to the document */
+    var doc = this.editor.getInnerDocument();
+    var inputs = this.table.getElementsByTagName('input');
+    var textareas = this.table.getElementsByTagName('textarea');
+    var errors = [];
+    var okay = [];
+    for (var i=0; i < inputs.length; i++) {
+        var input = inputs[i];
+        if (!input.getAttribute('type') == 'text' || !input.getAttribute('namespace')) {
+            continue;
+        };
+        var name = input.getAttribute('name');
+        var scheme = input.getAttribute('namespace');
+        var value = input.value;
+        if (input.getAttribute('mandatory') && value.strip() == '') {
+            errors.push(name);
+            continue;
+        };
+        okay.push([name, scheme, value]);
+    };
+    for (var i=0; i < textareas.length; i++) {
+        var textarea = textareas[i];
+        var name = textarea.getAttribute('name');
+        var scheme = textarea.getAttribute('namespace');
+        var value = textarea.value;
+        if (textarea.getAttribute('mandatory') && value.strip() == '') {
+            errors.push(name);
+            continue;
+        };
+        okay.push([name, scheme, value]);
+    };
+    if (errors.length) {
+        throw('Error: fields ' + errors.join(', ') + ' are required but not filled in');
+    };
+    for (var i=0; i < okay.length; i++) {
+        this._addMetaTag(doc, okay[i][0], okay[i][1], okay[i][2]);
+    };
+};
+
+SilvaPropertyTool.prototype._addMetaTag = function(doc, name, scheme, value, parentvalue) {
+    var head = doc.getElementsByTagName('head')[0];
+    if (!head) {
+        throw('The editable document *must* have a <head> element!');
+    };
+    // first find and delete the old one
+    // XXX if only we'd have XPath...
+    var metas = doc.getElementsByTagName('meta');
+    for (var i=0; i < metas.length; i++) {
+        var meta = metas[i];
+        if (meta.getAttribute('name') == name && 
+                meta.getAttribute('scheme') == scheme) {
+            meta.parentNode.removeChild(meta);
+        };
+    };
+    var tag = doc.createElement('meta');
+    tag.setAttribute('name', name);
+    tag.setAttribute('scheme', scheme);
+    tag.setAttribute('content', value);
+
+    head.appendChild(tag);
+};
+
+function SilvaCharactersTool(charselectid) {
+    /* a tool to add non-standard characters */
+    this._charselect = document.getElementById(charselectid);
+};
+
+SilvaCharactersTool.prototype = new KupuTool;
+
+SilvaCharactersTool.prototype.initialize = function(editor) {
+    this.editor = editor;
+    addEventHandler(this._charselect, 'change', this.addCharacter, this);
+    var chars = this.editor.config.nonstandard_chars.split(' ');
+    for (var i=0; i < chars.length; i++) {
+        var option = document.createElement('option');
+        option.value = chars[i];
+        var text = document.createTextNode(chars[i]);
+        option.appendChild(text);
+        this._charselect.appendChild(option);
+    };
+};
+
+SilvaCharactersTool.prototype.addCharacter = function() {
+    var select = this._charselect;
+    var c = select.options[select.selectedIndex].value;
+    if (!c.strip()) {
+        return;
+    };
+    var selection = this.editor.getSelection();
+    var textnode = this.editor.getInnerDocument().createTextNode(c);
+    var span = this.editor.getInnerDocument().createElement('span');
+    span.appendChild(textnode);
+    selection.replaceWithNode(span);
+    var selection = this.editor.getSelection();
+    selection.selectNodeContents(span);
+    selection.moveEnd(1);
+    selection.collapse(true);
+    this.editor.logMessage('Character ' + c + ' inserted');
+    this.editor.getDocument().getWindow().focus();
+    select.selectedIndex = 0;
+};

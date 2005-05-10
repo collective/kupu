@@ -189,6 +189,13 @@ function initKupu(iframe) {
                                             '../cgi/spellcheck.cgi');
     kupu.registerTool('spellchecker', spellchecker);
 
+    var zoom = new KupuZoomTool('kupu-zoom-button');
+    kupu.registerTool('zoomtool', zoom);
+
+    var cleanupexpressions = new CleanupExpressionsTool(
+            'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');
+    kupu.registerTool('cleanupexpressions', cleanupexpressions);
+
     // Drawers...
 
     // Function that returns function to open a drawer
