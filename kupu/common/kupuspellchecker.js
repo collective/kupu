@@ -2,7 +2,8 @@ function KupuSpellChecker(buttonid, scripturl, spanstyle,
                             winwidth, winheight, skip_tags) {
     this.button = document.getElementById(buttonid);
     this.scripturl = scripturl;
-    this.spanstyle = spanstyle || 'color: red; text-decoration: underline;';
+    this.spanstyle = spanstyle || 'color: red; ' +
+                                    'text-decoration: underline;';
     this.winwidth = winwidth || '600';
     this.winheight = winheight || '400';
     this.skip_tags = skip_tags || ['head', 'script'];
@@ -114,6 +115,18 @@ KupuSpellChecker.prototype.continueDisplay = function(win, mapping) {
                 };
             };
             node = span;
+        } else if (node.nodeType == 1 && node.nodeName.toLowerCase() == 'a') {
+            var cancelEvent = function(e) {
+                if (e.preventDefault) {
+                    e.preventDefault();
+                } else {
+                    e.returnValue = false;
+                };
+                return false;
+            };
+            addEventHandler(node, 'click', cancelEvent);
+            addEventHandler(node, 'mousedown', cancelEvent);
+            addEventHandler(node, 'mouseup', cancelEvent);
         };
         node = next;
     };
