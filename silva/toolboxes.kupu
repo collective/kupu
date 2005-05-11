@@ -58,7 +58,6 @@
         <form name="kupu_link_form" onsubmit="return false;">
           <input type="button" class="transport" style="margin-bottom:0.2em;" onclick="getLink(); return false;" value="get link reference..." />
           <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" /><br />
-          <input class="store" type="text" id="kupu-link-input" name="kupu_link_href" style="margin-left:0.2em; width:96%" /><br />
           &#160;link target 
           <select id="kupu-linktarget-select">
             <option value="_self">same window</option>
