@@ -63,4 +63,13 @@ elif have_zope2 and have_fss:
     import zope2
     initialize = zope2.initialize
 
+if have_zope2:
+    # in Zope 2, make all modules in the 'python' lib available
+    def __allow_access_to_unprotected_subobjects__(name, value=None):
+        return name in ('python')
+
+    from AccessControl import allow_module
+    allow_module('Products.kupu.python.nationalizer')
+    allow_module('Products.kupu.python.spellcheck')
+
 # do nothing for zope3 (all is done in zcml)
