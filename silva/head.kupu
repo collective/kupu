@@ -27,8 +27,8 @@
             tal:attributes="src string:${root_url}/kupu/kupusourceedit.js"> </script>
     <script type="text/javascript" src="kupucleanupexpressions.js"
             tal:attributes="src string:${root_url}/kupu/kupucleanupexpressions.js"> </script>
-    <!-- <script type="text/javascript" src="kupuspellchecker.js"
-            tal:attributes="src string:${root_url}/kupu/kupuspellchecker.js"> </script> -->
+    <script type="text/javascript" src="kupuspellchecker.js"
+            tal:attributes="src string:${root_url}/kupu/kupuspellchecker.js"> </script>
     <script type="text/javascript" src="lookupwindowscripts.js"
             tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
 
