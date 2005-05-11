@@ -6,8 +6,18 @@ COMMAND = 'aspell -a'
 
 import popen2, re
 
+try:
+    from Globals import ClassSecurityInfo
+except ImportError:
+    pass
+else:
+    # hmmm... Zope 2...
+    __allow_access_to_unprotected_subobjects__ = 1
+
 class SpellChecker:
     """Simple spell checker, uses ispell (or aspell) with pipes"""
+
+    __allow_access_to_unprotected_subobjects__ = 1
 
     reg_unknown = re.compile('^& (.*?) \d* \d*: (.*)$', re.U)
     reg_unknown_no_replacement = re.compile('^\# (.*?) \d*.*$', re.U)
@@ -90,6 +100,18 @@ class SpellChecker:
         except IOError:
             pass
         self.chout, self.chin = popen2.popen2(COMMAND)
+
+def format_result(result):
+    """convert the result dict to XML"""
+    buf = ['<?xml version="1.0" encoding="UTF-8" ?>\n<spellcheck_result>']
+    for key, value in result.items():
+        buf.append('<incorrect><word>')
+        buf.append(key)
+        buf.append('</word><replacements>')
+        buf.append(' '.join(value))
+        buf.append('</replacements></incorrect>')
+    buf.append('</spellcheck_result>')
+    return ''.join(buf)
 
 if __name__ == '__main__':
     c = SpellChecker()
