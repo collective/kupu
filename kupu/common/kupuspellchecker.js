@@ -11,7 +11,6 @@ function KupuSpellChecker(buttonid, scripturl, spanstyle,
 KupuSpellChecker.prototype = new KupuTool;
 
 KupuSpellChecker.prototype.initialize = function(editor) {
-    alert('spellchecker initialized');
     this.editor = editor;
     addEventHandler(this.button, 'click', this.check, this);
 };
@@ -69,15 +68,20 @@ KupuSpellChecker.prototype.getCurrentContents = function() {
 
 KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
     // copy the current editable document into a new window
-    var doc = this.editor.getInnerDocument().documentElement;
+    var doc = this.editor.getInnerDocument();
+    var docel = doc.documentElement;
     var win = window.open('kupublank.html', 'spellchecker', 
                             'width=' + this.winwidth + ',' +
                             'height=' + this.winheight + ',toolbar=no,' +
                             'menubar=no,scrollbars=yes,status=yes');
-    var html = doc.innerHTML;
-    win.document.write('<html>' + doc.innerHTML + '</html>');
-    win.document.close();
+    var html = docel.innerHTML;
+    // when Moz tries to set the content-type, for some reason leaving this
+    // in breaks the feature(?!?)
+    html = html.replace(/<meta[^>]*http-equiv="[Cc]ontent-[Tt]ype"[^>]*>/gm, 
+                        '');
+    win.document.write('<html>' + html + '</html>');
     win.deentitize = function(str) {return str.deentitize()};
+    win.document.close();
     if (!win.document.getElementsByTagName('body').length) {
         addEventHandler(win, 'load', this.continueDisplay, this, win, mapping);
     } else {
