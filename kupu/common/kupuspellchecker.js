@@ -75,6 +75,11 @@ KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
                             'width=' + this.winwidth + ',' +
                             'height=' + this.winheight + ',toolbar=no,' +
                             'menubar=no,scrollbars=yes,status=yes');
+    if (!win) {
+        alert(
+            _('This feature requires pop-ups to be enabled on your browser!'));
+        return;
+    };
     var html = docel.innerHTML;
     // when Moz tries to set the content-type, for some reason leaving this
     // in breaks the feature(?!?)
