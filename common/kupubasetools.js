@@ -124,7 +124,6 @@ function KupuButton(buttonid, commandfunc, tool) {
     this.execCommand = function() {
         /* exec this button's command */
         this.commandfunc(this, this.editor, this.tool);
-        this.editor.focusDocument();
     };
 
     this.updateState = function(selNode, event) {
@@ -151,8 +150,8 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
         /* exec this button's command */
         this.button.className = (this.pressed ? this.offclass : this.onclass);
         this.pressed = !this.pressed;
-        this.commandfunc(this, this.editor);
         this.editor.focusDocument();
+        this.commandfunc(this, this.editor);
     };
 
     this.updateState = function(selNode, event) {

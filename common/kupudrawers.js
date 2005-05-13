@@ -44,9 +44,9 @@ function DrawerTool() {
     };
 
     this.updateState = function(selNode) {
-        if (this.current_drawer) {
-            this.closeDrawer();
-        };
+//         if (this.current_drawer) {
+//             this.closeDrawer();
+//         };
     };
 
     this.closeDrawer = function() {
@@ -97,14 +97,34 @@ function Drawer(elementid, tool) {
         // here's where any intelligence and XSLT transformation and such 
         // is done
         this.element.style.display = 'block';
-        if (this.editor.getBrowserName() == 'IE') {
-            this.element.focus();
-        }
+        this.focusElement();
     };
 
     this.hide = function() {
         this.element.style.display = 'none';
+        this.focussed = false;
     };
+
+    this.focusElement = function() {
+        // IE can focus the drawer element, but Mozilla needs more help
+        this.focussed = false;
+        var iterator = new NodeIterator(this.element);
+        var currnode = iterator.next();
+        while (currnode) {
+            if (currnode.tagName && (currnode.tagName.toUpperCase()=='BUTTON' ||
+                (currnode.tagName.toUpperCase()=='INPUT' && !(/nofocus/.test(currnode.className)))
+                )) {
+                this.focussed = true;
+                function focusit() {
+                    currnode.focus();
+                }
+                timer_instance.registerFunction(this, focusit, 100);
+                //alert("focus set");
+                return;
+            }
+            currnode = iterator.next();
+        }
+    }
 };
 
 function LinkDrawer(elementid, tool, wrap) {
@@ -129,9 +149,7 @@ function LinkDrawer(elementid, tool, wrap) {
             input.value = 'http://';
         };
         this.element.style.display = 'block';
-        if (this.editor.getBrowserName() == 'IE') {
-            this.element.focus();
-        }
+        this.focusElement();
     };
 
     this.save = function() {
@@ -212,9 +230,7 @@ function TableDrawer(elementid, tool) {
         hide.style.display = 'none';
         show.style.display = 'block';
         this.element.style.display = 'block';
-        if (this.editor.getBrowserName() == 'IE') {
-            this.element.focus();
-        }
+        this.focusElement();
     };
 
     this.createTable = function() {
@@ -353,9 +369,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         // display the drawer div
         this.element.style.display = 'block';
-        if (this.editor.getBrowserName() == 'IE') {
-            this.element.focus();
-        }
     };
 
     this._singleLibsXslCallback = function(dom) {
@@ -399,6 +412,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
         this._replaceNodeContents(document, targetnode, sourcenode);
+        if (!this.focussed) {
+            this.focusElement();
+        }
 
         if (this.editor.getBrowserName() == 'IE' && id == this.resourcespanelid) {
             this.updateDisplay(this.drawerid);
@@ -909,6 +925,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             target = getFromSelector('link_target').value;
         
         this.tool.createLink(uri, type, name, target, title);
+        this.drawertool.closeDrawer();
     };
 };
 
