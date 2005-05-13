@@ -42,8 +42,9 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                         <div id="kupu-searchbox" style="text-align: right">
                             <form onsubmit="return false;">
                                 <input id="kupu-searchbox-input"
+                                    class="kupu-searchbox-input nofocus"
                                     name="searchbox" value="search"
-                                    style="font-style: italic"
+                                    style="font-style: italic;"
                                     onclick="if (this.value == 'search') this.value = ''; this.style.fontStyle='normal';" onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();"/>
                             </form>
                         </div>

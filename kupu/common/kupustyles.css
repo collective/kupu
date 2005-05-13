@@ -257,3 +257,6 @@ div#kupu-fgcolorchooser div:hover {
   /* border: outset 1px; */
 }
 
+div.kupu-drawer {
+   overflow: auto;
+}
