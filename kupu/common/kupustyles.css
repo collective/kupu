@@ -260,3 +260,9 @@ div#kupu-fgcolorchooser div:hover {
 div.kupu-drawer {
    overflow: auto;
 }
+
+/*.kupu-modal span.kupu-tb-buttons button,*/
+button.disabled {
+   opacity:0.5;
+   filter:alpha(opacity=50);
+}

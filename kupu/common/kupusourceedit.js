@@ -89,7 +89,13 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
             this._currently_editing = null;
         };
         this.sourcemode = !this.sourcemode;
-     };
+    };
+    this.enable = function() {
+        KupuButtonEnable(this.sourceButton);
+    }
+    this.disable = function() {
+        KupuButtonDisable(this.sourceButton);
+    }
 };
 
 SourceEditTool.prototype = new KupuTool;

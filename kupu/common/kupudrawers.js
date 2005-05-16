@@ -39,14 +39,12 @@ function DrawerTool() {
         if (this.isIE) {
             drawer.editor._saveSelection();
         }
+        drawer.editor.suspendEditing();
         drawer.createContent();
         this.current_drawer = drawer;
     };
 
     this.updateState = function(selNode) {
-//         if (this.current_drawer) {
-//             this.closeDrawer();
-//         };
     };
 
     this.closeDrawer = function() {
@@ -54,6 +52,7 @@ function DrawerTool() {
             return;
         };
         this.current_drawer.hide();
+        this.current_drawer.editor.resumeEditing();
         this.current_drawer = null;
     };
 
@@ -119,7 +118,6 @@ function Drawer(elementid, tool) {
                     currnode.focus();
                 }
                 timer_instance.registerFunction(this, focusit, 100);
-                //alert("focus set");
                 return;
             }
             currnode = iterator.next();
@@ -154,6 +152,7 @@ function LinkDrawer(elementid, tool, wrap) {
 
     this.save = function() {
         /* add or modify a link */
+        this.editor.resumeEditing();
         var url = input.value;
         var target = '_self';
         if (this.target) target = this.target;
@@ -853,6 +852,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     
 
     this.save = function() {
+        this.editor.resumeEditing();
         /* create an image in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';
@@ -902,6 +902,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     }
 
     this.save = function() {
+        this.editor.resumeEditing();
         /* create a link in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';

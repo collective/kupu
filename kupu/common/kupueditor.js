@@ -755,5 +755,44 @@ function KupuEditor(document, config, logger) {
         var fulleditor = this.getFullEditor();
         fulleditor.className = fulleditor.className.replace(' '+name, '');
     }
+
+    this.suspendEditing = function() {
+        this._previous_range = this.getSelection().getRange();
+        this.setClass('kupu-modal');
+        for (var id in this.tools) {
+            this.tools[id].disable();
+        }
+        if (this.getBrowserName() == "IE") {
+            var body = this.getInnerDocument().getElementsByTagName('body')[0];
+            body.setAttribute('contentEditable', 'false');
+        } else {
+
+            this.getInnerDocument().designMode = "Off";
+            var iframe = this.getDocument().getEditable();
+            iframe.style.position = iframe.style.position?"":"relative"; // Changing this disables designMode!
+        }
+        this.suspended = true;
+    }
+    
+    this.resumeEditing = function() {
+        if (!this.suspended) {
+            return;
+        }
+        this.suspended = false;
+        this.clearClass('kupu-modal');
+        for (var id in this.tools) {
+            this.tools[id].enable();
+        }
+        if (this.getBrowserName() == "IE") {
+            alert("make content editable");
+            var body = this.getInnerDocument().getElementsByTagName('body')[0];
+            body.setAttribute('contentEditable', 'true');
+            alert("done that");
+        } else {
+            var doc = this.getInnerDocument();
+            doc.designMode = "On";
+            this.getSelection().restoreRange(this._previous_range);
+        }
+    }
 }
 

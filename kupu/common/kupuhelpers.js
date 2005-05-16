@@ -846,6 +846,15 @@ function MozillaSelection(document) {
     this.toString = function() {
         return this.selection.toString();
     };
+
+    this.getRange = function() {
+        return this.selection.getRangeAt(0);
+    }
+    this.restoreRange = function(range) {
+        var selection = this.selection;
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
 };
 
 MozillaSelection.prototype = new BaseSelection;
@@ -1075,6 +1084,17 @@ function IESelection(document) {
         }
     };
     
+    this.getRange = function() {
+        return this.selection.createRange();
+    }
+
+    this.restoreRange = function(range) {
+        try {
+            range.select();
+        } catch(e) {
+        };
+    }
+
     this.toString = function() {
         return this.selection.createRange().text;
     };
@@ -1118,6 +1138,7 @@ function ContextFixer(func, context) {
         };
         return self.func.apply(self.context, args);
     };
+
 };
 
 /* Alternative implementation of window.setTimeout
