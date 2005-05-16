@@ -784,10 +784,8 @@ function KupuEditor(document, config, logger) {
             this.tools[id].enable();
         }
         if (this.getBrowserName() == "IE") {
-            alert("make content editable");
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
-            alert("done that");
         } else {
             var doc = this.getInnerDocument();
             doc.designMode = "On";
