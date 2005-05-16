@@ -65,6 +65,13 @@ function KupuTool() {
         };
     };
 
+    this.enable = function() {
+        // Called when the tool is enabled after a form is dismissed.
+    }
+
+    this.disable = function() {
+        // Called when the tool is disabled (e.g. for a modal form)
+    }
     // private methods
     addEventHandler = addEventHandler;
     
@@ -104,6 +111,20 @@ function NoContextMenu(object) {
     }
     return object;
 }
+
+// Helper function for enabling/disabling tools
+function KupuButtonDisable(button) {
+    button = button || this.button;
+    button.disabled = "disabled";
+    button.className += ' disabled';
+}
+function KupuButtonEnable(button) {
+    button = button || this.button;
+    button.disabled = "";
+    button.className = button.className.replace(/ *\bdisabled\b/g, '');
+}
+
+
 //----------------------------------------------------------------------------
 // Implementations
 //----------------------------------------------------------------------------
@@ -131,10 +152,11 @@ function KupuButton(buttonid, commandfunc, tool) {
             look 'pressed in' or not
         */
     };
+    this.disable = KupuButtonDisable;
+    this.enable = KupuButtonEnable;
 };
 
 KupuButton.prototype = new KupuTool;
-
 function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     /* A button that can have two states (e.g. pressed and
        not-pressed) based on CSS classes */
@@ -339,6 +361,12 @@ function KupuUI(textstyleselectid) {
                     this.pasteButtonHandler, this));
         return ret;
     };
+    this.disable = function() {
+        this.tsselect.disabled = "disabled";
+    }
+    this.enable = function() {
+        this.tsselect.disabled = "";
+    }
 }
 
 KupuUI.prototype = new KupuTool;
@@ -448,6 +476,14 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
 
         return table;
     };
+    this.enable = function() {
+        KupuButtonEnable(this.fgcolorbutton);
+        KupuButtonEnable(this.hlcolorbutton);
+    }
+    this.disable = function() {
+        KupuButtonDisable(this.fgcolorbutton);
+        KupuButtonDisable(this.hlcolorbutton);
+    }
 }
 
 ColorchooserTool.prototype = new KupuTool;
@@ -1674,6 +1710,19 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
         /* set the type of an ol */
         this.setListStyle('ol', this.olselect);
     };
+
+    this.enable = function() {
+        KupuButtonEnable(this.addulbutton);
+        KupuButtonEnable(this.addolbutton);
+        this.ulselect.disabled = "";
+        this.olselect.disabled = "";
+    }
+    this.disable = function() {
+        KupuButtonDisable(this.addulbutton);
+        KupuButtonDisable(this.addolbutton);
+        this.ulselect.disabled = "disabled";
+        this.olselect.disabled = "disabled";
+    }
 };
 
 ListTool.prototype = new KupuTool;
