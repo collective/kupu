@@ -611,7 +611,7 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < bodies.length; i++) {
             data += bodies[i].xml;
         }
-        return data;
+        return this.escapeEntities(data);
     };
 
     this.getHTMLBody = function() {
@@ -732,12 +732,21 @@ function KupuEditor(document, config, logger) {
                             '</html>';
         };
 
+        contents = this.escapeEntities(contents);
+
         if (this.config.compatible_singletons) {
             contents = this._fixupSingletons(contents);
         };
         
         return contents;
     };
+    this.escapeEntities = function(xml) {
+        // Escape non-ascii characters as entities.
+        return xml.replace(/[^\n -\177]/,
+            function(c) {
+            return '&#'+c.charCodeAt(0)+';';
+        });
+    }
 
     this.getFullEditor = function() {
         var fulleditor = this.getDocument().getEditable();
