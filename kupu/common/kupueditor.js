@@ -622,7 +622,7 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < bodies.length; i++) {
             data += bodies[i].innerHTML;
         }
-        return data;
+        return this.escapeEntities(data);
     };
 
     // If we have multiple bodies this needs to remove the extras.

@@ -19,6 +19,8 @@
   </kupu:fill-slot>
 
   <kupu:fill-slot name="not_has_kupu">
+    <!-- insert styles even if kupu is disabled -->
+    <kupu:insert-part feature="head" part="styles" />
     <kupu:insert-part feature="wysiwyg_support" part="textarea" />
   </kupu:fill-slot>
 
