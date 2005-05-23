@@ -46,7 +46,7 @@
       <h1 i18n:translate="">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
-        <table>
+        <table cellspacing="0">
         <tr><td><div class="kupu-toolbox-label">
           <!-- Link to items matching the keyword  -->
           <span i18n:translate="">
@@ -54,9 +54,10 @@
           </span>
         </div>
 
-        <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" />
+        <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text"
+                onkeypress="return HandleDrawerEnter(event, 'linkdrawer-preview');" />
         </td><td class="kupu-preview-button">
-        <button type="button" onclick="drawertool.current_drawer.preview()"
+        <button type="button" id="linkdrawer-preview" onclick="drawertool.current_drawer.preview()"
                 i18n:translate="">Preview</button>
         </td></tr>
         <tr><td colspan="2" align="center">
@@ -107,17 +108,18 @@
                     <table width="100%">
                       <tr>
                         <td class="kupu-toolbox-label" width="50%">Rows</td>
-                        <td><input type="text" class="kupu-tabledrawer-newrows"/></td>
+                        <td><input type="text" class="kupu-tabledrawer-newrows" onkeypress="return HandleDrawerEnter(event);" /></td>
                       </tr>
                       <tr>
                         <td class="kupu-toolbox-label">Columns</td>
-                        <td><input type="text" class="kupu-tabledrawer-newcols"/></td>
+                        <td><input type="text" class="kupu-tabledrawer-newcols" onkeypress="return HandleDrawerEnter(event);" /></td>
                       </tr>
                       <tr>
                         <td class="kupu-toolbox-label">Headings</td>
                         <td class="kupu-toolbox-label">
                           <input class="kupu-tabledrawer-makeheader"
                                  type="checkbox"
+                                 onkeypress="return HandleDrawerEnter(event);"
                                  />
                           <label for="kupu-tabledrawer-makeheader">Create</label>
                         </td>
