@@ -215,5 +215,20 @@ div.kupu-drawer {
     text-transform: &dtml-textTransform;;
     height: 32px; width: auto; 
 }
+div.kupu-libsource div,
+div.kupu-libsource-selected div
+ {
+    float: left;
+    margin: 4px 4px 0 0;
+}
+div.kupu-panels div.kupu-libsource,
+div.kupu-panels div.kupu-libsource-selected {
+  text-align: left;
+}
+div.kupu-panels div.kupu-libsource,
+div.kupu-panels div.kupu-libsource-selected {
+  vertical-align: middle;
+}
+
 /* </dtml-let></dtml-with> */
 

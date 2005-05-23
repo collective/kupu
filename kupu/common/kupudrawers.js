@@ -364,6 +364,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
                 this.shared.newimages = null;
             };
             this.updateDisplay();
+            this.initialSelection();
         };
 
         // display the drawer div
@@ -396,7 +397,17 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         // replace whatever is in there with our stuff
         this.updateDisplay(this.drawerid);
+        this.initialSelection();
     };
+
+    this.initialSelection = function() {
+        var libnode_path = '/libraries/library[@selected]';
+        var libnode = this.shared.xmldata.selectSingleNode(libnode_path);
+        if (libnode) {
+            var id = libnode.getAttribute('id');
+            this.selectLibrary(id);
+        }
+    }
 
     this.updateDisplay = function(id) {
       /* (re-)transform XML and (re-)display the necessary part

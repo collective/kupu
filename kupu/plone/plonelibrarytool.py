@@ -30,16 +30,16 @@ from Products.kupu.plone import permissions, scanner
 from Products.kupu import kupu_globals
 
 _default_libraries = (
-    dict(id="string:portal_root",
+    dict(id="root",
          title="string:Home",
          uri="string:${portal_url}",
          src="string:${portal_url}/kupucollection.xml",
-         icon="string:${portal_url}/kupuimages/kupulibrary.png"),
-    dict(id="string:${folder_url}",
+         icon="string:${portal_url}/misc_/CMFPlone/plone_icon"),
+    dict(id="current",
          title="string:Current folder",
          uri="string:${folder_url}",
          src="string:${folder_url}/kupucollection.xml",
-         icon="string:${portal_url}/kupuimages/kupulibrary.png"),
+         icon="string:${portal_url}/folder_icon.gif"),
     dict(id="myitems",
          title="string:My items",
          uri="string:${portal_url}/kupumyitems.xml",
@@ -199,7 +199,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     def zmi_get_libraries(self):
         """Return the libraries sequence for the ZMI view"""
         #return ()
-        return [dict([(key, value.text) for key, value in lib.items()])
+        def text(value):
+            return getattr(value, 'text', value)
+        return [dict([(key, text(value)) for key, value in lib.items()])
                 for lib in self._libraries]
 
     security.declareProtected(permissions.ManageLibraries,
@@ -236,6 +238,17 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         """Move libraries down through the ZMI"""
         self.moveDown(indices)
         REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_libraries')
+
+    security.declarePublic("zmi_get_default_library")
+    def zmi_get_default_library(self):
+        """Return the default selected library for the ZMI view"""
+        return getattr(self, '_default_library', '')
+
+    security.declareProtected(permissions.ManageLibraries,
+                              "zmi_set_default_library")
+    def zmi_set_default_library(self, defid=''):
+        """Return the libraries sequence for the ZMI view"""
+        self._default_library = defid
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_get_type_mapping")

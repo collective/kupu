@@ -11,11 +11,12 @@
     getToolByName nocall:modules/Products/CMFCore/utils/getToolByName;
     kupu_tool     python:getToolByName(context, 'kupu_library_tool');
     libraries     python:kupu_tool.getLibraries(context);
+    default_library python:kupu_tool.zmi_get_default_library();
     resource_type request/resource_type | string:mediaobject;
     ">
 
   <library tal:repeat="library libraries"
-           tal:attributes="id library/id">
+           tal:attributes="id python:library['id'];selected python:library['id']==default_library;">
     <uri tal:content="library/uri">URI</uri>
     <title tal:content="library/title">Title</title>
     <src tal:content="string:${library/src}?resource_type=${resource_type}">Source</src>
