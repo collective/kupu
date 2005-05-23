@@ -20,7 +20,7 @@
   background-color: ButtonFace;
   padding: 0 8px 8px 8px;
   height: auto;
-  width: 520px;
+  width: 640px;
   z-index: 2;
 }
 
@@ -39,8 +39,14 @@ input#kupu-searchbox-input {
   padding: 2px;
 }
 
-input#kupu-linkdrawer-input {
-  width: 400px;
+div.kupu-linkdrawer-addlink td {
+  border: 0;
+}
+input.kupu-linkdrawer-input {
+   width: 500px;
+}
+iframe.kupu-linkdrawer-preview {
+   width: 100%;
 }
 
 div#kupu-librarydrawer h1, div.kupu-drawer h1 {
@@ -68,7 +74,6 @@ div.kupu-panels td {
   font-size: 12px;
   background-color: white;
   vertical-align: top;
-  padding: 6px;
 }
 
 div.kupu-panels td.kupu-preview-button {
@@ -87,30 +92,38 @@ td.panel {
 }
 
 td#kupu-librariespanel {
-  width: 22%;
+  overflow: auto;
+  width: 90px;
+}
+
+div#kupu-librariesitems {
+  width: 90px;
+  white-space: pre;
+  height: 100%;
 }
 
 td#kupu-resourcespanel {
-  width: 33%;
-}
-
-td#kupu-propertiespanel {
-  width: 45%;
+  overflow: auto;
+  width: 200px;
 }
 
 div#kupu-resourceitems {
+  white-space: pre;
+  width: 200px;
   height: 100%;
+}
+
+div#kupu-properties {
+  height: 100%;
+}
+
+div#kupu-librariesitems, div#kupu-resourceitems, div#kupu-properties {
+  padding: 6px;
 }
 
 .overflow {
   overflow: auto;
   height: 100%;
-}
-
-div.kupu-libsource, div.kupu-libsource-selected {
-  text-align: center;
-  padding-top: 0.2em;
-  padding-bottom: 0.6em;
 }
 
 div.response, div.collection {
@@ -122,25 +135,26 @@ div.response, div.collection {
   padding-top: 4px;
 }
 
-div.kupu-libsource, div.kupu-libsource-selected, 
+div.kupu-libsource, div.kupu-libsource-selected,
 div.kupu-resource, div.kupu-collection, div.kupu-upload {
   cursor: pointer;
   margin-bottom: 2px;
   vertical-align: text-bottom;
+  white-space: pre;
 }
 div.kupu-upload {
    text-align: right; font-style: italic;
 }
 
-div.kupu-libsource-selected {
+/*div.kupu-libsource-selected {
   background-repeat: no-repeat;
-}
+}*/
 
-div.kupu-libsource-selected span,
+/*div.kupu-libsource-selected span,
  div.kupu-libsource span{
   margin-top: 3px;
-  display: block;
-}
+  display: inline;
+}*/
 
 div.kupu-libsource-selected span {
   background-color: ButtonFace;  
@@ -160,6 +174,10 @@ span.drawer-item-title {
   padding-left: 2px;
   padding-right: 2px;
   padding-top: 2px;
+}
+
+span.drawer-item-title.selected-item {
+  background-color:#C0C0C0;
 }
 
 /* Local image upload form */

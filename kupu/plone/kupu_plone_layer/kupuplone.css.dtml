@@ -205,7 +205,7 @@ div.kupu-drawer {
   background-color: &dtml-contentViewBackgroundColor;;
   padding: 0 8px 8px 8px;
   height: auto;
-  width: 520px;
+  width: 640px;
   z-index: 2;
 }
 
@@ -214,20 +214,6 @@ div.kupu-drawer {
     padding: 6px 6px 1px 30px;
     text-transform: &dtml-textTransform;;
     height: 32px; width: auto; 
-}
-div.kupu-libsource div,
-div.kupu-libsource-selected div
- {
-    float: left;
-    margin: 4px 4px 0 0;
-}
-div.kupu-panels div.kupu-libsource,
-div.kupu-panels div.kupu-libsource-selected {
-  text-align: left;
-}
-div.kupu-panels div.kupu-libsource,
-div.kupu-panels div.kupu-libsource-selected {
-  vertical-align: middle;
 }
 
 /* </dtml-let></dtml-with> */

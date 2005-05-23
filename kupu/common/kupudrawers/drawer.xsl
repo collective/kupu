@@ -22,7 +22,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     <xsl:param name="drawertitle">Image Drawer</xsl:param>
     <xsl:param name="showupload"></xsl:param>
     <xsl:param name="usecaptions"></xsl:param>
-    <xsl:variable name="titlelength" select="20"/>
+    <xsl:variable name="titlelength" select="60"/>
     <xsl:template match="/">
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
             <head>
@@ -99,9 +99,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
             <xsl:attribute name="id">
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
-            <div>
-                <xsl:apply-templates select="icon"/>
-            </div>
+            <xsl:apply-templates select="icon"/>
             <span class="drawer-item-title">
                 <xsl:value-of select="title"/>
             </span>
@@ -117,7 +115,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                     <xsl:when
                             test="local-name()='collection'">drawertool.current_drawer.selectCollection('<xsl:value-of select="@id"/>');</xsl:when>
 
-                    <xsl:otherwise>drawertool.current_drawer.selectItem('<xsl:value-of select="@id"/>')</xsl:otherwise>
+                    <xsl:otherwise>drawertool.current_drawer.selectItem(this, '<xsl:value-of select="@id"/>')</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
@@ -141,7 +139,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     <xsl:template match="label|title">
         <span class="drawer-item-title">
             <xsl:if test="../@selected">
-                <xsl:attribute name="style">background-color: #C0C0C0</xsl:attribute>
+                <xsl:attribute name="class">drawer-item-title selected-item</xsl:attribute>
             </xsl:if>
             <xsl:choose>
                 <xsl:when test="string-length() &gt; $titlelength">

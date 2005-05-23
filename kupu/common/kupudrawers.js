@@ -308,6 +308,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     this.initialize = function(editor, drawertool) {
         this.editor = editor;
         this.drawertool = drawertool;
+        this.selecteditemid = '';
 
         // load the xsl and the initial xml
         var wrapped_callback = new ContextFixer(this._libsXslCallback, this);
@@ -639,6 +640,17 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if (oldselitem) {
             oldselitem.removeAttribute("selected");
         };
+        if (this.selecteditemid) {
+            var item = document.getElementById(this.selecteditemid);
+            if (item) {
+                var span = item.getElementsByTagName('span');
+                if (span.length > 0) {
+                    span = span[0];
+                    span.className = span.className.replace(' selected-item', '');
+                }
+            }
+            this.selecteditemid = '';
+        }
         this.showupload = '';
     }
 
@@ -650,7 +662,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     }
     /*** Selecting a resource ***/
 
-    this.selectItem = function (id) {
+    this.selectItem = function (item, id) {
         /* select an item in the item pane, show the item's metadata */
 
         // First turn off current selection, if any
@@ -660,9 +672,24 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var newselxpath = '/libraries/*[@selected]//resource[@id="' + id + '"]';
         var newselitem = this.shared.xmldata.selectSingleNode(newselxpath);
         newselitem.setAttribute("selected", "1");
-
-        this.updateDisplay(this.resourcespanelid);
+        //this.updateDisplay(this.resourcespanelid);
         this.updateDisplay(this.propertiespanelid);
+
+        // Don't want to reload the resource panel xml as it scrolls to
+        // the top.
+        var span = item.getElementsByTagName('span');
+        if (span.length > 0) {
+            span = span[0];
+            span.className += ' selected-item';
+        }
+        this.selecteditemid = id;
+        if (this.editor.getBrowserName() == 'IE') {
+            var ppanel = document.getElementById(this.propertiespanelid)
+            var height = ppanel.clientHeight;
+            if (height > ppanel.scrollHeight) height = ppanel.scrollHeight;
+            if (height < 260) height = 260;
+            document.getElementById(this.resourcespanelid).style.height = height+'px';
+        }
         return;
     }
 
@@ -943,3 +970,24 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
 LinkLibraryDrawer.prototype = new LibraryDrawer;
 LinkLibraryDrawer.prototype.shared = {}; // Shared data
+
+/* Function to suppress enter key in drawers */
+function HandleDrawerEnter(event, clickid) {
+    var key;
+    event = event || window.event;
+    key = event.which || event.keyCode;
+
+    if (key==13) {
+        if (clickid) {
+            var button = document.getElementById(clickid);
+            if (button) {
+                button.click();
+            }
+        }
+        event.cancelBubble = true;
+        if (event.stopPropogation) event.stopPropogation();
+
+        return false;
+    }
+    return true;
+}
