@@ -110,6 +110,21 @@ very easily.</p>
 </p>
 </form>
 
+<form action="" tal:attributes="action string:${here/absolute_url}/zmi_set_default_library" method="post">
+<table>
+
+  <tr>
+    <th>Default</th>
+    <td><input type="text" name="defid" size="60" tal:attributes="value here/zmi_get_default_library;" /></td>
+  </tr>
+
+</table>
+
+<p>
+  <input class="context" type="submit" value="Set" />
+</p>
+</form>
+
 <p>&nbsp;</p>
 
 <p>The following variables are available in the TALES expressions:</p>

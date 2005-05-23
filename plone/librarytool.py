@@ -51,9 +51,12 @@ class KupuLibraryTool:
         """See ILibraryManager"""
         lib = dict(id=id, title=title, uri=uri, src=src, icon=icon)
         for key, value in lib.items():
-            if not(value.startswith('string:') or value.startswith('python:')):
-                value = 'string:' + value
-            lib[key] = Expression(value)
+            if key=='id':
+                lib[key] = value
+            else:
+                if not(value.startswith('string:') or value.startswith('python:')):
+                    value = 'string:' + value
+                lib[key] = Expression(value)
         self._libraries.append(lib)
 
     def getLibraries(self, context):
@@ -63,7 +66,14 @@ class KupuLibraryTool:
         for library in self._libraries:
             lib = {}
             for key in library.keys():
-                lib[key] = library[key](expr_context)
+                if isinstance(library[key], str):
+                    lib[key] = library[key]
+                else:
+                    # Automatic migration from old version.
+                    if key=='id':
+                        lib[key] = library[key] = library[key].text
+
+                    lib[key] = library[key](expr_context)
             libraries.append(lib)
         return tuple(libraries)
 
@@ -81,10 +91,13 @@ class KupuLibraryTool:
             for key in lib.keys():
                 if dic.has_key(key):
                     value = dic[key]
-                    if not(value.startswith('string:') or
-                           value.startswith('python:')):
-                        value = 'string:' + value
-                    lib[key] = Expression(value)
+                    if key=='id':
+                        lib[key] = value
+                    else:
+                        if not(value.startswith('string:') or
+                               value.startswith('python:')):
+                            value = 'string:' + value
+                        lib[key] = Expression(value)
             self._libraries[index] = lib
 
     def moveUp(self, indices):
