@@ -15,7 +15,8 @@
         tal:define="
                 base here/absolute_url;
                 posfactory python:base.find('/portal_factory/');
-                base python:posfactory > 0 and base[:posfactory+15] or base;"
+                base python:posfactory > 0 and base[:posfactory+15] or base;
+                base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1;"
         >
     </iframe>
