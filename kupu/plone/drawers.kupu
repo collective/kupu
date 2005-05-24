@@ -26,7 +26,7 @@
     <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
     <link_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
     <tal:var define="
-        base here/absolute_url;
+        base kupu_base_override|here/absolute_url;
         posfactory python:base.find('/portal_factory/');
         base python:posfactory > 0 and base[:posfactory] or base;
         lib_prefix    string:${base}/kupulibraries.xml?resource_type=;
