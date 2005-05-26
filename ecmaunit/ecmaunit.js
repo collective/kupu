@@ -336,7 +336,7 @@ function HTMLReporter(outputelement, verbose) {
             for (var i=0; i < exceptions.length; i++) {
                 var testcase = exceptions[i][0];
                 var attr = exceptions[i][1];
-                var exception = exceptions[i][2];
+                var exception = exceptions[i][2].toString();
                 var raw = exceptions[i][3];
                 var div = this.document.createElement('div');
                 var lines = exception.split('\n');
