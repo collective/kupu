@@ -198,15 +198,9 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-spellchecker { display:none; }
 
 div.kupu-drawer {
-  position: absolute;
-  display: none;
   border: solid 1px &dtml-contentViewBorderColor;;
   border-top: solid &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
-  padding: 0 8px 8px 8px;
-  height: auto;
-  width: 640px;
-  z-index: 2;
 }
 
 .forcekupu {
