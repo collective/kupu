@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Sun May  1 10:43:26 2005\n"
+"POT-Creation-Date: Mon May  2 00:46:04 2005\n"
 "PO-Revision-Date: 2005-05-10 17:58+0200\n"
 "Last-Translator: Guido Wesdorp <guido@infrae.com>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -11,350 +11,6 @@ msgstr ""
 "Language-code: nl\n"
 "Language-name: Nederlands\n"
 "Domain: kupu\n"
-
-#: /common/kupu.pox:103
-msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:111
-msgid "Cut"
-msgstr "Knippen"
-
-#: /common/kupu.pox:119
-msgid "Copy"
-msgstr "Kopieren"
-
-#: /common/kupu.pox:127
-msgid "Paste"
-msgstr "Plakken"
-
-#: /common/kupu.pox:135
-msgid "Colorchooser tool initialized"
-msgstr "Kleurkiezer tool geïnitializeerd"
-
-#: /common/kupu.pox:143
-msgid "Color chosen"
-msgstr "Kleur gekozen"
-
-#: /common/kupu.pox:15
-msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr "Kupu initializatie mislukt. Kupu zal niet werken op uw browser."
-
-#: /common/kupu.pox:151
-msgid "No head in document!"
-msgstr "Geen head element in document!"
-
-#: /common/kupu.pox:159
-msgid "Property tool initialized"
-msgstr "Attribuut tool geïnitializeerd"
-
-#: /common/kupu.pox:167
-msgid "Properties modified"
-msgstr "Attributen gewijzigd"
-
-#: /common/kupu.pox:175
-msgid "Link tool initialized"
-msgstr "Link tool geïnitializeerd"
-
-#: /common/kupu.pox:183
-msgid "Link added"
-msgstr "Link toegevoegd"
-
-#: /common/kupu.pox:191
-msgid "Not inside link"
-msgstr "Dit kan alleen binnen een link"
-
-#: /common/kupu.pox:199
-msgid "Link removed"
-msgstr "Link verwijderd"
-
-#: /common/kupu.pox:207
-msgid "Delete link"
-msgstr "Link verwijderen"
-
-#: /common/kupu.pox:215
-msgid "Create link"
-msgstr "Link creeëren"
-
-#: /common/kupu.pox:223
-msgid "Link modified"
-msgstr "Link gewijzigd"
-
-#: /common/kupu.pox:23
-msgid "Please wait while saving document..."
-msgstr "Even geduld alstublieft, Kupu is het document aan het wegschrijven"
-
-#: /common/kupu.pox:231
-msgid "Image tool initialized"
-msgstr "Afbeeldingstool geïnitializeerd"
-
-#: /common/kupu.pox:239
-msgid "Image inserted"
-msgstr "Afbeelding toegevoegd"
-
-#: /common/kupu.pox:247
-msgid "Create image"
-msgstr "Afbeelding gecreeërd"
-
-#: /common/kupu.pox:255
-msgid "Add table"
-msgstr "Tabel toevoegen"
-
-#: /common/kupu.pox:263
-msgid "Add row"
-msgstr "Rij toevoegen"
-
-#: /common/kupu.pox:271
-msgid "Delete row"
-msgstr "Rij verwijderen"
-
-#: /common/kupu.pox:279
-msgid "Add column"
-msgstr "Kolom toevoegen"
-
-#: /common/kupu.pox:287
-msgid "Delete column"
-msgstr "Kolom verwijderen"
-
-#: /common/kupu.pox:295
-msgid "Delete Table"
-msgstr "Tabel verwijderen"
-
-#: /common/kupu.pox:303
-msgid "Invalid table size"
-msgstr "Ongeldige tabel grootte"
-
-#: /common/kupu.pox:31
-msgid "Starting HTML cleanup"
-msgstr "HTML cleanup begonnen"
-
-#: /common/kupu.pox:311
-msgid "Table added"
-msgstr "Tabel toegevoegd"
-
-#: /common/kupu.pox:319
-msgid "Table row added"
-msgstr "Tabel rij toegevoegd"
-
-#: /common/kupu.pox:327
-msgid "No row to delete"
-msgstr "Geen rij om te verwijderen"
-
-#: /common/kupu.pox:335
-msgid "Table row removed"
-msgstr "Tabelrij verwijderd"
-
-#: /common/kupu.pox:343
-msgid "No parentcolumn found!"
-msgstr "Geen parent kolom gevonden!"
-
-#: /common/kupu.pox:351
-msgid "tdindex: ${tdindex}"
-msgstr "kolomindex: ${tdindex}"
-
-#: /common/kupu.pox:359
-msgid "Table column added"
-msgstr "Kolom toegevoegd"
-
-#: /common/kupu.pox:367
-msgid "Table column deleted"
-msgstr "Kolom verwijderd"
-
-#: /common/kupu.pox:375
-msgid "Not inside a table!"
-msgstr "Niet in een tabel!"
-
-#: /common/kupu.pox:383
-msgid "Table removed"
-msgstr "Tabel verwijderd"
-
-#: /common/kupu.pox:39
-msgid "Cleanup done, sending document to server"
-msgstr "Cleanup klaar, document wordt naar de server gestuurd"
-
-#: /common/kupu.pox:391
-msgid "Recursion detected when counting column position"
-msgstr "Recursie opgetreden bij het bepalen van de kolom positie"
-
-#: /common/kupu.pox:399
-msgid "Table cleaned up"
-msgstr "Tabel cleanup klaar"
-
-#: /common/kupu.pox:407
-msgid "List style tool initialized"
-msgstr "List stijl tool geïnitializeerd"
-
-#: /common/kupu.pox:415
-msgid "List style changed"
-msgstr "List stijl gewijzigd"
-
-#: /common/kupu.pox:423
-msgid "Could not set status bar message, check your browser\\'s security settings."
-msgstr "Kan geen status bar bericht plaatsen, controleer uw browser\\'s configuratie."
-
-#: /common/kupu.pox:431
-msgid "View source"
-msgstr "Bekijk de source"
-
-#: /common/kupu.pox:439
-msgid "Not inside a definition list element!"
-msgstr "Niet in een definitie lijst"
-
-#: /common/kupu.pox:447
-msgid "Zoom tool initialized"
-msgstr "Zoom tool geïnitializeerd"
-
-#: /common/kupu.pox:455
-msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr "Error bij het laden van de translatie (status ${status}), nu wordt Engels gebruikt in plaats van uw land-keuze"
-
-#: /common/kupu.pox:463
-msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr "Uw formulier is niet opgeslagen. Alle wijzgingen die u gemaakt hebt gaan verloren"
-
-#: /common/kupu.pox:47
-msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "U heeft niet opgeslagen wijzigingen. Wilt u opslaan voordat u de pagina verlaat?"
-
-#: /common/kupu.pox:471
-msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
-msgstr "Er is een probleem opgetreden bij het initializeren van de drawers. Waarschijnlijk zijn de XML of XSLT bestanden niet aanwezig. Als dit geen demo versie van Kupu is, controleer de service die de XML bestanden aan zou moeten leveren (error: ${error})"
-
-#: /common/kupu.pox:479
-msgid "Not inside a row!"
-msgstr "Niet in een rij!"
-
-#: /common/kupu.pox:487
-msgid "Row repeated"
-msgstr "Kolom herhaald"
-
-#: /common/kupu.pox:495
-msgid "Row repeat turned off"
-msgstr "Kolom herhaling uitgeschakeld"
-
-#: /common/kupu.pox:503
-msgid "Table tool initialized"
-msgstr "Tabel tool geïnitializeerd"
-
-#: /common/kupu.pox:511
-msgid "Source edit tool initialized"
-msgstr "Source tool geïnitializeerd"
-
-#: /common/kupu.pox:519
-msgid "Cleaning up HTML..."
-msgstr "Cleanup van de HTML..."
-
-#: /common/kupu.pox:527
-msgid "Unsupported browser!"
-msgstr "Niet ondersteunde browser!"
-
-#: /common/kupu.pox:535
-msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
-msgstr "exceptie ${message} opgetreden tijdens het registreren van een event handler voor element ${element}, event ${event}, method ${method}"
-
-#: /common/kupu.pox:543
-msgid "No element found in the config island!"
-msgstr "Geen element gevonden in het configuratie \'eiland\'!"
-
-#: /common/kupu.pox:55
-msgid "There were no errors."
-msgstr "Geen fouten opgetreden"
-
-#: /common/kupu.pox:551
-msgid "Selection not inside the node!"
-msgstr "Selectie niet binnen het element!"
-
-#: /common/kupu.pox:559
-msgid "Start node offset detected in a node without children!"
-msgstr "Start node offset ontdekt in een node zonder children!"
-
-#: /common/kupu.pox:567
-msgid "End node offset detected in a node without children!"
-msgstr "End node offset ontdekt in een node zonder children!"
-
-#: /common/kupu.pox:575
-msgid "Start offset out of range!"
-msgstr "Start offset niet binnen range!"
-
-#: /common/kupu.pox:583
-msgid "End offset out of range!"
-msgstr "End offset niet binnen range!"
-
-#: /common/kupu.pox:591
-msgid "Offset out of document range"
-msgstr "Offset buiten document range!"
-
-#: /common/kupu.pox:599
-msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "Exceptie opgetreden tijdens het verwerken van updateState op ${id}: ${msg}"
-
-#: /common/kupu.pox:607
-msgid "No destination URL available!"
-msgstr "Geen doel URL beschikbaar!"
-
-#: /common/kupu.pox:615
-msgid "Request sent to server"
-msgstr "Het request is naar de server verstuurd"
-
-#: /common/kupu.pox:623
-msgid "Sending request to server"
-msgstr "Verstuur het request naar de server"
-
-#: /common/kupu.pox:63
-msgid "Error loading data, status ${status}"
-msgstr "Fout opgetreden tijdens het laden van de data, status ${status}"
-
-#: /common/kupu.pox:631
-msgid "Editor not initialized yet!"
-msgstr "Editor nog niet geïnitializeerd!"
-
-#: /common/kupu.pox:639
-msgid "Command ${command} executed"
-msgstr "Commando ${command} uitgevoerd"
-
-#: /common/kupu.pox:647
-msgid "Command ${command} executed with parameter ${param}"
-msgstr "Commando ${command} uitgevoerd met parameters ${param}"
-
-#: /common/kupu.pox:655
-msgid "Browser not supported!"
-msgstr "Uw browser wordt niet ondersteund!"
-
-#: /common/kupu.pox:663
-msgid "Error saving your data.\\nResponse status: ${status}.\\nCheck your server log for more information."
-msgstr "Er is een fout opgetreden bij het wegscrhijven van uw data.\\nResponse status: ${status}.\\nBekijk de server log voor meer informatie."
-
-#: /common/kupu.pox:671
-msgid "Error saving document"
-msgstr "Fout opgetreden bij het wegschrijven van het document"
-
-#: /common/kupu.pox:679
-msgid "Document saved"
-msgstr "Document weggeschreven"
-
-#: /common/kupu.pox:687
-msgid "Error placing back selection"
-msgstr "Fout opgetreden bij het terug plaatsen van de selectie"
-
-#: /common/kupu.pox:7
-msgid "Editor initialized"
-msgstr "Editor geïnitializeerd"
-
-#: /common/kupu.pox:71
-msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "Deprecation warning: KupuTool._selectSelectItem"
-
-#: /common/kupu.pox:79
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "Deprecation warning: KupuToolBox._selectSelectItem"
-
-#: /common/kupu.pox:87
-msgid "Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:95
-msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 
 #: /default/body.kupu:14
 msgid "Kupu Editor Test Page"
@@ -388,8 +44,7 @@ msgstr "tabel"
 msgid "External Link"
 msgstr "Externe Link"
 
-#: /default/drawers.kupu:52
-#: /default/toolboxes.kupu:35
+#: /default/drawers.kupu:52 /default/toolboxes.kupu:35
 msgid "Link the highlighted text to this URL:"
 msgstr "Maak een link naar de volgende URL:"
 
@@ -465,48 +120,48 @@ msgstr "Afbeelding verwijderen"
 msgid "Remove link"
 msgstr "Link verwijderen"
 
-#: /default/toolbar.kupu:26
 # Default: "&#9679;"
+#: /default/toolbar.kupu:26
 msgid "list-disc"
 msgstr "lijst-disc"
 
-#: /default/toolbar.kupu:27
 # Default: "&#9632;"
+#: /default/toolbar.kupu:27
 msgid "list-square"
 msgstr "lijst-square"
 
-#: /default/toolbar.kupu:28
 # Default: "&#9675;"
+#: /default/toolbar.kupu:28
 msgid "list-circle"
 msgstr "lijst-circle"
 
-#: /default/toolbar.kupu:29
 # Default: "no bullet"
+#: /default/toolbar.kupu:29
 msgid "list-nobullet"
 msgstr "lijst-nobullet"
 
-#: /default/toolbar.kupu:32
 # Default: "1"
+#: /default/toolbar.kupu:32
 msgid "list-decimal"
 msgstr "lijst-decimal"
 
-#: /default/toolbar.kupu:34
 # Default: "I"
+#: /default/toolbar.kupu:34
 msgid "list-upperroman"
 msgstr "lijst-upperroman"
 
-#: /default/toolbar.kupu:36
 # Default: "i"
+#: /default/toolbar.kupu:36
 msgid "list-lowerroman"
 msgstr "lijst-lowerroman"
 
-#: /default/toolbar.kupu:38
 # Default: "A"
+#: /default/toolbar.kupu:38
 msgid "list-upperalpha"
 msgstr "lijst-upperalpha"
 
-#: /default/toolbar.kupu:40
 # Default: "a"
+#: /default/toolbar.kupu:40
 msgid "list-loweralpha"
 msgstr "lijst-loweralpha"
 
@@ -646,13 +301,11 @@ msgstr "Afbeelding class:"
 msgid "Inline"
 msgstr "Inline"
 
-#: /default/toolboxes.kupu:63
-#: /default/toolboxes.kupu:120
+#: /default/toolboxes.kupu:63 /default/toolboxes.kupu:120
 msgid "Left"
 msgstr "Links"
 
-#: /default/toolboxes.kupu:64
-#: /default/toolboxes.kupu:122
+#: /default/toolboxes.kupu:64 /default/toolboxes.kupu:122
 msgid "Right"
 msgstr "Rechts"
 
@@ -680,3 +333,388 @@ msgstr "Rijen:"
 msgid "Columns:"
 msgstr "Kolommen:"
 
+#: /kupu.pox:103
+msgid ""
+"Pasting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw "
+"browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+
+#: /kupu.pox:111
+msgid "Cut"
+msgstr "Knippen"
+
+#: /kupu.pox:119
+msgid "Copy"
+msgstr "Kopieren"
+
+#: /kupu.pox:127
+msgid "Paste"
+msgstr "Plakken"
+
+#: /kupu.pox:135
+msgid "Colorchooser tool initialized"
+msgstr "Kleurkiezer tool geïnitializeerd"
+
+#: /kupu.pox:143
+msgid "Color chosen"
+msgstr "Kleur gekozen"
+
+#: /kupu.pox:15
+msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
+msgstr "Kupu initializatie mislukt. Kupu zal niet werken op uw browser."
+
+#: /kupu.pox:151
+msgid "No head in document!"
+msgstr "Geen head element in document!"
+
+#: /kupu.pox:159
+msgid "Property tool initialized"
+msgstr "Attribuut tool geïnitializeerd"
+
+#: /kupu.pox:167
+msgid "Properties modified"
+msgstr "Attributen gewijzigd"
+
+#: /kupu.pox:175
+msgid "Link tool initialized"
+msgstr "Link tool geïnitializeerd"
+
+#: /kupu.pox:183
+msgid "Link added"
+msgstr "Link toegevoegd"
+
+#: /kupu.pox:191
+msgid "Not inside link"
+msgstr "Dit kan alleen binnen een link"
+
+#: /kupu.pox:199
+msgid "Link removed"
+msgstr "Link verwijderd"
+
+#: /kupu.pox:207
+msgid "Delete link"
+msgstr "Link verwijderen"
+
+#: /kupu.pox:215
+msgid "Create link"
+msgstr "Link creeëren"
+
+#: /kupu.pox:223
+msgid "Link modified"
+msgstr "Link gewijzigd"
+
+#: /kupu.pox:23
+msgid "Please wait while saving document..."
+msgstr "Even geduld alstublieft, Kupu is het document aan het wegschrijven"
+
+#: /kupu.pox:231
+msgid "Image tool initialized"
+msgstr "Afbeeldingstool geïnitializeerd"
+
+#: /kupu.pox:239
+msgid "Image inserted"
+msgstr "Afbeelding toegevoegd"
+
+#: /kupu.pox:247
+msgid "Create image"
+msgstr "Afbeelding gecreeërd"
+
+#: /kupu.pox:255
+msgid "Add table"
+msgstr "Tabel toevoegen"
+
+#: /kupu.pox:263
+msgid "Add row"
+msgstr "Rij toevoegen"
+
+#: /kupu.pox:271
+msgid "Delete row"
+msgstr "Rij verwijderen"
+
+#: /kupu.pox:279
+msgid "Add column"
+msgstr "Kolom toevoegen"
+
+#: /kupu.pox:287
+msgid "Delete column"
+msgstr "Kolom verwijderen"
+
+#: /kupu.pox:295
+msgid "Delete Table"
+msgstr "Tabel verwijderen"
+
+#: /kupu.pox:303
+msgid "Invalid table size"
+msgstr "Ongeldige tabel grootte"
+
+#: /kupu.pox:31
+msgid "Starting HTML cleanup"
+msgstr "HTML cleanup begonnen"
+
+#: /kupu.pox:311
+msgid "Table added"
+msgstr "Tabel toegevoegd"
+
+#: /kupu.pox:319
+msgid "Table row added"
+msgstr "Tabel rij toegevoegd"
+
+#: /kupu.pox:327
+msgid "No row to delete"
+msgstr "Geen rij om te verwijderen"
+
+#: /kupu.pox:335
+msgid "Table row removed"
+msgstr "Tabelrij verwijderd"
+
+#: /kupu.pox:343
+msgid "No parentcolumn found!"
+msgstr "Geen parent kolom gevonden!"
+
+#: /kupu.pox:351
+msgid "tdindex: ${tdindex}"
+msgstr "kolomindex: ${tdindex}"
+
+#: /kupu.pox:359
+msgid "Table column added"
+msgstr "Kolom toegevoegd"
+
+#: /kupu.pox:367
+msgid "Table column deleted"
+msgstr "Kolom verwijderd"
+
+#: /kupu.pox:375
+msgid "Not inside a table!"
+msgstr "Niet in een tabel!"
+
+#: /kupu.pox:383
+msgid "Table removed"
+msgstr "Tabel verwijderd"
+
+#: /kupu.pox:39
+msgid "Cleanup done, sending document to server"
+msgstr "Cleanup klaar, document wordt naar de server gestuurd"
+
+#: /kupu.pox:391
+msgid "Recursion detected when counting column position"
+msgstr "Recursie opgetreden bij het bepalen van de kolom positie"
+
+#: /kupu.pox:399
+msgid "Table cleaned up"
+msgstr "Tabel cleanup klaar"
+
+#: /kupu.pox:407
+msgid "Table tool initialized"
+msgstr "Tabel tool geïnitializeerd"
+
+#: /kupu.pox:415
+msgid "List style tool initialized"
+msgstr "List stijl tool geïnitializeerd"
+
+#: /kupu.pox:423
+msgid "List style changed"
+msgstr "List stijl gewijzigd"
+
+#: /kupu.pox:431
+msgid ""
+"Could not set status bar message, check your browser\\'s security settings."
+msgstr ""
+"Kan geen status bar bericht plaatsen, controleer uw browser\\'s configuratie."
+
+#: /kupu.pox:439
+msgid "View source"
+msgstr "Bekijk de source"
+
+#: /kupu.pox:447
+msgid "Not inside a definition list element!"
+msgstr "Niet in een definitie lijst"
+
+#: /kupu.pox:455
+msgid "Zoom tool initialized"
+msgstr "Zoom tool geïnitializeerd"
+
+#: /kupu.pox:463
+msgid "Error loading translation (status ${status} ), falling back to english"
+msgstr ""
+"Error bij het laden van de translatie (status ${status}), nu wordt Engels "
+"gebruikt in plaats van uw land-keuze"
+
+#: /kupu.pox:47
+msgid "You have unsaved changes. Do you want to save before leaving the page?"
+msgstr ""
+"U heeft niet opgeslagen wijzigingen. Wilt u opslaan voordat u de pagina "
+"verlaat?"
+
+#: /kupu.pox:471
+msgid "Your form has not been saved. All changes you have made will be lost"
+msgstr ""
+"Uw formulier is niet opgeslagen. Alle wijzgingen die u gemaakt hebt gaan "
+"verloren"
+
+#: /kupu.pox:479
+msgid ""
+"There was a problem initializing the drawers. Most likely the XSLT or XML "
+"files aren\\'t available. If this is not the Kupu demo version, check your "
+"files or the service that provide them (error: ${error})."
+msgstr ""
+"Er is een probleem opgetreden bij het initializeren van de drawers. "
+"Waarschijnlijk zijn de XML of XSLT bestanden niet aanwezig. Als dit geen "
+"demo versie van Kupu is, controleer de service die de XML bestanden aan zou "
+"moeten leveren (error: ${error})"
+
+#: /kupu.pox:487
+msgid "Not inside a row!"
+msgstr "Niet in een rij!"
+
+#: /kupu.pox:495
+msgid "Row repeated"
+msgstr "Kolom herhaald"
+
+#: /kupu.pox:503
+msgid "Row repeat turned off"
+msgstr "Kolom herhaling uitgeschakeld"
+
+#: /kupu.pox:511
+msgid "Source edit tool initialized"
+msgstr "Source tool geïnitializeerd"
+
+#: /kupu.pox:519
+msgid "Cleaning up HTML..."
+msgstr "Cleanup van de HTML..."
+
+#: /kupu.pox:527
+msgid "Unsupported browser!"
+msgstr "Niet ondersteunde browser!"
+
+#: /kupu.pox:535
+msgid ""
+"exception ${message} while registering an event handler for element "
+"${element}, event ${event}, method ${method}"
+msgstr ""
+"exceptie ${message} opgetreden tijdens het registreren van een event handler "
+"voor element ${element}, event ${event}, method ${method}"
+
+#: /kupu.pox:543
+msgid "No element found in the config island!"
+msgstr "Geen element gevonden in het configuratie eiland!"
+
+#: /kupu.pox:55
+msgid "There were no errors."
+msgstr "Geen fouten opgetreden"
+
+#: /kupu.pox:551
+msgid "Selection not inside the node!"
+msgstr "Selectie niet binnen het element!"
+
+#: /kupu.pox:559
+msgid "Start node offset detected in a node without children!"
+msgstr "Start node offset ontdekt in een node zonder children!"
+
+#: /kupu.pox:567
+msgid "End node offset detected in a node without children!"
+msgstr "End node offset ontdekt in een node zonder children!"
+
+#: /kupu.pox:575
+msgid "Start offset out of range!"
+msgstr "Start offset niet binnen range!"
+
+#: /kupu.pox:583
+msgid "End offset out of range!"
+msgstr "End offset niet binnen range!"
+
+#: /kupu.pox:591
+msgid "Offset out of document range"
+msgstr "Offset buiten document range!"
+
+#: /kupu.pox:599
+msgid "Exception while processing updateState on ${id}: ${msg}"
+msgstr ""
+"Exceptie opgetreden tijdens het verwerken van updateState op ${id}: ${msg}"
+
+#: /kupu.pox:607
+msgid "No destination URL available!"
+msgstr "Geen doel URL beschikbaar!"
+
+#: /kupu.pox:615
+msgid "Request sent to server"
+msgstr "Het request is naar de server verstuurd"
+
+#: /kupu.pox:623
+msgid "Sending request to server"
+msgstr "Verstuur het request naar de server"
+
+#: /kupu.pox:63
+msgid "Error loading data, status ${status}"
+msgstr "Fout opgetreden tijdens het laden van de data, status ${status}"
+
+#: /kupu.pox:631
+msgid "Editor not initialized yet!"
+msgstr "Editor nog niet geïnitializeerd!"
+
+#: /kupu.pox:639
+msgid "Command ${command} executed"
+msgstr "Commando ${command} uitgevoerd"
+
+#: /kupu.pox:647
+msgid "Command ${command} executed with parameter ${param}"
+msgstr "Commando ${command} uitgevoerd met parameters ${param}"
+
+#: /kupu.pox:655
+msgid "Browser not supported!"
+msgstr "Uw browser wordt niet ondersteund!"
+
+#: /kupu.pox:663
+msgid ""
+"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
+"log for more information."
+msgstr ""
+"Er is een fout opgetreden bij het wegscrhijven van uw data.\\nResponse "
+"status: ${status}.\\nBekijk de server log voor meer informatie."
+
+#: /kupu.pox:671
+msgid "Error saving document"
+msgstr "Fout opgetreden bij het wegschrijven van het document"
+
+#: /kupu.pox:679
+msgid "Document saved"
+msgstr "Document weggeschreven"
+
+#: /kupu.pox:687
+msgid "Error placing back selection"
+msgstr "Fout opgetreden bij het terug plaatsen van de selectie"
+
+#: /kupu.pox:7
+msgid "Editor initialized"
+msgstr "Editor geïnitializeerd"
+
+#: /kupu.pox:71
+msgid "Deprecation warning: KupuTool._selectSelectItem"
+msgstr "Deprecation warning: KupuTool._selectSelectItem"
+
+#: /kupu.pox:79
+msgid "Deprecation warning: KupuToolBox._selectSelectItem"
+msgstr "Deprecation warning: KupuToolBox._selectSelectItem"
+
+#: /kupu.pox:87
+msgid ""
+"Cutting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw "
+"browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+
+#: /kupu.pox:95
+msgid ""
+"Copying from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Uit veiligheidsoverwegingen zijn clipboard acties niet ingeschakeld in uw "
+"browser. Voor mmer informatie, lees http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
