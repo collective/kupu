@@ -24,11 +24,21 @@
   z-index: 2;
 }
 
+.kupu-tabledrawer {
+  width: 408px;
+  left: 320px;
+}
+.kupu-tabledrawer .kupu-panels,
+.kupu-tabledrawer .kupu-panels table,
+.kupu-tabledrawer div.kupu-dialogbuttons {
+  width: 400px;
+}
+
 .kupu-drawer h1 {
    height: auto; width: auto;
 }
 
-div#kupu-drawerheader, div#kupu-dialogbuttons { 
+div.kupu-drawerheader, div.kupu-dialogbuttons { 
   font-family: sans-serif;
 }
 
@@ -57,10 +67,11 @@ div.kupu-dialogbuttons {
   text-align: right;
   margin-top: 6px;
   margin-bottom: 6px;
+  width: 640px; /* Mozilla bug */
 }
 
-div.kupu-dialogbuttons button {
-  margin-left: 0.3em;
+div.kupu-drawer button {
+  margin-right: 0.3em;
 }
 
 div.kupu-panels {
@@ -81,7 +92,7 @@ div.kupu-panels td.kupu-preview-button {
 }
 
 div.kupu-panels table {
- width: 100%; 
+ width: 100%;
  margin: 0; 
  padding: 0; 
  border: 0;
@@ -93,18 +104,18 @@ td.panel {
 
 td#kupu-librariespanel {
   overflow: auto;
-  width: 90px;
+  width: 105px;
 }
 
 div#kupu-librariesitems {
-  width: 90px;
+  width: 105px;
   white-space: pre;
   height: 100%;
 }
 
 td#kupu-resourcespanel {
   overflow: auto;
-  width: 200px;
+  width: 185px;
 }
 
 div#kupu-resourceitems {
@@ -182,26 +193,22 @@ span.drawer-item-title.selected-item {
 
 /* Local image upload form */
 
-#kupu-upload-to {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  clear:both;
-}
-
-#kupu-upload-file {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  clear:both;
-}
-
-#kupu-upload-title {
-  margin-top: 10px;
-  margin-bottom: 10px;
+#kupu-upload-file, #kupu-upload-title {
+  margin-top: 0.1em;
+  margin-bottom: 0.5em;
+  width: 95%;
   clear:both;
 }
 
 #kupu-upload-instructions {
-  margin-top:10px;
-  margin-bottom: 20px;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
   clear:both;
+  line-height: normal;
+}
+
+th.kupu-toolbox-label {
+   text-align:right;
+   width: 5%;
+   white-space: nowrap;
 }

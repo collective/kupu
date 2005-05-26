@@ -100,9 +100,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
-            <span class="drawer-item-title">
-                <xsl:value-of select="title"/>
-            </span>
+            <span class="drawer-item-title"><xsl:value-of select="title"/></span>
         </div>
     </xsl:template>
     <xsl:template match="items">
@@ -253,24 +251,25 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     
     <!-- image upload form -->
     <xsl:template match="uploadbutton" mode="image-upload">
+     <div class="overflow">
         <div id="kupu-upload-instructions" i18n:translate="upload-instructions">
-            Select an image from your computer and click ok to have it automatically uploaded to selected folder and inserted into the editor.
-        </div><br/>
+            Select an image from your computer and click ok to have it
+            automatically uploaded to selected folder and inserted into the
+            editor.
+        </div>
         <form name="kupu_upload_form" method="POST" action="" scrolling="off" target="kupu_upload_form_target"
               enctype="multipart/form-data" style="margin: 0; border: 0;">
 
-            <span id="kupu-upload-to"><strong>Upload to: </strong> <xsl:value-of select="/libraries/*[@selected]/title"/> </span><br/>
-            <input id="kupu-upload-file" type="file" name="node_prop_image" /><br/>
-            <label>Title: 
-                <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/>
-            </label><br/>
-            <input type="reset" i18n:translate="upload-resetform" value="Clear"/>
-
+            <label for="kupu-upload-file">Upload to: </label> <xsl:value-of select="/libraries/*[@selected]/title"/>
+            <input id="kupu-upload-file" type="file" name="node_prop_image" size="35"/><br/>
+            <label for="kupu-upload-title">Title:</label>
+            <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/><br/>
         </form>
 
         <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
                 src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
+      </div>
     </xsl:template>
     
 </xsl:stylesheet>

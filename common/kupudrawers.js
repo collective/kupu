@@ -39,15 +39,15 @@ function DrawerTool() {
         if (this.isIE) {
             drawer.editor._saveSelection();
         }
-        drawer.editor.suspendEditing();
         drawer.createContent();
+        drawer.editor.suspendEditing();
         this.current_drawer = drawer;
     };
 
     this.updateState = function(selNode) {
     };
 
-    this.closeDrawer = function() {
+    this.closeDrawer = function(button) {
         if (!this.current_drawer) {
             return;
         };
@@ -233,12 +233,53 @@ function TableDrawer(elementid, tool) {
     };
 
     this.createTable = function() {
+        this.editor.resumeEditing();
         var rows = newrowsinput.value;
         var cols = newcolsinput.value;
         var style = classselect.value;
         var add_header = makeheadercheck.checked;
         this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
         this.drawertool.closeDrawer();
+    };
+    this.delTableRow = function() {
+        this.editor.resumeEditing();
+        this.tool.delTableRow();
+        this.editor.suspendEditing();
+    };
+    this.addTableRow = function() {
+        this.editor.resumeEditing();
+        this.tool.addTableRow();
+        this.editor.suspendEditing();
+    };
+    this.delTableColumn = function() {
+        this.editor.resumeEditing();
+        this.tool.delTableColumn();
+        this.editor.suspendEditing();
+    };
+    this.addTableColumn = function() {
+        this.editor.resumeEditing();
+        this.tool.addTableColumn();
+        this.editor.suspendEditing();
+    };
+    this.fixTable = function() {
+        this.editor.resumeEditing();
+        this.tool.fixTable();
+        this.editor.suspendEditing();
+    };
+    this.fixAllTables = function() {
+        this.editor.resumeEditing();
+        this.tool.fixAllTables();
+        this.editor.suspendEditing();
+    };
+    this.setTableClass = function(className) {
+        this.editor.resumeEditing();
+        this.tool.setTableClass(className);
+        this.editor.suspendEditing();
+    };
+    this.setColumnAlign = function(align) {
+        this.editor.resumeEditing();
+        this.tool.setColumnAlign(align);
+        this.editor.suspendEditing();
     };
 };
 
@@ -844,7 +885,7 @@ LibraryDrawer.prototype.shared = {}; // Shared data
 function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     /* a specific LibraryDrawer for images */
 
-    this.drawertitle = "Image Library";
+    this.drawertitle = "Insert Image";
     this.drawertype = "image";
     this.showupload = '';
     if (tool) {
@@ -879,6 +920,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     
     // called by onLoad within document sent by server
     this.finishUpload = function(url) {
+        this.editor.resumeEditing();
         var imgclass = 'image-inline';
         if (this.editor.config.captions) {
             imgclass += " captioned";
@@ -932,7 +974,7 @@ ImageLibraryDrawer.prototype.shared = {}; // Shared data
 function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     /* a specific LibraryDrawer for links */
 
-    this.drawertitle = "Link Drawer";
+    this.drawertitle = "Insert Link";
     this.drawertype = "link";
     this.showupload = '';
     if (tool) {
