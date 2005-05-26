@@ -1532,7 +1532,7 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.fixallbutton, "click", this.tool.fixAllTables, this.tool);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
-        this.editor.logMessage('Table tool initialized');
+        this.editor.logMessage(_('Table tool initialized'));
     };
 
     this.updateState = function(selNode) {
