@@ -112,7 +112,7 @@ for lib in tool.zmi_get_libraries():
 tool.zmi_set_default_library(DEFAULT_LIBRARY)
 
 print "configure kupu"
-tool.configure_kupu(linkbyuid=True,
+tool.configure_kupu(
     table_classnames = TABLE_CLASSNAMES,
     parastyles=PARAGRAPH_STYLES,
     html_exclusions = EXCLUDED_HTML,
