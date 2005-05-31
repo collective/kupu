@@ -104,6 +104,9 @@ class HTMLToCaptioned:
                     if target:
                         d['caption'] = newline_to_br(target.Description())
                         d['tag'] = CLASS_PATTERN.sub('', d['tag'])
+                        if not width:
+                            d['width'] = target.getWidth()
+
                         return IMAGE_TEMPLATE % d
                 return match.group(0) # No change
 
