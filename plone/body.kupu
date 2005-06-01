@@ -26,7 +26,7 @@
         class="kupu-editor-textarea"
         name="description" id="kupu-editor-textarea"
         tal:condition="fieldName|nothing"
-        tal:define="content python:here.convertContentForKupu(fieldName);"
+        tal:define="content python:here.convertContentForKupu(fieldName, inputvalue);"
         tal:content="content"
         tal:attributes="name inputname;
                         onfocus onfocus|nothing;

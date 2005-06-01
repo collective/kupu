@@ -28,7 +28,7 @@ if not hasattr(context, 'getField'):
 field = context.getField(fieldname)
 if not field:
   return True
-text_format = context.getContentType(fieldname)
+text_format = REQUEST.get('%s_text_format' % fieldname, context.getContentType(fieldname))
 content = field.getEditAccessor(context)()
 
 return len(content)==0 or 'html' in text_format.lower()
