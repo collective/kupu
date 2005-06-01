@@ -130,7 +130,7 @@ control panel. Kupu appears as a configurable product on the control
 panel.
 
 You can also define a customisation policy script called
-'kupu-customisation-policy' in a skin folder. If there is a script of
+`kupu-customisation-policy` in a skin folder. If there is a script of
 this name then it will be run automatically every time you install (or
 reinstall) kupu in your plone site. This script should use the
 kupu_library_tool to set up the configuration as you wish it for your
