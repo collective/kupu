@@ -44,6 +44,19 @@ Kupu Frequently Asked Questions
   For an example of which meta-tags to use, see fulldoc.html (the example
   content page).
 
+* Saving seems to work, but I get a '1223' status code on IE
+
+  There seems to be a bug in Internet Explorer that in some cases it says that
+  the status code of a save action is '1223' (a code that doesn't exist in
+  HTTP, it's not described in the specs and there seems to be no information
+  about this on the web). Since it looks like this code is only returned on a
+  succeeding save action, it seems that reasonable safe work-around is to add
+  the status code as one of the allowed codes in common/kupueditor.js (search
+  for '204' and you'll find a line that checks if the status code is either 200
+  or 204, add 1223 there), but since the error is still rather puzzling and we
+  haven't found any confirmation about it really only happening on succeeding
+  save actions, we decided not to add this by default.
+
 * Does Kupu produce valid XHTML?
 
   Well... Kupu produces *well-formed XML*, which out-of-the-box does not 
