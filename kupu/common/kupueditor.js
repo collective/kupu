@@ -154,9 +154,7 @@ function KupuEditor(document, config, logger) {
         // unfortunately it's not possible to do this on blur, since that's
         // too late. also (some versions of?) IE 5.5 doesn't support the
         // onbeforedeactivate event, which would be ideal here...
-        if (this.getBrowserName() == 'IE') {
-            this._saveSelection();
-        };
+        this._saveSelection();
 
         if (event.type == 'click' || event.type=='mouseup' ||
                 (event.type == 'keyup' && 
@@ -352,9 +350,7 @@ function KupuEditor(document, config, logger) {
 
     this.getSelection = function() {
         /* returns a Selection object wrapping the current selection */
-        if (this.getBrowserName() == "IE") {
-            this._restoreSelection();
-        };
+        this._restoreSelection();
         return this.getDocument().getSelection();
     };
 
@@ -414,10 +410,7 @@ function KupuEditor(document, config, logger) {
         };
         
         var ret = this.getSelection().replaceWithNode(insertNode, selectNode);
-        
-        if (browser == 'IE') {
-            this._saveSelection();
-        };
+        this._saveSelection();
 
         return ret;
     };
@@ -559,15 +552,21 @@ function KupuEditor(document, config, logger) {
 
     this._restoreSelection = function() {
         /* re-selects the previous selection in IE. We only restore if the
-         current selection is not in the document.*/
+        current selection is not in the document.*/
         if (this._previous_range && !this._isDocumentSelected()) {
             try {
                 this._previous_range.select();
             } catch (e) {
+                alert("Error placing back selection");
                 this.logMessage(_('Error placing back selection'));
             };
         };
     };
+    
+    if (this.getBrowserName() != "IE") {
+        this._saveSelection() = function() {};
+        this._restoreSelection() = function() {};
+    }
 
     this._isDocumentSelected = function() {
         var editable_body = this.getInnerDocument().getElementsByTagName('body')[0];
@@ -793,6 +792,7 @@ function KupuEditor(document, config, logger) {
             this.tools[id].enable();
         }
         if (this.getBrowserName() == "IE") {
+            this._restoreSelection();
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
         } else {
