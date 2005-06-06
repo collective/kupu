@@ -4,6 +4,7 @@
     implementation="default"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
   <kupu:id>$Id$</kupu:id>
