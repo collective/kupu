@@ -86,6 +86,8 @@ Translations
 
 * Roman Joost - German
 
+* Michiel Meeuwissen - Esperanto
+
 Third party products included
 -----------------------------
 
