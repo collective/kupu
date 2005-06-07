@@ -564,8 +564,8 @@ function KupuEditor(document, config, logger) {
     };
     
     if (this.getBrowserName() != "IE") {
-        this._saveSelection() = function() {};
-        this._restoreSelection() = function() {};
+        this._saveSelection = function() {};
+        this._restoreSelection = function() {};
     }
 
     this._isDocumentSelected = function() {
