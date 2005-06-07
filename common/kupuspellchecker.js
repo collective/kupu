@@ -96,45 +96,60 @@ KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
 };
 
 KupuSpellChecker.prototype.continueDisplay = function(win, mapping) {
-    // walk through all elements of the body, colouring the text nodes
+    /* walk through all elements of the body, colouring the text nodes */
+    // start it all with a timeout to make Mozilla render the content first
+    timer_instance.registerFunction(this, this.continueDisplayHelper,
+                                    1000, win, mapping);
+};
+
+KupuSpellChecker.prototype.continueDisplayHelper = function(win, mapping) {
     var body = win.document.getElementsByTagName('body')[0];
     body.setAttribute('contentEditable', 'false');
     var iterator = new NodeIterator(body);
     var node = iterator.next();
-    while (true) {
-        if (!node) {
-            break;
-        };
-        var next = iterator.next();
-        if (node.nodeType == 3) {
-            var span = win.document.createElement('span');
-            var before = node.nodeValue;
-            var after = this.colourText(before, mapping);
-            if (before != after) {
-                span.innerHTML = after;
-                var last = span.lastChild;
-                var parent = node.parentNode;
-                parent.replaceChild(last, node);
-                while (span.hasChildNodes()) {
-                    parent.insertBefore(span.firstChild, last);
-                };
-            };
-            node = span;
-        } else if (node.nodeType == 1 && node.nodeName.toLowerCase() == 'a') {
-            var cancelEvent = function(e) {
-                if (e.preventDefault) {
-                    e.preventDefault();
-                } else {
-                    e.returnValue = false;
-                };
-                return false;
-            };
-            addEventHandler(node, 'click', cancelEvent);
-            addEventHandler(node, 'mousedown', cancelEvent);
-            addEventHandler(node, 'mouseup', cancelEvent);
-        };
-        node = next;
+    timer_instance.registerFunction(this, this.displayHelperNodeLoop,
+                                    10, iterator, node, win, mapping);
+};
+
+KupuSpellChecker.prototype.displayHelperNodeLoop = function(iterator, node, 
+                                                                win, mapping) {
+    if (!node) {
+        return;
     };
+    var next = iterator.next();
+    if (node.nodeType == 3) {
+        if (win.closed) {
+            return;
+        };
+        var span = win.document.createElement('span');
+        var before = node.nodeValue;
+        var after = this.colourText(before, mapping);
+        if (before != after) {
+            span.innerHTML = after;
+            var last = span.lastChild;
+            var parent = node.parentNode;
+            parent.replaceChild(last, node);
+            while (span.hasChildNodes()) {
+                parent.insertBefore(span.firstChild, last);
+            };
+        };
+    } else if (node.nodeType == 1 && node.nodeName.toLowerCase() == 'a') {
+        var cancelEvent = function(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            };
+            return false;
+        };
+        addEventHandler(node, 'click', cancelEvent);
+        addEventHandler(node, 'mousedown', cancelEvent);
+        addEventHandler(node, 'mouseup', cancelEvent);
+    };
+    // using a timeout here makes Moz render the coloring while it's busy, and
+    // will make it stop popping up 'do you want to continue' prompts...
+    timer_instance.registerFunction(this, this.displayHelperNodeLoop,
+                                    10, iterator, next, win, mapping);
 };
 
 KupuSpellChecker.prototype.colourText = function(text, mapping) {
@@ -143,7 +158,7 @@ KupuSpellChecker.prototype.colourText = function(text, mapping) {
     for (var word in mapping) {
         var replacements = mapping[word];
         replacements = replacements.entitize();
-        replacements = replacements.replace("'", "&apos;", 'g');
+        replacements = replacements.replace(/\'/g, "&apos;");
         var reg = new RegExp('^(.*\\\W)?(' + word + ')(\\\W.*)?$', 'mg');
         while (true) {
             var match = reg.exec(currtext);
