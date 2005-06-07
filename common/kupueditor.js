@@ -444,7 +444,11 @@ function KupuEditor(document, config, logger) {
     };
     
     this.handleSaveResponse = function(request, redirect) {
-        if (request.status != '200' && request.status != '204'){
+        // mind the 1223 status, somehow IE gives that sometimes (on 204?)
+        // at first we didn't want to add it here, since it's a specific IE
+        // bug, but too many users had trouble with it...
+        if (request.status != '200' && request.status != '204' &&
+                request.status != '1223') {
             var msg = _('Error saving your data.\nResponse status: ' + 
                             '${status}.\nCheck your server log for more ' +
                             'information.', {'status': request.status});
