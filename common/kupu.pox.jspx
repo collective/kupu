@@ -28,5 +28,8 @@
         </message>
       </x:forEach>
     </fmt:bundle>
+    <c:if test="${param.mymessages != null}">
+      <jsp:include page="${param.mymessages}" />
+    </c:if>
   </catalog>
 </jsp:root>
