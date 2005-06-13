@@ -20,6 +20,8 @@
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/sarissa.js"> </script>
     <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
+    <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
