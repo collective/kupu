@@ -81,6 +81,10 @@ Special thanks to
 
   - Added Lenya support.
 
+* Morten Petersen
+
+  - Compress.py script.
+
 Translations
 ------------
 
