@@ -463,7 +463,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
-        this._replaceNodeContents(document, targetnode, sourcenode);
+        Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
             this.focusElement();
         }
@@ -831,27 +831,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
         };
         xmlhttp.send(body);
-    };
-
-    this._replaceNodeContents = function(doc, target, container) {
-        /* replace all childnodes in target with all childnodes in container */
-        var importedContainer = doc.importNode(container, true);
-        // XXX it seems that IE doesn't allow hacks like these
-        // no need to worry anyway, since the transformed HTML seems
-        // to have the right JS context variables anyway.
-
-        if (this.editor.getBrowserName() != 'IE') {
-            container.ownerDocument.contentWindow = doc.contentWindow;
-        };
-        while (target.hasChildNodes()) {
-            target.removeChild(target.firstChild);
-        };
-        // XXX don't know if this works since i'm not sure whether 
-        // appendChild actually removes a child from a previous
-        // location (although i think it does)
-        while (importedContainer.hasChildNodes()) {
-            target.appendChild(importedContainer.firstChild);
-        };
     };
 
     this._sarissaCallback = function(user_callback, uri) {
