@@ -302,7 +302,7 @@ function StdoutReporter(verbose) {
 function HTMLReporter(outputelement, verbose) {
     this.outputelement = outputelement;
     this.document = outputelement.ownerDocument;
-    this.verbose = verbose; //XXX verbose not yet supported
+    this.verbose = verbose;
 
     this.debug = function(text) {
         var msg = this.document.createTextNode(text);
@@ -321,8 +321,6 @@ function HTMLReporter(outputelement, verbose) {
         /* report a test failure */
         var f = this.document.createTextNode('F');
         this.outputelement.appendChild(f);
-        if (this.verbose) {
-        };
     };
 
     this.summarize = function(numtests, time, exceptions) {
