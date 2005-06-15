@@ -93,18 +93,27 @@ function TestCase() {
             // allow catching undefined exceptions too
             if (exception === undefined) {
             } else if (exception) {
-                if (exception.toSource && e.toSource) {
-                    exception = exception.toSource();
-                    e = e.toSource();
+                var isinstance = false;
+                try {
+                    if (e instanceof exception) {
+                        isinstance = true;
+                    };
+                } catch(f) {
                 };
-                if (exception.toString && e.toString) {
-                    exception = exception.toString();
-                    e = e.toString();
-                };
-                if (e != exception) {
-                    this._throwException('Function threw the wrong ' +
-                            'exception ' + e.toString() + 
-                            ', while expecting ' + exception.toString());
+                if (!isinstance) {
+                    if (exception.toSource && e.toSource) {
+                        exception = exception.toSource();
+                        e = e.toSource();
+                    };
+                    if (exception.toString && e.toString) {
+                        exception = exception.toString();
+                        e = e.toString();
+                    };
+                    if (e != exception) {
+                        this._throwException('Function threw the wrong ' +
+                                'exception ' + e.toString() + 
+                                ', while expecting ' + exception.toString());
+                    };
                 };
             };
             exception_thrown = true;
