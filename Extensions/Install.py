@@ -32,7 +32,7 @@ except ImportError:
 
 PROJECTNAME = 'Kupu'
 
-kupu_package_dir = package_home(kupu_globals)
+kupu_package_dir = 'kupu'
 
 def register_layer(self, relpath, name, out):
     """Register a file system directory as skin layer
