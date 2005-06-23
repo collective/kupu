@@ -745,7 +745,7 @@ function KupuEditor(document, config, logger) {
     };
     this.escapeEntities = function(xml) {
         // Escape non-ascii characters as entities.
-        return xml.replace(/[^\n -\177]/g,
+        return xml.replace(/[^\r\n -\177]/g,
             function(c) {
             return '&#'+c.charCodeAt(0)+';';
         });
