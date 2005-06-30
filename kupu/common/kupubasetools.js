@@ -673,6 +673,7 @@ function LinkTool() {
                 var doc = this.editor.getInnerDocument();
                 linkel = doc.createElement("a");
                 linkel.setAttribute('href', url);
+                linkel.setAttribute('class', 'generated');
                 this.editor.getSelection().replaceWithNode(linkel, true);
                 this.updateLink(linkel, url, type, name, target, title);
             };
