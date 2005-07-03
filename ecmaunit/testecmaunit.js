@@ -29,6 +29,11 @@ function TestTestCase() {
 	this.assertThrows(this.assertEquals, undefined, this, 'foo', 'bar');
     };
 
+    this.testAssertNotEquals = function() {
+        this.assertNotEquals('foo', 'bar');
+	this.assertThrows(this.assertNotEquals, undefined, this, 'foo', 'foo');
+    };
+
     this.testAssertTrue = function() {
         this.assertTrue(1);
 	this.assertTrue('foo');
@@ -80,6 +85,10 @@ function TestTestCase2() {
         
     this.testAssertEquals = function() {
         this.assertEquals(this.foo.returnfoo(), 'foo');
+    };
+
+    this.testAssertNotEquals = function() {
+        this.assertNotEquals(this.foo.returnfoo(), 'bar');
     };
 
     this.testAssertTrue = function() {
