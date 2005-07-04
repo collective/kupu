@@ -72,8 +72,8 @@ class KupuLibraryTool:
                     # Automatic migration from old version.
                     if key=='id':
                         lib[key] = library[key] = library[key].text
-
-                    lib[key] = library[key](expr_context)
+                    else:
+                        lib[key] = library[key](expr_context)
             libraries.append(lib)
         return tuple(libraries)
 
