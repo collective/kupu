@@ -1,13 +1,28 @@
 /*****************************************************************************
  *
- * Sarissa XML library version 0.9.5
- * Copyright (c) 2003 Manos Batsis, mailto: mbatsis@netsmart.gr
+ * Sarissa XML library version 0.9.6
+ * Copyright (c) 2003 Manos Batsis, 
+ * mailto: mbatsis at users full stop sourceforge full stop net
  * This software is distributed under the Kupu License. See
  * LICENSE.txt for license text. See the Sarissa homepage at
  * http://sarissa.sourceforge.net for more information.
  *
- *****************************************************************************/
+ *****************************************************************************
 
+ * ====================================================================
+ * About
+ * ====================================================================
+ * Sarissa cross browser XML library - IE XPath Emulation 
+ * @version 0.9.6
+ * @author: Manos Batsis, mailto: mbatsis at users full stop sourceforge full stop net
+ *
+ * This script emulates Internet Explorer's selectNodes and selectSingleNode
+ * for Mozilla. Associating namespace prefixes with URIs for your XPath queries
+ * is easy with IE's setProperty. 
+ * USers may also map a namespace prefix to a default (unprefixed) namespace in the
+ * source document with Sarissa.setXpathNamespaces
+ *
+ */
 if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0")){
     /**
     * <p>SarissaNodeList behaves as a NodeList but is only used as a result to <code>selectNodes</code>,
