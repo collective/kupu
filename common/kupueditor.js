@@ -612,7 +612,7 @@ function KupuEditor(document, config, logger) {
         var bodies = transform.getElementsByTagName('body');
         var data = '';
         for (var i = 0; i < bodies.length; i++) {
-            data += bodies[i].xml;
+            data += Sarissa.serialize(bodies[i]);
         }
         return this.escapeEntities(data);
     };
@@ -724,14 +724,14 @@ function KupuEditor(document, config, logger) {
         if (this.config.strict_output) {
             var contents =  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ' + 
                             '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n' + 
-                            '<html xmlns="http://www.w3.org/1999/xhtml">' + 
-                            transform.getElementsByTagName("head")[0].xml +
-                            transform.getElementsByTagName("body")[0].xml +
+                            '<html xmlns="http://www.w3.org/1999/xhtml">' +
+                            Sarissa.serialize(transform.getElementsByTagName("head")[0]) +
+                            Sarissa.serialize(transform.getElementsByTagName("body")[0]) +
                             '</html>';
         } else {
             var contents = '<html>' + 
-                            transform.getElementsByTagName("head")[0].xml +
-                            transform.getElementsByTagName("body")[0].xml +
+                            Sarissa.serialize(transform.getElementsByTagName("head")[0]) +
+                            Sarissa.serialize(transform.getElementsByTagName("body")[0]) +
                             '</html>';
         };
 

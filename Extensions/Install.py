@@ -39,7 +39,7 @@ def register_layer(self, relpath, name, out):
     """
     skinstool = getToolByName(self, 'portal_skins')
     if name not in skinstool.objectIds():
-        kupu_plone_skin_dir = os.path.join(kupu_package_dir, relpath)
+        kupu_plone_skin_dir = minimalpath(os.path.join(kupu_package_dir, relpath))
         createDirectoryView(skinstool, kupu_plone_skin_dir, name)
         print >>out, "The layer '%s' was added to the skins tool" % name
 
