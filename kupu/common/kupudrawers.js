@@ -808,7 +808,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             calls callback with one arg (the XML DOM) when done
             the (optional) body arg should contain the body for the request
 */
-        var xmlhttp = Sarissa.getXmlHttpRequest();
+	var xmlhttp = new XMLHttpRequest();
         var method = 'GET';
         if (body) {
           method = 'POST';
