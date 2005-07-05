@@ -363,9 +363,9 @@ tag is also removed. In other words::
 
 is replaced by::
 
-    <div class="image-left captioned">
+    <div class="image-left captioned" style="width:200px;">
       <div><img width="200" ... /></div>
-      <div class="image-caption" style="width:200px;">
+      <div class="image-caption">
          ...description text...
       </div>
     </div>
