@@ -198,6 +198,22 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
 
 KupuStateButton.prototype = new KupuButton;
 
+/* Same as the state button, but the focusDocument call is delayed.
+ * Mozilla&Firefox have a bug on windows which can cause a crash if you
+ * change CSS positioning styles on an element which has focus.
+ */
+function KupuLateFocusStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
+    KupuStateButton.apply(this, buttonid, commandfunc, checkfunc, offclass, onclass);
+    this.execCommand = function() {
+        /* exec this button's command */
+        this.button.className = (this.pressed ? this.offclass : this.onclass);
+        this.pressed = !this.pressed;
+        this.commandfunc(this, this.editor);
+        this.editor.focusDocument();
+    };
+}
+KupuLateFocusStateButton.prototype = new KupuStateButton;
+
 function KupuRemoveElementButton(buttonid, element_name, cssclass) {
     /* A button specialized in removing elements in the current node
        context. Typical usages include removing links, images, etc. */
@@ -2131,7 +2147,7 @@ function KupuZoomTool(buttonid, firsttab, lasttab) {
     };
 };
 
-KupuZoomTool.prototype = new KupuStateButton;
+KupuZoomTool.prototype = new KupuLateFocusStateButton;
 KupuZoomTool.prototype.baseinitialize = KupuZoomTool.prototype.initialize;
 
 KupuZoomTool.prototype.onscroll = function() {
