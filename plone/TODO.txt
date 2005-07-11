@@ -5,6 +5,14 @@ TODO for Plone
 [also some general todos. Some of these are firm ideas, others are
 just idle thoughts]
 
+===============
+Plone 2.1 todo
+===============
+1. fix bugs
+2. Make Kupu use the Resource registry to optimise JS and CSS files.
+
+Other thoughts
+===============
 Make the toolbar customisable from Plone control panel, possibly by
 making the kupu tool into an action provider.
 [DB: I'm not sure this will work as I think the information we need is
@@ -95,3 +103,91 @@ o drawer changes height when navigating with IE. Fixed by forcing the
   entire drawer to refresh in IE, but there must be something simpler we
   could do to have the same effect.
 
+========================
+Other assorted ideas
+========================
+Florian Schulze wrote:
+> In plone with ATContentTypes, Images can have various sizes. I would
+> like to be able to select the scale when inserting the image into a
+> document, how can I achieve that. I guess I have to change the drawer
+> somehow, but I have no clue where and how.
+> 
+
+To do this properly will require some effort (which is why I haven't 
+attempted to do it prior to the Plone 2.1 release).
+
+On the server we need to find out the available sizes for the images. I 
+guess that information isn't in the catalog, and we don't want to hit every 
+image when sending a listing, so the only option would be to assume that 
+every object with a given portal type has the same list of scales (I'm not 
+even sure how it easy it is to get a list of scales from the type rather 
+than from an instance of the type). Alternatively we add a list of scales 
+to the configlet which would allow you to restrict the list to a useful 
+subset.
+
+That information then has to be sent to the kupu client. I think probably 
+we have to send a separate list of sizes for each image (you might have 
+multiple portal types not all of which are scalable) or maybe just for 
+each portal type. By this point I'm thinking that what we actually have is 
+a set of qualifiers which can be added to the image URL rather than 
+necessarily being sizes. For example you might want to add support for 
+greyscaling images or for cropping.
+
+On the client side we need to add the modifier to the image dialog, either 
+as a select box or radio buttons (probably determined by the number of 
+options) and then we need to modify the url to match.
+
+I would like to see if we can rationalise the xml to avoid adding new tags 
+for every new feature to be sent from the server. Also it would be nice to 
+see if there is a way to avoid changing the client js every time some 
+feature such as this is added. This might be part of a more general 
+refactoring of the drawers such as I know Paul is keen to try.
+
+One option would be for the xml to include a section such as:
+
+<options>
+  <type name="Image">
+    <input name="alt" size="40">Alt text</input>
+    <radio name="align">
+       <option value="image-left">Left</option>
+       <option value="image-centre">Centre</option>
+       <option value="image-right">Right</option>
+    </radio>
+    <select name="size">
+       <option value="">Normal</option>
+       <option value="/mini">Medium</option>
+       <option value="/thumb">Small</option>
+    </select>
+
+    <checkbox name="captioned">Add a caption</checkbox>
+
+    <action type="text/javascript"><![CDATA[
+       if (options.alt) node.alt = options.alt;
+       node.className = options.align.value;
+       node.url = url + options.size.value;
+       if (options.captioned) {
+         node.className += " captioned";
+       }
+    ]]></action>
+  </type>
+</options>
+
+So for a given portal_type (and we would have to add the type to the xml 
+returned) some controls (select, checkbox, radio, text input) could be 
+added to the dialog, and when the image is inserted the associated 
+javascript would be executed in a function with parameters node, 
+url,className,options to modify the newly inserted image.
+
+[This isn't fully thought through yet: we also need to get the drawer 
+picking up existing image settings, the alt text needs to get a default 
+from somewhere, and the image size needs to be set somewhere on the tag.]
+
+The last of these makes life a bit harder since the size now depends on the 
+exact URL we generated. I suspect we should add an onload handler to every 
+image in kupu and when the image successfully loads make it update the tag 
+to the correct size. The onload attribute will of course be stripped when 
+the file is saved.
+
+=================================================
+
+Arrange a Kupu sprint
