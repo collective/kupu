@@ -395,7 +395,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             // Do a meaningful test to see if this is IE5.5 or some other 
             // editor-enabled version whose XML support isn't good enough 
             // for the drawers
-            if (!Sarissa.IS_ENABLED_XSLTPROC) {
+            if (!window.XSLTProcessor) {
                alert("This function requires better XML support in your browser.");
                return;
             }
@@ -463,6 +463,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
+        sourcenode = document.importNode(sourcenode, true);
         Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
             this.focusElement();
