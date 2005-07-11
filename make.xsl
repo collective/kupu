@@ -37,6 +37,7 @@ $Id$
   <xsl:output
     method="xml"
     indent="yes"
+    encoding="ascii"
     omit-xml-declaration="yes"
     />
 
