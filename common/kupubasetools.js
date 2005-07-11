@@ -203,7 +203,7 @@ KupuStateButton.prototype = new KupuButton;
  * change CSS positioning styles on an element which has focus.
  */
 function KupuLateFocusStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
-    KupuStateButton.apply(this, buttonid, commandfunc, checkfunc, offclass, onclass);
+    KupuStateButton.apply(this, [buttonid, commandfunc, checkfunc, offclass, onclass]);
     this.execCommand = function() {
         /* exec this button's command */
         this.button.className = (this.pressed ? this.offclass : this.onclass);
