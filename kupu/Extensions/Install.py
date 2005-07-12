@@ -92,14 +92,14 @@ def css_files(resources):
     CSSPAT = re.compile(r'\<link [^>]*rel="stylesheet"[^>]*\${portal_url}/([^"]*)"')
     for m in CSSPAT.finditer(resources):
         id = m.group(1)
-        if id=='sarissa.js':
-            continue
         yield id
 
 def js_files(resources):
     JSPAT = re.compile(r'\<script [^>]*\${portal_url}/([^"]*)"')
     for m in JSPAT.finditer(resources):
         id = m.group(1)
+        if id=='sarissa.js':
+            continue
         yield id
 
 def install_resources(self, out):
