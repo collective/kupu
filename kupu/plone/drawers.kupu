@@ -9,13 +9,9 @@
     <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="styles">
-    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css"
-          tal:attributes="href string:${portal_url}/kupudrawerstyles.css" />
   </kupu:part>
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupudrawers.js"
-            tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
   </kupu:part>
 
   <kupu:part name="xmlconfig">
