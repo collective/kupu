@@ -57,8 +57,8 @@ if have_cmf:
     registerDirectory('common', globals())
 
     if have_plone:
-        import plone
-        initialize = plone.initialize
+        from Products.kupu.plone import initialize
+
 elif have_zope2 and have_fss:
     import zope2
     initialize = zope2.initialize

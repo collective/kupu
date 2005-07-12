@@ -27,8 +27,9 @@ class TestBrowserSupportsKupu(PloneTestCase.PloneTestCase):
         md._updateProperty('wysiwyg_editor', 'Kupu')
         self.qi = self.portal.portal_quickinstaller
         self.qi.installProduct('kupu')
-        self.script = self.portal.portal_skins.kupu_plone.browserSupportsKupu
-    
+        #self.script = self.portal.portal_skins.kupu_plone.browserSupportsKupu
+        self.script = self.portal.kupu_library_tool.isKupuEnabled
+
 # List of tuples of id, signature, os, version, browser
 # browsers are:
 # 1, MOZILLA            -- supported 1.4 and above
@@ -396,13 +397,11 @@ def createTests():
 
 createTests()
 
+from unittest import TestSuite, makeSuite
+def test_suite():
+    suite = TestSuite()
+    suite.addTest(makeSuite(TestBrowserSupportsKupu))
+    return suite
+
 if __name__ == '__main__':
     framework()
-else:
-    # While framework.py provides its own test_suite()
-    # method the testrunner utility does not.
-    from unittest import TestSuite, makeSuite
-    def test_suite():
-        suite = TestSuite()
-        suite.addTest(makeSuite(TestPythonScript))
-        return suite

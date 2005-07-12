@@ -1,6 +1,6 @@
 ##############################################################################
 #
-# Copyright (c) 2003-2005 Kupu Contributors. All rights reserved.
+# Cocommpyright (c) 2003-2005 Kupu Contributors. All rights reserved.
 #
 # This software is distributed under the terms of the Kupu
 # License. See LICENSE.txt for license text. For a list of Kupu
@@ -15,11 +15,14 @@ wysiwyg editor in Plone.
 
 $Id$
 """
+from App.Common import package_home
 from Products.CMFCore.DirectoryView import registerDirectory
 from Products.CMFCore import utils
 from Products.kupu.plone.plonelibrarytool import PloneKupuLibraryTool
+from Products.kupu import kupu_globals
 
-registerDirectory('kupu_plone_layer', globals())
+kupu_package_dir = package_home(kupu_globals)
+registerDirectory('plone/kupu_plone_layer', kupu_package_dir)
 
 def initialize(context):
     utils.ToolInit("kupu Library Tool",
