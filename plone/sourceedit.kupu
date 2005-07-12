@@ -9,8 +9,6 @@
     <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="jsincludes">
-    <script type="text/javascript" src="kupusourceedit.js"
-        tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
   </kupu:part>
 
 </kupu:feature>

@@ -18,7 +18,7 @@
     <!--$Id: drawers.kupu 12805 2005-05-26 14:38:24Z duncan $-->
     <!--$Id: include.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: wire.kupu 12436 2005-05-18 13:15:32Z duncan $-->
-    <!--$Id: head.kupu 13354 2005-06-13 15:03:23Z paul $-->
+    <!--$Id: head.kupu 14296 2005-07-05 15:02:12Z duncan $-->
     <!--$Id: xmlconfig.kupu 12437 2005-05-18 13:19:00Z duncan $-->
     <!--$Id: body.kupu 12982 2005-06-01 15:12:55Z duncan $-->
     <!--$Id: toolbar.kupu 12353 2005-05-16 12:29:05Z duncan $-->
@@ -76,11 +76,14 @@
   
     <div class="kupu-fulleditor">
       
+   <tal:test condition="not:exists:portal/portal_css">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
-  
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+   </tal:test>
   
+  
+   <tal:test condition="not:exists:portal/portal_javascripts">
     <script type="text/javascript" tal:attributes="src string:${portal_url}/kupunoi18n.js"> </script>
     <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa.js"> </script>
     <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
@@ -94,16 +97,18 @@
     <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
     <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
 
+    <script type="text/javascript" src="kupusourceedit.js" tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
+
+    <script type="text/javascript" src="kupudrawers.js" tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
+   </tal:test>
   
 <tal:condition condition="python:here.kupu_library_tool.installBeforeUnload() and not path('haveBeforeUnload|nothing')">
-    <script type="text/javascript" src="kupubeforeunload.js" tal:attributes="src string:${portal_url}/kupubeforeunload.js" tal:define="global haveBeforeUnload python:True;"> </script>
+    <script tal:condition="not:exists:portal/portal_javascripts" type="text/javascript" src="kupubeforeunload.js" tal:attributes="src string:${portal_url}/kupubeforeunload.js" tal:define="global haveBeforeUnload python:True;"> </script>
 </tal:condition>
   
-    <script type="text/javascript" src="kupusourceedit.js" tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
   
-    <script type="text/javascript" src="kupudrawers.js" tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
   
-    <script type="text/javascript" src="kupuploneinit.js" tal:attributes="src string:${portal_url}/kupuploneinit.js"> </script>
+    <script tal:condition="not:exists:portal/portal_javascripts" type="text/javascript" src="kupuploneinit.js" tal:attributes="src string:${portal_url}/kupuploneinit.js"> </script>
   
     <div class="kupu-tb" id="toolbar">
       
@@ -360,12 +365,15 @@
 
       <div tal:condition="not:usekupu">
         
+   <tal:test condition="not:exists:portal/portal_css">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+   </tal:test>
   
     <tal:archetypes tal:condition="fieldName|nothing">
       <div tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')">
-        <a class="forcekupu" href="#" tal:condition="here/browserSupportsKupu" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
+        <a class="forcekupu" href="#" tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
            edit with Kupu
         </a>
       </div>
@@ -386,7 +394,7 @@
   <tal:noeditor tal:condition="not:usekupu">
     <tal:archetypes tal:condition="fieldName|nothing">
          <div metal:use-macro="here/widgets/visual/macros/area_format"/>
-         <span tal:condition="here/browserSupportsKupu" tal:define="global kupu_convert_message_generated python:True">
+         <span tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)" tal:define="global kupu_convert_message_generated python:True">
            <a href="#" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};">Convert to HTML and edit with Kupu</a></span>
     </tal:archetypes>
     <tal:nonat condition="not:fieldName|nothing">

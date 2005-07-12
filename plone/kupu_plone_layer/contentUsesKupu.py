@@ -8,14 +8,16 @@
 ##parameters=fieldname
 from Products.CMFCore.utils import getToolByName
 
+from Products.CMFCore.utils import getToolByName
+tool = getToolByName(context, 'kupu_library_tool')
+REQUEST = context.REQUEST
+
 # If the user doesn't have kupu configured then we can't use it.
-if not context.browserSupportsKupu():
+if not tool.isKupuEnabled(REQUEST=REQUEST):
     return False
 
 if not fieldname:
     return True # Non AT content always tries to use kupu
-
-REQUEST = context.REQUEST
 
 if fieldname == REQUEST.form.get('kupu.convert', ''):
     return True
