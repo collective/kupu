@@ -13,6 +13,7 @@ This module contains Kupu's library tool to support drawers.
 
 $Id$
 """
+import Acquisition
 from Acquisition import aq_parent, aq_inner, aq_base
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import createExprContext
@@ -21,7 +22,7 @@ from Products.CMFCore.utils import getToolByName
 
 class KupuError(Exception): pass
 
-class KupuLibraryTool:
+class KupuLibraryTool(Acquisition.Implicit):
     """A tool to aid Kupu libraries"""
 
     __implements__ = IKupuLibraryTool
