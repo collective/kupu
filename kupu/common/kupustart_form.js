@@ -38,7 +38,7 @@ function startKupu() {
             continueStartKupu(kupu);
         };
     };
-    var request = Sarissa.getXmlHttpRequest();
+    var request = new XMLHttpRequest();
     request.onreadystatechange = (new ContextFixer(handler, request)).execute;
     request.open('GET', 'kupu.pox', true);
     request.send('');

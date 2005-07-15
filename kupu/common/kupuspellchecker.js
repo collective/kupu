@@ -17,7 +17,7 @@ KupuSpellChecker.prototype.initialize = function(editor) {
 };
 
 KupuSpellChecker.prototype.check = function() {
-    var request = Sarissa.getXmlHttpRequest();
+    var request = new XMLHttpRequest();
     request.open('POST', this.scripturl, true);
     request.setRequestHeader('Content-Type', 
                                 'application/x-www-form-urlencoded');
