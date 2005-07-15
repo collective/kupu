@@ -234,7 +234,7 @@ function KupuEditor(document, config, logger) {
         var contents = this._serializeOutputToString(transform);
         
         this.logMessage(_("Cleanup done, sending document to server"));
-        var request = Sarissa.getXmlHttpRequest();
+        var request = new XMLHttpRequest();
     
         if (!synchronous) {
             request.onreadystatechange = (new ContextFixer(this._saveCallback, 
@@ -593,7 +593,7 @@ function KupuEditor(document, config, logger) {
         this._previous_range = null;
     };
 
-    this._filterContent = function(documentElement) {
+    this._filterContent = function(documentElement) {            
         /* pass the content through all the filters */
         // first copy all nodes to a Sarissa document so it's usable
         var xhtmldoc = Sarissa.getDomDocument();
