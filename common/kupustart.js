@@ -15,7 +15,7 @@ function startKupu() {
     // if there's no global 'i18n_message_catalog' variable available, don't
     // try to load any translations
     if (window.i18n_message_catalog) {
-        var request = Sarissa.getXmlHttpRequest();
+        var request = new XMLHttpRequest();
         // sync request, scary...
         request.open('GET', 'kupu-pox.cgi', false);
         request.send('');

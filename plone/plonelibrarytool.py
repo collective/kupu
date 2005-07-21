@@ -148,7 +148,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         return getattr(self, 'install_beforeunload', True)
 
     security.declareProtected('View', 'isKupuEnabled')
-    def isKupuEnabled(self, useragent='', REQUEST=None):
+    def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None):
         def numerics(s):
             '''Convert a string into a tuple of all digit sequences
             '''
@@ -162,6 +162,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
         # First check whether the user actually wants kupu
         pm = getToolByName(self, 'portal_membership')
+        if pm.isAnonymousUser() and not allowAnonymous:
+            return False
+
         user = pm.getAuthenticatedMember()
         if user.getProperty('wysiwyg_editor').lower() != 'kupu':
             return False
@@ -218,7 +221,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declarePublic('docs')
     def docs(self):
-        """Returns FormController docs formatted as HTML"""
+        """Returns Kupu docs formatted as HTML"""
         docpath = os.path.join(Globals.package_home(kupu_globals), 'doc')
         f = open(os.path.join(docpath, 'PLONE2.txt'), 'r')
         _docs = f.read()
@@ -226,7 +229,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     security.declareProtected(permissions.ManageLibraries, "zmi_docs")
     zmi_docs = PageTemplateFile("zmi_docs.pt", globals())
-    zmi_docs.title = 'kupu configuration'
+    zmi_docs.title = 'kupu configuration documentation'
 
     security.declareProtected(permissions.ManageLibraries, "sanity_check")
     sanity_check = PageTemplateFile("sanity_check.pt", globals())

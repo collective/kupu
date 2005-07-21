@@ -1792,7 +1792,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             handler.call(this, this._url);
             return;
         };
-        var request = Sarissa.getXmlHttpRequest();
+        var request = new getXMLHttpRequest();
         request.open('GET', 
             this._baseurl + '/edit/get_extsource_url?id=' + id, true);
         var callback = new ContextFixer(function() {
@@ -1816,7 +1816,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             // validate the data and take further actions
             var formdata = this._gatherFormData();
             var doc = window.document;
-            var request = Sarissa.getXmlHttpRequest();
+            var request = new XMLHttpRequest();
             request.open('POST', this._url + '/validate_form_to_request', true);
             var callback = new ContextFixer(this._addExternalSourceIfValidated, request, this);
             request.onreadystatechange = callback.execute;
@@ -1827,7 +1827,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
 
     this._continueStartExternalSourceEdit = function(url) {
         url = url + '/get_rendered_form_for_editor?docref=' + this.docref;
-        var request = Sarissa.getXmlHttpRequest();
+        var request = new XMLHttpRequest();
         request.open('GET', url, true);
         var callback = new ContextFixer(this._addFormToTool, request, this);
         request.onreadystatechange = callback.execute;
@@ -1852,7 +1852,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         url = url + '/get_rendered_form_for_editor';
         var formdata = this._gatherFormDataFromElement();
         formdata += '&docref=' + this.docref;
-        var request = Sarissa.getXmlHttpRequest();
+        var request = new XMLHttpRequest();
         request.open('POST', url, true);
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         var callback = new ContextFixer(this._addFormToTool, request, this);
