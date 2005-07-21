@@ -7,6 +7,17 @@ Kupu changes
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
 
+  - Lots of changes for Plone 2.1 compatability.
+
+    * Drawers use catalog lookups to avoid loading objects.
+
+    * ResourceRegistry used to load js and css.
+
+    * Sarissa upgraded, and not loaded when ResourceRegistry is
+      present.
+
+    * Drawer layouts tidied up.
+
 - Post 1.2.1
 
   - Tidied up zoom mode. Added kupu-fulleditor-zoomed class to body

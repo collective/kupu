@@ -1,1 +1,1 @@
-kupu 1.3/SVN unreleased
+kupu 1.3 beta 1
