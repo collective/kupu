@@ -39,17 +39,6 @@
   </kupu:part>
 
   <kupu:part name="textarea">
-    <tal:archetypes tal:condition="fieldName|nothing">
-      <div 
-        tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')">
-        <a class="forcekupu" href="#"
-           tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)"
-           tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
-           title="reload current page using kupu to edit this field">
-           edit with Kupu
-        </a>
-      </div>
-    </tal:archetypes>
     <textarea
         cols="80"
         rows="25"

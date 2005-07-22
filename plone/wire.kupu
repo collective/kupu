@@ -22,6 +22,7 @@
     <!-- insert styles even if kupu is disabled -->
     <kupu:insert-part feature="head" part="styles" />
     <kupu:insert-part feature="wysiwyg_support" part="textarea" />
+    <kupu:insert-part feature="body" part="force-kupu" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="fulleditor">
@@ -40,6 +41,7 @@
     <kupu:insert-part feature="toolboxes" part="toolboxes" />
     <kupu:insert-part feature="colorchooser" part="colorchooser" />
     <kupu:insert-part feature="body" part="editorframe" />
+    <kupu:insert-part feature="body" part="suppress-kupu" />
   </kupu:fill-slot>
 
 </kupu:wire>
