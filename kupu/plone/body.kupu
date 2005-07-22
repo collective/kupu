@@ -4,6 +4,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
   <kupu:id>$Id$</kupu:id>
   <kupu:part name="editorframe"><script type="text/javascript">var focuscount = 0;</script>
@@ -59,4 +60,35 @@
     </textarea>
   </kupu:part>
 
+  <kupu:part name="suppress-kupu">
+    <div class="kupuoverride"
+        tal:condition="python:len(content)==0"
+        tal:define="floated widget/allow_file_upload | python:1;"
+        tal:attributes="style python:test(floated, 'float:left;;', '');"
+      ><span class="discreet"><a class="forcekupu" href="#"
+        i18n:translate="suppress-kupu"
+        tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};"
+        title="reload current page without kupu">
+         edit without using Kupu
+      </a></span>
+    </div>
+  </kupu:part>
+
+  <kupu:part name="force-kupu">
+    <tal:archetypes tal:condition="fieldName|nothing">
+      <div class="kupuoverride"
+        tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')"
+        tal:define="floated widget/allow_file_upload | python:1;"
+        tal:attributes="style python:test(floated, 'float:left;;', '');"
+        >
+        <span class="discreet"><a class="forcekupu" href="#"
+           i18n:translate="force-kupu"
+           tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)"
+           tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
+           title="reload current page using kupu to edit this field">
+           edit with Kupu
+        </a></span>
+      </div>
+    </tal:archetypes>
+  </kupu:part>
 </kupu:feature>
