@@ -85,8 +85,8 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                             </table>
                         </div>
                         <div class="kupu-dialogbuttons">                            
-                            <button type="button" onclick="drawertool.current_drawer.save();">Ok</button>
-                            <button type="button" onclick="drawertool.closeDrawer();">Cancel</button>
+                            <button type="button" class="kupu-dialog-button" onclick="drawertool.current_drawer.save();">Ok</button>
+                            <button type="button" class="kupu-dialog-button" onclick="drawertool.closeDrawer();">Cancel</button>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     
     <!-- image upload form -->
     <xsl:template match="uploadbutton" mode="image-upload">
-     <div class="overflow">
+     <div>
         <div id="kupu-upload-instructions" i18n:translate="upload-instructions">
             Select an image from your computer and click ok to have it
             automatically uploaded to selected folder and inserted into the
@@ -261,7 +261,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
               enctype="multipart/form-data" style="margin: 0; border: 0;">
 
             <label for="kupu-upload-file">Upload to: </label> <xsl:value-of select="/libraries/*[@selected]/title"/>
-            <input id="kupu-upload-file" type="file" name="node_prop_image" size="35"/><br/>
+            <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/><br/>
             <label for="kupu-upload-title">Title:</label>
             <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/><br/>
         </form>

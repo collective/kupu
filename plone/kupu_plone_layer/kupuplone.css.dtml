@@ -201,8 +201,20 @@ div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
   border-top: solid &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
+  font-family: &dtml.-fontFamily;;;
 }
 
+div.kupu-drawer h1 {
+  border: none;
+}
+
+div.kupu-drawer table td {
+  font-size: 85%;
+}
+
+div.kupuoverride {
+    margin-left: 0.75em;
+}
 .forcekupu {
     background: transparent url(kupuimages/kupu_icon.gif) 5px 2px no-repeat;
     padding: 6px 6px 1px 30px;
@@ -210,5 +222,14 @@ div.kupu-drawer {
     height: 32px; width: auto; 
 }
 
+.kupu-dialog-button {
+    background: transparent url(&dtml-portal_url;/linkTransparent.gif) 9px 1px no-repeat;
+    cursor: pointer;
+    font-size: &dtml-fontSmallSize;;
+    padding: 1px 1px 1px 15px;
+    text-transform: &dtml-textTransform;;
+    border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
+    background-color: white;
+}
 /* </dtml-let></dtml-with> */
 

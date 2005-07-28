@@ -3,15 +3,15 @@
 
   <!--$Id: include.kupu 11657 2005-04-30 17:19:15Z guido $-->
     <!--$Id: wire.kupu 12162 2005-05-10 15:53:10Z guido $-->
-    <!--$Id: html.kupu 13336 2005-06-13 11:03:58Z gotcha $-->
-    <!--$Id: head.kupu 13448 2005-06-15 17:50:08Z mihxil $-->
+    <!--$Id: html.kupu 14296 2005-07-05 15:02:12Z duncan $-->
+    <!--$Id: head.kupu 14296 2005-07-05 15:02:12Z duncan $-->
     <!--$Id: body.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: xmlconfig.kupu 12162 2005-05-10 15:53:10Z guido $-->
     <!--$Id: saveonpart.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 12162 2005-05-10 15:53:10Z guido $-->
+    <!--$Id: toolbar.kupu 14860 2005-07-21 12:51:57Z duncan $-->
     <!--$Id: toolboxes.kupu 13098 2005-06-06 12:11:48Z mihxil $-->
     <!--$Id: colorchooser.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
@@ -21,7 +21,7 @@
     <!--$Id: head.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: xmlconfig.kupu 12437 2005-05-18 13:19:00Z duncan $-->
     <!--$Id: body.kupu 12982 2005-06-01 15:12:55Z duncan $-->
-    <!--$Id: toolbar.kupu 12353 2005-05-16 12:29:05Z duncan $-->
+    <!--$Id: toolbar.kupu 14860 2005-07-21 12:51:57Z duncan $-->
     <!--$Id: drawers.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: beforeunload.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: sourceedit.kupu 14575 2005-07-12 20:18:12Z duncan $-->
@@ -357,6 +357,11 @@
     <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" id="kupu-editor-textarea" tal:define="pss modules/Products/PythonScripts/standard;                 text_format python: getattr(here,'text_format','html');                 is_stx python:text_format=='structured-text';                 is_ptx python:text_format=='plain';" tal:condition="not:fieldName|nothing" tal:content="python:(is_stx and pss.structured_text(inputvalue))                                        or (is_ptx and pss.newline_to_br(inputvalue))                                        or inputvalue" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
   
+    <div class="kupuoverride" tal:condition="python:len(content)==0" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" title="reload current page without kupu">
+         edit without using Kupu
+      </a></span>
+    </div>
+  
     </div>
   
     <script type="text/javascript" tal:content="string:       addEventHandler(window, 'load',  function() {           window.kupu = initPloneKupu('${editorid}');           window.kupuui = window.kupu.getTool('ui');           window.drawertool = window.kupu.getTool('drawertool');           window.kupu.initialize();}  , document);"/>
@@ -371,15 +376,16 @@
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
    </tal:test>
   
-    <tal:archetypes tal:condition="fieldName|nothing">
-      <div tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')">
-        <a class="forcekupu" href="#" tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
-           edit with Kupu
-        </a>
-      </div>
-    </tal:archetypes>
     <textarea cols="80" rows="25" tabindex="" name="fieldName" tal:content="inputvalue" tal:attributes="name fieldName|inputname;                         id fieldName|inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
+  
+    <tal:archetypes tal:condition="fieldName|nothing">
+      <div class="kupuoverride" tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');">
+        <span class="discreet"><a class="forcekupu" href="#" i18n:translate="force-kupu" tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
+           edit with Kupu
+        </a></span>
+      </div>
+    </tal:archetypes>
   
       </div>
      </tal:usekupu>
