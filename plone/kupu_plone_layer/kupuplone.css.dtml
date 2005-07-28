@@ -201,7 +201,7 @@ div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
   border-top: solid &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
-  font: <dtml-var fontFamily>;
+  font-family: &dtml.-fontFamily;;;
 }
 
 div.kupu-drawer h1 {
