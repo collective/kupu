@@ -13,6 +13,7 @@ msgstr ""
 "Language-name: French\n"
 "Preferred-encodings: utf-8 latin1\n"
 "Domain: kupu\n"
+"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
 #: /default/body.kupu:14
 msgid "Kupu Editor Test Page"
