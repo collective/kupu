@@ -85,8 +85,8 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
                             </table>
                         </div>
                         <div class="kupu-dialogbuttons">                            
-                            <button type="button" onclick="drawertool.current_drawer.save();">Ok</button>
-                            <button type="button" onclick="drawertool.closeDrawer();">Cancel</button>
+                            <button type="button" class="kupu-dialog-button" onclick="drawertool.current_drawer.save();">Ok</button>
+                            <button type="button" class="kupu-dialog-button" onclick="drawertool.closeDrawer();">Cancel</button>
                         </div>
                     </div>
                 </div>

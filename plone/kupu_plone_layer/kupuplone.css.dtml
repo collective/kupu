@@ -222,5 +222,14 @@ div.kupuoverride {
     height: 32px; width: auto; 
 }
 
+.kupu-dialog-button {
+    background: transparent url(&dtml-portal_url;/linkTransparent.gif) 9px 1px no-repeat;
+    cursor: pointer;
+    font-size: &dtml-fontSmallSize;;
+    padding: 1px 1px 1px 15px;
+    text-transform: &dtml-textTransform;;
+    border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
+    background-color: white;
+}
 /* </dtml-let></dtml-with> */
 
