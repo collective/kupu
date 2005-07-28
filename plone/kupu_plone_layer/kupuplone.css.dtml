@@ -201,6 +201,15 @@ div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
   border-top: solid &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
+  font: <dtml-var fontFamily>;
+}
+
+div.kupu-drawer h1 {
+  border: none;
+}
+
+div.kupu-drawer table td {
+  font-size: 85%;
 }
 
 div.kupuoverride {
