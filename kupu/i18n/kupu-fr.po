@@ -764,3 +764,77 @@ msgstr "Couper depuis JavaScript est interdit sur votre Mozilla pour des raisons
 msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 msgstr "Copier depuis JavaScript est interdit sur votre Mozilla pour des raisons de sécurité. Pour plus d'information, lisez (en anglais) http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 
+#: /common/kupudrawers/drawer.xsl.pt:30
+msgid "imagedrawer_title"
+msgstr "Insérer une image"
+
+#: /common/kupudrawers/drawer.xsl.pt:33
+msgid "linkdrawer_title"
+msgstr "Insérer un lien"
+
+#: /common/kupudrawers/drawer.xsl.pt:136
+msgid "kupudrawer_search"
+msgstr "chercher"
+
+#: /common/kupudrawers/drawer.xsl.pt:136
+msgid "imagedrawer_upload_link"
+msgstr "Charger..."
+
+#: /common/kupudrawers/drawer.xsl.pt:187
+msgid "imagedrawer_upload_preview_label"
+msgstr "Aperçu"
+
+#: /common/kupudrawers/drawer.xsl.pt:197
+msgid "imagedrawer_size"
+msgstr "(${width} par ${height})"
+
+#: /common/kupudrawers/drawer.xsl.pt:206
+msgid "imagedrawer_upload_alt_text"
+msgstr "Texte ALT"
+
+#: /common/kupudrawers/drawer.xsl.pt:218
+msgid "imagedrawer_left"
+msgstr "Gauche"
+
+#: /common/kupudrawers/drawer.xsl.pt:220
+msgid "imagedrawer_inline"
+msgstr "Dans le flux"
+
+#: /common/kupudrawers/drawer.xsl.pt:222
+msgid "imagedrawer_right"
+msgstr "Droite"
+
+#: /common/kupudrawers/drawer.xsl.pt:227
+msgid "imagedrawer_caption_label"
+msgstr "Texte CAPTION"
+
+#: /common/kupudrawers/drawer.xsl.pt:237
+msgid "linkdrawer_title_label"
+msgstr "Titre"
+
+#: /common/kupudrawers/drawer.xsl.pt:244
+msgid "linkdrawer_description_label"
+msgstr "Description"
+
+#: /common/kupudrawers/drawer.xsl.pt:251
+msgid "linkdrawer_name_label"
+msgstr "Nom"
+
+#: /common/kupudrawers/drawer.xsl.pt:258
+msgid "linkdrawer_target_label"
+msgstr "Cible"
+
+#: /common/kupudrawers/drawer.xsl.pt:271
+msgid "imagedrawer_upload_instructions"
+msgstr "Sélectionnez une image dans votre ordinateur et cliquez ok pour "
+"qu'elle soit automatiquement sauvegardée dans le dossier sélectionné et "
+"insérée dans l'éditeur."
+
+#: /common/kupudrawers/drawer.xsl.pt:279
+msgid "imagedrawer_upload_to_label"
+msgstr "Fichier à charger dans le dossier '${folder}'"
+
+#: /common/kupudrawers/drawer.xsl.pt:279
+msgid "imagedrawer_upload_title_label"
+msgstr "Titre"
+
