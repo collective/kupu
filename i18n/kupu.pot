@@ -58,6 +58,81 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: /default/drawers.kupu:83
+msgid "tabledrawer_title"
+msgstr ""
+
+#: /default/drawers.kupu:92
+#: /default/drawers.kupu:139
+msgid "tabledrawer_class_label"
+msgstr ""
+
+#: /default/drawers.kupu:103
+msgid "tabledrawer_rows_label"
+msgstr ""
+
+#: /default/drawers.kupu:107
+msgid "tabledrawer_columns_label"
+msgstr ""
+
+#: /default/drawers.kupu:117
+msgid "tabledrawer_headings_label"
+msgstr ""
+
+#: /default/drawers.kupu:124
+msgid "tabledrawer_add_table_button"
+msgstr ""
+
+#: /default/drawers.kupu:127
+msgid "tabledrawer_fix_tables_button"
+msgstr ""
+
+#: /default/drawers.kupu:152
+msgid "tabledrawer_alignment_label"
+msgstr ""
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_left_option"
+msgstr ""
+
+#: /default/drawers.kupu:159
+msgid "tabledrawer_center_option"
+msgstr ""
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_right_option"
+msgstr ""
+
+#: /default/drawers.kupu:167
+msgid "tabledrawer_column_label"
+msgstr ""
+
+#: /default/drawers.kupu:170
+#: /default/drawers.kupu:182
+msgid "tabledrawer_add_button"
+msgstr ""
+
+#: /default/drawers.kupu:173
+#: /default/drawers.kupu:185
+msgid "tabledrawer_remove_button"
+msgstr ""
+
+#: /default/drawers.kupu:178
+msgid "tabledrawer_row_label"
+msgstr ""
+
+#: /default/drawers.kupu:191
+msgid "tabledrawer_fix_table_label"
+msgstr ""
+
+#: /default/drawers.kupu:194
+msgid "tabledrawer_fix_button"
+msgstr ""
+
+#: /default/drawers.kupu:207
+msgid "tabledrawer_close_button"
+msgstr ""
+
 #: /default/save.kupu:14
 msgid "save: alt-s"
 msgstr ""

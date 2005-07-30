@@ -199,7 +199,6 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 
 div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
-  border-top: solid &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
   font-family: &dtml.-fontFamily;;;
 }
@@ -210,6 +209,14 @@ div.kupu-drawer h1 {
 
 div.kupu-drawer table td {
   font-size: 85%;
+}
+div.kupu-drawer table td td {
+  font-size: 100%;
+}
+
+div.kupu-drawer table td button, 
+div.kupu-drawer table td td {
+  font-size: 100%;
 }
 
 div.kupuoverride {

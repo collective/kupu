@@ -64,6 +64,81 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: /default/drawers.kupu:83
+msgid "tabledrawer_title"
+msgstr "Table"
+
+#: /default/drawers.kupu:92
+#: /default/drawers.kupu:139
+msgid "tabledrawer_class_label"
+msgstr "Classe CSS"
+
+#: /default/drawers.kupu:103
+msgid "tabledrawer_rows_label"
+msgstr "Rangées"
+
+#: /default/drawers.kupu:107
+msgid "tabledrawer_columns_label"
+msgstr "Colonnes"
+
+#: /default/drawers.kupu:117
+msgid "tabledrawer_headings_label"
+msgstr "Créer titres"
+
+#: /default/drawers.kupu:124
+msgid "tabledrawer_add_table_button"
+msgstr "Ajouter une table"
+
+#: /default/drawers.kupu:127
+msgid "tabledrawer_fix_tables_button"
+msgstr "Corriger toutes les tables"
+
+#: /default/drawers.kupu:152
+msgid "tabledrawer_alignment_label"
+msgstr "Alignement de la colonne courante"
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_left_option"
+msgstr "Gauche"
+
+#: /default/drawers.kupu:159
+msgid "tabledrawer_center_option"
+msgstr "Centré"
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_right_option"
+msgstr "Droite"
+
+#: /default/drawers.kupu:167
+msgid "tabledrawer_column_label"
+msgstr "Colonne"
+
+#: /default/drawers.kupu:170
+#: /default/drawers.kupu:182
+msgid "tabledrawer_add_button"
+msgstr "Ajouter"
+
+#: /default/drawers.kupu:173
+#: /default/drawers.kupu:185
+msgid "tabledrawer_remove_button"
+msgstr "Supprimer"
+
+#: /default/drawers.kupu:178
+msgid "tabledrawer_row_label"
+msgstr "Rangée"
+
+#: /default/drawers.kupu:191
+msgid "tabledrawer_fix_table_label"
+msgstr "Corriger la table"
+
+#: /default/drawers.kupu:194
+msgid "tabledrawer_fix_button"
+msgstr "Corriger"
+
+#: /default/drawers.kupu:207
+msgid "tabledrawer_close_button"
+msgstr "Fermer"
+
 #: /default/save.kupu:14
 msgid "save: alt-s"
 msgstr "enregistrer: alt-s"
