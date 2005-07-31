@@ -59,78 +59,96 @@ msgid "Cancel"
 msgstr ""
 
 #: /default/drawers.kupu:83
+# Original: Table
 msgid "tabledrawer_title"
 msgstr ""
 
 #: /default/drawers.kupu:92
 #: /default/drawers.kupu:139
+# Original: Table Class
 msgid "tabledrawer_class_label"
 msgstr ""
 
 #: /default/drawers.kupu:103
+# Original: Rows
 msgid "tabledrawer_rows_label"
 msgstr ""
 
 #: /default/drawers.kupu:107
+# Original: Rows
 msgid "tabledrawer_columns_label"
 msgstr ""
 
 #: /default/drawers.kupu:117
+# Original: Create Headings
 msgid "tabledrawer_headings_label"
 msgstr ""
 
 #: /default/drawers.kupu:124
+# Original: Add Table
 msgid "tabledrawer_add_table_button"
 msgstr ""
 
 #: /default/drawers.kupu:127
+# Original: Fix All Tables
 msgid "tabledrawer_fix_tables_button"
 msgstr ""
 
 #: /default/drawers.kupu:152
+# Original: Current column alignment
 msgid "tabledrawer_alignment_label"
 msgstr ""
 
 #: /default/drawers.kupu:157
+# Original: Left
 msgid "tabledrawer_left_option"
 msgstr ""
 
 #: /default/drawers.kupu:159
+# Original: Center
 msgid "tabledrawer_center_option"
 msgstr ""
 
 #: /default/drawers.kupu:157
+# Original: Right
 msgid "tabledrawer_right_option"
 msgstr ""
 
 #: /default/drawers.kupu:167
+# Original: Column
 msgid "tabledrawer_column_label"
 msgstr ""
 
 #: /default/drawers.kupu:170
 #: /default/drawers.kupu:182
+# Original: Add
 msgid "tabledrawer_add_button"
 msgstr ""
 
 #: /default/drawers.kupu:173
 #: /default/drawers.kupu:185
+# Original: Remove
 msgid "tabledrawer_remove_button"
 msgstr ""
 
 #: /default/drawers.kupu:178
+# Original: Row
 msgid "tabledrawer_row_label"
 msgstr ""
 
 #: /default/drawers.kupu:191
+# Original: Fix Table
 msgid "tabledrawer_fix_table_label"
 msgstr ""
 
 #: /default/drawers.kupu:194
+# Original: Fix
 msgid "tabledrawer_fix_button"
 msgstr ""
 
 #: /default/drawers.kupu:207
 msgid "tabledrawer_close_button"
+# Original: Close
 msgstr ""
 
 #: /default/save.kupu:14
@@ -821,7 +839,6 @@ msgstr ""
 # Original: Name
 msgid "linkdrawer_name_label"
 msgstr ""
-msgstr "Nom"
 
 #: /common/kupudrawers/drawer.xsl.pt:258
 # Original: Target
