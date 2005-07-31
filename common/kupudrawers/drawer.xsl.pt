@@ -209,7 +209,7 @@ test="$drawertype='link'">Insert Link</xsl:when>
         </xsl:choose>
         <div>
             <xsl:value-of select="size"/>
-            <xsl:if test="width" i18n:translate="imagedrawer_size">(<xsl:value-of select="width"  i18n:name="width" /> by <xsl:value-of select="height" i18n:name="height" />)</xsl:if>
+            <xsl:if test="width" i18n:translate="imagedrawer_size">(<span i18n:name="width"><xsl:value-of select="width" /></span> by <span i18n:name="height"><xsl:value-of select="height" /></span>)</xsl:if>
         </div>
         <div>
             <xsl:value-of select="description"/>
