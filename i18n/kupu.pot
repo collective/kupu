@@ -59,78 +59,96 @@ msgid "Cancel"
 msgstr ""
 
 #: /default/drawers.kupu:83
+# Original: Table
 msgid "tabledrawer_title"
 msgstr ""
 
 #: /default/drawers.kupu:92
 #: /default/drawers.kupu:139
+# Original: Table Class
 msgid "tabledrawer_class_label"
 msgstr ""
 
 #: /default/drawers.kupu:103
+# Original: Rows
 msgid "tabledrawer_rows_label"
 msgstr ""
 
 #: /default/drawers.kupu:107
+# Original: Rows
 msgid "tabledrawer_columns_label"
 msgstr ""
 
 #: /default/drawers.kupu:117
+# Original: Create Headings
 msgid "tabledrawer_headings_label"
 msgstr ""
 
 #: /default/drawers.kupu:124
+# Original: Add Table
 msgid "tabledrawer_add_table_button"
 msgstr ""
 
 #: /default/drawers.kupu:127
+# Original: Fix All Tables
 msgid "tabledrawer_fix_tables_button"
 msgstr ""
 
 #: /default/drawers.kupu:152
+# Original: Current column alignment
 msgid "tabledrawer_alignment_label"
 msgstr ""
 
 #: /default/drawers.kupu:157
+# Original: Left
 msgid "tabledrawer_left_option"
 msgstr ""
 
 #: /default/drawers.kupu:159
+# Original: Center
 msgid "tabledrawer_center_option"
 msgstr ""
 
 #: /default/drawers.kupu:157
+# Original: Right
 msgid "tabledrawer_right_option"
 msgstr ""
 
 #: /default/drawers.kupu:167
+# Original: Column
 msgid "tabledrawer_column_label"
 msgstr ""
 
 #: /default/drawers.kupu:170
 #: /default/drawers.kupu:182
+# Original: Add
 msgid "tabledrawer_add_button"
 msgstr ""
 
 #: /default/drawers.kupu:173
 #: /default/drawers.kupu:185
+# Original: Remove
 msgid "tabledrawer_remove_button"
 msgstr ""
 
 #: /default/drawers.kupu:178
+# Original: Row
 msgid "tabledrawer_row_label"
 msgstr ""
 
 #: /default/drawers.kupu:191
+# Original: Fix Table
 msgid "tabledrawer_fix_table_label"
 msgstr ""
 
 #: /default/drawers.kupu:194
+# Original: Fix
 msgid "tabledrawer_fix_button"
 msgstr ""
 
 #: /default/drawers.kupu:207
 msgid "tabledrawer_close_button"
+# Original: Close
 msgstr ""
 
 #: /default/save.kupu:14
@@ -750,5 +768,97 @@ msgstr ""
 
 #: /kupu.pox:95
 msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:30
+# Original: Insert Image
+msgid "imagedrawer_title"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:33
+# Original: Insert Link
+msgid "linkdrawer_title"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:136
+# Original: search
+msgid "kupudrawer_search"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:136
+# Original: Upload...
+msgid "imagedrawer_upload_link"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:187
+# Original: Preview
+msgid "imagedrawer_upload_preview_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:197
+# Original: (${width} by ${height})
+msgid "imagedrawer_size"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:206
+# Original: ALT-text
+msgid "imagedrawer_upload_alt_text"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:218
+# Original: Left
+msgid "imagedrawer_left"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:220
+# Original: Inline
+msgid "imagedrawer_inline"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:222
+# Original: Right
+msgid "imagedrawer_right"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:227
+# Original: Caption
+msgid "imagedrawer_caption_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:237
+# Original: Title
+msgid "linkdrawer_title_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:244
+# Original: Description
+msgid "linkdrawer_description_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:251
+# Original: Name
+msgid "linkdrawer_name_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:258
+# Original: Target
+msgid "linkdrawer_target_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:271
+# Original: Select an image from your computer and click ok to have it
+# automatically uploaded to selected folder and inserted into the
+# editor.
+msgid "imagedrawer_upload_instructions"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:279
+# Original: Upload to: ${folder}
+msgid "imagedrawer_upload_to_label"
+msgstr ""
+
+#: /common/kupudrawers/drawer.xsl.pt:279
+# Original: Title: 
+msgid "imagedrawer_upload_title_label"
 msgstr ""
 
