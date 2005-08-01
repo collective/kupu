@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!--
 ##############################################################################
 #
@@ -19,6 +19,7 @@ $Id: imagedrawer.xsl 4105 2004-04-21 23:56:13Z guido $
     xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns="http://www.w3.org/1999/xhtml"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu">
+ <tal:block define="x python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=UTF-8')" />
     <xsl:param name="drawertype">image</xsl:param>
     <xsl:param name="drawertitle">Image Drawer</xsl:param>
     <xsl:param name="showupload"></xsl:param>
