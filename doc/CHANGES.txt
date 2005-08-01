@@ -18,6 +18,8 @@ Kupu changes
 
     * Drawer layouts tidied up.
 
+    * Drawers i18n enabled.
+
 - Post 1.2.1
 
   - Tidied up zoom mode. Added kupu-fulleditor-zoomed class to body
