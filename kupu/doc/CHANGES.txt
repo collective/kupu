@@ -4,6 +4,17 @@ Kupu changes
 
 - 1.3
 
+  - Plone:
+
+    * removed the hardwired styles Heading, Subheading and
+      Formatted, added them by default on installation (but if you are
+      upgrading you may have to add them explicitly).
+
+    * Fixed a bug which prevented editing legacy (non-AT) content.
+
+  - More i18n work.
+
+- 1.3rc1
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
 

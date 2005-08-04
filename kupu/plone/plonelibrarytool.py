@@ -69,6 +69,12 @@ _excluded_html = [
 # Default should list all styles used by Kupu
 _style_whitelist = ['text-align', 'list-style-type', 'float']
 
+_default_paragraph_styles = (
+    "Heading|h2",
+    "Subheading|h3",
+    "Formatted|pre",
+)
+
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     """Plone specific version of the kupu library tool"""
 
@@ -121,7 +127,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         try:
             return self.paragraph_styles
         except AttributeError:
-            return ()
+            return _default_paragraph_styles
 
     security.declareProtected('View', "getHtmlExclusions")
     def getHtmlExclusions(self):
