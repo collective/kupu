@@ -43,6 +43,9 @@ CLASS_BLACKLIST = ['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
 TABLE_CLASSNAMES = ('plain', 'listing', 'grid', 'data')
 
 PARAGRAPH_STYLES = (
+    "Heading|h2",
+    "Subheading|h3",
+    "Formatted|pre",
 #    'Fancy|div|fancyClass',
 #    'Plain|div|plainClass',
 )
