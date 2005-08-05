@@ -682,6 +682,14 @@ msgid "Normal"
 msgstr ""
 
 #: /default/toolbar.kupu:None
+msgid "Heading"
+msgstr ""
+
+#: /default/toolbar.kupu:None
+msgid "Subheading"
+msgstr ""
+
+#: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
 msgstr ""
 
@@ -877,3 +885,10 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
+#: /plone/body.kupu
+msgid "force-kupu"
+msgstr ""
+
+#: /plone/body.kupu
+msgid "suppress-kupu"
+msgstr ""
