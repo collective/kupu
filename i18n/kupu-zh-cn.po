@@ -1,113 +1,109 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: kupu\n"
-"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
-"PO-Revision-Date: 2005-06-10 12:25-0500\n"
-"Last-Translator: Godefroid Chapelle <gotcha@bubblenet.be>\n"
-"Language-Team: Godefroid Chapelle\n"
+"POT-Creation-Date: Wed Aug  3 16:31:28 2005\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: panjunyong <panjy@zopechina.com>\n"
+"Language-Team: CZUG i18n team <panjy@czug.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
-"Language-code: fr\n"
-"Language-name: French\n"
-"Preferred-encodings: utf-8 latin1\n"
+"Generated-By: zope/app/translation_files/extract.py\n"
+"Language-code: zh-cn\n"
+"Language-name: Chinese\n"
 "Domain: kupu\n"
-"X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
+
 
 #: /common/kupu.pox:None
 msgid "Properties modified"
-msgstr "Propriétés modifiées"
+msgstr "属性已经修改"
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
-msgstr "Commande ${command} exécutée avec le paramètre ${param}"
+msgstr "已经使用参数 ${param} 执行了命令 ${command} "
 
 #: /common/kupu.pox:None
 msgid "Not inside a definition list element!"
-msgstr "Pas dans une liste de définition!"
+msgstr "不在一个定义列表元素中！"
 
 #: /common/kupu.pox:None
 msgid "Add table"
-msgstr "Ajouter une table"
+msgstr "添加表单"
 
 #: /common/kupu.pox:None
 msgid "Table added"
-msgstr "Table ajoutée"
+msgstr "表单已经添加"
 
 #: /common/kupu.pox:None
 msgid "Source edit tool initialized"
-msgstr "Outil code HTML initialisé"
+msgstr "源代码编辑工具已经初始化"
 
 #: /common/kupu.pox:None
 msgid "Delete row"
-msgstr "Supprimer une rangée"
+msgstr "删除行"
 
 #: /common/kupu.pox:None
 msgid "Recursion detected when counting column position"
-msgstr "Récursion détectée en calculant la position de la colonne"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "List style changed"
-msgstr "Style de liste modifié"
+msgstr "列表风格已经改变"
 
 #: /common/kupu.pox:None
 msgid "Create image"
-msgstr "Créer une image"
+msgstr "创建图片"
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr ""
-"Vous n'avez pas enregistré certaines modifications. Voulez-vous enregistrer "
-"avant de quitter la page?"
+msgstr "你没有保存变更。你希望在离开本页前保存吗？"
 
 #: /common/kupu.pox:None
 msgid "Table row removed"
-msgstr "Rangée de table supprimée"
+msgstr "表格行已经删除"
 
 #: /common/kupu.pox:None
 msgid "Document saved"
-msgstr "Document enregistré"
+msgstr "文档已经保存"
 
 #: /common/kupu.pox:None
 msgid "Color chosen"
-msgstr "Couleur choisie"
+msgstr "颜色已选择"
 
 #: /common/kupu.pox:None
 msgid "Table row added"
-msgstr "Rangée de table ajoutée"
+msgstr "表格行已经添加"
 
 #: /common/kupu.pox:None
 msgid "Error saving document"
-msgstr "Erreur lors de l'enregistrement du document"
+msgstr "保存文档出错"
 
 #: /common/kupu.pox:None
 msgid "No destination URL available!"
-msgstr "Pas d'URL de destination disponible"
+msgstr "没有目的URL！"
 
 #: /common/kupu.pox:None
 msgid "Link removed"
-msgstr "Lien supprimé"
+msgstr "链接删除！"
 
 #: /common/kupu.pox:None
 msgid "No row to delete"
-msgstr "Pas de rangée à supprimer"
+msgstr "没有要删除的行"
 
 #: /common/kupu.pox:None
 msgid "Delete Table"
-msgstr "Supprimer la table"
+msgstr "删除表格"
 
 #: /common/kupu.pox:None
 msgid "Cleanup done, sending document to server"
-msgstr "Nettoyage terminé, envoi du document vers le serveur"
+msgstr "清理完成，发送文档到服务器"
 
 #: /common/kupu.pox:None
 msgid "Image tool initialized"
-msgstr "Outil image initialisé"
+msgstr "图片工具已初始化"
 
 #: /common/kupu.pox:None
 msgid "End offset out of range!"
-msgstr "Offset de fin hors norme"
+msgstr "结束偏移超出范围！"
 
 #: /common/kupu.pox:None
 msgid "tdindex: ${tdindex}"
@@ -115,768 +111,773 @@ msgstr "tdindex: ${tdindex}"
 
 #: /common/kupu.pox:None
 msgid "Create link"
-msgstr "Créer un lien"
+msgstr "创建链接"
 
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
-msgstr "Début du nettoyage du HTML"
-
-#: /common/kupu.pox:None
-msgid "Link modified"
-msgstr "Lien modifié"
-
-#: /common/kupu.pox:None
-msgid "Request sent to server"
-msgstr "Requête envoyée au serveur"
-
-#: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "Outil table initialisé"
-
-#: /common/kupu.pox:None
-msgid "There were no errors."
-msgstr "Il n'y a pas eu d'erreurs."
-
-#: /common/kupu.pox:None
-msgid ""
-"exception ${message} while registering an event handler for element "
-"${element}, event ${event}, method ${method}"
-msgstr ""
-"Exception ${message} pendant l'enregistrement d'un gestionnaire d'événement "
-"pour l'élément ${element}, événement ${event}, méthode ${method}"
-
-#: /common/kupu.pox:None
-msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr ""
-"Erreur de chargement de traduction (statut ${status} ); anglais par défaut."
-
-#: /common/kupu.pox:None
-msgid "Start node offset detected in a node without children!"
-msgstr "Offset de début de noeud détecté dans un noeud sans enfant!"
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "Avertissement: KupuTool._selectSelectItem déprécié"
-
-#: /common/kupu.pox:None
-msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr ""
-"Mode de design inaccessible. Kupu ne fonctionnera pas dans ce navigateur. "
-
-#: /common/kupu.pox:None
-msgid "No element found in the config island!"
-msgstr "Pas trouvé d'élément dans la config! "
-
-#: /common/kupu.pox:None
-msgid "Start offset out of range!"
-msgstr "Offset de début hors norme"
-
-#: /common/kupu.pox:None
-msgid ""
-"Pasting from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Coller depuis JavaScript est interdit sur votre Mozilla pour des raisons de "
-"sécurité. Pour plus d'information, lisez (en anglais) http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Property tool initialized"
-msgstr "Outil propriétés initialisé"
-
-#: /common/kupu.pox:None
-msgid "Colorchooser tool initialized"
-msgstr "Outil de choix de couleur initialisé"
-
-#: /common/kupu.pox:None
-msgid "No parentcolumn found!"
-msgstr "Pas de colonne trouvée!"
-
-#: /common/kupu.pox:None
-msgid "Row repeated"
-msgstr "Rangée copiée"
-
-#: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "Table supprimée"
-
-#: /common/kupu.pox:None
-msgid "Cut"
-msgstr "Couper"
-
-#: /common/kupu.pox:None
-msgid "Unsupported browser!"
-msgstr "Navigateur incompatible!"
-
-#: /common/kupu.pox:None
-msgid "Add row"
-msgstr "Ajouter une rangée"
-
-#: /common/kupu.pox:None
-msgid "Link tool initialized"
-msgstr "Outil liens initialisé"
-
-#: /common/kupu.pox:None
-msgid "Sending request to server"
-msgstr "Envoi de la requête au serveur"
-
-#: /common/kupu.pox:None
-msgid "Invalid table size"
-msgstr "Taille de table incorrecte"
-
-#: /common/kupu.pox:None
-msgid "Error placing back selection"
-msgstr "Erreur pour rétablir la sélection"
-
-#: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "Effacer le lien"
-
-#: /common/kupu.pox:None
-msgid "Add column"
-msgstr "Ajouter une colonne"
-
-#: /common/kupu.pox:None
-msgid ""
-"Cutting from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Couper depuis JavaScript est interdit sur votre Mozilla pour des raisons de "
-"sécurité. Pour plus d'information, lisez (en anglais) http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "Exception lors du traitement updateState sur ${id}: ${msg}"
-
-#: /common/kupu.pox:None
-msgid "Cleaning up HTML..."
-msgstr "Nettoyage du HTML..."
-
-#: /common/kupu.pox:None
-msgid "List style tool initialized"
-msgstr "Outil style de liste initialisé"
-
-#: /common/kupu.pox:None
-msgid "Row repeat turned off"
-msgstr "Copie de rangée interrompue"
-
-#: /common/kupu.pox:None
-msgid ""
-"There was a problem initializing the drawers. Most likely the XSLT or XML "
-"files aren\\'t available. If this is not the Kupu demo version, check your "
-"files or the service that provide them (error: ${error})."
-msgstr ""
-"Il y a un problême lors de l'initialisation des tiroirs. Les fichiers XML et "
-"XSLT ne sont vraisemblablement pas acessibles. Si ceci n'est pas la version "
-"de démonstration de Kupu, vérifiez vos fichiers ou le service qui fournit "
-"les fichiers (erreur: ${error})."
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "Avertissement: KupuToolBox._selectSelectItem déprécié"
-
-#: /common/kupu.pox:None
-msgid ""
-"Copying from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Copier depuis JavaScript est interdit sur votre Mozilla pour des raisons de "
-"sécurité. Pour plus d'information, lisez (en anglais) http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Command ${command} executed"
-msgstr "Commande ${command} exécutée"
-
-#: /common/kupu.pox:None
-msgid "Delete column"
-msgstr "Supprimer une colonne"
-
-#: /common/kupu.pox:None
-msgid ""
-"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
-"log for more information."
-msgstr ""
-"Erreur lors de l'enregistrement des données.\\nStatut de la réponse: "
-"${status}.\\nVérifier le journal de votre serveur pour plus d'informations."
-
-#: /common/kupu.pox:None
-msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr ""
-
-#: /common/kupu.pox:None
-msgid "Not inside link"
-msgstr "Pas de lien interne"
-
-#: /common/kupu.pox:None
-msgid "View source"
-msgstr "Voir le code HTML"
-
-#: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "Image insérée"
-
-#: /common/kupu.pox:None
-msgid "Browser not supported!"
-msgstr "Navigateur non compatible!"
-
-#: /common/kupu.pox:None
-msgid "Please wait while saving document..."
-msgstr "Veuillez patienter pendant aue le document est enregistré..."
-
-#: /common/kupu.pox:None
-msgid "Editor initialized"
-msgstr "Editeur initialisé"
+msgstr "开始HTML清理"
 
 #: /common/kupu.pox:None
 msgid "Copy"
-msgstr "Copier"
+msgstr "复制"
+
+#: /common/kupu.pox:None
+msgid "Link modified"
+msgstr "链接已修改"
+
+#: /common/kupu.pox:None
+msgid "Request sent to server"
+msgstr "请求已经发送到服务器"
+
+#: /common/kupu.pox:None
+msgid "Table tool initialized"
+msgstr "表格工具已经初始化"
+
+#: /common/kupu.pox:None
+msgid "There were no errors."
+msgstr "没有错误。"
+
+#: /common/kupu.pox:None
+msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
+msgstr "当为元素 ${element}、事件${event}、方法${method} 注册一个事件处理器时，发生异常 ${message} "
+
+#: /common/kupu.pox:None
+msgid "Error loading translation (status ${status} ), falling back to english"
+msgstr "翻译加载错误（状态${status}），回退到英语"
+
+#: /common/kupu.pox:None
+msgid "Start node offset detected in a node without children!"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Deprecation warning: KupuTool._selectSelectItem"
+msgstr "过时警告：KupuTool._selectSelectItem"
+
+#: /common/kupu.pox:None
+msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
+msgstr "不能设置设计模式。Kupu在这个浏览器中不能工作。"
+
+#: /common/kupu.pox:None
+msgid "No element found in the config island!"
+msgstr "在配置岛中没有发现元素！"
+
+#: /common/kupu.pox:None
+msgid "Start offset out of range!"
+msgstr "开始偏移超出范围！"
+
+#: /common/kupu.pox:None
+msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgstr "由于安全性设置，JavaScript粘贴功能在您的Mozilla中被禁止了。更多信息，请阅读read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+
+#: /common/kupu.pox:None
+msgid "Property tool initialized"
+msgstr "属性工具没有初始化"
+
+#: /common/kupu.pox:None
+msgid "Colorchooser tool initialized"
+msgstr "颜色选择工具初始化成功"
+
+#: /common/kupu.pox:None
+msgid "No parentcolumn found!"
+msgstr "没有发现父列"
+
+#: /common/kupu.pox:None
+msgid "Row repeated"
+msgstr "行已重复"
+
+#: /common/kupu.pox:None
+msgid "Table removed"
+msgstr "表格已删除"
+
+#: /common/kupu.pox:None
+msgid "Cut"
+msgstr "剪切"
+
+#: /common/kupu.pox:None
+msgid "Unsupported browser!"
+msgstr "不支持的浏览器！"
+
+#: /common/kupu.pox:None
+msgid "Add row"
+msgstr "添加行"
+
+#: /common/kupu.pox:None
+msgid "Link tool initialized"
+msgstr "链接工具已经初始化"
+
+#: /common/kupu.pox:None
+msgid "Sending request to server"
+msgstr "发送请求到服务器"
+
+#: /common/kupu.pox:None
+msgid "Invalid table size"
+msgstr "无效的表格大小"
+
+#: /common/kupu.pox:None
+msgid "Error placing back selection"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Delete link"
+msgstr "删除链接"
+
+#: /common/kupu.pox:None
+msgid "Add column"
+msgstr "添加列"
+
+#: /common/kupu.pox:None
+msgid "Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Exception while processing updateState on ${id}: ${msg}"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Cleaning up HTML..."
+msgstr "正在清理HTML..."
+
+#: /common/kupu.pox:None
+msgid "List style tool initialized"
+msgstr "列表样式工具初始化成功"
+
+#: /common/kupu.pox:None
+msgid "Row repeat turned off"
+msgstr "行重复功能关闭"
+
+#: /common/kupu.pox:None
+msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Deprecation warning: KupuToolBox._selectSelectItem"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Command ${command} executed"
+msgstr "命令 ${command} 已经执行"
+
+#: /common/kupu.pox:None
+msgid "Delete column"
+msgstr "删除列"
+
+#: /common/kupu.pox:None
+msgid "Error saving your data.\\nResponse status: ${status}.\\nCheck your server log for more information."
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "This feature requires pop-ups to be enabled on your browser!"
+msgstr "这个功能要求您的浏览器打款弹出窗口功能!"
+
+#: /common/kupu.pox:None
+msgid "Not inside link"
+msgstr "不是内部链接"
+
+#: /common/kupu.pox:None
+msgid "View source"
+msgstr "查看源代码"
+
+#: /common/kupu.pox:None
+msgid "Image inserted"
+msgstr "图片已经插入"
+
+#: /common/kupu.pox:None
+msgid "Browser not supported!"
+msgstr "浏览器不支持！"
+
+#: /common/kupu.pox:None
+msgid "Please wait while saving document..."
+msgstr "正在保存文档，请等待..."
+
+#: /common/kupu.pox:None
+msgid "Editor initialized"
+msgstr "编辑器已经初始化"
 
 #: /common/kupu.pox:None
 msgid "Paste"
-msgstr "Coller"
+msgstr "粘贴"
 
 #: /common/kupu.pox:None
 msgid "Zoom tool initialized"
-msgstr "Outil zoom initialisé"
+msgstr "发大工具已经初始化"
 
 #: /common/kupu.pox:None
 msgid "Table column deleted"
-msgstr "Colonne de table supprimée"
+msgstr "表格列已经删除"
 
 #: /common/kupu.pox:None
 msgid "Offset out of document range"
-msgstr "Offset hors de la taille du document"
+msgstr "偏移超出了文档范围"
 
 #: /common/kupu.pox:None
 msgid "Table cleaned up"
-msgstr "Table nettoyée"
+msgstr "表格已经清理"
 
 #: /common/kupu.pox:None
 msgid "Error loading data, status ${status}"
-msgstr "Erreur lors du chargement des données, statut ${status}"
+msgstr "加载数据错，状态 ${status}"
 
 #: /common/kupu.pox:None
-msgid ""
-"Could not set status bar message, check your browser\\'s security settings."
+msgid "Could not set status bar message, check your browser\\'s security settings."
 msgstr ""
-"Mise à jour du message de la barre de statut impossible, vérifiez les "
-"paramètres de sécurité de votre navigateur."
 
 #: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
-msgstr "Offset de fin de noeud détecté dans un noeud sans enfant!"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
 msgstr ""
-"Le formulaire n'a pas été enregistré. Toutes les modifications seront "
-"perdues."
 
 #: /common/kupu.pox:None
 msgid "Link added"
-msgstr "Lien ajouté"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "No head in document!"
-msgstr "Pas de head au document!"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Not inside a row!"
-msgstr "Pas dans une rangée"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Not inside a table!"
-msgstr "Pas dans une table!"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Selection not inside the node!"
-msgstr "Sélection pas dans le noeud!"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
-msgstr "Editeur pas encore initialisé!"
+msgstr "编辑器还没有初始化！"
 
 #: /common/kupu.pox:None
 msgid "Table column added"
-msgstr "Colone de table ajoutée"
+msgstr "添加了表格列"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Caption"
 msgid "imagedrawer_caption_label"
-msgstr "Texte CAPTION"
+msgstr "标题"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Insert Link"
 msgid "linkdrawer_title"
-msgstr "Insérer un lien"
+msgstr "插入链接"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Left"
 msgid "imagedrawer_left"
-msgstr "Gauche"
+msgstr "靠左"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "(${width} by ${height})"
 msgid "imagedrawer_size"
-msgstr "(${width} par ${height})"
+msgstr "(宽：${width} 高：${height})"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Insert Image"
 msgid "imagedrawer_title"
-msgstr "Insérer une image"
+msgstr "插入图片"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Upload to: ${folder}"
 msgid "imagedrawer_upload_to_label"
-msgstr "Fichier à charger dans le dossier '${folder}'"
+msgstr "上载到： ${folder}"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Name"
 msgid "linkdrawer_name_label"
-msgstr "Nom"
+msgstr "名字"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Preview"
 msgid "imagedrawer_upload_preview_label"
-msgstr "Aperçu"
+msgstr "预览"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: ""
+# "Select an image from your computer and click ok to have it\n"
+# "            automatically uploaded to selected folder and inserted into the\n"
+# "            editor."
 msgid "imagedrawer_upload_instructions"
-msgstr ""
-"Sélectionnez une image dans votre ordinateur et cliquez ok pour qu'elle soit "
-"automatiquement sauvegardée dans le dossier sélectionné et insérée dans "
-"l'éditeur."
+msgstr "在您的计算机中选择一个图片，点击“确定”按钮，自动上载到选中的文件夹，并插入到编辑器中。"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Upload ..."
 msgid "imagedrawer_upload_link"
-msgstr "Charger..."
+msgstr "上载..."
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Title:"
 msgid "imagedrawer_upload_title_label"
-msgstr "Titre"
+msgstr "标题:"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Title"
 msgid "linkdrawer_title_label"
-msgstr "Titre"
+msgstr "标题"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Description"
 msgid "linkdrawer_description_label"
-msgstr "Description"
+msgstr "描述"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "ALT-text"
 msgid "imagedrawer_upload_alt_text"
-msgstr "Texte ALT"
+msgstr "替换文本"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "search"
 msgid "kupudrawer_search"
-msgstr "chercher"
+msgstr "搜索"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Inline"
 msgid "imagedrawer_inline"
-msgstr "Dans le flux"
+msgstr "内嵌"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Target"
 msgid "linkdrawer_target_label"
-msgstr "Cible"
+msgstr "目标"
 
 #: /common/kupudrawers/drawer.xsl:None
+# Default: "Right"
 msgid "imagedrawer_right"
-msgstr "Droite"
+msgstr "靠右"
 
 #: /default/body.kupu:None
 msgid "Kupu Editor Test Page"
-msgstr "Page de test de Kupu l'éditeur"
+msgstr "Kupu编辑器测试页面"
 
 #: /default/colorchooser.kupu:None
 msgid "text color: alt-f"
-msgstr "couleur du texte: alt-f"
+msgstr "文本颜色：alt-f"
 
 #: /default/colorchooser.kupu:None
 msgid "background color: alt-h"
-msgstr "couleur de fond: alt-h"
+msgstr "背景色：alt-h"
 
 #: /default/drawers.kupu:None
+# Default: "Row"
 msgid "tabledrawer_row_label"
-msgstr "Rangée"
+msgstr "行"
 
 #: /default/drawers.kupu:None
+# Default: "Right"
 msgid "tabledrawer_right_option"
-msgstr "Droite"
+msgstr "靠右"
 
 #: /default/drawers.kupu:None
+# Default: "Current column alignment"
 msgid "tabledrawer_alignment_label"
-msgstr "Alignement de la colonne courante"
+msgstr "当前列对齐"
 
 #: /default/drawers.kupu:None
 msgid "external link"
-msgstr "lien externe"
+msgstr "外部链接"
 
 #: /default/drawers.kupu:None
+# Default: "Center"
 msgid "tabledrawer_center_option"
-msgstr "Centré"
+msgstr "局中"
 
 #: /default/drawers.kupu:None
+# Default: "Fix All Tables"
 msgid "tabledrawer_fix_tables_button"
-msgstr "Corriger toutes les tables"
+msgstr "修正所有的表格"
 
 #: /default/drawers.kupu:None
 msgid "External Link"
-msgstr "Lien Externe"
+msgstr "外部链接"
 
 #: /default/drawers.kupu:None
+# Default: "Columns"
 msgid "tabledrawer_columns_label"
-msgstr "Colonnes"
+msgstr "列数"
 
 #: /default/drawers.kupu:None
+# Default: "Left"
 msgid "tabledrawer_left_option"
-msgstr "Gauche"
+msgstr "靠左"
 
 #: /default/drawers.kupu:None
 msgid "image"
-msgstr "image"
+msgstr "图片"
 
 #: /default/drawers.kupu:None
 msgid "table"
-msgstr "table"
+msgstr "表格"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
-msgstr "Aperçu"
+msgstr "预览"
 
 #: /default/drawers.kupu:None
+# Default: "Rows"
 msgid "tabledrawer_rows_label"
-msgstr "Rangées"
+msgstr "行数"
 
 #: /default/drawers.kupu:None
 msgid "internal link"
-msgstr "lien interne"
+msgstr "站内链接"
 
 #: /default/drawers.kupu:None
+# Default: "Table"
 msgid "tabledrawer_title"
-msgstr "Table"
+msgstr "表格"
 
 #: /default/drawers.kupu:None
+# Default: "Add Table"
 msgid "tabledrawer_add_table_button"
-msgstr "Ajouter une table"
+msgstr "添加表格"
 
 #: /default/drawers.kupu:None
+# Default: "Close"
 msgid "tabledrawer_close_button"
-msgstr "Fermer"
+msgstr "关闭"
 
 #: /default/drawers.kupu:None
+# Default: "Column"
 msgid "tabledrawer_column_label"
-msgstr "Colonne"
+msgstr "列"
 
 #: /default/drawers.kupu:None
+# Default: "Create Headings"
 msgid "tabledrawer_headings_label"
-msgstr "Créer titres"
+msgstr "创建表头"
 
 #: /default/drawers.kupu:None
+# Default: "Fix"
 msgid "tabledrawer_fix_button"
-msgstr "Corriger"
+msgstr "修改"
 
 #: /default/drawers.kupu:None
+# Default: "Fix Table"
 msgid "tabledrawer_fix_table_label"
-msgstr "Corriger la table"
+msgstr "修改表格"
 
-#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+#: /default/drawers.kupu:None
+#: /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
-msgstr "Ok"
+msgstr "确定"
 
-#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+#: /default/drawers.kupu:None
+#: /common/kupudrawers/drawer.xsl:None
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "取消"
 
 #: /default/drawers.kupu:None
+#: /default/drawers.kupu:None
+# Default: "Add"
 msgid "tabledrawer_add_button"
-msgstr "Ajouter"
+msgstr "添加"
 
 #: /default/drawers.kupu:None
+#: /default/drawers.kupu:None
+# Default: "Remove"
 msgid "tabledrawer_remove_button"
-msgstr "Supprimer"
+msgstr "删除"
 
 #: /default/drawers.kupu:None
+#: /default/drawers.kupu:None
+# Default: "Table Class"
 msgid "tabledrawer_class_label"
-msgstr "Classe CSS"
+msgstr "表格类型"
 
-#: /default/drawers.kupu:None /default/toolboxes.kupu:None
+#: /default/drawers.kupu:None
+#: /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
-msgstr "Liez le texte sélectionné à cette URL:"
+msgstr "链接选中文本到这个URL地址："
 
 #: /default/save.kupu:None
 msgid "save: alt-s"
-msgstr "enregistrer: alt-s"
+msgstr "保存: alt-s"
 
 #: /default/sourceedit.kupu:None
 msgid "edit HTML code"
-msgstr "modifier le code HTML"
+msgstr "编辑HTML代码"
 
 #: /default/spellchecker.kupu:None
 msgid "check spelling"
-msgstr "vérifier l'orthographe"
+msgstr "拼写检查"
 
+#: /default/toolbar.kupu:None
 # Default: "1"
-#: /default/toolbar.kupu:None
 msgid "list-decimal"
-msgstr "liste-décimal"
+msgstr "1"
 
-# Default: "A"
 #: /default/toolbar.kupu:None
+# Default: "A"
 msgid "list-upperalpha"
-msgstr "liste-alphamaj"
+msgstr "A"
 
 #: /default/toolbar.kupu:None
 msgid "bold: alt-b"
-msgstr "gras: alt-b"
+msgstr "粗体：alt-b"
 
 #: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
-msgstr "exposant: alt-+"
+msgstr "上标：alt-+"
 
-# Default: "&#9675;"
 #: /default/toolbar.kupu:None
+# Default: "&#9675;"
 msgid "list-circle"
-msgstr "liste-cercle"
+msgstr "&#9675;"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
-msgstr "Formatter"
+msgstr "保持格式"
 
+#: /default/toolbar.kupu:None
 # Default: "a"
-#: /default/toolbar.kupu:None
 msgid "list-loweralpha"
-msgstr "liste-alphamin"
+msgstr "a"
 
+#: /default/toolbar.kupu:None
 # Default: "no bullet"
-#: /default/toolbar.kupu:None
 msgid "list-nobullet"
-msgstr "liste-sans"
+msgstr "无点号"
 
+#: /default/toolbar.kupu:None
 # Default: "i"
-#: /default/toolbar.kupu:None
 msgid "list-lowerroman"
-msgstr "liste-romainmin"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu SVN/unreleased"
-msgstr "Kupu"
+msgstr "i"
 
 #: /default/toolbar.kupu:None
 msgid "Remove image"
-msgstr "Supprimer l'image"
+msgstr "删除图片"
 
 #: /default/toolbar.kupu:None
 msgid "undo: alt-z"
-msgstr "annuler: alt-z"
+msgstr "撤销: alt-z"
 
-# Default: "&#9679;"
 #: /default/toolbar.kupu:None
+# Default: "&#9679;"
 msgid "list-disc"
-msgstr "liste-disc"
+msgstr "&#9679;"
 
 #: /default/toolbar.kupu:None
 msgid "definition list: alt-="
-msgstr "liste de définition: alt-="
+msgstr "定义列表：alt-="
 
 #: /default/toolbar.kupu:None
 msgid "indent: alt->"
-msgstr "décaler vers la droite: alt->"
+msgstr "缩进: alt->"
 
 #: /default/toolbar.kupu:None
 msgid "Remove link"
-msgstr "Supprimer le lien"
+msgstr "删除链接"
 
 #: /default/toolbar.kupu:None
 msgid "Normal"
-msgstr "Normal"
+msgstr "正文"
 
 #: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
-msgstr "aligner à gauche: alt-l"
+msgstr "左对齐: alt-l"
 
 #: /default/toolbar.kupu:None
 msgid "right justify: alt-r"
-msgstr "aligner à droite: alt-r"
+msgstr "右对齐: alt-r"
 
 #: /default/toolbar.kupu:None
 msgid "outdent: alt-<"
-msgstr "décaler vers la gauche: alt-<"
+msgstr "减少缩进: alt-<"
 
-# Default: "&#9632;"
 #: /default/toolbar.kupu:None
+# Default: "&#9632;"
 msgid "list-square"
-msgstr "liste-square"
+msgstr "&#9632;"
 
 #: /default/toolbar.kupu:None
 msgid "underline: alt-u"
-msgstr "souligné: alt-u"
+msgstr "下划线：alt-u"
 
 #: /default/toolbar.kupu:None
 msgid "redo: alt-y"
-msgstr "rétablir: alt-y"
+msgstr "恢复：alt-y"
 
 #: /default/toolbar.kupu:None
 msgid "subscript: alt--"
-msgstr "indice: alt--"
+msgstr "下标: alt--"
 
 #: /default/toolbar.kupu:None
 msgid "center justify: alt-c"
-msgstr "centrer: alt-c"
+msgstr "居中: alt-c"
 
 #: /default/toolbar.kupu:None
 msgid "unordered list: alt-*"
-msgstr "liste non ordonnée: alt-*"
+msgstr "无序列表: alt-*"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 3"
-msgstr "Titre 3"
+msgstr "标题 3"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 2"
-msgstr "Titre 2"
+msgstr "标题 2"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 1"
-msgstr "Titre 1"
+msgstr "标题 1"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 6"
-msgstr "Titre 6"
+msgstr "标题 6"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 5"
-msgstr "Titre 5"
+msgstr "标题 5"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
-msgstr "Titre 4"
+msgstr "标题 4"
+
+#: /default/toolbar.kupu:None
+msgid "Kupu 1.3 rc1"
+msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
-msgstr "liste numérotée: alt-#"
+msgstr "数字列表: alt-#"
 
 #: /default/toolbar.kupu:None
 msgid "italic: alt-i"
-msgstr "italique: alt-i"
+msgstr "斜体: alt-i"
 
-# Default: "I"
 #: /default/toolbar.kupu:None
+# Default: "I"
 msgid "list-upperroman"
-msgstr "liste-romainmaj"
+msgstr "I"
 
 #: /default/toolboxes.kupu:None
 msgid "Headings:"
-msgstr "Titre:"
+msgstr "标题："
 
 #: /default/toolboxes.kupu:None
 msgid "Fix"
-msgstr "Corriger"
+msgstr "修改"
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
-msgstr "Supprimer une colonne"
+msgstr "删除列"
 
 #: /default/toolboxes.kupu:None
 msgid "Inline"
-msgstr "En-ligne"
+msgstr "内嵌"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
-msgstr ""
+msgstr "选择一个清理操作："
 
 #: /default/toolboxes.kupu:None
 msgid "Links"
-msgstr "Liens"
+msgstr "链接"
 
 #: /default/toolboxes.kupu:None
 msgid "Rows:"
-msgstr "Rangées:"
+msgstr "行："
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Row"
-msgstr "Supprimer une rangée"
+msgstr "删除行"
 
 #: /default/toolboxes.kupu:None
 msgid "Tables"
-msgstr "Tables"
+msgstr "表格"
 
 #: /default/toolboxes.kupu:None
 msgid "Create"
-msgstr "Créer"
+msgstr "创建"
 
 #: /default/toolboxes.kupu:None
 msgid "Insert image at the following URL:"
-msgstr "Insérer l'image dont voici l'URL:"
+msgstr "使用这个URL地址插入一个图片："
 
 #: /default/toolboxes.kupu:None
 msgid "Title:"
-msgstr "Titre:"
+msgstr "标题："
 
 #: /default/toolboxes.kupu:None
 msgid "Description:"
-msgstr "Description:"
+msgstr "描述："
 
 #: /default/toolboxes.kupu:None
 msgid "Image class:"
-msgstr "Classe de l'image:"
+msgstr "图片类型："
 
 #: /default/toolboxes.kupu:None
 msgid "Add Column"
-msgstr "Ajouter une colonne"
+msgstr "添加列"
 
 #: /default/toolboxes.kupu:None
 msgid "Fix Table"
-msgstr "Corriger la table"
+msgstr "修改表格"
 
 #: /default/toolboxes.kupu:None
 msgid "Images"
-msgstr "Images"
+msgstr "图片"
 
 #: /default/toolboxes.kupu:None
 msgid "Insert Image"
-msgstr "Insérer une image"
+msgstr "插入图片"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Table"
-msgstr "Ajouter une table"
+msgstr "添加表格"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Row"
-msgstr "Ajouter une rangée"
+msgstr "添加行"
 
 #: /default/toolboxes.kupu:None
 msgid "Properties"
-msgstr "Propriétés"
+msgstr "属性"
 
 #: /default/toolboxes.kupu:None
 msgid "Col Align:"
-msgstr "Alignement de colonne:"
+msgstr "列对齐："
 
 #: /default/toolboxes.kupu:None
 msgid "Center"
-msgstr "Centré"
+msgstr "居中"
 
 #: /default/toolboxes.kupu:None
 msgid "Debug Log"
-msgstr "Journal de debug"
+msgstr "调试日志"
 
 #: /default/toolboxes.kupu:None
 msgid "Make Link"
-msgstr "Créer un lien"
+msgstr "创建链接"
 
 #: /default/toolboxes.kupu:None
 msgid "Cleanup expressions"
-msgstr ""
+msgstr "清理表达式"
 
 #: /default/toolboxes.kupu:None
 msgid "Columns:"
-msgstr "Colonnes:"
+msgstr "列："
 
 #: /default/toolboxes.kupu:None
 msgid "Table Class:"
-msgstr "Classe de la table:"
+msgstr "表格类型："
 
+#: /default/toolboxes.kupu:None
 #: /default/toolboxes.kupu:None
 msgid "Right"
-msgstr "Droite"
+msgstr "靠右"
 
 #: /default/toolboxes.kupu:None
+#: /default/toolboxes.kupu:None
 msgid "Left"
-msgstr "Gauche"
+msgstr "靠左"
+

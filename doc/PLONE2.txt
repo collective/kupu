@@ -294,10 +294,11 @@ Custom Paragraph styles
 -----------------------
 Paragraph styles come from 3 sources:
 
-   a) Styles ``Normal``, ``Heading``, ``Subheading`` and ``Formatted`` are always defined.
+   a) The style ``Normal`` is always defined
 
    b) Use the Plone control panel to add additional styles to be
-      available on all content types.
+      available on all content types. ``Heading``, ``Subheading`` and 
+      ``Formatted`` are added automatically on installation.
 
    c) For Archetypes content types additional styles may be defined for
       individual fields.
@@ -305,6 +306,9 @@ Paragraph styles come from 3 sources:
 Styles defined under `Paragraph Styles`_ in the control panel are in the format ``title|tag``
 or ``title|tag|class``. e.g.::
 
+    Heading|h2
+    Subheading|h3
+    Formatted|pre
     Pull Quote|div|pullQuote
 
 Each rich text field can define its own set of paragraph styles to be

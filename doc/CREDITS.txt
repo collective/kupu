@@ -92,6 +92,16 @@ Translations
 
 * Michiel Meeuwissen - Esperanto
 
+* Godefroid Chapelle - French
+
+* Ofer Weisglass - Hebrew
+
+* Vlada Macek - Czech
+
+* Junyong Pan - Chinese
+
+* Guido Wesdorp - Dutch
+
 Third party products included
 -----------------------------
 

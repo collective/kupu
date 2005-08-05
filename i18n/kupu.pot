@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:31:28 2005\n"
+"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -111,10 +111,6 @@ msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
-msgstr ""
-
-#: /common/kupu.pox:None
-msgid "Copy"
 msgstr ""
 
 #: /common/kupu.pox:None
@@ -291,6 +287,10 @@ msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Editor initialized"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Copy"
 msgstr ""
 
 #: /common/kupu.pox:None
@@ -649,6 +649,10 @@ msgid "list-lowerroman"
 msgstr ""
 
 #: /default/toolbar.kupu:None
+msgid "Kupu SVN/unreleased"
+msgstr ""
+
+#: /default/toolbar.kupu:None
 msgid "Remove image"
 msgstr ""
 
@@ -675,6 +679,14 @@ msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "Normal"
+msgstr ""
+
+#: /default/toolbar.kupu:None
+msgid "Heading"
+msgstr ""
+
+#: /default/toolbar.kupu:None
+msgid "Subheading"
 msgstr ""
 
 #: /default/toolbar.kupu:None
@@ -736,10 +748,6 @@ msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
-msgstr ""
-
-#: /default/toolbar.kupu:None
-msgid "Kupu 1.3 rc1"
 msgstr ""
 
 #: /default/toolbar.kupu:None
@@ -877,3 +885,10 @@ msgstr ""
 msgid "Left"
 msgstr ""
 
+#: /plone/body.kupu
+msgid "force-kupu"
+msgstr ""
+
+#: /plone/body.kupu
+msgid "suppress-kupu"
+msgstr ""

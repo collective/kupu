@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:31:28 2005\n"
+"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
 "PO-Revision-Date: 2005-05-10 17:58+0200\n"
 "Last-Translator: Guido Wesdorp <guido@infrae.com>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -117,10 +117,6 @@ msgstr "Link creeëren"
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
 msgstr "HTML cleanup begonnen"
-
-#: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Kopieren"
 
 #: /common/kupu.pox:None
 msgid "Link modified"
@@ -333,6 +329,10 @@ msgstr "Even geduld alstublieft, Kupu is het document aan het wegschrijven"
 #: /common/kupu.pox:None
 msgid "Editor initialized"
 msgstr "Editor geïnitializeerd"
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "Kopieren"
 
 #: /common/kupu.pox:None
 msgid "Paste"
@@ -688,6 +688,10 @@ msgid "list-lowerroman"
 msgstr "lijst-lowerroman"
 
 #: /default/toolbar.kupu:None
+msgid "Kupu SVN/unreleased"
+msgstr "Kupu SVN/unreleased"
+
+#: /default/toolbar.kupu:None
 msgid "Remove image"
 msgstr "Afbeelding verwijderen"
 
@@ -776,10 +780,6 @@ msgstr "Kop 5"
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
 msgstr "Kop 4"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu 1.3 rc1"
-msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
@@ -913,6 +913,3 @@ msgstr "Rechts"
 #: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Links"
-
-#~ msgid "Kupu SVN/unreleased"
-#~ msgstr "Kupu SVN/unreleased"

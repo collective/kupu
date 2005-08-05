@@ -11,7 +11,7 @@
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 14860 2005-07-21 12:51:57Z duncan $-->
+    <!--$Id: toolbar.kupu 15499 2005-08-01 14:56:39Z duncan $-->
     <!--$Id: toolboxes.kupu 13098 2005-06-06 12:11:48Z mihxil $-->
     <!--$Id: colorchooser.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
@@ -21,7 +21,7 @@
     <!--$Id: head.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: xmlconfig.kupu 12437 2005-05-18 13:19:00Z duncan $-->
     <!--$Id: body.kupu 15258 2005-07-28 15:08:12Z duncan $-->
-    <!--$Id: toolbar.kupu 14860 2005-07-21 12:51:57Z duncan $-->
+    <!--$Id: toolbar.kupu 15499 2005-08-01 14:56:39Z duncan $-->
     <!--$Id: drawers.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: beforeunload.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: sourceedit.kupu 14575 2005-07-12 20:18:12Z duncan $-->
@@ -115,7 +115,7 @@
     <span id="kupu-tb-buttons" class="kupu-tb-buttons">
       
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu 1.3 rc1" accesskey="k" id="kupu-logo-button" onclick="window.open('http://kupu.oscom.org');" tal:attributes="tabindex python:tabindex+1;">&#160;</button>
+      <button type="button" class="kupu-logo" title="Kupu 1.3 rc2" accesskey="k" id="kupu-logo-button" onclick="window.open('http://kupu.oscom.org');" tal:attributes="tabindex python:tabindex+1;">&#160;</button>
     </span>
   
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-zoom">
@@ -123,12 +123,9 @@
     </span>
   
     <select class="kupu-tb-styles">
-      <option value="p" i18n:translate="paragraph-normal">Normal</option>
-      <option value="h2|Heading">Heading</option>
-      <option value="h3|Subheading">Subheading</option>
-      <option value="pre">Formatted</option>
+      <option value="p" i18n:translate="">Normal</option>
       <tal:block condition="here/kupu_library_tool/getParagraphStyles|nothing" repeat="style here/kupu_library_tool/getParagraphStyles">
-        <option tal:define="parts python:style.split('|',1)+['','']" tal:attributes="value python:parts[1]" tal:content="python:parts[0]"/>
+        <option i18n:translate="" tal:define="parts python:style.split('|',1)+['','']" tal:attributes="value python:parts[1]" tal:content="python:parts[0]"/>
       </tal:block>
       <tal:block tal:condition="field/widget/parastyles|nothing">
         <option tal:condition="field/widget/parastyles" tal:repeat="style field/widget/parastyles" tal:attributes="value python:style[0]" tal:content="python:style[1]"/>
@@ -352,13 +349,13 @@
     <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="                 base here/absolute_url;                 posfactory python:base.find('/portal_factory/');                 base python:posfactory &gt; 0 and base[:posfactory+15] or base;                 base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1;">
     </iframe>
 <tal:test condition="fieldName|nothing">
-    <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" tal:condition="fieldName|nothing" tal:define="content python:here.convertContentForKupu(fieldName, inputvalue);" tal:content="content" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
+    <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" tal:condition="fieldName|nothing" tal:define="global kupu_content python:here.convertContentForKupu(fieldName, inputvalue);" tal:content="kupu_content" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
 </tal:test>
     <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" id="kupu-editor-textarea" tal:define="pss modules/Products/PythonScripts/standard;                 text_format python: getattr(here,'text_format','html');                 is_stx python:text_format=='structured-text';                 is_ptx python:text_format=='plain';" tal:condition="not:fieldName|nothing" tal:content="python:(is_stx and pss.structured_text(inputvalue))                                        or (is_ptx and pss.newline_to_br(inputvalue))                                        or inputvalue" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
   
-    <div class="kupuoverride" tal:condition="python:len(content)==0" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" title="reload current page without kupu">
+    <div class="kupuoverride" tal:condition="python:exists('kupu_content') and len(kupu_content)==0" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" title="reload current page without kupu">
          edit without using Kupu
       </a></span>
     </div>

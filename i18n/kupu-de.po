@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:31:28 2005\n"
+"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
 "PO-Revision-Date: 2005-05-03 16:41+0200\n"
 "Last-Translator: Roman Joost <rj@gocept.com>\n"
 "Language-Team: gocept i18n team <rj@gocept.com>\n"
@@ -117,10 +117,6 @@ msgstr "Verweis erstellen"
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
 msgstr "Verbessere HTML Quellcode"
-
-#: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Kopieren"
 
 #: /common/kupu.pox:None
 msgid "Link modified"
@@ -325,6 +321,10 @@ msgstr "Bitte warten Sie während das Dokument gespeichert wird."
 #: /common/kupu.pox:None
 msgid "Editor initialized"
 msgstr "Editor geladen."
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "Kopieren"
 
 #: /common/kupu.pox:None
 msgid "Paste"
@@ -680,6 +680,10 @@ msgid "list-lowerroman"
 msgstr "Römisch-Kleinbuchstaben"
 
 #: /default/toolbar.kupu:None
+msgid "Kupu SVN/unreleased"
+msgstr ""
+
+#: /default/toolbar.kupu:None
 msgid "Remove image"
 msgstr "Bild entfernen"
 
@@ -768,10 +772,6 @@ msgstr "Überschrift 5"
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
 msgstr "Überschrift 4"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu 1.3 rc1"
-msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"

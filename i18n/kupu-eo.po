@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:31:28 2005\n"
+"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
 "PO-Revision-Date: 2005-06-13 13:06+0200\n"
 "Last-Translator: Michiel Meeuwissen <mihxil@xs4all.nl>\n"
 "Language-Team: Kupu i18n team\n"
@@ -119,10 +119,6 @@ msgstr "Kreu ligon"
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
 msgstr "Komenciĝis HTML-purigo"
-
-#: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Kopii"
 
 #: /common/kupu.pox:None
 msgid "Link modified"
@@ -332,6 +328,10 @@ msgstr "Momenton bonvolu, la dokumento estas savata.."
 #: /common/kupu.pox:None
 msgid "Editor initialized"
 msgstr "Redaktilo initita"
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "Kopii"
 
 #: /common/kupu.pox:None
 msgid "Paste"
@@ -686,6 +686,10 @@ msgid "list-lowerroman"
 msgstr "minuskla romana"
 
 #: /default/toolbar.kupu:None
+msgid "Kupu SVN/unreleased"
+msgstr "Kupu SVN/neeldonita"
+
+#: /default/toolbar.kupu:None
 msgid "Remove image"
 msgstr "Forigi bildon"
 
@@ -774,10 +778,6 @@ msgstr "Ĉapo 5"
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
 msgstr "Ĉapo 4"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu 1.3 rc1"
-msgstr ""
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
@@ -911,6 +911,3 @@ msgstr "Dekstre"
 #: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Maldekstre"
-
-#~ msgid "Kupu SVN/unreleased"
-#~ msgstr "Kupu SVN/neeldonita"
