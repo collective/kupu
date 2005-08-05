@@ -1,0 +1,893 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: kupu\n"
+"POT-Creation-Date: Mon May  2 00:46:04 2005\n"
+"PO-Revision-Date: 2005-08-03 16:02+0200\n"
+"Last-Translator: Vlada Macek <tuttle@bbs.cvut.cz>\n"
+"Language-Team: Vlada Macek\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Code: cs\n"
+"Language-Name: Czech\n"
+"Generated-By: zope/app/translation_files/extract.py\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Domain: kupu\n"
+
+#: /default/body.kupu:14
+msgid "Kupu Editor Test Page"
+msgstr "Testovací stránka editoru Kupu"
+
+#: /default/colorchooser.kupu:21
+msgid "text color: alt-f"
+msgstr "Barva textu: Alt-F"
+
+#: /default/colorchooser.kupu:24
+msgid "background color: alt-h"
+msgstr "Barva pozadí: Alt-H"
+
+#: /default/drawers.kupu:22
+msgid "image"
+msgstr "Obrázek"
+
+#: /default/drawers.kupu:24
+msgid "internal link"
+msgstr "Vnitřní odkaz"
+
+#: /default/drawers.kupu:26
+msgid "external link"
+msgstr "Vnější odkaz"
+
+#: /default/drawers.kupu:28
+msgid "table"
+msgstr "Tabulka"
+
+#: /default/drawers.kupu:46
+msgid "External Link"
+msgstr "Vnější odkaz"
+
+#: /default/drawers.kupu:52 /default/toolboxes.kupu:35
+msgid "Link the highlighted text to this URL:"
+msgstr "Provázat zvýrazněný text s adresou URL:"
+
+#: /default/drawers.kupu:59
+msgid "Preview"
+msgstr "Náhled"
+
+#: /default/drawers.kupu:70
+msgid "Ok"
+msgstr "OK"
+
+#: /default/drawers.kupu:72
+msgid "Cancel"
+msgstr "Storno"
+
+#: /default/drawers.kupu:83
+msgid "tabledrawer_title"
+msgstr "Tabulka"
+
+#: /default/drawers.kupu:92 /default/drawers.kupu:139
+msgid "tabledrawer_class_label"
+msgstr "Druh tabulky"
+
+#: /default/drawers.kupu:103
+msgid "tabledrawer_rows_label"
+msgstr "Řádků"
+
+#: /default/drawers.kupu:107
+msgid "tabledrawer_columns_label"
+msgstr "Sloupců"
+
+#: /default/drawers.kupu:117
+msgid "tabledrawer_headings_label"
+msgstr "Vytvořit záhlaví"
+
+#: /default/drawers.kupu:124
+msgid "tabledrawer_add_table_button"
+msgstr "Přidat tabulku"
+
+#: /default/drawers.kupu:127
+msgid "tabledrawer_fix_tables_button"
+msgstr "Opravit všechny tabulky"
+
+#: /default/drawers.kupu:152
+msgid "tabledrawer_alignment_label"
+msgstr "Zarovnání aktuálního sloupce"
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_left_option"
+msgstr "Vlevo"
+
+#: /default/drawers.kupu:159
+msgid "tabledrawer_center_option"
+msgstr "Na střed"
+
+#: /default/drawers.kupu:157
+msgid "tabledrawer_right_option"
+msgstr "Vpravo"
+
+#: /default/drawers.kupu:167
+msgid "tabledrawer_column_label"
+msgstr "Sloupec"
+
+#: /default/drawers.kupu:170 /default/drawers.kupu:182
+msgid "tabledrawer_add_button"
+msgstr "Přidat"
+
+#: /default/drawers.kupu:173 /default/drawers.kupu:185
+msgid "tabledrawer_remove_button"
+msgstr "Odebrat"
+
+#: /default/drawers.kupu:178
+msgid "tabledrawer_row_label"
+msgstr "Řádek"
+
+#: /default/drawers.kupu:191
+msgid "tabledrawer_fix_table_label"
+msgstr "Opravit tabulku"
+
+#: /default/drawers.kupu:194
+msgid "tabledrawer_fix_button"
+msgstr "Opravit"
+
+#: /default/drawers.kupu:207
+msgid "tabledrawer_close_button"
+msgstr "Zavřít"
+
+#: /default/save.kupu:14
+msgid "save: alt-s"
+msgstr "Uložit: Alt-S"
+
+#: /default/sourceedit.kupu:23
+msgid "edit HTML code"
+msgstr "Editovat kód HTML"
+
+#: /default/spellchecker.kupu:17
+msgid "check spelling"
+msgstr "Zkontrolovat pravopis"
+
+#: /default/toolbar.kupu:104
+msgid "left justify: alt-l"
+msgstr "Zarovnat doleva: Alt-L"
+
+#: /default/toolbar.kupu:107
+msgid "center justify: alt-c"
+msgstr "Zarovnat na střed: Alt-C"
+
+#: /default/toolbar.kupu:110
+msgid "right justify: alt-r"
+msgstr "Zarovnat doprava: Alt-R"
+
+#: /default/toolbar.kupu:119
+msgid "numbered list: alt-#"
+msgstr "Seznam s číslováním: Alt-#"
+
+#: /default/toolbar.kupu:122
+msgid "unordered list: alt-*"
+msgstr "Seznam s odrážkami: Alt-*"
+
+#: /default/toolbar.kupu:131
+msgid "definition list: alt-="
+msgstr "Seznam definic: Alt-="
+
+#: /default/toolbar.kupu:139
+msgid "outdent: alt-<"
+msgstr "Zmenšit odsazení: Alt-<"
+
+#: /default/toolbar.kupu:142
+msgid "indent: alt->"
+msgstr "Zvětšit odsazení: Alt->"
+
+#: /default/toolbar.kupu:150
+msgid "undo: alt-z"
+msgstr "Vrátit: Alt-Z"
+
+#: /default/toolbar.kupu:153
+msgid "redo: alt-y"
+msgstr "Opakovat: Alt-Y"
+
+#: /default/toolbar.kupu:161
+msgid "Remove image"
+msgstr "Odebrat obrázek"
+
+#: /default/toolbar.kupu:164
+msgid "Remove link"
+msgstr "Odebrat odkaz"
+
+# Default: "&#9679;"
+#: /default/toolbar.kupu:26
+msgid "list-disc"
+msgstr "&#9679;"
+
+# Default: "&#9632;"
+#: /default/toolbar.kupu:27
+msgid "list-square"
+msgstr "&#9632;"
+
+# Default: "&#9675;"
+#: /default/toolbar.kupu:28
+msgid "list-circle"
+msgstr "&#9675;"
+
+# Default: "no bullet"
+#: /default/toolbar.kupu:29
+msgid "list-nobullet"
+msgstr "Bez odrážek"
+
+# Default: "1"
+#: /default/toolbar.kupu:32
+msgid "list-decimal"
+msgstr "1"
+
+# Default: "I"
+#: /default/toolbar.kupu:34
+msgid "list-upperroman"
+msgstr "I"
+
+# Default: "i"
+#: /default/toolbar.kupu:36
+msgid "list-lowerroman"
+msgstr "i"
+
+# Default: "A"
+#: /default/toolbar.kupu:38
+msgid "list-upperalpha"
+msgstr "A"
+
+# Default: "a"
+#: /default/toolbar.kupu:40
+msgid "list-loweralpha"
+msgstr "a"
+
+#: /default/toolbar.kupu:47
+msgid "Kupu SVN/unreleased"
+msgstr "Kupu z repozitáře SVN / nevydaná verze"
+
+#: /default/toolbar.kupu:55
+msgid "Normal"
+msgstr "Normální"
+
+#: /default/toolbar.kupu:59
+msgid "Heading 1"
+msgstr "Nadpis 1"
+
+#: /default/toolbar.kupu:62
+msgid "Heading 2"
+msgstr "Nadpis 2"
+
+#: /default/toolbar.kupu:65
+msgid "Heading 3"
+msgstr "Nadpis 3"
+
+#: /default/toolbar.kupu:68
+msgid "Heading 4"
+msgstr "Nadpis 4"
+
+#: /default/toolbar.kupu:71
+msgid "Heading 5"
+msgstr "Nadpis 5"
+
+#: /default/toolbar.kupu:74
+msgid "Heading 6"
+msgstr "Nadpis 6"
+
+#: /default/toolbar.kupu:76
+msgid "Formatted"
+msgstr "Form. text"
+
+#: /default/toolbar.kupu:84
+msgid "bold: alt-b"
+msgstr "Tučné: Alt-B"
+
+#: /default/toolbar.kupu:86
+msgid "italic: alt-i"
+msgstr "Kurzíva: Alt-I"
+
+#: /default/toolbar.kupu:88
+msgid "underline: alt-u"
+msgstr "Podtržené: Alt-U"
+
+#: /default/toolbar.kupu:95
+msgid "subscript: alt--"
+msgstr "Dolní index: Alt--"
+
+#: /default/toolbar.kupu:97
+msgid "superscript: alt-+"
+msgstr "Horní index: Alt-+"
+
+#: /default/toolboxes.kupu:100
+msgid "Headings:"
+msgstr "Nadpisy:"
+
+#: /default/toolboxes.kupu:105
+msgid "Create"
+msgstr "Vytvořit"
+
+#: /default/toolboxes.kupu:109
+msgid "Fix Table"
+msgstr "Opravit tabulku"
+
+#: /default/toolboxes.kupu:110
+msgid "Add Table"
+msgstr "Přidat tabulku"
+
+#: /default/toolboxes.kupu:118
+msgid "Col Align:"
+msgstr "Zarovnání sloupce:"
+
+#: /default/toolboxes.kupu:121
+msgid "Center"
+msgstr "Na střed"
+
+#: /default/toolboxes.kupu:128
+msgid "Add Column"
+msgstr "Přidat sloupec"
+
+#: /default/toolboxes.kupu:129
+msgid "Remove Column"
+msgstr "Odebrat sloupec"
+
+#: /default/toolboxes.kupu:132
+msgid "Add Row"
+msgstr "Přidat řádek"
+
+#: /default/toolboxes.kupu:133
+msgid "Remove Row"
+msgstr "Odebrat řádek"
+
+#: /default/toolboxes.kupu:135
+msgid "Fix"
+msgstr "Opravit"
+
+#: /default/toolboxes.kupu:145
+msgid "Debug Log"
+msgstr "Ladicí protokol"
+
+#: /default/toolboxes.kupu:19
+msgid "Properties"
+msgstr "Vlastnosti"
+
+#: /default/toolboxes.kupu:21
+msgid "Title:"
+msgstr "Nadpis:"
+
+#: /default/toolboxes.kupu:23
+msgid "Description:"
+msgstr "Popis:"
+
+#: /default/toolboxes.kupu:30
+msgid "Links"
+msgstr "Odkazy"
+
+#: /default/toolboxes.kupu:45
+msgid "Make Link"
+msgstr "Vytvořit odkaz"
+
+#: /default/toolboxes.kupu:56
+msgid "Images"
+msgstr "Obrázky"
+
+#: /default/toolboxes.kupu:59
+msgid "Image class:"
+msgstr "Druh obrázku:"
+
+#: /default/toolboxes.kupu:62
+msgid "Inline"
+msgstr "V řádku"
+
+#: /default/toolboxes.kupu:63 /default/toolboxes.kupu:120
+msgid "Left"
+msgstr "Vlevo"
+
+#: /default/toolboxes.kupu:64 /default/toolboxes.kupu:122
+msgid "Right"
+msgstr "Vpravo"
+
+#: /default/toolboxes.kupu:68
+msgid "Insert image at the following URL:"
+msgstr "Vložit obrázek z následující adresy URL:"
+
+#: /default/toolboxes.kupu:76
+msgid "Insert Image"
+msgstr "Vložit obrázek"
+
+#: /default/toolboxes.kupu:85
+msgid "Tables"
+msgstr "Tabulky"
+
+#: /default/toolboxes.kupu:88
+msgid "Table Class:"
+msgstr "Druh tabulky:"
+
+#: /default/toolboxes.kupu:93
+msgid "Rows:"
+msgstr "Řádků:"
+
+#: /default/toolboxes.kupu:96
+msgid "Columns:"
+msgstr "Sloupců:"
+
+#: /kupu.pox:103
+msgid ""
+"Pasting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Vkládání pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
+"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
+"editor/midasdemo/securityprefs.html"
+
+#: /kupu.pox:111
+msgid "Cut"
+msgstr "Vyjmout"
+
+#: /kupu.pox:119
+msgid "Copy"
+msgstr "Kopírovat"
+
+#: /kupu.pox:127
+msgid "Paste"
+msgstr "Vložit"
+
+#: /kupu.pox:135
+msgid "Colorchooser tool initialized"
+msgstr "Nástroj výběru barev byl inicializován."
+
+#: /kupu.pox:143
+msgid "Color chosen"
+msgstr "Barva byla vybrána."
+
+#: /kupu.pox:15
+msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
+msgstr ""
+"Není možné přejít do režimu návrhu. Editor Kupu nebude v tomto prohlížeči "
+"pracovat."
+
+#: /kupu.pox:151
+msgid "No head in document!"
+msgstr "V dokumentu chybí záhlaví."
+
+#: /kupu.pox:159
+msgid "Property tool initialized"
+msgstr "Nástroj vlastností byl inicializován."
+
+#: /kupu.pox:167
+msgid "Properties modified"
+msgstr "Vlastnosti byly upraveny."
+
+#: /kupu.pox:175
+msgid "Link tool initialized"
+msgstr "Nástroj odkazů byl inicializován."
+
+#: /kupu.pox:183
+msgid "Link added"
+msgstr "Odkaz byl přidán."
+
+#: /kupu.pox:191
+msgid "Not inside link"
+msgstr "Mimo odkaz."
+
+#: /kupu.pox:199
+msgid "Link removed"
+msgstr "Odkaz byl odebrán."
+
+#: /kupu.pox:207
+msgid "Delete link"
+msgstr "Odstranit odkaz"
+
+#: /kupu.pox:215
+msgid "Create link"
+msgstr "Vytvořit odkaz"
+
+#: /kupu.pox:223
+msgid "Link modified"
+msgstr "Odkaz byl upraven."
+
+#: /kupu.pox:23
+msgid "Please wait while saving document..."
+msgstr "Počkejte na uložení dokumentu..."
+
+#: /kupu.pox:231
+msgid "Image tool initialized"
+msgstr "Nástroj obrázků byl inicializován."
+
+#: /kupu.pox:239
+msgid "Image inserted"
+msgstr "Obrázek byl vložen."
+
+#: /kupu.pox:247
+msgid "Create image"
+msgstr "Vytvořit obrázek"
+
+#: /kupu.pox:255
+msgid "Add table"
+msgstr "Přidat tabulku"
+
+#: /kupu.pox:263
+msgid "Add row"
+msgstr "Přidat řádek"
+
+#: /kupu.pox:271
+msgid "Delete row"
+msgstr "Odstranit řádek"
+
+#: /kupu.pox:279
+msgid "Add column"
+msgstr "Přidat sloupec"
+
+#: /kupu.pox:287
+msgid "Delete column"
+msgstr "Odstranit sloupec"
+
+#: /kupu.pox:295
+msgid "Delete Table"
+msgstr "Odstranit tabulku"
+
+#: /kupu.pox:303
+msgid "Invalid table size"
+msgstr "Neplatná velikost tabulky"
+
+#: /kupu.pox:31
+msgid "Starting HTML cleanup"
+msgstr "Začíná čištění kódu HTML."
+
+#: /kupu.pox:311
+msgid "Table added"
+msgstr "Tabulka byla přidána."
+
+#: /kupu.pox:319
+msgid "Table row added"
+msgstr "Řádek tabulky byl přidán."
+
+#: /kupu.pox:327
+msgid "No row to delete"
+msgstr "Není žádný řádek k odstranění."
+
+#: /kupu.pox:335
+msgid "Table row removed"
+msgstr "Řádek tabulky byl odebrán."
+
+#: /kupu.pox:343
+msgid "No parentcolumn found!"
+msgstr "Nadřazený sloupec nebyl nalezen!"
+
+#: /kupu.pox:351
+msgid "tdindex: ${tdindex}"
+msgstr "tdindex: ${tdindex}"
+
+#: /kupu.pox:359
+msgid "Table column added"
+msgstr "Sloupec tabulky byl přidán."
+
+#: /kupu.pox:367
+msgid "Table column deleted"
+msgstr "Sloupec tabulky byl odstraněn."
+
+#: /kupu.pox:375
+msgid "Not inside a table!"
+msgstr "Mimo tabulku."
+
+#: /kupu.pox:383
+msgid "Table removed"
+msgstr "Tabulka byla odebrána."
+
+#: /kupu.pox:39
+msgid "Cleanup done, sending document to server"
+msgstr "Čištění dokončeno, dokument je odesílán na server."
+
+#: /kupu.pox:391
+msgid "Recursion detected when counting column position"
+msgstr "Při výpočtu pozice sloupce byla zjištěna rekurze."
+
+#: /kupu.pox:399
+msgid "Table cleaned up"
+msgstr "Tabulka byla vyčištěna."
+
+#: /kupu.pox:407
+msgid "Table tool initialized"
+msgstr "Nástroj tabulek byl inicializován."
+
+#: /kupu.pox:415
+msgid "List style tool initialized"
+msgstr "Nástroj seznamových stylů byl inicializován."
+
+#: /kupu.pox:423
+msgid "List style changed"
+msgstr "Styl seznamu byl změněn."
+
+#: /kupu.pox:431
+msgid "Could not set status bar message, check your browser\\'s security settings."
+msgstr ""
+"Není možné změnit obsah stavového pruhu, zkontrolujte bezpečnostní nastavení "
+"prohlížeče."
+
+#: /kupu.pox:439
+msgid "View source"
+msgstr "Zobrazit zdrojový text"
+
+#: /kupu.pox:447
+msgid "Not inside a definition list element!"
+msgstr "Mimo prvek seznamu definic."
+
+#: /kupu.pox:455
+msgid "Zoom tool initialized"
+msgstr "Nástroj lupy byl inicializován."
+
+#: /kupu.pox:463
+msgid "Error loading translation (status ${status} ), falling back to english"
+msgstr "Chyba při načítání překladu (stav ${status}), návrat k angličtině."
+
+#: /kupu.pox:47
+msgid "You have unsaved changes. Do you want to save before leaving the page?"
+msgstr "Některé změny nebyly uloženy. Chcete je před opuštěním této stránky uložit?"
+
+#: /kupu.pox:471
+msgid "Your form has not been saved. All changes you have made will be lost"
+msgstr "Formulář nebyl uložen. Všechny provedené změny budou ztraceny."
+
+#: /kupu.pox:479
+msgid ""
+"There was a problem initializing the drawers. Most likely the XSLT or XML "
+"files aren\\'t available. If this is not the Kupu demo version, check your "
+"files or the service that provide them (error: ${error})."
+msgstr ""
+"Nebylo možné inicializovat grafické součásti; zřejmě proto, že chybí soubory "
+"XSLT či XML. Pokud se nejedná o demonstrační verzi editoru Kupu, "
+"zkontrolujte soubory nebo službu, která je poskytuje (chyba: ${error})."
+
+#: /kupu.pox:487
+msgid "Not inside a row!"
+msgstr "Mimo řádek!"
+
+#: /kupu.pox:495
+msgid "Row repeated"
+msgstr "Řádek byl zopakován."
+
+#: /kupu.pox:503
+msgid "Row repeat turned off"
+msgstr "Opakování řádků bylo vypnuto."
+
+#: /kupu.pox:511
+msgid "Source edit tool initialized"
+msgstr "Nástroj editace zdrojového textu byl inicializován."
+
+#: /kupu.pox:519
+msgid "Cleaning up HTML..."
+msgstr "Čištění kódu HTML..."
+
+#: /kupu.pox:527
+msgid "Unsupported browser!"
+msgstr "Nepodporovaný prohlížeč..."
+
+#: /kupu.pox:535
+msgid ""
+"exception ${message} while registering an event handler for element "
+"${element}, event ${event}, method ${method}"
+msgstr ""
+"Výjimka ${message} při registraci obsluhy události prvku  ${element}. "
+"Událost ${event}, metoda ${method}."
+
+#: /kupu.pox:543
+msgid "No element found in the config island!"
+msgstr "V konfiguraci nebyl nalezen žádný prvek."
+
+#: /kupu.pox:55
+msgid "There were no errors."
+msgstr "Nebyly nalezeny žádné chyby."
+
+#: /kupu.pox:551
+msgid "Selection not inside the node!"
+msgstr "Výběr není uvnitř uzlu."
+
+#: /kupu.pox:559
+msgid "Start node offset detected in a node without children!"
+msgstr "Posun počátečního uzlu se nachází v uzlu bez podřízených."
+
+#: /kupu.pox:567
+msgid "End node offset detected in a node without children!"
+msgstr "Posun koncového uzlu se nachází v uzlu bez podřízených."
+
+#: /kupu.pox:575
+msgid "Start offset out of range!"
+msgstr "Počáteční posun je mimo rozsah."
+
+#: /kupu.pox:583
+msgid "End offset out of range!"
+msgstr "Koncový posun je mimo rozsah!"
+
+#: /kupu.pox:591
+msgid "Offset out of document range"
+msgstr "Posun je mimo rozsah dokumentu."
+
+#: /kupu.pox:599
+msgid "Exception while processing updateState on ${id}: ${msg}"
+msgstr "Výjimka během zpracování funkce updateState s údaji ${id}: ${msg}."
+
+#: /kupu.pox:607
+msgid "No destination URL available!"
+msgstr "Cílová adresa URL není k dispozici."
+
+#: /kupu.pox:615
+msgid "Request sent to server"
+msgstr "Požadavek byl odeslán na server."
+
+#: /kupu.pox:623
+msgid "Sending request to server"
+msgstr "Požadavek je odesílán na server."
+
+#: /kupu.pox:63
+msgid "Error loading data, status ${status}"
+msgstr "Chyba při načítání dat, stav ${status}."
+
+#: /kupu.pox:631
+msgid "Editor not initialized yet!"
+msgstr "Editor nebyl ještě inicializován."
+
+#: /kupu.pox:639
+msgid "Command ${command} executed"
+msgstr "Příkaz ${command} byl proveden."
+
+#: /kupu.pox:647
+msgid "Command ${command} executed with parameter ${param}"
+msgstr "Příkaz ${command} byl proveden s parametrem ${param}."
+
+#: /kupu.pox:655
+msgid "Browser not supported!"
+msgstr "Nepodporovaný prohlížeč."
+
+#: /kupu.pox:663
+msgid ""
+"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
+"log for more information."
+msgstr ""
+"Chyba při ukládání dat.\\nZjištěný stav: ${status}.\\nDalší informace "
+"hledejte v protokolu serveru."
+
+#: /kupu.pox:671
+msgid "Error saving document"
+msgstr "Chyba při ukládání dokumentu."
+
+#: /kupu.pox:679
+msgid "Document saved"
+msgstr "Dokument byl uložen."
+
+#: /kupu.pox:687
+msgid "Error placing back selection"
+msgstr "Chyba při vracení výběru."
+
+#: /kupu.pox:7
+msgid "Editor initialized"
+msgstr "Editor byl inicializován."
+
+#: /kupu.pox:71
+msgid "Deprecation warning: KupuTool._selectSelectItem"
+msgstr "Varování: KupuTool._selectSelectItem je zavrženo."
+
+#: /kupu.pox:79
+msgid "Deprecation warning: KupuToolBox._selectSelectItem"
+msgstr "Varování: KupuToolBox._selectSelectItem je zavrženo."
+
+#: /kupu.pox:87
+msgid ""
+"Cutting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Vyjímání pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
+"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
+"editor/midasdemo/securityprefs.html"
+
+#: /kupu.pox:95
+msgid ""
+"Copying from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Kopírování pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
+"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
+"editor/midasdemo/securityprefs.html"
+
+# Original: Insert Image
+#: /common/kupudrawers/drawer.xsl.pt:30
+msgid "imagedrawer_title"
+msgstr "Vložení obrázku"
+
+# Original: Insert Link
+#: /common/kupudrawers/drawer.xsl.pt:33
+msgid "linkdrawer_title"
+msgstr "Vložení odkazu"
+
+# Original: search
+#: /common/kupudrawers/drawer.xsl.pt:136
+msgid "kupudrawer_search"
+msgstr "Vyhledat"
+
+# Original: Upload...
+#: /common/kupudrawers/drawer.xsl.pt:136
+msgid "imagedrawer_upload_link"
+msgstr "Nahrát..."
+
+# Original: Preview
+#: /common/kupudrawers/drawer.xsl.pt:187
+msgid "imagedrawer_upload_preview_label"
+msgstr "Náhled"
+
+# Original: (${width} by ${height})
+#: /common/kupudrawers/drawer.xsl.pt:197
+msgid "imagedrawer_size"
+msgstr "(${width} krát ${height})"
+
+# Original: ALT-text
+#: /common/kupudrawers/drawer.xsl.pt:206
+msgid "imagedrawer_upload_alt_text"
+msgstr "Alternativní text"
+
+# Original: Left
+#: /common/kupudrawers/drawer.xsl.pt:218
+msgid "imagedrawer_left"
+msgstr "Vlevo"
+
+# Original: Inline
+#: /common/kupudrawers/drawer.xsl.pt:220
+msgid "imagedrawer_inline"
+msgstr "V řádku"
+
+# Original: Right
+#: /common/kupudrawers/drawer.xsl.pt:222
+msgid "imagedrawer_right"
+msgstr "Vpravo"
+
+# Original: Caption
+#: /common/kupudrawers/drawer.xsl.pt:227
+msgid "imagedrawer_caption_label"
+msgstr "Titulek"
+
+# Original: Title
+#: /common/kupudrawers/drawer.xsl.pt:237
+msgid "linkdrawer_title_label"
+msgstr "Nadpis"
+
+# Original: Description
+#: /common/kupudrawers/drawer.xsl.pt:244
+msgid "linkdrawer_description_label"
+msgstr "Popis"
+
+# Original: Name
+#: /common/kupudrawers/drawer.xsl.pt:251
+msgid "linkdrawer_name_label"
+msgstr "Název"
+
+# Original: Target
+#: /common/kupudrawers/drawer.xsl.pt:258
+msgid "linkdrawer_target_label"
+msgstr "Cíl"
+
+# Original: Select an image from your computer and click ok to have it
+# automatically uploaded to selected folder and inserted into the
+# editor.
+#: /common/kupudrawers/drawer.xsl.pt:271
+msgid "imagedrawer_upload_instructions"
+msgstr "Vyberte ve svém počítači obrázek. Po klepnutí na tlačítko OK bude tento automaticky nahrán do vybrané složky a vložen do editoru."
+
+# Original: Upload to: ${folder}
+#: /common/kupudrawers/drawer.xsl.pt:279
+msgid "imagedrawer_upload_to_label"
+msgstr "Načtení do složky: ${folder}"
+
+# Original: Title:
+#: /common/kupudrawers/drawer.xsl.pt:279
+msgid "imagedrawer_upload_title_label"
+msgstr "Nadpis:"
+
+msgid "Heading"
+msgstr "Nadpis"
+
+msgid "Subheading"
+msgstr "Dílčí nadpis"
+
+msgid "force-kupu"
+msgstr "Klepněte sem, chcete-li stránku upravovat pomocí editoru Kupu"
+
+msgid "suppress-kupu"
+msgstr "Klepněte sem, chcete-li stránku upravovat bez editoru Kupu"
