@@ -18,7 +18,7 @@
 
   <kupu:part name="select-styles">
     <select class="kupu-tb-styles">
-      <option value="p" i18n:translate="paragraph-normal">Normal</option>
+      <option value="p" i18n:translate="">Normal</option>
       <tal:block condition="here/kupu_library_tool/getParagraphStyles|nothing"
         repeat="style here/kupu_library_tool/getParagraphStyles">
         <option i18n:translate=""

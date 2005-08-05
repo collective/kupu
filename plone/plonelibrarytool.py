@@ -70,8 +70,8 @@ _excluded_html = [
 _style_whitelist = ['text-align', 'list-style-type', 'float']
 
 _default_paragraph_styles = (
-    "Heading|h2",
-    "Subheading|h3",
+    "Heading|h2|Heading",
+    "Subheading|h3|Subheading",
     "Formatted|pre",
 )
 
