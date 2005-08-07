@@ -188,6 +188,8 @@ image in kupu and when the image successfully loads make it update the tag
 to the correct size. The onload attribute will of course be stripped when 
 the file is saved.
 
+
 =================================================
+
 
 Arrange a Kupu sprint
