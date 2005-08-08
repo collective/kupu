@@ -100,6 +100,10 @@ Translations
 
 * Junyong Pan - Chinese
 
+* Dorneles Treméa - Brazilian
+
+* Filip Miletic - Serbian
+
 * Guido Wesdorp - Dutch
 
 Third party products included
