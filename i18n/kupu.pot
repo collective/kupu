@@ -892,3 +892,16 @@ msgstr ""
 #: /plone/body.kupu
 msgid "suppress-kupu"
 msgstr ""
+
+#: Libraries
+msgid "Home"
+msgstr ""
+
+msgid "Current Folder"
+msgstr ""
+
+msgid "My Recent Items"
+msgstr ""
+
+msgid "Recent Items"
+msgstr ""
