@@ -20,7 +20,7 @@ function KupuXhtmlTestCase() {
     }
     this.verifyResult = function(newdoc, exp) {
         var expected = this.incontext(exp);
-        var actual = newdoc.xml;
+        var actual = Sarissa.serialize(newdoc);
         actual = actual.replace('\xa0', '&nbsp;');
         if (actual == expected)
             return;
