@@ -905,3 +905,22 @@ msgstr ""
 
 msgid "Recent Items"
 msgstr ""
+
+#: Default Table classes
+msgid "plain"
+msgstr ""
+
+msgid "listing"
+msgstr ""
+
+msgid "vertical listing"
+msgstr ""
+
+msgid "listing nosort"
+msgstr ""
+
+msgid "grid"
+msgstr ""
+
+msgid "data"
+msgstr ""

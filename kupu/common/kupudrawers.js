@@ -207,9 +207,12 @@ function TableDrawer(elementid, tool) {
                     classselect.removeChild(classselect.firstChild);
                 };
                 for (var i=0; i < classes.length; i++) {
-                    var classname = classes[i];
+                    var classinfo = classes[i];
+                    var caption = classinfo.xcaption || classinfo;
+                    var classname = classinfo.classname || classinfo;
+
                     var option = document.createElement('option');
-                    var content = document.createTextNode(classname);
+                    var content = document.createTextNode(caption);
                     option.appendChild(content);
                     option.setAttribute('value', classname);
                     classselect.appendChild(option);
