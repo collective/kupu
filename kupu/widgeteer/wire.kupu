@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<kupu:wire
+    implementation="widgeteer"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    >
+
+  <kupu:fill-slot name="fulleditor">
+    <table class="layouttable">
+      <tbody>
+        <tr>
+          <td height="1%">
+            <kupu:insert-part feature="toolbar" part="toolbar" />
+            <kupu:insert-part feature="colorchooser" part="colorchooser" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <kupu:insert-part feature="body" part="editorframe" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </kupu:fill-slot>
+
+</kupu:wire>
