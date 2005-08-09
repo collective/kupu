@@ -221,6 +221,7 @@ function KupuEditor(document, config, logger) {
                 } catch(e) {
                     alert(e);
                     this._initialized = true;
+                    window.status = _('save aborted');
                     return;
                 };
             };
