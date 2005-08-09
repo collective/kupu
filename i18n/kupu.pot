@@ -763,6 +763,10 @@ msgstr ""
 msgid "list-upperroman"
 msgstr ""
 
+#: /default/toolbar.kupu
+msgid "zoom: alt-x"
+msgstr ""
+
 #: /default/toolboxes.kupu:None
 msgid "Headings:"
 msgstr ""
