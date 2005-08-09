@@ -21,7 +21,12 @@
     <!-- example of how to create a list of classnames for the table tool -->
     <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
     <table_classes tal:condition="table_classnames">
-      <class i18n:translate="" tal:content="class" tal:repeat="class table_classnames" />
+      <tal:loop repeat="klass table_classnames">
+      <class tal:define="parts python:klass.split('|', 1)*2;" tal:condition="python:parts[0].strip()">
+          <xcaption i18n:translate="" tal:content="python:parts[1]" />
+          <classname tal:content="python:parts[0]" />
+      </class>
+      </tal:loop>
     </table_classes>
     </tal:block>
 
