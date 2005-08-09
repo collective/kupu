@@ -14,13 +14,13 @@
 // metadata fields should be editable with the property editor (needs to
 // be moved to somewhere in Silva or something?)
 EDITABLE_METADATA = {
-    'http://infrae.com/namespaces/metadata/silva-news': 
-            [['subjects', 'checkbox', 1, 'Subjects'],
-                ['target_audiences', 'checkbox', 1, 'Target audiences'],
-                ['start_datetime', 'text', 1, 'Start date/time'],
-                ['end_datetime', 'text', 0, 'End date/time'],
-                ['location', 'text', 0, 'Location']
-            ]
+    'http://infrae.com/namespaces/metadata/silva-extra': 
+            [['contactname', 'text', 0, 'Contact name'],
+                ['contactemail', 'text', 0, 'Contact email']
+            ],
+    'http://infrae.com/namespaces/metadata/abstract':
+            [['author', 'text', 1, 'Presenting author'],
+                ['co_authors', 'textarea', 0, 'Co-author(s)']]
 }
  
 function SilvaLinkTool() {
@@ -2246,59 +2246,23 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     var input = null;
     var value = metatag.getAttribute('content');
     var parentvalue = metatag.getAttribute('parentcontent');
-    var td = tablerow.getElementsByTagName('td')[1]
-    if (type == 'text' || type == 'textarea') {
-        if (type == 'text') {
-            input = document.createElement('input');
-            input.setAttribute('type', 'text');
-            input.value = value;
-        } else if (type == 'textarea') {
-            input = document.createElement('textarea');
-            var content = document.createTextNode(value);
-            input.appendChild(content);
-        };
-        input.setAttribute('name', name);
-        input.setAttribute('namespace', namespace);
-        input.className = 'metadata-input';
-        if (mandatory) {
-            input.setAttribute('mandatory', 'true');
-        };
-        td.appendChild(input);
-    } else if (type == 'checkbox') {
-        // elements are seperated by ||
-        var infos = value.split('||');
-        for (var i=0; i < infos.length; i++) {
-            // in certain cases the value you want to display is different
-            // from that you want to store, in that case seperate id from
-            // value with a |, there should always be a value|checked, but
-            // in some cases you may want a value|title|checked set...
-            var info = infos[i].split('|');
-            var itemvalue = info[0];
-            var title = info[0];
-            var checked = (info[1] == 'true' || info[1] == 'yes');
-            if (info.length == 3) {
-                title = info[1];
-                checked = (info[2] == 'true' || info[2] == 'yes');
-            };
-            var div = document.createElement('div');
-            var checkbox = document.createElement('input');
-            checkbox.setAttribute('name', name);
-            checkbox.setAttribute('namespace', namespace);
-            checkbox.type = 'checkbox';
-            checkbox.value = itemvalue;
-            if (checked) {
-                checkbox.setAttribute('checked', 'checked');
-            };
-            div.appendChild(checkbox);
-            checkbox.className = 'metadata-checkbox';
-            // XXX a bit awkward to set this on all checkboxes
-            if (mandatory) {
-                checkbox.setAttribute('mandatory', 'true');
-            };
-            div.appendChild(document.createTextNode(title));
-            td.appendChild(div);
-        };
+    if (type == 'text') {
+        input = document.createElement('input');
+        input.value = value;
+        input.setAttribute('type', 'text');
+    } else if (type == 'textarea') {
+        input = document.createElement('textarea');
+        var content = document.createTextNode(value);
+        input.appendChild(content);
     };
+    input.setAttribute('name', name);
+    input.setAttribute('namespace', namespace);
+    input.className = 'metadata-input';
+    if (mandatory) {
+        input.setAttribute('mandatory', 'true');
+    };
+    var td = tablerow.getElementsByTagName('td')[1]
+    td.appendChild(input);
     if (parentvalue && parentvalue != '') {
         td.appendChild(document.createElement('br'));
         td.appendChild(document.createTextNode('acquired value:'));
@@ -2314,36 +2278,21 @@ SilvaPropertyTool.prototype.beforeSave = function() {
     var doc = this.editor.getInnerDocument();
     var inputs = this.table.getElementsByTagName('input');
     var textareas = this.table.getElementsByTagName('textarea');
-    var checkboxdata = {}; // name: value for all checkboxes checked
     var errors = [];
     var okay = [];
     for (var i=0; i < inputs.length; i++) {
         var input = inputs[i];
-        if (!input.getAttribute('namespace')) {
+        if (!input.getAttribute('type') == 'text' || !input.getAttribute('namespace')) {
             continue;
         };
         var name = input.getAttribute('name');
         var scheme = input.getAttribute('namespace');
-        if (input.getAttribute('type') == 'text') {
-            var value = input.value;
-            if (input.getAttribute('mandatory') && value.strip() == '') {
-                errors.push(name);
-                continue;
-            };
-            okay.push([name, scheme, value]);
-        } else if (input.getAttribute('type') == 'checkbox') {
-            if (checkboxdata[name] === undefined) {
-                checkboxdata[name] = [];
-                // XXX yuck!!
-                checkboxdata[name].namespace = scheme;
-                checkboxdata[name].mandatory = 
-                    input.getAttribute('mandatory') ? true : false;
-            };
-            if (input.checked) {
-                checkboxdata[name].push(
-                    input.value.replace('|', '&pipe;', 'g'));
-            };
+        var value = input.value;
+        if (input.getAttribute('mandatory') && value.strip() == '') {
+            errors.push(name);
+            continue;
         };
+        okay.push([name, scheme, value]);
     };
     for (var i=0; i < textareas.length; i++) {
         var textarea = textareas[i];
@@ -2356,25 +2305,15 @@ SilvaPropertyTool.prototype.beforeSave = function() {
         };
         okay.push([name, scheme, value]);
     };
-    for (var name in checkboxdata) {
-        if (checkboxdata[name].mandatory && checkboxdata[name].length == 0) {
-            errors.push(name);
-        } else {
-            var data = checkboxdata[name];
-            okay.push([name, data.namespace, data.join('|')]);
-        };
-    };
     if (errors.length) {
-        throw('Error in properties: fields ' + errors.join(', ') + 
-                ' are required but not filled in');
+        throw('Error: fields ' + errors.join(', ') + ' are required but not filled in');
     };
     for (var i=0; i < okay.length; i++) {
         this._addMetaTag(doc, okay[i][0], okay[i][1], okay[i][2]);
     };
 };
 
-SilvaPropertyTool.prototype._addMetaTag = function(doc, name, scheme, 
-                                                    value, parentvalue) {
+SilvaPropertyTool.prototype._addMetaTag = function(doc, name, scheme, value, parentvalue) {
     var head = doc.getElementsByTagName('head')[0];
     if (!head) {
         throw('The editable document *must* have a <head> element!');
