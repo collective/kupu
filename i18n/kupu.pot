@@ -916,7 +916,7 @@ msgstr ""
 msgid "vertical listing"
 msgstr ""
 
-msgid "listing nosort"
+msgid "unsorted listing"
 msgstr ""
 
 msgid "grid"
