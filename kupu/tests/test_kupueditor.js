@@ -18,10 +18,10 @@ function KupuEditorTestCase() {
     };
 
     this.testGetNearestParentOfType = function() {
-        var doc = Sarissa.getDomDocument();
+        var parser = new DOMParser();
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
-        doc.loadXML(xmlstring);
-        this.assertEquals(doc.xml.strip(),xmlstring);
+        var doc = parser.parseFromString(xmlstring, 'text/xml');
+        this.assertEquals(Sarissa.serialize(doc).strip(),xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
@@ -38,23 +38,22 @@ function KupuEditorTestCase() {
     };
 
     this.testRemoveNearestParentOfType = function() {
-        var doc = Sarissa.getDomDocument();
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
-        doc.loadXML(xmlstring);
-        this.assertEquals(doc.xml.strip(), xmlstring);
+        var doc = (new DOMParser()).parseFromString(xmlstring, 'text/xml');
+        this.assertEquals(Sarissa.serialize(doc).strip(), xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
         // first try to remove a parent we don't have; we expect the
         // xml not to change.
         this.editor.removeNearestParentOfType(span, 'br');
-        this.assertEquals(doc.xml.strip(), xmlstring);  
+        this.assertEquals(Sarissa.serialize(doc).strip(), xmlstring);  
 
         // now remove a real parent; we expect it to be gone in the
         // resulting xml.
         this.editor.removeNearestParentOfType(span, 'a');
         var expected = '<p><a id="outer"><b><span>some link</span></b> Even more</a></p>';
-        this.assertEquals(doc.xml.strip(), expected);
+        this.assertEquals(Sarissa.serialize(doc).strip(), expected);
     };
 
     this.test_serializeOutputToString = function() {
