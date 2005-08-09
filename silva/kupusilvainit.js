@@ -216,6 +216,9 @@ function initSilvaKupu(iframe) {
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
+    var propertytool = new SilvaPropertyTool('propsrow');
+    kupu.registerTool('properties', propertytool);
+
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
 
