@@ -14,6 +14,8 @@ Kupu changes
 
   - More i18n work.
 
+  - table classnames now take an optional caption.
+
 - 1.3rc1
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
