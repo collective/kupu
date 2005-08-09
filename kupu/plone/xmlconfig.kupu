@@ -5,6 +5,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="kupu"
     >
   <kupu:id>$Id$</kupu:id>
 
@@ -19,7 +21,7 @@
     <!-- example of how to create a list of classnames for the table tool -->
     <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
     <table_classes tal:condition="table_classnames">
-      <class tal:content="class" tal:repeat="class table_classnames" />
+      <class i18n:translate="" tal:content="class" tal:repeat="class table_classnames" />
     </table_classes>
     </tal:block>
 
