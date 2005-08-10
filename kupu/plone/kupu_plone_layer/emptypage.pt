@@ -8,6 +8,7 @@
     </metal:css>
     </tal:plone21>
     <tal:plone20 condition="not:exists:here/portal_css">
+    <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/plone.css" />
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/ploneCustom.css" />
     </tal:plone20>
     <base href="emptypage"
