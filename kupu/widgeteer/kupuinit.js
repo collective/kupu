@@ -49,6 +49,72 @@ KupuEditor.prototype.afterInit = function() {
     this.getDocument().getWindow().focus();
 };
 
+function WidgeteerDrawerTool() {
+    this.drawers = {};
+    this.current_drawer = null;
+};
+
+WidgeteerDrawerTool.prototype = new DrawerTool;
+
+WidgeteerDrawerTool.prototype.openDrawer = function(id) {
+    /* open a drawer 
+    
+        overridden so we can place the drawer in the parent document
+    */
+    if (this.current_drawer) {
+        this.closeDrawer();
+    };
+    var drawer = this.drawers[id];
+    if (this.isIE) {
+        drawer.editor._saveSelection();
+    };
+    
+    // make sure the right drawertool is available in parent
+    parent.drawertool = window.drawertool;
+    var parentdoc = parent.document;
+    var placeholder = parentdoc.getElementById('drawerplaceholder')
+
+    drawer.createContent();
+    this.current_drawer = drawer;
+    parentdoc.importNode(drawer.element, 1);
+    placeholder.appendChild(drawer.element);
+    drawer.editor.suspendEditing();
+    placeholder.style.display = 'block';
+};
+
+WidgeteerDrawerTool.prototype.closeDrawer = function(button) {
+    if (!this.current_drawer) {
+        return;
+    };
+    this.current_drawer.hide();
+    this.current_drawer.editor.resumeEditing();
+    this.current_drawer = null;
+    var parentdoc = parent.document;
+    var placeholder = parentdoc.getElementById('drawerplaceholder')
+    placeholder.style.display = 'none';
+};
+
+var win = window;
+parent.HandleDrawerEnter = function(event, clickid) {
+    var key;
+    event = event || win.event;
+    key = event.which || event.keyCode;
+
+    if (key==13) {
+        if (clickid) {
+            var button = win.document.getElementById(clickid);
+            if (button) {
+                button.click();
+            }
+        }
+        event.cancelBubble = true;
+        if (event.stopPropogation) event.stopPropogation();
+
+        return false;
+    }
+    return true;
+};
+
 function initKupu(iframe) {
     // first we create a logger
     var l = new DummyLogger();
@@ -62,34 +128,12 @@ function initKupu(iframe) {
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
     
-    kupu.registerContentChanger(
-        document.getElementById('kupu-editor-textarea'));
-
-    if (kupu.getBrowserName() == 'IE') {
-        // IE supports onbeforeunload, so let's use that
-        addEventHandler(window, 'beforeunload', saveOnPart);
-    } else {
-        // some versions of Mozilla support onbeforeunload (starting with 1.7)
-        // so let's try to register and if it fails fall back on onunload
-        var re = /rv:([0-9\.]+)/
-        var match = re.exec(navigator.userAgent)
-        if (match[1] && parseFloat(match[1]) > 1.6) {
-            addEventHandler(window, 'beforeunload', saveOnPart);
-        } else {
-            addEventHandler(window, 'unload', saveOnPart);
-        };
-    };
-
     var cm = new ContextMenu();
     kupu.setContextMenu(cm);
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
     kupu.registerTool('ui', ui);
-
-    var savebuttonfunc = function(button, editor) {editor.saveDocument()};
-    var savebutton = new KupuButton('kupu-save-button', savebuttonfunc);
-    kupu.registerTool('savebutton', savebutton);
 
     // function that returns a function to execute a button command
     var execCommand = function(cmd) {
@@ -191,9 +235,17 @@ function initKupu(iframe) {
                                              opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
+    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
+                                          opendrawer('linkdrawer'));
+    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
+
+    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
+                                           opendrawer('tabledrawer'));
+    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
+
     // create some drawers, drawers are some sort of popups that appear when a 
     // toolbar button is clicked
-    var drawertool = new DrawerTool();
+    var drawertool = new WidgeteerDrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
     var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
@@ -206,6 +258,12 @@ function initKupu(iframe) {
                                                 conf['search_images_uri']);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
     
+    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
+    drawertool.registerDrawer('linkdrawer', linkdrawer);
+
+    var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
+    drawertool.registerDrawer('tabledrawer', tabledrawer);
+
 //    var nonxhtmltagfilter = new NonXHTMLTagFilter();
 //    kupu.registerFilter(nonxhtmltagfilter);
 
