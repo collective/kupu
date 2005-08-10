@@ -2,7 +2,6 @@
   <head>
     <title>Kupu contentarea</title>
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/kupuplone.css" />
-    <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/plone.css" />
     <tal:plone21 condition="exists:here/portal_css">
     <metal:css metal:use-macro="here/renderAllTheStylesheets/macros/cssrenderer|nothing">
         <!-- Fetch stylesheets from the CSS Registry -->
