@@ -4,8 +4,8 @@
   >
 
   <!-- Include implementations -->
+  <xi:include href="../include.kupu" />
   <xi:include href="include.kupu" />
-  <xi:include href="widgeteer/include.kupu" />
 
   <!-- Define the default slot to start with -->
   <kupu:expand>
