@@ -95,11 +95,11 @@
                 <tr>
                   <th i18n:translate="tabledrawer_class_label" class="kupu-toolbox-label">Table Class</th>
                   <td>
-                    <select class="kupu-tabledrawer-classchooser">
-                      <option value="plain">Plain</option>
-                      <option value="listing">Listing</option>
-                      <option value="grid">Grid</option>
-                      <option value="data">Data</option>
+                    <select class="kupu-tabledrawer-addclasschooser">
+                      <option i18n:translate="" value="plain">Plain</option>
+                      <option i18n:translate="" value="listing">Listing</option>
+                      <option i18n:translate="" value="grid">Grid</option>
+                      <option i18n:translate="" value="data">Data</option>
                     </select>
                   </td>
                 </tr>
@@ -144,12 +144,12 @@
                   <th class="kupu-toolbox-label" 
                       i18n:translate="tabledrawer_class_label">Table Class</th>
                   <td>
-                    <select class="kupu-tabledrawer-classchooser"
+                    <select class="kupu-tabledrawer-editclasschooser"
                             onchange="drawertool.current_drawer.setTableClass(this.options[this.selectedIndex].value)">
-                      <option value="plain">Plain</option>
-                      <option value="listing">Listing</option>
-                      <option value="grid">Grid</option>
-                      <option value="data">Data</option>
+                      <option i18n:translate="" value="plain">Plain</option>
+                      <option i18n:translate="" value="listing">Listing</option>
+                      <option i18n:translate="" value="grid">Grid</option>
+                      <option i18n:translate="" value="data">Data</option>
                     </select>
                   </td>
                 </tr>

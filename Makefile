@@ -75,6 +75,5 @@ clean:
 	rm -rf $(JAVA_DIR)
 	rm -f kupu-i18n.jar
 
-
 debug:
 	$(XSLTPROC) $(XSL_DEBUG) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu

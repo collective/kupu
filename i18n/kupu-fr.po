@@ -880,3 +880,6 @@ msgstr "Droite"
 #: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Gauche"
+
+msgid "Home"
+msgstr "Accueil"

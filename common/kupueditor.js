@@ -68,7 +68,6 @@ function KupuDocument(iframe) {
     this.getEditable = function() {
         return this.editable;
     };
-
 };
 
 /* KupuEditor
@@ -90,11 +89,12 @@ function KupuEditor(document, config, logger) {
     this._designModeSetAttempts = 0;
     this._initialized = false;
 
-    // some properties to save the selection, required for IE to remember where 
-    // in the iframe the selection was
+    // some properties to save the selection, required for IE to remember 
+    // where in the iframe the selection was
     this._previous_range = null;
 
-    // this property is true if the content is changed, false if no changes are made yet
+    // this property is true if the content is changed, false if no changes 
+    // are made yet
     this.content_changed = false;
 
     // methods
@@ -189,10 +189,14 @@ function KupuEditor(document, config, logger) {
     };
     
     this.saveDocument = function(redirect, synchronous) {
-        /* save the document, redirect if te arg is provided and the save is successful 
-        
-            the (optional) redirect argument can be used to make the client jump to
-            another URL when the save action was successful.
+        /* save the document
+
+            the (optional) redirect argument can be used to make the client 
+            jump to another URL when the save action was successful.
+
+            synchronous is a boolean to allow sync saving (usually better to
+            not save synchronous, since it may make browsers freeze on errors,
+            this is used for saveOnPart, though)
         */
         
         // if no dst is available, bail out

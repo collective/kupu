@@ -189,30 +189,40 @@ function TableDrawer(elementid, tool) {
 
     this.addpanel = getBaseTagClass(this.element, 'div', 'kupu-tabledrawer-addtable');
     this.editpanel = getBaseTagClass(this.element, 'div', 'kupu-tabledrawer-edittable');
-    var classselect = getBaseTagClass(this.element, 'select', 'kupu-tabledrawer-classchooser');
+    var editclassselect = getBaseTagClass(this.element, 'select', 'kupu-tabledrawer-editclasschooser');
+    var addclassselect = getBaseTagClass(this.element, 'select', 'kupu-tabledrawer-addclasschooser');
     var alignselect = getBaseTagClass(this.element, 'select', 'kupu-tabledrawer-alignchooser');
     var newrowsinput = getBaseTagClass(this.element, 'input', 'kupu-tabledrawer-newrows');
     var newcolsinput = getBaseTagClass(this.element, 'input', 'kupu-tabledrawer-newcols');
     var makeheadercheck = getBaseTagClass(this.element, 'input', 'kupu-tabledrawer-makeheader');
 
     this.createContent = function() {
-        var selNode = this.editor.getSelectedNode();
-        if (this.editor.config.table_classes) {
-            var classes = this.editor.config.table_classes['class'];
-            while (classselect.hasChildNodes()) {
-                classselect.removeChild(classselect.firstChild);
-            };
-            for (var i=0; i < classes.length; i++) {
-                var classname = classes[i];
-                var option = document.createElement('option');
-                var content = document.createTextNode(classname);
-                option.appendChild(content);
-                option.setAttribute('value', classname);
-                classselect.appendChild(option);
+        var editor = this.editor;
+        var selNode = editor.getSelectedNode();
+
+        function fixClasses(classselect) {
+            if (editor.config.table_classes) {
+                var classes = editor.config.table_classes['class'];
+                while (classselect.hasChildNodes()) {
+                    classselect.removeChild(classselect.firstChild);
+                };
+                for (var i=0; i < classes.length; i++) {
+                    var classinfo = classes[i];
+                    var caption = classinfo.xcaption || classinfo;
+                    var classname = classinfo.classname || classinfo;
+
+                    var option = document.createElement('option');
+                    var content = document.createTextNode(caption);
+                    option.appendChild(content);
+                    option.setAttribute('value', classname);
+                    classselect.appendChild(option);
+                };
             };
         };
+        fixClasses(addclassselect);
+        fixClasses(editclassselect);
         
-        var table = this.editor.getNearestParentOfType(selNode, 'table');
+        var table = editor.getNearestParentOfType(selNode, 'table');
 
         if (!table) {
             // show add table drawer
@@ -224,7 +234,7 @@ function TableDrawer(elementid, tool) {
             hide = this.addpanel;
             var align = this.tool._getColumnAlign(selNode);
             selectSelectItem(alignselect, align);
-            selectSelectItem(classselect, table.className);
+            selectSelectItem(editclassselect, table.className);
         };
         hide.style.display = 'none';
         show.style.display = 'block';
@@ -236,7 +246,7 @@ function TableDrawer(elementid, tool) {
         this.editor.resumeEditing();
         var rows = newrowsinput.value;
         var cols = newcolsinput.value;
-        var style = classselect.value;
+        var style = addclassselect.value;
         var add_header = makeheadercheck.checked;
         this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
         this.drawertool.closeDrawer();

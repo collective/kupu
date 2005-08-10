@@ -119,11 +119,11 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         try:
             return self.table_classnames
         except AttributeError:
-            return ('plain', 'listing', 'vertical listing', 'listing nosort')
+            return ('plain', 'listing', 'vertical listing', 'listing nosort|unsorted listing')
 
     security.declareProtected('View', "getParagraphStyles")
     def getParagraphStyles(self):
-        """Return a list of classnames supported in tables"""
+        """Return a list of classnames supported by paragraphs"""
         try:
             return self.paragraph_styles
         except AttributeError:
