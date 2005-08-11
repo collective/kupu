@@ -54,7 +54,7 @@ function WidgeteerDrawerTool() {
     this.current_drawer = null;
 };
 
-WidgeteerDrawerTool.prototype = new DrawerTool;
+//WidgeteerDrawerTool.prototype = new DrawerTool;
 
 WidgeteerDrawerTool.prototype.openDrawer = function(id) {
     /* open a drawer 
@@ -76,8 +76,38 @@ WidgeteerDrawerTool.prototype.openDrawer = function(id) {
 
     drawer.createContent();
     this.current_drawer = drawer;
-    parentdoc.importNode(drawer.element, 1);
-    placeholder.appendChild(drawer.element);
+    if (!parentdoc.importNode) {
+        // f$@%ng IE
+        var importNode = function(doc, oNode, bImportChildren){
+            var oNew;
+
+            if(oNode.nodeType == 1){
+                oNew = doc.createElement(oNode.nodeName);
+                for(var i = 0; i < oNode.attributes.length; i++){
+                    oNew.setAttribute(oNode.attributes[i].name, 
+                                        oNode.attributes[i].value);
+                }
+                oNew.style.cssText = oNode.style.cssText;
+            } else if(oNode.nodeType == 3){
+                oNew = doc.createTextNode(oNode.nodeValue);
+            }
+            
+            if(bImportChildren && oNode.hasChildNodes()){
+                for(var oChild = oNode.firstChild; oChild; 
+                                oChild = oChild.nextSibling){
+                    oNew.appendChild(importNode(doc, oChild, true));
+                }
+            }
+            
+            return oNew;
+        }
+        var imported = importNode(parentdoc, drawer.element, 1);
+        placeholder.appendChild(imported);
+        drawer.element.display = 'none';
+    } else {
+        parentdoc.importNode(drawer.element, 1);
+        placeholder.appendChild(drawer.element);
+    };
     drawer.editor.suspendEditing();
     placeholder.style.display = 'block';
 };
@@ -122,7 +152,7 @@ function initKupu(iframe) {
     var parentiframe = null;
     for (var i=0; i < parentiframes.length; i++) {
         var pif = parentiframes[i];
-        if (pif.contentWindow === window) {
+        if (pif.contentWindow == window) {
             // load the contents of the textarea into the body element
             iframe.contentWindow.document.getElementsByTagName('body')[0]
                     .innerHTML = pif.textarea.value;
@@ -238,6 +268,7 @@ function initKupu(iframe) {
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
     
+    /*
     // Function that returns function to open a drawer
     var opendrawer = function(drawerid) {
         return function(button, editor) {
@@ -281,6 +312,7 @@ function initKupu(iframe) {
 
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
+    */
 
 //    var nonxhtmltagfilter = new NonXHTMLTagFilter();
 //    kupu.registerFilter(nonxhtmltagfilter);
