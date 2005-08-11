@@ -7,10 +7,10 @@
   <kupu:fill-slot name="head">
     <kupu:insert-part feature="head" part="meta" />
     <kupu:insert-part feature="head" part="styles" />
-    <kupu:insert-part feature="drawers" part="styles" />
+    <!-- <kupu:insert-part feature="drawers" part="styles" /> -->
     <kupu:insert-part feature="head" part="jsincludes" />
     <kupu:insert-part feature="contextmenu" part="jsincludes" />
-    <kupu:insert-part feature="drawers" part="jsincludes" />
+    <!-- <kupu:insert-part feature="drawers" part="jsincludes" /> -->
     <kupu:insert-part feature="head" part="bootstrap-editor" />
     <kupu:insert-part feature="saveonpart" part="jsincludes" />
     <kupu:insert-part feature="sourceedit" part="jsincludes" />
@@ -46,7 +46,7 @@
     <kupu:insert-part feature="toolbar" part="buttongroup-list" />
     <kupu:insert-part feature="toolbar" part="buttongroup-definitionlist" />
     <kupu:insert-part feature="toolbar" part="buttongroup-indent" />
-    <kupu:insert-part feature="drawers" part="buttons" />
+    <!-- <kupu:insert-part feature="drawers" part="buttons" /> -->
     <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
     <kupu:insert-part feature="spellchecker" part="buttons" />
