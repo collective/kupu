@@ -107,6 +107,10 @@ div.kupu-tb-buttongroup {
 
 
 .kupu {
+  font-size: 110%;
+}
+
+html.kupu-html {
   font-size: &dtml-fontBaseSize;;
 }
 
