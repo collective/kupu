@@ -190,6 +190,10 @@ function initKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'))
     kupu.registerTool('redobutton', redobutton);
 
+    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
+                                                'kupu-hilitecolor-button',
+                                                'kupu-colorchooser');
+    kupu.registerTool('colorchooser', colorchoosertool);
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
                                 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
