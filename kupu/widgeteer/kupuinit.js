@@ -116,6 +116,20 @@ parent.HandleDrawerEnter = function(event, clickid) {
 };
 
 function initKupu(iframe) {
+    // we have to perform some tricks to find out what 'our' iframe is in
+    // the parent document
+    var parentiframes = parent.document.getElementsByTagName('iframe');
+    var parentiframe = null;
+    for (var i=0; i < parentiframes.length; i++) {
+        var pif = parentiframes[i];
+        if (pif.contentWindow === window) {
+            this.parentiframe = parentiframe = pif;
+            break
+        };
+    };
+    iframe.contentWindow.document.getElementsByTagName('body')[0].innerHTML =
+                                        parentiframe.textarea.value;
+
     // first we create a logger
     var l = new DummyLogger();
 
