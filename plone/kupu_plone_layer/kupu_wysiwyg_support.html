@@ -11,17 +11,17 @@
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 15499 2005-08-01 14:56:39Z duncan $-->
+    <!--$Id: toolbar.kupu 15926 2005-08-10 15:41:46Z duncan $-->
     <!--$Id: toolboxes.kupu 13098 2005-06-06 12:11:48Z mihxil $-->
     <!--$Id: colorchooser.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: drawers.kupu 15396 2005-07-30 08:03:51Z gotcha $-->
+    <!--$Id: drawers.kupu 15926 2005-08-10 15:41:46Z duncan $-->
     <!--$Id: include.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: wire.kupu 15258 2005-07-28 15:08:12Z duncan $-->
     <!--$Id: head.kupu 14575 2005-07-12 20:18:12Z duncan $-->
-    <!--$Id: xmlconfig.kupu 12437 2005-05-18 13:19:00Z duncan $-->
-    <!--$Id: body.kupu 15258 2005-07-28 15:08:12Z duncan $-->
-    <!--$Id: toolbar.kupu 15499 2005-08-01 14:56:39Z duncan $-->
+    <!--$Id: xmlconfig.kupu 15926 2005-08-10 15:41:46Z duncan $-->
+    <!--$Id: body.kupu 15693 2005-08-05 14:14:33Z duncan $-->
+    <!--$Id: toolbar.kupu 15926 2005-08-10 15:41:46Z duncan $-->
     <!--$Id: drawers.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: beforeunload.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: sourceedit.kupu 14575 2005-07-12 20:18:12Z duncan $-->
@@ -45,7 +45,12 @@
     
     <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
     <table_classes tal:condition="table_classnames">
-      <class tal:content="class" tal:repeat="class table_classnames"/>
+      <tal:loop repeat="klass table_classnames">
+      <class tal:define="parts python:klass.split('|', 1)*2;" tal:condition="python:parts[0].strip()">
+          <xcaption i18n:translate="" tal:content="python:parts[1]"/>
+          <classname tal:content="python:parts[0]"/>
+      </class>
+      </tal:loop>
     </table_classes>
     </tal:block>
 
@@ -119,7 +124,7 @@
     </span>
   
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-zoom">
-      <button type="button" class="kupu-zoom" id="kupu-zoom-button" title="zoom: alt-x" accesskey="x">&#160;</button>
+      <button type="button" class="kupu-zoom" id="kupu-zoom-button" i18n:attributes="title" title="zoom: alt-x" accesskey="x">&#160;</button>
     </span>
   
     <select class="kupu-tb-styles">
@@ -128,7 +133,7 @@
         <option i18n:translate="" tal:define="parts python:style.split('|',1)+['','']" tal:attributes="value python:parts[1]" tal:content="python:parts[0]"/>
       </tal:block>
       <tal:block tal:condition="field/widget/parastyles|nothing">
-        <option tal:condition="field/widget/parastyles" tal:repeat="style field/widget/parastyles" tal:attributes="value python:style[0]" tal:content="python:style[1]"/>
+        <option i18n:translate="" tal:condition="field/widget/parastyles" tal:repeat="style field/widget/parastyles" tal:attributes="value python:style[0]" tal:content="python:style[1]"/>
       </tal:block>
     </select>
   
@@ -254,11 +259,11 @@
                 <tr>
                   <th i18n:translate="tabledrawer_class_label" class="kupu-toolbox-label">Table Class</th>
                   <td>
-                    <select class="kupu-tabledrawer-classchooser">
-                      <option value="plain">Plain</option>
-                      <option value="listing">Listing</option>
-                      <option value="grid">Grid</option>
-                      <option value="data">Data</option>
+                    <select class="kupu-tabledrawer-addclasschooser">
+                      <option i18n:translate="" value="plain">Plain</option>
+                      <option i18n:translate="" value="listing">Listing</option>
+                      <option i18n:translate="" value="grid">Grid</option>
+                      <option i18n:translate="" value="data">Data</option>
                     </select>
                   </td>
                 </tr>
@@ -293,11 +298,11 @@
                 <tr>
                   <th class="kupu-toolbox-label" i18n:translate="tabledrawer_class_label">Table Class</th>
                   <td>
-                    <select class="kupu-tabledrawer-classchooser" onchange="drawertool.current_drawer.setTableClass(this.options[this.selectedIndex].value)">
-                      <option value="plain">Plain</option>
-                      <option value="listing">Listing</option>
-                      <option value="grid">Grid</option>
-                      <option value="data">Data</option>
+                    <select class="kupu-tabledrawer-editclasschooser" onchange="drawertool.current_drawer.setTableClass(this.options[this.selectedIndex].value)">
+                      <option i18n:translate="" value="plain">Plain</option>
+                      <option i18n:translate="" value="listing">Listing</option>
+                      <option i18n:translate="" value="grid">Grid</option>
+                      <option i18n:translate="" value="data">Data</option>
                     </select>
                   </td>
                 </tr>
