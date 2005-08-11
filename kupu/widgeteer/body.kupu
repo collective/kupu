@@ -15,4 +15,19 @@
     </body>
   </kupu:part>
 
+  <kupu:part name="editorframe">
+    <div class="kupu-editorframe">
+      <form>
+        <iframe id="kupu-editor"
+                class="kupu-editor-iframe"
+                frameborder="0"
+                src="../widgeteer/empty.html"
+                scrolling="auto">
+        </iframe>
+        <!-- XXX this should be moved to sourceedit.kupu somehow -->
+        <textarea class="kupu-editor-textarea" id="kupu-editor-textarea"> </textarea>
+      </form>
+    </div>
+  </kupu:part>
+
 </kupu:feature>
