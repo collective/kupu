@@ -88,7 +88,7 @@ Special thanks to
 Translations
 ------------
 
-* Roman Joost - German
+* Roman Joost and Carsten Senger - German
 
 * Michiel Meeuwissen - Esperanto
 
