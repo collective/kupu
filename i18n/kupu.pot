@@ -901,13 +901,13 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-msgid "Current Folder"
+msgid "Current folder"
 msgstr ""
 
-msgid "My Recent Items"
+msgid "My recent items"
 msgstr ""
 
-msgid "Recent Items"
+msgid "Recent items"
 msgstr ""
 
 #: Default Table classes
