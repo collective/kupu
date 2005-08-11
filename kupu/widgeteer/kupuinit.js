@@ -123,12 +123,12 @@ function initKupu(iframe) {
     for (var i=0; i < parentiframes.length; i++) {
         var pif = parentiframes[i];
         if (pif.contentWindow === window) {
-            this.parentiframe = parentiframe = pif;
+            // load the contents of the textarea into the body element
+            iframe.contentWindow.document.getElementsByTagName('body')[0]
+                    .innerHTML = pif.textarea.value;
             break
         };
     };
-    iframe.contentWindow.document.getElementsByTagName('body')[0].innerHTML =
-                                        parentiframe.textarea.value;
 
     // first we create a logger
     var l = new DummyLogger();
