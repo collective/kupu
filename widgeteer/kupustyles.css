@@ -87,19 +87,18 @@ div.kupu-smalleditor {
 }
 
 .kupu-tb {
-  background-color: ButtonFace;
+  background-color: #AAFFAA;
   border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
   margin: 0px;
   padding: 0px;
 }
 
 .kupu-tb-buttons button {
-  color: ButtonText;
+  background-color: #AAFFAA;
   border: 1px solid ButtonFace;
-  margin-top: 0;
-  margin-left: 0;
-  height: 26px;
-  width: 26px;
+  margin: 0px;
+  height: 23px;
+  width: 23px;
   background-repeat: no-repeat;
 }
 
