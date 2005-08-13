@@ -99,11 +99,12 @@ div.kupu-smalleditor {
 
 .kupu-tb-buttons button {
   background-color: transparent;
-  border: 1px solid ButtonFace;
+  border: 1px solid #ddd;
   margin: 0px;
-  height: 23px;
-  width: 23px;
+  height: 24px;
+  width: 24px;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .kupu-tb-buttons button:hover {
