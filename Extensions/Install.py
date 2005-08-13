@@ -121,8 +121,6 @@ def install_resources(self, out):
     for id in css_files(data):
         print >>out, "CSS file", id
         cookable = True
-        if id == "kupuplone.css":
-            cookable = False
         csstool.manage_removeStylesheet(id=id)
         csstool.manage_addStylesheet(id=id,
             expression=CONDITION,
