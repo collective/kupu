@@ -87,12 +87,14 @@ div.kupu-smalleditor {
 }
 
 .kupu-tb {
-  background-color: #AAFFAA;
-  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
   margin: 0px;
   padding: 0px;
   background-image: url('../common/kupuimages/toolbarbg_purple.png');
   padding: 2px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: black;
+  border-bottom-width: 1px;
 }
 
 .kupu-tb-buttons button {
