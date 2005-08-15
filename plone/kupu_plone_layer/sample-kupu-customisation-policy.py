@@ -75,7 +75,7 @@ LIBRARIES = (
 DEFAULT_LIBRARY = 'myitems'
 
 INSTALL_BEFOREUNLOAD = True
-LINKBYUID = True
+LINKBYUID = False
 
 tool = getToolByName(context, 'kupu_library_tool')
 typetool = getToolByName(context, 'portal_types')

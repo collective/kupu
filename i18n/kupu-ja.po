@@ -1,265 +1,262 @@
+# Translation of kupu-ja.po to Japanese
+# J <naotaka@we.care.jp> 2005
+# Suzuki Takanori <takanori@takanory.net> 2005
 msgid ""
 msgstr ""
-"Project-Id-Version: kupu\n"
-"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
-"PO-Revision-Date: 2005-08-12 10:34+0200\n"
-"Last-Translator: Vlada Macek <tuttle@bbs.cvut.cz>\n"
-"Language-Team: Vlada Macek\n"
+"POT-Creation-Date: Wed Aug  7 16:07:37 2005\n"
+"PO-Revision-Date: 2005-05-03 16:41+0200\n"
+"Last-Translator: J <Naotaka@we.care.jp>\n"
+"Language-Team: gocept i18n team <rj@gocept.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Code: cs\n"
-"Language-Name: Czech\n"
 "Generated-By: zope/app/translation_files/extract.py\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language-code: Ja\n"
+"Language-name: Japanese\n"
 "Domain: kupu\n"
 
 #: /common/kupu.pox:None
 msgid "Properties modified"
-msgstr "Vlastnosti byly upraveny."
+msgstr "プロパティが変更されました。"
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
-msgstr "Příkaz ${command} byl proveden s parametrem ${param}."
+msgstr "${command} コマンドが、パラメータ：${param} で実行されました。"
 
 #: /common/kupu.pox:None
 msgid "Not inside a definition list element!"
-msgstr "Mimo prvek seznamu definic."
+msgstr "定義リストエレメントの中にありません！"
 
 #: /common/kupu.pox:None
 msgid "Add table"
-msgstr "Přidat tabulku"
+msgstr "表を追加"
 
 #: /common/kupu.pox:None
 msgid "Table added"
-msgstr "Tabulka byla přidána."
+msgstr "表が追加されました。"
 
 #: /common/kupu.pox:None
 msgid "Source edit tool initialized"
-msgstr "Nástroj editace zdrojového kódu byl inicializován."
+msgstr "ソース編集ツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Delete row"
-msgstr "Odstranit řádek"
+msgstr "行を削除"
 
 #: /common/kupu.pox:None
 msgid "Recursion detected when counting column position"
-msgstr "Při výpočtu pozice sloupce byla zjištěna rekurze."
+msgstr "列位置をカウントする際に、Recursionが削除されました。"
 
 #: /common/kupu.pox:None
 msgid "List style changed"
-msgstr "Styl seznamu byl změněn."
+msgstr "リストスタイルが変更されました。"
 
 #: /common/kupu.pox:None
 msgid "Create image"
-msgstr "Vytvořit obrázek"
+msgstr "画像を追加"
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "Některé změny nebyly uloženy. Chcete je před opuštěním této stránky uložit?"
+msgstr "変更が保存されていません。別のページに移行する前に変更を保存しますか？"
 
 #: /common/kupu.pox:None
 msgid "Table row removed"
-msgstr "Řádek tabulky byl odebrán."
+msgstr "行が削除されました。"
 
 #: /common/kupu.pox:None
 msgid "Document saved"
-msgstr "Dokument byl uložen."
+msgstr "ドキュメントが保存されました。"
 
 #: /common/kupu.pox:None
 msgid "Color chosen"
-msgstr "Barva byla vybrána."
+msgstr "選択色"
 
 #: /common/kupu.pox:None
 msgid "Table row added"
-msgstr "Řádek tabulky byl přidán."
+msgstr "行が追加されました。"
 
 #: /common/kupu.pox:None
 msgid "Error saving document"
-msgstr "Chyba při ukládání dokumentu."
+msgstr "ドキュメントの保存中にエラーがありました。"
 
 #: /common/kupu.pox:None
 msgid "No destination URL available!"
-msgstr "Cílová adresa URL není k dispozici."
+msgstr "リンク先の URL がありません"
 
 #: /common/kupu.pox:None
 msgid "Link removed"
-msgstr "Odkaz byl odebrán."
+msgstr "リンクが削除されました。"
 
 #: /common/kupu.pox:None
 msgid "No row to delete"
-msgstr "Není žádný řádek k odstranění."
+msgstr "行が削除されませんでした。"
 
 #: /common/kupu.pox:None
 msgid "Delete Table"
-msgstr "Odstranit tabulku"
+msgstr "表を削除"
 
 #: /common/kupu.pox:None
 msgid "Cleanup done, sending document to server"
-msgstr "Čištění dokončeno, dokument je odesílán na server."
+msgstr "整理が終わりました。ドキュメントをサーバに送ります。"
 
 #: /common/kupu.pox:None
 msgid "Image tool initialized"
-msgstr "Nástroj obrázků byl inicializován."
+msgstr "画像ツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "End offset out of range!"
-msgstr "Koncový posun je mimo rozsah!"
+msgstr "終了オフセットが範囲外です！"
 
 #: /common/kupu.pox:None
 msgid "tdindex: ${tdindex}"
-msgstr "tdindex: ${tdindex}"
+msgstr "tdインデックス: ${tdindex}"
 
 #: /common/kupu.pox:None
 msgid "Create link"
-msgstr "Vytvořit odkaz"
+msgstr "リンクする"
 
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
-msgstr "Začíná čištění kódu HTML."
+msgstr "HTML の整理を始めます。"
 
 #: /common/kupu.pox:None
 msgid "Link modified"
-msgstr "Odkaz byl upraven."
+msgstr "リンク変更されました。"
 
 #: /common/kupu.pox:None
 msgid "Request sent to server"
-msgstr "Požadavek byl odeslán na server."
+msgstr "要求がサーバに送られました。"
 
 #: /common/kupu.pox:None
 msgid "Table tool initialized"
-msgstr "Nástroj tabulek byl inicializován."
+msgstr "表ツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "There were no errors."
-msgstr "Nebyly nalezeny žádné chyby."
+msgstr "エラーはありません。"
 
 #: /common/kupu.pox:None
 msgid ""
 "exception ${message} while registering an event handler for element "
 "${element}, event ${event}, method ${method}"
 msgstr ""
-"Výjimka ${message} při registraci obsluhy události prvku  ${element}. "
-"Událost ${event}, metoda ${method}."
+"エレメントのイベントのハンドラーの登録中に例外 ${message}"
+"${element}, event ${event}, method ${method}"
 
 #: /common/kupu.pox:None
 msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr "Chyba při načítání překladu (stav ${status}), návrat k angličtině."
+msgstr ""
+"日本語化用 po ファイルの読み込みに失敗しました（status ${status}）。"
+"英語に戻ります。"
 
 #: /common/kupu.pox:None
 msgid "Start node offset detected in a node without children!"
-msgstr "Posun počátečního uzlu se nachází v uzlu bez podřízených."
+msgstr "Start node offset detected in a node without children!"
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "Varování: KupuTool._selectSelectItem je zavrženo."
+msgstr "非難警告: KupuTool._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
 msgstr ""
-"Není možné přejít do režimu návrhu. Editor Kupu nebude v tomto prohlížeči "
-"pracovat."
+"デザインモードへ移行できません。"
+"Kupu はこのブラウザでは利用できません。"
 
 #: /common/kupu.pox:None
 msgid "No element found in the config island!"
-msgstr "V konfiguraci nebyl nalezen žádný prvek."
+msgstr "設定領域内でエレメントが発見できませんでした。"
 
 #: /common/kupu.pox:None
 msgid "Start offset out of range!"
-msgstr "Počáteční posun je mimo rozsah."
+msgstr "開始オフセットが範囲外です！"
 
 #: /common/kupu.pox:None
 msgid ""
 "Pasting from JavaScript is disabled on your Mozilla due to security "
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
-msgstr ""
-"Vkládání pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
-"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
+msgstr "Mozilla のセキュリティの設定のため、JavaScript からの貼り付けが無効化されています。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでください。"
 
 #: /common/kupu.pox:None
 msgid "Property tool initialized"
-msgstr "Nástroj vlastností byl inicializován."
+msgstr "プロパティツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Colorchooser tool initialized"
-msgstr "Nástroj pro výběr barev byl inicializován."
+msgstr "色選択ツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "No parentcolumn found!"
-msgstr "Nadřazený sloupec nebyl nalezen!"
+msgstr "上位の列が見つかりませんでした。"
 
 #: /common/kupu.pox:None
 msgid "Row repeated"
-msgstr "Řádek byl zopakován."
+msgstr "行が繰り返されました。"
 
 #: /common/kupu.pox:None
 msgid "Table removed"
-msgstr "Tabulka byla odebrána."
+msgstr "表が削除されました。"
 
 #: /common/kupu.pox:None
 msgid "Cut"
-msgstr "Vyjmout"
+msgstr "削除"
 
 #: /common/kupu.pox:None
 msgid "Unsupported browser!"
-msgstr "Nepodporovaný prohlížeč..."
+msgstr "非対応ブラウザです！"
 
 #: /common/kupu.pox:None
 msgid "Add row"
-msgstr "Přidat řádek"
+msgstr "行を追加"
 
 #: /common/kupu.pox:None
 msgid "Link tool initialized"
-msgstr "Nástroj odkazů byl inicializován."
+msgstr "リンクツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Sending request to server"
-msgstr "Požadavek je odesílán na server."
+msgstr "要求をサーバに送ります。"
 
 #: /common/kupu.pox:None
 msgid "Invalid table size"
-msgstr "Neplatná velikost tabulky"
+msgstr "表サイズが異常です。"
 
 #: /common/kupu.pox:None
 msgid "Error placing back selection"
-msgstr "Chyba při vracení výběru."
+msgstr "セレクションを戻す際のエラー"
 
 #: /common/kupu.pox:None
 msgid "Delete link"
-msgstr "Odstranit odkaz"
+msgstr "リンクを削除"
 
 #: /common/kupu.pox:None
 msgid "Add column"
-msgstr "Přidat sloupec"
+msgstr "列を追加"
 
 #: /common/kupu.pox:None
 msgid ""
 "Cutting from JavaScript is disabled on your Mozilla due to security "
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
-msgstr ""
-"Vyjímání pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
-"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
+msgstr "Mizilla のセキュリティの設定のため、JavaScript からの切り取りが無効化されています。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでください。"
+
 
 #: /common/kupu.pox:None
 msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "Výjimka během zpracování funkce updateState s údaji ${id}: ${msg}."
+msgstr "${id}: ${msg} について状態を更新する時に例外が発生しました。"
 
 #: /common/kupu.pox:None
 msgid "Cleaning up HTML..."
-msgstr "Čištění kódu HTML..."
+msgstr "HTML の整理をします。"
 
 #: /common/kupu.pox:None
 msgid "List style tool initialized"
-msgstr "Nástroj seznamových stylů byl inicializován."
+msgstr "リストスタイルツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Row repeat turned off"
-msgstr "Opakování řádků bylo vypnuto."
+msgstr "行の反復をしない"
 
 #: /common/kupu.pox:None
 msgid ""
@@ -267,363 +264,378 @@ msgid ""
 "files aren\\'t available. If this is not the Kupu demo version, check your "
 "files or the service that provide them (error: ${error})."
 msgstr ""
-"Nebylo možné inicializovat grafické součásti; zřejmě proto, že chybí soubory "
-"XSLT či XML. Pokud se nejedná o demonstrační verzi editoru Kupu, "
-"zkontrolujte soubory nebo službu, která je poskytuje (chyba: ${error})."
+"ドローソフトの初期化に失敗しました。多くの場合 XSLT か XML ファイルが存在しないことが原因です。"
+"もしも、この Kupu がデモバージョンでない場合、ファイルや（error: ${error}）で表示されてたサービスをチェックしてください。"
+
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "Varování: KupuToolBox._selectSelectItem je zavrženo."
+msgstr "非難警告: KupuToolBox._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid ""
 "Copying from JavaScript is disabled on your Mozilla due to security "
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
-msgstr ""
-"Kopírování pomocí JavaScriptu je v prohlížečích Mozilla z bezpečnostních "
-"důvodů zakázáno. Další informace naleznete na stránce http://www.mozilla.org/"
-"editor/midasdemo/securityprefs.html"
+msgstr "Mozilla のセキュリティの設定のため、JavaScript からのコピーが無効化されています。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでください。"
+
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed"
-msgstr "Příkaz ${command} byl proveden."
+msgstr "${command}コマンドを実行しました。"
 
 #: /common/kupu.pox:None
 msgid "Delete column"
-msgstr "Odstranit sloupec"
+msgstr "列を削除"
 
 #: /common/kupu.pox:None
 msgid ""
 "Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
 "log for more information."
 msgstr ""
-"Chyba při ukládání dat.\\nZjištěný stav: ${status}.\\nDalší informace "
-"hledejte v protokolu serveru."
+"データの保存に失敗しました。\\nResponse status: ${status}"
+"詳細に関しては、サーバのログを確認してください。"
 
 #: /common/kupu.pox:None
 msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr "Tato vlastnost vyžaduje povolení vyskakovacích (pop-up) oken v prohlížeči."
+msgstr "この機能を利用するのには、ブラウザのポップアップ（pop-up）機能を有効にする必要があります！"
 
 #: /common/kupu.pox:None
 msgid "Not inside link"
-msgstr "Mimo odkaz."
+msgstr "内部リンクではありません。"
 
 #: /common/kupu.pox:None
 msgid "View source"
-msgstr "Zobrazit zdrojový kód"
+msgstr "ソース閲覧"
 
 #: /common/kupu.pox:None
 msgid "Image inserted"
-msgstr "Obrázek byl vložen."
+msgstr "画像を追加"
 
 #: /common/kupu.pox:None
 msgid "Browser not supported!"
-msgstr "Nepodporovaný prohlížeč."
+msgstr "非対応ブラウザ！"
 
 #: /common/kupu.pox:None
 msgid "Please wait while saving document..."
-msgstr "Počkejte na uložení dokumentu..."
+msgstr "ドキュメントの保存中です。しばらくお待ちください・・・"
 
 #: /common/kupu.pox:None
 msgid "Editor initialized"
-msgstr "Editor byl inicializován."
+msgstr "エディタが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Copy"
-msgstr "Kopírovat"
+msgstr "コピー"
 
 #: /common/kupu.pox:None
 msgid "Paste"
-msgstr "Vložit"
+msgstr "貼り付け"
 
 #: /common/kupu.pox:None
 msgid "Zoom tool initialized"
-msgstr "Nástroj pro zvětšení byl inicializován."
+msgstr "ズームツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Table column deleted"
-msgstr "Sloupec tabulky byl odstraněn."
+msgstr "表の列が削除されました。"
 
 #: /common/kupu.pox:None
 msgid "Offset out of document range"
-msgstr "Posun je mimo rozsah dokumentu."
+msgstr "オフセットがドキュメントの範囲を超えています"
 
 #: /common/kupu.pox:None
 msgid "Table cleaned up"
-msgstr "Tabulka byla vyčištěna."
+msgstr "表を整理"
 
 #: /common/kupu.pox:None
 msgid "Error loading data, status ${status}"
-msgstr "Chyba při načítání dat, stav ${status}."
+msgstr "データ読み込みエラー：status ${status"
 
 #: /common/kupu.pox:None
-msgid "Could not set status bar message, check your browser\\'s security settings."
+msgid ""
+"Could not set status bar message, check your browser\\'s security settings."
 msgstr ""
-"Není možné změnit obsah stavového pruhu, zkontrolujte bezpečnostní nastavení "
-"prohlížeče."
+"ステータスバーのメッセージを設定できませんでした。ブラウザのセキュリティ設定を確認してください。"
 
 #: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
-msgstr "Posun koncového uzlu se nachází v uzlu bez podřízených."
+msgstr "End node offset detected in a node without children!"
 
 #: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr "Formulář nebyl uložen. Všechny provedené změny budou ztraceny."
+msgstr "フォームが保存されませんでした。変更した内容の情報はすべて失われました。"
 
 #: /common/kupu.pox:None
 msgid "Link added"
-msgstr "Odkaz byl přidán."
+msgstr "リンクが追加されました。"
 
 #: /common/kupu.pox:None
 msgid "No head in document!"
-msgstr "V dokumentu chybí záhlaví."
+msgstr "ドキュメントに見出しがありません！"
 
 #: /common/kupu.pox:None
 msgid "Not inside a row!"
-msgstr "Mimo řádek!"
+msgstr "行の中ではできません！"
 
 #: /common/kupu.pox:None
 msgid "Not inside a table!"
-msgstr "Mimo tabulku."
+msgstr "表の中ではできません！"
 
 #: /common/kupu.pox:None
 msgid "Selection not inside the node!"
-msgstr "Výběr není uvnitř uzlu."
+msgstr "セレクションがノードの中ではありません！"
 
 #: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
-msgstr "Editor nebyl ještě inicializován."
+msgstr "エディタが初期化されていません！"
 
 #: /common/kupu.pox:None
 msgid "Table column added"
-msgstr "Sloupec tabulky byl přidán."
+msgstr "表の列が追加されました。"
 
-# Original: Caption
+# Default: "Caption"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_caption_label"
-msgstr "Titulek"
+msgstr "キャプション"
 
-# Original: Insert Link
+# Default: "Insert Link"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title"
-msgstr "Vložení odkazu"
+msgstr "リンクを追加"
 
-# Original: Left
+# Default: "Left"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_left"
-msgstr "Vlevo"
+msgstr "左"
 
-# Original: (${width} by ${height})
+# Default: "(${width} by ${height})"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_size"
-msgstr "(${width} krát ${height})"
+msgstr "（幅×高）"
 
-# Original: Insert Image
+# Default: "Insert Image"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_title"
-msgstr "Vložení obrázku"
+msgstr "画像を追加"
 
-# Original: Upload to: ${folder}
+# Default: "Upload to: ${folder}"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_to_label"
-msgstr "Načtení do složky: ${folder}"
+msgstr "${folder} へアップロード"
 
-# Original: Name
+# Default: "Name"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_name_label"
-msgstr "Název"
+msgstr "名前"
 
-# Original: Preview
+# Default: "Preview"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_preview_label"
-msgstr "Náhled"
+msgstr "プレビュー"
 
-# Original: Select an image from your computer and click ok to have it
-# automatically uploaded to selected folder and inserted into the
-# editor.
+# Default: ""
+# "Select an image from your computer and click ok to have it\n"
+# "            automatically uploaded to selected folder and inserted into the\n"
+# "            editor."
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_instructions"
 msgstr ""
-"Vyberte ve svém počítači obrázek. Po klepnutí na tlačítko OK bude tento "
-"automaticky nahrán do vybrané složky a vložen do editoru."
 
-# Original: Upload...
+# Default: "Upload ..."
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_link"
-msgstr "Nahrát..."
+msgstr "アップロード..."
 
-# Original: Title:
+# Default: "Title:"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_title_label"
-msgstr "Nadpis:"
+msgstr "タイトル"
 
-# Original: Title
+# Default: "Title"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title_label"
-msgstr "Nadpis"
+msgstr "タイトル"
 
-# Original: Description
+# Default: "Description"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_description_label"
-msgstr "Popis"
+msgstr "説明"
 
-# Original: ALT-text
+# Default: "ALT-text"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
-msgstr "Alternativní text"
+msgstr "ALT-text"
 
-# Original: search
+# Default: "search"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "kupudrawer_search"
-msgstr "Hledání"
+msgstr "検索"
 
-# Original: Inline
+# Default: "Inline"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_inline"
-msgstr "V řádku"
+msgstr "一列に並べる"
 
-# Original: Target
+# Default: "Target"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_target_label"
-msgstr "Cíl"
+msgstr "設置先"
 
-# Original: Right
+# Default: "Right"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_right"
-msgstr "Vpravo"
+msgstr "右"
 
 #: /default/body.kupu:None
 msgid "Kupu Editor Test Page"
-msgstr "Testovací stránka editoru Kupu"
+msgstr "Kupu エディタテストページ"
 
 #: /default/colorchooser.kupu:None
 msgid "text color: alt-f"
-msgstr "Barva textu: Alt-F"
+msgstr "テキスト色: alt-f"
 
 #: /default/colorchooser.kupu:None
 msgid "background color: alt-h"
-msgstr "Barva pozadí: Alt-H"
+msgstr "背景色: alt-h"
 
+# Default: "Row"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_row_label"
-msgstr "Řádek"
+msgstr "行"
 
+# Default: "Right"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_right_option"
-msgstr "Vpravo"
+msgstr "右"
 
+# Default: "Current column alignment"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_alignment_label"
-msgstr "Zarovnání aktuálního sloupce"
+msgstr "現在の列を整列"
 
 #: /default/drawers.kupu:None
 msgid "external link"
-msgstr "Externí odkaz"
+msgstr "インターネットリンク"
 
+# Default: "Center"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_center_option"
-msgstr "Na střed"
+msgstr "中央"
 
+# Default: "Fix All Tables"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_tables_button"
-msgstr "Opravit všechny tabulky"
+msgstr "全ての表を調整"
 
 #: /default/drawers.kupu:None
 msgid "External Link"
-msgstr "Externí odkaz"
+msgstr "インターネットリンク"
 
+# Default: "Columns"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_columns_label"
-msgstr "Sloupců"
+msgstr "列"
 
+# Default: "Left"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
-msgstr "Vlevo"
+msgstr "左"
 
 #: /default/drawers.kupu:None
 msgid "image"
-msgstr "Obrázek"
+msgstr "画像"
 
 #: /default/drawers.kupu:None
 msgid "table"
-msgstr "Tabulka"
+msgstr "表"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
-msgstr "Náhled"
+msgstr "プレビュ"
 
+# Default: "Rows"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_rows_label"
-msgstr "Řádků"
+msgstr "行"
 
 #: /default/drawers.kupu:None
 msgid "internal link"
-msgstr "Interní odkaz"
+msgstr "サイト内リンク"
 
+# Default: "Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_title"
-msgstr "Tabulka"
+msgstr "表"
 
+# Default: "Add Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_add_table_button"
-msgstr "Přidat tabulku"
+msgstr "表を追加"
 
+# Default: "Close"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_close_button"
-msgstr "Zavřít"
+msgstr "閉じる"
 
+# Default: "Column"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_column_label"
-msgstr "Sloupec"
+msgstr "列"
 
+# Default: "Create Headings"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_headings_label"
-msgstr "Vytvořit záhlaví"
+msgstr "列見出しを付ける"
 
+# Default: "Fix"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_button"
-msgstr "Opravit"
+msgstr "調整"
 
+# Default: "Fix Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_table_label"
-msgstr "Opravit tabulku"
+msgstr "表を調整"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
-msgstr "OK"
+msgstr "Ok"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Cancel"
-msgstr "Storno"
+msgstr "キャンセル"
 
+# Default: "Add"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
-msgstr "Přidat"
+msgstr "追加"
 
+# Default: "Remove"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
-msgstr "Odebrat"
+msgstr "削除"
 
+# Default: "Table Class"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_class_label"
-msgstr "Druh tabulky"
+msgstr "表の枠線の種類"
 
 #: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
-msgstr "Provázat zvýrazněný text s adresou URL:"
+msgstr "選択反転テキストにリンクするURL:"
 
 #: /default/save.kupu:None
 msgid "save: alt-s"
-msgstr "Uložit: Alt-S"
+msgstr "保存: alt-s"
 
 #: /default/sourceedit.kupu:None
 msgid "edit HTML code"
-msgstr "Editovat kód HTML"
+msgstr "HTML コードを編集"
 
 #: /default/spellchecker.kupu:None
 msgid "check spelling"
-msgstr "Zkontrolovat pravopis"
+msgstr "スペルチェックを実施します"
 
 # Default: "1"
 #: /default/toolbar.kupu:None
@@ -637,11 +649,11 @@ msgstr "A"
 
 #: /default/toolbar.kupu:None
 msgid "bold: alt-b"
-msgstr "Tučné: Alt-B"
+msgstr "太字: alt-b"
 
 #: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
-msgstr "Horní index: Alt-+"
+msgstr "上付き: alt-+"
 
 # Default: "&#9675;"
 #: /default/toolbar.kupu:None
@@ -650,7 +662,7 @@ msgstr "&#9675;"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
-msgstr "Form. text"
+msgstr "枠で囲む"
 
 # Default: "a"
 #: /default/toolbar.kupu:None
@@ -660,24 +672,24 @@ msgstr "a"
 # Default: "no bullet"
 #: /default/toolbar.kupu:None
 msgid "list-nobullet"
-msgstr "Bez odrážek"
+msgstr "（点なし）"
 
 # Default: "i"
 #: /default/toolbar.kupu:None
 msgid "list-lowerroman"
-msgstr "i"
+msgstr "i(小文字ローマ数字)"
 
 #: /default/toolbar.kupu:None
 msgid "Kupu SVN/unreleased"
-msgstr "Kupu z repozitáře SVN / nevydaná verze"
+msgstr "Kupu SVN/unreleased"
 
 #: /default/toolbar.kupu:None
 msgid "Remove image"
-msgstr "Odebrat obrázek"
+msgstr "画像を削除"
 
 #: /default/toolbar.kupu:None
 msgid "undo: alt-z"
-msgstr "Vrátit: Alt-Z"
+msgstr "戻す: alt-z"
 
 # Default: "&#9679;"
 #: /default/toolbar.kupu:None
@@ -686,39 +698,31 @@ msgstr "&#9679;"
 
 #: /default/toolbar.kupu:None
 msgid "definition list: alt-="
-msgstr "Seznam definic: Alt-="
+msgstr "定義リスト: alt-="
 
 #: /default/toolbar.kupu:None
 msgid "indent: alt->"
-msgstr "Zvětšit odsazení: Alt->"
+msgstr "インデント: alt->"
 
 #: /default/toolbar.kupu:None
 msgid "Remove link"
-msgstr "Odebrat odkaz"
+msgstr "リンクを削除"
 
 #: /default/toolbar.kupu:None
 msgid "Normal"
-msgstr "Normální"
-
-#: /default/toolbar.kupu:None
-msgid "Heading"
-msgstr "Nadpis"
-
-#: /default/toolbar.kupu:None
-msgid "Subheading"
-msgstr "Dílčí nadpis"
+msgstr "本文"
 
 #: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
-msgstr "Zarovnat doleva: Alt-L"
+msgstr "左寄せ: alt-l"
 
 #: /default/toolbar.kupu:None
 msgid "right justify: alt-r"
-msgstr "Zarovnat doprava: Alt-R"
+msgstr "右寄せ: alt-r"
 
 #: /default/toolbar.kupu:None
 msgid "outdent: alt-<"
-msgstr "Zmenšit odsazení: Alt-<"
+msgstr "アウトデント: alt<"
 
 # Default: "&#9632;"
 #: /default/toolbar.kupu:None
@@ -727,222 +731,218 @@ msgstr "&#9632;"
 
 #: /default/toolbar.kupu:None
 msgid "underline: alt-u"
-msgstr "Podtržené: Alt-U"
+msgstr "下線: alt-u"
 
 #: /default/toolbar.kupu:None
 msgid "redo: alt-y"
-msgstr "Opakovat: Alt-Y"
+msgstr "再操作: alt-y"
 
 #: /default/toolbar.kupu:None
 msgid "subscript: alt--"
-msgstr "Dolní index: Alt--"
+msgstr "下付き: alt--"
 
 #: /default/toolbar.kupu:None
 msgid "center justify: alt-c"
-msgstr "Zarovnat na střed: Alt-C"
+msgstr "中央揃え: alt-c"
 
 #: /default/toolbar.kupu:None
 msgid "unordered list: alt-*"
-msgstr "Seznam s odrážkami: Alt-*"
+msgstr "箇条書き: alt-*"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 3"
-msgstr "Nadpis 3"
+msgstr "見出し3"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 2"
-msgstr "Nadpis 2"
+msgstr "見出し2"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 1"
-msgstr "Nadpis 1"
+msgstr "見出し1"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 6"
-msgstr "Nadpis 6"
+msgstr "見出し6"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 5"
-msgstr "Nadpis 5"
+msgstr "見出し5"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
-msgstr "Nadpis 4"
+msgstr "見出し4"
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
-msgstr "Seznam s číslováním: Alt-#"
+msgstr "数字箇条書き: alt-#"
 
 #: /default/toolbar.kupu:None
 msgid "italic: alt-i"
-msgstr "Kurzíva: Alt-I"
+msgstr "斜体: alt-i"
 
 # Default: "I"
 #: /default/toolbar.kupu:None
 msgid "list-upperroman"
-msgstr "I"
-
-#: /default/toolbar.kupu
-msgid "zoom: alt-x"
-msgstr "Zvětšit: Alt-X"
+msgstr "I（大文字ローマ数字）"
 
 #: /default/toolboxes.kupu:None
 msgid "Headings:"
-msgstr "Nadpisy:"
+msgstr "見出し"
 
 #: /default/toolboxes.kupu:None
 msgid "Fix"
-msgstr "Opravit"
+msgstr "修正"
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
-msgstr "Odebrat sloupec"
+msgstr "列を削除"
 
 #: /default/toolboxes.kupu:None
 msgid "Inline"
-msgstr "V řádku"
+msgstr "整列"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
-msgstr "Vyberte akci čištění:"
+msgstr "整理の内容の選択:"
 
 #: /default/toolboxes.kupu:None
 msgid "Links"
-msgstr "Odkazy"
+msgstr "リンク"
 
 #: /default/toolboxes.kupu:None
 msgid "Rows:"
-msgstr "Řádků:"
+msgstr "行"
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Row"
-msgstr "Odebrat řádek"
+msgstr "行を削除"
 
 #: /default/toolboxes.kupu:None
 msgid "Tables"
-msgstr "Tabulky"
+msgstr "表"
 
 #: /default/toolboxes.kupu:None
 msgid "Create"
-msgstr "Vytvořit"
+msgstr "作成"
 
 #: /default/toolboxes.kupu:None
 msgid "Insert image at the following URL:"
-msgstr "Vložit obrázek z následující adresy URL:"
+msgstr "後記のURLの画像を追加する:"
 
 #: /default/toolboxes.kupu:None
 msgid "Title:"
-msgstr "Nadpis:"
+msgstr "タイトル"
 
 #: /default/toolboxes.kupu:None
 msgid "Description:"
-msgstr "Popis:"
+msgstr "解説"
 
 #: /default/toolboxes.kupu:None
 msgid "Image class:"
-msgstr "Druh obrázku:"
+msgstr "画像クラス:"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Column"
-msgstr "Přidat sloupec"
+msgstr "列を追加"
 
 #: /default/toolboxes.kupu:None
 msgid "Fix Table"
-msgstr "Opravit tabulku"
+msgstr "表を修正"
 
 #: /default/toolboxes.kupu:None
 msgid "Images"
-msgstr "Obrázky"
+msgstr "画像"
 
 #: /default/toolboxes.kupu:None
 msgid "Insert Image"
-msgstr "Vložit obrázek"
+msgstr "画像を追加"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Table"
-msgstr "Přidat tabulku"
+msgstr "表を追加"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Row"
-msgstr "Přidat řádek"
+msgstr "行を追加"
 
 #: /default/toolboxes.kupu:None
 msgid "Properties"
-msgstr "Vlastnosti"
+msgstr "プロパティ"
 
 #: /default/toolboxes.kupu:None
 msgid "Col Align:"
-msgstr "Zarovnání sloupce:"
+msgstr "列整列:"
 
 #: /default/toolboxes.kupu:None
 msgid "Center"
-msgstr "Na střed"
+msgstr "中央"
 
 #: /default/toolboxes.kupu:None
 msgid "Debug Log"
-msgstr "Ladicí protokol"
+msgstr "デバッグログ"
 
 #: /default/toolboxes.kupu:None
 msgid "Make Link"
-msgstr "Vytvořit odkaz"
+msgstr "リンクを作る"
 
 #: /default/toolboxes.kupu:None
 msgid "Cleanup expressions"
-msgstr "Čištění"
+msgstr "表現を掃除"
 
 #: /default/toolboxes.kupu:None
 msgid "Columns:"
-msgstr "Sloupců:"
+msgstr "列:"
 
 #: /default/toolboxes.kupu:None
 msgid "Table Class:"
-msgstr "Druh tabulky:"
+msgstr "表クラス:"
 
 #: /default/toolboxes.kupu:None
 msgid "Right"
-msgstr "Vpravo"
+msgstr "右"
 
 #: /default/toolboxes.kupu:None
 msgid "Left"
-msgstr "Vlevo"
+msgstr "左"
 
 #: /plone/body.kupu
 msgid "force-kupu"
-msgstr "Klepněte sem, chcete-li stránku upravovat pomocí editoru Kupu"
+msgstr ""
 
 #: /plone/body.kupu
 msgid "suppress-kupu"
-msgstr "Klepněte sem, chcete-li stránku upravovat bez editoru Kupu"
+msgstr ""
 
 #: Libraries
 msgid "Home"
-msgstr "Úvod"
+msgstr "ホーム"
 
-msgid "Current folder"
-msgstr "Aktuální složka"
+msgid "Current Folder"
+msgstr "現在のフォルダ"
 
-msgid "My recent items"
-msgstr "Vlastní poslední položky"
+msgid "My Recent Items"
+msgstr "私の最近のアイテム"
 
-msgid "Recent items"
-msgstr "Poslední položky"
+msgid "Recent Items"
+msgstr "最近のアイテム"
 
 #: Default Table classes
 msgid "plain"
-msgstr "Prostá"
+msgstr "白枠線(データ部沈み込み）表"
 
 msgid "listing"
-msgstr "Seznam"
+msgstr "標準的な表"
 
 msgid "vertical listing"
-msgstr "Svislý seznam"
+msgstr ""
 
 msgid "unsorted listing"
-msgstr "Neřazený seznam"
+msgstr ""
 
 msgid "grid"
-msgstr "Mřížka"
+msgstr "グリッド"
 
 msgid "data"
-msgstr "Data"
+msgstr "データ"
 

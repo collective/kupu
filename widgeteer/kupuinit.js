@@ -49,7 +49,117 @@ KupuEditor.prototype.afterInit = function() {
     this.getDocument().getWindow().focus();
 };
 
+function WidgeteerDrawerTool() {
+    this.drawers = {};
+    this.current_drawer = null;
+};
+
+//WidgeteerDrawerTool.prototype = new DrawerTool;
+
+WidgeteerDrawerTool.prototype.openDrawer = function(id) {
+    /* open a drawer 
+    
+        overridden so we can place the drawer in the parent document
+    */
+    if (this.current_drawer) {
+        this.closeDrawer();
+    };
+    var drawer = this.drawers[id];
+    if (this.isIE) {
+        drawer.editor._saveSelection();
+    };
+    
+    // make sure the right drawertool is available in parent
+    parent.drawertool = window.drawertool;
+    var parentdoc = parent.document;
+    var placeholder = parentdoc.getElementById('drawerplaceholder')
+
+    drawer.createContent();
+    this.current_drawer = drawer;
+    if (!parentdoc.importNode) {
+        // f$@%ng IE
+        var importNode = function(doc, oNode, bImportChildren){
+            var oNew;
+
+            if(oNode.nodeType == 1){
+                oNew = doc.createElement(oNode.nodeName);
+                for(var i = 0; i < oNode.attributes.length; i++){
+                    oNew.setAttribute(oNode.attributes[i].name, 
+                                        oNode.attributes[i].value);
+                }
+                oNew.style.cssText = oNode.style.cssText;
+            } else if(oNode.nodeType == 3){
+                oNew = doc.createTextNode(oNode.nodeValue);
+            }
+            
+            if(bImportChildren && oNode.hasChildNodes()){
+                for(var oChild = oNode.firstChild; oChild; 
+                                oChild = oChild.nextSibling){
+                    oNew.appendChild(importNode(doc, oChild, true));
+                }
+            }
+            
+            return oNew;
+        }
+        var imported = importNode(parentdoc, drawer.element, 1);
+        placeholder.appendChild(imported);
+        drawer.element.display = 'none';
+    } else {
+        parentdoc.importNode(drawer.element, 1);
+        placeholder.appendChild(drawer.element);
+    };
+    drawer.editor.suspendEditing();
+    placeholder.style.display = 'block';
+};
+
+WidgeteerDrawerTool.prototype.closeDrawer = function(button) {
+    if (!this.current_drawer) {
+        return;
+    };
+    this.current_drawer.hide();
+    this.current_drawer.editor.resumeEditing();
+    this.current_drawer = null;
+    var parentdoc = parent.document;
+    var placeholder = parentdoc.getElementById('drawerplaceholder')
+    placeholder.style.display = 'none';
+};
+
+var win = window;
+parent.HandleDrawerEnter = function(event, clickid) {
+    var key;
+    event = event || win.event;
+    key = event.which || event.keyCode;
+
+    if (key==13) {
+        if (clickid) {
+            var button = win.document.getElementById(clickid);
+            if (button) {
+                button.click();
+            }
+        }
+        event.cancelBubble = true;
+        if (event.stopPropogation) event.stopPropogation();
+
+        return false;
+    }
+    return true;
+};
+
 function initKupu(iframe) {
+    // we have to perform some tricks to find out what 'our' iframe is in
+    // the parent document
+    var parentiframes = parent.document.getElementsByTagName('iframe');
+    var parentiframe = null;
+    for (var i=0; i < parentiframes.length; i++) {
+        var pif = parentiframes[i];
+        if (pif.contentWindow == window) {
+            // load the contents of the textarea into the body element
+            iframe.contentWindow.document.getElementsByTagName('body')[0]
+                    .innerHTML = pif.textarea.value;
+            break
+        };
+    };
+
     // first we create a logger
     var l = new DummyLogger();
 
@@ -62,34 +172,12 @@ function initKupu(iframe) {
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
     
-    kupu.registerContentChanger(
-        document.getElementById('kupu-editor-textarea'));
-
-    if (kupu.getBrowserName() == 'IE') {
-        // IE supports onbeforeunload, so let's use that
-        addEventHandler(window, 'beforeunload', saveOnPart);
-    } else {
-        // some versions of Mozilla support onbeforeunload (starting with 1.7)
-        // so let's try to register and if it fails fall back on onunload
-        var re = /rv:([0-9\.]+)/
-        var match = re.exec(navigator.userAgent)
-        if (match[1] && parseFloat(match[1]) > 1.6) {
-            addEventHandler(window, 'beforeunload', saveOnPart);
-        } else {
-            addEventHandler(window, 'unload', saveOnPart);
-        };
-    };
-
     var cm = new ContextMenu();
     kupu.setContextMenu(cm);
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
     kupu.registerTool('ui', ui);
-
-    var savebuttonfunc = function(button, editor) {editor.saveDocument()};
-    var savebutton = new KupuButton('kupu-save-button', savebuttonfunc);
-    kupu.registerTool('savebutton', savebutton);
 
     // function that returns a function to execute a button command
     var execCommand = function(cmd) {
@@ -146,6 +234,10 @@ function initKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'))
     kupu.registerTool('redobutton', redobutton);
 
+    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
+                                                'kupu-hilitecolor-button',
+                                                'kupu-colorchooser');
+    kupu.registerTool('colorchooser', colorchoosertool);
     var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton',
                                 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
@@ -176,6 +268,7 @@ function initKupu(iframe) {
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
     
+    /*
     // Function that returns function to open a drawer
     var opendrawer = function(drawerid) {
         return function(button, editor) {
@@ -191,9 +284,17 @@ function initKupu(iframe) {
                                              opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
+    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
+                                          opendrawer('linkdrawer'));
+    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
+
+    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
+                                           opendrawer('tabledrawer'));
+    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
+
     // create some drawers, drawers are some sort of popups that appear when a 
     // toolbar button is clicked
-    var drawertool = new DrawerTool();
+    var drawertool = new WidgeteerDrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
     var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
@@ -206,6 +307,13 @@ function initKupu(iframe) {
                                                 conf['search_images_uri']);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
     
+    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
+    drawertool.registerDrawer('linkdrawer', linkdrawer);
+
+    var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
+    drawertool.registerDrawer('tabledrawer', tabledrawer);
+    */
+
 //    var nonxhtmltagfilter = new NonXHTMLTagFilter();
 //    kupu.registerFilter(nonxhtmltagfilter);
 

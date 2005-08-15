@@ -1,8 +1,11 @@
+# German Kupu translation.
+# Roman Joost <rj@gocept.com>
+# Carsten Senger <senger@bag-shi.de>
 msgid ""
 msgstr ""
 "POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
-"PO-Revision-Date: 2005-05-03 16:41+0200\n"
-"Last-Translator: Roman Joost <rj@gocept.com>\n"
+"PO-Revision-Date: 2005-08-11 08:36+0200\n"
+"Last-Translator: Carsten Senger <senger@bag-shi.de>\n"
 "Language-Team: gocept i18n team <rj@gocept.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,6 +177,8 @@ msgid ""
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
 msgstr ""
+"Einfügen mit Hilfe von JavaScript ist in den Sicherheits-Einstellungen Ihres Browsers deaktiviert. "
+"Informationen dazu finden Sie unter http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 
 #: /common/kupu.pox:None
 msgid "Property tool initialized"
@@ -296,7 +301,8 @@ msgstr ""
 
 #: /common/kupu.pox:None
 msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr ""
+msgstr "Für diese Funktion müssen \"Pop-up\" Fenster in Ihrem Browser "
+"aktiviert sein!"
 
 #: /common/kupu.pox:None
 msgid "Not inside link"
@@ -397,32 +403,32 @@ msgstr "Tabellenspalte hinzugefügt"
 # Default: "Caption"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_caption_label"
-msgstr ""
+msgstr "Bildbeschriftung"
 
 # Default: "Insert Link"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title"
-msgstr ""
+msgstr "Verweis einfügen"
 
 # Default: "Left"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_left"
-msgstr ""
+msgstr "Verweise"
 
 # Default: "(${width} by ${height})"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_size"
-msgstr ""
+msgstr "(${width} x ${height})"
 
 # Default: "Insert Image"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_title"
-msgstr ""
+msgstr "Bild einfügen"
 
 # Default: "Upload to: ${folder}"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_to_label"
-msgstr ""
+msgstr "Hochladen in: ${folder}"
 
 # Default: "Name"
 #: /common/kupudrawers/drawer.xsl:None
@@ -432,7 +438,7 @@ msgstr ""
 # Default: "Preview"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_preview_label"
-msgstr ""
+msgstr "Vorschau"
 
 # Default: ""
 # "Select an image from your computer and click ok to have it\n"
@@ -440,52 +446,54 @@ msgstr ""
 # "            editor."
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_instructions"
-msgstr ""
+msgstr "Wählen Sie ein Bild von Ihrer Festplatte und Klicken Sie auf "
+"OK. Das Bild wird in den gewählten Ordner hochgeladen und in den "
+"Editor eingefügt."
 
 # Default: "Upload ..."
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_link"
-msgstr ""
+msgstr "Hochladen ..."
 
 # Default: "Title:"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_title_label"
-msgstr ""
+msgstr "Titel:"
 
 # Default: "Title"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title_label"
-msgstr ""
+msgstr "Titel"
 
 # Default: "Description"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_description_label"
-msgstr ""
+msgstr "Beschreibung"
 
 # Default: "ALT-text"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
-msgstr ""
+msgstr "Alternativ-Text"
 
 # Default: "search"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "kupudrawer_search"
-msgstr ""
+msgstr "Suchen"
 
 # Default: "Inline"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_inline"
-msgstr ""
+msgstr "im Textfluß"
 
 # Default: "Target"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_target_label"
-msgstr ""
+msgstr "Ziel"
 
 # Default: "Right"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_right"
-msgstr ""
+msgstr "Rechts"
 
 #: /default/body.kupu:None
 msgid "Kupu Editor Test Page"
@@ -502,17 +510,17 @@ msgstr "Hintergrundfarbe: Alt-h"
 # Default: "Row"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_row_label"
-msgstr ""
+msgstr "Zeile"
 
 # Default: "Right"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_right_option"
-msgstr ""
+msgstr "Rechts"
 
 # Default: "Current column alignment"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_alignment_label"
-msgstr ""
+msgstr "Ausrichtung der aktuellen Spalte"
 
 #: /default/drawers.kupu:None
 msgid "external link"
@@ -521,7 +529,7 @@ msgstr "Internetverweis"
 # Default: "Center"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_center_option"
-msgstr ""
+msgstr "Zentrieren"
 
 # Default: "Fix All Tables"
 #: /default/drawers.kupu:None
@@ -535,12 +543,12 @@ msgstr "Internetverweis"
 # Default: "Columns"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_columns_label"
-msgstr ""
+msgstr "Spalten"
 
 # Default: "Left"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
-msgstr ""
+msgstr "Links"
 
 #: /default/drawers.kupu:None
 msgid "image"
@@ -557,7 +565,7 @@ msgstr "Vorschau"
 # Default: "Rows"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_rows_label"
-msgstr ""
+msgstr "Zeilen"
 
 #: /default/drawers.kupu:None
 msgid "internal link"
@@ -566,27 +574,27 @@ msgstr "Querverweis"
 # Default: "Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_title"
-msgstr ""
+msgstr "Tabelle"
 
 # Default: "Add Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_add_table_button"
-msgstr ""
+msgstr "Tabelle Einfügen"
 
 # Default: "Close"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_close_button"
-msgstr ""
+msgstr "Schließen"
 
 # Default: "Column"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_column_label"
-msgstr ""
+msgstr "Spalte"
 
 # Default: "Create Headings"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_headings_label"
-msgstr ""
+msgstr "Überschriften erzeugen"
 
 # Default: "Fix"
 #: /default/drawers.kupu:None
@@ -609,12 +617,12 @@ msgstr "Abbrechen"
 # Default: "Add"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
-msgstr ""
+msgstr "Hinzufügen"
 
 # Default: "Remove"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
-msgstr ""
+msgstr "Entfernen"
 
 # Default: "Table Class"
 #: /default/drawers.kupu:None
@@ -905,3 +913,4 @@ msgstr "Rechts"
 #: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Links"
+

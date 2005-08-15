@@ -95,7 +95,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     def __init__(self):
         self._libraries = PersistentList()
         self._res_types = PersistentMapping()
-        self.linkbyuid = True
+        self.linkbyuid = False
 
     def manage_afterAdd(self, item, container):
         # We load default values here, so __init__ can still be used

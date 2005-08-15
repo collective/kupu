@@ -87,20 +87,24 @@ div.kupu-smalleditor {
 }
 
 .kupu-tb {
-  background-color: ButtonFace;
-  border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
   margin: 0px;
   padding: 0px;
+  background-image: url('../common/kupuimages/toolbarbg_purple.png');
+  padding: 2px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: black;
+  border-bottom-width: 1px;
 }
 
 .kupu-tb-buttons button {
-  color: ButtonText;
-  border: 1px solid ButtonFace;
-  margin-top: 0;
-  margin-left: 0;
-  height: 26px;
-  width: 26px;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  margin: 0px;
+  height: 24px;
+  width: 24px;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .kupu-tb-buttons button:hover {
@@ -181,7 +185,11 @@ iframe.kupu-editor-iframe {
 }
 
 textarea.kupu-editor-textarea {
-  width: 99%;
+  width: 100%;
+  height: 100%;
+  border-width: 0px;
+  padding: 0px;
+  margin: 0px;
   display: none;
 }
 

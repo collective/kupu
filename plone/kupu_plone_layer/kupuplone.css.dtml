@@ -107,7 +107,11 @@ div.kupu-tb-buttongroup {
 
 
 .kupu {
-  font-size: 70%;
+  font-size: 110%;
+}
+
+html.kupu-html {
+  font-size: &dtml-fontBaseSize;;
 }
 
 iframe.kupu-editor-iframe{
