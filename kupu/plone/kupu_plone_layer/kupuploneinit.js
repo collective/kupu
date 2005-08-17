@@ -22,8 +22,6 @@ function initPloneKupu(editorId) {
     // that without applying this change to the outter document. Damn iframes.
     var ibody = iframe.contentWindow.document.body;
     var form = textarea.form;
-    ibody.style.margin = "12px";
-    ibody.className = "kupu"; // This is set in emptypage but gets lost for some reason.
     ibody.innerHTML = textarea.value || '<p class=""><br></p>';
 
     // now some config values
