@@ -105,10 +105,7 @@ div.kupu-tb-buttongroup {
   margin-bottom:4px;
 }
 
-
-.kupu {
-  font-size: 110%;
-}
+body.documentContent { padding: 1em !important; }
 
 html.kupu-html {
   font-size: &dtml-fontBaseSize;;

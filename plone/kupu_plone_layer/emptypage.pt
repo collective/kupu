@@ -15,7 +15,7 @@
         tal:define="tail python:test(here.isPrincipiaFolderish, '/', '');"
         tal:attributes="href string:${here/absolute_url}${tail}" />
   </head>
-  <body class="kupu">
+  <body class="kupu documentContent">
    
    <tal:comment replace="nothing">    
       This template is an empty placeholder, used for loading contents
