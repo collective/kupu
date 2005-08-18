@@ -18,6 +18,10 @@ Kupu changes
 
   - Style pulldown no longer goes wrong inside tables.
 
+  - Fixed font size issue. Plone documentContent class is now applied
+    to the editor body tag, so scaling and background color are picked
+    up automatically.
+
 - 1.3rc1
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
