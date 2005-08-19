@@ -42,6 +42,7 @@
     <kupu:insert-part feature="toolbar" part="buttongroup-basicmarkup" />
     <kupu:insert-part feature="toolbar" part="buttongroup-subsuper" />
     <kupu:insert-part feature="colorchooser" part="buttons" />
+    <kupu:insert-part feature="browser" part="buttons" />
     <kupu:insert-part feature="toolbar" part="buttongroup-justify" />
     <kupu:insert-part feature="toolbar" part="buttongroup-list" />
     <kupu:insert-part feature="toolbar" part="buttongroup-definitionlist" />

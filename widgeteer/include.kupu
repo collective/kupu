@@ -9,5 +9,6 @@
   <xi:include href="head.kupu" />
   <xi:include href="body.kupu" />
   <xi:include href="xmlconfig.kupu" />
+  <xi:include href="browser.kupu" />
 
 </kupu:include>
