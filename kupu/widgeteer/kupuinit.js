@@ -151,7 +151,7 @@ function initKupu(iframe) {
     var parentiframes = parent.document.getElementsByTagName('iframe');
     var parentiframe = null;
     for (var i=0; i < parentiframes.length; i++) {
-        var pif = parentiframes[i];
+        var pif = parentiframe = parentiframes[i]
         if (pif.contentWindow == window) {
             // load the contents of the textarea into the body element
             iframe.contentWindow.document.getElementsByTagName('body')[0]
@@ -247,9 +247,27 @@ function initKupu(iframe) {
 
     var imagetool = new ImageTool();
     kupu.registerTool('imagetool', imagetool);
+    var handler = function() {
+        var create_handler = new ContextFixer(imagetool.createImage, 
+                                                imagetool).execute;
+        parent.browser_manager.startBrowser(create_handler,
+                parentiframe.textarea.getAttribute('widget:imagepath'),
+                                                ['image/jpeg', 'image/png',
+                                                    'image/gif']);
+    };
+    addEventHandler(document.getElementById('kupu-image-button'), 'click',
+                    handler);
 
     var linktool = new LinkTool();
     kupu.registerTool('linktool', linktool);
+    var handler = function() {
+        var create_handler = new ContextFixer(linktool.createLink, 
+                                                    linktool).execute;
+        parent.browser_manager.startBrowser(create_handler,
+                parentiframe.textarea.getAttribute('widget:linkpath'));
+    };
+    addEventHandler(document.getElementById('kupu-intlink-button'), 'click',
+                    handler);
 
     var tabletool = new TableTool(); 
     kupu.registerTool('tabletool', tabletool);
