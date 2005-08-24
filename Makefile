@@ -56,8 +56,8 @@ $(JAVA_DIR)/kupu-defaults.po: i18n/kupu.pot
 kupu-i18n.jar: i18n/*.po $(JAVA_DIR)/kupu-defaults.po
 	mkdir -p $(JAVA_DIR)
 	 $(MSGFMT) --java2  -d $(JAVA_DIR)  -r $(JAVA_RESOURCE) $(JAVA_DIR)/kupu-defaults.po
-	for PO in `ls i18n/*.po` ; do \
-		LOCALE=`echo $${PO} | sed "s|i18n/kupu-||;s|\.po||"`; \
+	for PO in `ls i18n/kupu-*.po` ; do \
+		LOCALE=`echo $${PO} | sed "s|i18n/kupu-||;s|\.po||;s|-|_|g"`; \
 		$(MSGFMT) --java2  -D . -d $(JAVA_DIR) -r $(JAVA_RESOURCE) -l $${LOCALE} $${PO}; \
 	done
 	jar cf $@ -C $(JAVA_DIR) org
