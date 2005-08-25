@@ -258,5 +258,11 @@ function initKupu(iframe) {
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);
 
+    if (window.kuputoolcollapser) {
+        var collapser = new window.kuputoolcollapser.Collapser(
+                                                        'kupu-toolboxes');
+        collapser.initialize();
+    };
+    
     return kupu;
 };
