@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <kupu:feature
     name="head"
     implementation="silva"
@@ -48,7 +49,12 @@
 	    kupuui = kupu.getTool('ui'); 
 	    kupu.initialize();
 	};
+        // register the function to the unload registry
+        window.onload_registry.register(startKupu);
     </script>
+  </kupu:part>
+
+  <kupu:part name="meta">
   </kupu:part>
 
 </kupu:feature>
