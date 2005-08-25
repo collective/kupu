@@ -10,7 +10,7 @@
     
   <kupu:part name="properties">
     <div class="kupu-toolbox" id="kupu-toolbox-properties">
-      <h1 class="kupu-toolbox-heading" style="border-top: none">properties</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">properties</h1>
 
       <div class="kupu-tooltray">
         <form name="kupu-properties-form" id="kupu-properties-form">
@@ -32,7 +32,7 @@
 
   <kupu:part name="characters">
     <div class="kupu-toolbox" id="kupu-toolbox-characters">
-      <h1 class="kupu-toolbox-heading" style="border-top: none">non-standard characters</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">non-standard characters</h1>
 
       <div class="kupu-tooltray">
         <form name="kupu-characters-form">
@@ -54,7 +54,7 @@
         }
       "></script>
 
-      <h1 class="kupu-toolbox-heading" style="border-top: none">link</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">link</h1>
 
       <div class="kupu-tooltray">
         <div id="kupu-toolbox-addlink"> </div>
