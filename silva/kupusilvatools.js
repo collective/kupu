@@ -17,8 +17,8 @@ EDITABLE_METADATA = {
     'http://infrae.com/namespaces/metadata/silva-news': 
             [['subjects', 'checkbox', 1, 'Subjects'],
                 ['target_audiences', 'checkbox', 1, 'Target audiences'],
-                ['start_datetime', 'text', 1, 'Start date/time'],
-                ['end_datetime', 'text', 0, 'End date/time'],
+                ['start_datetime', 'datetime', 1, 'Start date/time'],
+                ['end_datetime', 'datetime', 0, 'End date/time'],
                 ['location', 'text', 0, 'Location']
             ]
 }
@@ -2163,12 +2163,13 @@ function SilvaKupuUI(textstyleselectid) {
 
 SilvaKupuUI.prototype = new KupuUI;
 
-function SilvaPropertyTool(tablerowid) {
+function SilvaPropertyTool(tablerowid, formid) {
     /* a simple tool to edit metadata fields
 
         the fields' contents are stored in Silva's metadata sets
     */
     this.tablerow = document.getElementById(tablerowid);
+    this.form = document.getElementById(formid);
     this.table = this.tablerow.parentNode;
     while (!this.table.nodeName.toLowerCase() == 'table') {
         this.table = this.table.parentNode;
@@ -2197,10 +2198,16 @@ SilvaPropertyTool.prototype.initialize = function(editor) {
             continue;
         };
         var rowcopy = this.tablerow.cloneNode(true);
-        var tag = this.parseFormElIntoRow(meta, rowcopy);
+        this.tablerow.parentNode.appendChild(rowcopy);
+        // create the form elements, pass in the rowcopy so the row can be
+        // rendered real-time, this because IE doesn't select checkboxes that
+        // arent' visible(!!)
+        this.parseFormElIntoRow(meta, rowcopy);
+        /*
         if (tag) {
             this.tablerow.parentNode.appendChild(tag);
         };
+        */
     };
     // throw away the original row: we don't need it anymore...
     this.tablerow.parentNode.removeChild(this.tablerow);
@@ -2247,11 +2254,14 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     var value = metatag.getAttribute('content');
     var parentvalue = metatag.getAttribute('parentcontent');
     var td = tablerow.getElementsByTagName('td')[1]
-    if (type == 'text' || type == 'textarea') {
-        if (type == 'text') {
+    if (type == 'text' || type == 'textarea' || type == 'datetime') {
+        if (type == 'text' || type == 'datetime') {
             input = document.createElement('input');
             input.setAttribute('type', 'text');
             input.value = value;
+            if (type == 'datetime') {
+                input.setAttribute('widget:type', 'datetime');
+            };
         } else if (type == 'textarea') {
             input = document.createElement('textarea');
             var content = document.createTextNode(value);
@@ -2267,6 +2277,36 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     } else if (type == 'checkbox') {
         // elements are seperated by ||
         var infos = value.split('||');
+
+        // messy stuff coming up, that make the checkboxes appear in some
+        // 'foldable' div
+        var outerdiv = document.createElement('div');
+        var img = document.createElement('img');
+        img.src = 'kupu_silva/closed_arrow.gif';
+        outerdiv.image = img;
+        addEventHandler(outerdiv.image, 'click', function(evt) {
+                if ((evt.target && (evt.target !== this && 
+                                        evt.target !== this.image)) ||
+                        (evt.srcElement && (evt.srcElement !== this && 
+                                        evt.srcElement !== this.image))){
+                    return;
+                };
+                if (this.lastChild.style.display == 'none') {
+                    this.image.src = 'kupu_silva/opened_arrow.gif';
+                    this.lastChild.style.display = 'block';
+                } else {
+                    this.image.src = 'kupu_silva/closed_arrow.gif';
+                    this.lastChild.style.display = 'none';
+                }}, outerdiv);
+        outerdiv.appendChild(img);
+        outerdiv.appendChild(document.createTextNode('items'));
+
+        // innerdiv is where the actual checkboxes are displayed in, and what
+        // is collapsed/uncollapsed
+        var innerdiv = document.createElement('div');
+        outerdiv.appendChild(innerdiv);
+        td.appendChild(outerdiv);
+
         for (var i=0; i < infos.length; i++) {
             // in certain cases the value you want to display is different
             // from that you want to store, in that case seperate id from
@@ -2281,23 +2321,26 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
                 checked = (info[2] == 'true' || info[2] == 'yes');
             };
             var div = document.createElement('div');
+            innerdiv.appendChild(div);
             var checkbox = document.createElement('input');
             checkbox.setAttribute('name', name);
             checkbox.setAttribute('namespace', namespace);
             checkbox.type = 'checkbox';
             checkbox.value = itemvalue;
-            if (checked) {
-                checkbox.setAttribute('checked', 'checked');
-            };
             div.appendChild(checkbox);
+            if (checked) {
+                checkbox.checked = 'checked';
+            };
             checkbox.className = 'metadata-checkbox';
             // XXX a bit awkward to set this on all checkboxes
             if (mandatory) {
                 checkbox.setAttribute('mandatory', 'true');
             };
             div.appendChild(document.createTextNode(title));
-            td.appendChild(div);
         };
+        // we can not hide the checkboxes earlier because IE requires them
+        // to be *visible* in order to check them from code :(
+        innerdiv.style.display = 'none';
     };
     if (parentvalue && parentvalue != '') {
         td.appendChild(document.createElement('br'));
@@ -2311,6 +2354,9 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
 
 SilvaPropertyTool.prototype.beforeSave = function() {
     /* save the metadata to the document */
+    if (window.widgeteer) {
+        widgeteer.widget_registry.prepareForm(this.form);
+    };
     var doc = this.editor.getInnerDocument();
     var inputs = this.table.getElementsByTagName('input');
     var textareas = this.table.getElementsByTagName('textarea');
