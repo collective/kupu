@@ -44,8 +44,18 @@ this.kuputoolcollapser = new function() {
                         heading.className = 'kupu-toolbox-heading-closed';
                     };
                 };
+                var wrap_openhandler = function(body, heading) {
+                    return function() {
+                        body.style.display = 'block';
+                        heading.className = 'kupu-toolbox-heading-closed';
+                    };
+                };
                 addEventHandler(heading, 'click', handler, body, heading);
                 body.style.display = 'none';
+                // add a reference to the openhandler on the toolbox div
+                // so any toolbox code can use that to open the toolbox if
+                // it so desires
+                child.open_handler = wrap_openhandler(body, heading);
             };
         };
     };

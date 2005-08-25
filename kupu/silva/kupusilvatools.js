@@ -100,6 +100,9 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
             if (href) {
                 if (this.toolboxel) {
                     this.toolboxel.className = this.activeclass;
+                    if (this.toolboxel.open_handler) {
+                        this.toolboxel.open_handler();
+                    };
                 };
                 this.input.value = href;
                 var target = currnode.getAttribute('target');
@@ -238,6 +241,9 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
             this.linkinput.value = '';
         };
         if (this.toolboxel) {
+            if (this.toolboxel.open_handler) {
+                this.toolboxel.open_handler();
+            };
             this.toolboxel.className = this.activeclass;
         };
         var align = image.getAttribute('alignment');
@@ -822,6 +828,9 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             };
             selectSelectItem(this.classselect, table.className);
             if (this.toolboxel) {
+                if (this.toolboxel.open_handler) {
+                    this.toolboxel.open_handler();
+                };
                 this.toolboxel.className = this.activeclass;
             };
         } else {
@@ -1164,6 +1173,9 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
         var indexel = this.editor.getNearestParentOfType(selNode, 'A');
         if (indexel && !indexel.getAttribute('href')) {
             if (this.toolboxel) {
+                if (this.toolboxel.open_handler) {
+                    this.toolboxel.open_handler();
+                };
                 this.toolboxel.className = this.activeclass;
             };
             this.input.value = indexel.getAttribute('name');
@@ -1259,6 +1271,9 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
             this.delbutton.style.display = 'inline';
             this._inside_toc = true;
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
@@ -1403,6 +1418,9 @@ function SilvaAbbrTool(abbrradioid, acronymradioid, radiocontainerid, titleinput
             this.titleinput.value = element.getAttribute('title');
             this.radiocontainer.style.display = 'none';
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
@@ -1574,6 +1592,9 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
             this.sourceinput.value = citation.getAttribute('source');
             this._inside_citation = true;
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
