@@ -287,5 +287,11 @@ function initSilvaKupu(iframe) {
                                             'link_to_hires', 
                                             'target', 'link']);
 
+    if (window.kuputoolcollapser) {
+        var collapser = new window.kuputoolcollapser.Collapser(
+                                                        'kupu-toolboxes');
+        collapser.initialize();
+    };
+    
     return kupu;
 };

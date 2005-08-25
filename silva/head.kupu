@@ -32,6 +32,8 @@
             tal:attributes="src string:${root_url}/kupu/kupuspellchecker.js"> </script>
     <script type="text/javascript" src="lookupwindowscripts.js"
             tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
+    <script type="text/javascript" src="kuputoolcollapser.js"
+            tal:attributes="src string:${root_url}/kupu/kuputoolcollapser.js"> </script>
 
     <script type="text/javascript" src="kupusilvatools.js"
             tal:attributes="src string:${root_url}/kupu_silva/kupusilvatools.js"> </script>

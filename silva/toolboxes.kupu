@@ -10,33 +10,37 @@
     
   <kupu:part name="properties">
     <div class="kupu-toolbox" id="kupu-toolbox-properties">
-      <h1 style="border-top: none">properties</h1>
+      <h1 class="kupu-toolbox-heading" style="border-top: none">properties</h1>
 
-      <form name="kupu-properties-form" id="kupu-properties-form">
-        <table width="99%" style="color: #333;" border="0">
-          <tr id="propsrow">
-            <td valign="top">
-              name
-            </td>
-            <td valign="top">
-              input
-            </td>
-          </tr>
-        </table>
-      </form>
+      <div class="kupu-tooltray">
+        <form name="kupu-properties-form" id="kupu-properties-form">
+          <table width="99%" style="color: #333;" border="0">
+            <tr id="propsrow">
+              <td valign="top">
+                name
+              </td>
+              <td valign="top">
+                input
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
 
     </div>
   </kupu:part>
 
   <kupu:part name="characters">
     <div class="kupu-toolbox" id="kupu-toolbox-characters">
-      <h1 style="border-top: none">non-standard characters</h1>
+      <h1 class="kupu-toolbox-heading" style="border-top: none">non-standard characters</h1>
 
-      <form name="kupu-characters-form">
-        <select id="charselect">
-          <option value="">select</option>
-        </select>
-      </form>
+      <div class="kupu-tooltray">
+        <form name="kupu-characters-form">
+          <select id="charselect">
+            <option value="">select</option>
+          </select>
+        </form>
+      </div>
 
     </div>
   </kupu:part>
@@ -50,11 +54,11 @@
         }
       "></script>
 
-      <h1 style="border-top: none">link</h1>
+      <h1 class="kupu-toolbox-heading" style="border-top: none">link</h1>
 
-      <div id="kupu-toolbox-addlink"> </div>
-      <div id="kupu-toolbox-editlink" class="kupu-toolbox-editlink"> </div>
       <div class="kupu-tooltray">
+        <div id="kupu-toolbox-addlink"> </div>
+        <div id="kupu-toolbox-editlink" class="kupu-toolbox-editlink"> </div>
 
         <form name="kupu_link_form" onsubmit="return false;">
           <input type="button" class="transport" style="margin-bottom:0.2em;" onclick="getLink(); return false;" value="get link reference..." />
@@ -78,7 +82,7 @@
   <kupu:part name="indexes">
     <div class="kupu-toolbox" id="kupu-toolbox-indexes">
 
-      <h1>index item</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">index item</h1>
 
       <div class="kupu-tooltray">
 
@@ -106,7 +110,7 @@
     "></script>
 
 
-    <h1>image</h1>
+    <h1 class="kupu-toolbox-heading" i18n:translate="">image</h1>
 
     <div class="kupu-tooltray">
 
@@ -151,7 +155,7 @@
 
     <div class="kupu-toolbox" id="kupu-toolbox-citation">
 
-      <h1 i18n:translate="citationtool">citation</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">citation</h1>
 
       <div class="kupu-tooltray">
 
@@ -193,7 +197,7 @@
 
     <div class="kupu-toolbox" id="kupu-toolbox-abbr">
 
-      <h1 i18n:translate="abbrtool">abbreviations and acronyms</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">abbreviations and acronyms</h1>
 
       <div class="kupu-tooltray">
 
@@ -243,7 +247,7 @@
     <div class="kupu-toolbox" id="kupu-toolbox-tables">
     <!-- start kupu toolbox tables -->
     
-    <h1 i18n:translate="table-inspector">table</h1>
+    <h1 class="kupu-toolbox-heading" i18n:translate="">table</h1>
 
     <div class="kupu-tooltray">
 
@@ -342,7 +346,7 @@
   <kupu:part name="toc">
     <div class="kupu-toolbox" id="kupu-toolbox-toc">
 
-      <h1>table of contents</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">table of contents</h1>
 
       <div class="kupu-tooltray">
 
@@ -372,7 +376,7 @@
   <kupu:part name="external_source">
     <div class="kupu-toolbox" id="kupu-toolbox-extsource">
 
-      <h1>external source</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">external source</h1>
 
       <div class="kupu-tooltray">
         
@@ -402,7 +406,7 @@
   <kupu:part name="typochars">
     <div class="kupu-toolbox" id="kupu-toolbox-typochars">
     
-      <h1 i18n:translate="typographical-characters">typographical characters</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">typographical characters</h1>
       <div class="kupu-tooltray">
         <!-- euro , ` ' ,, `` '' << >> - - -->
         &#x20AC; &#8218; &#145; &#146; &#132; &#147; &#148; &#171; &#187; &#8212; &#8211; &#183;
@@ -414,7 +418,7 @@
   <kupu:part name="save">
     <div class="kupu-toolbox">
     
-      <h1 i18n:translate="save">save</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">save</h1>
       <div class="kupu-tooltray">
         <form action="." method="POST" onsubmit="return false">
           <input type="button" class="button" value="save document" id="kupu-save-toolbox-button" onclick="kupu.saveDocument()" />
@@ -426,7 +430,7 @@
 
   <kupu:part name="cleanupexpressions">
     <div class="kupu-toolbox" id="kupu-toolbox-cleanupexpressions">
-      <h1 i18n:translate="">cleanup</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="">cleanup</h1>
       <div class="kupu-tooltray">
         <select id="kupucleanupexpressionselect" class="kupu-toolbox-st">
         </select>
