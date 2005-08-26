@@ -2278,7 +2278,9 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
         this._createSimpleItemHTML(type, value, name, 
                                     namespace, mandatory, td);
     } else if (type == 'checkbox') {
-        this._createCheckboxItemHTML(value, name, namespace, mandatory, td);
+        var titlecell = tablerow.getElementsByTagName('td')[0];
+        this._createCheckboxItemHTML(titlecell, value, name, namespace, 
+                                        mandatory, td);
     };
     if (parentvalue && parentvalue != '') {
         td.appendChild(document.createElement('br'));
@@ -2316,8 +2318,9 @@ SilvaPropertyTool.prototype._createSimpleItemHTML = function(type, value,
     td.appendChild(input);
 };
 
-SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
-                                                    namespace, mandatory, td) {
+SilvaPropertyTool.prototype._createCheckboxItemHTML = function(titlecell, 
+                                                    value, name, namespace, 
+                                                    mandatory, td) {
     // elements are seperated by ||
     var infos = value.split('||');
 
@@ -2325,20 +2328,20 @@ SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
     // 'foldable' div
     var outerdiv = document.createElement('div');
     outerdiv.className = 'kupu-properties-checkbox-outerdiv';
+
+    // the arrow and 'items' label
+    var itemsdiv = document.createElement('div');
+    outerdiv.appendChild(itemsdiv);
     var img = document.createElement('img');
     // XXX would be nice if this would be absolute...
     img.src = 'kupu_silva/closed_arrow.gif'; 
     img.setAttribute('title', _('click to unfold'));
     outerdiv.image = img; // XXX memory leak!!
+    itemsdiv.appendChild(img);
+    itemsdiv.appendChild(document.createTextNode(_('items')));
 
     // handler for showing/hiding the checkbox divs
     var handler = function(evt) {
-        if ((evt.target && (evt.target !== this && 
-                                evt.target !== this.image)) ||
-                (evt.srcElement && (evt.srcElement !== this && 
-                                evt.srcElement !== this.image))){
-            return;
-        };
         if (this.lastChild.style.display == 'none') {
             this.image.src = 'kupu_silva/opened_arrow.gif';
             this.image.setAttribute('title', _('click to fold'));
@@ -2349,9 +2352,8 @@ SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
             this.lastChild.style.display = 'none';
         }
     };
-    addEventHandler(outerdiv, 'click', handler, outerdiv);
-    outerdiv.appendChild(img);
-    outerdiv.appendChild(document.createTextNode('items'));
+    addEventHandler(itemsdiv, 'click', handler, outerdiv);
+    addEventHandler(titlecell, 'click', handler, outerdiv);
 
     // innerdiv is where the actual checkboxes are displayed in, and what
     // is collapsed/uncollapsed
