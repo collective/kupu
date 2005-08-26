@@ -17,6 +17,7 @@ this.kuputoolcollapser = new function() {
                     throw('heading not found by collapser for toolbox ' +
                             child.id);
                 };
+                heading.setAttribute('title', _('click to unfold'));
                 // find the toolbox's body
                 var body = null;
                 var currchild = heading.nextSibling;
@@ -39,9 +40,11 @@ this.kuputoolcollapser = new function() {
                         // assume we have a block-level element here...
                         this.style.display = 'block';
                         heading.className = 'kupu-toolbox-heading-opened';
+                        heading.setAttribute('title', _('click to fold'));
                     } else {
                         this.style.display = 'none';
                         heading.className = 'kupu-toolbox-heading-closed';
+                        heading.setAttribute('title', _('click to unfold'));
                     };
                 };
                 var wrap_openhandler = function(body, heading) {

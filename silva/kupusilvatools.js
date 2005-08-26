@@ -2328,6 +2328,7 @@ SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
     var img = document.createElement('img');
     // XXX would be nice if this would be absolute...
     img.src = 'kupu_silva/closed_arrow.gif'; 
+    img.setAttribute('title', _('click to unfold'));
     outerdiv.image = img; // XXX memory leak!!
 
     // handler for showing/hiding the checkbox divs
@@ -2339,11 +2340,12 @@ SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
             return;
         };
         if (this.lastChild.style.display == 'none') {
-            alert(this.image.src);
             this.image.src = 'kupu_silva/opened_arrow.gif';
+            this.image.setAttribute('title', _('click to fold'));
             this.lastChild.style.display = 'block';
         } else {
             this.image.src = 'kupu_silva/closed_arrow.gif';
+            this.image.setAttribute('title', _('click to unfold'));
             this.lastChild.style.display = 'none';
         }
     };
