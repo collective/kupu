@@ -47,7 +47,7 @@ this.kuputoolcollapser = new function() {
                 var wrap_openhandler = function(body, heading) {
                     return function() {
                         body.style.display = 'block';
-                        heading.className = 'kupu-toolbox-heading-closed';
+                        heading.className = 'kupu-toolbox-heading-opened';
                     };
                 };
                 addEventHandler(heading, 'click', handler, body, heading);

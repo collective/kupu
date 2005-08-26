@@ -2271,97 +2271,14 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     tablerow.getElementsByTagName('td')[0].appendChild(titlefield);
     titlefield.className = 'metadata-field';
     
-    var input = null;
     var value = metatag.getAttribute('content');
     var parentvalue = metatag.getAttribute('parentcontent');
     var td = tablerow.getElementsByTagName('td')[1]
     if (type == 'text' || type == 'textarea' || type == 'datetime') {
-        if (type == 'text' || type == 'datetime') {
-            input = document.createElement('input');
-            input.setAttribute('type', 'text');
-            input.value = value;
-            if (type == 'datetime') {
-                input.setAttribute('widget:type', 'datetime');
-            };
-        } else if (type == 'textarea') {
-            input = document.createElement('textarea');
-            var content = document.createTextNode(value);
-            input.appendChild(content);
-        };
-        input.setAttribute('name', name);
-        input.setAttribute('namespace', namespace);
-        input.className = 'metadata-input';
-        if (mandatory) {
-            input.setAttribute('mandatory', 'true');
-        };
-        td.appendChild(input);
+        this._createSimpleItemHTML(type, value, name, 
+                                    namespace, mandatory, td);
     } else if (type == 'checkbox') {
-        // elements are seperated by ||
-        var infos = value.split('||');
-
-        // messy stuff coming up, that make the checkboxes appear in some
-        // 'foldable' div
-        var outerdiv = document.createElement('div');
-        var img = document.createElement('img');
-        img.src = 'kupu_silva/closed_arrow.gif';
-        outerdiv.image = img;
-        addEventHandler(outerdiv.image, 'click', function(evt) {
-                if ((evt.target && (evt.target !== this && 
-                                        evt.target !== this.image)) ||
-                        (evt.srcElement && (evt.srcElement !== this && 
-                                        evt.srcElement !== this.image))){
-                    return;
-                };
-                if (this.lastChild.style.display == 'none') {
-                    this.image.src = 'kupu_silva/opened_arrow.gif';
-                    this.lastChild.style.display = 'block';
-                } else {
-                    this.image.src = 'kupu_silva/closed_arrow.gif';
-                    this.lastChild.style.display = 'none';
-                }}, outerdiv);
-        outerdiv.appendChild(img);
-        outerdiv.appendChild(document.createTextNode('items'));
-
-        // innerdiv is where the actual checkboxes are displayed in, and what
-        // is collapsed/uncollapsed
-        var innerdiv = document.createElement('div');
-        outerdiv.appendChild(innerdiv);
-        td.appendChild(outerdiv);
-
-        for (var i=0; i < infos.length; i++) {
-            // in certain cases the value you want to display is different
-            // from that you want to store, in that case seperate id from
-            // value with a |, there should always be a value|checked, but
-            // in some cases you may want a value|title|checked set...
-            var info = infos[i].split('|');
-            var itemvalue = info[0];
-            var title = info[0];
-            var checked = (info[1] == 'true' || info[1] == 'yes');
-            if (info.length == 3) {
-                title = info[1];
-                checked = (info[2] == 'true' || info[2] == 'yes');
-            };
-            var div = document.createElement('div');
-            innerdiv.appendChild(div);
-            var checkbox = document.createElement('input');
-            checkbox.setAttribute('name', name);
-            checkbox.setAttribute('namespace', namespace);
-            checkbox.type = 'checkbox';
-            checkbox.value = itemvalue;
-            div.appendChild(checkbox);
-            if (checked) {
-                checkbox.checked = 'checked';
-            };
-            checkbox.className = 'metadata-checkbox';
-            // XXX a bit awkward to set this on all checkboxes
-            if (mandatory) {
-                checkbox.setAttribute('mandatory', 'true');
-            };
-            div.appendChild(document.createTextNode(title));
-        };
-        // we can not hide the checkboxes earlier because IE requires them
-        // to be *visible* in order to check them from code :(
-        innerdiv.style.display = 'none';
+        this._createCheckboxItemHTML(value, name, namespace, mandatory, td);
     };
     if (parentvalue && parentvalue != '') {
         td.appendChild(document.createElement('br'));
@@ -2371,6 +2288,119 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     };
 
     return tablerow;
+};
+
+// just to make the above method a bit more readable
+SilvaPropertyTool.prototype._createSimpleItemHTML = function(type, value, 
+                                                            name, namespace,
+                                                            mandatory, td) {
+    var input = null;
+    if (type == 'text' || type == 'datetime') {
+        input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.value = value;
+        if (type == 'datetime') {
+            input.setAttribute('widget:type', 'datetime');
+        };
+    } else if (type == 'textarea') {
+        input = document.createElement('textarea');
+        var content = document.createTextNode(value);
+        input.appendChild(content);
+    };
+    input.setAttribute('name', name);
+    input.setAttribute('namespace', namespace);
+    input.className = 'metadata-input';
+    if (mandatory) {
+        input.setAttribute('mandatory', 'true');
+    };
+    td.appendChild(input);
+};
+
+SilvaPropertyTool.prototype._createCheckboxItemHTML = function(value, name,
+                                                    namespace, mandatory, td) {
+    // elements are seperated by ||
+    var infos = value.split('||');
+
+    // messy stuff coming up, that make the checkboxes appear in some
+    // 'foldable' div
+    var outerdiv = document.createElement('div');
+    outerdiv.className = 'kupu-properties-checkbox-outerdiv';
+    var img = document.createElement('img');
+    // XXX would be nice if this would be absolute...
+    img.src = 'kupu_silva/closed_arrow.gif'; 
+    outerdiv.image = img; // XXX memory leak!!
+
+    // handler for showing/hiding the checkbox divs
+    var handler = function(evt) {
+        if ((evt.target && (evt.target !== this && 
+                                evt.target !== this.image)) ||
+                (evt.srcElement && (evt.srcElement !== this && 
+                                evt.srcElement !== this.image))){
+            return;
+        };
+        if (this.lastChild.style.display == 'none') {
+            alert(this.image.src);
+            this.image.src = 'kupu_silva/opened_arrow.gif';
+            this.lastChild.style.display = 'block';
+        } else {
+            this.image.src = 'kupu_silva/closed_arrow.gif';
+            this.lastChild.style.display = 'none';
+        }
+    };
+    addEventHandler(outerdiv, 'click', handler, outerdiv);
+    outerdiv.appendChild(img);
+    outerdiv.appendChild(document.createTextNode('items'));
+
+    // innerdiv is where the actual checkboxes are displayed in, and what
+    // is collapsed/uncollapsed
+    var innerdiv = document.createElement('div');
+    innerdiv.className = 'kupu-properties-checkbox-innerdiv';
+    outerdiv.appendChild(innerdiv);
+    td.appendChild(outerdiv);
+
+    for (var i=0; i < infos.length; i++) {
+        // in certain cases the value you want to display is different
+        // from that you want to store, in that case seperate id from
+        // value with a |, there should always be a value|checked, but
+        // in some cases you may want a value|title|checked set...
+        var info = infos[i].split('|');
+        var itemvalue = info[0];
+        var title = info[0];
+        var checked = (info[1] == 'true' || info[1] == 'yes');
+        if (info.length == 3) {
+            title = info[1];
+            checked = (info[2] == 'true' || info[2] == 'yes');
+        };
+        var div = document.createElement('div');
+        div.className = 'kupu-properties-checkbox-line';
+        innerdiv.appendChild(div);
+
+        var cbdiv = document.createElement('div');
+        cbdiv.className = 'kupu-properties-checkbox-input';
+        div.appendChild(cbdiv);
+        
+        var checkbox = document.createElement('input');
+        checkbox.setAttribute('name', name);
+        checkbox.setAttribute('namespace', namespace);
+        checkbox.type = 'checkbox';
+        checkbox.value = itemvalue;
+        cbdiv.appendChild(checkbox);
+        if (checked) {
+            checkbox.checked = 'checked';
+        };
+        checkbox.className = 'metadata-checkbox';
+        // XXX a bit awkward to set this on all checkboxes
+        if (mandatory) {
+            checkbox.setAttribute('mandatory', 'true');
+        };
+        var textdiv = document.createElement('div');
+        textdiv.className = 'kupu-properties-checkbox-item-title';
+        textdiv.appendChild(document.createTextNode(title));
+        div.appendChild(textdiv);
+    };
+    // we can not hide the checkboxes earlier because IE requires them
+    // to be *visible* in order to check them from code :(
+    innerdiv.style.display = 'none';
 };
 
 SilvaPropertyTool.prototype.beforeSave = function() {
