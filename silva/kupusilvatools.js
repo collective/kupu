@@ -17,8 +17,8 @@ EDITABLE_METADATA = {
     'http://infrae.com/namespaces/metadata/silva-news': 
             [['subjects', 'checkbox', 1, 'Subjects'],
                 ['target_audiences', 'checkbox', 1, 'Target audiences'],
-                ['start_datetime', 'text', 1, 'Start date/time'],
-                ['end_datetime', 'text', 0, 'End date/time'],
+                ['start_datetime', 'datetime', 1, 'Start date/time'],
+                ['end_datetime', 'datetime', 0, 'End date/time'],
                 ['location', 'text', 0, 'Location']
             ]
 }
@@ -100,6 +100,9 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
             if (href) {
                 if (this.toolboxel) {
                     this.toolboxel.className = this.activeclass;
+                    if (this.toolboxel.open_handler) {
+                        this.toolboxel.open_handler();
+                    };
                 };
                 this.input.value = href;
                 var target = currnode.getAttribute('target');
@@ -238,6 +241,9 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
             this.linkinput.value = '';
         };
         if (this.toolboxel) {
+            if (this.toolboxel.open_handler) {
+                this.toolboxel.open_handler();
+            };
             this.toolboxel.className = this.activeclass;
         };
         var align = image.getAttribute('alignment');
@@ -822,6 +828,9 @@ function SilvaTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             };
             selectSelectItem(this.classselect, table.className);
             if (this.toolboxel) {
+                if (this.toolboxel.open_handler) {
+                    this.toolboxel.open_handler();
+                };
                 this.toolboxel.className = this.activeclass;
             };
         } else {
@@ -1164,6 +1173,9 @@ function SilvaIndexTool(inputid, addbuttonid, updatebuttonid, deletebuttonid, to
         var indexel = this.editor.getNearestParentOfType(selNode, 'A');
         if (indexel && !indexel.getAttribute('href')) {
             if (this.toolboxel) {
+                if (this.toolboxel.open_handler) {
+                    this.toolboxel.open_handler();
+                };
                 this.toolboxel.className = this.activeclass;
             };
             this.input.value = indexel.getAttribute('name');
@@ -1259,6 +1271,9 @@ function SilvaTocTool(depthselectid, addbuttonid, delbuttonid, toolboxid, plainc
             this.delbutton.style.display = 'inline';
             this._inside_toc = true;
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
@@ -1403,6 +1418,9 @@ function SilvaAbbrTool(abbrradioid, acronymradioid, radiocontainerid, titleinput
             this.titleinput.value = element.getAttribute('title');
             this.radiocontainer.style.display = 'none';
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
@@ -1574,6 +1592,9 @@ function SilvaCitationTool(authorinputid, sourceinputid, addbuttonid, updatebutt
             this.sourceinput.value = citation.getAttribute('source');
             this._inside_citation = true;
             if (this.toolbox) {
+                if (this.toolbox.open_handler) {
+                    this.toolbox.open_handler();
+                };
                 this.toolbox.className = this.activeclass;
             };
         } else {
@@ -1691,7 +1712,15 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     // get the codesource from (Zope's acquisition will make sure it ends up on
     // the right object)
     var urlparts = document.location.toString().split('/')
-    this._baseurl = urlparts.slice(0, urlparts.length - 2).join('/');
+    var urlparts_to_use = [];
+    for (var i=0; i < urlparts.length; i++) {
+        var part = urlparts[i];
+        if (part == 'edit') {
+            break;
+        };
+        urlparts_to_use.push(part);
+    };
+    this._baseurl = urlparts_to_use.join('/');
 
     this.initialize = function(editor) {
         this.editor = editor;
@@ -2163,12 +2192,13 @@ function SilvaKupuUI(textstyleselectid) {
 
 SilvaKupuUI.prototype = new KupuUI;
 
-function SilvaPropertyTool(tablerowid) {
+function SilvaPropertyTool(tablerowid, formid) {
     /* a simple tool to edit metadata fields
 
         the fields' contents are stored in Silva's metadata sets
     */
     this.tablerow = document.getElementById(tablerowid);
+    this.form = document.getElementById(formid);
     this.table = this.tablerow.parentNode;
     while (!this.table.nodeName.toLowerCase() == 'table') {
         this.table = this.table.parentNode;
@@ -2197,10 +2227,16 @@ SilvaPropertyTool.prototype.initialize = function(editor) {
             continue;
         };
         var rowcopy = this.tablerow.cloneNode(true);
-        var tag = this.parseFormElIntoRow(meta, rowcopy);
+        this.tablerow.parentNode.appendChild(rowcopy);
+        // create the form elements, pass in the rowcopy so the row can be
+        // rendered real-time, this because IE doesn't select checkboxes that
+        // arent' visible(!!)
+        this.parseFormElIntoRow(meta, rowcopy);
+        /*
         if (tag) {
             this.tablerow.parentNode.appendChild(tag);
         };
+        */
     };
     // throw away the original row: we don't need it anymore...
     this.tablerow.parentNode.removeChild(this.tablerow);
@@ -2243,61 +2279,16 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     tablerow.getElementsByTagName('td')[0].appendChild(titlefield);
     titlefield.className = 'metadata-field';
     
-    var input = null;
     var value = metatag.getAttribute('content');
     var parentvalue = metatag.getAttribute('parentcontent');
     var td = tablerow.getElementsByTagName('td')[1]
-    if (type == 'text' || type == 'textarea') {
-        if (type == 'text') {
-            input = document.createElement('input');
-            input.setAttribute('type', 'text');
-            input.value = value;
-        } else if (type == 'textarea') {
-            input = document.createElement('textarea');
-            var content = document.createTextNode(value);
-            input.appendChild(content);
-        };
-        input.setAttribute('name', name);
-        input.setAttribute('namespace', namespace);
-        input.className = 'metadata-input';
-        if (mandatory) {
-            input.setAttribute('mandatory', 'true');
-        };
-        td.appendChild(input);
+    if (type == 'text' || type == 'textarea' || type == 'datetime') {
+        this._createSimpleItemHTML(type, value, name, 
+                                    namespace, mandatory, td);
     } else if (type == 'checkbox') {
-        // elements are seperated by ||
-        var infos = value.split('||');
-        for (var i=0; i < infos.length; i++) {
-            // in certain cases the value you want to display is different
-            // from that you want to store, in that case seperate id from
-            // value with a |, there should always be a value|checked, but
-            // in some cases you may want a value|title|checked set...
-            var info = infos[i].split('|');
-            var itemvalue = info[0];
-            var title = info[0];
-            var checked = (info[1] == 'true' || info[1] == 'yes');
-            if (info.length == 3) {
-                title = info[1];
-                checked = (info[2] == 'true' || info[2] == 'yes');
-            };
-            var div = document.createElement('div');
-            var checkbox = document.createElement('input');
-            checkbox.setAttribute('name', name);
-            checkbox.setAttribute('namespace', namespace);
-            checkbox.type = 'checkbox';
-            checkbox.value = itemvalue;
-            if (checked) {
-                checkbox.setAttribute('checked', 'checked');
-            };
-            div.appendChild(checkbox);
-            checkbox.className = 'metadata-checkbox';
-            // XXX a bit awkward to set this on all checkboxes
-            if (mandatory) {
-                checkbox.setAttribute('mandatory', 'true');
-            };
-            div.appendChild(document.createTextNode(title));
-            td.appendChild(div);
-        };
+        var titlecell = tablerow.getElementsByTagName('td')[0];
+        this._createCheckboxItemHTML(titlecell, value, name, namespace, 
+                                        mandatory, td);
     };
     if (parentvalue && parentvalue != '') {
         td.appendChild(document.createElement('br'));
@@ -2309,8 +2300,126 @@ SilvaPropertyTool.prototype.parseFormElIntoRow = function(metatag, tablerow) {
     return tablerow;
 };
 
+// just to make the above method a bit more readable
+SilvaPropertyTool.prototype._createSimpleItemHTML = function(type, value, 
+                                                            name, namespace,
+                                                            mandatory, td) {
+    var input = null;
+    if (type == 'text' || type == 'datetime') {
+        input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.value = value;
+        if (type == 'datetime') {
+            input.setAttribute('widget:type', 'datetime');
+        };
+    } else if (type == 'textarea') {
+        input = document.createElement('textarea');
+        var content = document.createTextNode(value);
+        input.appendChild(content);
+    };
+    input.setAttribute('name', name);
+    input.setAttribute('namespace', namespace);
+    input.className = 'metadata-input';
+    if (mandatory) {
+        input.setAttribute('mandatory', 'true');
+    };
+    td.appendChild(input);
+};
+
+SilvaPropertyTool.prototype._createCheckboxItemHTML = function(titlecell, 
+                                                    value, name, namespace, 
+                                                    mandatory, td) {
+    // elements are seperated by ||
+    var infos = value.split('||');
+
+    // messy stuff coming up, that make the checkboxes appear in some
+    // 'foldable' div
+    var outerdiv = document.createElement('div');
+    outerdiv.className = 'kupu-properties-checkbox-outerdiv';
+
+    // the arrow and 'items' label
+    var itemsdiv = document.createElement('div');
+    outerdiv.appendChild(itemsdiv);
+    var img = document.createElement('img');
+    // XXX would be nice if this would be absolute...
+    img.src = 'kupu_silva/closed_arrow.gif'; 
+    img.setAttribute('title', _('click to unfold'));
+    outerdiv.image = img; // XXX memory leak!!
+    itemsdiv.appendChild(img);
+    itemsdiv.appendChild(document.createTextNode(_('items')));
+
+    // handler for showing/hiding the checkbox divs
+    var handler = function(evt) {
+        if (this.lastChild.style.display == 'none') {
+            this.image.src = 'kupu_silva/opened_arrow.gif';
+            this.image.setAttribute('title', _('click to fold'));
+            this.lastChild.style.display = 'block';
+        } else {
+            this.image.src = 'kupu_silva/closed_arrow.gif';
+            this.image.setAttribute('title', _('click to unfold'));
+            this.lastChild.style.display = 'none';
+        }
+    };
+    addEventHandler(itemsdiv, 'click', handler, outerdiv);
+    addEventHandler(titlecell, 'click', handler, outerdiv);
+
+    // innerdiv is where the actual checkboxes are displayed in, and what
+    // is collapsed/uncollapsed
+    var innerdiv = document.createElement('div');
+    innerdiv.className = 'kupu-properties-checkbox-innerdiv';
+    outerdiv.appendChild(innerdiv);
+    td.appendChild(outerdiv);
+
+    for (var i=0; i < infos.length; i++) {
+        // in certain cases the value you want to display is different
+        // from that you want to store, in that case seperate id from
+        // value with a |, there should always be a value|checked, but
+        // in some cases you may want a value|title|checked set...
+        var info = infos[i].split('|');
+        var itemvalue = info[0];
+        var title = info[0];
+        var checked = (info[1] == 'true' || info[1] == 'yes');
+        if (info.length == 3) {
+            title = info[1];
+            checked = (info[2] == 'true' || info[2] == 'yes');
+        };
+        var div = document.createElement('div');
+        div.className = 'kupu-properties-checkbox-line';
+        innerdiv.appendChild(div);
+
+        var cbdiv = document.createElement('div');
+        cbdiv.className = 'kupu-properties-checkbox-input';
+        div.appendChild(cbdiv);
+        
+        var checkbox = document.createElement('input');
+        checkbox.setAttribute('name', name);
+        checkbox.setAttribute('namespace', namespace);
+        checkbox.type = 'checkbox';
+        checkbox.value = itemvalue;
+        cbdiv.appendChild(checkbox);
+        if (checked) {
+            checkbox.checked = 'checked';
+        };
+        checkbox.className = 'metadata-checkbox';
+        // XXX a bit awkward to set this on all checkboxes
+        if (mandatory) {
+            checkbox.setAttribute('mandatory', 'true');
+        };
+        var textdiv = document.createElement('div');
+        textdiv.className = 'kupu-properties-checkbox-item-title';
+        textdiv.appendChild(document.createTextNode(title));
+        div.appendChild(textdiv);
+    };
+    // we can not hide the checkboxes earlier because IE requires them
+    // to be *visible* in order to check them from code :(
+    innerdiv.style.display = 'none';
+};
+
 SilvaPropertyTool.prototype.beforeSave = function() {
     /* save the metadata to the document */
+    if (window.widgeteer) {
+        widgeteer.widget_registry.prepareForm(this.form);
+    };
     var doc = this.editor.getInnerDocument();
     var inputs = this.table.getElementsByTagName('input');
     var textareas = this.table.getElementsByTagName('textarea');

@@ -216,7 +216,8 @@ function initSilvaKupu(iframe) {
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
-    var propertytool = new SilvaPropertyTool('propsrow');
+    var propertytool = new SilvaPropertyTool('propsrow', 
+                                                'kupu-properties-form');
     kupu.registerTool('properties', propertytool);
 
     var showpathtool = new ShowPathTool();
@@ -286,5 +287,11 @@ function initSilvaKupu(iframe) {
                                             'link_to_hires', 
                                             'target', 'link']);
 
+    if (window.kuputoolcollapser) {
+        var collapser = new window.kuputoolcollapser.Collapser(
+                                                        'kupu-toolboxes');
+        collapser.initialize();
+    };
+    
     return kupu;
 };

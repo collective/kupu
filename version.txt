@@ -1,1 +1,1 @@
-kupu 1.3 rc3
+kupu 1.3

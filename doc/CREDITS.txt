@@ -110,6 +110,7 @@ Translations
 
 * Anton Stonor - Danish
 
+* J (?), Suzuki Takanori - Japanese
 
 Third party products included
 -----------------------------

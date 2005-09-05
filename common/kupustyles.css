@@ -49,6 +49,20 @@ div.kupu-smalleditor .kupu-editorframe {
   margin-right: 0.2em;
 }
 
+h1.kupu-toolbox-heading, h1.kupu-toolbox-heading-closed {
+  cursor: default;
+  background-image: url("kupuimages/closed.png");
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+h1.kupu-toolbox-heading-opened {
+  cursor: default;
+  background-image: url("kupuimages/opened.png");
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
 div.kupu-sourcemode span.kupu-tb-buttongroup,
 body.kupu-fulleditor-zoomed select { display: none; }
 body.kupu-fulleditor-zoomed div.kupu-fulleditor-zoomed select { display: inline; }

@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <kupu:feature
     name="head"
     implementation="silva"
@@ -31,6 +32,8 @@
             tal:attributes="src string:${root_url}/kupu/kupuspellchecker.js"> </script>
     <script type="text/javascript" src="lookupwindowscripts.js"
             tal:attributes="src string:${root_url}/kupu_silva/lookupwindowscripts.js"> </script>
+    <script type="text/javascript" src="kuputoolcollapser.js"
+            tal:attributes="src string:${root_url}/kupu/kuputoolcollapser.js"> </script>
 
     <script type="text/javascript" src="kupusilvatools.js"
             tal:attributes="src string:${root_url}/kupu_silva/kupusilvatools.js"> </script>
@@ -48,7 +51,12 @@
 	    kupuui = kupu.getTool('ui'); 
 	    kupu.initialize();
 	};
+        // register the function to the unload registry
+        window.onload_registry.register(startKupu);
     </script>
+  </kupu:part>
+
+  <kupu:part name="meta">
   </kupu:part>
 
 </kupu:feature>
