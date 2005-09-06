@@ -270,7 +270,7 @@ function initSilvaKupu(iframe) {
     kupu.xhtmlvalid.setAttrFilter(['is_toc', 'toc_depth', 'is_citation', 
                                     'source', 'author', 'source_id', 
                                     'silva_type', 'alignment', 
-                                    'link_to_hires', 'link']);
+                                    'link_to_hires', 'link', 'silva_href']);
     // allow all attributes on div, since ExternalSources require that
     kupu.xhtmlvalid.includeTagAttributes(['div'], ['*']);
     kupu.xhtmlvalid.includeTagAttributes(['p'], ['silva_type']);
@@ -278,6 +278,7 @@ function initSilvaKupu(iframe) {
     kupu.xhtmlvalid.includeTagAttributes(['img'], ['alignment', 
                                             'link_to_hires', 
                                             'target', 'link']);
+    kupu.xhtmlvalid.includeTagAttributes(['a'], ['silva_href']);
 
     return kupu;
 };

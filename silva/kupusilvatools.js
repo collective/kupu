@@ -41,6 +41,39 @@ SilvaLinkTool.prototype.createContextMenuElements = function(selNode, event) {
     return ret;
 };
 
+SilvaLinkTool.prototype.updateLink = function(linkel, url, type, name, 
+                                                        target, title) {
+    if (type && type == 'anchor') {
+        linkel.removeAttribute('href');
+        linkel.removeAttribute('silva_href');
+        linkel.setAttribute('name', name);
+    } else {
+        linkel.href = url;
+        // this is why we overrode this: to add an additional attribute on
+        // the anchor with the link href *as entered by the user*, the problem
+        // is that IE will try to convert relative links to absolute ones
+        // for the normal href attribute. and makes a mess when dealing with
+        // Zope's (admittedly quirky) way of handling URLs
+        linkel.setAttribute('silva_href', url);
+        if (linkel.innerHTML == "") {
+            var doc = this.editor.getInnerDocument();
+            linkel.appendChild(doc.createTextNode(title || url));
+        }
+        if (title) {
+            linkel.title = title;
+        } else {
+            linkel.removeAttribute('title');
+        }
+        if (target && target != '') {
+            linkel.setAttribute('target', target);
+        }
+        else {
+            linkel.removeAttribute('target');
+        };
+        linkel.style.color = this.linkcolor;
+    };
+};
+
 function SilvaLinkToolBox(inputid, targetselectid, targetinputid, addbuttonid, updatebuttonid, delbuttonid, toolboxid, plainclass, activeclass) {
     /* create and edit links */
     
@@ -96,7 +129,10 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
     var href = '';
     while (currnode) {
         if (currnode.nodeName.toLowerCase() == 'a') {
-            href = currnode.getAttribute('href');
+            href = currnode.getAttribute('silva_href');
+            if (!href) {
+                href = currnode.getAttribute('href');
+            };
             if (href) {
                 if (this.toolboxel) {
                     this.toolboxel.className = this.activeclass;
