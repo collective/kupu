@@ -12,6 +12,10 @@ Kupu changes
 
     * Fixed a bug which prevented editing legacy (non-AT) content.
 
+    * Turned linkByUid off by default. Made resolveuid.py do a status 301 (moved permanently) redirection.
+
+    * Fixed linking to folder types which was broken when Plone 2.1 support was added.
+
   - More i18n work.
 
   - table classnames now take an optional caption.
@@ -23,6 +27,7 @@ Kupu changes
     up automatically.
 
 - 1.3rc1
+
   - Added support for i18n - the Kupu interface can now be displayed in
     multiple languages (provided language catalogs are available).
 
