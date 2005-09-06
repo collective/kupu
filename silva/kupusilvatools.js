@@ -239,7 +239,10 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
     var image = this.editor.getNearestParentOfType(selNode, 'img');
     if (image) {
         this.editel.style.display = 'block';
-        var src = image.getAttribute('src');
+        var src = image.getAttribute('silva_src');
+        if (!src) {
+            var src = image.getAttribute('src');
+        };
         this.urlinput.value = src;
         var target = image.getAttribute('target');
         if (!target) {
@@ -299,6 +302,21 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
     };
 };
 
+SilvaImageTool.prototype.createImage = function(url, floatstyle) {
+    var img = this.editor.getInnerDocument().createElement('img');
+    if (floatstyle) {
+        img.style.cssFloat = floatstyle;
+    };
+    img.setAttribute('src', url);
+    // set a silva_src attribute too, IE mangles the src attr to make the
+    // src absolute, this allows retrieving the src as entered by the user
+    img.setAttribute('silva_src', url);
+    img = this.editor.insertNodeAtSelection(img, 1);
+    this.editor.logMessage('Image inserted');
+    this.editor.updateState();
+    return img;
+};
+    
 SilvaImageTool.prototype.setTarget = function() {
     var target = this.targetselect.options[this.targetselect.selectedIndex].value;
     if (target == 'input') {
@@ -321,6 +339,7 @@ SilvaImageTool.prototype.setSrc = function() {
     
     var src = this.urlinput.value;
     img.setAttribute('src', src);
+    img.setAttribute('silva_src', src);
     this.editor.logMessage('Image updated');
 };
 
