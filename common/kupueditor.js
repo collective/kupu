@@ -450,7 +450,8 @@ function KupuEditor(document, config, logger) {
     };
     
     this.handleSaveResponse = function(request, redirect) {
-        if (request.status != '200' && request.status != '204'){
+        if (request.status != '200' && request.status != '204' 
+                && request.status != '1223'){ // IE sux0rZ!
             alert('Error saving your data.\nResponse status: ' + 
                   request.status + 
                   '.\nCheck your server log for more information.')
