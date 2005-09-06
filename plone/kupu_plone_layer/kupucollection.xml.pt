@@ -23,7 +23,7 @@
        </tal:comment>
        <tal:var define="
            list_types  python:context.kupuGetResourceTypes(resource_type, True);
-           link_types  python:context.kupuGetResourceTypes(resource_type, False);
+           link_types  python:context.kupuGetResourceTypes(resource_type, False)['portal_type'];
            content     python:context.getFolderContents(contentFilter=list_types);
            global items python:context.kupuInfoForBrains(content,
                 linkhere=context.portal_type in link_types,
