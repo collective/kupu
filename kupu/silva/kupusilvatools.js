@@ -1711,7 +1711,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     // store the base url, this will be prepended to the id to form the url to
     // get the codesource from (Zope's acquisition will make sure it ends up on
     // the right object)
-    var urlparts = document.location.toString().split('/')
+    var urlparts = document.location.pathname.toString().split('/')
     var urlparts_to_use = [];
     for (var i=0; i < urlparts.length; i++) {
         var part = urlparts[i];
