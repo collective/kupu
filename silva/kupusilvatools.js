@@ -1755,7 +1755,6 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         urlparts_to_use.push(part);
     };
     this._baseurl = urlparts_to_use.join('/');
-    alert(this._baseurl);
 
 
     this.initialize = function(editor) {
