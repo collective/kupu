@@ -1746,7 +1746,16 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
     // get the codesource from (Zope's acquisition will make sure it ends up on
     // the right object)
     var urlparts = document.location.toString().split('/')
-    this._baseurl = urlparts.slice(0, urlparts.length - 2).join('/');
+    var urlparts_to_use = [];
+    for (var i=0; i < urlparts.length; i++) {
+        var part = urlparts[i];
+        if (part == 'edit') {
+            break;
+        };
+        urlparts_to_use.push(part);
+    };
+    this._baseurl = urlparts_to_use.join('/');
+
 
     this.initialize = function(editor) {
         this.editor = editor;
