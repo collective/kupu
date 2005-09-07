@@ -2143,46 +2143,6 @@ SilvaExternalSourceTool.prototype.getNearestExternalSource = function(selNode) {
     };
 };
 
-function SilvaExternalSourceFilter() {
-};
-
-SilvaExternalSourceFilter.prototype.initialize = function(editor) {
-    this.editor = editor;
-};
-
-SilvaExternalSourceFilter.prototype.filter = function(ownerdoc, htmlnode) {
-    /* make sure any external source divs contain only the attributes that
-        are meant to be stored (IE throws in a whole lot more!)
-    */
-    var divs = htmlnode.getElementsByTagName('div');
-    var somediv = document.createElement('div');
-    var defaultattrs = [];
-    for (var i=0; i < somediv.attributes.length; i++) {
-        defaultattrs.push(somediv.attributes[i].nodeName);
-    };
-    for (var i=0; i < divs.length; i++) {
-        var div = divs[i];
-        if (div.getAttribute('class') == 'externalsource') {
-            var newdiv = div.cloneNode(true);
-            for (var j=0; j < div.attributes.length; j++) {
-                var attr = div.attributes[j];
-                if (attr.nodeName == 'source_id') {
-                    continue;
-                };
-                if (defaultattrs.contains(attr.nodeName)) { // XXX slow!!!
-                    // also on the other div, so we should remove it
-                    div.removeAttribute(attr.nodeName);
-                };
-            };
-        };
-    };
-    var results = [];
-    for (var i=0; i < div.attributes.length; i++) {
-        results.push(div.attributes[i].nodeName);
-    };
-    return htmlnode;
-};
-
 function SilvaKupuUI(textstyleselectid) {
     this.tsselect = document.getElementById(textstyleselectid);
 

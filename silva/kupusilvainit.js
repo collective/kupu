@@ -308,8 +308,5 @@ function initSilvaKupu(iframe) {
                 'onbeforeactivate']);
 
     
-    var externalsourcefilter = new SilvaExternalSourceFilter();
-    kupu.registerFilter(externalsourcefilter);
-
     return kupu;
 };
