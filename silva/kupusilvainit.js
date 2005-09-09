@@ -270,14 +270,43 @@ function initSilvaKupu(iframe) {
     kupu.xhtmlvalid.setAttrFilter(['is_toc', 'toc_depth', 'is_citation', 
                                     'source', 'author', 'source_id', 
                                     'silva_type', 'alignment', 
-                                    'link_to_hires', 'link']);
+                                    'link_to_hires', 'link', 'silva_href',
+                                    'silva_src']);
     // allow all attributes on div, since ExternalSources require that
     kupu.xhtmlvalid.includeTagAttributes(['div'], ['*']);
     kupu.xhtmlvalid.includeTagAttributes(['p'], ['silva_type']);
     kupu.xhtmlvalid.includeTagAttributes(['h6'], ['silva_type']);
     kupu.xhtmlvalid.includeTagAttributes(['img'], ['alignment', 
                                             'link_to_hires', 
-                                            'target', 'link']);
+                                            'target', 'link',
+                                            'silva_src']);
+    kupu.xhtmlvalid.includeTagAttributes(['a'], ['silva_href']);
 
+    // have to set a blacklist of tags for div, since IE will otherwise
+    // save every possible HTML attr for the div
+    kupu.xhtmlvalid.excludeTagAttributes(['div'], ['onrowexit', 'onfocusout',
+                'onrowsinserted', 'disabled', 'oncopy', 'onresizestart',
+                'onerrorupdate', 'tabIndex', 'ondeactivate', 
+                'ondataavailable', 'ondragover', 'title', 'accessKey', 
+                'onkeypress', 'dataFld', 'onmousemove', 'onactivate',
+                'onafterupdate', 'ondrag', 'contentEditable', 'hideFocus',
+                'onblur', 'onmouseout', 'oncellchange', 'onmouseleave',
+                'onkeydown', 'dataSrc', 'onmousewheel', 'onpaste', 'ondrop',
+                'onrowsdelete', 'onrowenter', 'ondragend', 'align', 
+                'onlayoutcomplete', 'onbeforedeactivate', 'nofocusrect',
+                'ondblclick', 'onselectstart', 'onreadystatechange',
+                'dataFormatAs', 'onmousedown', 'onscroll', 'style',
+                'implementation', 'onbeforecut', 'oncontrolselect',
+                'ondatasetcomplete', 'onmouseup', 'noWrap', 'onfocusin',
+                'onresizeend', 'oncontextmenu', 'ondragstart', 'onmoveend',
+                'onbeforeeditfocus', 'onpropertychange', 'lang', 
+                'onmovestart', 'onkeyup', 'dir', 'onfilterchange',
+                'onmouseenter', 'onresize', 'onclick', 'onbeforecopy',
+                'onfocus', 'ondatasetchanged', 'id', 'onmove', 'onpage',
+                'ondragenter', 'ondragleave', 'oncut', 'onbeforedeactivate',
+                'onhelp', 'onlosecapture', 'onbeforeupdate', 'onmouseover',
+                'onbeforeactivate']);
+
+    
     return kupu;
 };
