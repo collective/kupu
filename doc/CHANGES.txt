@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- Post 1.2.1
+- 1.2.2
 
   - Fixed problem in Silva (although the problem exists in other setups too,
     I fixed it only for Silva, since it requires server-side logic too) with
