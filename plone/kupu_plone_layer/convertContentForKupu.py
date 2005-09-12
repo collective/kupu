@@ -16,4 +16,4 @@ if len(content)==0 or 'html' in text_format.lower():
     return content
  
 transforms = getToolByName(context, 'portal_transforms')
-return transforms.convertTo('text/html', content, mimetype=text_format)
+return transforms.convertToData('text/html', content, mimetype=text_format)
