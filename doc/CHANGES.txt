@@ -2,6 +2,16 @@
 Kupu changes
 ============
 
+- 1.3.1
+
+  - Silva:
+    
+    * Fixed problem with IE that turned all src attributes (images) and hrefs
+      (links) into absolute URLs, failing miserably on Zope/Silva setups.
+
+    * Fixed bug with IE that made that all possible attributes were stored
+      on external source elements.
+
 - 1.3
 
   - Plone:
