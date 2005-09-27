@@ -2400,10 +2400,10 @@ SilvaPropertyTool.prototype._createCheckboxItemHTML = function(titlecell,
     var img = document.createElement('img');
     // XXX would be nice if this would be absolute...
     img.src = 'kupu_silva/closed_arrow.gif'; 
-    img.setAttribute('title', _('click to unfold'));
     outerdiv.image = img; // XXX memory leak!!
     itemsdiv.appendChild(img);
     itemsdiv.appendChild(document.createTextNode(_('items')));
+    itemsdiv.setAttribute('title', _('click to unfold'));
 
     // handler for showing/hiding the checkbox divs
     var handler = function(evt) {
