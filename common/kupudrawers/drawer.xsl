@@ -207,6 +207,9 @@ test="$drawertype='link'">Insert Link</xsl:when>
                     </td>
                 </tr>
             </xsl:when>
+            <xsl:otherwise>
+                <img src="{uri}" title="{title}" height="120" alt="{title}" />
+            </xsl:otherwise>
         </xsl:choose>
         <div>
             <xsl:value-of select="size"/>
