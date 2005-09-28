@@ -17,7 +17,8 @@ response.setHeader('Cache-Control', 'no-cache')
 types_tool = getToolByName(context, 'portal_types')
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 url_tool = getToolByName(context, 'portal_url')
-uid_catalog = getToolByName(context, 'uid_catalog')
+uid_catalog = getToolByName(context, 'uid_catalog', None)
+
 linkbyuid = kupu_tool.getLinkbyuid()
 coll_types = kupu_tool.queryPortalTypesForResourceType('collection', ())
 preview_action = 'kupupreview'
@@ -86,8 +87,11 @@ def info(brain, allowCollection=True):
     # Path for the uid catalog doesn't have the leading '/'
     path = brain.getPath()
     UID = None
-    if path:
-        metadata = uid_catalog.getMetadataForUID(path[prefix_length:])
+    if path and uid_catalog:
+        try:
+            metadata = uid_catalog.getMetadataForUID(path[prefix_length:])
+        except KeyError:
+            metadata = None
         if metadata:
             UID = metadata.get('UID', None)
 
