@@ -50,7 +50,8 @@ def info_object(obj, allowCollection=True):
         else:
             url = obj.absolute_url()
 
-        icon = "%s/%s" % (context.portal_url(), obj.getIcon())
+
+        icon = "%s/%s" % (context.portal_url(), obj.getIcon(1))
         width = height = size = None
         preview = obj.getTypeInfo().getActionById(preview_action, None)
 
