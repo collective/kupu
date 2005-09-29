@@ -12,7 +12,7 @@ this.kuputoolcollapser = new function() {
         var initial_state = {};
         if (navigator.cookieEnabled) {
             var cookie = document.cookie;
-            var reg = /initial_state=([^;]+)/;
+            var reg = /initial_state=([^;]+);?/;
             var match = cookie.match(reg);
             if (match) {
                 eval(unescape(match[0]));
@@ -65,7 +65,7 @@ this.kuputoolcollapser = new function() {
             };
         };
 
-        addEventHandler(window, 'unload', this.saveState, this);
+        addEventHandler(window, 'beforeunload', this.saveState, this);
     };
 
     ToolCollapser.prototype.getToolBody = function(tool) {
@@ -99,9 +99,12 @@ this.kuputoolcollapser = new function() {
         var exp = new Date();
         // 100 years before state is lost... should be enough ;)
         exp.setTime(exp.getTime() + (100 * 365 * 24 * 60 * 60 * 1000));
-        document.cookie = 'initial_state=' + 
-                            this.serializeMapping(current_state) +
-                            '; expires=' + exp.toGMTString();
+        var cookie = 'initial_state=' + 
+                            escape(this.serializeMapping(current_state)) + 
+                            ';' +
+                            'expires=' + exp.toGMTString() + ';' +
+                            'path=/';
+        document.cookie = cookie;
     };
 
     ToolCollapser.prototype.serializeMapping = function(mapping) {
@@ -110,7 +113,7 @@ this.kuputoolcollapser = new function() {
             works only for dicts with string values
         */
         if (typeof(mapping) == 'string') {
-            return "'" + escape(mapping) + "'";
+            return "'" + mapping + "'";
         };
         var ret = '{';
         var first = true;
@@ -118,7 +121,7 @@ this.kuputoolcollapser = new function() {
             if (!first) {
                 ret += ', ';
             };
-            ret += "'" + escape(key) + "': " + 
+            ret += "'" + key + "': " + 
                 this.serializeMapping(mapping[key]);
             first = false;
         };
