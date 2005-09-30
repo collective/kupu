@@ -13,7 +13,12 @@ field = context.getField(fieldname)
 text_format = context.REQUEST.get('%s_text_format' % fieldname, context.getContentType(fieldname))
 
 if len(content)==0 or 'html' in text_format.lower():
-    return content
- 
+    return str(content)
+
 transforms = getToolByName(context, 'portal_transforms')
-return transforms.convertToData('text/html', content, mimetype=text_format)
+
+converted = transforms.convertToData('text/html', content, mimetype=text_format)
+if converted is not None:
+    return converted
+
+return content
