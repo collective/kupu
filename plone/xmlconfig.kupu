@@ -39,8 +39,8 @@
   </a><t tal:repeat="tag tags" tal:content="tag"></t></c
   ></tal:block></tal:block
 >
-<style tal:repeat="st here/kupu_library_tool/getStyleWhitelist"
-        tal:content="st"></style>
+<xstyle tal:repeat="st here/kupu_library_tool/getStyleWhitelist"
+        tal:content="st"></xstyle>
 <class tal:repeat="cl here/kupu_library_tool/getClassBlacklist"
         tal:content="cl"></class>
 </htmlfilter>

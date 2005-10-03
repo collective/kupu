@@ -9,6 +9,15 @@ this.kuputoolcollapser = new function() {
     this.Collapser = ToolCollapser;
 
     ToolCollapser.prototype.initialize = function() {
+        var initial_state = {};
+        if (navigator.cookieEnabled) {
+            var cookie = document.cookie;
+            var reg = /initial_state=([^;]+);?/;
+            var match = cookie.match(reg);
+            if (match) {
+                eval(unescape(match[0]));
+            };
+        };
         for (var i=0; i < this.parent.childNodes.length; i++) {
             var child = this.parent.childNodes[i];
             if (child.className == 'kupu-toolbox') {
@@ -19,16 +28,7 @@ this.kuputoolcollapser = new function() {
                 };
                 heading.setAttribute('title', _('click to unfold'));
                 // find the toolbox's body
-                var body = null;
-                var currchild = heading.nextSibling;
-                while (currchild.nodeType != 1) {
-                    currchild = currchild.nextSibling;
-                    if (!currchild) {
-                        throw('body not found by collapser for toolbox ' +
-                                child.id);
-                    };
-                };
-                body = currchild;
+                var body = this.getToolBody(child);
                 // now set a handler that makes the body display and hide
                 // on click, and register it to the heading
                 // WAAAAAHHHH!!! since there's some weird shit happening when
@@ -54,12 +54,77 @@ this.kuputoolcollapser = new function() {
                     };
                 };
                 addEventHandler(heading, 'click', handler, body, heading);
-                body.style.display = 'none';
+                if (initial_state[child.id] === undefined || 
+                        initial_state[child.id] == '0') {
+                    body.style.display = 'none';
+                };
                 // add a reference to the openhandler on the toolbox div
                 // so any toolbox code can use that to open the toolbox if
                 // it so desires
                 child.open_handler = wrap_openhandler(body, heading);
             };
         };
+
+        addEventHandler(window, 'beforeunload', this.saveState, this);
+    };
+
+    ToolCollapser.prototype.getToolBody = function(tool) {
+        var heading = tool.getElementsByTagName('h1')[0];
+        var currchild = heading.nextSibling;
+        while (currchild.nodeType != 1) {
+            currchild = currchild.nextSibling;
+            if (!currchild) {
+                throw('body not found by collapser for toolbox ' +
+                        child.id);
+            };
+        };
+        return currchild;
+    };
+
+    ToolCollapser.prototype.saveState = function() {
+        /* save collapse state of the toolboxes in a cookie */
+        if (!navigator.cookieEnabled) {
+            return;
+        };
+        var current_state = {};
+        for (var i=0; i < this.parent.childNodes.length; i++) {
+            var child = this.parent.childNodes[i];
+            if (child.nodeType != 1) {
+                continue;
+            };
+            var body = this.getToolBody(child);
+            current_state[child.id] = body.style.display == 'none' ? '0' : '1';
+        };
+        
+        var exp = new Date();
+        // 100 years before state is lost... should be enough ;)
+        exp.setTime(exp.getTime() + (100 * 365 * 24 * 60 * 60 * 1000));
+        var cookie = 'initial_state=' + 
+                            escape(this.serializeMapping(current_state)) + 
+                            ';' +
+                            'expires=' + exp.toGMTString() + ';' +
+                            'path=/';
+        document.cookie = cookie;
+    };
+
+    ToolCollapser.prototype.serializeMapping = function(mapping) {
+        /* serializes the config dict into a string that can be evalled
+            
+            works only for dicts with string values
+        */
+        if (typeof(mapping) == 'string') {
+            return "'" + mapping + "'";
+        };
+        var ret = '{';
+        var first = true;
+        for (var key in mapping) {
+            if (!first) {
+                ret += ', ';
+            };
+            ret += "'" + key + "': " + 
+                this.serializeMapping(mapping[key]);
+            first = false;
+        };
+        return ret + '}';
     };
 }();

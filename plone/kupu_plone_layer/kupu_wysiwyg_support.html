@@ -4,15 +4,15 @@
   <!--$Id: include.kupu 11657 2005-04-30 17:19:15Z guido $-->
     <!--$Id: wire.kupu 12162 2005-05-10 15:53:10Z guido $-->
     <!--$Id: html.kupu 14296 2005-07-05 15:02:12Z duncan $-->
-    <!--$Id: head.kupu 14296 2005-07-05 15:02:12Z duncan $-->
+    <!--$Id: head.kupu 17247 2005-09-05 15:29:40Z duncan $-->
     <!--$Id: body.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: xmlconfig.kupu 12162 2005-05-10 15:53:10Z guido $-->
     <!--$Id: saveonpart.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 16140 2005-08-18 14:24:56Z duncan $-->
-    <!--$Id: toolboxes.kupu 13098 2005-06-06 12:11:48Z mihxil $-->
+    <!--$Id: toolbar.kupu 17247 2005-09-05 15:29:40Z duncan $-->
+    <!--$Id: toolboxes.kupu 17247 2005-09-05 15:29:40Z duncan $-->
     <!--$Id: colorchooser.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: drawers.kupu 15926 2005-08-10 15:41:46Z duncan $-->
@@ -21,7 +21,7 @@
     <!--$Id: head.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: xmlconfig.kupu 15926 2005-08-10 15:41:46Z duncan $-->
     <!--$Id: body.kupu 15693 2005-08-05 14:14:33Z duncan $-->
-    <!--$Id: toolbar.kupu 16140 2005-08-18 14:24:56Z duncan $-->
+    <!--$Id: toolbar.kupu 17247 2005-09-05 15:29:40Z duncan $-->
     <!--$Id: drawers.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: beforeunload.kupu 14575 2005-07-12 20:18:12Z duncan $-->
     <!--$Id: sourceedit.kupu 14575 2005-07-12 20:18:12Z duncan $-->
@@ -58,7 +58,7 @@
 <htmlfilter tal:condition="excludes">
 <tal:block repeat="exclude excludes"><tal:block define="tags python:exclude[0]; attributes python:exclude[1];"><c tal:omit-tag="not:python:tags and attributes"><a tal:repeat="attr attributes" tal:content="attr">
   </a><t tal:repeat="tag tags" tal:content="tag"/></c></tal:block></tal:block>
-<style tal:repeat="st here/kupu_library_tool/getStyleWhitelist" tal:content="st"/>
+<xstyle tal:repeat="st here/kupu_library_tool/getStyleWhitelist" tal:content="st"/>
 <class tal:repeat="cl here/kupu_library_tool/getClassBlacklist" tal:content="cl"/>
 </htmlfilter>
 </tal:block>
@@ -353,6 +353,7 @@
   <script type="text/javascript">var focuscount = 0;</script>
     <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="                 base here/absolute_url;                 posfactory python:base.find('/portal_factory/');                 base python:posfactory &gt; 0 and base[:posfactory+15] or base;                 base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1;">
     </iframe>
+     <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
 <tal:test condition="fieldName|nothing">
     <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" tal:condition="fieldName|nothing" tal:define="global kupu_content python:here.convertContentForKupu(fieldName, inputvalue);" tal:content="kupu_content" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>

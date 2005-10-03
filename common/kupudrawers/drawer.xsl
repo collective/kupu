@@ -95,6 +95,10 @@ test="$drawertype='link'">Insert Link</xsl:when>
                                         <xsl:apply-templates
                                         select="/libraries/*[@selected]//resource[@selected]" mode="link-properties"/>
                                         </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:apply-templates
+                                            select="/libraries/*[@selected]//resource[@selected]" mode="properties"/>
+                                        </xsl:otherwise>
                                         </xsl:choose>
                                         </div>
                                     </td>
@@ -207,6 +211,9 @@ test="$drawertype='link'">Insert Link</xsl:when>
                     </td>
                 </tr>
             </xsl:when>
+            <xsl:otherwise>
+                <img src="{uri}" title="{title}" height="120" alt="{title}" />
+            </xsl:otherwise>
         </xsl:choose>
         <div>
             <xsl:value-of select="size"/>

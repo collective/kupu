@@ -416,7 +416,7 @@
   </kupu:part>
 
   <kupu:part name="save">
-    <div class="kupu-toolbox">
+    <div class="kupu-toolbox" id="kupu-toolbox-save">
     
       <h1 class="kupu-toolbox-heading" i18n:translate="">save</h1>
       <div class="kupu-tooltray">

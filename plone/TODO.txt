@@ -193,3 +193,33 @@ the file is saved.
 
 
 Arrange a Kupu sprint
+
+=================================================
+Drawer improvements:
+
+Access schema to find things like image sizes, and possibly also
+control other fields to appear in the drawer form. See
+http://svn.plone.org/view/collective/ATContentSearch/trunk/ATContentSearch.py?op=file&rev=0&sc=0
+
+Enable xsl includes in the drawer code so that the form can be
+customised.
+
+Change selection to display using a radio button instead of (or as
+well as) highlighing the line. This allows clicking on the radio
+button to select folderish content, clicking on the title navigates
+into folders but selects other content.
+
+Multiple selection done by replacing radio button with a checkbox.
+Also add a library which shows just selected content. Make popup a
+reference widget for Archetypes which uses kupu drawers in multiple
+selection mode.
+
+Make the widget aggressive: i.e. it will actively seek
+out schemas which use the default AT reference widget and replace it,
+but if the user does not have Kupu selected as their editor the
+original reference widget will display instead. (This means nobody
+will have to modify their content types to get the new behaviour).
+
+Make ReferenceTextField aggressive in the same way. Add configuration
+options to select whether TextField and ReferenceWidget are hijacked.
+

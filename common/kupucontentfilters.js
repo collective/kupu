@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * Copyright (c) 2003-2005 Kupu Contributors. All rights reserved.
+ * Copyright (c) 2003-2004 Kupu Contributors. All rights reserved.
  *
  * This software is distributed under the terms of the Kupu
  * License. See LICENSE.txt for license text. For a list of Kupu
@@ -142,7 +142,8 @@ function NonXHTMLTagFilter() {
                 newnode.appendChild(this._filterHelper(ownerdoc, child));
             } else if (nodeName in this.filterdata) {
                 for (var j=0; j < child.childNodes.length; j++) {
-                    newnode.appendChild(this._filterHelper(ownerdoc, child.childNodes[j]));
+                    newnode.appendChild(this._filterHelper(ownerdoc, 
+                        child.childNodes[j]));
                 };
             };
         };
@@ -220,6 +221,10 @@ function XhtmlValidation(editor) {
                 }
             }
             this.tagAttributes[tag] = val;
+            // have to store this to allow filtering for nodes on which
+            // '*' is set as allowed, this allows using '*' for the attributes
+            // but also filtering some out
+            this.badTagAttributes[tag] = attributes;
         }
     }
 
@@ -381,6 +386,8 @@ function XhtmlValidation(editor) {
         this.td = this.th = this.tr.concat('abbr','axis','headers','scope','rowspan','colspan','nowrap','width','height');
     }(this.elements, this);
 
+    this.badTagAttributes = new this.Set({});
+
     // State array. For each tag identifies what it can contain.
     // I'm not attempting to check the order or number of contained
     // tags (yet).
@@ -452,6 +459,7 @@ function XhtmlValidation(editor) {
         if (val) xhtmlnode.setAttribute(name, val);
     }
     // Set up filters for attributes.
+    var filter = this;
     this.attrFilters = new function(validation, editor) {
         var attrs = validation.elements.attributes;
         for (var i=0; i < attrs.length; i++) {
@@ -465,13 +473,18 @@ function XhtmlValidation(editor) {
         // allow a * wildcard to make all attributes valid in the filter
         // note that this is pretty slow on IE
         this['*'] = function(name, htmlnode, xhtmlnode) {
+            var nodeName = filter._getTagName(htmlnode);
+            var bad = filter.badTagAttributes[nodeName];
             for (var i=0; i < htmlnode.attributes.length; i++) {
                 var attr = htmlnode.attributes[i];
+                if (bad && bad.contains(attr.name)) {
+                    continue;
+                };
                 if (attr.value !== null && attr.value !== undefined) {
                     xhtmlnode.setAttribute(attr.name, attr.value);
                 };
             };
-        };
+        }
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.className;
@@ -532,8 +545,8 @@ function XhtmlValidation(editor) {
                 this.excludeTagAttributes(c[i].t, c[i].a);
             }
         }
-        if (exclude.style) {
-            var s = exclude.style;
+        if (exclude.xstyle) {
+            var s = exclude.xstyle;
             for (var i = 0; i < s.length; i++) {
                 this.styleWhitelist[s[i]] = 1;
             }
