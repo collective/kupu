@@ -300,7 +300,7 @@ through the `<htmlfilter>` section of the configuration::
 
         <htmlfilter>
           ... as above ...
-            <style>list-style-image</style>
+            <xstyle>list-style-image</xstyle>
             <class>badClassName</class>
         </htmlfilter>
 

@@ -545,8 +545,8 @@ function XhtmlValidation(editor) {
                 this.excludeTagAttributes(c[i].t, c[i].a);
             }
         }
-        if (exclude.style) {
-            var s = exclude.style;
+        if (exclude.xstyle) {
+            var s = exclude.xstyle;
             for (var i = 0; i < s.length; i++) {
                 this.styleWhitelist[s[i]] = 1;
             }
