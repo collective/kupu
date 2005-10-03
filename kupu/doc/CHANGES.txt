@@ -12,6 +12,14 @@ Kupu changes
     * Fixed bug with IE that made that all possible attributes were stored
       on external source elements.
 
+  - Plone
+
+    * Fix error opening drawers when there is non-AT content around.
+
+    * Fix for content type not being set on AT content with only one allowed type.
+
+    * Fix for error when converting content from another format such as reST.
+
 - 1.3
 
   - Disabled entity escaping since it causes problems with Plone indexing.
