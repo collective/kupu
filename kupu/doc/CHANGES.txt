@@ -14,6 +14,9 @@ Kupu changes
 
 - 1.3
 
+  - Disabled entity escaping since it causes problems with Plone indexing.
+    (this should be fixed properly in Plone's PortalTransform code).
+
   - Plone:
 
     * removed the hardwired styles Heading, Subheading and
