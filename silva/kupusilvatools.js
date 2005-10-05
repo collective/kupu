@@ -1954,6 +1954,11 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
 
     this._addFormToTool = function(object) {
         if (this.readyState == 4) {
+            if (this.status != '200') {
+                // element not found, return without doing anythink
+                object.resetTool();
+                return;
+            };
             while (object.formcontainer.hasChildNodes()) {
                 object.formcontainer.removeChild(object.formcontainer.firstChild);
             };
