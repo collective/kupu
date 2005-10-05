@@ -50,7 +50,11 @@
     <div class="kupu-toolbox" id="kupu-toolbox-links">
       <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
         function getLink() {
-          getObjectReference('${container/absolute_url}/edit/document_lookup', '_reference_', '${folder_context}');
+          reference.getReference(
+            function(path, id, title) {
+              kupu.getTool('linktool').createLink(path);
+            }, '${container/absolute_url}',
+            '', true);;
         }
       "></script>
 
@@ -103,9 +107,20 @@
 
     <div class="kupu-toolbox" id="kupu-toolbox-images">
 
-    <script type="text/javascript" tal:define="container model/get_container; folder_context python: '/'.join(container.getPhysicalPath())" tal:content="string:
+    <script type="text/javascript" tal:define="container model/get_container; folder_context python: container" tal:content="string:
       function getImage() {
-        openAssetLookupWindow('${container/absolute_url}/edit/asset_lookup?filter=Silva+Image', '${folder_context}');
+        reference.getReference(
+          function(path, id, title) {
+            var imgtool = kupu.getTool('imagetool');
+            imgtool.createImage(path);
+            if (title) {
+                var selNode = kupu.getSelectedNode();
+                var image = kupu.getNearestParentOfType(selNode, 'img');
+                image.setAttribute('title', title);
+                imgtool.updateState(selNode);
+            };
+          }, '${folder_context/absolute_url}',
+          'Silva Image', true);;
       }
     "></script>
 
