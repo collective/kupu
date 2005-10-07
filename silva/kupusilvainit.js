@@ -279,7 +279,7 @@ function initSilvaKupu(iframe) {
                                     'source', 'author', 'source_id', 
                                     'silva_type', 'alignment', 
                                     'link_to_hires', 'link', 'silva_src',
-                                    'silva_href']);
+                                    'silva_href', 'silva_column_info']);
     // allow all attributes on div, since ExternalSources require that
     kupu.xhtmlvalid.includeTagAttributes(['div'], ['*']);
     kupu.xhtmlvalid.includeTagAttributes(['p'], ['silva_type']);
@@ -289,6 +289,7 @@ function initSilvaKupu(iframe) {
                                             'target', 'link',
                                             'silva_src']);
     kupu.xhtmlvalid.includeTagAttributes(['a'], ['silva_href']);
+    kupu.xhtmlvalid.includeTagAttributes(['table'], ['silva_column_info']);
 
     if (window.kuputoolcollapser) {
         var collapser = new window.kuputoolcollapser.Collapser(
