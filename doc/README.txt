@@ -94,6 +94,6 @@ Unless otherwise stated, kupu is released under the Kupu License. See
 LICENSE.txt for the license text.
 
 The Sarissa ECMAScript library shipped in this distribution
-(common/sarissa.js) is the work of Manos Batis and distributed under
+(common/sarissa.js) is the work of Manos Batsis and distributed under
 the Kupu License with his kind permission. See the Sarissa homepage at
 http://sarissa.sourceforge.net for more information.
