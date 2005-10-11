@@ -585,6 +585,7 @@ function PropertyTool(titlefieldid, descfieldid) {
             if (meta.getAttribute('name') && 
                     meta.getAttribute('name').toLowerCase() == 'description') {
                 meta.setAttribute('content', this.descfield.value);
+                descset = 1;
             }
         }
 
