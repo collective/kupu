@@ -53,7 +53,7 @@ KupuSpellChecker.prototype.getCurrentContents = function() {
     var bits = [];
     while (true) {
         var node = iterator.next();
-        if (!node) {
+        if (!node || node.nodeName.toLowerCase() == 'body') {
             break;
         };
         while (this.skip_tags.contains(node.nodeName.toLowerCase())) {
@@ -113,7 +113,7 @@ KupuSpellChecker.prototype.continueDisplayHelper = function(win, mapping) {
 
 KupuSpellChecker.prototype.displayHelperNodeLoop = function(iterator, node, 
                                                                 win, mapping) {
-    if (!node) {
+    if (!node || node.nodeName.toLowerCase() == 'body') {
         return;
     };
     var next = iterator.next();
