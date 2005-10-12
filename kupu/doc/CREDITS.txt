@@ -85,6 +85,10 @@ Special thanks to
 
   - Compress.py script.
 
+* Laurence Rowe
+
+  - Fixed nasty infinite loop in spellchecker.
+
 Translations
 ------------
 
