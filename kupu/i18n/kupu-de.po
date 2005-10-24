@@ -413,7 +413,7 @@ msgstr "Verweis einfügen"
 # Default: "Left"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_left"
-msgstr "Verweise"
+msgstr "Links"
 
 # Default: "(${width} by ${height})"
 #: /common/kupudrawers/drawer.xsl:None
