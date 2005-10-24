@@ -410,9 +410,11 @@ function MozillaSelection(document) {
     this.selection = document.getWindow().getSelection();
     
     this.selectNodeContents = function(node) {
-        /* select the contents of a node */
-        this.selection.removeAllRanges();
-        this.selection.selectAllChildren(node);
+        if (node && node.parentNode) {
+            /* select the contents of a node */
+            this.selection.removeAllRanges();
+            this.selection.selectAllChildren(node);
+        }
     };
 
     this.collapse = function(collapseToEnd) {
@@ -603,7 +605,7 @@ function MozillaSelection(document) {
             };
             return 0;
         };
-        while (currnode != endnode) {
+        while (currnode && currnode != endnode) {
             if (currnode.nodeType == 3) { // should account for CDATA nodes as well
                 offset += currnode.nodeValue.length;
             };

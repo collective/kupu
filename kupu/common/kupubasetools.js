@@ -349,6 +349,7 @@ function KupuUI(textstyleselectid) {
         }
         return index;
     }
+
     this.nodeStyle = function(node) {
         var currnode = node;
         var index = -1;
@@ -365,7 +366,7 @@ function KupuUI(textstyleselectid) {
 
                 if (/^body$/.test(tag)) {
                     if (!this.styletag) {
-                            // Force style setting
+                        // Force style setting
                         this.setTextStyle(options[0].value, true);
                         return 0;
                     }
@@ -514,7 +515,7 @@ function KupuUI(textstyleselectid) {
     this._setClass = function(el, classname) {
         var parent = el.parentNode;
         if (parent.tagName=='DIV') {
-                    // fixup buggy formatting
+            // fixup buggy formatting
             var gp = parent.parentNode;
             if (el != parent.firstChild) {
                 var previous = parent.cloneNode(false);
@@ -527,8 +528,10 @@ function KupuUI(textstyleselectid) {
             gp.insertBefore(el, parent);
             this._cleanNode(el);
             this._cleanNode(parent);
+        } else {
+            this._cleanNode(el);
         }
-            // now set the classname
+        // now set the classname
         if (classname) {
             el.className = classname;
         } else {
@@ -538,7 +541,7 @@ function KupuUI(textstyleselectid) {
     this.setTextStyle = function(style, noupdate) {
             /* parse the argument into a type and classname part
                generate a block element accordingly 
-    */
+            */
         var classname = '';
         var eltype = style.toUpperCase();
         if (style.indexOf('|') > -1) {
