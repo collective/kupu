@@ -115,7 +115,9 @@ function Drawer(elementid, tool) {
                 )) {
                 this.focussed = true;
                 function focusit() {
-                    currnode.focus();
+                    try {
+                        currnode.focus();
+                    }catch(e){};
                 }
                 timer_instance.registerFunction(this, focusit, 100);
                 return;
