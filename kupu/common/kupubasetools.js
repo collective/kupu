@@ -400,28 +400,25 @@ function KupuUI(textstyleselectid) {
         this.intable = false;
 
         while (currnode) {
-            if (currnode.nodeType==1) {
-                var tag = currnode.tagName;
-                tag = tag.toLowerCase();
+            var tag = currnode.nodeName.toLowerCase();
 
-                if (/^body$/.test(tag)) {
-                    if (!this.styletag) {
-                        // Force style setting
-                        this.setTextStyle(options[0].value, true);
-                        return 0;
-                    }
-                    break;
+            if (/^body$/.test(tag)) {
+                if (!this.styletag) {
+                    // Force style setting
+                    this.setTextStyle(options[0].value, true);
+                    return 0;
                 }
-                if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
-                    index = this.setIndex(currnode, tag, index, this.styles);
-                }
-                if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
-                    this.intable = true;
-                    index = this.setIndex(currnode, tag, index, this.tablestyles);
+                break;
+            }
+            if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
+                index = this.setIndex(currnode, tag, index, this.styles);
+            }
+            if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
+                this.intable = true;
+                index = this.setIndex(currnode, tag, index, this.tablestyles);
 
-                    if (index > 0 || tag=='table') {
-                        return index; // Stop processing if in a table
-                    }
+                if (index > 0 || tag=='table') {
+                    return index; // Stop processing if in a table
                 }
             }
             currnode = currnode.parentNode;
@@ -514,7 +511,7 @@ function KupuUI(textstyleselectid) {
             // Remove formatted div or p from a cell
         var node, nxt, n;
         for (node = el.firstChild; node;) {
-            if (node.nodeType==1 && /div|p/i.test(node.tagName)) {
+            if (/DIV|P/.test(node.nodeName)) {
                 for (var n = node.firstChild; n;) {
                     var nxt = n.nextSibling;
                     el.insertBefore(n, node); // Move nodes out of div
@@ -1631,16 +1628,123 @@ function TableTool() {
         this._fixTableHelper(table);
     };
 
+    this._isBodyRow = function(row) {
+        for (var node = row.firstChild; node; node=node.nextSibling) {
+            if (/TD/.test(node.nodeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this._cleanCell = function(el) {
+        dump('_cleanCell('+el.innerHTML+')\n');
+        // Remove formatted div or p from a cell
+        var node, nxt, n;
+        for (node = el.firstChild; node;) {
+            if (/DIV|P/.test(node.nodeName)) {
+                for (var n = node.firstChild; n;) {
+                    var nxt = n.nextSibling;
+                    el.insertBefore(n, node); // Move nodes out of div
+                    n = nxt;
+                }
+                nxt = node.nextSibling;
+                el.removeChild(node);
+                node = nxt;
+            } else {
+                node = node.nextSibling;
+            }
+        }
+        var c;
+        while (el.firstChild && (c = el.firstChild).nodeType==3 && /^\s+/.test(c.data)) {
+            c.data = c.data.replace(/^\s+/, '');
+            if (!c.data) {
+                el.removeChild(c);
+            } else {
+                break;
+            };
+        };
+        while (el.lastChild && (c = el.lastChild).nodeType==3 && /\s+$/.test(c.data)) {
+            c.data = c.data.replace(/\s+$/, '');
+            if (!c.data) {
+                el.removeChild(c);
+            } else {
+                break;
+            };
+        };
+        el.removeAttribute('colSpan');
+        el.removeAttribute('rowSpan');
+    }
+    this._countCols = function(rows, numcols) {
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var currnumcols = 0;
+            for (var node = row.firstChild; node; node=node.nextSibling) {
+                if (/td|th/i.test(node.nodeName)) {
+                    currnumcols += parseInt(node.getAttribute('colSpan') || '1');
+                };
+            };
+            if (currnumcols > numcols) {
+                numcols = currnumcols;
+            };
+        };
+        return numcols;
+    }
+
+    this._cleanRows = function(rows, container, numcols) {
+        // now walk through all rows to clean them up
+        for (var i=0; i < rows.length; i++) {
+            dump("row "+i+'\n');
+            var row = rows[i];
+            var doc = this.editor.getInnerDocument();
+            var newrow = doc.createElement('tr');
+            if (row.className) {
+                newrow.className = row.className;
+            }
+            for (var node = row.firstChild; node;) {
+                dump("child\n");
+                var nxt = node.nextSibling;
+                if (/TD|TH/.test(node.nodeName)) {
+                    this._cleanCell(node);
+                    newrow.appendChild(node);
+                };
+                node = nxt;
+            };
+            if (newrow.childNodes.length) {
+                container.appendChild(newrow);
+            };
+        };
+        // now make sure all rows have the correct length
+        for (row = container.firstChild; row; row=row.nextSibling) {
+            var cellname = row.lastChild.nodeName;
+            while (row.childNodes.length < numcols) {
+                var cell = doc.createElement(cellname);
+                var nbsp = doc.createTextNode('\u00a0');
+                cell.appendChild(nbsp);
+                row.appendChild(cell);
+            };
+        };
+    };
+
     this._fixTableHelper = function(table) {
         /* the code to actually fix tables */
         var doc = this.editor.getInnerDocument();
+        var thead = doc.createElement('thead');
         var tbody = doc.createElement('tbody');
+        var tfoot = doc.createElement('tfoot');
 
-        if (this.editor.config.table_classes) {
-            var allowed_classes = this.editor.config.table_classes['class'];
-            if (!allowed_classes.contains(table.className)) {
-                table.className = allowed_classes[0];
+        var table_classes = this.editor.config.table_classes;
+        function cleanClassName(name) {
+            var allowed_classes = table_classes['class'];
+            for (var i = 0; i < allowed_classes.length; i++) {
+                var classname = allowed_classes[i];
+                classname = classname.classname || classname;
+                if (classname==name) return name;
             };
+            return allowed_classes[0];
+        }
+        if (table_classes) {
+            table.className = cleanClassName(table.className);
         } else {
             table.removeAttribute('class');
             table.removeAttribute('className');
@@ -1654,81 +1758,57 @@ function TableTool() {
         // now get all the rows of the table, the rows can either be
         // direct descendants of the table or inside a 'tbody', 'thead'
         // or 'tfoot' element
-        var rows = new Array();
-        var parents = new Array('thead', 'tbody', 'tfoot');
-        for (var i=0; i < table.childNodes.length; i++) {
-            var node = table.childNodes[i];
-            if (node.nodeName.toLowerCase() == 'tr') {
-                rows.push(node);
-            } else if (parents.contains(node.nodeName.toLowerCase())) {
-                for (var j=0; j < node.childNodes.length; j++) {
-                    var inode = node.childNodes[j];
-                    if (inode.nodeName.toLowerCase() == 'tr') {
+
+        var hrows = [], brows = [], frows = [];
+        for (var node = table.firstChild; node; node = node.nextSibling) {
+            var nodeName = node.nodeName;
+            if (/TR/.test(node.nodeName)) {
+                brows.push(node);
+            } else if (/THEAD|TBODY|TFOOT/.test(node.nodeName)) {
+                var rows = nodeName=='THEAD' ? hrows : nodeName=='TFOOT' ? frows : brows;
+                for (var inode = node.firstChild; inode; inode = inode.nextSibling) {
+                    if (/TR/.test(inode.nodeName)) {
                         rows.push(inode);
                     };
                 };
             };
         };
-        
+        /* Extract thead and tfoot from tbody */
+        dump('extract head and foot\n');
+        while (brows.length && !this._isBodyRow(brows[0])) {
+            hrows.push(brows[0]);
+            brows.shift();
+        }
+        while (brows.length && !this._isBodyRow(brows[brows.length-1])) {
+            var last = brows[brows.length-1];
+            brows.length -= 1;
+            frows.unshift(last);
+        }
+        dump('count cols\n');
         // now find out how many cells our rows should have
-        var numcols = 0;
-        for (var i=0; i < rows.length; i++) {
-            var row = rows[i];
-            var currnumcols = 0;
-            for (var j=0; j < row.childNodes.length; j++) {
-                var node = row.childNodes[j];
-                if (node.nodeName.toLowerCase() == 'td' ||
-                        node.nodeName.toLowerCase() == 'th') {
-                    var colspan = 1;
-                    if (node.getAttribute('colSpan')) {
-                        colspan = parseInt(node.getAttribute('colSpan'));
-                    };
-                    currnumcols += colspan;
-                };
-            };
-            if (currnumcols > numcols) {
-                numcols = currnumcols;
-            };
-        };
+        var numcols = this._countCols(hrows, 0);
+        numcols = this._countCols(brows, numcols);
+        numcols = this._countCols(frows, numcols);
 
+        dump('clean rows\n');
         // now walk through all rows to clean them up
-        for (var i=0; i < rows.length; i++) {
-            var row = rows[i];
-            var newrow = doc.createElement('tr');
-            var currcolnum = 0;
-            while (row.childNodes.length > 0) {
-                var node = row.childNodes[0];
-                if (node.nodeName.toLowerCase() != 'td' && node.nodeName.toLowerCase() != 'th') {
-                    row.removeChild(node);
-                    continue;
-                };
-                node.removeAttribute('colSpan');
-                node.removeAttribute('rowSpan');
-                newrow.appendChild(node);
-            };
-            if (newrow.childNodes.length) {
-                tbody.appendChild(newrow);
-            };
-        };
+        this._cleanRows(hrows, thead);
+        this._cleanRows(brows, tbody);
+        this._cleanRows(frows, tfoot);
 
-        // now make sure all rows have the correct length
-        for (var i=0; i < tbody.childNodes.length; i++) {
-            var row = tbody.childNodes[i];
-            var cellname = row.childNodes[0].nodeName;
-            while (row.childNodes.length < numcols) {
-                var cell = doc.createElement(cellname);
-                var nbsp = doc.createTextNode('\u00a0');
-                cell.appendChild(nbsp);
-                row.appendChild(cell);
-            };
-        };
-        
-        // now remove all the old stuff from the table and add the new tbody
-        var tlength = table.childNodes.length;
-        for (var i=0; i < tlength; i++) {
-            table.removeChild(table.childNodes[0]);
-        };
-        table.appendChild(tbody);
+        // now remove all the old stuff from the table and add the new
+        // tbody
+        dump('remove old\n');
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+        if (hrows.length)
+            table.appendChild(thead);
+        if (brows.length)
+            table.appendChild(tbody);
+        if (frows.length)
+            table.appendChild(tfoot);
+        dump('finish up\n');
 
         this.editor.focusDocument();
         this.editor.logMessage(_('Table cleaned up'));
@@ -1787,6 +1867,7 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             };
             for (var i=0; i < classes.length; i++) {
                 var classname = classes[i];
+                classname = classname.classname || classname;
                 var option = document.createElement('option');
                 var content = document.createTextNode(classname);
                 option.appendChild(content);
