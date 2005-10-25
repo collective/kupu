@@ -638,6 +638,14 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < bodies.length-1; i++) {
             bodies[i].parentNode.removeChild(bodies[i]);
         }
+        if (!_SARISSA_IS_IE) { /* Mozilla doesn't understand strong/em */
+            var fixups = { 'strong':'b', 'em':'i' }
+
+            text = text.replace(/<(\/?)(strong|em)>/gi, function(all,close,tag) {
+                tag = fixups[tag.toLowerCase()];
+                return '<'+close+tag+'>';
+            });
+        };
         bodies[bodies.length-1].innerHTML = text;
     };
 
