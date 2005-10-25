@@ -244,13 +244,18 @@ function KupuUI(textstyleselectid) {
     
     // attributes
     this.tsselect = getFromSelector(textstyleselectid);
+    var paraoptions = [];
+    var tableoptions = [];
+    this.optionstate = -1;
     this.otherstyle = null;
-    this.styles = {};
-    var styles = this.styles; // use an object here so we can use the 'in' operator later on
+    this.tablestyles = {};
+    this.styles = {}; // use an object here so we can use the 'in' operator later on
 
     this.initialize = function(editor) {
         /* initialize the ui like tools */
         this.editor = editor;
+        this.cleanStyles();
+        this.enableOptions(false);
         this._fixTabIndex(this.tsselect);
         this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
     };
@@ -315,33 +320,69 @@ function KupuUI(textstyleselectid) {
         this.editor.updateState();
     };
 
-    function cleanStyles(options) {
-        for (var i=0; i < options.length; i++) {
-            var style = options[i].value;
-            if (style.indexOf('|') > -1) {
-                var split = style.split('|');
-                style = split[0].toLowerCase() + "|" + split[1];
-            };
-            styles[style] = i;
-        };
-    }
-    cleanStyles(this.tsselect.options);
-
-    this.enableOptions = function(inTable) {
+    this.cleanStyles = function() {
         var options = this.tsselect.options;
-        for (var i = 0; i < options.length; i++) {
-            var opt = options[i];
-            if (/^t[rdh]\b/.test(opt.value)) {
-                opt.disabled = inTable ? '' : 'disabled';
+        var parastyles = this.styles;
+        var tablestyles = this.tablestyles;
+
+        tableoptions.push([options[0].text, 'td|']);
+        tablestyles['td'] = 0;
+        paraoptions.push([options[0].text, 'p|']);
+        parastyles['p'] = 0;
+        while (options.length > 1) {
+            opt = options[1];
+            var v = opt.value;
+            if (/^thead|tbody|table|t[rdh]\b/.test(v)) {
+                var otable = tableoptions;
+                var styles = tablestyles;
+            } else {
+                var otable = paraoptions;
+                var styles = parastyles;
             }
+            otable.push([opt.text, v]);
+            if (v.indexOf('|') > -1) {
+                var split = v.split('|');
+                v = split[0].toLowerCase() + "|" + split[1];
+            } else {
+                v = v.toLowerCase();
+            };
+            styles[v] = otable.length - 1;
+            options[1] = null;
         }
+        options[0] = null;
     }
 
-    this.setIndex = function(currnode, tag, index) {
+    // Remove otherstyle and switch to appropriate style set.
+    this.enableOptions = function(inTable) {
+        var select = this.tsselect;
+        var options = select.options;
+        if (this.otherstyle) {
+            options[options.length-1] = null;
+            this.otherstyle = null;
+        }
+        if (this.optionstate == inTable) return; /* No change */
+
+        var valid = inTable ? tableoptions : paraoptions;
+
+        while (options.length) options[0] = null;
+        this.otherstyle = null;
+
+        for (var i = 0; i < valid.length; i++) {
+            var opt = document.createElement('option');
+            opt.text = valid[i][0];
+            opt.value = valid[i][1];
+            options.add(opt);
+        }
+        select.selectedIndex = 0;
+        this.optionstate = inTable;
+    }
+    
+    this.setIndex = function(currnode, tag, index, styles) {
         var className = currnode.className;
         this.styletag = tag;
         this.classname = className;
         var style = tag+'|'+className;
+
         if (style in styles) {
             return styles[style];
         } else if (!className && tag in styles) {
@@ -353,7 +394,6 @@ function KupuUI(textstyleselectid) {
     this.nodeStyle = function(node) {
         var currnode = node;
         var index = -1;
-        var styles = this.styles;
         var options = this.tsselect.options;
         this.styletag = undefined;
         this.classname = '';
@@ -373,14 +413,15 @@ function KupuUI(textstyleselectid) {
                     break;
                 }
                 if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
-                    index = this.setIndex(currnode, tag, index);
+                    index = this.setIndex(currnode, tag, index, this.styles);
                 }
-                if (/^t.$/.test(tag)) {
-                    if (index==-1) {
-                        index = this.setIndex(currnode, tag, index);
-                    }
+                if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
                     this.intable = true;
-                    return index; // Stop processing if in a table
+                    index = this.setIndex(currnode, tag, index, this.tablestyles);
+
+                    if (index > 0 || tag=='table') {
+                        return index; // Stop processing if in a table
+                    }
                 }
             }
             currnode = currnode.parentNode;
@@ -421,22 +462,16 @@ function KupuUI(textstyleselectid) {
             index = this.nodeStyle(selNode);
         }
 
-        if (this.otherstyle) {
-            this.tsselect.removeChild(this.otherstyle);
-            this.otherstyle = null;
-        }
         this.enableOptions(this.intable);
 
         if (index < 0 || mixed) {
             var caption = mixed ? 'Mixed styles' :
                 'Other: ' + this.styletag + ' '+ this.classname;
 
-            if (!this.otherstyle) {
-                var opt = document.createElement('option');
-                this.tsselect.appendChild(opt);
-                this.otherstyle = opt;
-                this.otherstyle.text = caption;
-            }
+            var opt = document.createElement('option');
+            opt.text = caption;
+            this.otherstyle = opt;
+            this.tsselect.options.add(opt);
 
             index = this.tsselect.length-1;
         }
@@ -507,7 +542,8 @@ function KupuUI(textstyleselectid) {
         if (classname) {
             el.className = classname;
         } else {
-            el.removeAttribute(el.className ?"className":"class");
+            el.removeAttribute("class");
+            el.removeAttribute("className");
         }
 
     }
@@ -535,7 +571,8 @@ function KupuUI(textstyleselectid) {
         if (classname) {
             el.className = classname;
         } else {
-            el.removeAttribute(el.className ?"className":"class");
+            el.removeAttribute("class");
+            el.removeAttribute("className");
         }
     }
     this.setTextStyle = function(style, noupdate) {
@@ -2475,4 +2512,9 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
 
     window.scrollTo(0, iframe.offsetTop);
     editor.focusDocument();
+}
+
+/* IE doesn't have a dump function */
+if (dump===undefined) {
+    var dump = function(msg) { };
 }
