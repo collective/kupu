@@ -241,17 +241,19 @@ function XhtmlValidation(editor) {
             delete this.attrFilters[badattrs[i]];
         }
     }
+    var replaceNodes = { 'b': 'strong', 'i': 'em' };
     if (editor.getBrowserName()=="IE") {
         this._getTagName = function(htmlnode) {
             var nodename = htmlnode.nodeName.toLowerCase();
             if (htmlnode.scopeName && htmlnode.scopeName != "HTML") {
                 nodename = htmlnode.scopeName+':'+nodename;
             }
-            return nodename;
+            return replaceNodes[nodename]||nodename;
         }
     } else {
         this._getTagName = function(htmlnode) {
-            return htmlnode.nodeName.toLowerCase();
+            var nodename = htmlnode.nodeName.toLowerCase();
+            return replaceNodes[nodename]||nodename;
         }
     };
 
@@ -576,7 +578,7 @@ function XhtmlValidation(editor) {
     this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
         return this._convertNodes(ownerdoc, htmlnode, xhtmlparent, new this.Set(['html']));
     };
-    
+
     this._convertNodes = function(ownerdoc, htmlnode, xhtmlparent, permitted) {
         var name, parentnode = xhtmlparent;
         var nodename = this._getTagName(htmlnode);
