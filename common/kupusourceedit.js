@@ -63,6 +63,8 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
             } else {
                 data = kupu.getHTMLBody();
             }
+            data = data.replace(
+                /\s*(<(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td))\b/g, '\n$1').strip();
             sourcearea.value = data;
             kupu.setClass(sourceClass);
             editorframe.style.display = 'none';
