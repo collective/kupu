@@ -23,8 +23,8 @@ triggers the switchSourceEdit() function.
       <button type="button"
               class="kupu-source"
               id="kupu-source-button"
-              title="edit HTML code"
-              i18n:attributes="title"
+              title="change between Kupu and HTML views"
+              i18n:attributes="title toggle_source_view;"
               >&#160;</button>
     </span>
   </kupu:part>

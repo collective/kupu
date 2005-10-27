@@ -622,7 +622,7 @@ msgid "save: alt-s"
 msgstr "שמור: alt-s"
 
 #: /default/sourceedit.kupu:None
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr "ערוך HTML קוד"
 
 #: /default/spellchecker.kupu:None

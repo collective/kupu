@@ -36,8 +36,9 @@
 
   <kupu:part name="librarydrawer">
     <div style="display:block;" class="kupu-librarydrawer-parent">
-<!--      <div id="kupu-librarydrawer" class="kupu-drawer kupu-librarydrawer">
-      </div>-->
+      <iframe style="display:none" class="kupu-anchorframe" src="javascript:''"
+        onload="if(window.drawertool) window.drawertool.current_drawer.anchorframe_loaded();">
+      </iframe>
     </div>
   </kupu:part>
 
@@ -62,9 +63,14 @@
                   type="button" id="linkdrawer-preview" onclick="drawertool.current_drawer.preview()"
                   i18n:translate="">Preview</button>
         </td></tr>
+        <tr class="kupu-linkdrawer-anchors" style="display:none">
+          <td colspan="2">
+            <label for="kupu-anchor-select">Bookmark</label> <select><option i18n:translate="" value="">(none)</option></select>
+          </td>
+        </tr>
         <tr><td colspan="2" align="center">
         <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                class="kupu-linkdrawer-preview" src="kupublank.html">
+                class="kupu-linkdrawer-preview" src="javascript:''">
         </iframe>
         </td></tr>
         </table>

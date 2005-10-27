@@ -599,7 +599,7 @@ msgid "save: alt-s"
 msgstr ""
 
 #: /default/sourceedit.kupu:None
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr ""
 
 #: /default/spellchecker.kupu:None

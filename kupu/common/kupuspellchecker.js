@@ -26,7 +26,7 @@ KupuSpellChecker.prototype.check = function() {
                                     this,
                                     request).execute;
     var result = this.getCurrentContents();
-    result = escape(result.strip().replace('\n', ' ').reduceWhitespace());
+    result = encodeURIComponent(result.reduceWhitespace().strip());
     request.send('text=' + result);
 };
 

@@ -434,7 +434,7 @@ msgstr "Σύνδεσμος του επισημειωμένου κειμένου 
 msgid "save: alt-s"
 msgstr "αποθήκευση: alt-s"
 
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr "επεξεργασία κώδικα HTML"
 
 msgid "check spelling"

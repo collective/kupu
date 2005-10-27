@@ -630,7 +630,7 @@ msgid "save: alt-s"
 msgstr "保存: alt-s"
 
 #: /default/sourceedit.kupu:None
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr "HTML コードを編集"
 
 #: /default/spellchecker.kupu:None

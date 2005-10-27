@@ -30,12 +30,19 @@ function KupuDocument(iframe) {
     this.document = this.window.document;
 
     this._browser = _SARISSA_IS_IE ? 'IE' : 'Mozilla';
-    
+    var DEPRECATED = { 'contentReadOnly': 'readonly', 'styleWithCSS': 'useCSS' };
     // methods
     this.execCommand = function(command, arg) {
         /* delegate execCommand */
         if (arg === undefined) arg = null;
-        this.document.execCommand(command, false, arg);
+        try {
+            this.document.execCommand(command, false, arg);
+        } catch(e) {
+            command = DEPRECATED[command];
+            if (command) {
+                this.document.execCommand(command, false, !arg);
+            };
+        };
     };
     
     this.reloadSource = function() {
@@ -333,13 +340,11 @@ function KupuEditor(document, config, logger) {
             this._restoreSelection();
         } else {
             this.focusDocument();
-            if (command != 'useCSS') {
+            if (command != 'styleWithCSS') {
                 this.content_changed = true;
-                // note the negation: the argument doesn't work as
-                // expected...
                 // Done here otherwise it doesn't always work or gets lost
                 // after some commands
-                this.getDocument().execCommand('useCSS', !this.config.use_css);
+                this.getDocument().execCommand('styleWithCSS', this.config.use_css);
             };
         };
         this.getDocument().execCommand(command, param);
@@ -792,10 +797,7 @@ function KupuEditor(document, config, logger) {
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'false');
         } else {
-
-            this.getInnerDocument().designMode = "Off";
-            var iframe = this.getDocument().getEditable();
-            iframe.style.position = iframe.style.position?"":"relative"; // Changing this disables designMode!
+            this.getDocument().execCommand('contentReadOnly', 'true');
         }
         this.suspended = true;
     }
@@ -815,7 +817,9 @@ function KupuEditor(document, config, logger) {
             body.setAttribute('contentEditable', 'true');
         } else {
             var doc = this.getInnerDocument();
+            this.getDocument().execCommand('contentReadOnly', 'false');
             doc.designMode = "On";
+            this.focusDocument();
             this.getSelection().restoreRange(this._previous_range);
         }
     }

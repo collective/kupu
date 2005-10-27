@@ -131,7 +131,7 @@ function KupuXhtmlTestCase() {
         this.conversionTest(data, expected);
     }
     this.testnbsp = function() {
-        var data = '<p>Text with&nbsp;<b>non-break</b> space</p>';
+        var data = '<p>Text with&nbsp;<strong>non-break</strong> space</p>';
         this.conversionTest(data, data);
     };
     this.teststyle = function() {
