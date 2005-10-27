@@ -127,17 +127,17 @@ function InitKupuCheckersTestCase() {
 
     this.testBoldcheckerExecCommandNoCSS = function() {
         if (_SARISSA_IS_IE) return;
-        this.doc.execCommand('useCSS', null, true);
+        this.editor.getDocument().execCommand('styleWithCSS', null, false);
 
         this.body.innerHTML = '<p>foo bar</p>';
         // select                    |bar|
         this._setSelection(4, null, 7, false, 'bar');
-        this.doc.execCommand('bold', null, null);
+        this.editor.getDocument().execCommand('bold', null, null);
         var selNode = this.selection.parentElement();
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), true);
 
-        this.doc.execCommand('useCSS', null, false);
+        this.editor.getDocument().execCommand('styleWithCSS', null, true);
     };
 
     this.testBoldcheckerStrong = function() {

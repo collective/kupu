@@ -91,11 +91,11 @@ function KupuEditorTestCase() {
                           result_strict);
     };
 
-    this.testEscapeEntities = function() {
-        var test = 'r\xe9diger\r\nhello';
-        var expected = 'r&#233;diger\r\nhello';
-        this.assertEquals(this.editor.escapeEntities(test), expected);
-    };
+//     this.testEscapeEntities = function() {
+//         var test = 'r\xe9diger\r\nhello';
+//         var expected = 'r&#233;diger\r\nhello';
+//         this.assertEquals(this.editor.escapeEntities(test), expected);
+//     };
 };
 
 KupuEditorTestCase.prototype = new TestCase;

@@ -1268,16 +1268,8 @@ String.prototype.strip = function() {
 
 String.prototype.reduceWhitespace = function() {
     /* returns a string in which all whitespace is reduced 
-        to a single, plain space */
-    var spacereg = /(\s+)/g;
-    var copy = this;
-    while (true) {
-        var match = spacereg.exec(copy);
-        if (!match) {
-            return copy;
-        };
-        copy = copy.replace(match[0], ' ');
-    };
+    to a single, plain space */
+    return this.replace(/\s+/g, ' ');
 };
 
 String.prototype.entitize = function() {

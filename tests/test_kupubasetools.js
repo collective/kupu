@@ -25,6 +25,8 @@ function KupuUITestCase() {
     this.test_updateState = function() {
         this.body.innerHTML = '<p>foo</p><pre>bar</pre><p>baz</p>';
         var node = this.body.getElementsByTagName('pre')[0];
+        this.ui.cleanStyles();
+        this.ui.enableOptions(false);
         this.ui.tsselect.selectedIndex = 0;
         this.assertEquals(this.ui.tsselect.selectedIndex, 0);
         this.ui.updateState(node);

@@ -8,7 +8,7 @@ from ZPublisher.HTTPRequest import FileUpload
 import re
 
 # UID_PATTERN matches a UID in an anchor or image tag.
-UID_PATTERN = re.compile(r'''<(?:a\b[^>]+href|img\b[^>]+src)="resolveuid/(?P<uid>[^">/]+)''', re.I)
+UID_PATTERN = re.compile(r'''<(?:a\b[^>]+href|img\b[^>]+src)="resolveuid/(?P<uid>[^?#">/]+)''', re.I)
 
 class ReftextField(TextField):
     __implements__ = TextField.__implements__

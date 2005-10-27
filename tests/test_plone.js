@@ -38,7 +38,7 @@ function KupuPloneTestCase() {
     this.setUp = function() {
         this.base_setUp();
         this.editor = new KupuEditor(this.kupudoc, {}, null);
-        this.ui = new PloneKupuUI('kupu-tb-styles');
+        this.ui = new KupuUI('kupu-tb-styles');
         this.ui.editor = this.editor;
     };
 

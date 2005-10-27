@@ -606,7 +606,7 @@ msgid "save: alt-s"
 msgstr "salvar: alt-s"
 
 #: /default/sourceedit.kupu:None
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr "editar código HTML"
 
 #: /default/spellchecker.kupu:None

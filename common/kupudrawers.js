@@ -12,8 +12,7 @@
 
 function DrawerTool() {
     /* a tool to open and fill drawers
-
-        this tool has to (and should!) only be instantiated once
+       this tool has to (and should!) only be instantiated once
     */
     this.drawers = {};
     this.current_drawer = null;
@@ -55,27 +54,6 @@ function DrawerTool() {
         this.current_drawer.editor.resumeEditing();
         this.current_drawer = null;
     };
-
-//     this.getDrawerEnv = function(iframe_win) {
-//         var drawer = null;
-//         for (var id in this.drawers) {
-//             var ldrawer = this.drawers[id];
-//             // Note that we require drawers to provide us with an
-//             // element property!
-//             if (ldrawer.element.contentWindow == iframe_win) {
-//                 drawer = ldrawer;
-//             };
-//         };
-//         if (!drawer) {
-//             this.editor.logMessage("Drawer not found", 1);
-//             return;
-//         };
-//         return {
-//             'drawer': drawer,
-//             'drawertool': this,
-//             'tool': drawer.tool
-//         };
-//     };
 };
 
 DrawerTool.prototype = new KupuTool;
@@ -85,57 +63,173 @@ function Drawer(elementid, tool) {
 
     this.element = getFromSelector(elementid);
     this.tool = tool;
-    
-    this.initialize = function(editor, drawertool) {
-        this.editor = editor;
-        this.drawertool = drawertool;
-    };
-    
-    this.createContent = function() {
-        /* fill the drawer with some content */
-        // here's where any intelligence and XSLT transformation and such 
-        // is done
-        this.element.style.display = 'block';
-        this.focusElement();
-    };
+}
+var proto = Drawer.prototype;
 
-    this.hide = function() {
-        this.element.style.display = 'none';
-        this.focussed = false;
-    };
-
-    this.focusElement = function() {
-        // IE can focus the drawer element, but Mozilla needs more help
-        this.focussed = false;
-        var iterator = new NodeIterator(this.element);
-        var currnode = iterator.next();
-        while (currnode) {
-            if (currnode.tagName && (currnode.tagName.toUpperCase()=='BUTTON' ||
-                (currnode.tagName.toUpperCase()=='INPUT' && !(/nofocus/.test(currnode.className)))
-                )) {
-                this.focussed = true;
-                function focusit() {
-                    try {
-                        currnode.focus();
-                    }catch(e){};
-                }
-                timer_instance.registerFunction(this, focusit, 100);
-                return;
-            }
-            currnode = iterator.next();
-        }
-    }
+proto.initialize = function(editor, drawertool) {
+    this.editor = editor;
+    this.drawertool = drawertool;
 };
 
-function LinkDrawer(elementid, tool, wrap) {
-    /* Link drawer */
-    this.element = getFromSelector(elementid);
-    this.tool = tool;
-    function wrap(id, tag) {
-        return '#'+this.element.id+' '+tag+'.'+id;
+proto.createContent = function() {
+    /* fill the drawer with some content */
+    // here's where any intelligence and XSLT transformation and such 
+    // is done
+    this.element.style.display = 'block';
+    this.focusElement();
+};
+
+proto.hide = function() {
+    this.element.style.display = 'none';
+    this.focussed = false;
+};
+
+proto.focusElement = function() {
+    // IE can focus the drawer element, but Mozilla needs more help
+    this.focussed = false;
+    var iterator = new NodeIterator(this.element);
+    var currnode = iterator.next();
+    while (currnode) {
+        if (currnode.tagName && (currnode.tagName.toUpperCase()=='BUTTON' ||
+            (currnode.tagName.toUpperCase()=='INPUT' && !(/nofocus/.test(currnode.className)))
+            )) {
+            this.focussed = true;
+            function focusit() {
+                try {
+                    currnode.focus();
+                }catch(e){};
+            }
+            timer_instance.registerFunction(this, focusit, 100);
+            return;
+        }
+        currnode = iterator.next();
     }
+}
+
+function DrawerWithAnchors(editor, drawertool, anchorui) {
+    Drawer.call(this, editor, drawertool);
+    this.anchorui = anchorui;
+    this.anchorframe = null;
+}
+DrawerWithAnchors.prototype = new Drawer;
+proto = DrawerWithAnchors.prototype;
+
+proto.initAnchors = function() {
+    var id = 'kupu-linkdrawer-anchors';
+    var base = getBaseTagClass(this.element, 'tr', id);
+    if (base) {
+        this.anchorui = getBaseTagClass(base, 'div', id);
+
+        var inp = base.getElementsByTagName('input');
+        this.anchorframe.src = inp[0].value;
+        inp[1].style.display = 'none';
+    };
+}
+proto.anchorSelect = function() {
+    return this.anchorui && this.anchorui.getElementsByTagName('select')[0];
+}
+
+proto.addSelectEvent = function() {
+    var s = this.anchorSelect();
+    if (s)
+        addEventHandler(s, 'change', this.selChange, this);
+}
+
+proto.hideAnchors = function() {
+    this.anchorui.style.display = 'none';
+}
+
+proto.anchorText = function(a) {
+    // Text inside anchor, or immediate sibling block tag, or parent block. 
+    var node = a;
+    var blocktag = /^DIV|P|BODY|TD|H.$/;
+    var txt = '';
+    var prefix = '#' + a.name;
+findlabel:
+    for (node = a; node && !txt; node=node.parentNode) {
+        var txt = node.textContent || node.innerText || '';
+        if (txt || blocktag.test(node.nodeName)) {
+            break;
+        }
+
+        for (var sibling = node.nextSibling; sibling; sibling = sibling.nextSibling) {
+            if (sibling.nodeName=='#text') {
+                txt = sibling.data.strip();
+            } else if (blocktag.test(sibling.nodeName)) {
+                break findlabel;
+            } else {
+                txt += sibling.textContent || sibling.innerText ||'';
+            };
+            txt = txt.strip();
+        }
+    }
+    if (txt) {
+        txt = ' (' + (txt||'').substring(0,80).reduceWhitespace().strip()+')';
+    }
+    return prefix + txt;
+}
+
+proto.selChange = function() {};
+
+proto.anchorframe_loaded = function() {
+    this.showAnchors('');
+};
+
+proto.showAnchors = function(selected) {
+    var select = this.anchorSelect();
+    var opts = select.options;
+
+    while (opts.length > 1) opts[1] = null;
+    try {
+        var doc = this.anchorframe.contentWindow.document;
+        var anchors = doc.anchors;
+    } catch(e) {
+        this.hideAnchors();
+        return;
+    }
+    for (var i = 0; i < anchors.length; i++) {
+        var a = anchors[i];
+        if (a.name) {
+            var opt = document.createElement('option');
+            opt.text = this.anchorText(anchors[i]);
+            var v = anchors[i].name;
+            opt.value = v;
+            if (v==selected) opt.selected = true;
+            select.options.add(opt);
+        }
+    }
+    if (opts.length > 1) {
+        this.anchorui.style.display = '';
+    }
+}
+
+proto.getFragment = function() {
+    var select = this.anchorSelect();
+    if (select) {
+        var anchor = select.options[select.selectedIndex].value;
+        if (anchor) return '#' + anchor;
+    }
+    return '';
+}
+
+function LinkDrawer(elementid, tool) {
+    /* Link drawer */
+    DrawerWithAnchors.call(this, elementid, tool);
+    
     var input = getBaseTagClass(this.element, 'input', 'kupu-linkdrawer-input');
     var preview = getBaseTagClass(this.element, 'iframe', 'kupu-linkdrawer-preview');
+    this.anchorframe = preview;
+    this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-linkdrawer-anchors');
+
+    this.selChange = function() {
+        var anchor = this.getFragment();
+
+        input.value = input.value.replace(/#[^#]*$/, '');
+        if (anchor) {
+            input.value += anchor;
+        }
+    };
+    this.addSelectEvent();
 
     this.createContent = function() {
         /* display the drawer */
@@ -149,7 +243,9 @@ function LinkDrawer(elementid, tool, wrap) {
             input.value = 'http://';
         };
         this.element.style.display = 'block';
+        this.hideAnchors();
         this.focusElement();
+        var style = this.element.style;
     };
 
     this.save = function() {
@@ -166,23 +262,39 @@ function LinkDrawer(elementid, tool, wrap) {
         // find a fix:
         this.drawertool.closeDrawer();
     };
+
+
+    function currentAnchor() {
+        var bits = input.value.split('#');
+        var current = bits.length > 1 ? bits[bits.length-1] : '';
+        return current;
+    }
     
     this.preview = function() {
         preview.src = input.value;
+        this.showAnchors(currentAnchor());
         if (this.editor.getBrowserName() == 'IE') {
             preview.width = "800";
             preview.height = "365";
             preview.style.zoom = "60%";
         };
     }
+
     this.preview_loaded = function() {
-        if (input.value  != preview.src) {
-            input.value = preview.src;
+        var here = input.value;
+        try {
+            var there = preview.contentWindow.location.href;
+        } catch(e) { return; }
+
+        if (here != there && !/^about:/.test(there)) {
+            input.value = there;
         }
+        this.showAnchors(currentAnchor());
     }
+    addEventHandler(preview, "load", this.preview_loaded, this);
 };
 
-LinkDrawer.prototype = new Drawer;
+LinkDrawer.prototype = new DrawerWithAnchors;
 
 function TableDrawer(elementid, tool) {
     /* Table drawer */
@@ -326,6 +438,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         } else {
             this.baseelement = getBaseTagClass(document.body, 'div', 'kupu-librarydrawer-parent');
         }
+        this.anchorframe = getBaseTagClass(this.baseelement, 'iframe', 'kupu-anchorframe');
 
         this.tool = tool;
         this.element = document.getElementById(this.drawerid);
@@ -752,7 +865,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         /* search */
         var searchvalue = getFromSelector('kupu-searchbox-input').value;
         //XXX make search variable configurable
-        var body = 'SearchableText=' + escape(searchvalue);
+        var body = 'SearchableText=' + encodeURIComponent(searchvalue);
 
         // the search uri might contain query parameters in HTTP GET
         // style. We want to do a POST though, so find any possible
@@ -817,10 +930,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
     this._loadXML = function(uri, callback, body) {
         /* load the XML from a uri
-        
-            calls callback with one arg (the XML DOM) when done
-            the (optional) body arg should contain the body for the request
-*/
+           calls callback with one arg (the XML DOM) when done
+           the (optional) body arg should contain the body for the request
+         */
 	var xmlhttp = new XMLHttpRequest();
         var method = 'GET';
         if (body) {
@@ -871,7 +983,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     };
 };
 
-LibraryDrawer.prototype = new Drawer;
+LibraryDrawer.prototype = new DrawerWithAnchors;
 LibraryDrawer.prototype.shared = {}; // Shared data
 
 function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
@@ -984,7 +1096,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         };
 
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
-        uri = uri.strip();  // needs kupuhelpers.js
+        uri = uri.strip() + this.getFragment();
         var title = '';
         title = selnode.selectSingleNode('title/text()').nodeValue;
         title = title.strip();

@@ -276,6 +276,21 @@ test="$drawertype='link'">Insert Link</xsl:when>
                                size="10"/>
                     </td>
                 </tr>
+                <tr class="kupu-linkdrawer-anchors">
+                  <td colspan="2">
+                    <input type="hidden" value="{uri}"/>
+                    <input type="button" class="kupu-dialog-button" value="Bookmarks..."
+                        onclick="drawertool.current_drawer.initAnchors()" />
+                    <div style="display:none;" class="kupu-linkdrawer-anchors">
+                    <label for="kupu-anchor-select">Bookmark</label><br/>
+                    <select><option i18n:translate="" value="">(none)</option></select>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" align="center">
+                  </td>
+                </tr>
             </table>
         </form>
     </xsl:template>

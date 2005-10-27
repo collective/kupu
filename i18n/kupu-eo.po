@@ -636,7 +636,7 @@ msgid "save: alt-s"
 msgstr "savi: alt-s"
 
 #: /default/sourceedit.kupu:None
-msgid "edit HTML code"
+msgid "toggle_source_view"
 msgstr "redaktu HTML fonton"
 
 #: /default/spellchecker.kupu:None
