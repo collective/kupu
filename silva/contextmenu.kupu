@@ -5,6 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
+    i18n:domain="kupu"
     >
 
   <kupu:part name="jsincludes">
