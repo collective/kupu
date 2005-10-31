@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupu">
-	<message filenames="./common/kupuinit.js ./common/kupuinit_genericelements.js">
+	<message filenames="./common/kupuinit.js ./common/kupuinit_form.js ./common/kupuinit_genericelements.js">
 		<msgid>
 			There was a problem initializing the drawers. Most likely the XSLT or XML files aren\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error}).
 		</msgid>
@@ -336,7 +336,7 @@
 			Image tool initialized
 		</msgstr>
 	</message>
-	<message filenames="./common/kupubasetools.js">
+	<message filenames="./common/kupubasetools.js ./silva/kupusilvatools.js">
 		<msgid>
 			Image inserted
 		</msgid>
@@ -694,6 +694,38 @@
 		</msgid>
 		<msgstr i18n:translate="">
 			You have unsaved changes. Do you want to save before leaving the page?
+		</msgstr>
+	</message>
+	<message filenames="./common/kuputoolcollapser.js ./silva/kupusilvatools.js">
+		<msgid>
+			click to unfold
+		</msgid>
+		<msgstr i18n:translate="">
+			click to unfold
+		</msgstr>
+	</message>
+	<message filenames="./common/kuputoolcollapser.js ./silva/kupusilvatools.js">
+		<msgid>
+			click to fold
+		</msgid>
+		<msgstr i18n:translate="">
+			click to fold
+		</msgstr>
+	</message>
+	<message filenames="./silva/kupusilvatools.js">
+		<msgid>
+			Illegal or missing width entry in column info!
+		</msgid>
+		<msgstr i18n:translate="">
+			Illegal or missing width entry in column info!
+		</msgstr>
+	</message>
+	<message filenames="./silva/kupusilvatools.js">
+		<msgid>
+			items
+		</msgid>
+		<msgstr i18n:translate="">
+			items
 		</msgstr>
 	</message>
 </catalog>
