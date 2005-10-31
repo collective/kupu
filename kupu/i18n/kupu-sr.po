@@ -19,30 +19,23 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Kupu\n"
-"POT-Creation-Date: 2005-08-02 20:40+0000\n"
+"POT-Creation-Date: Mon Oct 31 17:09:34 2005\n"
 "PO-Revision-Date: 2005-08-07 23:45+01:00\n"
 "Last-Translator: Filip Miletic <f dot miletic at ewi dot tudelft dot nl>\n"
 "Language-Team: Serbian <gnu@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3;    plural=n%10==1 && n%100!=11 ? 0 :    n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "Language-Code: sr\n"
 "Language-Name: Serbian\n"
 "Preferred-Encodings: utf-8\n"
 "Domain: kupu\n"
 
 #: /common/kupu.pox:None
-msgid "Properties modified"
-msgstr "Својства су измењена"
-
-#: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
 msgstr "Наредба ${command} је извршена са параметром ${param}"
-
-#: /common/kupu.pox:None
-msgid "Not inside a definition list element!"
-msgstr "Курсор није унутар дефиниције члана списка!"
 
 #: /common/kupu.pox:None
 msgid "Add table"
@@ -69,12 +62,18 @@ msgid "List style changed"
 msgstr "Стил списка је промењен"
 
 #: /common/kupu.pox:None
-msgid "Create image"
-msgstr "Направи слику"
+msgid "Properties modified"
+msgstr "Својства су измењена"
+
+#: /common/kupu.pox:None
+msgid "click to unfold"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "Неке измене нису сачуване. Да ли желите да их сачувате пре него што напустите ову страницу?"
+msgstr ""
+"Неке измене нису сачуване. Да ли желите да их сачувате пре него што "
+"напустите ову страницу?"
 
 #: /common/kupu.pox:None
 msgid "Table row removed"
@@ -137,28 +136,37 @@ msgid "Starting HTML cleanup"
 msgstr "Прочишћавање ХТМЛ кода"
 
 #: /common/kupu.pox:None
+msgid "Not inside a definition list element!"
+msgstr "Курсор није унутар дефиниције члана списка!"
+
+#: /common/kupu.pox:None
 msgid "Link modified"
 msgstr "Веза је измењена"
+
+#: /common/kupu.pox:None
+msgid "Illegal or missing width entry in column info!"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Request sent to server"
 msgstr "Захтев је послат на сервер"
 
 #: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "Покренут је алат за табеле"
-
-#: /common/kupu.pox:None
 msgid "There were no errors."
 msgstr "Није било грешака."
 
 #: /common/kupu.pox:None
-msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
-msgstr "изузетак ${message} при пријави обрађивача догађаја за елемент ${element}, догађај ${event}, метод ${method}"
+msgid ""
+"exception ${message} while registering an event handler for element "
+"${element}, event ${event}, method ${method}"
+msgstr ""
+"изузетак ${message} при пријави обрађивача догађаја за елемент ${element}, "
+"догађај ${event}, метод ${method}"
 
 #: /common/kupu.pox:None
 msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr "Грешка при учитавању превода (статус ${status} ), биће коришћен енглески"
+msgstr ""
+"Грешка при учитавању превода (статус ${status} ), биће коришћен енглески"
 
 #: /common/kupu.pox:None
 msgid "Start node offset detected in a node without children!"
@@ -170,7 +178,9 @@ msgstr "Застарели метод: KupuTool._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr "Није могуће поставити дизајнерски начин рада. Купу неће радити са овим прегледачем."
+msgstr ""
+"Није могуће поставити дизајнерски начин рада. Купу неће радити са овим "
+"прегледачем."
 
 #: /common/kupu.pox:None
 msgid "No element found in the config island!"
@@ -181,8 +191,14 @@ msgid "Start offset out of range!"
 msgstr "Почетни померај је ван опсега!"
 
 #: /common/kupu.pox:None
-msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Налепљивање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних разлога. За више података, прочитајте http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgid ""
+"Pasting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Налепљивање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних "
+"разлога. За више података, прочитајте http://www.mozilla.org/editor/"
+"midasdemo/securityprefs.html"
 
 #: /common/kupu.pox:None
 msgid "Property tool initialized"
@@ -197,16 +213,20 @@ msgid "No parentcolumn found!"
 msgstr "Родитељска колона није пронађена!"
 
 #: /common/kupu.pox:None
+msgid "items"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Row repeated"
 msgstr "Поновљена врста"
 
 #: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "Табела је уклоњена"
-
-#: /common/kupu.pox:None
 msgid "Cut"
 msgstr "Исеци"
+
+#: /common/kupu.pox:None
+msgid "Table removed"
+msgstr "Табела је уклоњена"
 
 #: /common/kupu.pox:None
 msgid "Unsupported browser!"
@@ -234,16 +254,22 @@ msgid "Error placing back selection"
 msgstr "Грешка при избору уназад"
 
 #: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "Обриши везу"
+msgid "Image inserted"
+msgstr "Слика је убачена"
 
 #: /common/kupu.pox:None
 msgid "Add column"
 msgstr "Додај колону"
 
 #: /common/kupu.pox:None
-msgid "Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Исецање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних разлога. За више података, прочитајте http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgid ""
+"Cutting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Исецање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних разлога. "
+"За више података, прочитајте http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
 
 #: /common/kupu.pox:None
 msgid "Exception while processing updateState on ${id}: ${msg}"
@@ -262,16 +288,28 @@ msgid "Row repeat turned off"
 msgstr "Понављање врсти је искључено"
 
 #: /common/kupu.pox:None
-msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
-msgstr "Дошло је до грешке при покретању фиока. Највероватноје да XSLT или XML датотеке нису доступне. Ако ово није пробно издање Купуа, проверите датотеке или сервис који требају да их обезбеде (грешка: ${error})."
+msgid ""
+"There was a problem initializing the drawers. Most likely the XSLT or XML "
+"files aren\\'t available. If this is not the Kupu demo version, check your "
+"files or the service that provide them (error: ${error})."
+msgstr ""
+"Дошло је до грешке при покретању фиока. Највероватноје да XSLT или XML "
+"датотеке нису доступне. Ако ово није пробно издање Купуа, проверите датотеке "
+"или сервис који требају да их обезбеде (грешка: ${error})."
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuToolBox._selectSelectItem"
 msgstr "Застарели метод: KupuToolBox._selectSelectItem"
 
 #: /common/kupu.pox:None
-msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Умножавање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних разлога. За више података, прочитајте http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+msgid ""
+"Copying from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Умножавање из ЈаваСкрипта је искључено у вашој Мозили из безбедносних "
+"разлога. За више података, прочитајте http://www.mozilla.org/editor/"
+"midasdemo/securityprefs.html"
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed"
@@ -282,8 +320,12 @@ msgid "Delete column"
 msgstr "Обриши колону"
 
 #: /common/kupu.pox:None
-msgid "Error saving your data.\\nResponse status: ${status}.\\nCheck your server log for more information."
-msgstr "Грешка при чувању података.\\nСтатусна порука: ${status}.\\nПроверите дневник на серверу за више података."
+msgid ""
+"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
+"log for more information."
+msgstr ""
+"Грешка при чувању података.\\nСтатусна порука: ${status}.\\nПроверите "
+"дневник на серверу за више података."
 
 #: /common/kupu.pox:None
 msgid "This feature requires pop-ups to be enabled on your browser!"
@@ -298,8 +340,8 @@ msgid "View source"
 msgstr "Преглед изворног кода"
 
 #: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "Слика је убачена"
+msgid "Table tool initialized"
+msgstr "Покренут је алат за табеле"
 
 #: /common/kupu.pox:None
 msgid "Browser not supported!"
@@ -314,12 +356,16 @@ msgid "Editor initialized"
 msgstr "Уређивач је покренут"
 
 #: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Умножи"
+msgid "click to fold"
+msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Paste"
-msgstr "Налепи"
+msgid "Create image"
+msgstr "Направи слику"
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "Умножи"
 
 #: /common/kupu.pox:None
 msgid "Zoom tool initialized"
@@ -342,8 +388,11 @@ msgid "Error loading data, status ${status}"
 msgstr "Грешка при учитавању података, статус ${status}"
 
 #: /common/kupu.pox:None
-msgid "Could not set status bar message, check your browser\\'s security settings."
-msgstr "Порука у статусној траци није могла бити постављена, проверите безбедносна подешавања у Вашем прегледачу."
+msgid ""
+"Could not set status bar message, check your browser\\'s security settings."
+msgstr ""
+"Порука у статусној траци није могла бити постављена, проверите безбедносна "
+"подешавања у Вашем прегледачу."
 
 #: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
@@ -351,7 +400,8 @@ msgstr "Помак крајњег нода је примећен у ноду к�
 
 #: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr "Ваш формулар није сачуван. Све измене које сте направили биће изгубљене"
+msgstr ""
+"Ваш формулар није сачуван. Све измене које сте направили биће изгубљене"
 
 #: /common/kupu.pox:None
 msgid "Link added"
@@ -374,6 +424,10 @@ msgid "Selection not inside the node!"
 msgstr "Избор није унутар нода!"
 
 #: /common/kupu.pox:None
+msgid "Delete link"
+msgstr "Обриши везу"
+
+#: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
 msgstr "Уређивач још није покренут!"
 
@@ -381,98 +435,102 @@ msgstr "Уређивач још није покренут!"
 msgid "Table column added"
 msgstr "Додата је колона у табели"
 
-#: /common/kupudrawers/drawer.xsl:None
+#: /common/kupu.pox:None
+msgid "Paste"
+msgstr "Налепи"
+
 # Default: "Caption"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_caption_label"
 msgstr "Наслов"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Insert Link"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title"
 msgstr "Убаци везу"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Left"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_left"
 msgstr "Лево"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "(${width} by ${height})"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_size"
 msgstr "(${width} са ${height})"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Insert Image"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_title"
 msgstr "Убаци слику"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Upload to: ${folder}"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_to_label"
 msgstr "Постави у: ${folder}"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Name"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_name_label"
 msgstr "Име"
 
+# Default: "Title:"
 #: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_title_label"
+msgstr "Наслов:"
+
 # Default: "Preview"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_preview_label"
 msgstr "Преглед"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: ""
 # "Select an image from your computer and click ok to have it\n"
 # "            automatically uploaded to selected folder and inserted into the\n"
 # "            editor."
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_instructions"
 msgstr ""
 "Изаберите слику са Вашег рачунара и притисните „У реду“ како бисте\n"
 "је аутоматски послали у изабрани директоријум и убацили у уређивач."
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Upload ..."
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_link"
 msgstr "Пошаљи..."
 
-#: /common/kupudrawers/drawer.xsl:None
-# Default: "Title:"
-msgid "imagedrawer_upload_title_label"
-msgstr "Наслов:"
-
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Title"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title_label"
 msgstr "Наслов"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Description"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_description_label"
 msgstr "Опис"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "ALT-text"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
 msgstr "Алтернативни текст"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "search"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "kupudrawer_search"
 msgstr "нађи"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Inline"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_inline"
 msgstr "У линији"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Target"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_target_label"
 msgstr "Одредиште"
 
-#: /common/kupudrawers/drawer.xsl:None
 # Default: "Right"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_right"
 msgstr "Десно"
 
@@ -488,18 +546,18 @@ msgstr "боја текста: alt-f"
 msgid "background color: alt-h"
 msgstr "боја позадине: alt-h"
 
-#: /default/drawers.kupu:None
 # Default: "Row"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_row_label"
 msgstr "Врста"
 
-#: /default/drawers.kupu:None
 # Default: "Right"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_right_option"
 msgstr "Десно"
 
-#: /default/drawers.kupu:None
 # Default: "Current column alignment"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_alignment_label"
 msgstr "Уравнај тренутну колону"
 
@@ -507,13 +565,18 @@ msgstr "Уравнај тренутну колону"
 msgid "external link"
 msgstr "спољашња веза"
 
+# Default: "Columns"
 #: /default/drawers.kupu:None
+msgid "tabledrawer_columns_label"
+msgstr "Колоне"
+
 # Default: "Center"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_center_option"
 msgstr "Средина"
 
-#: /default/drawers.kupu:None
 # Default: "Fix All Tables"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_fix_tables_button"
 msgstr "Фиксирај све табеле"
 
@@ -521,30 +584,17 @@ msgstr "Фиксирај све табеле"
 msgid "External Link"
 msgstr "Спољашња веза"
 
-#: /default/drawers.kupu:None
-# Default: "Columns"
-msgid "tabledrawer_columns_label"
-msgstr "Колоне"
-
-#: /default/drawers.kupu:None
 # Default: "Left"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
 msgstr "Лево"
-
-#: /default/drawers.kupu:None
-msgid "image"
-msgstr "слика"
-
-#: /default/drawers.kupu:None
-msgid "table"
-msgstr "табела"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
 msgstr "Преглед"
 
-#: /default/drawers.kupu:None
 # Default: "Rows"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_rows_label"
 msgstr "Врсте"
 
@@ -552,73 +602,95 @@ msgstr "Врсте"
 msgid "internal link"
 msgstr "унутрашња веза"
 
-#: /default/drawers.kupu:None
 # Default: "Table"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_title"
 msgstr "Табела"
 
-#: /default/drawers.kupu:None
 # Default: "Add Table"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_add_table_button"
 msgstr "Додај табелу"
 
-#: /default/drawers.kupu:None
 # Default: "Close"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_close_button"
 msgstr "Затвори"
 
-#: /default/drawers.kupu:None
 # Default: "Column"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_column_label"
 msgstr "Колона"
 
-#: /default/drawers.kupu:None
 # Default: "Create Headings"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_headings_label"
 msgstr "Направи заглавље"
 
-#: /default/drawers.kupu:None
 # Default: "Fix"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_fix_button"
 msgstr "Фиксирај"
 
-#: /default/drawers.kupu:None
 # Default: "Fix Table"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_fix_table_label"
 msgstr "Фиксирај табелу"
 
-#: /default/drawers.kupu:None
-#: /common/kupudrawers/drawer.xsl:None
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+msgid "(none)"
+msgstr ""
+
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
 msgstr "У реду"
 
-#: /default/drawers.kupu:None
-#: /common/kupudrawers/drawer.xsl:None
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Cancel"
 msgstr "Откажи"
 
 #: /default/drawers.kupu:None
-#: /default/drawers.kupu:None
+msgid "Listing"
+msgstr ""
+
 # Default: "Add"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
 msgstr "Додај"
 
 #: /default/drawers.kupu:None
-#: /default/drawers.kupu:None
+msgid "Grid"
+msgstr ""
+
 # Default: "Remove"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
 msgstr "Уклони"
 
 #: /default/drawers.kupu:None
+msgid "Data"
+msgstr ""
+
 #: /default/drawers.kupu:None
+msgid "Plain"
+msgstr ""
+
 # Default: "Table Class"
+#: /default/drawers.kupu:None
 msgid "tabledrawer_class_label"
 msgstr "Класа табеле"
 
-#: /default/drawers.kupu:None
-#: /default/toolboxes.kupu:None
+#: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
 msgstr "Привежи означени текст за овај УРЛ:"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "image"
+msgstr "слика"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "table"
+msgstr "табела"
 
 #: /default/save.kupu:None
 msgid "save: alt-s"
@@ -633,44 +705,52 @@ msgid "check spelling"
 msgstr "провера правописа"
 
 #: /default/toolbar.kupu:None
+msgid "zoom: alt-x"
+msgstr ""
+
 # Default: "1"
+#: /default/toolbar.kupu:None
 msgid "list-decimal"
 msgstr "1"
 
-#: /default/toolbar.kupu:None
 # Default: "A"
+#: /default/toolbar.kupu:None
 msgid "list-upperalpha"
 msgstr "A"
+
+#: /default/toolbar.kupu:None
+msgid "Heading 1"
+msgstr "Наслов 1"
+
+#: /default/toolbar.kupu:None
+msgid "superscript: alt-+"
+msgstr "горњи индекс: alt-+"
+
+# Default: "&#9675;"
+#: /default/toolbar.kupu:None
+msgid "list-circle"
+msgstr "&#9675;"
 
 #: /default/toolbar.kupu:None
 msgid "bold: alt-b"
 msgstr "полуцрно: alt-b"
 
 #: /default/toolbar.kupu:None
-msgid "superscript: alt-+"
-msgstr "горњи индекс: alt-+"
-
-#: /default/toolbar.kupu:None
-# Default: "&#9675;"
-msgid "list-circle"
-msgstr "&#9675;"
-
-#: /default/toolbar.kupu:None
 msgid "Formatted"
 msgstr "Форматирано"
 
-#: /default/toolbar.kupu:None
 # Default: "a"
+#: /default/toolbar.kupu:None
 msgid "list-loweralpha"
 msgstr "a"
 
-#: /default/toolbar.kupu:None
 # Default: "no bullet"
+#: /default/toolbar.kupu:None
 msgid "list-nobullet"
 msgstr "без ознаке"
 
-#: /default/toolbar.kupu:None
 # Default: "i"
+#: /default/toolbar.kupu:None
 msgid "list-lowerroman"
 msgstr "i"
 
@@ -686,8 +766,8 @@ msgstr "Уклони слику"
 msgid "undo: alt-z"
 msgstr "поништи: alt-z"
 
-#: /default/toolbar.kupu:None
 # Default: "&#9679;"
+#: /default/toolbar.kupu:None
 msgid "list-disc"
 msgstr "&#9679;"
 
@@ -708,14 +788,6 @@ msgid "Normal"
 msgstr "Нормално"
 
 #: /default/toolbar.kupu:None
-msgid "Heading"
-msgstr "Наслов"
-
-#: /default/toolbar.kupu:None
-msgid "Subheading"
-msgstr "Поднаслов"
-
-#: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
 msgstr "уравнај лево: alt-l"
 
@@ -727,8 +799,8 @@ msgstr "уравнај десно: alt-r"
 msgid "outdent: alt-<"
 msgstr "извлачење: alt-<"
 
-#: /default/toolbar.kupu:None
 # Default: "&#9632;"
+#: /default/toolbar.kupu:None
 msgid "list-square"
 msgstr "&#9632;"
 
@@ -761,10 +833,6 @@ msgid "Heading 2"
 msgstr "Наслов 2"
 
 #: /default/toolbar.kupu:None
-msgid "Heading 1"
-msgstr "Наслов 1"
-
-#: /default/toolbar.kupu:None
 msgid "Heading 6"
 msgstr "Наслов 6"
 
@@ -784,8 +852,8 @@ msgstr "набројани списак: alt-#"
 msgid "italic: alt-i"
 msgstr "курзив: alt-i"
 
-#: /default/toolbar.kupu:None
 # Default: "I"
+#: /default/toolbar.kupu:None
 msgid "list-upperroman"
 msgstr "I"
 
@@ -800,10 +868,6 @@ msgstr "Фиксирај"
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
 msgstr "Уклони колону"
-
-#: /default/toolboxes.kupu:None
-msgid "Inline"
-msgstr "У линији"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
@@ -862,6 +926,10 @@ msgid "Insert Image"
 msgstr "Убаци слику"
 
 #: /default/toolboxes.kupu:None
+msgid "Inline"
+msgstr "У линији"
+
+#: /default/toolboxes.kupu:None
 msgid "Add Table"
 msgstr "Додај табелу"
 
@@ -902,19 +970,101 @@ msgid "Table Class:"
 msgstr "Класа табеле:"
 
 #: /default/toolboxes.kupu:None
-#: /default/toolboxes.kupu:None
 msgid "Right"
 msgstr "Десно"
 
 #: /default/toolboxes.kupu:None
-#: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Лево"
 
-#: /plone/body.kupu
-msgid "force-kupu"
-msgstr "force-kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert image"
+msgstr ""
 
-#: /plone/body.kupu
-msgid "suppress-kupu"
-msgstr "suppress-kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert link"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "typographical characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "external source"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "abbreviations and acronyms"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "save"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "index item"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "properties"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "non-standard characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "link"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "citation"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "cleanup"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "table of contents"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single quotes to curly ones"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Reduce whitespace in source"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double dashes to m-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single dashes to n-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double quotes to curly ones"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "link: alt-a"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "image: alt-m"
+msgstr ""
+
+#~ msgid "Heading"
+#~ msgstr "Наслов"
+
+#~ msgid "Subheading"
+#~ msgstr "Поднаслов"
+
+#~ msgid "force-kupu"
+#~ msgstr "force-kupu"
+
+#~ msgid "suppress-kupu"
+#~ msgstr "suppress-kupu"

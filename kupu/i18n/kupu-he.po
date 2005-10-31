@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: Wed Aug  3 17:19:15 2005\n"
+"POT-Creation-Date: Mon Oct 31 17:09:34 2005\n"
 "PO-Revision-Date: 2005-08-02 02:46+0200\n"
 "Last-Translator: Ofer Weisglass <ofer@plone.org.il>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -15,16 +15,8 @@ msgstr ""
 "Domain: kupu\n"
 
 #: /common/kupu.pox:None
-msgid "Properties modified"
-msgstr "הגדרות עודכנו"
-
-#: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
 msgstr "פקודה ${command} בוצעה עם פרמטר${param}"
-
-#: /common/kupu.pox:None
-msgid "Not inside a definition list element!"
-msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Add table"
@@ -51,8 +43,12 @@ msgid "List style changed"
 msgstr "סטייל רשימה שונה"
 
 #: /common/kupu.pox:None
-msgid "Create image"
-msgstr "צור תמונה"
+msgid "Properties modified"
+msgstr "הגדרות עודכנו"
+
+#: /common/kupu.pox:None
+msgid "click to unfold"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
@@ -119,16 +115,20 @@ msgid "Starting HTML cleanup"
 msgstr "מתחיל HTML נקיון"
 
 #: /common/kupu.pox:None
+msgid "Not inside a definition list element!"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Link modified"
 msgstr "קישור עודכן"
 
 #: /common/kupu.pox:None
-msgid "Request sent to server"
-msgstr "בקשה נשלחה לשרת"
+msgid "Illegal or missing width entry in column info!"
+msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "טבלה לא הותחלה"
+msgid "Request sent to server"
+msgstr "בקשה נשלחה לשרת"
 
 #: /common/kupu.pox:None
 msgid "There were no errors."
@@ -186,16 +186,20 @@ msgid "No parentcolumn found!"
 msgstr "לא נמצאו עמודות הורה"
 
 #: /common/kupu.pox:None
+msgid "items"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Row repeated"
 msgstr "שורה חוזרת"
 
 #: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "טבלה הוסרה"
-
-#: /common/kupu.pox:None
 msgid "Cut"
 msgstr "גזור"
+
+#: /common/kupu.pox:None
+msgid "Table removed"
+msgstr "טבלה הוסרה"
 
 #: /common/kupu.pox:None
 msgid "Unsupported browser!"
@@ -222,8 +226,8 @@ msgid "Error placing back selection"
 msgstr "שגיאה בהשמת בחירה חזרה"
 
 #: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "מחק קישור"
+msgid "Image inserted"
+msgstr "תמונה הוכנסה"
 
 #: /common/kupu.pox:None
 msgid "Add column"
@@ -301,8 +305,8 @@ msgid "View source"
 msgstr "צפה במקור"
 
 #: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "תמונה הוכנסה"
+msgid "Table tool initialized"
+msgstr "טבלה לא הותחלה"
 
 #: /common/kupu.pox:None
 msgid "Browser not supported!"
@@ -317,12 +321,16 @@ msgid "Editor initialized"
 msgstr "עורך הותחל"
 
 #: /common/kupu.pox:None
-msgid "Copy"
-msgstr "העתק"
+msgid "click to fold"
+msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Paste"
-msgstr "הדבק"
+msgid "Create image"
+msgstr "צור תמונה"
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "העתק"
 
 #: /common/kupu.pox:None
 msgid "Zoom tool initialized"
@@ -378,12 +386,20 @@ msgid "Selection not inside the node!"
 msgstr "בחירה לא בתוך נוד זה!"
 
 #: /common/kupu.pox:None
+msgid "Delete link"
+msgstr "מחק קישור"
+
+#: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
 msgstr "עורך לא הותחל עדיין!"
 
 #: /common/kupu.pox:None
 msgid "Table column added"
 msgstr "עמודת טבלה נוספה"
+
+#: /common/kupu.pox:None
+msgid "Paste"
+msgstr "הדבק"
 
 # Original: Caption
 #: /common/kupudrawers/drawer.xsl:None
@@ -420,6 +436,11 @@ msgstr "העלה ל: ${folder}"
 msgid "linkdrawer_name_label"
 msgstr "שם"
 
+# Original: Title: 
+#: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_title_label"
+msgstr "כותרת:"
+
 # Original: Preview
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_preview_label"
@@ -438,11 +459,6 @@ msgstr ""
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_link"
 msgstr "מעלה..."
-
-# Original: Title: 
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_title_label"
-msgstr "כותרת:"
 
 # Original: Title
 #: /common/kupudrawers/drawer.xsl:None
@@ -510,6 +526,11 @@ msgstr "יישור עמודה נוכחי"
 msgid "external link"
 msgstr "קישור חיצוני"
 
+# Original: Rows
+#: /default/drawers.kupu:None
+msgid "tabledrawer_columns_label"
+msgstr "שורות"
+
 # Original: Center
 #: /default/drawers.kupu:None
 msgid "tabledrawer_center_option"
@@ -524,23 +545,10 @@ msgstr "תקן את כל הטבלאות"
 msgid "External Link"
 msgstr "קישור חיצוני"
 
-# Original: Rows
-#: /default/drawers.kupu:None
-msgid "tabledrawer_columns_label"
-msgstr "שורות"
-
 # Original: Left
 #: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
 msgstr "שמאל"
-
-#: /default/drawers.kupu:None
-msgid "image"
-msgstr "תמונה"
-
-#: /default/drawers.kupu:None
-msgid "table"
-msgstr "טבלה"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
@@ -591,6 +599,10 @@ msgid "tabledrawer_fix_table_label"
 msgstr "תקן טבלה"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+msgid "(none)"
+msgstr ""
+
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
 msgstr "אשר"
 
@@ -598,15 +610,31 @@ msgstr "אשר"
 msgid "Cancel"
 msgstr "ביטול"
 
+#: /default/drawers.kupu:None
+msgid "Listing"
+msgstr ""
+
 # Original: Add
 #: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
 msgstr "הוסף"
 
+#: /default/drawers.kupu:None
+msgid "Grid"
+msgstr ""
+
 # Original: Remove
 #: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
 msgstr "הסר"
+
+#: /default/drawers.kupu:None
+msgid "Data"
+msgstr ""
+
+#: /default/drawers.kupu:None
+msgid "Plain"
+msgstr ""
 
 # Original: Table Class
 #: /default/drawers.kupu:None
@@ -616,6 +644,14 @@ msgstr "קלאס טבלה"
 #: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
 msgstr "קשר את הטקסט המודגש לקישור זה:"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "image"
+msgstr "תמונה"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "table"
+msgstr "טבלה"
 
 #: /default/save.kupu:None
 msgid "save: alt-s"
@@ -629,6 +665,10 @@ msgstr "ערוך HTML קוד"
 msgid "check spelling"
 msgstr "בדוק איות"
 
+#: /default/toolbar.kupu:None
+msgid "zoom: alt-x"
+msgstr ""
+
 # Default: "1"
 #: /default/toolbar.kupu:None
 msgid "list-decimal"
@@ -640,8 +680,8 @@ msgid "list-upperalpha"
 msgstr ""
 
 #: /default/toolbar.kupu:None
-msgid "bold: alt-b"
-msgstr "מודגש: alt-b"
+msgid "Heading 1"
+msgstr "כותרת 1"
 
 #: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
@@ -651,6 +691,10 @@ msgstr "superscript: alt-+"
 #: /default/toolbar.kupu:None
 msgid "list-circle"
 msgstr "&#9675"
+
+#: /default/toolbar.kupu:None
+msgid "bold: alt-b"
+msgstr "מודגש: alt-b"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
@@ -750,10 +794,6 @@ msgid "Heading 2"
 msgstr "כותרת 2"
 
 #: /default/toolbar.kupu:None
-msgid "Heading 1"
-msgstr "כותרת 1"
-
-#: /default/toolbar.kupu:None
 msgid "Heading 6"
 msgstr "כותרת 6"
 
@@ -789,10 +829,6 @@ msgstr "תקן"
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
 msgstr "הסר עמודה"
-
-#: /default/toolboxes.kupu:None
-msgid "Inline"
-msgstr "בתוך שורה"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
@@ -851,6 +887,10 @@ msgid "Insert Image"
 msgstr "הכנס תמונה"
 
 #: /default/toolboxes.kupu:None
+msgid "Inline"
+msgstr "בתוך שורה"
+
+#: /default/toolboxes.kupu:None
 msgid "Add Table"
 msgstr "הוסף טבלה"
 
@@ -897,3 +937,83 @@ msgstr "שמאל"
 #: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "שמאל"
+
+#: /silva/drawers.kupu:None
+msgid "Insert image"
+msgstr ""
+
+#: /silva/drawers.kupu:None
+msgid "Insert link"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "typographical characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "external source"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "abbreviations and acronyms"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "save"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "index item"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "properties"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "non-standard characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "link"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "citation"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "cleanup"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "table of contents"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single quotes to curly ones"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Reduce whitespace in source"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double dashes to m-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single dashes to n-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double quotes to curly ones"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "link: alt-a"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "image: alt-m"
+msgstr ""

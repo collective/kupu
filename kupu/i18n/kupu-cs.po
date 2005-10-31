@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kupu\n"
-"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
+"POT-Creation-Date: Mon Oct 31 17:09:34 2005\n"
 "PO-Revision-Date: 2005-08-12 10:34+0200\n"
 "Last-Translator: Vlada Macek <tuttle@bbs.cvut.cz>\n"
 "Language-Team: Vlada Macek\n"
@@ -12,20 +12,13 @@ msgstr ""
 "Language-Name: Czech\n"
 "Generated-By: zope/app/translation_files/extract.py\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "Domain: kupu\n"
-
-#: /common/kupu.pox:None
-msgid "Properties modified"
-msgstr "Vlastnosti byly upraveny."
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
 msgstr "Příkaz ${command} byl proveden s parametrem ${param}."
-
-#: /common/kupu.pox:None
-msgid "Not inside a definition list element!"
-msgstr "Mimo prvek seznamu definic."
 
 #: /common/kupu.pox:None
 msgid "Add table"
@@ -52,12 +45,17 @@ msgid "List style changed"
 msgstr "Styl seznamu byl změněn."
 
 #: /common/kupu.pox:None
-msgid "Create image"
-msgstr "Vytvořit obrázek"
+msgid "Properties modified"
+msgstr "Vlastnosti byly upraveny."
+
+#: /common/kupu.pox:None
+msgid "click to unfold"
+msgstr ""
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "Některé změny nebyly uloženy. Chcete je před opuštěním této stránky uložit?"
+msgstr ""
+"Některé změny nebyly uloženy. Chcete je před opuštěním této stránky uložit?"
 
 #: /common/kupu.pox:None
 msgid "Table row removed"
@@ -120,16 +118,20 @@ msgid "Starting HTML cleanup"
 msgstr "Začíná čištění kódu HTML."
 
 #: /common/kupu.pox:None
+msgid "Not inside a definition list element!"
+msgstr "Mimo prvek seznamu definic."
+
+#: /common/kupu.pox:None
 msgid "Link modified"
 msgstr "Odkaz byl upraven."
 
 #: /common/kupu.pox:None
-msgid "Request sent to server"
-msgstr "Požadavek byl odeslán na server."
+msgid "Illegal or missing width entry in column info!"
+msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "Nástroj tabulek byl inicializován."
+msgid "Request sent to server"
+msgstr "Požadavek byl odeslán na server."
 
 #: /common/kupu.pox:None
 msgid "There were no errors."
@@ -192,16 +194,20 @@ msgid "No parentcolumn found!"
 msgstr "Nadřazený sloupec nebyl nalezen!"
 
 #: /common/kupu.pox:None
+msgid "items"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Row repeated"
 msgstr "Řádek byl zopakován."
 
 #: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "Tabulka byla odebrána."
-
-#: /common/kupu.pox:None
 msgid "Cut"
 msgstr "Vyjmout"
+
+#: /common/kupu.pox:None
+msgid "Table removed"
+msgstr "Tabulka byla odebrána."
 
 #: /common/kupu.pox:None
 msgid "Unsupported browser!"
@@ -228,8 +234,8 @@ msgid "Error placing back selection"
 msgstr "Chyba při vracení výběru."
 
 #: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "Odstranit odkaz"
+msgid "Image inserted"
+msgstr "Obrázek byl vložen."
 
 #: /common/kupu.pox:None
 msgid "Add column"
@@ -303,7 +309,8 @@ msgstr ""
 
 #: /common/kupu.pox:None
 msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr "Tato vlastnost vyžaduje povolení vyskakovacích (pop-up) oken v prohlížeči."
+msgstr ""
+"Tato vlastnost vyžaduje povolení vyskakovacích (pop-up) oken v prohlížeči."
 
 #: /common/kupu.pox:None
 msgid "Not inside link"
@@ -314,8 +321,8 @@ msgid "View source"
 msgstr "Zobrazit zdrojový kód"
 
 #: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "Obrázek byl vložen."
+msgid "Table tool initialized"
+msgstr "Nástroj tabulek byl inicializován."
 
 #: /common/kupu.pox:None
 msgid "Browser not supported!"
@@ -330,12 +337,16 @@ msgid "Editor initialized"
 msgstr "Editor byl inicializován."
 
 #: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Kopírovat"
+msgid "click to fold"
+msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Paste"
-msgstr "Vložit"
+msgid "Create image"
+msgstr "Vytvořit obrázek"
+
+#: /common/kupu.pox:None
+msgid "Copy"
+msgstr "Kopírovat"
 
 #: /common/kupu.pox:None
 msgid "Zoom tool initialized"
@@ -358,7 +369,8 @@ msgid "Error loading data, status ${status}"
 msgstr "Chyba při načítání dat, stav ${status}."
 
 #: /common/kupu.pox:None
-msgid "Could not set status bar message, check your browser\\'s security settings."
+msgid ""
+"Could not set status bar message, check your browser\\'s security settings."
 msgstr ""
 "Není možné změnit obsah stavového pruhu, zkontrolujte bezpečnostní nastavení "
 "prohlížeče."
@@ -392,12 +404,20 @@ msgid "Selection not inside the node!"
 msgstr "Výběr není uvnitř uzlu."
 
 #: /common/kupu.pox:None
+msgid "Delete link"
+msgstr "Odstranit odkaz"
+
+#: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
 msgstr "Editor nebyl ještě inicializován."
 
 #: /common/kupu.pox:None
 msgid "Table column added"
 msgstr "Sloupec tabulky byl přidán."
+
+#: /common/kupu.pox:None
+msgid "Paste"
+msgstr "Vložit"
 
 # Original: Caption
 #: /common/kupudrawers/drawer.xsl:None
@@ -434,6 +454,11 @@ msgstr "Načtení do složky: ${folder}"
 msgid "linkdrawer_name_label"
 msgstr "Název"
 
+# Original: Title:
+#: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_title_label"
+msgstr "Nadpis:"
+
 # Original: Preview
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_preview_label"
@@ -452,11 +477,6 @@ msgstr ""
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_link"
 msgstr "Nahrát..."
-
-# Original: Title:
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_title_label"
-msgstr "Nadpis:"
 
 # Original: Title
 #: /common/kupudrawers/drawer.xsl:None
@@ -522,6 +542,10 @@ msgid "external link"
 msgstr "Externí odkaz"
 
 #: /default/drawers.kupu:None
+msgid "tabledrawer_columns_label"
+msgstr "Sloupců"
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_center_option"
 msgstr "Na střed"
 
@@ -534,20 +558,8 @@ msgid "External Link"
 msgstr "Externí odkaz"
 
 #: /default/drawers.kupu:None
-msgid "tabledrawer_columns_label"
-msgstr "Sloupců"
-
-#: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
 msgstr "Vlevo"
-
-#: /default/drawers.kupu:None
-msgid "image"
-msgstr "Obrázek"
-
-#: /default/drawers.kupu:None
-msgid "table"
-msgstr "Tabulka"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
@@ -590,6 +602,10 @@ msgid "tabledrawer_fix_table_label"
 msgstr "Opravit tabulku"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+msgid "(none)"
+msgstr ""
+
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
 msgstr "OK"
 
@@ -598,12 +614,28 @@ msgid "Cancel"
 msgstr "Storno"
 
 #: /default/drawers.kupu:None
+msgid "Listing"
+msgstr ""
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
 msgstr "Přidat"
 
 #: /default/drawers.kupu:None
+msgid "Grid"
+msgstr ""
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
 msgstr "Odebrat"
+
+#: /default/drawers.kupu:None
+msgid "Data"
+msgstr ""
+
+#: /default/drawers.kupu:None
+msgid "Plain"
+msgstr ""
 
 #: /default/drawers.kupu:None
 msgid "tabledrawer_class_label"
@@ -612,6 +644,14 @@ msgstr "Druh tabulky"
 #: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
 msgstr "Provázat zvýrazněný text s adresou URL:"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "image"
+msgstr "Obrázek"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "table"
+msgstr "Tabulka"
 
 #: /default/save.kupu:None
 msgid "save: alt-s"
@@ -625,6 +665,10 @@ msgstr "Editovat kód HTML"
 msgid "check spelling"
 msgstr "Zkontrolovat pravopis"
 
+#: /default/toolbar.kupu:None
+msgid "zoom: alt-x"
+msgstr "Zvětšit: Alt-X"
+
 # Default: "1"
 #: /default/toolbar.kupu:None
 msgid "list-decimal"
@@ -636,8 +680,8 @@ msgid "list-upperalpha"
 msgstr "A"
 
 #: /default/toolbar.kupu:None
-msgid "bold: alt-b"
-msgstr "Tučné: Alt-B"
+msgid "Heading 1"
+msgstr "Nadpis 1"
 
 #: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
@@ -647,6 +691,10 @@ msgstr "Horní index: Alt-+"
 #: /default/toolbar.kupu:None
 msgid "list-circle"
 msgstr "&#9675;"
+
+#: /default/toolbar.kupu:None
+msgid "bold: alt-b"
+msgstr "Tučné: Alt-B"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
@@ -701,14 +749,6 @@ msgid "Normal"
 msgstr "Normální"
 
 #: /default/toolbar.kupu:None
-msgid "Heading"
-msgstr "Nadpis"
-
-#: /default/toolbar.kupu:None
-msgid "Subheading"
-msgstr "Dílčí nadpis"
-
-#: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
 msgstr "Zarovnat doleva: Alt-L"
 
@@ -754,10 +794,6 @@ msgid "Heading 2"
 msgstr "Nadpis 2"
 
 #: /default/toolbar.kupu:None
-msgid "Heading 1"
-msgstr "Nadpis 1"
-
-#: /default/toolbar.kupu:None
 msgid "Heading 6"
 msgstr "Nadpis 6"
 
@@ -782,10 +818,6 @@ msgstr "Kurzíva: Alt-I"
 msgid "list-upperroman"
 msgstr "I"
 
-#: /default/toolbar.kupu
-msgid "zoom: alt-x"
-msgstr "Zvětšit: Alt-X"
-
 #: /default/toolboxes.kupu:None
 msgid "Headings:"
 msgstr "Nadpisy:"
@@ -797,10 +829,6 @@ msgstr "Opravit"
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
 msgstr "Odebrat sloupec"
-
-#: /default/toolboxes.kupu:None
-msgid "Inline"
-msgstr "V řádku"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
@@ -859,6 +887,10 @@ msgid "Insert Image"
 msgstr "Vložit obrázek"
 
 #: /default/toolboxes.kupu:None
+msgid "Inline"
+msgstr "V řádku"
+
+#: /default/toolboxes.kupu:None
 msgid "Add Table"
 msgstr "Přidat tabulku"
 
@@ -906,43 +938,124 @@ msgstr "Vpravo"
 msgid "Left"
 msgstr "Vlevo"
 
-#: /plone/body.kupu
-msgid "force-kupu"
-msgstr "Klepněte sem, chcete-li stránku upravovat pomocí editoru Kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert image"
+msgstr ""
 
-#: /plone/body.kupu
-msgid "suppress-kupu"
-msgstr "Klepněte sem, chcete-li stránku upravovat bez editoru Kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert link"
+msgstr ""
 
-#: Libraries
-msgid "Home"
-msgstr "Úvod"
+#: /silva/toolboxes.kupu:None
+msgid "typographical characters"
+msgstr ""
 
-msgid "Current folder"
-msgstr "Aktuální složka"
+#: /silva/toolboxes.kupu:None
+msgid "external source"
+msgstr ""
 
-msgid "My recent items"
-msgstr "Vlastní poslední položky"
+#: /silva/toolboxes.kupu:None
+msgid "abbreviations and acronyms"
+msgstr ""
 
-msgid "Recent items"
-msgstr "Poslední položky"
+#: /silva/toolboxes.kupu:None
+msgid "save"
+msgstr ""
 
-#: Default Table classes
-msgid "plain"
-msgstr "Prostá"
+#: /silva/toolboxes.kupu:None
+msgid "index item"
+msgstr ""
 
-msgid "listing"
-msgstr "Seznam"
+#: /silva/toolboxes.kupu:None
+msgid "properties"
+msgstr ""
 
-msgid "vertical listing"
-msgstr "Svislý seznam"
+#: /silva/toolboxes.kupu:None
+msgid "non-standard characters"
+msgstr ""
 
-msgid "unsorted listing"
-msgstr "Neřazený seznam"
+#: /silva/toolboxes.kupu:None
+msgid "link"
+msgstr ""
 
-msgid "grid"
-msgstr "Mřížka"
+#: /silva/toolboxes.kupu:None
+msgid "citation"
+msgstr ""
 
-msgid "data"
-msgstr "Data"
+#: /silva/toolboxes.kupu:None
+msgid "cleanup"
+msgstr ""
 
+#: /silva/toolboxes.kupu:None
+msgid "table of contents"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single quotes to curly ones"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Reduce whitespace in source"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double dashes to m-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single dashes to n-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double quotes to curly ones"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "link: alt-a"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "image: alt-m"
+msgstr ""
+
+#~ msgid "Heading"
+#~ msgstr "Nadpis"
+
+#~ msgid "Subheading"
+#~ msgstr "Dílčí nadpis"
+
+#~ msgid "force-kupu"
+#~ msgstr "Klepněte sem, chcete-li stránku upravovat pomocí editoru Kupu"
+
+#~ msgid "suppress-kupu"
+#~ msgstr "Klepněte sem, chcete-li stránku upravovat bez editoru Kupu"
+
+#~ msgid "Home"
+#~ msgstr "Úvod"
+
+#~ msgid "Current folder"
+#~ msgstr "Aktuální složka"
+
+#~ msgid "My recent items"
+#~ msgstr "Vlastní poslední položky"
+
+#~ msgid "Recent items"
+#~ msgstr "Poslední položky"
+
+#~ msgid "plain"
+#~ msgstr "Prostá"
+
+#~ msgid "listing"
+#~ msgstr "Seznam"
+
+#~ msgid "vertical listing"
+#~ msgstr "Svislý seznam"
+
+#~ msgid "unsorted listing"
+#~ msgstr "Neřazený seznam"
+
+#~ msgid "grid"
+#~ msgstr "Mřížka"
+
+#~ msgid "data"
+#~ msgstr "Data"
