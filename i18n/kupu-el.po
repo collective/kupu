@@ -2,7 +2,8 @@
 # Nikos Papagrigoriou <nikos@papagrigoriou.gr>, 2005
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: Mon Oct 31 17:09:34 2005\n"
 "PO-Revision-Date: 2005-08-16 19:21+0200\n"
 "Last-Translator: Nikos Papagrigoriou <nikos@papagrigoriou.gr>\n"
 "Language-Team: Silva i18n team <walco@infrae.com>\n"
@@ -13,653 +14,1004 @@ msgstr ""
 "Language-Code: el\n"
 "Language-Name: Ελληνικά\n"
 "Domain: kupu\n"
-"Project-Id-Version: \n"
 
-msgid "Properties modified"
-msgstr "Ιδιότητες τροποποιήθηκαν"
-
+#: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
 msgstr "Η εντολή ${command} εκτελέστηκε με την παράμετρο ${param}"
 
-msgid "Not inside a definition list element!"
-msgstr "Όχι μέσα σε στοιχείο λίστας ορισμών!"
-
+#: /common/kupu.pox:None
 msgid "Add table"
 msgstr "Προσθήκη πίνακα"
 
+#: /common/kupu.pox:None
 msgid "Table added"
 msgstr "Πίνακας προστέθηκε"
 
+#: /common/kupu.pox:None
 msgid "Source edit tool initialized"
 msgstr "Το εργαλείο επεξεργασίας κώδικα αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "Delete row"
 msgstr "Διαγραφή γραμμής"
 
+#: /common/kupu.pox:None
 msgid "Recursion detected when counting column position"
 msgstr "Εντοπίστηκε αναδρομή κατά το μέτρημα της θέσης στήλης"
 
+#: /common/kupu.pox:None
 msgid "List style changed"
 msgstr "Μορφή λίστας άλλαξε"
 
-msgid "Create image"
-msgstr "Δημιουργία εικόνας"
+#: /common/kupu.pox:None
+msgid "Properties modified"
+msgstr "Ιδιότητες τροποποιήθηκαν"
 
+#: /common/kupu.pox:None
+msgid "click to unfold"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "Έχετε μη αποθηκευμένες αλλαγές. Θέλετε να αποθηκεύσετε πριν την αποχώρηση από τη σελίδα;"
+msgstr ""
+"Έχετε μη αποθηκευμένες αλλαγές. Θέλετε να αποθηκεύσετε πριν την αποχώρηση "
+"από τη σελίδα;"
 
+#: /common/kupu.pox:None
 msgid "Table row removed"
 msgstr "Γραμμή πίνακα απομακρύνθηκε"
 
+#: /common/kupu.pox:None
 msgid "Document saved"
 msgstr "Έγγραφο αποθηκεύτηκε"
 
+#: /common/kupu.pox:None
 msgid "Color chosen"
 msgstr "Επιλεγμένο χρώμα"
 
+#: /common/kupu.pox:None
 msgid "Table row added"
 msgstr "Γραμμή πίνακα προστέθηκε"
 
+#: /common/kupu.pox:None
 msgid "Error saving document"
 msgstr "Σφάλμα κατά την αποθήκευση εγγράφου"
 
+#: /common/kupu.pox:None
 msgid "No destination URL available!"
 msgstr "Κανένας προορισμός URL διαθέσιμος!"
 
+#: /common/kupu.pox:None
 msgid "Link removed"
 msgstr "Σύνδεσμος απομακρύνθηκε"
 
+#: /common/kupu.pox:None
 msgid "No row to delete"
 msgstr "Καμία γραμμή προς διαγραφή"
 
+#: /common/kupu.pox:None
 msgid "Delete Table"
 msgstr "Διαγραφή Πίνακα"
 
+#: /common/kupu.pox:None
 msgid "Cleanup done, sending document to server"
 msgstr "Η εξυγίανση ολοκληρώθηκε, αποστολή εγγράφου στον διακομιστή"
 
+#: /common/kupu.pox:None
 msgid "Image tool initialized"
 msgstr "Το εργαλείων εικόνας αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "End offset out of range!"
 msgstr "Μετατόπιση τερματισμού εκτός ορίων!"
 
+#: /common/kupu.pox:None
 msgid "tdindex: ${tdindex}"
 msgstr ""
 
+#: /common/kupu.pox:None
 msgid "Create link"
 msgstr "Δημιουργία συνδέσμου"
 
+#: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
 msgstr "Εκκίνηση εξυγίανσης HTML"
 
+#: /common/kupu.pox:None
+msgid "Not inside a definition list element!"
+msgstr "Όχι μέσα σε στοιχείο λίστας ορισμών!"
+
+#: /common/kupu.pox:None
 msgid "Link modified"
 msgstr "Σύνδεσμος τροποποιήθηκε"
 
+#: /common/kupu.pox:None
+msgid "Illegal or missing width entry in column info!"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Request sent to server"
 msgstr "Αίτημα εστάλει στον διακομιστή"
 
-msgid "Table tool initialized"
-msgstr "Το εργαλείο πίνακα αρχικοποιήθηκε"
-
+#: /common/kupu.pox:None
 msgid "There were no errors."
 msgstr "Δεν υπήρξαν προβλήματα."
 
-msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
-msgstr "εξαίρεση ${message} κατά την εγγραφή της λαβής γεγονότος για το στοιχείο ${element}, γεγονός ${event}, μέθοδο ${method}"
+#: /common/kupu.pox:None
+msgid ""
+"exception ${message} while registering an event handler for element "
+"${element}, event ${event}, method ${method}"
+msgstr ""
+"εξαίρεση ${message} κατά την εγγραφή της λαβής γεγονότος για το στοιχείο "
+"${element}, γεγονός ${event}, μέθοδο ${method}"
 
+#: /common/kupu.pox:None
 msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr "Σφάλμα κατά την ανάγνωση μετάφρασης (κατάσταση ${status} ), προσφυγή πίσω στην αγγλική"
+msgstr ""
+"Σφάλμα κατά την ανάγνωση μετάφρασης (κατάσταση ${status} ), προσφυγή πίσω "
+"στην αγγλική"
 
+#: /common/kupu.pox:None
 msgid "Start node offset detected in a node without children!"
 msgstr "Μετατόπιση κόμβου εκκίνησης εντοπίστηκε σε ένα κόμβο χωρίς τέκνα!"
 
+#: /common/kupu.pox:None
 msgid "Deprecation warning: KupuTool._selectSelectItem"
 msgstr "Προειδοποίηση απόρριψης: KupuTool._selectSelectItem"
 
+#: /common/kupu.pox:None
 msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr "Αδυναμία προσαρμογής στη λειτουργία σχεδίασης. Ο Kupu δεν λειτουργεί σε αυτόν τον φυλλομετρητή."
+msgstr ""
+"Αδυναμία προσαρμογής στη λειτουργία σχεδίασης. Ο Kupu δεν λειτουργεί σε "
+"αυτόν τον φυλλομετρητή."
 
+#: /common/kupu.pox:None
 msgid "No element found in the config island!"
 msgstr "Κανένα στοιχείο δεν βρέθηκε στη ρύθμιση νησιού!"
 
+#: /common/kupu.pox:None
 msgid "Start offset out of range!"
 msgstr "Μετατόπιση εκκίνησης εκτός ορίων!"
 
-msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Η επικόλληση μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας λόγω των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το http://www.mozilla.org/editor/midasdemo/securityprefs.html"
+#: /common/kupu.pox:None
+msgid ""
+"Pasting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Η επικόλληση μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας "
+"λόγω των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το "
+"http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 
+#: /common/kupu.pox:None
 msgid "Property tool initialized"
 msgstr "Το εργαλείο ιδιοτήτων αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "Colorchooser tool initialized"
 msgstr "Το εργαλείο επιλογής χρώματος αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "No parentcolumn found!"
 msgstr "Καμία γονική στήλη δεν βρέθηκε!"
 
+#: /common/kupu.pox:None
+msgid "items"
+msgstr ""
+
+#: /common/kupu.pox:None
 msgid "Row repeated"
 msgstr "Γραμμή επαναλήφθηκε"
 
-msgid "Table removed"
-msgstr "Πίνακας απομακρύνθηκε"
-
+#: /common/kupu.pox:None
 msgid "Cut"
 msgstr "Αποκοπή"
 
+#: /common/kupu.pox:None
+msgid "Table removed"
+msgstr "Πίνακας απομακρύνθηκε"
+
+#: /common/kupu.pox:None
 msgid "Unsupported browser!"
 msgstr "Μη υποστηριζόμενος φυλλομετρητής!"
 
+#: /common/kupu.pox:None
 msgid "Add row"
 msgstr "Προσθήκη γραμμής"
 
+#: /common/kupu.pox:None
 msgid "Link tool initialized"
 msgstr "Το εργαλείο συνδέσμου αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "Sending request to server"
 msgstr "Αποστολή αιτήματος στον διακομιστή"
 
+#: /common/kupu.pox:None
 msgid "Invalid table size"
 msgstr "Άκυρο μέθεθος πίνακα"
 
+#: /common/kupu.pox:None
 msgid "Error placing back selection"
 msgstr "Σφάμα τοποθετώντας πίσω επιλογή"
 
-msgid "Delete link"
-msgstr "Διαγραφή συνδέσμου"
-
-msgid "Add column"
-msgstr "Προσθήκη στήλης"
-
-msgid "Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Η αποκοπή μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας λόγω των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "Εξαίρεση κατά την επεξεργασία του updateState στο ${id}: ${msg}"
-
-msgid "Cleaning up HTML..."
-msgstr "Εξυγίανση HTML..."
-
-msgid "List style tool initialized"
-msgstr "Το εργαλείο μορφής λίστας αρχικοποιήθηκε"
-
-msgid "Row repeat turned off"
-msgstr "Η επανάληψη γραμμής απενεργοποιήθηκε"
-
-msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
-msgstr "Υπήρξε ένα πρόβλημα κατά την αρχικοποίηση των συρταριών. Το πιο πιθανό είναι τα αρχεία XSLT ή XML να μην είναι διαθέσιμα. Αν αυτή η έκδοση του Kupu δεν είναι demo, ελέξτε τα αρχεία σας ή την υπηρεσία που σας τα παρέχει (σφάλμα: ${error})."
-
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "Προειδοποίηση απόρριψης: KupuToolBox._selectSelectItem"
-
-msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Η αντιγραφή μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας λόγω των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-msgid "Command ${command} executed"
-msgstr "Η εντολή ${command} εκτελέστηκε"
-
-msgid "Delete column"
-msgstr "Διαγραφή στήλης"
-
-msgid ""
-"Error saving your data.\\n"
-"Response status: ${status}.\\n"
-"Check your server log for more information."
-msgstr ""
-"Σφάλμα κατά την αποθήκευση των δεδομένων σας.\\n"
-"Κατάσταση απόκρισης: ${status}.\\n"
-"Ελέγξτε την καταγραφή του διακομιστή σας για περισσότερες πληροφορίες."
-
-# /common/kupu.pox:None
-msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr "Αυτό το χαρακτηριστικό απαιτεί να εργοποιήσετε τα pop-ups στον φυλλομετρητή σας!"
-
-msgid "Not inside link"
-msgstr "Δεν είστε μέσα σε έναν σύνδεσμο"
-
-msgid "View source"
-msgstr "Προβολή κώδικα σελίδας"
-
+#: /common/kupu.pox:None
 msgid "Image inserted"
 msgstr "Εικόνα εισήχθει"
 
+#: /common/kupu.pox:None
+msgid "Add column"
+msgstr "Προσθήκη στήλης"
+
+#: /common/kupu.pox:None
+msgid ""
+"Cutting from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Η αποκοπή μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας λόγω "
+"των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το http://"
+"www.mozilla.org/editor/midasdemo/securityprefs.html"
+
+#: /common/kupu.pox:None
+msgid "Exception while processing updateState on ${id}: ${msg}"
+msgstr "Εξαίρεση κατά την επεξεργασία του updateState στο ${id}: ${msg}"
+
+#: /common/kupu.pox:None
+msgid "Cleaning up HTML..."
+msgstr "Εξυγίανση HTML..."
+
+#: /common/kupu.pox:None
+msgid "List style tool initialized"
+msgstr "Το εργαλείο μορφής λίστας αρχικοποιήθηκε"
+
+#: /common/kupu.pox:None
+msgid "Row repeat turned off"
+msgstr "Η επανάληψη γραμμής απενεργοποιήθηκε"
+
+#: /common/kupu.pox:None
+msgid ""
+"There was a problem initializing the drawers. Most likely the XSLT or XML "
+"files aren\\'t available. If this is not the Kupu demo version, check your "
+"files or the service that provide them (error: ${error})."
+msgstr ""
+"Υπήρξε ένα πρόβλημα κατά την αρχικοποίηση των συρταριών. Το πιο πιθανό είναι "
+"τα αρχεία XSLT ή XML να μην είναι διαθέσιμα. Αν αυτή η έκδοση του Kupu δεν "
+"είναι demo, ελέξτε τα αρχεία σας ή την υπηρεσία που σας τα παρέχει (σφάλμα: "
+"${error})."
+
+#: /common/kupu.pox:None
+msgid "Deprecation warning: KupuToolBox._selectSelectItem"
+msgstr "Προειδοποίηση απόρριψης: KupuToolBox._selectSelectItem"
+
+#: /common/kupu.pox:None
+msgid ""
+"Copying from JavaScript is disabled on your Mozilla due to security "
+"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
+"securityprefs.html"
+msgstr ""
+"Η αντιγραφή μέσω της JavaScript είναι απενεργοποιημένη στον Mozilla σας λόγω "
+"των ρυθμίσεων ασφαλείας. Για περισσότερες πληροφορίες, διαβάστε το http://"
+"www.mozilla.org/editor/midasdemo/securityprefs.html"
+
+#: /common/kupu.pox:None
+msgid "Command ${command} executed"
+msgstr "Η εντολή ${command} εκτελέστηκε"
+
+#: /common/kupu.pox:None
+msgid "Delete column"
+msgstr "Διαγραφή στήλης"
+
+#: /common/kupu.pox:None
+msgid ""
+"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
+"log for more information."
+msgstr ""
+"Σφάλμα κατά την αποθήκευση των δεδομένων σας.\\nΚατάσταση απόκρισης: "
+"${status}.\\nΕλέγξτε την καταγραφή του διακομιστή σας για περισσότερες "
+"πληροφορίες."
+
+# /common/kupu.pox:None
+#: /common/kupu.pox:None
+msgid "This feature requires pop-ups to be enabled on your browser!"
+msgstr ""
+"Αυτό το χαρακτηριστικό απαιτεί να εργοποιήσετε τα pop-ups στον φυλλομετρητή "
+"σας!"
+
+#: /common/kupu.pox:None
+msgid "Not inside link"
+msgstr "Δεν είστε μέσα σε έναν σύνδεσμο"
+
+#: /common/kupu.pox:None
+msgid "View source"
+msgstr "Προβολή κώδικα σελίδας"
+
+#: /common/kupu.pox:None
+msgid "Table tool initialized"
+msgstr "Το εργαλείο πίνακα αρχικοποιήθηκε"
+
+#: /common/kupu.pox:None
 msgid "Browser not supported!"
 msgstr "Ο φυλλομετρητής δεν υποστηρίζεται!"
 
+#: /common/kupu.pox:None
 msgid "Please wait while saving document..."
 msgstr "Παρακαλούμε περιμένετε ενώ το έγγραφο αποθηκεύεται..."
 
+#: /common/kupu.pox:None
 msgid "Editor initialized"
 msgstr "Επεξεργαστής αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
+msgid "click to fold"
+msgstr ""
+
+#: /common/kupu.pox:None
+msgid "Create image"
+msgstr "Δημιουργία εικόνας"
+
+#: /common/kupu.pox:None
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-msgid "Paste"
-msgstr "Επικόλληση"
-
+#: /common/kupu.pox:None
 msgid "Zoom tool initialized"
 msgstr "Το εργαλείο μεγέθυνσης αρχικοποιήθηκε"
 
+#: /common/kupu.pox:None
 msgid "Table column deleted"
 msgstr "Στήλη πίνακα διαγράφηκε"
 
+#: /common/kupu.pox:None
 msgid "Offset out of document range"
 msgstr "Μετατόπιση εκτός ορίων εγγράφου"
 
+#: /common/kupu.pox:None
 msgid "Table cleaned up"
 msgstr "Εξυγίανση πίνακα"
 
+#: /common/kupu.pox:None
 msgid "Error loading data, status ${status}"
 msgstr "Σφάλμα κατά την ανάγνωση δεδομένων, κατάσταση ${status}"
 
-msgid "Could not set status bar message, check your browser\\'s security settings."
-msgstr "Αδυναμία ορισμού του μηνήματος στη γραμμή κατάστασης, ελέξτε τις ρυθμίσεις ασφαλείας του φυλλομετρητή σας."
+#: /common/kupu.pox:None
+msgid ""
+"Could not set status bar message, check your browser\\'s security settings."
+msgstr ""
+"Αδυναμία ορισμού του μηνήματος στη γραμμή κατάστασης, ελέξτε τις ρυθμίσεις "
+"ασφαλείας του φυλλομετρητή σας."
 
+#: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
 msgstr "Μετατόπιση κόμβου τερματισμού εντοπίστηκε σε ένα κόμβο χωρίς τέκνα!"
 
+#: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
 msgstr "Η φόρμα σας δεν έχει αποθηκευτεί. Όλες οι αλλαγές που κάνατε θα χαθούν"
 
+#: /common/kupu.pox:None
 msgid "Link added"
 msgstr "Σύνδεσμος προστέθηκε"
 
+#: /common/kupu.pox:None
 msgid "No head in document!"
 msgstr "Καμία κεφαλίδα στο έγγραφο!"
 
+#: /common/kupu.pox:None
 msgid "Not inside a row!"
 msgstr "Όχι μέσα σε γραμμή!"
 
+#: /common/kupu.pox:None
 msgid "Not inside a table!"
 msgstr "Όχι μέσα σε ένα πίνακα!"
 
+#: /common/kupu.pox:None
 msgid "Selection not inside the node!"
 msgstr "Η επιλογή δεν βρίσκεται μέσα στον κόμβο!"
 
+#: /common/kupu.pox:None
+msgid "Delete link"
+msgstr "Διαγραφή συνδέσμου"
+
+#: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
 msgstr "Ο επεξεργαστής δεν αρχικοποιήθηκε ακόμη!"
 
+#: /common/kupu.pox:None
 msgid "Table column added"
 msgstr "Στήλη πίνακα προστέθηκε"
 
+#: /common/kupu.pox:None
+msgid "Paste"
+msgstr "Επικόλληση"
+
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_caption_label"
 msgstr "Λεζάντα"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title"
 msgstr "Εισαγωγή Συνδέσμου"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_left"
 msgstr "Αριστερά"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_size"
 msgstr "(${width} επί ${height})"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_title"
 msgstr "Εισαγωγή Εικόνας"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_to_label"
 msgstr "Ανέβασμα σε: ${folder}"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_name_label"
 msgstr "Όνομα"
 
-msgid "imagedrawer_upload_preview_label"
-msgstr "Προεπισκόπηση"
-
-msgid "imagedrawer_upload_instructions"
-msgstr "Επιλέξτε μια εικόνα από τον υπολογιστή σας και πιέστε το ΟΚ. Η εικόνα θα ανεβαστεί αυτόματα στον επιλεγμένο φάκελο και θα εισαχθεί στον επεξεργαστή."
-
-# /common/kupudrawers/drawer.xsl:None
-# Default: "Upload ..."
-msgid "imagedrawer_upload_link"
-msgstr "Ανέβασμα..."
-
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_title_label"
 msgstr "Τίτλος:"
 
+#: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_preview_label"
+msgstr "Προεπισκόπηση"
+
+#: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_instructions"
+msgstr ""
+"Επιλέξτε μια εικόνα από τον υπολογιστή σας και πιέστε το ΟΚ. Η εικόνα θα "
+"ανεβαστεί αυτόματα στον επιλεγμένο φάκελο και θα εισαχθεί στον επεξεργαστή."
+
+# /common/kupudrawers/drawer.xsl:None
+# Default: "Upload ..."
+#: /common/kupudrawers/drawer.xsl:None
+msgid "imagedrawer_upload_link"
+msgstr "Ανέβασμα..."
+
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_title_label"
 msgstr "Τίτλος"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_description_label"
 msgstr "Περιγραφή"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
 msgstr "ALT-κείμενο"
 
 # /common/kupudrawers/drawer.xsl:None
 # Default: "search"
+#: /common/kupudrawers/drawer.xsl:None
 msgid "kupudrawer_search"
 msgstr "αναζήτηση"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_inline"
 msgstr "Ευθυγραμμισμένα"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "linkdrawer_target_label"
 msgstr "Στόχος"
 
+#: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_right"
 msgstr "Δεξιά"
 
+#: /default/body.kupu:None
 msgid "Kupu Editor Test Page"
 msgstr "Σελίδα Ελέγχου Επεξεργαστή Kupu"
 
+#: /default/colorchooser.kupu:None
 msgid "text color: alt-f"
 msgstr "χρώμα κειμένου: alt-f"
 
+#: /default/colorchooser.kupu:None
 msgid "background color: alt-h"
 msgstr "χρώμα παρασκηνίου: alt-h"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_row_label"
 msgstr "Σειρά"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_right_option"
 msgstr "Δεξιά"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_alignment_label"
 msgstr "Στοίχιση τρέχουσας στήλης"
 
+#: /default/drawers.kupu:None
 msgid "external link"
 msgstr "εξωτερικός σύνδεσμος"
 
-msgid "tabledrawer_center_option"
-msgstr "Κεντρικά"
-
-msgid "tabledrawer_fix_tables_button"
-msgstr "Επιδιόρθωση όλων των πινάκων"
-
-msgid "External Link"
-msgstr "Εξωτερικός Σύνδεσμος"
-
+#: /default/drawers.kupu:None
 msgid "tabledrawer_columns_label"
 msgstr "Στήλες"
 
+#: /default/drawers.kupu:None
+msgid "tabledrawer_center_option"
+msgstr "Κεντρικά"
+
+#: /default/drawers.kupu:None
+msgid "tabledrawer_fix_tables_button"
+msgstr "Επιδιόρθωση όλων των πινάκων"
+
+#: /default/drawers.kupu:None
+msgid "External Link"
+msgstr "Εξωτερικός Σύνδεσμος"
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_left_option"
 msgstr "Αριστερά"
 
-msgid "image"
-msgstr "εικόνα"
-
-msgid "table"
-msgstr "πίνακας"
-
+#: /default/drawers.kupu:None
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_rows_label"
 msgstr "Γραμμές"
 
+#: /default/drawers.kupu:None
 msgid "internal link"
 msgstr "εσωτερικός σύνδεσμος"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_title"
 msgstr "Πίνακας"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_add_table_button"
 msgstr "Προσθήκη Πίνακα"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_close_button"
 msgstr "Κλείσιμο"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_column_label"
 msgstr "Στήλη"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_headings_label"
 msgstr "Δημιουργία Επικεφαλίδων"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_fix_button"
 msgstr "Επιδιόρθωση"
 
+#: /default/drawers.kupu:None
 msgid "tabledrawer_fix_table_label"
 msgstr "Επιδιόρθωση Πίνακα"
 
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
+msgid "(none)"
+msgstr ""
+
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
 msgstr "ΟΚ"
 
+#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Cancel"
 msgstr "Άκυρο"
 
+#: /default/drawers.kupu:None
+msgid "Listing"
+msgstr ""
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_add_button"
 msgstr "Προσθήκη"
 
+#: /default/drawers.kupu:None
+msgid "Grid"
+msgstr ""
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
 msgstr "Απομάκρυνση"
 
+#: /default/drawers.kupu:None
+msgid "Data"
+msgstr ""
+
+#: /default/drawers.kupu:None
+msgid "Plain"
+msgstr ""
+
+#: /default/drawers.kupu:None
 msgid "tabledrawer_class_label"
 msgstr "Κλάση πίνακα"
 
+#: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
 msgstr "Σύνδεσμος του επισημειωμένου κειμένου σε αυτό το URL:"
 
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "image"
+msgstr "εικόνα"
+
+#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
+msgid "table"
+msgstr "πίνακας"
+
+#: /default/save.kupu:None
 msgid "save: alt-s"
 msgstr "αποθήκευση: alt-s"
 
+#: /default/sourceedit.kupu:None
 msgid "toggle_source_view"
 msgstr "επεξεργασία κώδικα HTML"
 
+#: /default/spellchecker.kupu:None
 msgid "check spelling"
 msgstr "έλεγχος ορθογραφίας"
 
+#: /default/toolbar.kupu:None
+msgid "zoom: alt-x"
+msgstr "μεγέθυνση: alt-x"
+
 # Default: "1"
+#: /default/toolbar.kupu:None
 msgid "list-decimal"
 msgstr "1"
 
 # Default: "A"
+#: /default/toolbar.kupu:None
 msgid "list-upperalpha"
 msgstr "A"
 
-msgid "bold: alt-b"
-msgstr "έντονα: alt-b"
+#: /default/toolbar.kupu:None
+msgid "Heading 1"
+msgstr "Επικεφαλίδα 1"
 
+#: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
 msgstr "εκθέτης: alt-+"
 
 # Default: "&#9675;"
+#: /default/toolbar.kupu:None
 msgid "list-circle"
 msgstr "&#9675;"
 
+#: /default/toolbar.kupu:None
+msgid "bold: alt-b"
+msgstr "έντονα: alt-b"
+
+#: /default/toolbar.kupu:None
 msgid "Formatted"
 msgstr "Διαμορφωμένο"
 
 # Default: "a"
+#: /default/toolbar.kupu:None
 msgid "list-loweralpha"
 msgstr "a"
 
 # Default: "no bullet"
+#: /default/toolbar.kupu:None
 msgid "list-nobullet"
 msgstr "χωρίς κουκίδα"
 
 # Default: "i"
+#: /default/toolbar.kupu:None
 msgid "list-lowerroman"
 msgstr "i"
 
+#: /default/toolbar.kupu:None
 msgid "Kupu SVN/unreleased"
 msgstr "Kupu SVN/χωρίς κυκλοφορία"
 
+#: /default/toolbar.kupu:None
 msgid "Remove image"
 msgstr "Απομάκρυνση εικόνας"
 
+#: /default/toolbar.kupu:None
 msgid "undo: alt-z"
 msgstr "αναίρεση: alt-z"
 
 # Default: "&#9679;"
+#: /default/toolbar.kupu:None
 msgid "list-disc"
 msgstr "&#9679;"
 
+#: /default/toolbar.kupu:None
 msgid "definition list: alt-="
 msgstr "λίστα με ορισμούς: alt-="
 
+#: /default/toolbar.kupu:None
 msgid "indent: alt->"
 msgstr "αύξηση εσοχής: alt->"
 
+#: /default/toolbar.kupu:None
 msgid "Remove link"
 msgstr "Απομάκρυνση συνδέσμου"
 
+#: /default/toolbar.kupu:None
 msgid "Normal"
 msgstr "Κανονικό"
 
-msgid "Heading"
-msgstr "Επικεφαλίδα"
-
-msgid "Subheading"
-msgstr "Υποκεφαλίδα"
-
+#: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
 msgstr "αριστερή στοίχιση: alt-l"
 
+#: /default/toolbar.kupu:None
 msgid "right justify: alt-r"
 msgstr "δεξιά στοίχιση: alt-r"
 
+#: /default/toolbar.kupu:None
 msgid "outdent: alt-<"
 msgstr "μείωση εσοχής: alt-<"
 
-msgid "zoom: alt-x"
-msgstr "μεγέθυνση: alt-x"
-
 # Default: "&#9632;"
+#: /default/toolbar.kupu:None
 msgid "list-square"
 msgstr "&#9632;"
 
+#: /default/toolbar.kupu:None
 msgid "underline: alt-u"
 msgstr "υπογραμμισμένα: alt-u"
 
+#: /default/toolbar.kupu:None
 msgid "redo: alt-y"
 msgstr "επαναφορά: alt-y"
 
+#: /default/toolbar.kupu:None
 msgid "subscript: alt--"
 msgstr "δείκτης: alt--"
 
+#: /default/toolbar.kupu:None
 msgid "center justify: alt-c"
 msgstr "κεντρική στοίχιση: alt-c"
 
+#: /default/toolbar.kupu:None
 msgid "unordered list: alt-*"
 msgstr "λίστα με κουκίδες: alt-*"
 
+#: /default/toolbar.kupu:None
 msgid "Heading 3"
 msgstr "Επικεφαλίδα 3"
 
+#: /default/toolbar.kupu:None
 msgid "Heading 2"
 msgstr "Επικεφαλίδα 2"
 
-msgid "Heading 1"
-msgstr "Επικεφαλίδα 1"
-
+#: /default/toolbar.kupu:None
 msgid "Heading 6"
 msgstr "Επικεφαλίδα 6"
 
+#: /default/toolbar.kupu:None
 msgid "Heading 5"
 msgstr "Επικεφαλίδα 5"
 
+#: /default/toolbar.kupu:None
 msgid "Heading 4"
 msgstr "Επικεφαλίδα 4"
 
+#: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
 msgstr "λίστα με αριθμούς: alt-#"
 
+#: /default/toolbar.kupu:None
 msgid "italic: alt-i"
 msgstr "πλαγιαστά: alt-i"
 
 # Default: "I"
+#: /default/toolbar.kupu:None
 msgid "list-upperroman"
 msgstr "I"
 
+#: /default/toolboxes.kupu:None
 msgid "Headings:"
 msgstr "Επικεφαλίδες:"
 
+#: /default/toolboxes.kupu:None
 msgid "Fix"
 msgstr "Επιδιόρθωση"
 
+#: /default/toolboxes.kupu:None
 msgid "Remove Column"
 msgstr "Απομάκρυνση Στήλης"
 
-msgid "Inline"
-msgstr "Σε ευθυγράμμιση"
-
 # /default/toolboxes.kupu:None
+#: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
 msgstr "Επιλέξτε μια ενέργεια καθαρισμού:"
 
+#: /default/toolboxes.kupu:None
 msgid "Links"
 msgstr "Σύνδεσμοι"
 
+#: /default/toolboxes.kupu:None
 msgid "Rows:"
 msgstr "Γραμμές:"
 
+#: /default/toolboxes.kupu:None
 msgid "Remove Row"
 msgstr "Απομάκρυνση Σειράς"
 
+#: /default/toolboxes.kupu:None
 msgid "Tables"
 msgstr "Πίνακες"
 
+#: /default/toolboxes.kupu:None
 msgid "Create"
 msgstr "Δημιουργία"
 
+#: /default/toolboxes.kupu:None
 msgid "Insert image at the following URL:"
 msgstr "Εισαγωγή εικόνας στο παρακάτω URL:"
 
+#: /default/toolboxes.kupu:None
 msgid "Title:"
 msgstr "Τίτλος:"
 
+#: /default/toolboxes.kupu:None
 msgid "Description:"
 msgstr "Περιγραφή:"
 
+#: /default/toolboxes.kupu:None
 msgid "Image class:"
 msgstr "Κλάση εικόνας:"
 
+#: /default/toolboxes.kupu:None
 msgid "Add Column"
 msgstr "Προσθήκη Στήλης"
 
+#: /default/toolboxes.kupu:None
 msgid "Fix Table"
 msgstr "Επιδιόρθωση Πίνακα"
 
+#: /default/toolboxes.kupu:None
 msgid "Images"
 msgstr "Εικόνες"
 
+#: /default/toolboxes.kupu:None
 msgid "Insert Image"
 msgstr "Εισαγωγή Εικόνας"
 
+#: /default/toolboxes.kupu:None
+msgid "Inline"
+msgstr "Σε ευθυγράμμιση"
+
+#: /default/toolboxes.kupu:None
 msgid "Add Table"
 msgstr "Προσθήκη Πίνακα"
 
+#: /default/toolboxes.kupu:None
 msgid "Add Row"
 msgstr "Προσθήκη Γραμμής"
 
+#: /default/toolboxes.kupu:None
 msgid "Properties"
 msgstr "Ιδιότητες"
 
+#: /default/toolboxes.kupu:None
 msgid "Col Align:"
 msgstr "Στοίχιση Στήλης:"
 
+#: /default/toolboxes.kupu:None
 msgid "Center"
 msgstr "Κεντρικά"
 
+#: /default/toolboxes.kupu:None
 msgid "Debug Log"
 msgstr "Καταγραφή Εκσφαλμάτωσης"
 
+#: /default/toolboxes.kupu:None
 msgid "Make Link"
 msgstr "Δημιουργία Συνδέσμου"
 
 # /default/toolboxes.kupu:None
+#: /default/toolboxes.kupu:None
 msgid "Cleanup expressions"
 msgstr "Εκφράσεις καθαρισμού"
 
+#: /default/toolboxes.kupu:None
 msgid "Columns:"
 msgstr "Στήλες"
 
+#: /default/toolboxes.kupu:None
 msgid "Table Class:"
 msgstr "Κλάση Πίνακα:"
 
+#: /default/toolboxes.kupu:None
 msgid "Right"
 msgstr "Δεξιά"
 
+#: /default/toolboxes.kupu:None
 msgid "Left"
 msgstr "Αριστερά"
 
-#: /plone/body.kupu
-msgid "force-kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert image"
 msgstr ""
 
-#: /plone/body.kupu
-msgid "suppress-kupu"
+#: /silva/drawers.kupu:None
+msgid "Insert link"
 msgstr ""
 
+#: /silva/toolboxes.kupu:None
+msgid "typographical characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "external source"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "abbreviations and acronyms"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "save"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "index item"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "properties"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "non-standard characters"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "link"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "citation"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "cleanup"
+msgstr ""
+
+#: /silva/toolboxes.kupu:None
+msgid "table of contents"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single quotes to curly ones"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Reduce whitespace in source"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double dashes to m-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert single dashes to n-dashes"
+msgstr ""
+
+#: /silva/xmlconfig.kupu:None
+msgid "Convert double quotes to curly ones"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "link: alt-a"
+msgstr ""
+
+#: /widgeteer/browser.kupu:None
+msgid "image: alt-m"
+msgstr ""
+
+#~ msgid "Heading"
+#~ msgstr "Επικεφαλίδα"
+
+#~ msgid "Subheading"
+#~ msgstr "Υποκεφαλίδα"
