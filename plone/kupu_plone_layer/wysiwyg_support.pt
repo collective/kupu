@@ -6,7 +6,7 @@
   <tal:block define="editor python: member.getProperty('wysiwyg_editor','').lower();
         editor python: test(editor=='fck editor', 'editor_fck', editor);
         support python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));"
-        on-error="string:Kupu not installed correctly: ${error/value}">
+        on-error="string:Kupu not installed correctly: ${error/type} ${error/value}">
  <metal:block metal:use-macro="support/macros/wysiwygEditorBox">
  </metal:block>
  </tal:block>
@@ -17,7 +17,7 @@
   <tal:block define="editor python: member.getProperty('wysiwyg_editor','').lower().replace(' ', '_');
         editor python: test(editor=='fck editor', 'editor_fck', editor);
         support python: path('nocall:here/%s_wysiwyg_support|here/%s/wysiwyg_support|here/portal_skins/plone_wysiwyg/wysiwyg_support' % (editor, editor));"
-        on-error="string:Kupu not installed correctly: ${error/value}">
+        on-error="string:Kupu not installed correctly: ${error/type} ${error/value}">
  <metal:block metal:use-macro="support/macros/textFormatSelector">
  </metal:block>
  </tal:block>

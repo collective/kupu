@@ -260,6 +260,13 @@ function KupuUI(textstyleselectid) {
         this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
     };
 
+    this.getStyles = function() {
+        if (!paraoptions) {
+            this.cleanStyles();
+        }
+        return [ paraoptions, tableoptions ];
+    }
+
     this.setTextStyleHandler = function(event) {
         this.setTextStyle(this.tsselect.options[this.tsselect.selectedIndex].value);
     };
@@ -331,7 +338,7 @@ function KupuUI(textstyleselectid) {
         parastyles['p'] = 0;
         while (options.length > 1) {
             opt = options[1];
-            var v = opt.value;
+            var v = opt.value.toLowerCase();
             if (/^thead|tbody|table|t[rdh]\b/.test(v)) {
                 var otable = tableoptions;
                 var styles = tablestyles;
@@ -339,13 +346,13 @@ function KupuUI(textstyleselectid) {
                 var otable = paraoptions;
                 var styles = parastyles;
             }
-            otable.push([opt.text, v]);
             if (v.indexOf('|') > -1) {
                 var split = v.split('|');
                 v = split[0].toLowerCase() + "|" + split[1];
             } else {
-                v = v.toLowerCase();
+                v = v.toLowerCase()+"|";
             };
+            otable.push([opt.text, v]);
             styles[v] = otable.length - 1;
             options[1] = null;
         }
@@ -2594,6 +2601,73 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     window.scrollTo(0, iframe.offsetTop);
     editor.focusDocument();
 }
+
+/* The bookmark tool */
+function BookmarkTool() {};
+BookmarkTool.prototype = new LinkTool;
+var proto = BookmarkTool.prototype;
+
+proto.fillStyleSelect = function(select) {
+    var ui = this.editor.getTool('ui');
+    var options = ui.getStyles()[0];
+
+    for (var i = 1; i < options.length; i++) {
+        var t = options[i][0];
+        var v =options[i][1];
+        
+        var opt = document.createElement('option');
+        opt.text = options[i][0];
+        opt.value = options[i][1];
+        select.options.add(opt);
+    }
+};
+
+proto.grubParas = function(style1, style2) {
+    var doc = this.editor.getInnerDocument();
+    var body = doc.body;
+    var paras = [];
+    var lvl1 = 0, lvl2 = 0;
+    for (var node = body.firstChild; node; node = node.nextSibling) {
+        var name = node.nodeName.toLowerCase();
+        var style = name + "|" + node.className;
+        if (style==style1) {
+            paras.push([node,0,++lvl1]);
+            lvl2 = 0;
+        } else if (style==style2) {
+            paras.push([node,1,lvl1 + '.' + ++lvl2]);
+        }
+    }
+    return paras;
+};
+
+proto.getAnchor = function(node) {
+    /* Returns the anchor for a node, creating one if reqd. */
+    var anchors = node.getElementsByTagName('a');
+    if (anchors.length > 0) return anchors[0].name;
+
+    var anchor = Sarissa.getText(node, true).strip().truncate(40).
+        replace(/[^\w]+/g, '-').toLowerCase().replace(/-$/,'') || 'anchor';
+    anchor = anchor.replace(/^((?:[^-]*-){0,3}[^-]*)(.*)$/,'$1');
+
+    var unique = 0;
+    var existing = this.editor.getInnerDocument().anchors;
+    for (var i = 0; i < existing.length; i++) {
+        var name = existing[i].name;
+        if (name==anchor) {
+            if (unique==0) unique = -1;
+        } else if (name.length > anchor.length && name.substring(0,anchor.length)==anchor) {
+            var tail = name.substring(anchor.length);
+            tail = parseInt(tail);
+            if (tail <= unique) {
+                unique = tail-1;
+            }
+        }
+    }
+    if (unique) anchor += unique.toString();
+    node.insertBefore(this.editor.newElement('a', {'name': anchor}),
+        node.firstChild);
+    return anchor;
+};
 
 /* IE doesn't have a dump function */
 if (dump===undefined) {

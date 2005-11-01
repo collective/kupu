@@ -71,6 +71,47 @@ Some notes about the scripts:
 //----------------------------------------------------------------------------
 // Helper classes and functions
 //----------------------------------------------------------------------------
+function newDocumentElement(doc, tagName, args) {
+    /* Create a new element, set attributes, and append children */
+    if (_SARISSA_IS_IE) {
+        /* Braindead IE cannot set some attributes (e.g. NAME) except
+         * through bizarre use of createElement */
+        var attrs = [tagName];
+        for (var a = 1; a < args.length; a++) {
+            var arg = args[a];
+            if (arg.length===undefined) {
+                for (var attr in arg) {
+                    var val = arg[attr];
+                    if (val===true) val=attr;
+                    if (val===false) continue;
+                    if (attr=='className') attr='class';
+                    attrs.push(attr+'="'+val.replace(/"/,'&quot;')+'"');
+                };
+            };
+        };
+        tagName = "<"+attrs.join(' ')+"></"+tagName+">";
+    }
+    var node = doc.createElement(tagName);
+    for (var a = 1; a < args.length; a++) {
+        var arg = args[a];
+        if (arg.length===undefined) {
+            if (!_SARISSA_IS_IE) {
+                for (var attr in arg) {
+                    node[attr] = arg[attr];
+                };
+            };
+        } else {
+            for (var i = 0; i < arg.length; i++) {
+                node.appendChild(arg[i]);
+            }
+        }
+    }
+    return node;
+}
+
+function newElement(tagName) {
+    return newDocumentElement(document, tagName, arguments);
+}
 
 function addEventHandler(element, event, method, context) {
     /* method to add an event handler for both IE and Mozilla */
@@ -1271,6 +1312,14 @@ String.prototype.reduceWhitespace = function() {
     to a single, plain space */
     return this.replace(/\s+/g, ' ');
 };
+String.prototype.truncate = function(len) {
+    if (this.length <= len) {
+        return this;
+    } else {
+        var trimmed = this.substring(0, len+1).replace(/\s[^\s]*$/, '...');
+        return trimmed;
+    }
+}
 
 String.prototype.entitize = function() {
     var ret = this.replace(/&/g, '&amp;');
