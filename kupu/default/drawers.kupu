@@ -19,14 +19,15 @@
 
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-image" id="kupu-imagelibdrawer-button"
-              title="image" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-inthyperlink" id="kupu-linklibdrawer-button"
-              title="internal link" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-exthyperlink" id="kupu-linkdrawer-button"
-              title="external link" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-table" id="kupu-tabledrawer-button"
-              title="table"  i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-image" id="kupu-imagelibdrawer-button" title="image" i18n:attributes="title"
+        >&#160;</button>
+      <button type="button" class="kupu-inthyperlink" id="kupu-linklibdrawer-button" title="internal link"
+        i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-exthyperlink" id="kupu-linkdrawer-button" title="external link"
+        i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-bookmarks" id="kupu-bookmarks" title="bookmarks" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-table" id="kupu-tabledrawer-button" title="table" i18n:attributes="title"
+        >&#160;</button>
     </span>
   </kupu:part>
 
@@ -65,7 +66,7 @@
         </td></tr>
         <tr class="kupu-linkdrawer-anchors" style="display:none">
           <td colspan="2">
-            <label for="kupu-anchor-select">Bookmark</label> <select><option i18n:translate="" value="">(none)</option></select>
+            <label>Bookmark<select><option i18n:translate="" value="">(none)</option></select></label> 
           </td>
         </tr>
         <tr><td colspan="2" align="center">
@@ -219,8 +220,7 @@
       </table>
       <div class="kupu-dialogbuttons">
         <button class="kupu-dialog-button"
-                type="button" onfocus="window.status='focus';"
-                onmousedown="window.status ='onmousedown';"
+                type="button" 
                 i18n:translate="tabledrawer_close_button"
                 onclick="drawertool.closeDrawer(this)">Close</button>
       </div>
@@ -229,6 +229,52 @@
 
   </kupu:part>
 
+  <kupu:part name="bookmarkdrawer">
+    <div id="kupu-bookmarkdrawer" class="kupu-drawer kupu-bookmarkdrawer">
+      <h1 i18n:translate="bookmarkdrawer_title">Bookmarks</h1>
+      <div class="kupu-panels">
+        <table class="kupu-ins-bm">
+          <tr style="margin-bottom: 5px">
+            <td colspan="2">
+              <label><input type="radio" name="kupu-bm-mode" checked="checked" i18n:translate="" id="kupu-ins-bm"/> Link
+                to bookmark</label>
+              <label><input type="radio" name="kupu-bm-mode" i18n:translate="" id="kupu-toc"/> Table of contents</label>
+            </td>
+          </tr>
+          <tr>
+            <td class="kupu-bm-select">
+              <select id="kupu-bm-sel1" size="10"> </select>
+            </td>
+            <td rowspan="2">
+              <div class="kupu-bm-heading">
+                <label i18n:translate="" style="float:right;">Table style <select id="kupu-bm-outcls" size="1">
+                    <option value="" i18n:translate="">Normal</option>
+                  </select></label>
+                <label>
+                  <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
+                  <em i18n:translate="">toggle all</em>
+                </label>
+              </div>
+              <div class="kupu-bm-paras"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <select id="kupu-bm-sel2" size="1">
+                <option value="" i18n:translate="">(optional 2nd style)</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <div class="kupu-dialogbuttons">
+          <button class="kupu-dialog-button" type="button" onclick="drawertool.current_drawer.save()" i18n:translate=""
+            >Ok</button>
+          <button class="kupu-dialog-button" type="button" onclick="drawertool.closeDrawer()" i18n:translate=""
+          >Cancel</button>
+        </div>
+      </div>
+    </div>
+  </kupu:part>
   <kupu:part name="xmlconfig">
     <image_xsl_uri>kupudrawers/drawer.xsl</image_xsl_uri>
     <link_xsl_uri>kupudrawers/drawer.xsl</link_xsl_uri>

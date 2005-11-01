@@ -138,6 +138,9 @@ function initPloneKupu(editorId) {
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
 
+    var bookmarktool = new BookmarkTool();
+    kupu.registerTool('bookmarktool', bookmarktool);
+
     var showpathtool = new ShowPathTool('kupu-showpath-field');
     kupu.registerTool('showpathtool', showpathtool);
 
@@ -203,6 +206,10 @@ function initPloneKupu(editorId) {
                                           opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
+    var bookmarkbutton = new KupuButton(prefix+'button.kupu-bookmarks',
+                opendrawer('bookmarkdrawer'));
+    kupu.registerTool('bookmarkbutton', bookmarkbutton);
+
     var tabledrawerbutton = new KupuButton(prefix+'button.kupu-table',
                                            opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
@@ -225,6 +232,9 @@ function initPloneKupu(editorId) {
 
     var linkdrawer = new LinkDrawer(prefix+'div.kupu-linkdrawer', linktool);
     drawertool.registerDrawer(prefix+'linkdrawer', linkdrawer, kupu);
+
+    var bookmarkdrawer = new BookmarkDrawer(prefix+'div.kupu-bookmarkdrawer', bookmarktool);
+    drawertool.registerDrawer(prefix+'bookmarkdrawer', bookmarkdrawer, kupu);
 
     var tabledrawer = new TableDrawer(prefix+'div.kupu-tabledrawer', tabletool);
     drawertool.registerDrawer(prefix+'tabledrawer', tabledrawer, kupu);

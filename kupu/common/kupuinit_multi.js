@@ -177,6 +177,9 @@ function initKupu(iframeids) {
         );
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
+    var bookmarktool = new BookmarkTool();
+    kupu.registerTool('bookmarktool', bookmarktool);
+
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
 
@@ -205,6 +208,10 @@ function initKupu(iframeids) {
                                           opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
+    var bookmarkbutton = new KupuButton('kupu-bookmarks',
+        opendrawer('bookmarkdrawer'));
+    kupu.registerTool('bookmarkbutton', bookmarkbutton);
+
     var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
                                            opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
@@ -226,6 +233,9 @@ function initKupu(iframeids) {
 
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
+
+    var bookmarkdrawer = new BookmarkDrawer('kupu-bookmarkdrawer', bookmarktool);
+    drawertool.registerDrawer('bookmarkdrawer', bookmarkdrawer);
 
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);

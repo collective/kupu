@@ -67,6 +67,7 @@
     <kupu:insert-part feature="drawers" part="librarydrawer" />
     <kupu:insert-part feature="drawers" part="linkdrawer" />
     <kupu:insert-part feature="drawers" part="tabledrawer" />
+    <kupu:insert-part feature="drawers" part="bookmarkdrawer" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">

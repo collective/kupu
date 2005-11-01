@@ -823,5 +823,11 @@ function KupuEditor(document, config, logger) {
             this.getSelection().restoreRange(this._previous_range);
         }
     }
+    this.newElement = function(tagName) {
+        return newDocumentElement(this.getInnerDocument(), tagName, arguments);
+    }
+    this.newText = function(text) {
+        return this.getInnerDocument().createTextNode(text);
+    }
 }
 

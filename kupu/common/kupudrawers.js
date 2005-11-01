@@ -1117,6 +1117,162 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 LinkLibraryDrawer.prototype = new LibraryDrawer;
 LinkLibraryDrawer.prototype.shared = {}; // Shared data
 
+function BookmarkDrawer(elementid, tool) {
+    Drawer.call(this, elementid, tool);
+
+    this.initialize = function(editor, tool) {
+        Drawer.prototype.initialize.apply(this, [editor, tool]);
+        this.table = this.element.getElementsByTagName('table')[0];
+        this.style1 = getFromSelector('kupu-bm-sel1');
+        this.style2 = getFromSelector('kupu-bm-sel2');
+        this.ostyle = getFromSelector('kupu-bm-outcls');
+        this.radio1 = getFromSelector('kupu-ins-bm');
+        this.radio2 = getFromSelector('kupu-toc');
+        this.paralist = getBaseTagClass(this.element, 'div', 'kupu-bm-paras');
+        this.checkall = getFromSelector('kupu-bm-checkall');
+        
+        addEventHandler(this.radio1, 'click', this.switchMode, this);
+        addEventHandler(this.radio2, 'click', this.switchMode, this);
+        addEventHandler(this.checkall, 'click', this.checkAll, this);
+        addEventHandler(this.style1, 'change', this.fillList, this);
+        addEventHandler(this.style2, 'change', this.fillList, this);
+        this.tool.fillStyleSelect(this.style1);
+        this.tool.fillStyleSelect(this.style2);
+        this.tool.fillStyleSelect(this.ostyle);
+    }
+    this.getMode = function() {
+        return this.radio1.checked;
+    }
+
+    this.checkAll = function() {
+        var nodes = this.paralist.getElementsByTagName('input');
+        var state = this.checkall.checked;
+        for (var i = 0; i < nodes.length; i++) {
+            nodes[i].checked = state;
+        };
+    }
+    this.switchMode = function(event) {
+        event = event || window.event;
+        var target = event.currentTarget || event.srcElement;
+        this.table.className = target.id;
+        this.fillList();
+    }
+    this.fillList = function() {
+        var el = newElement;
+        while (this.paralist.firstChild) {
+            this.paralist.removeChild(this.paralist.firstChild);
+        }
+
+        this.styleNames = ['', ''];
+
+        var isSingle = this.getMode();
+        var s = ['', ''];
+        for (idx=0; idx < (isSingle?1:2); idx++) {
+            var sel = this['style'+(idx+1)];
+            var i = sel.selectedIndex;
+            if (i >= 0) {
+                s[idx] = sel.options[i].value;
+                this.styleNames[idx] = sel.options[i].firstChild.data;
+            }
+        }
+
+        var paras = this.tool.grubParas(s[0], s[1]);
+        this.nodelist = paras;
+
+        for (var i = 0; i < paras.length; i++) {
+            var node = paras[i][0];
+            var text = Sarissa.getText(node, true).strip().truncate(60);
+            if (!text) continue;
+            var content = document.createTextNode(text);
+
+            var control = el('input', {
+                'type': isSingle?"radio":"checkbox",
+                'checked': isSingle?i==0:this.checkall.checked,
+                'name': "kupu-bm-paralist"});
+
+            var div = el('div',
+                { 'className': "kupu-bm-level" + paras[i][1] },
+                [el('label', [control, el('span', [content])])]);
+            
+            this.paralist.appendChild(div);
+        };
+    }
+    this.createContent = function() {
+        var editor = this.editor;
+        if (this.radio2.checked) this.table.className=this.radio2.id;
+        this.fillList(); 
+        this.element.style.display = 'block';
+        this.focusElement();
+    };
+    this.save = function() {
+        var isSingle = this.getMode();
+        var selected = this.paralist.getElementsByTagName('input');
+        var ed = this.editor;
+        
+        ed.resumeEditing();
+
+        if (!isSingle) {
+            var toc = ed.newElement('ul');
+        };
+        for (var i = 0; i < selected.length; i++) {
+            if (selected[i].checked) {
+                var nodeinfo = this.nodelist[i];
+                var node = nodeinfo[0];
+                var level = nodeinfo[1];
+                var a = this.tool.getAnchor(node);
+                if (isSingle) {
+                    var title = '[' +(this.styleNames[nodeinfo[1]] + ' ' + nodeinfo[2]).strip() + ']';
+                    this.tool.createLink('#'+a, null, null, null, title);
+                    break;
+                } else {
+                    /* Insert TOC entry here */
+                    var caption = Sarissa.getText(node).truncate(140);
+                    var li = ed.newElement('li', {'className': 'level'+level},
+                        [ed.newElement('a', {'href': '#'+a},
+                        [ed.newText(nodeinfo[2] + ' ' + caption)])]);
+
+                    if (level==0) {
+                        toc.appendChild(li);
+                    } else {
+                        if (!toc.lastChild || toc.lastChild.nodeName != 'ul') {
+                            toc.appendChild(ed.newElement('ul'));
+                        }
+                        toc.lastChild.appendChild(li);
+                    };
+                };
+            };
+        };
+        if (!isSingle && toc.firstChild) {
+            var o = this.ostyle.selectedIndex;
+            if (o > 0) {
+                ostyle = this.ostyle.options[o].value.split('|');
+                if (ostyle[0]=='ul') {
+                    toc.className=ostyle[1];
+                } else {
+                    toc = ed.newElement(ostyle[0], {'className': ostyle[1]}, [toc]);
+                };
+            }
+            var node = ed.getSelection().parentElement();
+            if (node.nodeName == 'BODY') {
+                node.insertBefore(toc, node.firstChild);
+            } else {
+                while (node.parentNode.nodeName != 'BODY') {
+                    node = node.parentNode;
+                }
+                node.parentNode.insertBefore(toc, node);
+            }
+        }
+        this.nodelist = null;
+        this.drawertool.closeDrawer();
+    };
+    this.hide = function() {
+        this.nodelist = null;
+        Drawer.prototype.hide.apply(this, []);
+    };
+};
+
+BookmarkDrawer.prototype = new Drawer;
+
 /* Function to suppress enter key in drawers */
 function HandleDrawerEnter(event, clickid) {
     var key;
