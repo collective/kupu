@@ -116,6 +116,8 @@ Translations
 
 * J (?), Suzuki Takanori - Japanese
 
+* Hà Thanh Hải - Vietnamese
+
 Third party products included
 -----------------------------
 
