@@ -170,7 +170,7 @@ function TestCase() {
                     this._reporter.reportSuccess(this.name, attr);
                 } catch(e) {
                     var raw = e;
-                    if (e.name && e.message) { // Microsoft
+                    if (e && e.name && e.message) { // Microsoft
                         e = e.name + ': ' + e.message;
                     }
                     this._reporter.reportError(this.name, attr, e, raw);
