@@ -10,7 +10,7 @@
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu 1.3.1" accesskey="k" id="kupu-logo-button"
+      <button type="button" class="kupu-logo" title="Kupu 1.3.2" accesskey="k" id="kupu-logo-button"
               onclick="window.open('http://kupu.oscom.org');"
               tal:attributes="tabindex python:tabindex+1;">&#160;</button>
     </span>
