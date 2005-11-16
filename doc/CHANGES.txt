@@ -4,6 +4,10 @@ Kupu changes
 
 - 1.3.2
 
+  - Zope 2
+  
+    * Updated Zope 2 distribution, it was broken in several ways.
+
   - Silva
     
     * Fixed problem with ExternalSources, which made that sources could not be
