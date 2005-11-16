@@ -6,6 +6,9 @@ sys.path.append(os.path.abspath('../python'))
 
 from nationalizer import Nationalizer, get_locale
 
+import cgitb
+cgitb.enable()
+
 if __name__ == '__main__':
     print 'Content-Type: text/html;charset=UTF-8'
     print
