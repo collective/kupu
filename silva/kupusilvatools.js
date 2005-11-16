@@ -1895,7 +1895,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             handler.call(this, this._url);
             return;
         };
-        var request = new getXMLHttpRequest();
+        var request = new XMLHttpRequest();
         request.open('GET', 
             this._baseurl + '/edit/get_extsource_url?id=' + id, true);
         var callback = new ContextFixer(function() {
