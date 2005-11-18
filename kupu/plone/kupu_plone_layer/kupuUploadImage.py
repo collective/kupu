@@ -54,12 +54,13 @@ if context.check_id(id) is not None or getattr(context,id,None) is not None:
    id = context.generateUniqueId(typename)
 
 # check for a duplicate
-newid = context.invokeFactory(type_name=typename, id=id, title=node_prop_caption, file=node_prop_image)
+newid = context.invokeFactory(type_name=typename, id=id, title=node_prop_caption)
 
 if newid is None or newid == '':
    newid = id 
 
 obj = getattr(context,newid, None)
+obj.setImage(node_prop_image)
 
 if not obj:
    return Error("Could not create %s with %s as id and %s as title!", typename,newid, node_prop_caption)
