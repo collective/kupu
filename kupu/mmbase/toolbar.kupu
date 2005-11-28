@@ -5,16 +5,19 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     i18n:domain="kupu"
     >
   <kupu:id>$Id: toolbar.kupu,v 1.12 2005/06/30 17:11:44 michiel Exp $</kupu:id>
 
   <!-- lets limit ourselves to 2 ways of emphasis (in stead of 3) -->
   <kupu:part name="buttongroup-basicmarkup">
-    <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup">
-      <button type="button" class="kupu-bold"   id="kupu-bold-button"   title="strong: alt-b"   i18n:attributes="title" accesskey="b">&#160;</button>
-      <button type="button" class="kupu-italic" id="kupu-italic-button" title="emphasis: alt-i" i18n:attributes="title" accesskey="i">&#160;</button>
-    </span>
+    <fmt:bundle basename="org.mmbase.kupu.Messages">
+      <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup">
+        <button type="button" class="kupu-bold"   id="kupu-bold-button"   title="strong: alt-b"   i18n:attributes="title" accesskey="b">&#160;</button>
+        <button type="button" class="kupu-italic" id="kupu-italic-button" title="emphasis: alt-i" i18n:attributes="title" accesskey="i">&#160;</button>
+      </span>
+    </fmt:bundle>
   </kupu:part>
 
 

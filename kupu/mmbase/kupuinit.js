@@ -199,7 +199,6 @@ function initKupu(iframe) {
                {'error': (e.message || e.toString())});
        alert(msg);
    };
-   alert("1");
    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
    drawertool.registerDrawer('linkdrawer', linkdrawer);
 
@@ -276,6 +275,5 @@ function initKupu(iframe) {
         });
     kupu.registerFilter(nonxhtmltagfilter);
 
-    alert('hoi7');
     return kupu;
 };

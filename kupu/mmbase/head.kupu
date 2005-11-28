@@ -30,6 +30,7 @@
     <script type="text/javascript" src="../i18n.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kupucleanupexpressions.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kupucontentfilters.js"><jsp:text> </jsp:text></script>
+    <script type="text/javascript" src="${kupu_common}/kuputoolcollapser.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="cross-browser.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="layout.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="mmbasetools.js"><jsp:text> </jsp:text></script>

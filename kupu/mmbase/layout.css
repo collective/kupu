@@ -48,12 +48,12 @@ iframe#kupu-editor {
 #centerColumn {
   padding: 0;
   margin: 0;
-  margin-left: 250px;
+  margin-left: 270px;
   margin-right: 0px;
 }
 #leftColumn {
   position: absolute;
-  width: 250px;
+  width: 270px;
   margin: 0;
   padding: 0;
   font-size: small;
@@ -62,8 +62,7 @@ iframe#kupu-editor {
 #leftColumn {
   left: 0;
 }
-#nodefields 
-{  
+#nodefields {  
   padding-right: 0px;
   padding-left: 0px;
   padding-bottom: 0px;
@@ -71,7 +70,7 @@ iframe#kupu-editor {
   margin-right: 0px;
   margin-left: 0px;
   margin-bottom: 0px;
-  margin-top: 0px;
+  overflow: auto;
 } 
 
 

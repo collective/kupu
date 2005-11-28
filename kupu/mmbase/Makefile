@@ -28,15 +28,14 @@ messages: *.js clean
 	rm -f phony.js
 	grep -r "fmt:message" *.jspx *.kupu | sed 's/.*key="\(.*\)".*/_("\1");/g' | uniq > phony.js
 	mkdir -p i18n
-	xgettext --from-code=UTF-8 -L java -k_ -p i18n *.js 
+	xgettext --from-code=UTF-8 -L java -k_ -p i18n -j *.js -o en.po
 	for LOCALE in $(LANGS) ; do \
-	   msgmerge --update --backup=off i18n/$${LOCALE}.po i18n/messages.po; \
+	   msgmerge --update --backup=off i18n/$${LOCALE}.po i18n/en.po; \
 	done
-	msgen i18n/messages.po > i18n/en.po
 
 mmbase-kupu-i18n.jar: i18n/*.po
 	mkdir -p resourcebundle
-	for LOCALE in $(LANGS) ; do \
+	for LOCALE in $(LANGS) en ; do \
 	    msgfmt --java2  -D . -d resourcebundle -r org.mmbase.kupu.Messages -l $${LOCALE} i18n/$${LOCALE}.po; \
 	done
 	jar cf $@ -C resourcebundle org

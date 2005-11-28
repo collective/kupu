@@ -49,7 +49,7 @@
               <mm:link page="../common/kupuimages/${type == 'images' ? 'image' : 'inthyperlink'}.png">
                 <img alt="+" 
                      src="${_}" 
-                     onclick="window.open(absoluteUrl + 'tools/search-node.jspx?objectnumber=${node}&amp;amp;type=${type}', 200, 300);"
+                     onclick="window.open(absoluteUrl + 'tools/search-node.jspx?objectnumber=${node}&amp;amp;type=${type}', '_blank', 'scrollbars=yes');"
                      />
               </mm:link>
               <mm:nodeinfo nodetype="$type" type="guitype" />

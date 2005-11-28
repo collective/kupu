@@ -46,7 +46,7 @@ function adjustLayout() {
     var zoomTool = kupu.getTool("zoomtool");
     if (zoomTool && zoomTool.zoomed) return;
 
-    var leftColumnWidth = 250;
+    var leftColumnWidth = 270;
     var maxHeight = xClientHeight() - 20;
     var maxWidth  = xClientWidth() - leftColumnWidth - 4;
   
