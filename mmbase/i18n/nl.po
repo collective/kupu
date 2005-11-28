@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mmbase 18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-05 19:12+0200\n"
-"PO-Revision-Date: 2005-06-29 21:15+0200\n"
+"POT-Creation-Date: 2005-11-28 18:04+0100\n"
+"PO-Revision-Date: 2005-11-28 18:05+0100\n"
 "Last-Translator: Michiel Meeuwissen <mihxil@xs4all.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,43 +16,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: mmbase.js:118
+#: mmbase.js:141
 msgid "Saving body (kupu)"
 msgstr "Schrijft tekst weg (kupu)"
 
-#: mmbase.js:125
+#: mmbase.js:144
 msgid "Saving fields (form)"
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:140
+#: mmbase.js:173
 msgid "saved"
 msgstr "opgeslagen"
 
-#: mmbase.js:165
+#: mmbase.js:202
 msgid "RELOAD"
 msgstr ""
 
-#: mmbase.js:185
+#: mmbase.js:223
 msgid "Getting node fields for "
 msgstr "Haalt velden (formulier) voor"
 
-#: mmbase.js:193
+#: mmbase.js:231
 msgid "Loading node fields for "
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:205
+#: mmbase.js:243
 msgid "Getting node body "
 msgstr "Haalt node text"
 
-#: mmbase.js:212
+#: mmbase.js:250
 msgid "Loading node body "
 msgstr "Haalt node op"
 
-#: mmbasetools.js:9
+#: mmbasetools.js:13
 msgid "Div tool initialized"
 msgstr ""
 
-#: mmbasetools.js:41
+#: mmbasetools.js:39
+msgid "Found paragraph"
+msgstr ""
+
+#: mmbasetools.js:43
+msgid "Didn't find paragraph"
+msgstr ""
+
+#: mmbasetools.js:48
 msgid "Div inserted"
 msgstr ""
 
@@ -61,48 +69,45 @@ msgid "No node"
 msgstr "Geen node"
 
 #: phony.js:2
+msgid "Normal"
+msgstr ""
+
+#: phony.js:3 phony.js:5
 msgid "Richtext editor"
 msgstr "Richtext editor"
 
-#: phony.js:3
+#: phony.js:4
+msgid "Heading 1"
+msgstr ""
+
+#: phony.js:6
 msgid "default"
 msgstr "default"
 
-#: phony.js:4
+#: phony.js:7
 msgid "Block"
 msgstr "Blok"
 
-#: phony.js:5
+#: phony.js:8
 msgid "Block class"
 msgstr "Blok-soort"
 
-#: phony.js:6
+#: phony.js:9
 msgid "Note left"
 msgstr "Noot (links)"
 
-#: phony.js:7
+#: phony.js:10
 msgid "Note right"
 msgstr "Noot (rechts)"
 
-#: phony.js:8
+#: phony.js:11
 msgid "Insert block"
 msgstr "Voeg blok in"
 
-#, fuzzy
-#~ msgid "aaSaving body (kupu)"
-#~ msgstr "Schrijft tekst weg (kupu)"
+#: override.js:2
+msgid "strong: alt-b"
+msgstr "sterker: alt-b"
 
-#, fuzzy
-#~ msgid "bbSaving fields (form)"
-#~ msgstr "Schrijft velden weg (formulier)"
-
-#, fuzzy
-#~ msgid "ccsaved"
-#~ msgstr "opgeslagen"
-
-#, fuzzy
-#~ msgid "ddLoading node"
-#~ msgstr "Haalt node op"
-
-#~ msgid "Loading node"
-#~ msgstr "Haalt node op"
+#: override.js:3
+msgid "emphasis: alt-i"
+msgstr "benadrukt: alt-i"

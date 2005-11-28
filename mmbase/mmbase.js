@@ -76,6 +76,18 @@ function startKupu(language) {
 
     // and now we can initialize...
     kupu.initialize();
+    if (window.kuputoolcollapser) {
+        var collapser = new window.kuputoolcollapser.Collapser('kupu-toolboxes');
+        collapser.initialize();	
+		var toolboxes =  document.getElementById('kupu-toolboxes');
+        for (var i=0; i < toolboxes.childNodes.length; i++) {
+            var child = toolboxes.childNodes[i];
+            if (child.className == 'kupu-toolbox') {
+                var heading = child.getElementsByTagName('h1')[0];
+                addEventHandler(heading, 'click', adjustToolBoxesLayout);
+            };
+        };
+    };
 
     return kupu;
 };
