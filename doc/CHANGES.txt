@@ -4,6 +4,9 @@ Kupu changes
 
 - Trunk
 
+  - Fixed some problems with handling of multi-valued form fields in the
+    ExternalSource tool code for Silva.
+
   - Merged Plone style code back into common code.
 
   - Redid the table style code to work better. The style pulldown now
