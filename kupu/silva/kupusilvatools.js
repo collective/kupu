@@ -2127,9 +2127,9 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
                     data[name] = child.options[child.selectedIndex].value;
                 } else {
                     var value = new Array();
-                    for (var i=0; i < child.options.length; i++) {
-                        if (child.options[i].checked) {
-                            value.push(options[i].value);
+                    for (var j=0; j < child.options.length; j++) {
+                        if (child.options[j].selected) {
+                            value.push(child.options[j].value);
                         };
                         if (value.length > 1) {
                             data[name] = value;
@@ -2145,8 +2145,15 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
         var ret = new Array();
         for (var key in data) {
             var value = data[key];
-            // XXX does IE5 support encodeURIComponent?
-            ret.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+            if (typeof value != "string") {
+                for (var i=0; i < value.length; i++) {
+                    ret.push(encodeURIComponent(key) + '=' + 
+                                encodeURIComponent(value[i]));
+                };
+            } else {
+                ret.push(encodeURIComponent(key) + '=' + 
+                            encodeURIComponent(value));
+            };
         };
         
         return ret.join("&");
