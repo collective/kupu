@@ -8,9 +8,10 @@
   <mm:import externid="search" />
   <mm:import externid="page" vartype="integer" >0</mm:import>
   <mm:import id="max" vartype="integer">50</mm:import>
+  <mm:import externid="kupubasedir" />
   <collection>
     <uri>drawers/collection.jspx?search=${search}</uri>
-    <icon>icons/map.gif</icon>
+    <icon>${kupubasedir}/mmbase/icons/map.gif</icon>
     <title>MMBase</title>
     <mm:cloud rank="basic user">
       <mm:import externid="nodetype">images</mm:import>
@@ -27,10 +28,10 @@
           <mm:maxnumber value="$max" />
           <mm:offset    value="${page * max}" />
           <mm:haspage page="${nodetype}.items.jspx">
-            <mm:include page="${nodetype}.items.jspx" />
+            <mm:include referids="kupubasedir" page="${nodetype}.items.jspx" />
           </mm:haspage>
           <mm:haspage page="${nodetype}.items.jspx" inverse="true">
-            <mm:include page="texts.items.jspx" />
+            <mm:include referids="kupubasedir" page="texts.items.jspx" />
           </mm:haspage>
           
         </mm:listnodescontainer>

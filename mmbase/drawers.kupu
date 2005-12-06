@@ -77,7 +77,7 @@
         </tr>
         <tr><td colspan="2" align="center">
         <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                class="kupu-linkdrawer-preview" src="kupublank.html"><jsp:text>
+                class="kupu-linkdrawer-preview" src="${abs}/../../common/kupublank.html"><jsp:text>
         </jsp:text>
         </iframe>
         </td></tr>
