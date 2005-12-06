@@ -7,6 +7,7 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
+  <mm:import externid="kupubasedir" />
   <mm:content type="text/xml">
     <mm:listnodescontainer referid="query">
       <items>
@@ -27,7 +28,7 @@
               </mm:notpresent>
             </title>
             <description><mm:field name="url" /></description>
-          <icon>kupuimages/link.png</icon>
+          <icon>${kupubasedir}/common/kupuimages/link.png</icon>
           </resource>
         </mm:listnodes>
       </items>

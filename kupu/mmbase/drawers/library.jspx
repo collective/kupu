@@ -11,20 +11,21 @@
   <mm:cloud>
     <mm:import externid="nodetype">images</mm:import>
     <mm:import externid="source" />
+    <mm:import externid="kupubasedir" />
     <mm:context scope="request" id="drawer">
       <library id="${nodetype}">
         <uri><mm:url referids="nodetype" page="drawers/upload.jspx" />&amp;amp;upload=</uri>
         <title>
           <mm:nodeinfo nodetype="$nodetype" type="plural_guinodemanager" />
         </title>
-        <icon height="12" width="16">icons/map.gif</icon>	        
+        <icon height="12" width="16">${kupubasedir}mmbase/icons/map.gif</icon>	        
         <mm:remove referid="query" />
         <mm:listnodescontainer id="query" type="$nodetype">
           <mm:present referid="source">
             <mm:constraint field="number" inverse="true" value="${source}" />
           </mm:present>
           <mm:sortorder field="number" direction="down" />
-          <src><mm:url referids="nodetype,source?" page="drawers/collection.jspx" /></src>
+          <src><mm:url referids="nodetype,kupubasedir,source?" page="drawers/collection.jspx" /></src>
         </mm:listnodescontainer>
         <mm:compare referid="nodetype" valueset="images,attachments">
           <uploadbutton type="${nodetype}" />

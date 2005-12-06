@@ -16,12 +16,6 @@
     <mm:cloud rank="basic user">
       <mm:import id="node" externid="objectnumber" required="true" />
       <mm:node referid="node">
-        <!--
-        <iframe id="mmbase_related" src="kupublank.html" style="display: none; z-index: 1000;">
-          <jsp:text> </jsp:text>
-        </iframe>
- onclick="var iframe = document.getElementById('mmbase_related'); iframe.src = 'drawers/drawer.jspx'; iframe.style.display = 'block';">
-        -->
         <mm:import externid="related_types" vartype="list">images,urls,videosources</mm:import>
         <mm:stringlist referid="related_types" id="type">
           <mm:hasnodemanager name="$type">

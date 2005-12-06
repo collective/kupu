@@ -5,6 +5,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
@@ -68,6 +69,17 @@
           </div>
         </div>
       </fmt:bundle>
+    </div>
+  </kupu:part>
+
+  <!-- Overridden just for the jsp:text (to avoid that it collaps, which doesn't work in browers -->
+  <kupu:part name="debug">
+    <div class="kupu-toolbox" id="kupu-toolbox-debug">
+      <h1 class="kupu-toolbox-heading" i18n:translate="">Debug Log</h1>
+      <div id="kupu-toolbox-debuglog"
+           class="kupu-toolbox-label">
+        <jsp:text> </jsp:text>
+      </div>
     </div>
   </kupu:part>
   

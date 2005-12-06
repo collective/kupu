@@ -78,8 +78,10 @@ function startKupu(language) {
     kupu.initialize();
     if (window.kuputoolcollapser) {
         var collapser = new window.kuputoolcollapser.Collapser('kupu-toolboxes');
-        collapser.initialize();	
-		var toolboxes =  document.getElementById('kupu-toolboxes');
+        if (kupu.getBrowserName() != 'IE') {        
+            collapser.initialize();	
+        }
+        var toolboxes =  document.getElementById('kupu-toolboxes');
         for (var i=0; i < toolboxes.childNodes.length; i++) {
             var child = toolboxes.childNodes[i];
             if (child.className == 'kupu-toolbox') {
@@ -87,6 +89,9 @@ function startKupu(language) {
                 addEventHandler(heading, 'click', adjustToolBoxesLayout);
             };
         };
+        if (kupu.getBrowserName() == 'IE') {        
+            collapser.initialize();	
+        }
     };
 
     return kupu;
