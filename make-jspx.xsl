@@ -41,6 +41,12 @@ See also: common/kupu.pox.jspx (which can be used by i18n.js)
    version="1.0"
    >
   <xsl:import href="make.xsl" />  
+  <xsl:output
+    method="xml"
+    indent="no"
+    encoding="UTF-8"
+    omit-xml-declaration="no"
+    />
 
 
   <xsl:template match="html:*" mode="expand">
