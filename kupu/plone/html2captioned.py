@@ -118,7 +118,11 @@ class HTMLToCaptioned:
                 uid = match.group('uid')
                 target = at_tool.reference_catalog.lookupObject(uid)
                 if target:
-                    return tag + target.absolute_url()
+                    try:
+                        url = target.getRemoteUrl()
+                    except AttributeError:
+                        url = target.absolute_url()
+                    return tag + url
                 return match.group(0)
 
             html = UID_PATTERN.sub(replaceUids, html)
