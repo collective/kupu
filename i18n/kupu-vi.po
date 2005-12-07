@@ -2,31 +2,34 @@
 # Thanh Hai, Ha <thanhhai.ha@gmail.com>, 2005
 msgid ""
 msgstr ""
-"POT-Creation-Date: Wed Aug  3 16:07:37 2005\n"
-"PO-Revision-Date: 2005-11-07 15:17+0700\n"
+"Project-Id-Version: Kupu 1.3.1\n"
+"POT-Creation-Date: 2005-08-17 20:34+0000\n"
+"PO-Revision-Date: 2005-12-07 14:19+0700\n"
 "Last-Translator: Thanh Hai, Ha <thanhhai.ha@gmail.com>\n"
 "Language-Team: Vietnamese i18n Team\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: zope/app/translation_files/extract.py\n"
-"Project-Id-Version: Kupu 1.3.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: vi\n"
+"Language-Name: Vietnamese\n"
+"Preferred-Encodings: utf-8\n"
+"Domain: kupu\n"
 "X-Poedit-Language: Vietnamese\n"
 "X-Poedit-Country: VIET NAM\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"Plural-Forms: nplurals=1; plural=0\n"
 
 #: /common/kupu.pox:None
 msgid "Properties modified"
-msgstr ""
+msgstr "Thuộc tính đã được thay đổi"
 
 #: /common/kupu.pox:None
 msgid "Command ${command} executed with parameter ${param}"
-msgstr ""
+msgstr "Lệnh ${command} đã được thực thi với tham số ${param}"
 
 #: /common/kupu.pox:None
 msgid "Not inside a definition list element!"
-msgstr ""
+msgstr "Không ở bên trong đề mục của danh sách xác định"
 
 #: /common/kupu.pox:None
 msgid "Add table"
@@ -46,7 +49,7 @@ msgstr "Xóa dòng"
 
 #: /common/kupu.pox:None
 msgid "Recursion detected when counting column position"
-msgstr ""
+msgstr "Đệ quy khi tính toán vị trí của cột"
 
 #: /common/kupu.pox:None
 msgid "List style changed"
@@ -54,7 +57,7 @@ msgstr "Kiểu danh sách đã được thay đổi"
 
 #: /common/kupu.pox:None
 msgid "Create image"
-msgstr "Tạo hình ảng"
+msgstr "Tạo hình ảnh"
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
@@ -70,7 +73,7 @@ msgstr "Tài liệu đã được lưu lại"
 
 #: /common/kupu.pox:None
 msgid "Color chosen"
-msgstr "Màu được chọn"
+msgstr "Màu đã được chọn"
 
 #: /common/kupu.pox:None
 msgid "Table row added"
@@ -138,31 +141,31 @@ msgstr "Không có lỗi nào."
 
 #: /common/kupu.pox:None
 msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
-msgstr ""
+msgstr "lỗi ${message} trong quá trình đăng ký ${element} với bộ quản lý sự kiện, sự kiện ${event}, phương thức ${method}"
 
 #: /common/kupu.pox:None
 msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr ""
+msgstr "Lỗi khi tải bản dịch (${status} ), sử dụng bản dịch tiếng Anh"
 
 #: /common/kupu.pox:None
 msgid "Start node offset detected in a node without children!"
-msgstr ""
+msgstr "Start node offset được tìm thấy trong một node không có node con!"
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr ""
+msgstr "Cảnh báo Deprecation: KupuTool._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr ""
+msgstr "Không thể đặt chế độ design. Kupu sẽ không làm việc được trên trình duyệt này."
 
 #: /common/kupu.pox:None
 msgid "No element found in the config island!"
-msgstr ""
+msgstr "Không tìm thấy yếu tố cần thiết trong cấu hình"
 
 #: /common/kupu.pox:None
 msgid "Start offset out of range!"
-msgstr ""
+msgstr "Start offset vượt quá giới hạn"
 
 #: /common/kupu.pox:None
 msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
@@ -170,7 +173,7 @@ msgstr "Thao tác dán từ JavaScript đã bị vô hiệu hóa ở trình duy�
 
 #: /common/kupu.pox:None
 msgid "Property tool initialized"
-msgstr ""
+msgstr "Công cụ Property đã được khởi tạo"
 
 #: /common/kupu.pox:None
 msgid "Colorchooser tool initialized"
@@ -178,11 +181,11 @@ msgstr "Công cụ Bảng màu đã được khởi tạo"
 
 #: /common/kupu.pox:None
 msgid "No parentcolumn found!"
-msgstr ""
+msgstr "Không tìm thấy cột ở cấp cao hơn"
 
 #: /common/kupu.pox:None
 msgid "Row repeated"
-msgstr ""
+msgstr "Dòng đã được lặp lại"
 
 #: /common/kupu.pox:None
 msgid "Table removed"
@@ -198,7 +201,7 @@ msgstr "Trình duyệt không được hỗ trợ!"
 
 #: /common/kupu.pox:None
 msgid "Add row"
-msgstr "Thêm hàng"
+msgstr "Thêm dòng"
 
 #: /common/kupu.pox:None
 msgid "Link tool initialized"
@@ -214,7 +217,7 @@ msgstr "Kích thước của bảng không đúng"
 
 #: /common/kupu.pox:None
 msgid "Error placing back selection"
-msgstr ""
+msgstr "Lỗi khi đặt chọn lùi"
 
 #: /common/kupu.pox:None
 msgid "Delete link"
@@ -230,7 +233,7 @@ msgstr "Thao tác cắt từ JavaScript đã bị vô hiệu hóa ở trình duy
 
 #: /common/kupu.pox:None
 msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr ""
+msgstr "Lỗi trong quá trình thực hiện lệnh updateState cho ${id}: ${msg}"
 
 #: /common/kupu.pox:None
 msgid "Cleaning up HTML..."
@@ -242,15 +245,15 @@ msgstr "Công cụ Danh sách đã được khởi tạo"
 
 #: /common/kupu.pox:None
 msgid "Row repeat turned off"
-msgstr ""
+msgstr "Chức năng lặp lại dòng đã được tắt"
 
 #: /common/kupu.pox:None
 msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
-msgstr ""
+msgstr "Lỗi khi khởi tạo drawers. Có khả năng tập tin XSLT hoặc XML không tồn tại. Nếu đây không phải là phiên bản demo của Kupu, hãy kiểm tra lại các tập tin hoặc các dịch vụ của chúng (lỗi: ${error})."
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr ""
+msgstr "Cảnh báo Deprecation: KupuToolBox._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
@@ -280,7 +283,7 @@ msgstr "Chức năng này yêu cầu trình duyệt phải cho phép mở cửa 
 
 #: /common/kupu.pox:None
 msgid "Not inside link"
-msgstr ""
+msgstr "Không ở trong liên kết"
 
 #: /common/kupu.pox:None
 msgid "View source"
@@ -316,27 +319,27 @@ msgstr "Công cụ Phóng đã được khởi tạo"
 
 #: /common/kupu.pox:None
 msgid "Table column deleted"
-msgstr ""
+msgstr "Cột đã được xóa"
 
 #: /common/kupu.pox:None
 msgid "Offset out of document range"
-msgstr ""
+msgstr "Offset nằm ngoài giới hạn của tài liệu"
 
 #: /common/kupu.pox:None
 msgid "Table cleaned up"
-msgstr ""
+msgstr "Bảng dã được dọn mã"
 
 #: /common/kupu.pox:None
 msgid "Error loading data, status ${status}"
-msgstr ""
+msgstr "Lỗi khi tải dữ liệu, trạng thái ${status}"
 
 #: /common/kupu.pox:None
 msgid "Could not set status bar message, check your browser\\'s security settings."
-msgstr ""
+msgstr "Không thể đặt thông điệp cho thanh trạng thái, hãy kiểm tra các cài đặt bảo mật của trình duyệt"
 
 #: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
-msgstr ""
+msgstr "End node offset được tìm thấy trong một node không có node con!"
 
 #: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
@@ -348,19 +351,19 @@ msgstr "Liên kết đã được thêm"
 
 #: /common/kupu.pox:None
 msgid "No head in document!"
-msgstr ""
+msgstr "Văn bản không có phần đầu đề"
 
 #: /common/kupu.pox:None
 msgid "Not inside a row!"
-msgstr ""
+msgstr "Không ở bên trong dòng"
 
 #: /common/kupu.pox:None
 msgid "Not inside a table!"
-msgstr ""
+msgstr "Không ở bên trong bảng"
 
 #: /common/kupu.pox:None
 msgid "Selection not inside the node!"
-msgstr ""
+msgstr "Phần được chọn không ở bên trong node"
 
 #: /common/kupu.pox:None
 msgid "Editor not initialized yet!"
@@ -373,7 +376,7 @@ msgstr "Cột đã được thêm"
 # Default: "Caption"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_caption_label"
-msgstr ""
+msgstr "Đầu đề"
 
 # Default: "Insert Link"
 #: /common/kupudrawers/drawer.xsl:None
@@ -441,7 +444,7 @@ msgstr "Mô tả"
 # Default: "ALT-text"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
-msgstr ""
+msgstr "ALT-text"
 
 # Default: "search"
 #: /common/kupudrawers/drawer.xsl:None
@@ -465,7 +468,7 @@ msgstr "Phải"
 
 #: /default/body.kupu:None
 msgid "Kupu Editor Test Page"
-msgstr ""
+msgstr "Kupu Editor Test Page"
 
 #: /default/colorchooser.kupu:None
 msgid "text color: alt-f"
@@ -488,7 +491,7 @@ msgstr "Phải"
 # Default: "Current column alignment"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_alignment_label"
-msgstr "Cột đang được canh lề"
+msgstr "Canh lề cột"
 
 #: /default/drawers.kupu:None
 msgid "external link"
@@ -502,7 +505,7 @@ msgstr "Giữa"
 # Default: "Fix All Tables"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_tables_button"
-msgstr ""
+msgstr "Sửa Tất cả các bảng"
 
 #: /default/drawers.kupu:None
 msgid "External Link"
@@ -520,11 +523,11 @@ msgstr "Trái"
 
 #: /default/drawers.kupu:None
 msgid "image"
-msgstr ""
+msgstr "hình ảnh"
 
 #: /default/drawers.kupu:None
 msgid "table"
-msgstr ""
+msgstr "bảng"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
@@ -533,7 +536,7 @@ msgstr "Xem trước"
 # Default: "Rows"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_rows_label"
-msgstr "Hàng"
+msgstr "Dòng"
 
 #: /default/drawers.kupu:None
 msgid "internal link"
@@ -562,17 +565,17 @@ msgstr "Cột"
 # Default: "Create Headings"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_headings_label"
-msgstr "Tạo đề mục"
+msgstr "Tạo tiêu đề"
 
 # Default: "Fix"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_button"
-msgstr ""
+msgstr "Sửa"
 
 # Default: "Fix Table"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_fix_table_label"
-msgstr ""
+msgstr "Sửa Bảng"
 
 #: /default/drawers.kupu:None
 #: /common/kupudrawers/drawer.xsl:None
@@ -592,12 +595,12 @@ msgstr "Thêm"
 # Default: "Remove"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_remove_button"
-msgstr ""
+msgstr "Xóa"
 
 # Default: "Table Class"
 #: /default/drawers.kupu:None
 msgid "tabledrawer_class_label"
-msgstr ""
+msgstr "Lớp của Bảng"
 
 #: /default/drawers.kupu:None
 #: /default/toolboxes.kupu:None
@@ -619,12 +622,12 @@ msgstr "kiểm tra chính tả"
 # Default: "1"
 #: /default/toolbar.kupu:None
 msgid "list-decimal"
-msgstr ""
+msgstr "1"
 
 # Default: "A"
 #: /default/toolbar.kupu:None
 msgid "list-upperalpha"
-msgstr ""
+msgstr "A"
 
 #: /default/toolbar.kupu:None
 msgid "bold: alt-b"
@@ -632,35 +635,35 @@ msgstr "in đậm: alt-b"
 
 #: /default/toolbar.kupu:None
 msgid "superscript: alt-+"
-msgstr "viết lên trên: alt-+"
+msgstr "chỉ số trên: alt-+"
 
 # Default: "&#9675;"
 #: /default/toolbar.kupu:None
 msgid "list-circle"
-msgstr ""
+msgstr "&#9675"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
-msgstr ""
+msgstr "Formatted"
 
 # Default: "a"
 #: /default/toolbar.kupu:None
 msgid "list-loweralpha"
-msgstr ""
+msgstr "a"
 
 # Default: "no bullet"
 #: /default/toolbar.kupu:None
 msgid "list-nobullet"
-msgstr ""
+msgstr "không có chấm"
 
 # Default: "i"
 #: /default/toolbar.kupu:None
 msgid "list-lowerroman"
-msgstr ""
+msgstr "i"
 
 #: /default/toolbar.kupu:None
 msgid "Kupu SVN/unreleased"
-msgstr ""
+msgstr "Kupu SVN/unreleased"
 
 #: /default/toolbar.kupu:None
 msgid "Remove image"
@@ -673,7 +676,7 @@ msgstr "khôi phục: alt-z"
 # Default: "&#9679;"
 #: /default/toolbar.kupu:None
 msgid "list-disc"
-msgstr ""
+msgstr "&#9679;"
 
 #: /default/toolbar.kupu:None
 msgid "definition list: alt-="
@@ -681,7 +684,7 @@ msgstr "danh sách xác định: alt-="
 
 #: /default/toolbar.kupu:None
 msgid "indent: alt->"
-msgstr "thụt vào: alt->"
+msgstr "dịch phải: alt->"
 
 #: /default/toolbar.kupu:None
 msgid "Remove link"
@@ -689,15 +692,15 @@ msgstr "Xóa liên kết"
 
 #: /default/toolbar.kupu:None
 msgid "Normal"
-msgstr "Bình thường"
+msgstr "Normal"
 
 #: /default/toolbar.kupu:None
 msgid "Heading"
-msgstr ""
+msgstr "Heading"
 
 #: /default/toolbar.kupu:None
 msgid "Subheading"
-msgstr ""
+msgstr "Subheading"
 
 #: /default/toolbar.kupu:None
 msgid "left justify: alt-l"
@@ -709,12 +712,12 @@ msgstr "canh phải: alt-r"
 
 #: /default/toolbar.kupu:None
 msgid "outdent: alt-<"
-msgstr "thụt ra: alt-<"
+msgstr "dịch trái: alt-<"
 
 # Default: "&#9632;"
 #: /default/toolbar.kupu:None
 msgid "list-square"
-msgstr ""
+msgstr "&#9632;"
 
 #: /default/toolbar.kupu:None
 msgid "underline: alt-u"
@@ -726,43 +729,43 @@ msgstr "làm lại: alt-y"
 
 #: /default/toolbar.kupu:None
 msgid "subscript: alt--"
-msgstr "viết xuống dưới: alt--"
+msgstr "chỉ số dưới: alt--"
 
 #: /default/toolbar.kupu:None
 msgid "center justify: alt-c"
-msgstr "canh đều: alt-c"
+msgstr "canh giữa: alt-c"
 
 #: /default/toolbar.kupu:None
 msgid "unordered list: alt-*"
-msgstr "danh sách không có thứ tự: alt-*"
+msgstr "danh sách không thứ tự: alt-*"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 3"
-msgstr ""
+msgstr "Heading 3"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 2"
-msgstr ""
+msgstr "Heading 2"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 1"
-msgstr ""
+msgstr "Heading 1"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 6"
-msgstr ""
+msgstr "Heading 6"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 5"
-msgstr ""
+msgstr "Heading 5"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 4"
-msgstr ""
+msgstr "Heading 5"
 
 #: /default/toolbar.kupu:None
 msgid "numbered list: alt-#"
-msgstr "danh sách có thứ tự: alt-#"
+msgstr "danh sách thứ tự: alt-#"
 
 #: /default/toolbar.kupu:None
 msgid "italic: alt-i"
@@ -771,19 +774,19 @@ msgstr "in nghiêng: alt-i"
 # Default: "I"
 #: /default/toolbar.kupu:None
 msgid "list-upperroman"
-msgstr ""
+msgstr "I"
 
 #: /default/toolbar.kupu
 msgid "zoom: alt-x"
-msgstr "phóng: alt-x"
+msgstr "phóng to / thu nhỏ: alt-x"
 
 #: /default/toolboxes.kupu:None
 msgid "Headings:"
-msgstr "Đề mục:"
+msgstr "Tiêu đề:"
 
 #: /default/toolboxes.kupu:None
 msgid "Fix"
-msgstr ""
+msgstr "Sửa"
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Column"
@@ -795,7 +798,7 @@ msgstr "Bên trong"
 
 #: /default/toolboxes.kupu:None
 msgid "Select a cleanup action:"
-msgstr ""
+msgstr "Chọn thao tác dọn mã"
 
 #: /default/toolboxes.kupu:None
 msgid "Links"
@@ -803,11 +806,11 @@ msgstr "Liên kết"
 
 #: /default/toolboxes.kupu:None
 msgid "Rows:"
-msgstr "Hàng"
+msgstr "Dòng:"
 
 #: /default/toolboxes.kupu:None
 msgid "Remove Row"
-msgstr "Xóa hàng"
+msgstr "Xóa dòng"
 
 #: /default/toolboxes.kupu:None
 msgid "Tables"
@@ -831,7 +834,7 @@ msgstr "Mô tả:"
 
 #: /default/toolboxes.kupu:None
 msgid "Image class:"
-msgstr ""
+msgstr "Lớp của Hình ảnh"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Column"
@@ -839,7 +842,7 @@ msgstr "Thêm cột"
 
 #: /default/toolboxes.kupu:None
 msgid "Fix Table"
-msgstr ""
+msgstr "Sửa Bảng"
 
 #: /default/toolboxes.kupu:None
 msgid "Images"
@@ -855,7 +858,7 @@ msgstr "Thêm bảng"
 
 #: /default/toolboxes.kupu:None
 msgid "Add Row"
-msgstr "Thêm hàng"
+msgstr "Thêm dòng"
 
 #: /default/toolboxes.kupu:None
 msgid "Properties"
@@ -863,7 +866,7 @@ msgstr "Các thuộc tính"
 
 #: /default/toolboxes.kupu:None
 msgid "Col Align:"
-msgstr "Canh lề cho cột"
+msgstr "Canh lề cột:"
 
 #: /default/toolboxes.kupu:None
 msgid "Center"
@@ -871,7 +874,7 @@ msgstr "Canh giữa"
 
 #: /default/toolboxes.kupu:None
 msgid "Debug Log"
-msgstr "Bản ghi gỡ lỗi"
+msgstr "Bản ghi Gỡ lỗi"
 
 #: /default/toolboxes.kupu:None
 msgid "Make Link"
@@ -879,31 +882,31 @@ msgstr "Tạo liên kết"
 
 #: /default/toolboxes.kupu:None
 msgid "Cleanup expressions"
-msgstr ""
+msgstr "Biểu thức dọn mã"
 
 #: /default/toolboxes.kupu:None
 msgid "Columns:"
-msgstr "Các cột:"
+msgstr "Cột:"
 
 #: /default/toolboxes.kupu:None
 msgid "Table Class:"
-msgstr ""
+msgstr "Lớp của Bảng"
 
 #: /default/toolboxes.kupu:None
 msgid "Right"
-msgstr "Canh phải"
+msgstr "Phải"
 
 #: /default/toolboxes.kupu:None
 msgid "Left"
-msgstr "Canh trái"
+msgstr "Trái"
 
 #: /plone/body.kupu
 msgid "force-kupu"
-msgstr ""
+msgstr "force-kupu"
 
 #: /plone/body.kupu
 msgid "suppress-kupu"
-msgstr ""
+msgstr "suppress-kupu"
 
 #: Libraries
 msgid "Home"
@@ -920,20 +923,20 @@ msgstr "Các mục gần đây"
 
 #: Default Table classes
 msgid "plain"
-msgstr ""
+msgstr "plain"
 
 msgid "listing"
-msgstr ""
+msgstr "listing"
 
 msgid "vertical listing"
-msgstr ""
+msgstr "vertical listing"
 
 msgid "unsorted listing"
-msgstr ""
+msgstr "unsorted listing"
 
 msgid "grid"
-msgstr ""
+msgstr "grid"
 
 msgid "data"
-msgstr ""
+msgstr "data"
 
