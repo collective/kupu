@@ -23,10 +23,19 @@ from Products.kupu import kupu_globals
 
 kupu_package_dir = package_home(kupu_globals)
 registerDirectory('plone/kupu_plone_layer', kupu_package_dir)
+registerDirectory('plone/kupu_references', kupu_package_dir)
 
 def initialize(context):
-    utils.ToolInit("kupu Library Tool",
-                   tools=(PloneKupuLibraryTool,),
-                   product_name='kupu',
-                   icon="kupu_icon.gif",
-                   ).initialize(context)
+    try:
+        init = utils.ToolInit("kupu Library Tool",
+                       tools=(PloneKupuLibraryTool,),
+                       icon="kupu_icon.gif",
+                       )
+    except TypeError:
+        # Try backward compatible form of the initialisation call
+        init = utils.ToolInit("kupu Library Tool",
+                       tools=(PloneKupuLibraryTool,),
+                       product_name='kupu',
+                       icon="kupu_icon.gif",
+                       )
+    init.initialize(context)

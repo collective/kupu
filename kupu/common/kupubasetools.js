@@ -2581,7 +2581,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
         html.style.overflow = '';
         var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
-        body.className = body.className.replace(' '+zoomClass, '');
+        body.className = body.className.replace(/ *kupu-fulleditor-zoomed/, '');
         editor.clearClass(zoomClass);
 
         iframe.style.width = '';
@@ -2602,10 +2602,10 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     editor.focusDocument();
 }
 
-/* The bookmark tool */
-function BookmarkTool() {};
-BookmarkTool.prototype = new LinkTool;
-var proto = BookmarkTool.prototype;
+/* The anchor tool */
+function AnchorTool() {};
+AnchorTool.prototype = new LinkTool;
+var proto = AnchorTool.prototype;
 
 proto.fillStyleSelect = function(select) {
     var ui = this.editor.getTool('ui');

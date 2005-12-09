@@ -138,8 +138,8 @@ function initPloneKupu(editorId) {
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
 
-    var bookmarktool = new BookmarkTool();
-    kupu.registerTool('bookmarktool', bookmarktool);
+    var anchortool = new AnchorTool();
+    kupu.registerTool('anchortool', anchortool);
 
     var showpathtool = new ShowPathTool('kupu-showpath-field');
     kupu.registerTool('showpathtool', showpathtool);
@@ -206,9 +206,9 @@ function initPloneKupu(editorId) {
                                           opendrawer('linkdrawer'));
     kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
-    var bookmarkbutton = new KupuButton(prefix+'button.kupu-bookmarks',
-                opendrawer('bookmarkdrawer'));
-    kupu.registerTool('bookmarkbutton', bookmarkbutton);
+    var anchorbutton = new KupuButton(prefix+'button.kupu-anchors',
+                opendrawer('anchordrawer'));
+    kupu.registerTool('anchorbutton', anchorbutton);
 
     var tabledrawerbutton = new KupuButton(prefix+'button.kupu-table',
                                            opendrawer('tabledrawer'));
@@ -220,21 +220,27 @@ function initPloneKupu(editorId) {
     kupu.registerTool('drawertool', drawertool);
 
     var drawerparent = prefix+'div.kupu-librarydrawer-parent';
-    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
-                                              conf['link_libraries_uri'],
-                                              conf['search_links_uri'], drawerparent);
+    var xsl_uri = conf['xsl_uri'];
+    var link_resource = conf['link_resource'];
+    var image_resource = conf['image_resource'];
+    var lib_prefix = conf['lib_prefix'];
+    var search_prefix = conf['search_prefix'];
+    var select_prefix = conf['select_prefix'];
+    var linklibdrawer = new LinkLibraryDrawer(linktool, xsl_uri,
+        lib_prefix+link_resource, search_prefix+link_resource,
+        drawerparent, select_prefix+link_resource);
     drawertool.registerDrawer(prefix+'linklibdrawer', linklibdrawer, kupu);
 
-    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
-                                                conf['image_libraries_uri'],
-                                                conf['search_images_uri'], drawerparent);
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool, xsl_uri,
+        lib_prefix+image_resource, search_prefix+image_resource,
+        drawerparent, select_prefix+image_resource);
     drawertool.registerDrawer(prefix+'imagelibdrawer', imagelibdrawer, kupu);
 
     var linkdrawer = new LinkDrawer(prefix+'div.kupu-linkdrawer', linktool);
     drawertool.registerDrawer(prefix+'linkdrawer', linkdrawer, kupu);
 
-    var bookmarkdrawer = new BookmarkDrawer(prefix+'div.kupu-bookmarkdrawer', bookmarktool);
-    drawertool.registerDrawer(prefix+'bookmarkdrawer', bookmarkdrawer, kupu);
+    var anchordrawer = new AnchorDrawer(prefix+'div.kupu-anchordrawer', anchortool);
+    drawertool.registerDrawer(prefix+'anchordrawer', anchordrawer, kupu);
 
     var tabledrawer = new TableDrawer(prefix+'div.kupu-tabledrawer', tabletool);
     drawertool.registerDrawer(prefix+'tabledrawer', tabledrawer, kupu);

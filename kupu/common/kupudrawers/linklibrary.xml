@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<?oxygen RNGSchema="file:libraries.rng" type="xml"?>
 <libraries>
   <library id="logos">
     <uri>kupudrawers/logos.xml</uri>
@@ -18,5 +19,4 @@
     <src>kupudrawers/allimages.xml</src>
     <icon>kupuimages/kupulibrary.png</icon>
   </library>
-
 </libraries>

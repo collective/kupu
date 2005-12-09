@@ -3,20 +3,20 @@
  replace='structure string:&lt;?xml version="1.0" encoding="${charset}" ?&gt;'>
 <?xml version="1.0"?>
 </tal:block>
+<!-- This library returns information about the currently selected item(s)
+e.g. Call: kupuselection.xml?src=someurl
+ -->
 <library
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n_domain="plone"
-    tal:define="resource_type request/resource_type | string:mediaobject;
-        instance python:request.get('instance', '');
-        instance python:test(instance, 'instance=%s&' % instance, '');"
     >
   <uri tal:content="template/absolute_url">URI</uri>
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
-  <title i18n_translate="box_recentitems">Recent Items</title>
-  <description>Recently published items.</description>
-  <src tal:content="string:${here/absolute_url}/${template/getId}?${instance}resource_type=${resource_type}">Source</src>
+  <title i18n_translate="box_selected">Selected</title>
+  <description>Current selection.</description>
+  <src tal:content="string:${request/URL0}?${request/QUERY_STRING}">Source</src>
 
   <breadcrumbs>
     <crumb
@@ -28,7 +28,7 @@
   </breadcrumbs>
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
     <metal:slot fill-slot="defineItems">
-       <tal:var define="global items context/kupu_library_tool/getRecentItems"/>
+       <tal:var define="global items context/kupu_library_tool/getCurrentSelection"/>
     </metal:slot>
   </items>
 </library>

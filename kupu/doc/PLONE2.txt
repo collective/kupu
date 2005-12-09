@@ -282,6 +282,15 @@ list of portal types.
        navigating in the drawers. collection types may be navigated
        but not selected.
 
+   containsanchors
+       This entry lists content types which could contain internal HTML 
+       anchors. The link drawer will offer the 'anchors' button to retrieve
+       the anchors for content of this type.
+
+In addition, when used with Archetypes content, a resource type can
+be the name of an Archetypes field (in the form 'portal
+type.field name'). See `Reference Browser`_.
+
 documentation tab
 =================
 
@@ -350,11 +359,41 @@ the optional captioning support.
 
 Optionally kupu can automatically add captions to images. To enable
 this feature you must be linking to an Archetypes based image type,
-and the field you are editing must have its ``default_output_type`` set to
-``text/x-html-captioned`` in the Archetypes schema. If both of these
-conditions are filled, then the image drawer will include a checkbox
-for captioning an image. By default this is checked, turn it off to
-disable the caption on that image.
+and the field you are editing must invoke the html-to-captioned output 
+transform.
+
+If both of these conditions are filled, then the image drawer will
+include a checkbox for captioning an image. By default this is
+checked, turn it off to disable the caption on that image.
+
+There are (at least) 2 ways to arrange this. One way is that the field
+should have its ``default_output_type`` set to
+``text/x-html-captioned`` in the Archetypes schema. The problem with
+this is that the default ATContentTypes use an output type of
+'text/x-html-safe'. It should be possible to configure the
+portal_transforms tool to apply the captioning transform in addition
+to the safe html, but (at the time of writing) bugs in
+PortalTransforms prevent this working correctly unless you also patch
+Products/PortalTransforms/TransformEngine.py:
+
+Find the line::
+
+        requirements = self._policies.get(target_mt, [])
+
+and change it to::
+
+        requirements = self._policies.get(str(target_mt), [])
+
+Once you have done this you can configure the portal_transforms tool as follows:
+
+   * add a new transform id 'captioned_to_html', module
+     'Products.PortalTransforms.transforms.identity'.
+
+   * On the portal_transforms policy tab add a policy with output
+     type=text/x-html-safe, uses transforms='html-to-captioned'.
+
+This will force the captioning transform to be applied before the
+safe_html transform.
 
 The caption is added when the page is viewed. All img tags for
 captioned images are replaced by an img tag in nested divs. The class
@@ -433,6 +472,29 @@ be specified as shown, but if omitted it defaults to the field name.
 If the HTML contains an invalid reference, e.g. a link to an object
 that has since been deleted, ``ReftextField`` will completely ignore
 that link.
+
+Reference Browser
+-----------------
+Kupu will replace the popup windows used by ATReferenceBrowser with 
+its own drawers. When used as a reference browser, the attributes of
+the field and widget are used as Kupu's resource type. The following
+attributes are recognised:
+
+    allowed_types
+
+        Direct equivalent of Kupu's own resource types. Lists
+        permitted types for the drawer.
+
+    allowed_types_method
+
+        The name of a method on the object which can be called to
+        return the list of types.
+
+    base_query
+
+        Either a dictionary, or the name of a method which returns a
+        dictionary. This dictionary contains search parameters used
+        by libraries.
 
 Migrating from Epoz
 -------------------

@@ -24,11 +24,13 @@ from Globals import InitializeClass
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import UniqueObject, getToolByName
+from Products.PythonScripts.standard import Object
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
-from Products.kupu.plone import permissions, scanner
+from Products.kupu.plone import permissions, scanner, plonedrawers, util
 from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
+from StringIO import StringIO
 
 _default_libraries = (
     dict(id="root",
@@ -56,7 +58,8 @@ _default_libraries = (
 _default_resource_types = {
     'collection': ('Plone Site', 'Folder', 'Large Plone Folder'),
     'mediaobject': ('Image',),
-    'linkable': ('Document', 'Image', 'File', 'News Item', 'Event')
+    'linkable': ('Document', 'Image', 'File', 'News Item', 'Event', 'Folder', 'Large Plone Folder'),
+    'containsanchors': ('Document', 'News Item', 'Event'),
     }
 
 # Tidy up html by exlcluding lots of things.
@@ -75,7 +78,8 @@ _default_paragraph_styles = (
     "Formatted|pre",
 )
 
-class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
+class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
+    plonedrawers.PloneDrawers):
     """Plone specific version of the kupu library tool"""
 
     id = TOOLNAME
@@ -90,7 +94,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
                               "deleteLibraries", "updateLibraries",
                               "moveUp", "moveDown")
     security.declareProtected(permissions.ManageLibraries, "addResourceType",
-                              "updateResourceTypes", "deleteResourceTypes")
+                              "updateResourceTypes", "deleteResource")
 
     def __init__(self):
         self._libraries = PersistentList()
@@ -112,6 +116,19 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
             return self.linkbyuid
         except AttributeError:
             return 1
+
+    security.declareProtected('View', "getRefBrowser")
+    def getRefBrowser(self):
+        """Returns True if kupu_references is in all skin layers"""
+        return util.layer_installed(self, 'kupu_references')
+
+    security.declareProtected('View', "getCaptioning")
+    def getCaptioning(self):
+        """Returns True if captioning is enabled"""
+        try:
+            return self.captioning
+        except AttributeError:
+            return False
 
     security.declareProtected('View', "getTableClassnames")
     def getTableClassnames(self):
@@ -149,7 +166,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
     def getClassBlacklist(self):
         return getattr(self, 'class_blacklist', [])
 
-    security.declareProtected('View', "getClassBlacklist")
+    security.declareProtected('View', "installBeforeUnload")
     def installBeforeUnload(self):
         return getattr(self, 'install_beforeunload', True)
 
@@ -204,6 +221,25 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
             # In case some weird browser makes the test code blow up.
             pass
         return False
+
+    security.declarePublic("getWysiwygmacros")
+    def getWysiwygmacros(self):
+        """Find the appropriate template to use for the kupu widget"""
+        pm = getToolByName(self, 'portal_membership')
+        user = pm.getAuthenticatedMember()
+        editor = user.getProperty('wysiwyg_editor').lower()
+        if editor=='fck editor':
+            editor = 'editor_fck'
+
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        for path in ('%s_wysiwyg_support' % editor,
+            '%s/wysiwyg_support' % editor,
+            'portal_skins/plone_wysiwyg/wysiwyg_support'):
+                template = portal.restrictedTraverse(path, None)
+                if template:
+                    break
+
+        return template.macros
 
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (
@@ -313,35 +349,58 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
                               "zmi_get_type_mapping")
     def zmi_get_type_mapping(self):
         """Return the type mapping for the ZMI view"""
-        return [(res_type, tuple(portal_type)) for res_type, portal_type
-                in self._res_types.items()]
-
-    security.declareProtected(permissions.ManageLibraries,
-                              "zmi_add_resource_type")
-    def zmi_add_resource_type(self, resource_type, portal_types, REQUEST):
-        """Add resource type through the ZMI"""
-        self.addResourceType(resource_type, portal_types)
-        REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
+        keys = self._res_types.keys()
+        keys.sort()
+        real = []
+        for name in keys:
+            value = self._res_types[name]
+            wrapped = Object(name=name, types=tuple(value))
+            real.append(wrapped)
+            
+        # Add a dummy object for the 'add new resource' option
+        real.append(Object(name='', types=()))
+        return real
+        return [Object(name=res_type, types=tuple(portal_type)) for res_type, portal_type
+                in self._res_types.items()] + [dummy]
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_update_resource_types")
-    def zmi_update_resource_types(self, type_info, REQUEST):
+    def zmi_update_resource_types(self, type_info=None, preview_action=None, REQUEST=None):
         """Update resource types through the ZMI"""
-        self.updateResourceTypes(type_info)
-        REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
+        print "type_info", type_info
+        print "preview_action", preview_action
+
+        if type_info:
+            self.updateResourceTypes(type_info)
+
+        if preview_action:
+            self.updatePreviewActions(preview_action)
+        if REQUEST:
+            REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_delete_resource_types")
-    def zmi_delete_resource_types(self, resource_types, REQUEST):
+    def zmi_delete_resource_types(self, resource_types=None, preview_types=None, REQUEST=None):
         """Delete resource types through the ZMI"""
-        self.deleteResourceTypes(resource_types)
-        REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
+        if resource_types:
+            self.deleteResource(resource_types)
+        if preview_types:
+            self.deletePreviewActions(preview_types)
+        if (REQUEST):
+            REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
+
+    security.declareProtected(permissions.ManageLibraries, "getPreviewForType")
+    def getPreviewForType(self, portal_type):
+        action_map = getattr(self, '_preview_actions', {})
+        expr = action_map.get(portal_type, {}).get('expression', '')
+        return getattr(expr, 'text', expr)
 
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
-        installBeforeUnload=None, parastyles=None,
+        installBeforeUnload=None, parastyles=None, refbrowser=None,
+        captioning=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
@@ -367,6 +426,15 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         self.style_whitelist = list(style_whitelist)
         self.class_blacklist = list(class_blacklist)
 
+        if refbrowser is not None:
+            out = StringIO()
+            if refbrowser:
+                util.register_layer(self, 'plone/kupu_references', 'kupu_references', out)
+            else:
+                util.unregister_layers(self, ['kupu_references'], out)
+
+        if captioning is not None:
+            self.captioning = captioning
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 

@@ -4,6 +4,7 @@ from Products.Archetypes.public import *
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.Archetypes.Field import TextField
 from Products.Archetypes.ReferenceEngine import Reference
+from Products.Archetypes.exceptions import ReferenceException
 from ZPublisher.HTTPRequest import FileUpload
 import re
 
@@ -64,9 +65,9 @@ class ReftextField(TextField):
         for uid in add:
             __traceback_info__ = (instance, uid, value, targetUIDs)
             try:
-                # throws ReferenceError if uid is invalid
+                # throws ReferenceException if uid is invalid
                 tool.addReference(instance, uid, relationship, **addRef_kw)
-            except ReferenceError:
+            except ReferenceException:
                 pass
         for uid in sub:
             tool.deleteReference(instance, uid, relationship)

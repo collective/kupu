@@ -22,6 +22,7 @@
   height: auto;
   width: 640px;
   z-index: 2;
+  color: black;
 }
 
 .kupu-tabledrawer {
@@ -34,10 +35,18 @@
   width: 400px;
 }
 
-.kupu-drawer h1 {
+h1.kupu-library-title {
    height: auto; width: auto;
+   margin-bottom: 0;
+   clear: none;
 }
 
+#kupu-searchbox {
+  float: right;
+}
+#kupu-searchbox form {
+  margin-bottom: 0;
+}
 input#kupu-searchbox-input {
   width: 8em;
   margin-bottom: 6px;
@@ -45,19 +54,47 @@ input#kupu-searchbox-input {
   padding: 2px;
 }
 
+.kupu-title-row label,
+.kupu-description-row label,
+.kupu-alt-row label {
+   display: block;
+}
+
 div.kupu-linkdrawer-addlink td {
   border: 0;
 }
-input.kupu-linkdrawer-input {
+.kupu-alt-row input { width: 220px; }
+.kupu-linkdrawer-input {
    width: 500px;
 }
 iframe.kupu-linkdrawer-preview {
    width: 100%;
 }
-
-div#kupu-librarydrawer h1, div.kupu-drawer h1 {
-  margin-top: 12px;
+.kupu-preview-row {
+  float: right;
+  text-align:right;
+  padding: 0 0 0.5em 0.5em;
+  background-color: white;
 }
+.kupu-preview-row img {
+   padding-top: 0.5em;
+}
+
+h1.kupu-drawer-title {
+  margin-top: 12px;
+  padding: 0;
+  clear:none;
+}
+
+h1.kupu-title-row, div.kupu-description-row {
+   margin-top: 0;
+   padding-top: 0;
+   clear: none;
+   height: auto; line-height: 1.1em;
+}
+
+h1.kupu-title-row { font-size: 136%; }
+
 
 div.kupu-dialogbuttons {
   text-align: right;
@@ -104,7 +141,7 @@ td#kupu-librariespanel {
 
 div#kupu-librariesitems {
   width: 105px;
-  white-space: pre;
+  white-space: nowrap;
   height: 100%;
 }
 
@@ -114,7 +151,7 @@ td#kupu-resourcespanel {
 }
 
 div#kupu-resourceitems {
-  white-space: pre;
+  white-space: nowrap;
   width: 200px;
   height: 100%;
 }
@@ -146,7 +183,7 @@ div.kupu-resource, div.kupu-collection, div.kupu-upload {
   cursor: pointer;
   margin-bottom: 2px;
   vertical-align: text-bottom;
-  white-space: pre;
+  white-space: nowrap;
 }
 div.kupu-upload {
    text-align: right; font-style: italic;
@@ -224,4 +261,18 @@ td.kupu-bm-select {
    overflow: auto;
 }
 .kupu-bm-level1 SPAN { padding-left: 2em; }
-/* Bookmark drawer */
+/* Anchor drawer */
+
+.kupu-drawer label {
+   font-weight: bold;
+}
+.kupu-breadcrumbs {
+  text-align: left; clear:left;
+  padding-left: 1em; padding-right: 1em;
+}
+.kupu-breadcrumbs a {
+ text-decoration: none;
+}
+.kupu-breadcrumbSeparator {
+    font-size: 120%;
+}

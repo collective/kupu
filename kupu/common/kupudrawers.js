@@ -29,7 +29,7 @@ function DrawerTool() {
         drawer.initialize(editor || this.editor, this);
     };
 
-    this.openDrawer = function(id) {
+    this.openDrawer = function(id, args) {
         /* open a drawer */
         if (this.current_drawer) {
             this.closeDrawer();
@@ -38,9 +38,10 @@ function DrawerTool() {
         if (this.isIE) {
             drawer.editor._saveSelection();
         }
-        drawer.createContent();
-        drawer.editor.suspendEditing();
         this.current_drawer = drawer;
+        if (args===undefined) args = [];
+        drawer.createContent.apply(drawer, args);
+        drawer.editor.suspendEditing();
     };
 
     this.updateState = function(selNode) {
@@ -75,7 +76,7 @@ proto.createContent = function() {
     /* fill the drawer with some content */
     // here's where any intelligence and XSLT transformation and such 
     // is done
-    this.element.style.display = 'block';
+    el.style.display = 'block';
     this.focusElement();
 };
 
@@ -116,12 +117,21 @@ proto = DrawerWithAnchors.prototype;
 
 proto.initAnchors = function() {
     var id = 'kupu-linkdrawer-anchors';
-    var base = getBaseTagClass(this.element, 'tr', id);
+    var base = getBaseTagClass(this.element, 'div', id);
     if (base) {
         this.anchorui = getBaseTagClass(base, 'div', id);
 
         var inp = base.getElementsByTagName('input');
         this.anchorframe.src = inp[0].value;
+
+        if (!this.anchorframe.onload) {
+            this.anchorframe.onload=function() {
+                if(window.drawertool && window.drawertool.current_drawer) {
+                    window.drawertool.current_drawer.anchorframe_loaded();
+                };
+            };
+        };
+
         inp[1].style.display = 'none';
     };
 }
@@ -236,6 +246,7 @@ function LinkDrawer(elementid, tool) {
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'a');
         input.value = "";
+
         this.preview();
         if (linkel) {
             input.value = linkel.getAttribute('href');
@@ -409,7 +420,7 @@ function TableDrawer(elementid, tool) {
 
 TableDrawer.prototype = new Drawer;
 
-function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
+function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi) {
     /* a drawer that loads XSLT and XML from the server 
        and converts the XML to XHTML for the drawer using the XSLT
 
@@ -419,8 +430,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
        all XML loading is done async, since sync loading can freeze Mozilla
     */
+    this.showupload = '';
+    this.showanchors = '';
+    this.multiple = false;
+    this.currentSelection = [];
 
-    this.init = function(tool, xsluri, libsuri, searchuri, baseelement) {
+    this.init = function(tool, xsluri, libsuri, searchuri, baseelement, selecturi) {
         /* This method is there to thin out the constructor and to be
            able to inherit it in sub-prototypes. Don't confuse this
            method with the component initializer (initialize()).
@@ -432,6 +447,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         this.librariespanelid = 'kupu-librariespanel';
         this.resourcespanelid = 'kupu-resourcespanel';
         this.propertiespanelid = 'kupu-propertiespanel';
+        this.breadcrumbsid = 'kupu-breadcrumbs';
 
         if (baseelement) {
             this.baseelement = getFromSelector(baseelement);
@@ -450,8 +466,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             this.element = e;
         }
         this.shared.xsluri = xsluri;
-        this.shared.libsuri = libsuri;
-        this.shared.searchuri = searchuri;
+        this.libsuri = libsuri;
+        this.searchuri = searchuri;
+        this.selecturi = selecturi;
         
         // marker that gets set when a new image has been uploaded
         this.shared.newimages = null;
@@ -464,21 +481,26 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         // this will be filled by this.loadLibraries(), which is called 
         // somewhere further down the chain starting with 
         // this._libsXslCallback()
-        this.shared.xmldata = null;
+        this.xmldata = null;
 
     };
     if (tool) {
-        this.init(tool, xsluri, libsuri, searchuri);
+        this.init(tool, xsluri, libsuri, searchuri, baseelement, selecturi);
     }
 
     this.initialize = function(editor, drawertool) {
         this.editor = editor;
         this.drawertool = drawertool;
-        this.selecteditemid = '';
 
         // load the xsl and the initial xml
-        var wrapped_callback = new ContextFixer(this._libsXslCallback, this);
-        this._loadXML(this.shared.xsluri, wrapped_callback.execute);
+        this._loadXML(this.shared.xsluri, this._libsXslCallback);
+    };
+
+    this.hide = function() {
+        var el = this.element;
+        el.style.left = '';
+        el.style.top = '';
+        LibraryDrawer.prototype.hide.call(this);
     };
 
     /*** bootstrapping ***/
@@ -502,12 +524,25 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             xsltproc.setParameter("", "drawertype", this.drawertype);
             xsltproc.setParameter("", "drawertitle", this.drawertitle);
             xsltproc.setParameter("", "showupload", this.showupload);
-            if (this.editor.config.captions) {
+            xsltproc.setParameter("", "showanchors", this.showanchors);
+            if (!!this.editor.config.captions) {
                 xsltproc.setParameter("", "usecaptions", 'yes');
             }
         } catch(e) {
+            alert("xlstproc error:" + e);
             return; // No XSLT Processor, maybe IE 5.5?
         }
+        if (this.xmldata) {
+            this.updateDisplay(this.drawerid);
+        };
+    };
+
+    this.setTitle = function(t) {
+        this.drawertitle = t;
+        var xsltproc = this.shared.xsltproc;
+        if (xsltproc) {
+            xsltproc.setParameter("", "drawertitle", this.drawertitle);
+        };
     };
 
     this.createContent = function() {
@@ -516,7 +551,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             this.baseelement.appendChild(this.element);
         }
         // load the initial XML
-        if(!this.shared.xmldata) {
+        if(!this.xmldata) {
             // Do a meaningful test to see if this is IE5.5 or some other 
             // editor-enabled version whose XML support isn't good enough 
             // for the drawers
@@ -526,6 +561,11 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             }
             this.loadLibraries();
         } else {
+            var libraries = this.xmldata.selectSingleNode("/libraries");
+            var old = libraries.selectSingleNode("library[@id='kupu-current-selection']");
+            if (old) {
+                libraries.removeChild(old);
+            }
             if (this.shared.newimages) {
                 this.reloadCurrent();
                 this.shared.newimages = null;
@@ -549,8 +589,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
     this.loadLibraries = function() {
         /* load the libraries and display them in a redrawn drawer */
-        var wrapped_callback = new ContextFixer(this._libsContentCallback, this);
-        this._loadXML(this.shared.libsuri, wrapped_callback.execute);
+        this._loadXML(this.libsuri, this._libsContentCallback);
     };
 
     this._libsContentCallback = function(dom) {
@@ -559,8 +598,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             does the xslt transformation to set up or renew the drawer's full
             content and adds the content to the drawer
         */
-        this.shared.xmldata = dom;
-        this.shared.xmldata.setProperty("SelectionLanguage", "XPath");
+        this.xmldata = dom;
+        this.xmldata.setProperty("SelectionLanguage", "XPath");
 
         // replace whatever is in there with our stuff
         this.updateDisplay(this.drawerid);
@@ -568,8 +607,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     };
 
     this.initialSelection = function() {
+        if (this.selectedSrc && this.selecturi) {
+            this.selectCurrent();
+            return;
+        }
         var libnode_path = '/libraries/library[@selected]';
-        var libnode = this.shared.xmldata.selectSingleNode(libnode_path);
+        var libnode = this.xmldata.selectSingleNode(libnode_path);
         if (libnode) {
             var id = libnode.getAttribute('id');
             this.selectLibrary(id);
@@ -582,9 +625,18 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if(!id) {
             id = this.drawerid;
         };
-        try {
-            this.shared.xsltproc.setParameter("", "showupload", this.showupload);
-        } catch(e) {};
+
+        var xsltproc = this.shared.xsltproc;
+        if (!xsltproc) {
+            return;
+        }
+        for (var k in this.options) {
+            xsltproc.setParameter("", k, this.options[k]);
+        }
+        xsltproc.setParameter("", "multiple", this.multiple?"yes":"");
+        xsltproc.setParameter("", "showupload", this.showupload);
+        xsltproc.setParameter("", "showanchors", this.showanchors);
+
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
@@ -599,14 +651,25 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         };
     };
 
+    this.updateResources = function() {
+        this.updateDisplay(this.breadcrumbsid);
+        this.updateDisplay(this.resourcespanelid);
+        this.updateDisplay(this.propertiespanelid);
+    }
+
     this.deselectActiveCollection = function() {
+        var librariespanel = document.getElementById(this.librariespanelid);
+        if (!librariespanel) return;
+
+        var divs = librariespanel.getElementsByTagName('div');
+        for (var i = 0; i < divs.length; i++) {
+            var div = divs[i];
+            div.className = div.className.replace(/ *selected/,'');
+        }
         /* Deselect the currently active collection or library */
-        while (1) {
+        var selected;
+        while ((selected = this.xmldata.selectSingleNode('//*[@selected]'))) {
             // deselect selected DOM node
-            var selected = this.shared.xmldata.selectSingleNode('//*[@selected]');
-            if (!selected) {
-                return;
-            };
             selected.removeAttribute('selected');
         };
     };
@@ -631,7 +694,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         };
 
         var libnode_path = '/libraries/library[@id="' + id + '"]';
-        var libnode = this.shared.xmldata.selectSingleNode(libnode_path);
+        var libnode = this.xmldata.selectSingleNode(libnode_path);
         libnode.setAttribute('selected', '1');
 
         var items_xpath = "items";
@@ -643,23 +706,25 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             // anything except for displaying the contents in the
             // middle pane. Newimages is set if we've lately
             // added an image.
-            this.updateDisplay(this.resourcespanelid);
-            this.updateDisplay(this.propertiespanelid);
+            this.useCollection(libnode);
         } else {
             // We have to load the library from XML first.
             var src_uri = libnode.selectSingleNode('src/text()').nodeValue;
             src_uri = src_uri.strip(); // needs kupuhelpers.js
             // Now load the library into the items pane. Since we have
             // to load the XML, do this via a call back
-            var wrapped_callback = new ContextFixer(this._libraryContentCallback, this);
-            this._loadXML(src_uri, wrapped_callback.execute, null);
+            this._loadXML(src_uri, this._libraryContentCallback, null);
             this.shared.newimages = null;
         };
+    };
+    this.flagSelectedLib = function(id) {
         // instead of running the full transformations again we get a 
         // reference to the element and set the classname...
         var newseldiv = document.getElementById(id);
-        newseldiv.className = 'kupu-libsource-selected';
-    };
+        if (newseldiv) {
+            newseldiv.className = 'kupu-libsource-selected';
+        }
+    }
 
     this._libraryContentCallback = function(dom, src_uri) {
         /* callback for when a library's contents (item list) is loaded
@@ -667,9 +732,11 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         This is also used as he handler for reloading a standard
         collection.
         */
-        var libnode = this.shared.xmldata.selectSingleNode('//*[@selected]');
+        var libnode = this.xmldata.selectSingleNode('//*[@selected]');
         var itemsnode = libnode.selectSingleNode("items");
+        var bcnode = libnode.selectSingleNode("breadcrumbs");
         var newitemsnode = dom.selectSingleNode("//items");
+        var newbc = dom.selectSingleNode("//breadcrumbs");
 
         // IE does not support importNode on XML document nodes. As an
         // evil hack, clonde the node instead.
@@ -677,8 +744,15 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
         } else {
-            newitemsnode = this.shared.xmldata.importNode(newitemsnode, true);
+            newitemsnode = this.xmldata.importNode(newitemsnode, true);
         }
+        if (newbc) {
+            if (bcnode) {
+                libnode.replaceChild(newbc, bcnode);
+            } else {
+                libnode.appendChild(newbc);
+            };
+        };
         if (!itemsnode) {
             // We're loading this for the first time
             libnode.appendChild(newitemsnode);
@@ -686,47 +760,97 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             // User has clicked reload
             libnode.replaceChild(newitemsnode, itemsnode);
         };
-        this.updateDisplay(this.resourcespanelid);
-        this.updateDisplay(this.propertiespanelid);
+        this.useCollection(libnode);
     };
 
-    /*** Load a collection ***/
+    this.selectBreadcrumb = function(item) {
+        var src_uri = item.href;
+        if (/\$src\$$/.test(src_uri)) {
+            var target = this.xmldata.selectSingleNode('//resource[@selected]/uri/text()');
+            if (target) {
+                target = target.nodeValue.strip();
+                src_uri = src_uri.replace(/\$src\$/, encodeURIComponent(target));
+            } else {
+                return false;
+            };
+        };
+        this.deselectActiveCollection();
+        this.removeSelection();
 
-    this.selectCollection = function(id) {
+        // Case 2: We've already loaded the data, but there hasn't
+        // been a reference made yet. So, make one :)
+
+        var collnode_path = "/libraries/*[src/text()='" + src_uri + "']";
+        var collnode = this.xmldata.selectSingleNode(collnode_path);
+        if (collnode) {
+            var items_node = collnode.selectSingleNode("items");
+            if (items_node) {
+                collnode.setAttribute('selected', '1');
+                this.useCollection(collnode);
+                return;
+            }
+        };
+
+        // Case 3: We've not loaded the data yet, so we need to load it
+        this._loadXML(src_uri, this._collectionContentCallback, null);
+        return false;
+    }
+
+    this.useCollection = function(collnode) {
+        if (this.currentSelection) {
+            var leafnodes = collnode.selectNodes("//*[@checked]");
+            for (var j = 0; j < leafnodes.length; j++) {
+                leafnodes[j].removeAttribute('checked');
+            };
+            var sel = this.currentSelection;
+            for (var i = 0; i < sel.length; i++) {
+                var leafnodes = collnode.selectNodes("//*[@id='"+sel[i]+"']");
+                for (var j = 0; j < leafnodes.length; j++) {
+                    leafnodes[j].setAttribute('checked', '1');
+                    if (!this.multiple) {
+                        leafnodes[j].setAttribute('selected', '1');
+                    };
+                };
+            };
+        };
+        collnode.setAttribute('selected', '1');
+        this.flagSelectedLib(collnode.getAttribute('id'));
+        this.updateResources();
+    }
+    /*** Load a collection ***/
+    this.selectCollection = function(item, tag) {
+        var id = item.id;
+
+        tag = tag || 'collection';
         this.deselectActiveCollection();
 
         // First turn off current selection, if any
         this.removeSelection();
         
-        var leafnode_path = "//collection[@id='" + id + "']";
-        var leafnode = this.shared.xmldata.selectSingleNode(leafnode_path);
+        var leafnode_path = "//"+tag+"[@id='" + id + "']";
+        var leafnode = this.xmldata.selectSingleNode(leafnode_path);
 
         // Case 1: We've already loaded the data, so we just need to
         // refer to the data by id.
         var loadedInNode = leafnode.getAttribute('loadedInNode');
         if (loadedInNode) {
-            var collnode_path = "/libraries/collection[@id='" + loadedInNode + "']";
-            var collnode = this.shared.xmldata.selectSingleNode(collnode_path);
+            var collnode_path = "/libraries/*[@id='" + loadedInNode + "']";
+            var collnode = this.xmldata.selectSingleNode(collnode_path);
             if (collnode) {
-                collnode.setAttribute('selected', '1');
-                this.updateDisplay(this.resourcespanelid);
-                this.updateDisplay(this.propertiespanelid);
+                this.useCollection(collnode);
                 return;
             };
         };
 
         // Case 2: We've already loaded the data, but there hasn't
         // been a reference made yet. So, make one :)
-        uri = leafnode.selectSingleNode('uri/text()').nodeValue;
-        uri = (new String(uri)).strip(); // needs kupuhelpers.js
-        var collnode_path = "/libraries/collection/uri[text()='" + uri + "']/..";
-        var collnode = this.shared.xmldata.selectSingleNode(collnode_path);
+        var src_uri = leafnode.selectSingleNode('src/text()').nodeValue.strip();
+        var collnode_path = "/libraries/*[src/text()='" + src_uri + "'][items]";
+        var collnode = this.xmldata.selectSingleNode(collnode_path);
         if (collnode) {
             id = collnode.getAttribute('id');
             leafnode.setAttribute('loadedInNode', id);
-            collnode.setAttribute('selected', '1');
-            this.updateDisplay(this.resourcespanelid);
-            this.updateDisplay(this.propertiespanelid);
+            this.useCollection(collnode);
             return;
         };
 
@@ -734,10 +858,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         // this is just so we can find the leafnode much easier in the
         // callback.
         leafnode.setAttribute('selected', '1');
-        var src_uri = leafnode.selectSingleNode('src/text()').nodeValue;
-        src_uri = src_uri.strip(); // needs kupuhelpers.js
-        var wrapped_callback = new ContextFixer(this._collectionContentCallback, this);
-        this._loadXML(src_uri, wrapped_callback.execute, null);
+        src_uri = leafnode.selectSingleNode('src/text()').nodeValue.strip();
+        this._loadXML(src_uri, this._collectionContentCallback, null);
     };
 
     this._collectionContentCallback = function(dom, src_uri) {
@@ -751,25 +873,26 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         // attach 'loadedInNode' attribute to leaf node so Case 1
         // applies next time.
-        var leafnode = this.shared.xmldata.selectSingleNode('//*[@selected]');
-        leafnode.setAttribute('loadedInNode', time);
+        var leafnode = this.xmldata.selectSingleNode('//*[@selected]');
+        if (leafnode) {
+            leafnode.setAttribute('loadedInNode', time);
+        }
         this.deselectActiveCollection()
 
         var collnode = dom.selectSingleNode('/collection');
         collnode.setAttribute('id', time);
         collnode.setAttribute('selected', '1');
 
-        var libraries = this.shared.xmldata.selectSingleNode('/libraries');
+        var libraries = this.xmldata.selectSingleNode('/libraries');
 
-        // IE does not support importNode on XML documet nodes
+        // IE does not support importNode on XML document nodes
         if (this.editor.getBrowserName() == 'IE') {
             collnode = collnode.cloneNode(true);
         } else {
-            collnode = this.shared.xmldata.importNode(collnode, true);
+            collnode = this.xmldata.importNode(collnode, true);
         }
         libraries.appendChild(collnode);
-        this.updateDisplay(this.resourcespanelid);
-        this.updateDisplay(this.propertiespanelid);
+        this.useCollection(collnode);
     };
 
     /*** Reloading a collection or library ***/
@@ -777,7 +900,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     this.reloadCurrent = function() {
         // Reload current collection or library
         this.showupload = '';
-        var current = this.shared.xmldata.selectSingleNode('//*[@selected]');
+        var current = this.xmldata.selectSingleNode('//*[@selected]');
         // make sure we're dealing with a collection even though a
         // resource might be selected
         if (current.tagName == "resource") {
@@ -793,30 +916,32 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         };
 
         var src_uri = src_node.selectSingleNode('text()').nodeValue;
-        
         src_uri = src_uri.strip(); // needs kupuhelpers.js
-
-        var wrapped_callback = new ContextFixer(this._libraryContentCallback, this);
-        this._loadXML(src_uri, wrapped_callback.execute);
+        this._loadXML(src_uri, this._libraryContentCallback);
     };
 
     this.removeSelection = function() {
-        // turn off current selection, if any
-        var oldselxpath = '/libraries/*[@selected]//resource[@selected]';
-        var oldselitem = this.shared.xmldata.selectSingleNode(oldselxpath);
-        if (oldselitem) {
-            oldselitem.removeAttribute("selected");
+        if (!this.multiple) {
+            var items = this.xmldata.selectNodes('//resource[@checked]');
+            for (var i = 0; i < items.length; i++) {
+                items[i].removeAttribute('checked');
+            };
         };
-        if (this.selecteditemid) {
-            var item = document.getElementById(this.selecteditemid);
+
+        // turn off current selection, if any
+        var oldselxpath = '//resource[@selected]';
+        var oldselitems = this.xmldata.selectNodes(oldselxpath);
+        for (var i = 0; i < oldselitems.length; i++) {
+            oldselitems[i].removeAttribute("selected");
+            var id = oldselitems[i].getAttribute('id');
+
+            var item = document.getElementById(id);
             if (item) {
-                var span = item.getElementsByTagName('span');
-                if (span.length > 0) {
-                    span = span[0];
-                    span.className = span.className.replace(' selected-item', '');
+                var spans = item.getElementsByTagName('span');
+                for (var j = 0; j < spans.length; j++) {
+                    spans[j].className = spans[j].className.replace(' selected-item', '');
                 }
             }
-            this.selecteditemid = '';
         }
         this.showupload = '';
     }
@@ -824,22 +949,56 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     this.selectUpload = function() {
         this.removeSelection();
         this.showupload = 'yes';
-        this.updateDisplay(this.resourcespanelid);
-        this.updateDisplay(this.propertiespanelid);
+        this.updateResources();
     }
     /*** Selecting a resource ***/
 
-    this.selectItem = function (item, id) {
+    this.selectItem = function (item, event) {
+        var id = item.id;
+        var newselxpath = '/libraries/*[@selected]//resource[@id="' + id + '"]';
+        var src = this.xmldata.selectSingleNode(newselxpath+'/src');
+        if (src) {
+            event = event || window.event;
+            if (event) {
+                var target = event.target || event.srcElement;
+            }
+            if (target.nodeName.toLowerCase()!='input') {
+                this.selectCollection(item, 'resource');
+                return;
+            }
+        }
+
         /* select an item in the item pane, show the item's metadata */
 
         // First turn off current selection, if any
         this.removeSelection();
         
         // Grab XML DOM node for clicked "resource" and mark it selected
-        var newselxpath = '/libraries/*[@selected]//resource[@id="' + id + '"]';
-        var newselitem = this.shared.xmldata.selectSingleNode(newselxpath);
+        var newselitem = this.xmldata.selectSingleNode(newselxpath);
         newselitem.setAttribute("selected", "1");
-        //this.updateDisplay(this.resourcespanelid);
+
+        var check = true;
+        if (this.multiple) {
+            if (newselitem.getAttribute('checked')) {
+                check = false;
+                var sel = this.currentSelection;
+                for (var i=0; i < sel.length; i++) {
+                    if (sel[i]==id) {
+                        sel.splice(i, 1);
+                        break;
+                    };
+                };
+            } else {
+                this.currentSelection.push(id);
+            };
+        } else {
+            this.currentSelection = [id];
+        };
+        if (check) {
+            newselitem.setAttribute('checked','1');
+        } else {
+            newselitem.removeAttribute('checked');
+        };
         this.updateDisplay(this.propertiespanelid);
 
         // Don't want to reload the resource panel xml as it scrolls to
@@ -848,8 +1007,10 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if (span.length > 0) {
             span = span[0];
             span.className += ' selected-item';
+            var inp = span.parentNode.getElementsByTagName('input');
+            if (inp) inp[0].checked = check;
         }
-        this.selecteditemid = id;
+
         if (this.editor.getBrowserName() == 'IE') {
             var ppanel = document.getElementById(this.propertiespanelid)
             var height = ppanel.clientHeight;
@@ -871,13 +1032,12 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         // style. We want to do a POST though, so find any possible
         // parameters, trim them from the URI and append them to the
         // POST body instead.
-        var chunks = this.shared.searchuri.split('?');
+        var chunks = this.searchuri.split('?');
         var searchuri = chunks[0];
         if (chunks[1]) {
             body += "&" + chunks[1];
         };
-        var wrapped_callback = new ContextFixer(this._searchCallback, this);
-        this._loadXML(searchuri, wrapped_callback.execute, body);
+        this._loadXML(searchuri, this._searchCallback, body);
     };
 
     this._searchCallback = function(dom) {
@@ -904,15 +1064,57 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if (this.editor.getBrowserName() == 'IE') {
             resultlib = resultlib.cloneNode(true);
         } else {
-            this.shared.xmldata.importNode(resultlib, true);
+            this.xmldata.importNode(resultlib, true);
         }
-        var libraries = this.shared.xmldata.selectSingleNode("/libraries");
+        var libraries = this.xmldata.selectSingleNode("/libraries");
         libraries.appendChild(resultlib);
 
         this.updateDisplay(this.drawerid);
         var newseldiv = getFromSelector(time);
         newseldiv.className = 'selected';
     };
+
+    this.selectCurrent = function() {
+        var src = this.selectedSrc;
+        var body = 'src=' + encodeURIComponent(src);
+
+        // the uri might contain query parameters in HTTP GET
+        // style. We want to do a POST though, so find any possible
+        // parameters, trim them from the URI and append them to the
+        // POST body instead.
+        var chunks = this.selecturi.split('?');
+        var uri = chunks[0];
+        if (chunks[1]) {
+            body += "&" + chunks[1];
+        };
+        this._loadXML(uri, this._selectedCallback, body);
+    };
+
+    this._selectedCallback = function(dom) {
+        var resultlib = dom.selectSingleNode("/library");
+        var id = "kupu-current-selection";
+        resultlib.setAttribute("id", id);
+        var leafnodes = resultlib.selectNodes("//resource");
+        this.currentSelection = [];
+        for (var i = 0; i < leafnodes.length; i++) {
+            this.currentSelection.push(leafnodes[i].getAttribute('id'));
+        };
+        // deselect the previous collection and mark the result
+        // library as selected
+        this.deselectActiveCollection();
+        resultlib.setAttribute("selected", "1");
+
+        // now hook the result library into our DOM
+        if (this.editor.getBrowserName() == 'IE') {
+            resultlib = resultlib.cloneNode(true);
+        } else {
+            this.xmldata.importNode(resultlib, true);
+        }
+        var libraries = this.xmldata.selectSingleNode("/libraries");
+        libraries.appendChild(resultlib);
+        this.useCollection(resultlib);
+        this.updateDisplay(this.librariespanelid);
+    }
 
     this.save = function() {
         /* save the element, should be implemented on subclasses */
@@ -922,33 +1124,50 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     /*** Auxiliary methods ***/
 
     this._transformXml = function() {
-        /* transform this.shared.xmldata to HTML using this.shared.xsl and return it */
+        /* transform this.xmldata to HTML using this.shared.xsl and return it */
         var doc = Sarissa.getDomDocument();
-	var result = this.shared.xsltproc.transformToDocument(this.shared.xmldata);
+	var result = this.shared.xsltproc.transformToDocument(this.xmldata);
         return result;
     };
 
     this._loadXML = function(uri, callback, body) {
+        function _sarissaCallback() {
+        /* callback for Sarissa
+            when the callback is called because the data's ready it
+            will get the responseXML DOM and call user_callback
+            with the DOM as the first argument and the uri loaded
+            as the second
+
+            note that this method should be called in the context of an 
+            xmlhttp object
+        */
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status && xmlhttp.status != 200) {
+                    var errmessage = 'Error '+xmlhttp.status+' loading '+(uri||'XML');
+                    alert(errmessage);
+                    throw "Error loading XML";
+                };
+                var dom = xmlhttp.responseXML;
+                if (!dom.documentElement) { /* IE bug! */
+                    dom = Sarissa.getDomDocument();
+                    dom.loadXML(xmlhttp.responseText);
+                }
+                callback.apply(self, [dom, uri]);
+            };
+        };
+        var self = this;
         /* load the XML from a uri
            calls callback with one arg (the XML DOM) when done
            the (optional) body arg should contain the body for the request
          */
 	var xmlhttp = new XMLHttpRequest();
-        var method = 'GET';
-        if (body) {
-          method = 'POST';
-        } else {
-          // be sure that body is null and not an empty string or
-          // something
-          body = null;
-        };
+        var method = body?'POST':'GET';
+        // be sure that body is null and not an empty string or
+        // something
+        body=body?body:null;
+
         xmlhttp.open(method, uri, true);
-        // use ContextFixer to wrap the Sarissa callback, both for isolating 
-        // the 'this' problem and to be able to pass in an extra argument 
-        // (callback)
-        var wrapped_callback = new ContextFixer(this._sarissaCallback, xmlhttp,
-                                                callback, uri);
-        xmlhttp.onreadystatechange = wrapped_callback.execute;
+        xmlhttp.onreadystatechange = _sarissaCallback;
         if (method == "POST") {
             // by default, we would send a 'text/xml' request, which
             // is a dirty lie; explicitly set the content type to what
@@ -958,63 +1177,55 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         xmlhttp.send(body);
     };
 
-    this._sarissaCallback = function(user_callback, uri) {
-        /* callback for Sarissa
-            when the callback is called because the data's ready it
-            will get the responseXML DOM and call user_callback
-            with the DOM as the first argument and the uri loaded
-            as the second
-            
-            note that this method should be called in the context of an 
-            xmlhttp object
-        */
-        var errmessage = 'Error loading XML: ';
-        if (uri) {
-            errmessage = 'Error loading ' + uri + ':';
-        };
-        if (this.readyState == 4) {
-            if (this.status && this.status != 200) {
-                alert(errmessage + this.status);
-                throw "Error loading XML";
-            };
-            var dom = this.responseXML;
-            user_callback(dom, uri);
-        };
-    };
 };
 
 LibraryDrawer.prototype = new DrawerWithAnchors;
 LibraryDrawer.prototype.shared = {}; // Shared data
 
-function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
+function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi) {
     /* a specific LibraryDrawer for images */
 
     this.drawertitle = "Insert Image";
     this.drawertype = "image";
-    this.showupload = '';
+
     if (tool) {
-        this.init(tool, xsluri, libsuri, searchuri, baseelement);
+        this.init(tool, xsluri, libsuri, searchuri, baseelement, selecturi);
     }
- 
+
+    this.createContent = function() {
+        var currnode = this.editor.getSelectedNode();
+        var currimg = this.editor.getNearestParentOfType(currnode, 'IMG');
+        this.selectedSrc = currimg?currimg.src:null;
+        this.options = {};
+        if (currimg) {
+            var className = currimg.className;
+            var align = /\bimage-(left|right|inline)\b/.exec(className);
+            if (align && align.length > 1) {
+                this.options['image-align'] = align[1];
+            };
+            this.options['image-caption'] = /\bcaptioned\b/.test(className);
+        }
+        ImageLibraryDrawer.prototype.createContent.call(this);
+    }
     
     // upload, on submit/insert press
     this.uploadImage = function() {
-        var form = document.kupu_upload_form;
+        var form = document.getElementById('kupu_upload_form');
         if (!form || form.node_prop_image.value=='') return;
 
-        if (form.node_prop_caption.value == "") {
+        if (form.node_prop_title.value == "") {
             alert("Please enter a title for the image you are uploading");
             return;        
         };
         
-        var targeturi =  this.shared.xmldata.selectSingleNode('/libraries/*[@selected]/uri/text()').nodeValue
-        document.kupu_upload_form.action =  targeturi + "/kupuUploadImage";
-        document.kupu_upload_form.submit();
+        var targeturi =  this.xmldata.selectSingleNode('/libraries/*[@selected]/uri/text()').nodeValue;
+        form.action =  targeturi + "/kupuUploadImage";
+        form.submit();
     };
     
     // called for example when no permission to upload for some reason
     this.cancelUpload = function(msg) {
-        var s = this.shared.xmldata.selectSingleNode('/libraries/*[@selected]');     
+        var s = this.xmldata.selectSingleNode('/libraries/*[@selected]');     
         s.removeAttribute("selected");
         this.updateDisplay();
         if (msg != '') {
@@ -1026,7 +1237,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     this.finishUpload = function(url) {
         this.editor.resumeEditing();
         var imgclass = 'image-inline';
-        if (this.editor.config.captions) {
+        if (!!this.editor.config.captions) {
             imgclass += " captioned";
         };
         this.tool.createImage(url, null, imgclass);
@@ -1040,11 +1251,11 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         /* create an image in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';
-        var selnode = this.shared.xmldata.selectSingleNode(selxpath);
+        var selnode = this.xmldata.selectSingleNode(selxpath);
         
         // If no image resource is selected, check for upload
         if (!selnode) {
-            var uploadbutton = this.shared.xmldata.selectSingleNode("/libraries/*[@selected]//uploadbutton");
+            var uploadbutton = this.xmldata.selectSingleNode("/libraries/*[@selected]//uploadbutton");
             if (uploadbutton) {
                 this.uploadImage();
             };
@@ -1053,7 +1264,8 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         uri = uri.strip();  // needs kupuhelpers.js
-        var alt = getFromSelector('image_alt').value;
+        var alt = getFromSelector('image_alt');
+        alt = alt?alt.value:undefined;
 
         var radios = document.getElementsByName('image-align');
         for (var i = 0; i < radios.length; i++) {
@@ -1075,22 +1287,35 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 ImageLibraryDrawer.prototype = new LibraryDrawer;
 ImageLibraryDrawer.prototype.shared = {}; // Shared data
 
-function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
+function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi) {
     /* a specific LibraryDrawer for links */
 
     this.drawertitle = "Insert Link";
     this.drawertype = "link";
-    this.showupload = '';
+    this.showanchors = "yes";
+
     if (tool) {
-        this.init(tool, xsluri, libsuri, searchuri, baseelement);
+        this.init(tool, xsluri, libsuri, searchuri, baseelement, selecturi);
     }
+
+    this.createContent = function() {
+        var currnode = this.editor.getSelectedNode();
+        var curranchor = this.editor.getNearestParentOfType(currnode, 'A');
+        this.selectedSrc = curranchor?curranchor.href:null;
+        this.options = {};
+        if (curranchor) {
+            this.options['link_name'] = curranchor.name || '';
+            this.options['link_target'] = curranchor.target || '';
+        }
+        LinkLibraryDrawer.prototype.createContent.call(this);
+    };
 
     this.save = function() {
         this.editor.resumeEditing();
         /* create a link in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';
-        var selnode = this.shared.xmldata.selectSingleNode(selxpath);
+        var selnode = this.xmldata.selectSingleNode(selxpath);
         if (!selnode) {
             return;
         };
@@ -1117,7 +1342,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 LinkLibraryDrawer.prototype = new LibraryDrawer;
 LinkLibraryDrawer.prototype.shared = {}; // Shared data
 
-function BookmarkDrawer(elementid, tool) {
+function AnchorDrawer(elementid, tool) {
     Drawer.call(this, elementid, tool);
 
     this.initialize = function(editor, tool) {
@@ -1271,7 +1496,7 @@ function BookmarkDrawer(elementid, tool) {
     };
 };
 
-BookmarkDrawer.prototype = new Drawer;
+AnchorDrawer.prototype = new Drawer;
 
 /* Function to suppress enter key in drawers */
 function HandleDrawerEnter(event, clickid) {

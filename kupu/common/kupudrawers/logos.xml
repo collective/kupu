@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
-<collection>
+<?oxygen RNGSchema="file:libraries.rng" type="xml"?>
+<collection id="collection-logos.xml">
     <uri>kupudrawers/logos.xml</uri>
     <icon>kupuimages/kupulibrary.png</icon>
     <title>Logo's</title>
