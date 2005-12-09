@@ -1384,3 +1384,23 @@ function Exception() {
 // update, may be required in situations where updateState changes the structure
 // of the document (e.g. does a cleanup or so)
 UpdateStateCancelBubble = new Exception();
+
+function kupuFixImage(image) {
+    image.removeAttribute('width');
+    image.removeAttribute('height');
+    var width = image.naturalWidth || image.width;
+    var height = image.naturalHeight || image.height;
+    if (height > width) {
+        if (height > 128) {
+            width = width * 128 / height;
+            height = 128;
+        };
+    } else {
+        if (width > 128) {
+            height = height * 128 / width;
+            width = 128;
+        };
+    };
+    image.height = height;
+    image.width = width;
+};

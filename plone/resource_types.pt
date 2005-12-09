@@ -17,73 +17,165 @@ documents, the latter images.</p>
 
 <p i18n:translate="text_resource_types2">This management screen allows you to define resource types using a
 list of portal types. A special resource type, <code>collection</code>,
-identifies portal types that are to be treated as collections.</p>
+identifies portal types that are to be treated as collections.
+The resource type <code>containsanchors</code> is used to list types which
+may contain HTML anchors.</p>
 
-<fieldset>
+<p i18n:translate="text_resource_types3">Also on this screen are urls
+for each type which can be previewed as an image. The expression may
+use <code>object_url</code> and <code>portal_type</code>, but should
+not attempt to access the object directly. The resulting URL should
+ideally return an image no larger than 128 pixels square.</p>
+
+<fieldset tal:define="typestool context/portal_types;
+                typeinfos typestool/listTypeInfo;">
 <legend i18n:translate="legend_map_resource_types">Map resource types</legend>
 
-<table>
+<table summary="Resource definitions" class="listing nosort">
+<thead>
+  <tr>
+    <th colspan="3">Map resource types</th>
+  </tr>
+</thead>
 
+ <tal:loop tal:repeat="resource here/zmi_get_type_mapping">
+<tbody
+  tal:define="oddrow repeat/resource/odd;"
+  tal:attributes="class python:test(oddrow, 'even', 'odd');"
+  align="left"
+  style="margin-top: 1em !important;"
+>
+  <tr><td colspan="3">&nbsp;</td></tr>
+  <tr tal:condition="repeat/resource/end"><td style="border-right:none;"></td><td colspan="2"><em>use this entry to add a new resource</em>
+</td></tr>
+  <tr>
+    <td>
+      <input type="hidden" name="type_info.old_type:records"
+             tal:attributes="value resource/name" />
+      <input type="checkbox" name="resource_types:list"
+             tal:condition="resource/name"
+             tal:attributes="value resource/name" />
+    </td>
+    <th>Resource</th>
+    <td>
+      <input type="text" name="type_info.resource_type:records"
+             tal:attributes="value resource/name" />
+    </td>
+  </tr>
   <tr>
     <td></td>
-    <th i18n:translate="resource_type">Resource type</th>
-    <th i18n:translate="portal_types">Portal types</th>
+    <th>Portal Types</th>
+    <td>
+      <select name="type_info.portal_types:list:records" size="5" multiple
+          tal:attributes="size python:max(5,len(resource.types));">
+          <tal:block repeat="ti typeinfos">
+            <option tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));
+                        id ti/getId;
+                        selected python:id in resource.types;"
+                    tal:content="title"
+                    tal:condition="selected"
+                    tal:attributes="value ti/getId;" selected></option>
+
+          </tal:block>
+          <tal:block repeat="ti typeinfos">
+            <option tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));
+                        id ti/getId;
+                        selected python:id in resource.types;"
+                    tal:content="title"
+                    tal:condition="not:selected"
+                    tal:attributes="value ti/getId;"></option>
+
+          </tal:block>
+      </select>
+    </td>
   </tr>
-
-  <tr tal:repeat="type_tuple here/zmi_get_type_mapping">
-    <tal:with define="resource_type python:type_tuple[0];
-                      portal_types  python:type_tuple[1]">
-    <td valign="top">
-      <input type="checkbox" name="resource_types:list"
-             tal:attributes="value resource_type" />
-      <input type="hidden" name="type_info.old_type:records"
-             tal:attributes="value resource_type" />
-    </td>
-
-    <td valign="top">
-      <input type="text" name="type_info.resource_type:records"
-             tal:attributes="value resource_type" />
-    </td>
-
-    <td valign="top">
-      <textarea name="type_info.portal_types:lines:records"
-                rows="5" cols="50"
-                style="width:40em;"
-                tal:content="python:'\n'.join(portal_types)">
-      </textarea>
-    </td>
-    </tal:with>
-  </tr>
+  <tr><td colspan="3">&nbsp;</td></tr>
+</tbody>
+ </tal:loop>
+<tbody>
   <tr>
-    <td colspan="3">
+    <td  style="border-right: none;">&nbsp;</td>
+    <td colspan="2" style="padding-top:0.5em;">
       <input class="context" type="submit" name="zmi_update_resource_types:method" value="Save" i18n:attributes="value" />
       <input class="context" type="submit" name="zmi_delete_resource_types:method" value="Delete" i18n:attributes="value" />
     </td>
   </tr>
-
+</tbody>
 </table>
-</fieldset>
 
-<fieldset>
-<legend i18n:translate="legend_add_resource_type">Add new resource type</legend>
-<table>
+<table summary="Preview actions" class="listing nosort" width="90%"
+ tal:define="typestool context/portal_types;
+             typeinfos typestool/listTypeInfo;
+             previewable python:[t for t in typeinfos if context.getPreviewForType(t.getId())];">
+<thead>
   <tr>
-    <th i18n:translate="resource_type">Resource type</th>
-    <th i18n:translate="portal_types">Portal types</th>
+    <th colspan="3">Preview URLs</th>
   </tr>
+  <tr><th width="1%"></th>
+    <th width="1%">Type</th>
+    <th>URL</th>
+  </tr>
+</thead>
+
+ <tal:loop tal:repeat="ti previewable">
+<tbody  tal:define="oddrow repeat/ti/odd;
+                portal_type ti/getId;
+                action python:context.getPreviewForType(portal_type);"
+       tal:condition="python:context.getPreviewForType(portal_type)"
+  tal:attributes="class python:test(oddrow, 'even', 'odd');">
   <tr>
-    <td valign="top"><input type="text" name="resource_type" /></td>
-    <td valign="top">
-      <textarea name="portal_types:lines" rows="5" cols="30"></textarea>
+    <td>
+      <input type="hidden" name="preview_action.marker:records" value="x" />
+      <input type="hidden" name="preview_action.portal_type:records" tal:attributes="value ti/getId" />
+      <input type="checkbox" name="preview_types:list"
+             tal:attributes="value ti/getId" />
+    </td>
+    <td tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));"
+        tal:content="title">previewable type</td>
+    <td>
+      <input type="text" name="preview_action.expression:records"
+             style="width:90%"
+             tal:attributes="value action" />
     </td>
   </tr>
+</tbody>
+ </tal:loop>
+<tbody  tal:define="oddrow python:len(previewable)%2;"
+        tal:attributes="class python:test(oddrow, 'even', 'odd');">
   <tr>
-    <td colspan="2"><input class="context" type="submit" name="zmi_add_resource_type:method" value="Add" i18n:attributes="value" /></td>
+    <td>
+      <input type="hidden" name="preview_action.marker:records" value="-"/>
+    </td>
+    <td>
+      <select name="preview_action.portal_type:records">
+          <option i18n:translate="" value="">(select type)</option>
+          <tal:block repeat="ti typeinfos">
+            <option tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));
+                        id ti/getId;"
+                    tal:content="title"
+                    tal:condition="not:python:context.getPreviewForType(id)"
+                    tal:attributes="value ti/getId;"></option>
+          </tal:block>
+      </select>
+    <td>
+      <input type="text" name="preview_action.expression:records"
+             style="width:90%" value="" />
+    </td>
   </tr>
+</tbody>
+<tbody>
+  <tr>
+    <td  style="border-right: none;">&nbsp;</td>
+    <td colspan="2" style="padding-top:0.5em;">
+      <input class="context" type="submit" name="zmi_update_resource_types:method" value="Save" i18n:attributes="value" />
+      <input class="context" type="submit" name="zmi_delete_resource_types:method" value="Delete" i18n:attributes="value" />
+    </td>
+  </tr>
+</tbody>
 </table>
+
 </fieldset>
 </form>
-
 </div>
 </body>
 </html>

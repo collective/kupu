@@ -8,17 +8,27 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n_domain="plone"
+    tal:define="resource_type request/resource_type | string:mediaobject;
+        instance python:request.get('instance', '');
+        instance python:test(instance, 'instance=%s&' % instance, '');"
     >
   <uri tal:content="template/absolute_url">URI</uri>
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
   <title i18n_translate="box_myitems">My Items</title>
   <description>My recently edited items.</description>
-  <src tal:define="resource_type request/resource_type | string:mediaobject;"
-       tal:content="string:${here/absolute_url}/${template/getId}?resource_type=${resource_type}">Source</src>
+  <src tal:content="string:${context/absolute_url}/${template/getId}?${instance}resource_type=${resource_type}">Source</src>
 
+  <breadcrumbs>
+    <crumb
+      tal:define="url context/portal_url;
+        resource_type request/resource_type | string:mediaobject;"
+      tal:attributes="href string:${context/portal_url}/kupulocate.xml?resource_type=${resource_type}&amp;src=$$src$$">
+      Locate
+    </crumb>
+  </breadcrumbs>
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
     <metal:slot fill-slot="defineItems">
-       <tal:var define="global items context/kupuMyItems"/>
+       <tal:var define="global items context/kupu_library_tool/getMyItems"/>
     </metal:slot>
   </items>
 </library>

@@ -12,6 +12,7 @@ from Products.PortalTransforms.interfaces import itransform
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 import re
+from cgi import escape
 
 __revision__ = '$Id$'
 
@@ -41,6 +42,8 @@ ATTR_PATTERN = re.compile('''
     )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE)
 
 CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
+ALT_PATTERN = re.compile('\\balt=("[^"]*"|[^" \/>]+)')
+END_TAG_PATTERN = re.compile('(<img[^>]*?)( */?>)')
 IMAGE_TEMPLATE = '''\
 <div class="%(class)s" style="width:%(width)spx;">
  <div style="width:%(width)spx;">
@@ -103,7 +106,10 @@ class HTMLToCaptioned:
                     target = at_tool.reference_catalog.lookupObject(src)
                     if target:
                         d['caption'] = newline_to_br(target.Description())
-                        d['tag'] = CLASS_PATTERN.sub('', d['tag'])
+                        tag = CLASS_PATTERN.sub('', d['tag'])
+                        tag = ALT_PATTERN.sub('', tag)
+                        tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)
+                        d['tag'] = tag
                         if not width:
                             d['width'] = target.getWidth()
 
@@ -131,7 +137,8 @@ class HTMLToCaptioned:
             return idata
 
         # No context to use for replacements, so don't bother trying.
-        return data
+        idata.setData(data)
+        return idata
 
 def register():
     return HTMLToCaptioned()

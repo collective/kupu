@@ -38,6 +38,8 @@ tests =(
 class MockImage:
     def __init__(self, uid, description):
         self.uid, self.description = uid, description
+    def Title(self):
+        return 'image '+self.uid
     def Description(self):
         return self.description
     def absolute_url(self):

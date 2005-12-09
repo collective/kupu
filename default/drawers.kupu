@@ -25,7 +25,7 @@
         i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-exthyperlink" id="kupu-linkdrawer-button" title="external link"
         i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-bookmarks" id="kupu-bookmarks" title="bookmarks" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-anchors" id="kupu-anchors" title="anchors" i18n:attributes="title">&#160;</button>
       <button type="button" class="kupu-table" id="kupu-tabledrawer-button" title="table" i18n:attributes="title"
         >&#160;</button>
     </span>
@@ -37,15 +37,14 @@
 
   <kupu:part name="librarydrawer">
     <div style="display:block;" class="kupu-librarydrawer-parent">
-      <iframe style="display:none" class="kupu-anchorframe" src="javascript:''"
-        onload="if(window.drawertool) window.drawertool.current_drawer.anchorframe_loaded();">
+      <iframe style="display:none" class="kupu-anchorframe" src="javascript:''">
       </iframe>
     </div>
   </kupu:part>
 
   <kupu:part name="linkdrawer">
     <div id="kupu-linkdrawer" class="kupu-drawer kupu-linkdrawer">
-      <h1 i18n:translate="">External Link</h1>
+      <h1 class="kupu-drawer-title" i18n:translate="">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
         <table cellspacing="0">
@@ -66,7 +65,7 @@
         </td></tr>
         <tr class="kupu-linkdrawer-anchors" style="display:none">
           <td colspan="2">
-            <label>Bookmark<select><option i18n:translate="" value="">(none)</option></select></label> 
+            <label>Anchor<select><option i18n:translate="" value="">(none)</option></select></label> 
           </td>
         </tr>
         <tr><td colspan="2" align="center">
@@ -91,7 +90,7 @@
 
   <kupu:part name="tabledrawer">
     <div id="kupu-tabledrawer" class="kupu-drawer kupu-tabledrawer">
-    <h1 i18n:translate="tabledrawer_title">Table</h1>
+    <h1 class="kupu-drawer-title" i18n:translate="tabledrawer_title">Table</h1>
     <div class="kupu-panels">
       <table width="300">
         <tr class="kupu-panelsrow">
@@ -229,15 +228,15 @@
 
   </kupu:part>
 
-  <kupu:part name="bookmarkdrawer">
-    <div id="kupu-bookmarkdrawer" class="kupu-drawer kupu-bookmarkdrawer">
-      <h1 i18n:translate="bookmarkdrawer_title">Bookmarks</h1>
+  <kupu:part name="anchordrawer">
+    <div id="kupu-anchordrawer" class="kupu-drawer kupu-anchordrawer">
+      <h1 class="kupu-drawer-title" i18n:translate="anchordrawer_title">Anchors</h1>
       <div class="kupu-panels">
         <table class="kupu-ins-bm">
           <tr style="margin-bottom: 5px">
             <td colspan="2">
               <label><input type="radio" name="kupu-bm-mode" checked="checked" i18n:translate="" id="kupu-ins-bm"/> Link
-                to bookmark</label>
+                to anchor</label>
               <label><input type="radio" name="kupu-bm-mode" i18n:translate="" id="kupu-toc"/> Table of contents</label>
             </td>
           </tr>

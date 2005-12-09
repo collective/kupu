@@ -23,6 +23,7 @@ from App.Common import package_home
 from Products.CMFCore.utils import getToolByName, minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.kupu import kupu_globals
+from Products.kupu.plone.util import register_layer, unregister_layers
 from Products.kupu.config import TOOLNAME, PROJECTNAME, TOOLTITLE
 from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest
@@ -34,35 +35,12 @@ except ImportError:
 
 kupu_package_dir = package_home(kupu_globals)
 
-def register_layer(self, relpath, name, out):
-    """Register a file system directory as skin layer
-    """
-    print >>out, "register skin layers"
-    skinstool = getToolByName(self, 'portal_skins')
-    if name not in skinstool.objectIds():
-        kupu_plone_skin_dir = minimalpath(os.path.join(kupu_package_dir, relpath))
-        createDirectoryView(skinstool, kupu_plone_skin_dir, name)
-        print >>out, "The layer '%s' was added to the skins tool" % name
-
-    # put this layer into all known skins
-    for skinName in skinstool.getSkinSelections():
-        path = skinstool.getSkinPath(skinName) 
-        path = [i.strip() for i in path.split(',')]
-        try:
-            if name not in path:
-                path.insert(path.index('custom')+1, name)
-        except ValueError:
-            if name not in path:
-                path.append(name)
-
-        path = ','.join(path)
-        skinstool.addSkinSelection(skinName, path)
-
 def install_plone(self, out):
     """Install with plone
     """
-    # register the plone skin layer
+    # register the plone skin layers
     register_layer(self, 'plone/kupu_plone_layer', 'kupu_plone', out)
+    register_layer(self, 'plone/kupu_references', 'kupu_references', out)
 
     # register as editor
     portal_props = getToolByName(self, 'portal_properties')
@@ -212,6 +190,13 @@ def install_transform(self, out):
         except: # XXX: get rid of bare except
             pass
         transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
+        print >>out,"Add identity transform"
+        transform_tool = getToolByName(self, 'portal_transforms')
+        try:
+            transform_tool.manage_delObjects(['captioned-to-html'])
+        except: # XXX: get rid of bare except
+            pass
+        transform_tool.manage_addTransform('captioned-to-html', 'Products.PortalTransforms.transforms.identity')
     except (NameError,AttributeError):
         print >>out, "No MimetypesRegistry, captioning not supported."
 
@@ -257,6 +242,7 @@ def uninstall_transform(self, out):
     try:
         transform_tool.manage_delObjects(['html-to-captioned'])
     except:
+        print >>out, "transform not removed"
         pass
     else:
         print >>out, "Transform removed"
@@ -281,6 +267,7 @@ def uninstall(self):
     uninstall_transform(self, out)
     uninstall_tool(self, out)
     uninstall_resources(self, out)
-    
+    unregister_layers(self, ['kupu_plone', 'kupu_references', 'kupu'], out)
+
     print >> out, "Successfully uninstalled %s." % PROJECTNAME
     return out.getvalue()

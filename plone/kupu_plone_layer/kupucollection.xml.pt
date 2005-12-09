@@ -6,13 +6,25 @@
 <collection
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
+    tal:define="resource_type request/resource_type | string:mediaobject;
+        instance python:request.get('instance', '');
+        instance python:test(instance, 'instance=%s&' % instance, '');
+        global supportsupload python:resource_type=='mediaobject';"
     >
-  <tal:with define="info python:context.kupuInfoForBrains([context])[0]">
+
+  <tal:with define="kupu context/kupu_library_tool;
+        info python:kupu.getSingleObjectInfo(context);
+        breadcrumbs python:kupu.getBreadCrumbs(context);">
     <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems" />
-    <src tal:define="resource_type request/resource_type | string:mediaobject;
-        global supportsupload python:resource_type=='mediaobject';
-        global showimagesize python:resource_type=='mediaobject';"
-         tal:content="string:${here/absolute_url}/${template/getId}?resource_type=${resource_type}">Source</src>
+    <breadcrumbs tal:condition="breadcrumbs">
+      <tal:loop tal:repeat="crumb breadcrumbs">
+      <crumb tal:content="crumb/Title"
+        tal:define="url crumb/absolute_url; url python:url.rstrip('/');
+                href string:${url}/${template/getId}?${instance}resource_type=${resource_type};
+                href python:test(repeat['crumb'].end, None, href);"
+        tal:attributes="href href"/>
+      </tal:loop>
+    </breadcrumbs>
   </tal:with>
 
   <items metal:define-macro="collectionItems">
@@ -21,16 +33,9 @@
        <tal:comment condition="nothing">
          The default resource type is mediaobject
        </tal:comment>
-       <tal:var define="
-           list_types  python:context.kupuGetResourceTypes(resource_type, True);
-           link_types  python:context.kupuGetResourceTypes(resource_type, False)['portal_type'];
-           content     python:context.getFolderContents(contentFilter=list_types);
-           global items python:context.kupuInfoForBrains(content,
-                linkhere=context.portal_type in link_types,
-                linkparent=True, showimagesize=showimagesize);
-           " />
+       <tal:var define="kupu context/kupu_library_tool;
+        global items python:kupu.getFolderItems(context,resource_type);" />
      </metal:slot>
-
 
     <tal:loop repeat="info items">
 
@@ -39,7 +44,7 @@
         site-wide unique id
       </tal:comment>
 
-      <resource tal:attributes="id info/url"
+      <resource tal:attributes="id info/id; class info/class|nothing;"
                 tal:condition="not:info/collection">
         <metal:macro define-macro="commonToAllItems">
           <uri metal:define-slot="uri"
@@ -57,21 +62,24 @@
           </tal:block>
           <preview metal:define-slot="preview"
                    tal:condition="info/preview"
-                   tal:content="string:${info/url}/${info/preview}"></preview>
+                   tal:content="info/preview"></preview>
+          <status tal:condition="info/state"
+                tal:attributes="class info/class" tal:content="info/state" />
           <label metal:define-slot="label"
                 tal:condition="info/label|nothing"
                 tal:content="info/label">label</label>
           <title metal:define-slot="title"
                  tal:content="info/title">title</title>
           <description metal:define-slot="description"
-                       tal:content="info/description">description</description>
+                       tal:content="structure info/description">description</description>
+          <anchor tal:condition="info/anchor|nothing" />
+          <src tal:condition="info/src" tal:content="info/src">Source</src>
         </metal:macro>
       </resource>
 
-      <collection tal:attributes="id info/url"
+      <collection tal:attributes="id info/id; linkable info/linkable|nothing;class info/class|nothing"
                   tal:condition="info/collection">
         <metal:insert use-macro="here/kupucollection.xml/macros/commonToAllItems" />
-        <src tal:content="string:${info/url}/kupucollection.xml?resource_type=${resource_type}">Source</src>
       </collection>
 
     </tal:loop>

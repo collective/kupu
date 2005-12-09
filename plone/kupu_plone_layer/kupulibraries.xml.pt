@@ -15,13 +15,15 @@
     libraries     python:kupu_tool.getLibraries(context);
     default_library python:kupu_tool.zmi_get_default_library();
     resource_type request/resource_type | string:mediaobject;
+    instance python:request.get('instance','');
+    instance python:test(instance, 'instance=%s&' % instance, '');
     ">
 
   <library tal:repeat="library libraries"
            tal:attributes="id python:library['id'];selected python:library['id']==default_library;">
     <uri tal:content="library/uri">URI</uri>
     <title i18n:translate="" tal:content="library/title">Title</title>
-    <src tal:content="string:${library/src}?resource_type=${resource_type}">Source</src>
+    <src tal:content="string:${library/src}?${instance}resource_type=${resource_type}">Source</src>
     <icon tal:content="library/icon">Icon</icon>
   </library>
 

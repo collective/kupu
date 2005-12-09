@@ -15,13 +15,16 @@ $Id$
 """
 import Acquisition
 from Acquisition import aq_parent, aq_inner, aq_base
-from Products.CMFCore.Expression import Expression
-from Products.CMFCore.Expression import createExprContext
+from Products.CMFCore.Expression import Expression, createExprContext
+from Products.PageTemplates.Expressions import getEngine, SecureModuleImporter
 from Products.kupu.plone.interfaces import IKupuLibraryTool
 from Products.CMFCore.utils import getToolByName
 
 class KupuError(Exception): pass
 
+class Resource:
+    """Class to hold resources"""
+    
 class KupuLibraryTool(Acquisition.Implicit):
     """A tool to aid Kupu libraries"""
 
@@ -155,11 +158,52 @@ class KupuLibraryTool(Acquisition.Implicit):
         type_map = self._res_types
         for type in type_info:
             resource_type = type['resource_type']
-            portal_types = self._validate_portal_types(resource_type, type['portal_types'])
-            del type_map[type['old_type']]
+            if not resource_type:
+                continue
+            portal_types = self._validate_portal_types(resource_type, type.get('portal_types', ()))
+            old_type = type.get('old_type', None)
+            if old_type:
+                del type_map[old_type]
             type_map[resource_type] = tuple(portal_types)
 
-    def deleteResourceTypes(self, resource_types):
+    def updatePreviewActions(self, preview_actions):
+        action_map = getattr(self, '_preview_actions', {})
+
+        for a in preview_actions:
+            portal_type = a.get('portal_type', '')
+            if not portal_type:
+                continue
+            expr = a.get('expression', '')
+            action_map[portal_type] = { 'expression': Expression(expr),
+                }
+
+        self._preview_actions = action_map
+
+    def deleteResource(self, resource_types):
         """See IResourceTypeMapper"""
+        existing = self._res_types
         for type in resource_types:
-            del self._res_types[type]
+            if existing.has_key(type):
+                del existing[type]
+
+    def deletePreviewActions(self, preview_types):
+        """See IResourceTypeMapper"""
+        action_map = getattr(self, '_preview_actions', {})
+        for type in preview_types:
+            del action_map[type]
+        self._preview_actions = action_map
+
+    def getPreviewUrl(self, portal_type, url):
+        action_map = getattr(self, '_preview_actions', {})
+        if portal_type in action_map:
+            expr = action_map[portal_type]['expression']
+            if expr:
+                data = {
+                    'object_url':   url,
+                    'portal_type':  portal_type,
+                    'modules':      SecureModuleImporter,
+                }
+                context = getEngine().getContext(data)
+                return expr(context)
+        return None
+

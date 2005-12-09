@@ -53,7 +53,8 @@
 <form action=""
     name="configure_kupu"
     method="post"
-    tal:attributes="action here/absolute_url">
+    tal:attributes="action here/absolute_url"
+    tal:define="isTransformEnabled here/transformIsEnabled">
 
 <fieldset>
 <legend i18n:translate="legend_link_options">Link options</legend>
@@ -67,13 +68,69 @@
     tal:attributes="checked here/getLinkbyuid" />
 <label for="kupu_linkbyuid" i18n:translate="label_link_uid">Link using UIDs</label>
 
-<div class="formHelp" i18n:translate="help_link_uid">Links to objects on this site created by Kupu can use unique
-object ids so that the links remain valid even if the target object is
-renamed or moved elsewhere on the site.</div>
+<div class="formHelp" i18n:translate="help_link_uid">Links to objects
+on this site created by Kupu can use unique object ids so that the
+links remain valid even if the target object is renamed or moved
+elsewhere on the site.
+<span tal:condition="isTransformEnabled">
+A portal transform to hide the UIDs from client browsers is
+currently operating for the fields:
+<blockquote tal:content="here/supportedCaptioning"></blockquote>
+</span>
+<span tal:condition="not:isTransformEnabled">
+If you enable this option you should also
+enable the output transform as for image captioning (see <a
+href="zmi_docs#images">image captioning documentation</a>).  This
+transform will hide the UID based URLs from client browsers.
+</span>
+</div>
+
 </div>
 
 </fieldset>
 <fieldset>
+<legend i18n:translate="legend_caption">Captioning</legend>
+<div class="field">
+<input type="hidden" name="captioning:int:default" value="0" />
+<label i18n:translate="label_refbrowser"><input type="checkbox"
+       class="noborder" name="captioning:int"
+       value="1" tal:attributes="checked here/getCaptioning" />
+Allow captioned images</label>
+
+<div class="formHelp">
+<div tal:condition="not:isTransformEnabled">
+<span i18n:translate="help_captioning">To support
+captioning you may need to apply a patch to PortalTransforms. See
+the <a href="zmi_docs#images">image captioning documentation</a> for details.</span>
+<div>Fields which could support image captioning:</div>
+</div>
+<div tal:condition="isTransformEnabled">
+Fields which appear to currently support image captioning:</div>
+<blockquote tal:content="here/supportedCaptioning"></blockquote>
+<div>Fields which use kupu but do not support image captioning:</div>
+<blockquote tal:content="here/unsupportedCaptioning"></blockquote>
+</div>
+</fieldset>
+
+<fieldset>
+<legend i18n:translate="legend_refbrowser">Reference Browser</legend>
+<div class="field">
+<input type="hidden" name="refbrowser:int:default" value="0" />
+<input type="checkbox"
+    class="noborder"
+    name="refbrowser:int"
+    id = "kupu_refbrowser"
+    value="1"
+    tal:attributes="checked here/getRefBrowser" />
+<label for="kupu_refbrowser" i18n:translate="label_refbrowser">Use Kupu Reference Browser</label>
+
+<div class="formHelp" i18n:translate="help_refbrowser">Replace
+ATReferenceBrowser widget with a widget which uses
+Kupu's drawers instead of a popup window.</div>
+</div>
+
+</fieldset>
+<fieldset tal:condition="not:exists:here/portal_skins/plone_ecmascript/formUnload.js">
 <legend i18n:translate="legend_warning">Warn before losing changes</legend>
 <div class="field">
 <input type="hidden" name="installBeforeUnload:int:default" value="0" />

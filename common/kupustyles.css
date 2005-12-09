@@ -114,7 +114,7 @@ div.kupu-smalleditor {
 
 .kupu-bold {background-image: url("kupuimages/bold.png");}
 .kupu-bold-pressed {background-image: url("kupuimages/bold.png"); background-color: white;}
-.kupu-bookmarks {background-image: url("kupuimages/bookmark.png");}
+.kupu-anchors {background-image: url("kupuimages/anchor.png");}
 .kupu-forecolor {background-image: url("kupuimages/text-color.png");}
 .kupu-hilitecolor {background-image: url("kupuimages/background-color.png");}
 

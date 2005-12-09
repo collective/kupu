@@ -14,10 +14,13 @@
 from Products.CMFCore.utils import getToolByName
 
 RESOURCES = dict(
-    linkable = ('Document', 'Image', 'File', 'News Item', 'Event'),
+    linkable = ('Document', 'Image', 'File', 'News Item', 'Event', 'Folder', 'Large Plone Folder'),
     mediaobject = ('Image',),
     collection = ('Plone Site', 'Folder', 'Large Plone Folder'),
+    containsanchors = ('Document', 'News Item', 'Event'),
     )
+
+PREVIEW = [ {'portal_type': 'Image', 'expression': 'string:${object_url}/image_tile' } ]
 
 EXCLUDED_HTML = [
   {'tags': ('center','span','tt','big','small','s','strike','basefont','font',),
@@ -86,15 +89,18 @@ def typefilter(types):
 
 print "remove old resources"
 types = tool.zmi_get_type_mapping()
-tool.deleteResourceTypes([ t for (t,p) in types])
+tool.deleteResource([ t.name for t in types])
 
 print "add resources"
 for k,v in RESOURCES.items():
     tool.addResourceType(k, typefilter(v))
 
+print "add preview actions"
+    tool.updatePreviewActions(PREVIEW)
+
 mappings = tool.zmi_get_type_mapping()
-for rname, t in mappings:
-    print rname, ", ".join(t)
+for t in mappings:
+    print t.name, ", ".join(t.types)
 
 print "remove old libraries"
 libs = tool.zmi_get_libraries()
