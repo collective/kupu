@@ -54,7 +54,8 @@ Collection
 Resource
 
   A named and URI-locatable object with associated metadata, such as
-  title, description, preview, size, etc.
+  title, description, preview, size, etc. A resource can also be a
+  collection.
 
 
 Process overview 
@@ -88,139 +89,98 @@ Kupu issues a simple HTTP GET request to a URL defined in the
 'libraries' attribute of the iframe. The server returns XML conforming
 to the following schema::
 
- <grammar xmlns="http://relaxng.org/ns/structure/1.0">
+    start = libraries | library | collection
 
-   <start>
-     <ref name="librariesDocumentElement" />
-   </start>
+    ## 
+    ##             The libraries element is the top level for the XML used in Kupu.
+    ##             library elements which it contains are listed in the first column of the drawer.
+    ##         
+    libraries = element libraries { library* }
 
-   <define name="librariesDocumentElement">
-     <element name="libraries">
-       <zeroOrMore>
-         <ref name="library" />
-       </zeroOrMore>
-     </element>
-   </define>
+    ##  
+    ##             A library is static or dynamic collection of resources and collections defined at a top level.
+    ##             Libraries have no parents from a UI perspective, where as the collection they represent might have a parent collection.
+    ##             A library may be returned as a top-level element from a search or canned query.
+    ##         
+    library =
+      element library { commonToAllItems & (collectionItems | itemsSource) }
+    commonToAllItems =
+      attribute id {
+        # Must be unique among all libraries, resources and collections.
+        xsd:ID
+      },
+      attribute class { xsd:NMTOKENS }?,
+      attribute selected { "selected" }?,
+      (
+       ## The url to use when linking to this object
+       element uri { xsd:anyURI }
+       & 
+         ## Title to display in properties pane
+         element title { text }
+       & element label { text }?
+       & 
+         ## Icon to use in resource pane
+         element icon { xsd:anyURI }?)
 
-   <define name="library"
-     <element name="library">
-       <interleave>
-         <ref name="commonToAllItems" />
-         <choice>
-           <ref name="collectionItems" />
-           <ref name="itemsSource" />
-         </choice>
-       </interleave>
-       </element>
-   </define>
+    ## A list of collections and resources with an optional upload button at the end.
+    collectionItems =
+      element items {
+        collectionItem*,
+        element uploadbutton { empty }?
+      }
 
-   <define name="commonToAllItems">
-     <attribute name="id">
-       <!-- Must be unique among all libraries, resources and collections. -->
-       <text />
-     </attribute>
+    ## URI to retrieve the contents of the collection.
+    itemsSource = element src { text }
+    collectionItem = resource | collection
 
-     <interleave>
-       <element name="uri">
-         <text />
-       </element>
+    ## A named and URI-locatable object with associated metadata, such as title, description, preview, size, etc.
+    resource =
+      element resource {
+        commonToAllItems
+        & extraResourceInfo
+        & 
+          ## src element only if the resource is also a collection
+          (itemsSource?)
+      }
 
-       <optional>
-         <element name="label">
-           <text />
-         </element>
-       </optional>
+    ## 
+    ##             A static or dynamic collection of resources and collections, modelled after WebDAV collections.
+    ##         
+    collection =
+      element collection {
+        commonToAllItems & itemsSource & breadcrumbs? & collectionItems*
+      }
+    extraResourceInfo =
+      element preview { xsd:anyURI }?
+      & status*
+      & element size { sizeType }?
+      & element type { text }?
+      & element description { text }?
+      & element height { xsd:positiveInteger }?
+      & element width { xsd:positiveInteger }?
+      & 
+        ## Set if this resource could contain anchors
+        (element anchor { empty }?)
+    sizeType = xsd:string { pattern = "[0-9]+([KkMmGgTt]?b)?" }
+    status =
 
-       <element name="title">
-         <text />
-       </element>
+      ## Additional text to display in drawer
+      element status {
+        attribute class { xsd:NMTOKENS },
+        text
+      }
 
-       <optional>
-         <element name="icon">
-           <text />
-         </element>
-       </optional>
-     </interleave>
-   </define>
-
-   <define name="collectionItems">
-     <element name="items">
-       <zeroOrMore>
-         <ref name="collectionItem" />
-       </zeroOrMore>
-       <optional>
-         <element name="uploadbutton" />
-       </optional>
-     </element>
-   </define>
-
-   <define name="itemsSource">
-     <element name="src">
-       <text />
-     </element>
-   </define>
-
-   <define name="collectionItem">
-     <choice>
-       <element name="resource">
-         <ref name="commonToAllItems" />
-         <ref name="extraResourceInfo" />
-       </element>
-       <element name="collection">
-         <ref name="commonToAllItems" />
-         <ref name="itemsSource" />
-       </element>
-     </choice>
-   <define>
-
-   <define name="extraResourceInfo">
-     <interleave>
-       <optional>
-         <element name="preview">
-           <text />
-         </element>
-       </optional>
-
-       <optional>
-         <element name="size">
-           <text />
-         </element>
-       </optional>
-
-       <optional>
-         <element name="type">
-           <text />
-         </element>
-       </optional>
-     </interleave>
-   </define>
-
- </grammar>
-
-
-For example::
-
- <libraries>
-
-   <library id="http://path/to/folder">
-     <title>Current Folder</title>
-     <icon>http://path/to/icon.jpg</icon>
-     <src>http://server/current/folder/resources.kupu</src>
-   </library>
-
-   <library id="http://path/to/other/someotherfolder">
-     <title>Some Other Folder</title>
-     <icon>http://path/to/icon.jpg</icon>
-     <src>http:/server/other/folder/resources.kupu</src>
-   </library>
-
-   <library id="recentitems">
-     <title>Recent Items</title>
-     <icon>http://path/to/icon.jpg</icon>
-     <items />
-   </library>
-
- </libraries>
+    ## 
+    ## The optional breadcrumbs element may be used to provide 
+    ## a breadcrumb bar at the top of the drawer.
+    ##         
+    breadcrumbs =
+      element breadcrumbs {
+        element crumb {
+          attribute href { xsd:anyURI }
+        }*,
+        text
+      }
 
 
 Kupu parses this XML to a DOM managed in JavaScript and displays it
@@ -235,13 +195,26 @@ When the drawer is opened, Kupu loads the XML data about the libraries
 into a JS property that holds an XML DOM.  The Sarissa cross-browser
 abstraction for XML (http://sarissa.sf.net) is used.
 
+The initial XML should have *libraries* as the top element.
+
 As the user clicks, more XML data are loaded if that collection hasn't
-been visited yet.  The loaded XML is then appended into the XML DOM.
-The node that was clicked on has an attribute set to mark it as
-selected.  Kupu then runs an XSLT on the XML DOM to re-generate the
-drawer contents (as HTML), and updates the HTML node with the output.
-The use of XSLT and XPath give increased performance, lower line
-count, and better IE/Mozilla compatibility.
+been visited yet. A click on a *collection* or *resource* which has a
+*src* element will retrieve the *src* uri. This should return XML with
+a *collection* as the top element. The *items* represent the elements
+contained in the collection.
+
+A search, or a click on a *library* in the left column retrieves the
+*src* or the search uri. If the result has *library* as the top
+element it is added to the available libraries. If the result uses
+*collection* it does not add to the left column but does display the
+collection contents in the middle column.
+
+The loaded XML is then appended into the XML DOM.  The node that was
+clicked on has an attribute set to mark it as selected.  Kupu then
+runs an XSLT on the XML DOM to re-generate the drawer contents (as
+HTML), and updates the HTML node with the output.  The use of XSLT and
+XPath give increased performance, lower line count, and better
+IE/Mozilla compatibility.
 
 As an implementation note, XML is extremely compressible.  With
 mod_deflate and other server-compression approaches, at least a
@@ -266,26 +239,6 @@ directly provides the <items> node.
 Now, the XSLT is executed again, presenting the newly selected node
 (by querying for the node with the 'selected' attribute) and its
 contents.
-
-When a library's contents has to be retrieved with an extra request,
-it is returned according to the following schema (using definitions
-from above)::
-
- <grammar xmlns="http://relaxng.org/ns/structure/1.0">
-
-   <start>
-     <ref name="libraryDocumentElement" />
-   </start>
-
-   <define name="libraryDocumentElement">
-     <element name="library">
-       <ref name="commonToAllItems" />
-       <ref name="collectionItems" />
-     </element>
-   </define>
-
- </grammar>
-
 
 For example::
 
@@ -439,28 +392,22 @@ Permissions used by the library tool:
   edit and delete existing libraries.
 
 In order to be able to present special previews for resources without
-having to load the resource itself in Kupu, a portal type can provide
-an action called 'kupupreview', pointing to the URL where the object's
-preview can be retrieved. If a portal_type does not provide that
-action, preview is disabled for it.
+having to load the resource itself in Kupu, a portal type can have a
+defined preview action which is stored in the tool as a tal
+expression. If a portal_type does not provide that action, preview is
+disabled for it.
 
-Example: Preview action for CMFPhoto showing each photo's thumbnail
+Example: Preview action for Image showing each picture's thumbnail
 version:
 
-  - Go to the portal_types tool and click on the 'Photo' portal
-    type. Then click on its 'Actions' tab.
+  - Go to the kupu configlet/resource types tab. Scroll to the bottom
+    of the page.
 
-  - Down below enter information for a new action:
+  - Under 'preview URLs' select the type 'Image' and under URL enter:
 
-    Name:       Kupu Preview
-    Id:         kupupreview
-    Action:     string:${object_url}/variant/thumbnail
-    Condition:  [empty]
-    Permission: View
-    Category:   object
-    Visible?    False
+    string:${object_url}/image_thumb
 
-  - Hit the 'Add' button.
+  - Hit the 'Save' button.
 
 
 Futures

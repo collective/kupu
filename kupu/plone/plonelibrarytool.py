@@ -367,8 +367,6 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                               "zmi_update_resource_types")
     def zmi_update_resource_types(self, type_info=None, preview_action=None, REQUEST=None):
         """Update resource types through the ZMI"""
-        print "type_info", type_info
-        print "preview_action", preview_action
 
         if type_info:
             self.updateResourceTypes(type_info)
