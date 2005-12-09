@@ -525,7 +525,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             xsltproc.setParameter("", "drawertitle", this.drawertitle);
             xsltproc.setParameter("", "showupload", this.showupload);
             xsltproc.setParameter("", "showanchors", this.showanchors);
-            if (!!this.editor.config.captions) {
+            if (this.editor.config && !!this.editor.config.captions) {
                 xsltproc.setParameter("", "usecaptions", 'yes');
             }
         } catch(e) {
@@ -1237,7 +1237,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     this.finishUpload = function(url) {
         this.editor.resumeEditing();
         var imgclass = 'image-inline';
-        if (!!this.editor.config.captions) {
+        if (this.editor.config && !!this.editor.config.captions) {
             imgclass += " captioned";
         };
         this.tool.createImage(url, null, imgclass);
