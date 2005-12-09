@@ -8,11 +8,11 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     tal:define="resource_type request/resource_type | string:mediaobject;
         instance python:request.get('instance', '');
-        instance python:test(instance, 'instance=%s&' % instance, '');
-        global supportsupload python:resource_type=='mediaobject';"
+        instance python:test(instance, 'instance=%s&' % instance, '');"
     >
 
   <tal:with define="kupu context/kupu_library_tool;
+        global supportsupload python:kupu.isUploadSupported(context);
         info python:kupu.getSingleObjectInfo(context);
         breadcrumbs python:kupu.getBreadCrumbs(context);">
     <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems" />

@@ -614,4 +614,18 @@ class PloneDrawers:
             txfrm = txfrm.getData()
         return txfrm and not uid in txfrm
 
+    security.declareProtected("View", "isUploadSupported")
+    def isUploadSupported(self, context):
+        """Returns True if we can upload the the current folder."""
+        resource_type = self.getResourceType()
+        if resource_type.name != 'mediaobject':
+            return False
+
+        allowedContent = context.getAllowedTypes()
+        allowed = dict.fromkeys([a.getId() for a in allowedContent])
+        for t in resource_type.portal_types:
+            if t in allowed:
+                return True
+        return False
+
 InitializeClass(PloneDrawers)
