@@ -14,7 +14,6 @@
     <mm:import externid="kupubasedir" />
     <mm:context scope="request" id="drawer">
       <library id="${nodetype}">
-        <uri><mm:url referids="nodetype" page="drawers/upload.jspx" />&amp;amp;upload=</uri>
         <title>
           <mm:nodeinfo nodetype="$nodetype" type="plural_guinodemanager" />
         </title>
@@ -28,7 +27,9 @@
           <src><mm:url referids="nodetype,kupubasedir,source?" page="drawers/collection.jspx" /></src>
         </mm:listnodescontainer>
         <mm:compare referid="nodetype" valueset="images,attachments">
-          <uploadbutton type="${nodetype}" />
+          <uploadbutton type="${nodetype}">
+            <uri>drawers/upload.jspx?nodetype=${nodetype}</uri>
+          </uploadbutton>
         </mm:compare>
       </library>
     </mm:context>

@@ -11,6 +11,8 @@
       <mm:node referid="s" id="s" />
     </mm:present>
     <libraries>
+      <param name="showupload">yes</param>
+      <param name="drawertype">image</param>
       <mm:url absolute="server" id="kupubasedir" page="../.." write="false" />
       <mm:stringlist referid="nodetypes" id="nodetype">
         <mm:hasnodemanager name="$_">
