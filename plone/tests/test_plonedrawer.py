@@ -59,6 +59,7 @@ class TestPloneDrawer(ArchetypesTestCase.ArcheSiteTestCase):
 
     def afterSetUp(self):
         portal = self.portal
+        self.setRoles(['Manager',])
         quickinstaller = portal.portal_quickinstaller
         quickinstaller.installProduct('ATContentTypes')
         quickinstaller.installProduct('kupu')
@@ -113,7 +114,7 @@ class TestPloneDrawer(ArchetypesTestCase.ArcheSiteTestCase):
 
         portal = self.portal
         tool = self.portal.kupu_library_tool
-        types = tool.zmi_get_type_mapping()
+        types = tool.zmi_get_resourcetypes()
         #tool.deleteResource([ t.name for t in types])
         for k,v in RESOURCES.items():
             tool.addResourceType(k, [MapType(t) for t in v])

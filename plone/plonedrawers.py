@@ -23,6 +23,13 @@ from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone.librarytool import KupuError
 
+try:
+    from PIL import Image
+except ImportError:
+    HAS_PIL = False
+else:
+    HAS_PIL = True
+
 UIDURL = re.compile(".*\\bresolveuid/([^/?#]+)")
 
 class ResourceType:
@@ -49,6 +56,7 @@ class ResourceType:
                 raise KupuError("Unrecognised portal type for resource %s" % name)
 
             schema = typeinfo[0]['schema']
+            self.klass = typeinfo[0]['klass']
             try:
                 self._field = schema[fieldname]
             except KeyError:
@@ -123,7 +131,6 @@ class InfoAdaptor:
         self.linkbyuid = tool.getLinkbyuid()
         self.coll_types = tool.getResourceType('collection').portal_types
         self.anchor_types =  tool.getResourceType('containsanchors').portal_types
-        self.preview_action = 'kupupreview'
         portal_base = self.url_tool.getPortalPath()
         self.prefix_length = len(portal_base)+1
         self.resource_type = tool.getResourceType(resource_type)
@@ -332,6 +339,52 @@ class InfoAdaptor:
 class PloneDrawers:
     security = ClassSecurityInfo()
 
+    security.declareProtected("View", "getPreviewable")
+    def getPreviewable(self):
+        """Returns previewable types and a possible preview path"""
+        if HAS_PIL:
+            def best_preview(field):
+                sizes = getattr(field, 'sizes', None)
+                if not sizes:
+                    return field.getName()
+
+                preview = None
+                previewsize = (0,0)
+                for k in sizes:
+                    if previewsize < sizes[k] <= (128,128):
+                        preview = k
+                        previewsize = sizes[k]
+                if not preview:
+                    smallest = min(sizes.values())
+                    for k in sizes:
+                        if sizes[k]==smallest:
+                            preview = k
+                            break
+                return "%s_%s" % (field.getName(), preview)
+
+        else:
+            def best_preview(field):
+                return field.getName()
+
+        result = []
+        typestool = getToolByName(self, 'portal_types')
+        archetype_tool = getToolByName(self, 'archetype_tool', None)
+        if archetype_tool is None:
+            return result
+        valid = dict.fromkeys([t.getId() for t in typestool.listTypeInfo()])
+        types = archetype_tool.listRegisteredTypes()
+        for t in types:
+            name = t['portal_type']
+            if not name in valid:
+                continue
+            schema = t['schema']
+            for field in schema.fields():
+                if not isinstance(field, ImageField):
+                    continue
+                result.append((name, best_preview(field)))
+                break
+        return result
+        
     security.declarePublic("getResourceType")
     def getResourceType(self, resource_type=None):
         """Convert resource type string to instance"""

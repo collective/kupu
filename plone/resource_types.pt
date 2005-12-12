@@ -38,7 +38,7 @@ ideally return an image no larger than 128 pixels square.</p>
   </tr>
 </thead>
 
- <tal:loop tal:repeat="resource here/zmi_get_type_mapping">
+ <tal:loop tal:repeat="resource here/zmi_get_resourcetypes">
 <tbody
   tal:define="oddrow repeat/resource/odd;"
   tal:attributes="class python:test(oddrow, 'even', 'odd');"

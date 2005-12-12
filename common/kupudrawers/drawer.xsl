@@ -64,7 +64,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     </xsl:variable>
     <xsl:template name="drawer-title">Drawer</xsl:template>
     <xsl:output indent="yes" method="xml" />
-    <xsl:preserve-space elements="form div strong br input"/>
+    <xsl:preserve-space elements="form div strong br input textarea"/>
     <xsl:template match="/">
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupu" >
             <head>
@@ -374,15 +374,15 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     
     <!-- image upload form -->
     <xsl:template match="uploadbutton" mode="image-upload">
-        <div>
+        <div class="overflow">
             <div id="kupu-upload-instructions" i18n:translate="imagedrawer_upload_instructions">
                 Select an image from your computer and click ok to have it automatically uploaded to
                 selected folder and inserted into the editor. </div>
-            <form name="kupu_upload_form" id="kupu_upload_form" method="POST" action=""
+            <form name="kupu_upload_form" id="kupu_upload_form" method="POST"
                 scrolling="off"
                 target="kupu_upload_form_target" enctype="multipart/form-data" style="margin: 0;
                 border: 0;">
-              <xsl:attribute name="action"><xsl:value-of select="concat(/libraries/*[@selected]/uri/text(), '/kupuUploadImage')"/></xsl:attribute>
+              <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
                 <label i18n:translate="imagedrawer_upload_to_label">Upload
                     to <span i18n:name="folder">
                         <xsl:value-of select="/libraries/*[@selected]/title"/>
@@ -395,10 +395,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     value=""/>
                  </label>
                 <label i18n:translate="imagedrawer_upload_desc_label"
-                    >Description
-                <textarea name="node_prop_desc"></textarea>
+                    >Description<br />
+                <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>
                 </label>
-                <br/>
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None"> </iframe>

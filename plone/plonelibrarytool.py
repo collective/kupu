@@ -94,7 +94,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                               "deleteLibraries", "updateLibraries",
                               "moveUp", "moveDown")
     security.declareProtected(permissions.ManageLibraries, "addResourceType",
-                              "updateResourceTypes", "deleteResource")
+                              "updateResourceTypes", "deleteResourceTypes")
 
     def __init__(self):
         self._libraries = PersistentList()
@@ -168,7 +168,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
     security.declareProtected('View', "installBeforeUnload")
     def installBeforeUnload(self):
-        return getattr(self, 'install_beforeunload', True)
+        return getattr(self, 'install_beforeunload', False)
 
     security.declareProtected('View', 'isKupuEnabled')
     def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None):
@@ -345,9 +345,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         """Return the libraries sequence for the ZMI view"""
         self._default_library = defid
 
-    security.declareProtected(permissions.ManageLibraries,
-                              "zmi_get_type_mapping")
+    security.declareProtected(permissions.ManageLibraries, "zmi_get_type_mapping")
     def zmi_get_type_mapping(self):
+        """Return the type mapping for the ZMI view:
+           Old version of code. Returns name,types pairs plus a dummy"""
+        return [(t.name, t.types) for t in self.zmi_get_resourcetypes()] + [('',())]
+
+    security.declareProtected(permissions.ManageLibraries, "zmi_get_resourcetypes")
+    def zmi_get_resourcetypes(self):
         """Return the type mapping for the ZMI view"""
         keys = self._res_types.keys()
         keys.sort()
@@ -357,11 +362,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             wrapped = Object(name=name, types=tuple(value))
             real.append(wrapped)
             
-        # Add a dummy object for the 'add new resource' option
         real.append(Object(name='', types=()))
         return real
-        return [Object(name=res_type, types=tuple(portal_type)) for res_type, portal_type
-                in self._res_types.items()] + [dummy]
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_update_resource_types")
@@ -381,7 +383,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def zmi_delete_resource_types(self, resource_types=None, preview_types=None, REQUEST=None):
         """Delete resource types through the ZMI"""
         if resource_types:
-            self.deleteResource(resource_types)
+            self.deleteResourceTypes(resource_types)
         if preview_types:
             self.deletePreviewActions(preview_types)
         if (REQUEST):

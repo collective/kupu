@@ -20,8 +20,6 @@ RESOURCES = dict(
     containsanchors = ('Document', 'News Item', 'Event'),
     )
 
-PREVIEW = [ {'portal_type': 'Image', 'expression': 'string:${object_url}/image_tile' } ]
-
 EXCLUDED_HTML = [
   {'tags': ('center','span','tt','big','small','s','strike','basefont','font',),
    'attributes':(),
@@ -77,28 +75,45 @@ LIBRARIES = (
     )
 DEFAULT_LIBRARY = 'myitems'
 
-INSTALL_BEFOREUNLOAD = True
+INSTALL_BEFOREUNLOAD = False
 LINKBYUID = False
+CAPTIONING = False
 
 tool = getToolByName(context, 'kupu_library_tool')
 typetool = getToolByName(context, 'portal_types')
+
+# This code generates preview URLs automatically from the most
+# appropriately sized image (if you have PIL installed) or just an
+# image field (if you don't).
+#
+# If you have content types which don't always have an image, or if
+# this picks the wrong preview URL, you might want to change these
+# expressions.
+PREVIEW_EXPR = 'string:${object_url}/%s'
+PREVIEW = [ { 'portal_type': type, 'expression': PREVIEW_EXPR % image }
+            for (type, image) in tool.getPreviewable() ]
+# e.g. PREVIEW=[{'portal_type': 'Image', 'expression':'string:${object_url}/image_thumb'}]
+
+for p in PREVIEW:
+    print p['portal_type'], p['expression']
+
+print "add preview actions"
+tool.updatePreviewActions(PREVIEW)
+
 
 def typefilter(types):
     all_meta_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
     return [ t for t in types if t in all_meta_types ]
 
 print "remove old resources"
-types = tool.zmi_get_type_mapping()
-tool.deleteResource([ t.name for t in types])
+types = tool.zmi_get_resourcetypes()
+tool.deleteResourceTypes([ t.name for t in types])
 
 print "add resources"
 for k,v in RESOURCES.items():
     tool.addResourceType(k, typefilter(v))
 
-print "add preview actions"
-    tool.updatePreviewActions(PREVIEW)
-
-mappings = tool.zmi_get_type_mapping()
+mappings = tool.zmi_get_resourcetypes()
 for t in mappings:
     print t.name, ", ".join(t.types)
 
@@ -129,6 +144,7 @@ tool.configure_kupu(
     class_blacklist = CLASS_BLACKLIST,
     installBeforeUnload=INSTALL_BEFOREUNLOAD,
     linkbyuid=LINKBYUID,
+    captioning=CAPTIONING,
     )
 
 return printed
