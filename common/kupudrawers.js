@@ -640,6 +640,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
+        if (!sourcenode || !targetnode) return;
+
         sourcenode = document.importNode(sourcenode, true);
         Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
@@ -652,9 +654,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
     };
 
     this.updateResources = function() {
-        this.updateDisplay(this.breadcrumbsid);
-        this.updateDisplay(this.resourcespanelid);
-        this.updateDisplay(this.propertiespanelid);
+        if (this.editor.getBrowserName() == 'IE') {
+            this.updateDisplay(this.drawerid);
+        } else {
+            this.updateDisplay(this.breadcrumbsid);
+            this.updateDisplay(this.resourcespanelid);
+            this.updateDisplay(this.propertiespanelid);
+        }
     }
 
     this.deselectActiveCollection = function() {

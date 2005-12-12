@@ -126,7 +126,9 @@ to the following schema::
     collectionItems =
       element items {
         collectionItem*,
-        element uploadbutton { empty }?
+        element uploadbutton {
+          element uri { xsd:anyURI }
+        }?
       }
 
     ## URI to retrieve the contents of the collection.

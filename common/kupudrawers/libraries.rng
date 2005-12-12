@@ -4,11 +4,16 @@
     xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">
     <start>
         <choice>
-            <ref name="librariesDocumentElement"/>
-            <ref name="collectionItem"/>
+            <ref name="libraries"/>
+            <ref name="library"/>
+            <ref name="collection"/>
         </choice>
     </start>
-    <define name="librariesDocumentElement">
+    <define name="libraries">
+        <a:documentation>
+            The libraries element is the top level for the XML used in Kupu.
+            library elements which it contains are listed in the first column of the drawer.
+        </a:documentation>
         <element name="libraries">
             <zeroOrMore>
                 <ref name="library"/>
@@ -16,11 +21,12 @@
         </element>
     </define>
     <define name="library">
+        <a:documentation> 
+            A library is static or dynamic collection of resources and collections defined at a top level.
+            Libraries have no parents from a UI perspective, where as the collection they represent might have a parent collection.
+            A library may be returned as a top-level element from a search or canned query.
+        </a:documentation>
         <element name="library">
-            <a:documentation> A static or
-                dynamic collection of resources and collections defined at a top level. Libraries
-                have no parents from a UI perspective, where as the collection they represent might
-                have a parent collection. </a:documentation>
             <interleave>
                 <ref name="commonToAllItems"/>
                 <choice>
@@ -68,22 +74,23 @@
         </interleave>
     </define>
     <define name="collectionItems">
+        <a:documentation>A list of collections and resources with an optional upload button at the end.</a:documentation>
         <element name="items">
-            <a:documentation> A list of
-                collections and resources with an optional upload button at the end. </a:documentation>
             <zeroOrMore>
                 <ref name="collectionItem"/>
             </zeroOrMore>
             <optional>
                 <element name="uploadbutton">
-                    <empty/>
+                    <element name="uri">
+                        <data type="anyURI"/>
+                    </element>
                 </element>
             </optional>
         </element>
     </define>
     <define name="itemsSource">
+        <a:documentation>URI to retrieve the contents of the collection.</a:documentation>
         <element name="src">
-            <a:documentation>URI to retrieve the contents of the collection</a:documentation>
             <text/>
         </element>
     </define>
@@ -94,9 +101,8 @@
         </choice>
     </define>
     <define name="resource">
+        <a:documentation>A named and URI-locatable object with associated metadata, such as title, description, preview, size, etc.</a:documentation>
         <element name="resource">
-            <a:documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0"> A named and URI-locatable object
-                with associated metadata, such as title, description, preview, size, etc. </a:documentation>
             <interleave>
                 <ref name="commonToAllItems"/>
                 <ref name="extraResourceInfo"/>
@@ -105,9 +111,10 @@
         </element>
     </define>
     <define name="collection">
+        <a:documentation>
+            A static or dynamic collection of resources and collections, modelled after WebDAV collections.
+        </a:documentation>
         <element name="collection">
-            <a:documentation xmlns="http://relaxng.org/ns/compatibility/annotations/1.0"> A static or dynamic collection
-                of resources and collections, modelled after WebDAV collections. </a:documentation>
             <interleave>
                 <ref name="commonToAllItems"/>
                 <ref name="itemsSource"/>
@@ -154,8 +161,8 @@
                 </element>
             </optional>
             <optional>
+                <a:documentation>Set if this resource could contain anchors</a:documentation>
                 <element name="anchor">
-                    <a:documentation>Set if this resource could contain anchors</a:documentation>
                     <empty/>
                 </element>
             </optional>
@@ -168,6 +175,7 @@
     </define>
     <define name="status">
         <element name="status">
+            <a:documentation>Additional text to display in drawer</a:documentation>
             <attribute name="class">
                 <data type="NMTOKENS"></data>
             </attribute>
@@ -175,6 +183,9 @@
         </element>
     </define>
     <define name="breadcrumbs">
+        <a:documentation>
+            The optional breadcrumbs element may be used to provide a breadcrumb bar at the top of the drawer.
+        </a:documentation>
         <element name="breadcrumbs">
             <zeroOrMore>
                 <element name="crumb">
