@@ -4,12 +4,7 @@
     xml:lang="nl" lang="nl">
   <jsp:output omit-xml-declaration="true" />
   <jsp:directive.page session="false" isErrorPage="true" />
-  <jsp:scriptlet>
-    response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //Prevents caching at the proxy server
-  </jsp:scriptlet>
-  <mm:content language="nl" type="text/xml" postprocessor="reducespace" expires="0">
+  <mm:content language="nl" type="text/html" postprocessor="reducespace" expires="0">
     
     <head>
       <title><mm:import id="title">500 <jsp:expression>exception != null ? exception.getMessage() : " fout "</jsp:expression></mm:import><mm:write referid="title" /></title>
@@ -32,11 +27,14 @@
           <mm:log jspvar="log"><jsp:scriptlet>log.warn(exception, exception);</jsp:scriptlet></mm:log>
           <pre>
             STACK
-            <jsp:scriptlet>
-            if (exception != null) { 
-            exception.printStackTrace(new java.io.PrintWriter(out));
-            } 
-            </jsp:scriptlet>
+            <mm:import id="trace">
+              <jsp:scriptlet>
+                if (exception != null) { 
+                exception.printStackTrace(new java.io.PrintWriter(out));
+                } 
+              </jsp:scriptlet>
+            </mm:import>
+            <mm:write referid="trace" />
           </pre>          
         </div>
       </div>

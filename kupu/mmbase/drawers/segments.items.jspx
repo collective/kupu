@@ -7,18 +7,19 @@ x<!--
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
-  <mm:import externid="kupubasedir" />
   <mm:content type="text/xml">
     <mm:listnodescontainer referid="query">
       <items>
-        <mm:listnodes id="segment">
-          <resource id="${segment.number}">          
-            <uri><mm:url page="/mmbase/segments/${segment.number}" /></uri>
-            <title><mm:function name="index" /></title>
-            <description><mm:field name="title" /></description>
-            <icon>${kupubasedir}/common/kupuimages/document.png</icon>
-          </resource>
-        </mm:listnodes>
+        <mm:context>
+          <mm:listnodes id="segment">
+            <resource id="${segment.number}">          
+              <uri><mm:url page="/mmbase/segments/${segment.number}" /></uri>
+              <title><mm:function name="index" /></title>
+              <description><mm:field name="title" /></description>
+              <icon>${kupubasedir}/common/kupuimages/document.png</icon>
+            </resource>
+          </mm:listnodes>
+        </mm:context>
       </items>
     </mm:listnodescontainer>
   </mm:content>

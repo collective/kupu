@@ -18,14 +18,14 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         /* create a link in the iframe according to collected data
            from the drawer */
         var selxpath = '//resource[@selected]';
-        var selnode = this.shared.xmldata.selectSingleNode(selxpath);
+        var selnode = this.xmldata.selectSingleNode(selxpath);
         if (!selnode) {
-            var uploadbutton = this.shared.xmldata.selectSingleNode("/libraries/*[@selected]//uploadbutton");
+            var uploadbutton = this.xmldata.selectSingleNode("/libraries/*[@selected]/uploadbutton");
             if (uploadbutton) {
                 this.uploadResource();
-            };
+            }
             return;
-        };
+        }
 
         var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         uri = uri.strip();  // needs kupuhelpers.js
@@ -46,22 +46,23 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     };
     // upload, on submit/insert press
     this.uploadResource = function() {
-        var form = document.kupu_upload_form;
-        if (!form || form.node_prop_image.value=='') return;
+        var form = document.getElementById('kupu_upload_form');
+        if (!form || form.node_prop_image.value == '') {
+            alert("" + form + " " + form.node_prop_image.value);
+            return;
+        }
 
-        if (form.node_prop_caption.value == "") {
+        if (form.node_prop_title.value == "") {
             alert("Please enter a title for the image you are uploading");
             return;        
         };
         
-        var targeturi =  this.shared.xmldata.selectSingleNode('/libraries/*[@selected]/uri/text()').nodeValue
-        document.kupu_upload_form.action =  targeturi + "/kupuUploadImage";
-        document.kupu_upload_form.submit();
+        form.submit();
     };
     
     // called for example when no permission to upload for some reason
     this.cancelUpload = function(msg) {
-        var s = this.shared.xmldata.selectSingleNode('/libraries/*[@selected]');     
+        var s = this.xmldata.selectSingleNode('/libraries/*[@selected]');     
         s.removeAttribute("selected");
         this.updateDisplay();
         if (msg != '') {
@@ -72,12 +73,13 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
     // called by onLoad within document sent by server
     this.finishUpload = function(url, mimetype) {
         this.editor.resumeEditing();
-        var form = document.kupu_upload_form;
-        var title = "[" + mimetype + ":" + form.node_prop_caption.value + "]";        
+        var form = document.getElementById('kupu_upload_form');
+        var title = "[" + mimetype + ":" + form.node_prop_title.value + "]";        
         this.tool.createLink(url, null, null, null, title);
         this.shared.newimages = 1;
         this.drawertool.closeDrawer();
     };
+
 
 };
 

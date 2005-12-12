@@ -11,17 +11,16 @@
 
     
   <mm:cloud rank="basic user">
-    <mm:import externid="nodetype">images</mm:import>
-    
+    <mm:import externid="nodetype">images</mm:import>    
     <mm:log>Uploading</mm:log>
     <mm:import id="title" externid="node_prop_caption" from="multipart"/>
-    <mm:import id="file" externid="node_prop_image" from="multipart" vartype="fileitem" />
+    <mm:import id="file" externid="node_prop_image" from="multipart" vartype="fileitem"  />
     <mm:createnode type="$nodetype" id="node">
       <mm:setfield name="title" valueid="title" />
-      <mm:setfield name="handle" valueid="file" />
       <mm:hasfield name="filename">
         <mm:setfield name="filename">${file.name}</mm:setfield>
       </mm:hasfield>
+      <mm:setfield name="handle" valueid="file" />
     </mm:createnode>
     <mm:node referid="node">
       <mm:function name="mimetype" id="mimetype" write="false" />

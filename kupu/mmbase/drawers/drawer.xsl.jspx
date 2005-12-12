@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+##############################################################################
+#
+# Copyright (c) 2003-2005 Kupu Contributors. All rights reserved.
+#
+# This software is distributed under the terms of the Kupu
+# License. See LICENSE.txt for license text. For a list of Kupu
+# Contributors see CREDITS.txt.
+#
+##############################################################################
+
+XSL transformation from Kupu Library XML to HTML for the image library
+drawer.
+
+$Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
+-->
+<xsl:stylesheet
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  >
+  <mm:link absolute="true" page="../../common/kupudrawers/drawer.xsl">
+    <!-- Must be absolute, or otherwise IE chokes -->
+    <xsl:import href="${_}" />
+  </mm:link>
+  
+  
+  <xsl:template match="*" mode="panel">
+    <xsl:choose>
+      <xsl:when test="$drawertype='image'">
+        <xsl:if test="//resource[@selected]">
+          <xsl:apply-templates
+              select="/libraries/*[@selected]//resource[@selected]"
+              mode="image-properties"/>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="$drawertype='link'">
+        <xsl:apply-templates
+            select="/libraries/*[@selected]//resource[@selected]"
+            mode="link-properties"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates
+            select="/libraries/*[@selected]//resource[@selected]"
+            mode="properties"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:if test="$showupload='yes'">
+      <xsl:apply-templates
+          select="/libraries/*[@selected]//uploadbutton"
+          mode="upload"/>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="uploadbutton" mode="upload">
+    <xsl:apply-templates select="." mode="image-upload" />
+  </xsl:template>
+
+</xsl:stylesheet>

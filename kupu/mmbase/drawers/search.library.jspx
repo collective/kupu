@@ -16,7 +16,8 @@
     <mm:import externid="page">0</mm:import>
     <mm:import vartype="list" externid="nodetypes">images</mm:import>
     <mm:import externid="source" />
-
+    
+    <mm:log>${nodetypes}</mm:log>
     <library id="${nodetypes}_${search}">
       <uri><mm:url referids="search,librarysize@max,nodetypes" page="drawers/collection.jspx" /></uri>
       <title>"<mm:write referid="search" />"</title>
@@ -24,7 +25,9 @@
       
       <mm:stringlist referid="nodetypes">        
         <mm:hasnodemanager name="$_">
+          <mm:log>${_}</mm:log>
           <mm:context id="drawer" scope="request">
+            <mm:import externid="kupubasedir" reset="true" />
             <mm:remove referid="nodetype" />
             <mm:write id="nodetype" write="false" />
             <mm:remove referid="query" />
@@ -35,10 +38,13 @@
               </mm:present>              
               <mm:sortorder field="number" direction="down" />
               <mm:maxnumber value="$librarysize" />
-              <mm:offset    value="${librarysize * page}" />
-              
-              <mm:include page="${nodetype}.items.jspx" />
-              
+              <mm:offset    value="${librarysize * page}" />              
+              <mm:haspage page="${nodetype}.items.jspx">
+                <mm:include page="${nodetype}.items.jspx" />
+              </mm:haspage>
+              <mm:haspage page="${nodetype}.items.jspx" inverse="true">
+                <mm:include page="texts.items.jspx" />
+              </mm:haspage>              
             </mm:listnodescontainer>
           </mm:context>
         </mm:hasnodemanager>

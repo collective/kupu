@@ -16,6 +16,7 @@
                   doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
                   doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"/>
 
+      <mm:url absolute="server" id="kupubasedir" page=".." write="false" />
       <mm:cloud rank="basic user">
         <!--
         <mm:import id="org.mmbase.index-root" externid="root" />
