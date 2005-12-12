@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+d<?xml version="1.0" encoding="utf-8" ?>
 <!--
 ##############################################################################
 #
@@ -27,10 +27,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="drawertitle">
         <xsl:variable name="v" select="/libraries/param[@name='drawertitle']"></xsl:variable>
         <xsl:choose>
-            <xsl:when test="count($v)"><xsl:value-of select="$v"/></xsl:when>
-            <xsl:otherwise>Drawer</xsl:otherwise>
+          <xsl:when test="count($v)"><xsl:value-of select="$v"/></xsl:when>
+          <xsl:otherwise>Drawer</xsl:otherwise>
         </xsl:choose>
-        </xsl:param>
+    </xsl:param>
     <xsl:param name="showupload">
         <xsl:variable name="v" select="/libraries/param[@name='showupload']"></xsl:variable>
         <xsl:choose>
@@ -99,9 +99,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         <h1 class="kupu-drawer-title">
                             <xsl:value-of select="$i18n_drawertitle"/>
                         </h1>
-                        <div id="kupu-breadcrumbs" class="kupu-breadcrumbs">
+                        <xsl:if test="//*[@selected]/breadcrumbs">
+                          <div id="kupu-breadcrumbs" class="kupu-breadcrumbs">
                             <xsl:apply-templates select="//*[@selected]/breadcrumbs"/>
-                        </div>
+                          </div>
+                        </xsl:if>
                         <div class="kupu-panels">
                             <table>
                                 <tr class="kupu-panelsrow">
@@ -118,31 +120,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                     </td>
                                     <td id="kupu-propertiespanel" class="panel">
                                         <div id="kupu-properties" class="overflow">
-                                            <xsl:choose>
-                                                <xsl:when test="$drawertype='image'">
-                                                    <xsl:if test="//resource[@selected]">
-                                                        <xsl:apply-templates
-                                                            select="/libraries/*[@selected]//resource[@selected]"
-                                                            mode="image-properties"/>
-                                                    </xsl:if>
-                                                    <!-- use image upload template -->
-                                                    <xsl:if test="$showupload='yes'">
-                                                        <xsl:apply-templates
-                                                            select="/libraries/*[@selected]//uploadbutton"
-                                                            mode="image-upload"/>
-                                                    </xsl:if>
-                                                </xsl:when>
-                                                <xsl:when test="$drawertype='link'">
-                                                    <xsl:apply-templates
-                                                        select="/libraries/*[@selected]//resource[@selected]"
-                                                        mode="link-properties"/>
-                                                </xsl:when>
-                                                <xsl:otherwise>
-                                                    <xsl:apply-templates
-                                                        select="/libraries/*[@selected]//resource[@selected]"
-                                                        mode="properties"/>
-                                                </xsl:otherwise>
-                                            </xsl:choose>
+                                          <xsl:apply-templates select="." mode="panel" />
                                         </div>
                                     </td>
                                 </tr>
@@ -159,6 +137,36 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </body>
         </html>
     </xsl:template>
+
+    <!-- The panel template can be overridden, if something else must happen on the right panel of the drawer. -->
+    <xsl:template match="*" mode="panel">
+      <xsl:choose>
+        <xsl:when test="$drawertype='image'">
+          <xsl:if test="//resource[@selected]">
+            <xsl:apply-templates
+                select="/libraries/*[@selected]//resource[@selected]"
+                mode="image-properties"/>
+          </xsl:if>
+          <!-- use image upload template -->
+          <xsl:if test="$showupload='yes'">
+            <xsl:apply-templates
+                select="/libraries/*[@selected]//uploadbutton"
+                mode="image-upload"/>
+          </xsl:if>
+        </xsl:when>
+        <xsl:when test="$drawertype='link'">
+          <xsl:apply-templates
+              select="/libraries/*[@selected]//resource[@selected]"
+              mode="link-properties"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates
+              select="/libraries/*[@selected]//resource[@selected]"
+              mode="properties"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="library">
         <div onclick="drawertool.current_drawer.selectLibrary('{@id}');" class="kupu-libsource"
             title="{title}" style="">
@@ -396,7 +404,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                  </label>
                 <label i18n:translate="imagedrawer_upload_desc_label"
                     >Description<br />
-                <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>
+                <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>   
                 </label>
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
