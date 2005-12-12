@@ -76,7 +76,7 @@ class TestIResourceTypeMapper(ZopeTestCase):
 
     def test_delete(self):
         type_map = self.type_map
-        type_map.deleteResource(["foobar", "bonobo"])
+        type_map.deleteResourceTypes(["foobar", "bonobo"])
         self.assertRaises(KeyError, type_map.getPortalTypesForResourceType,
                           "foobar")
         self.assertRaises(KeyError, type_map.getPortalTypesForResourceType,

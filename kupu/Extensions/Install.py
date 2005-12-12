@@ -204,13 +204,16 @@ def install_customisation(self, out):
     """Default settings may be stored in a customisation policy script so
     that the entire setup may be 'productised'"""
 
-    # Skins are cached during the request so we (in case new skin
+    # Skins are cached during the request so (in case new skin
     # folders have just been added) we need to force a refresh of the
     # skin.
     self.changeSkin(None)
 
     scriptname = '%s-customisation-policy' % PROJECTNAME.lower()
     cpscript = getattr(self, scriptname, None)
+    # If the user hasn't created a CP then use the sample.
+    if not cpscript:
+        cpscript = getattr(self, 'sample-kupu-customisation-policy', None)
     if cpscript:
         cpscript = cpscript.__of__(self)
 

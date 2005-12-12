@@ -1217,9 +1217,6 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
             alert("Please enter a title for the image you are uploading");
             return;        
         };
-        
-        var targeturi =  this.xmldata.selectSingleNode('/libraries/*[@selected]/uri/text()').nodeValue;
-        form.action =  targeturi + "/kupuUploadImage";
         form.submit();
     };
     

@@ -83,7 +83,9 @@
       </collection>
 
     </tal:loop>
-    <uploadbutton tal:condition="supportsupload|nothing" />
+    <uploadbutton tal:condition="supportsupload|nothing">
+       <uri tal:content="string:${here/absolute_url}/kupuUploadImage" />
+    </uploadbutton>
   </items>
 
 </collection>

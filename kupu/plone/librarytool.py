@@ -167,19 +167,18 @@ class KupuLibraryTool(Acquisition.Implicit):
             type_map[resource_type] = tuple(portal_types)
 
     def updatePreviewActions(self, preview_actions):
-        action_map = getattr(self, '_preview_actions', {})
+        action_map = {}
 
         for a in preview_actions:
             portal_type = a.get('portal_type', '')
+            expr = a.get('expression', '')
             if not portal_type:
                 continue
-            expr = a.get('expression', '')
-            action_map[portal_type] = { 'expression': Expression(expr),
-                }
+            action_map[portal_type] = { 'expression': Expression(expr), }
 
         self._preview_actions = action_map
 
-    def deleteResource(self, resource_types):
+    def deleteResourceTypes(self, resource_types):
         """See IResourceTypeMapper"""
         existing = self._res_types
         for type in resource_types:
