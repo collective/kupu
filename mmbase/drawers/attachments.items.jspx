@@ -14,7 +14,7 @@
           <uploadbutton>yes</uploadbutton>
           <mm:listnodes id="attachment">
             <resource id="${attachment.number}">          
-              <uri><mm:attachment /> </uri>
+              <uri>mmbase://attachments/${attachment.number}</uri>
               <title>[<mm:field name="mimetype" />: <mm:field name="title" />]</title>
               <size><mm:field name="size" />b</size>
               <icon><mm:function name="iconurl" /></icon>

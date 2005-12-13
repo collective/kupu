@@ -34,7 +34,6 @@
   </kupu:part>
   <kupu:part name="header">
     <div id="header">
-      <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
       <fmt:bundle basename="org.mmbase.kupu.Messages">
         <div id="back">
           <a href="${back}">

@@ -15,7 +15,7 @@
           <mm:listnodes id="text">
             <mm:nodeinfo type="nodemanager" id="nm" write="false" />
             <resource id="${text.number}">          
-              <uri><mm:url page="/mmbase/${nm}/${text.number}" /></uri>
+              <uri>mmbase://${nm}/${text.number}</uri>
               <title><mm:hasfunction name="icon" inverse="true"><mm:nodeinfo type="guinodemanager" />: </mm:hasfunction><mm:function name="gui" write="true"><mm:isempty><mm:field name="number" /></mm:isempty></mm:function></title>
               <description><mm:nodeinfo type="guitype" />: <mm:function name="gui" /></description>
               <mm:hasfunction name="icon">

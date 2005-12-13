@@ -13,7 +13,7 @@ x<!--
         <mm:context>
           <mm:listnodes id="segment">
             <resource id="${segment.number}">          
-              <uri><mm:url page="/mmbase/segments/${segment.number}" /></uri>
+              <uri>mmbase://segments/${segment.number}</uri>
               <title><mm:function name="index" /></title>
               <description><mm:field name="title" /></description>
               <icon>${kupubasedir}/common/kupuimages/document.png</icon>
