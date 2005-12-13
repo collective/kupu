@@ -31,10 +31,9 @@
         </mm:image>
       </mm:hasfunction>
       <mm:hasfunction name="cache" inverse="true">
-        <mm:attachment>
-          <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('${_}', '${mimetype}');">
-          </body>
-        </mm:attachment>
+        <mm:field name="number" write="false" id="number" />
+        <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('mmbase://${nodetype}/${number}', '${mimetype}');">
+        </body>
       </mm:hasfunction>
     </mm:node>
   </mm:cloud>

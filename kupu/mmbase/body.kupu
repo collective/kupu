@@ -18,6 +18,7 @@
     <mm:import externid="tools"  />
     <mm:import externid="origin"  />
     <mm:import externid="wizard" vartype="list" />
+    <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:compare referid="objectnumber" value="new">
       <mm:createnode type="${wizard[1]}" id="node">
 
@@ -27,7 +28,8 @@
         <mm:node id="origin" referid="origin" />
         <mm:createrelation role="related" source="origin" destination="node" />
       </mm:present>
-      <mm:redirect referids="node@objectnumber,tools?,language?,origin?" /> 
+      <mm:import externid="link_nodetypes" />
+      <mm:redirect referids="node@objectnumber,tools?,language?,origin?,nodetypes?,back@kupu_back,link_nodetypes?" /> 
     </mm:compare>
     <mm:compare referid="objectnumber" value="new" inverse="true">
       <mm:node id="node" referid="objectnumber" />
