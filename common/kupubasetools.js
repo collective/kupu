@@ -244,13 +244,28 @@ function KupuUI(textstyleselectid) {
     
     // attributes
     this.tsselect = getFromSelector(textstyleselectid);
+    var paraoptions = [];
+    var tableoptions = [];
+    this.optionstate = -1;
+    this.otherstyle = null;
+    this.tablestyles = {};
+    this.styles = {}; // use an object here so we can use the 'in' operator later on
 
     this.initialize = function(editor) {
         /* initialize the ui like tools */
         this.editor = editor;
+        this.cleanStyles();
+        this.enableOptions(false);
         this._fixTabIndex(this.tsselect);
         this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
     };
+
+    this.getStyles = function() {
+        if (!paraoptions) {
+            this.cleanStyles();
+        }
+        return [ paraoptions, tableoptions ];
+    }
 
     this.setTextStyleHandler = function(event) {
         this.setTextStyle(this.tsselect.options[this.tsselect.selectedIndex].value);
@@ -312,59 +327,303 @@ function KupuUI(textstyleselectid) {
         this.editor.updateState();
     };
 
-    this.setTextStyle = function(style) {
-        /* method for the text style pulldown
-            
-            parse the argument into a type and classname part if it contains
-            a pipe symbol (|), generate a block element
-        */
-        var classname = "";
-        var eltype = style;
+    this.cleanStyles = function() {
+        var options = this.tsselect.options;
+        var parastyles = this.styles;
+        var tablestyles = this.tablestyles;
+
+        tableoptions.push([options[0].text, 'td|']);
+        tablestyles['td'] = 0;
+        paraoptions.push([options[0].text, 'p|']);
+        parastyles['p'] = 0;
+        while (options.length > 1) {
+            opt = options[1];
+            var v = opt.value.toLowerCase();
+            if (/^thead|tbody|table|t[rdh]\b/.test(v)) {
+                var otable = tableoptions;
+                var styles = tablestyles;
+            } else {
+                var otable = paraoptions;
+                var styles = parastyles;
+            }
+            if (v.indexOf('|') > -1) {
+                var split = v.split('|');
+                v = split[0].toLowerCase() + "|" + split[1];
+            } else {
+                v = v.toLowerCase()+"|";
+            };
+            otable.push([opt.text, v]);
+            styles[v] = otable.length - 1;
+            options[1] = null;
+        }
+        options[0] = null;
+    }
+
+    // Remove otherstyle and switch to appropriate style set.
+    this.enableOptions = function(inTable) {
+        var select = this.tsselect;
+        var options = select.options;
+        if (this.otherstyle) {
+            options[options.length-1] = null;
+            this.otherstyle = null;
+        }
+        if (this.optionstate == inTable) return; /* No change */
+
+        var valid = inTable ? tableoptions : paraoptions;
+
+        while (options.length) options[0] = null;
+        this.otherstyle = null;
+
+        for (var i = 0; i < valid.length; i++) {
+            var opt = document.createElement('option');
+            opt.text = valid[i][0];
+            opt.value = valid[i][1];
+            options.add(opt);
+        }
+        select.selectedIndex = 0;
+        this.optionstate = inTable;
+    }
+    
+    this.setIndex = function(currnode, tag, index, styles) {
+        var className = currnode.className;
+        this.styletag = tag;
+        this.classname = className;
+        var style = tag+'|'+className;
+
+        if (style in styles) {
+            return styles[style];
+        } else if (!className && tag in styles) {
+            return styles[tag];
+        }
+        return index;
+    }
+
+    this.nodeStyle = function(node) {
+        var currnode = node;
+        var index = -1;
+        var options = this.tsselect.options;
+        this.styletag = undefined;
+        this.classname = '';
+        this.intable = false;
+
+        while (currnode) {
+            var tag = currnode.nodeName.toLowerCase();
+
+            if (/^body$/.test(tag)) {
+                if (!this.styletag) {
+                    // Force style setting
+                    this.setTextStyle(options[0].value, true);
+                    return 0;
+                }
+                break;
+            }
+            if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
+                index = this.setIndex(currnode, tag, index, this.styles);
+            }
+            if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
+                this.intable = true;
+                index = this.setIndex(currnode, tag, index, this.tablestyles);
+
+                if (index > 0 || tag=='table') {
+                    return index; // Stop processing if in a table
+                }
+            }
+            currnode = currnode.parentNode;
+        }
+        return index;
+    }
+
+    this.updateState = function(selNode) {
+        /* set the text-style pulldown */
+
+        // first get the nearest style
+        // search the list of nodes like in the original one, break if we encounter a match,
+        // this method does some more than the original one since it can handle commands in
+        // the form of '<style>|<classname>' next to the plain
+        // '<style>' commands
+        var index = undefined;
+        var mixed = false;
+        var styletag, classname;
+
+        var selection = this.editor.getSelection();
+
+        for (var el=selNode.firstChild; el; el=el.nextSibling) {
+            if (el.nodeType==1 && selection.containsNode(el)) {
+                var i = this.nodeStyle(el);
+                if (index===undefined) {
+                    index = i;
+                    styletag = this.styletag;
+                    classname = this.classname;
+                }
+                if (index != i || styletag!=this.styletag || classname != this.classname) {
+                    mixed = true;
+                    break;
+                }
+            }
+        };
+
+        if (index===undefined) {
+            index = this.nodeStyle(selNode);
+        }
+
+        this.enableOptions(this.intable);
+
+        if (index < 0 || mixed) {
+            var caption = mixed ? 'Mixed styles' :
+                'Other: ' + this.styletag + ' '+ this.classname;
+
+            var opt = document.createElement('option');
+            opt.text = caption;
+            this.otherstyle = opt;
+            this.tsselect.options.add(opt);
+
+            index = this.tsselect.length-1;
+        }
+        this.tsselect.selectedIndex = Math.max(index,0);
+    };
+
+    this._cleanNode = function(node) {
+                /* Clean up a block style node (e.g. P, DIV, Hn)
+                 * Remove trailing whitespace, then also remove up to one
+                 * trailing <br>
+                 * If the node is now empty, remove the node itself.
+                 */
+        var len = node.childNodes.length;
+        function stripspace() {
+            var c;
+            while ((c = node.lastChild) && c.nodeType==3 && /^\s*$/.test(c.data)) {
+                node.removeChild(c);
+            }
+        }
+        stripspace();
+        var c = node.lastChild;
+        if (c && c.nodeType==1 && c.tagName=='BR') {
+            node.removeChild(c);
+        }
+        stripspace();
+        if (node.childNodes.length==0) {
+            node.parentNode.removeChild(node);
+        };
+    }
+
+    this._cleanCell = function(eltype, classname) {
+        var selNode = this.editor.getSelectedNode();
+        var el = this.editor.getNearestParentOfType(selNode, eltype);
+        if (!el) {
+                // Maybe changing type
+            el = this.editor.getNearestParentOfType(selNode, eltype=='TD'?'TH':'TD');
+        }
+        if (!el) return;
+
+            // Remove formatted div or p from a cell
+        var node, nxt, n;
+        for (node = el.firstChild; node;) {
+            if (/DIV|P/.test(node.nodeName)) {
+                for (var n = node.firstChild; n;) {
+                    var nxt = n.nextSibling;
+                    el.insertBefore(n, node); // Move nodes out of div
+                    n = nxt;
+                }
+                nxt = node.nextSibling;
+                el.removeChild(node);
+                node = nxt;
+            } else {
+                node = node.nextSibling;
+            }
+        }
+        if (eltype != el.tagName) {
+                // Change node type.
+            var node = el.ownerDocument.createElement(eltype);
+            var parent = el.parentNode;
+            parent.insertBefore(node, el);
+            while (el.firstChild) {
+                node.appendChild(el.firstChild);
+            }
+            parent.removeChild(el);
+            el = node;
+        }
+            // now set the classname
+        if (classname) {
+            el.className = classname;
+        } else {
+            el.removeAttribute("class");
+            el.removeAttribute("className");
+        }
+
+    }
+
+    this._setClass = function(el, classname) {
+        var parent = el.parentNode;
+        if (parent.tagName=='DIV') {
+            // fixup buggy formatting
+            var gp = parent.parentNode;
+            if (el != parent.firstChild) {
+                var previous = parent.cloneNode(false);
+                while (el != parent.firstChild) {
+                    previous.appendChild(parent.firstChild);
+                }
+                gp.insertBefore(previous, parent);
+                this._cleanNode(previous);
+            }
+            gp.insertBefore(el, parent);
+            this._cleanNode(el);
+            this._cleanNode(parent);
+        } else {
+            this._cleanNode(el);
+        }
+        // now set the classname
+        if (classname) {
+            el.className = classname;
+        } else {
+            el.removeAttribute("class");
+            el.removeAttribute("className");
+        }
+    }
+    this.setTextStyle = function(style, noupdate) {
+            /* parse the argument into a type and classname part
+               generate a block element accordingly 
+            */
+        var classname = '';
+        var eltype = style.toUpperCase();
         if (style.indexOf('|') > -1) {
             style = style.split('|');
-            eltype = style[0];
+            eltype = style[0].toUpperCase();
             classname = style[1];
         };
 
         var command = eltype;
-        // first create the element, then find it and set the classname
+            // first create the element, then find it and set the classname
         if (this.editor.getBrowserName() == 'IE') {
             command = '<' + eltype + '>';
         };
-        this.editor.getDocument().execCommand('formatblock', command);
-
-        // now get a reference to the element just added
-        var selNode = this.editor.getSelectedNode();
-        var el = this.editor.getNearestParentOfType(selNode, eltype);
-
-        // now set the classname
-        if (classname) {
-            el.className = classname;
-        };
-        this.editor.updateState();
-    };
-
-    this.updateState = function(selNode) {
-        /* set the text-style pulldown */
-    
-        // first get the nearest style
-        var styles = {}; // use an object here so we can use the 'in' operator later on
-        for (var i=0; i < this.tsselect.options.length; i++) {
-            // XXX we should cache this
-            styles[this.tsselect.options[i].value.toUpperCase()] = i;
+        if (/T[RDH]/.test(eltype)) {
+            this._cleanCell(eltype, classname);
         }
-        
-        var currnode = selNode;
-        var index = 0;
-        while (currnode) {
-            if (currnode.nodeName.toUpperCase() in styles) {
-                index = styles[currnode.nodeName.toUpperCase()];
-                break
+        else {
+            this.editor.getDocument().execCommand('formatblock', command);
+
+                // now get a reference to the element just added
+            var selNode = this.editor.getSelectedNode();
+            var el = this.editor.getNearestParentOfType(selNode, eltype);
+            if (el) {
+                this._setClass(el, classname);
+            } else {
+                var selection = this.editor.getSelection();
+                var elements = selNode.getElementsByTagName(eltype);
+                for (var i = 0; i < elements.length; i++) {
+                    el = elements[i];
+                    if (selection.containsNode(el)) {
+                        this._setClass(el, classname);
+                    }
+                }
             }
-            currnode = currnode.parentNode;
         }
-
-        this.tsselect.selectedIndex = index;
+        if (el) {
+            this.editor.getSelection().selectNodeContents(el);
+        }
+        if (!noupdate) {
+            this.editor.updateState();
+        }
     };
   
     this.createContextMenuElements = function(selNode, event) {
@@ -585,6 +844,7 @@ function PropertyTool(titlefieldid, descfieldid) {
             if (meta.getAttribute('name') && 
                     meta.getAttribute('name').toLowerCase() == 'description') {
                 meta.setAttribute('content', this.descfield.value);
+                descset = 1;
             }
         }
 
@@ -1375,16 +1635,123 @@ function TableTool() {
         this._fixTableHelper(table);
     };
 
+    this._isBodyRow = function(row) {
+        for (var node = row.firstChild; node; node=node.nextSibling) {
+            if (/TD/.test(node.nodeName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this._cleanCell = function(el) {
+        dump('_cleanCell('+el.innerHTML+')\n');
+        // Remove formatted div or p from a cell
+        var node, nxt, n;
+        for (node = el.firstChild; node;) {
+            if (/DIV|P/.test(node.nodeName)) {
+                for (var n = node.firstChild; n;) {
+                    var nxt = n.nextSibling;
+                    el.insertBefore(n, node); // Move nodes out of div
+                    n = nxt;
+                }
+                nxt = node.nextSibling;
+                el.removeChild(node);
+                node = nxt;
+            } else {
+                node = node.nextSibling;
+            }
+        }
+        var c;
+        while (el.firstChild && (c = el.firstChild).nodeType==3 && /^\s+/.test(c.data)) {
+            c.data = c.data.replace(/^\s+/, '');
+            if (!c.data) {
+                el.removeChild(c);
+            } else {
+                break;
+            };
+        };
+        while (el.lastChild && (c = el.lastChild).nodeType==3 && /\s+$/.test(c.data)) {
+            c.data = c.data.replace(/\s+$/, '');
+            if (!c.data) {
+                el.removeChild(c);
+            } else {
+                break;
+            };
+        };
+        el.removeAttribute('colSpan');
+        el.removeAttribute('rowSpan');
+    }
+    this._countCols = function(rows, numcols) {
+        for (var i=0; i < rows.length; i++) {
+            var row = rows[i];
+            var currnumcols = 0;
+            for (var node = row.firstChild; node; node=node.nextSibling) {
+                if (/td|th/i.test(node.nodeName)) {
+                    currnumcols += parseInt(node.getAttribute('colSpan') || '1');
+                };
+            };
+            if (currnumcols > numcols) {
+                numcols = currnumcols;
+            };
+        };
+        return numcols;
+    }
+
+    this._cleanRows = function(rows, container, numcols) {
+        // now walk through all rows to clean them up
+        for (var i=0; i < rows.length; i++) {
+            dump("row "+i+'\n');
+            var row = rows[i];
+            var doc = this.editor.getInnerDocument();
+            var newrow = doc.createElement('tr');
+            if (row.className) {
+                newrow.className = row.className;
+            }
+            for (var node = row.firstChild; node;) {
+                dump("child\n");
+                var nxt = node.nextSibling;
+                if (/TD|TH/.test(node.nodeName)) {
+                    this._cleanCell(node);
+                    newrow.appendChild(node);
+                };
+                node = nxt;
+            };
+            if (newrow.childNodes.length) {
+                container.appendChild(newrow);
+            };
+        };
+        // now make sure all rows have the correct length
+        for (row = container.firstChild; row; row=row.nextSibling) {
+            var cellname = row.lastChild.nodeName;
+            while (row.childNodes.length < numcols) {
+                var cell = doc.createElement(cellname);
+                var nbsp = doc.createTextNode('\u00a0');
+                cell.appendChild(nbsp);
+                row.appendChild(cell);
+            };
+        };
+    };
+
     this._fixTableHelper = function(table) {
         /* the code to actually fix tables */
         var doc = this.editor.getInnerDocument();
+        var thead = doc.createElement('thead');
         var tbody = doc.createElement('tbody');
+        var tfoot = doc.createElement('tfoot');
 
-        if (this.editor.config.table_classes) {
-            var allowed_classes = this.editor.config.table_classes['class'];
-            if (!allowed_classes.contains(table.className)) {
-                table.className = allowed_classes[0];
+        var table_classes = this.editor.config.table_classes;
+        function cleanClassName(name) {
+            var allowed_classes = table_classes['class'];
+            for (var i = 0; i < allowed_classes.length; i++) {
+                var classname = allowed_classes[i];
+                classname = classname.classname || classname;
+                if (classname==name) return name;
             };
+            return allowed_classes[0];
+        }
+        if (table_classes) {
+            table.className = cleanClassName(table.className);
         } else {
             table.removeAttribute('class');
             table.removeAttribute('className');
@@ -1398,81 +1765,57 @@ function TableTool() {
         // now get all the rows of the table, the rows can either be
         // direct descendants of the table or inside a 'tbody', 'thead'
         // or 'tfoot' element
-        var rows = new Array();
-        var parents = new Array('thead', 'tbody', 'tfoot');
-        for (var i=0; i < table.childNodes.length; i++) {
-            var node = table.childNodes[i];
-            if (node.nodeName.toLowerCase() == 'tr') {
-                rows.push(node);
-            } else if (parents.contains(node.nodeName.toLowerCase())) {
-                for (var j=0; j < node.childNodes.length; j++) {
-                    var inode = node.childNodes[j];
-                    if (inode.nodeName.toLowerCase() == 'tr') {
+
+        var hrows = [], brows = [], frows = [];
+        for (var node = table.firstChild; node; node = node.nextSibling) {
+            var nodeName = node.nodeName;
+            if (/TR/.test(node.nodeName)) {
+                brows.push(node);
+            } else if (/THEAD|TBODY|TFOOT/.test(node.nodeName)) {
+                var rows = nodeName=='THEAD' ? hrows : nodeName=='TFOOT' ? frows : brows;
+                for (var inode = node.firstChild; inode; inode = inode.nextSibling) {
+                    if (/TR/.test(inode.nodeName)) {
                         rows.push(inode);
                     };
                 };
             };
         };
-        
+        /* Extract thead and tfoot from tbody */
+        dump('extract head and foot\n');
+        while (brows.length && !this._isBodyRow(brows[0])) {
+            hrows.push(brows[0]);
+            brows.shift();
+        }
+        while (brows.length && !this._isBodyRow(brows[brows.length-1])) {
+            var last = brows[brows.length-1];
+            brows.length -= 1;
+            frows.unshift(last);
+        }
+        dump('count cols\n');
         // now find out how many cells our rows should have
-        var numcols = 0;
-        for (var i=0; i < rows.length; i++) {
-            var row = rows[i];
-            var currnumcols = 0;
-            for (var j=0; j < row.childNodes.length; j++) {
-                var node = row.childNodes[j];
-                if (node.nodeName.toLowerCase() == 'td' ||
-                        node.nodeName.toLowerCase() == 'th') {
-                    var colspan = 1;
-                    if (node.getAttribute('colSpan')) {
-                        colspan = parseInt(node.getAttribute('colSpan'));
-                    };
-                    currnumcols += colspan;
-                };
-            };
-            if (currnumcols > numcols) {
-                numcols = currnumcols;
-            };
-        };
+        var numcols = this._countCols(hrows, 0);
+        numcols = this._countCols(brows, numcols);
+        numcols = this._countCols(frows, numcols);
 
+        dump('clean rows\n');
         // now walk through all rows to clean them up
-        for (var i=0; i < rows.length; i++) {
-            var row = rows[i];
-            var newrow = doc.createElement('tr');
-            var currcolnum = 0;
-            while (row.childNodes.length > 0) {
-                var node = row.childNodes[0];
-                if (node.nodeName.toLowerCase() != 'td' && node.nodeName.toLowerCase() != 'th') {
-                    row.removeChild(node);
-                    continue;
-                };
-                node.removeAttribute('colSpan');
-                node.removeAttribute('rowSpan');
-                newrow.appendChild(node);
-            };
-            if (newrow.childNodes.length) {
-                tbody.appendChild(newrow);
-            };
-        };
+        this._cleanRows(hrows, thead);
+        this._cleanRows(brows, tbody);
+        this._cleanRows(frows, tfoot);
 
-        // now make sure all rows have the correct length
-        for (var i=0; i < tbody.childNodes.length; i++) {
-            var row = tbody.childNodes[i];
-            var cellname = row.childNodes[0].nodeName;
-            while (row.childNodes.length < numcols) {
-                var cell = doc.createElement(cellname);
-                var nbsp = doc.createTextNode('\u00a0');
-                cell.appendChild(nbsp);
-                row.appendChild(cell);
-            };
-        };
-        
-        // now remove all the old stuff from the table and add the new tbody
-        var tlength = table.childNodes.length;
-        for (var i=0; i < tlength; i++) {
-            table.removeChild(table.childNodes[0]);
-        };
-        table.appendChild(tbody);
+        // now remove all the old stuff from the table and add the new
+        // tbody
+        dump('remove old\n');
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
+        if (hrows.length)
+            table.appendChild(thead);
+        if (brows.length)
+            table.appendChild(tbody);
+        if (frows.length)
+            table.appendChild(tfoot);
+        dump('finish up\n');
 
         this.editor.focusDocument();
         this.editor.logMessage(_('Table cleaned up'));
@@ -1531,6 +1874,7 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             };
             for (var i=0; i < classes.length; i++) {
                 var classname = classes[i];
+                classname = classname.classname || classname;
                 var option = document.createElement('option');
                 var content = document.createTextNode(classname);
                 option.appendChild(content);
@@ -2237,7 +2581,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
         html.style.overflow = '';
         var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
-        body.className = body.className.replace(' '+zoomClass, '');
+        body.className = body.className.replace(/ *kupu-fulleditor-zoomed/, '');
         editor.clearClass(zoomClass);
 
         iframe.style.width = '';

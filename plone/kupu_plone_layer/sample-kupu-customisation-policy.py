@@ -46,6 +46,9 @@ PARAGRAPH_STYLES = (
     "Heading|h2|Heading",
     "Subheading|h3|Subheading",
     "Formatted|pre",
+    "Odd row|tr|odd",
+    "Even row|tr|even",
+    "Heading cell|th|",
 #    'Fancy|div|fancyClass',
 #    'Plain|div|plainClass',
 )
