@@ -423,7 +423,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             <xsl:value-of select="node()"/>
         </a>
         <xsl:if test="not(position()=last())">
-                <span class="kupu-breadcrumbSeparator"> &#8594; </span>
+            <span class="kupu-breadcrumbSeparator"> &#8594; </span>
         </xsl:if>
     </xsl:template>
     <xsl:template match="crumb">
