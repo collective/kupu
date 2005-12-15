@@ -415,18 +415,18 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <xsl:apply-templates select="crumb"></xsl:apply-templates>
     </xsl:template>
     <xsl:template match="crumb[@href]">
-                <a>
-                    <xsl:attribute name="href">
-                        <xsl:value-of select="@href"/>
-                    </xsl:attribute>
-                    <xsl:attribute name="onclick">drawertool.current_drawer.selectBreadcrumb(this);return false;</xsl:attribute>
-                    <xsl:value-of select="node()"/>
-                </a>
+        <a>
+            <xsl:attribute name="href">
+                <xsl:value-of select="@href"/>
+            </xsl:attribute>
+            <xsl:attribute name="onclick">drawertool.current_drawer.selectBreadcrumb(this);return false;</xsl:attribute>
+            <xsl:value-of select="node()"/>
+        </a>
         <xsl:if test="not(position()=last())">
                 <span class="kupu-breadcrumbSeparator"> &#8594; </span>
         </xsl:if>
     </xsl:template>
     <xsl:template match="crumb">
-                <xsl:value-of select="node()"/>
+        <xsl:value-of select="node()"/>
     </xsl:template>
 </xsl:stylesheet>

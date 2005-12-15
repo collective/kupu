@@ -120,6 +120,10 @@ class ResourceType:
         return getattr(self._widget, 'allow_browse', True)
     allow_browse = property(_allow_browse)
 
+    def _startup_directory(self):
+        return getattr(self._widget, 'startup_directory', '')
+    startup_directory = property(_startup_directory)
+
 class InfoAdaptor:
     """Convert either an object or a brain into an information dictionary."""
     def __init__(self, tool, resource_type='mediaobject'):
@@ -680,5 +684,23 @@ class PloneDrawers:
             if t in allowed:
                 return True
         return False
+
+    security.declareProtected("View", "getBaseUrl")
+    def getBaseUrl(self, context, include_factory=False, resource_type=None):
+        base = context.absolute_url()
+
+        if resource_type:
+            rt = self.getResourceType(resource_type);
+            sd = rt.startup_directory
+            if sd:
+                base = sd
+
+        posfactory = base.find('/portal_factory/')
+        if posfactory>0:
+            if include_factory:
+                base = base[:posfactory+15]
+            else:
+                base = base[:posfactory]
+        return base
 
 InitializeClass(PloneDrawers)
