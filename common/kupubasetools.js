@@ -412,8 +412,10 @@ function KupuUI(textstyleselectid) {
             if (/^body$/.test(tag)) {
                 if (!this.styletag) {
                     // Force style setting
-                    this.setTextStyle(options[0].value, true);
-                    return 0;
+                    //this.setTextStyle(options[0].value, true);
+                    // Forced style messes up in Firefox: return -1 to
+                    // indicate no style 
+                    return -1;
                 }
                 break;
             }
@@ -469,8 +471,13 @@ function KupuUI(textstyleselectid) {
         this.enableOptions(this.intable);
 
         if (index < 0 || mixed) {
-            var caption = mixed ? 'Mixed styles' :
-                'Other: ' + this.styletag + ' '+ this.classname;
+            if (mixed) {
+                var caption = 'Mixed styles';
+            } else if (this.styletag) {
+                var caption = 'Other: ' + this.styletag + ' '+ this.classname;
+            } else {
+                var caption = '<no style>';
+            }
 
             var opt = document.createElement('option');
             opt.text = caption;
