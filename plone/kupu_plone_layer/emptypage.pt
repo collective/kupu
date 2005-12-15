@@ -13,7 +13,7 @@
     </tal:plone20>
     <base href="emptypage"
         tal:define="tail python:test(here.isPrincipiaFolderish, '/', '');"
-        tal:attributes="href string:${here/absolute_url}${tail}" />
+        tal:attributes="href string:${request/URL1}${tail}" />
   </head>
   <body class="kupu documentContent">
    

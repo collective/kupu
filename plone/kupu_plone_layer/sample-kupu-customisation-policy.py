@@ -14,13 +14,13 @@
 from Products.CMFCore.utils import getToolByName
 
 RESOURCES = dict(
-    linkable = ('Document', 'Image', 'File', 'News Item', 'Event'),
+    linkable = ('Document', 'Image', 'File', 'News Item', 'Event', 'Folder', 'Large Plone Folder'),
     mediaobject = ('Image',),
     collection = ('Plone Site', 'Folder', 'Large Plone Folder'),
     )
 
 EXCLUDED_HTML = [
-  {'tags': ('center','span','tt','big','small','u','s','strike','basefont','font',),
+  {'tags': ('center','span','tt','big','small','s','strike','basefont','font',),
    'attributes':(),
    'keep': 1 },
   

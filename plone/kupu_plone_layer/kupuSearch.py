@@ -23,7 +23,8 @@ portal_types = kupu_tool.queryPortalTypesForResourceType(resource_type, ())
 search_params = {}
 search_params.update(request.form)
 search_params['portal_type'] = portal_types
-search_params['review_state'] = 'visible', 'published'
+# Plone issue 4801: searches shouldn't just find visible/published.
+#search_params['review_state'] = 'visible', 'published'
 
 # Get the maximum number of results with 500 being the default and
 # absolute maximum.
