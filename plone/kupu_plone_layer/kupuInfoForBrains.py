@@ -45,7 +45,10 @@ def info_object(obj, allowCollection=True):
         portal_type = getattr(obj, 'portal_type','')
         collection = allowCollection and portal_type in coll_types
 
-        if linkbyuid and not collection and hasattr(obj, 'UID'):
+        # Plone issue #4769: this should use
+        # IReferenceable.implements(), only that isn't exposed to
+        # scripts.
+        if linkbyuid and not collection and hasattr(obj.aq_explicit, 'UID'):
             url = base+'/resolveuid/%s' % obj.UID()
         else:
             url = obj.absolute_url()

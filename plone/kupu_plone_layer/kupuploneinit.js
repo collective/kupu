@@ -38,7 +38,7 @@ function initPloneKupu(editorId) {
     kupu.setContextMenu(cm);
 
     // now we can create a UI object which we can use from the UI
-    var ui = new PloneKupuUI(prefix+'select.kupu-tb-styles');
+    var ui = new KupuUI(prefix+'select.kupu-tb-styles');
     kupu.registerTool('ui', ui);
 
     // function that returns a function to execute a button command

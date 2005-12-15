@@ -237,6 +237,5 @@ div.kupuoverride {
     border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
     background-color: white;
 }
-
 /* </dtml-let></dtml-with> */
 

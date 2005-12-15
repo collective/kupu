@@ -579,36 +579,49 @@ function SilvaTableTool() {
         for (var i=0; i < widths.length; i++) {
             widths[i] = widths[i].strip();
             silva_column_info.push('C:' + widths[i]);
-            widths[i] = parseInt(widths[i]);
+            var widthint = parseInt(widths[i]);
+            if (!isNaN(widthint)) {
+                widths[i] = widthint;
+            } else if (widths[i] != '*') {
+                alert(_('Illegal or missing width entry in column info!'));
+                return;
+            };
         };
         silva_column_info = silva_column_info.join(' ');
         table.setAttribute('silva_column_info', silva_column_info);
         
+        // find the first cell, use its parent as the row
+        // XXX note that this might potentially go wrong on nested tables!
+        var firstrow = table.getElementsByTagName('td')[0].parentNode;
+
         // now convert the relative widths to percentages
         // first find the first row containing cells
         var totalunits = 0;
         for (var i=0; i < widths.length; i++) {
-            totalunits += widths[i];
-        };
-        var iterator = new NodeIterator(table);
-        var currnode = null;
-        var row = null;
-        while (currnode = iterator.next()) {
-            if (currnode.nodeName.toLowerCase() == 'td') {
-                row = currnode.parentNode;
-                break;
+            if (widths[i] == '*') {
+                totalunits += 1;
+            } else {
+                totalunits += widths[i];
             };
         };
-        var iterator = new NodeIterator(row);
+
         var percent_per_unit = 100.0 / totalunits;
-        var currcell = null;
-        for (var i=0; i < widths.length; i++) {
-            while (currcell = iterator.next()) {
-                if (currcell.nodeName.toLowerCase() == 'td') {
-                    currcell.setAttribute('width', '' + (widths[i] * percent_per_unit) + '%');
-                    break;
-                };
+
+        var children = firstrow.childNodes;
+        var currcellindex = 0;
+        for (var i=0; i < children.length; i++) {
+            var child = children[i];
+            if (child.nodeType != 1 || child.nodeName.toLowerCase() != 'td') {
+                continue;
             };
+            var width = widths[currcellindex];
+            if (width != '*') {
+                child.setAttribute('width', '' + 
+                            (width * percent_per_unit) + '%');
+            } else {
+                child.removeAttribute('width');
+            };
+            currcellindex++;
         };
     };
 
@@ -630,7 +643,11 @@ function SilvaTableTool() {
             silvacolinfo = silvacolinfo.split(' ');
             for (var i=0; i < silvacolinfo.length; i++) {
                 var pair = silvacolinfo[i].split(':');
-                widths.push(parseInt(pair[1]));
+                if (pair[1] == '*') {
+                    widths.push('*');
+                } else {
+                    widths.push(parseInt(pair[1]));
+                };
             };
             widths = this._factorWidths(widths);
         };
@@ -1878,7 +1895,7 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
             handler.call(this, this._url);
             return;
         };
-        var request = new getXMLHttpRequest();
+        var request = new XMLHttpRequest();
         request.open('GET', 
             this._baseurl + '/edit/get_extsource_url?id=' + id, true);
         var callback = new ContextFixer(function() {
@@ -1954,6 +1971,11 @@ function SilvaExternalSourceTool(idselectid, formcontainerid, addbuttonid, cance
 
     this._addFormToTool = function(object) {
         if (this.readyState == 4) {
+            if (this.status != '200') {
+                // element not found, return without doing anythink
+                object.resetTool();
+                return;
+            };
             while (object.formcontainer.hasChildNodes()) {
                 object.formcontainer.removeChild(object.formcontainer.firstChild);
             };
