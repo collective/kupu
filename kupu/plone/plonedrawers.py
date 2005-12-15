@@ -566,7 +566,6 @@ class PloneDrawers:
         request = self.REQUEST
         search_params = {}
         search_params.update(request.form)
-        search_params['review_state'] = 'visible', 'published'
 
         # Get the maximum number of results with 500 being the default and
         # absolute maximum.
