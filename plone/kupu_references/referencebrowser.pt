@@ -26,7 +26,8 @@
      </div>
 
         <script type="text/javascript"
-                tal:define="base context/aq_parent/absolute_url;
+                tal:define="kupu here/kupu_library_tool;
+                            base python:kupu.getBaseUrl(here);
                             lib_prefix    string:${base}/kupulibraries.xml?instance=${here/UID}&resource_type=;
                             search_prefix string:${portal_url}/kupusearch.xml?instance=${here/UID}&resource_type=;
                             select_prefix string:${portal_url}/kupuselection.xml?instance=${here/UID}&resource_type=;
@@ -105,8 +106,9 @@
                          types_param python:','.join(field.allowed_types);
                          referenced python:here.getReferences(field.relationship);
                          info python:kupu.infoForBrains(referenced,rt);
+                         useKupu python:kupu.isKupuEnabled(REQUEST=request) and not request.form.get('kupu.suppress','')==fieldName;
                          ">
-
+<tal:kupu condition="useKupu">
           <metal:call use-macro="here/referencebrowser/macros/kupudrawer" />
           <input type="hidden"
                              value=""
@@ -157,6 +159,85 @@
                         tal:condition="not: multiVal"
                         tal:attributes="onClick string:referencebrowser_removeReference($rFieldName, $multiVal);;;" />
           </div>          
+</tal:kupu>
+<tal:nokupu condition="not:useKupu">
+          <input type="hidden"
+                             value=""
+                             tal:condition="python:not field.required and multiVal"
+                             tal:attributes="name string:$fieldName:default:list"
+                 />
+
+          <tal:single tal:condition="not: multiVal" >
+              <tal:value tal:condition="value">
+                  <tal:block tal:define="obj python:here.reference_catalog.lookupObject(value)">
+                      <input size="" 
+                                type="text" 
+                                value="" 
+                                id="" 
+                                tal:attributes="value obj/title_or_id;
+                                                      tabindex tabindex/next;
+                                                      size python:test(widget.size=='', 30, widget.size);
+                                                      id string:${fieldName}_label" readonly="readonly" />
+                  </tal:block>
+              </tal:value>
+              <input id=""
+                        size="50"
+                        type="text"
+                        value="No reference set. Click the browse button to select."
+                        readonly="readonly"
+                        i18n:attributes="value label_no_reference_set;"
+                        tal:condition="not:  value"
+                        tal:attributes="id string:${fieldName}_label"/>
+              <input type="hidden"
+                        value=""
+                        name=""
+                        tal:attributes="name fieldName;
+                                              value value;
+                                              id string:${fieldName}" />
+          </tal:single>
+          <tal:multi tal:condition="multiVal" 
+                     tal:define="targets python:[(here.reference_catalog.lookupObject(u),u) for u in uids if u]">
+                <select
+                  multiple="multiple"
+                  tabindex=""
+                  tal:attributes="name string:${fieldName}:list;
+                                        id string:${fieldName};
+                                        size python:test(widget.size=='', 8, widget.size);
+                                        tabindex tabindex/next;">
+                    <tal:block tal:repeat="set targets">
+                        <option value=""
+                                     selected="selected"
+                                    tal:attributes="value python:set[1];"
+                                    tal:content="python:set[0].title_or_id()">
+                            option
+                        </option>
+                  </tal:block>
+                </select>
+          </tal:multi>
+          <div tal:define="startup_directory python:kupu.getBaseUrl(here, rt);
+                           at_url python:'/'.join(here.getPhysicalPath())">
+              <input type="button" 
+                        class="searchButton"
+                        value="Browse..." 
+                        onClick=""
+                        i18n:attributes="value label_browse;"
+                        tal:attributes="onClick string:javascript:fallback_openBrowser('${startup_directory}','${fieldName}', '${at_url}', '${fieldRealName}')" />
+              <input type="button" 
+                        class="destructive" 
+                        value="Remove reference" 
+                        onClick=""
+                        i18n:attributes="value label_remove_reference;"
+                        tal:condition="not: multiVal"
+                        tal:attributes="onClick string:javascript:fallback_removeReference('${fieldName}', ${multiVal})" />
+              <input type="button" 
+                        class="destructive" 
+                        value="Remove selected items" 
+                        onClick=""
+                        i18n:attributes="value label_remove_selected_items;"
+                        tal:condition="multiVal"
+                        tal:attributes="onClick string:javascript:fallback_removeReference('${fieldName}', ${multiVal})" />                        
+          </div>          
+</tal:nokupu>
           <!-- Todo? -->
           <metal:addable metal:use-macro="here/widgets/addable_support/macros/addable"/>
         </div>

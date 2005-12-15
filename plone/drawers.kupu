@@ -16,18 +16,14 @@
 
   <kupu:part name="xmlconfig">
     <tal:var define="field field|nothing;
-        tool here/kupu_library_tool;
-        usecaptions python:tool.getCaptioning() and tool.canCaption(field)">
+            tool here/kupu_library_tool;
+            usecaptions python:tool.getCaptioning() and tool.canCaption(field);
+            base python:here.kupu_library_tool.getBaseUrl(here);
+            base kupu_base_override|base;">
         <captions tal:condition="usecaptions">1</captions>
-    </tal:var>
-    <xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
-    <image_resource>mediaobject</image_resource>
-    <link_resource>linkable</link_resource>
-    <tal:var define="
-        base kupu_base_override|here/absolute_url;
-        posfactory python:base.find('/portal_factory/');
-        base python:posfactory > 0 and base[:posfactory] or base;"
-        >
+        <xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
+        <image_resource>mediaobject</image_resource>
+        <link_resource>linkable</link_resource>
         <lib_prefix tal:content="string:${base}/kupulibraries.xml?resource_type=" />
         <search_prefix tal:content="string:${portal_url}/kupusearch.xml?resource_type=" />
         <select_prefix tal:content="string:${portal_url}/kupuselection.xml?resource_type=" />

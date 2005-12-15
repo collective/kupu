@@ -172,6 +172,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
     security.declareProtected('View', 'isKupuEnabled')
     def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None):
+        if not REQUEST:
+            REQUEST = self.REQUEST
         def numerics(s):
             '''Convert a string into a tuple of all digit sequences
             '''
