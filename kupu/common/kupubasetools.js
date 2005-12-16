@@ -338,22 +338,25 @@ function KupuUI(textstyleselectid) {
         parastyles['p'] = 0;
         while (options.length > 1) {
             opt = options[1];
-            var v = opt.value.toLowerCase();
-            if (/^thead|tbody|table|t[rdh]\b/.test(v)) {
-                var otable = tableoptions;
-                var styles = tablestyles;
-            } else {
-                var otable = paraoptions;
-                var styles = parastyles;
-            }
+            var v = opt.value;
             if (v.indexOf('|') > -1) {
                 var split = v.split('|');
                 v = split[0].toLowerCase() + "|" + split[1];
             } else {
                 v = v.toLowerCase()+"|";
             };
-            otable.push([opt.text, v]);
-            styles[v] = otable.length - 1;
+            var optarray = [opt.text,v];
+            if (/^thead|tbody|table|t[rdh]\b/i.test(v)) {
+                tableoptions.push(optarray);
+                tablestyles[v] = tableoptions.length-1;
+            } else {
+                paraoptions.push(optarray);
+                parastyles[v] = paraoptions.length-1;
+                if (/^span\b/i.test(v)) {
+                    tableoptions.push(optarray);
+                    tablestyles[v] = tableoptions.length-1;
+                };
+            };
             options[1] = null;
         }
         options[0] = null;
@@ -377,7 +380,9 @@ function KupuUI(textstyleselectid) {
         for (var i = 0; i < valid.length; i++) {
             var opt = document.createElement('option');
             opt.text = valid[i][0];
-            opt.value = valid[i][1];
+            var v = valid[i][1];
+            opt.value = v;
+            opt.className=(/^span\b/i.test(v))?"kupuCharStyle":"kupuParaStyle";
             options.add(opt);
         }
         select.selectedIndex = 0;
@@ -411,16 +416,18 @@ function KupuUI(textstyleselectid) {
 
             if (/^body$/.test(tag)) {
                 if (!this.styletag) {
-                    // Force style setting
-                    this.setTextStyle(options[0].value, true);
-                    return 0;
+                    // Forced style messes up in Firefox: return -1 to
+                    // indicate no style 
+                    return -1;
                 }
                 break;
             }
-            if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
+            if (/^span$/.test(tag)) {
                 index = this.setIndex(currnode, tag, index, this.styles);
-            }
-            if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
+                if (index > 0) return index; // span takes priority
+            } else if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
+                index = this.setIndex(currnode, tag, index, this.styles);
+            } else if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
                 this.intable = true;
                 index = this.setIndex(currnode, tag, index, this.tablestyles);
 
@@ -469,8 +476,13 @@ function KupuUI(textstyleselectid) {
         this.enableOptions(this.intable);
 
         if (index < 0 || mixed) {
-            var caption = mixed ? 'Mixed styles' :
-                'Other: ' + this.styletag + ' '+ this.classname;
+            if (mixed) {
+                var caption = 'Mixed styles';
+            } else if (this.styletag) {
+                var caption = 'Other: ' + this.styletag + ' '+ this.classname;
+            } else {
+                var caption = '<no style>';
+            }
 
             var opt = document.createElement('option');
             opt.text = caption;
@@ -580,9 +592,9 @@ function KupuUI(textstyleselectid) {
         }
     }
     this.setTextStyle = function(style, noupdate) {
-            /* parse the argument into a type and classname part
-               generate a block element accordingly 
-            */
+        /* parse the argument into a type and classname part
+           generate a block element accordingly 
+        */
         var classname = '';
         var eltype = style.toUpperCase();
         if (style.indexOf('|') > -1) {
@@ -591,6 +603,7 @@ function KupuUI(textstyleselectid) {
             classname = style[1];
         };
 
+        var doc = this.editor.getDocument();
         var command = eltype;
             // first create the element, then find it and set the classname
         if (this.editor.getBrowserName() == 'IE') {
@@ -598,9 +611,44 @@ function KupuUI(textstyleselectid) {
         };
         if (/T[RDH]/.test(eltype)) {
             this._cleanCell(eltype, classname);
+        } else if (eltype=='SPAN') {
+            doc.execCommand('removeformat', null);
+            if (this.editor.getBrowserName()=='IE') {
+                // removeformat is broken in IE: it doesn't remove span
+                // tags
+                var selNode = this.editor.getSelectedNode();
+                var selection = this.editor.getSelection();
+                var elements = selNode.getElementsByTagName('span');
+                for (var i = 0; i < elements.length; i++) {
+                    var span = elements[i];
+                    if (selection.containsNode(span)) {
+                        var parent = span.parentNode;
+                        while (span.firstChild) {
+                            parent.insertBefore(span.firstChild, span);
+                        };
+                        parent.removeChild(span);
+                    };
+                };
+            }
+            if (classname) {
+                doc.execCommand('fontsize', '7');
+                // Now convert font tags to spans
+                var inner = doc.getDocument();
+                var elements = inner.getElementsByTagName('FONT');
+                while (elements.length > 0) {
+                    var font = elements[0];
+                    var span = inner.createElement('SPAN');
+                    span.className = classname;
+                    var parent = font.parentNode;
+                    parent.replaceChild(span, font);
+                    while (font.firstChild) {
+                        span.appendChild(font.firstChild);
+                    };
+                };
+            };
         }
         else {
-            this.editor.getDocument().execCommand('formatblock', command);
+            doc.execCommand('formatblock', command);
 
                 // now get a reference to the element just added
             var selNode = this.editor.getSelectedNode();

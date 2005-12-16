@@ -278,3 +278,11 @@ button.disabled {
    opacity:0.5;
    filter:alpha(opacity=50);
 }
+
+.kupuCharStyle {
+  font-style: italic;
+  background-color: #feff82;
+}
+.kupuParaStyle {
+  font-style: normal;
+}
