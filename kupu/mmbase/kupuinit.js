@@ -88,13 +88,26 @@ function initKupu(iframe) {
     kupu.registerTool('listtool', listtool);
 
 
-    var linktool = new LinkTool();
+    var linktool = new LinkTool();    
+    // remove 'create link' from context menu, it doesn't work, and there are 2 wokring methods.
+    linktool.createContextMenuElements = function(selNode, event) {
+        var ret = new Array();
+        var link = linktool.editor.getNearestParentOfType(selNode, 'a');
+        if (link) {
+            ret.push(new ContextMenuElement(_('Delete link'), linktool.deleteLink, linktool));
+        };
+        return ret;        
+    };
     kupu.registerTool('linktool', linktool);
     var linktoolbox = new LinkToolBox("kupu-link-input", "kupu-link-button", 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
     linktool.registerToolBox('linktoolbox', linktoolbox);
 
 
     var imagetool = new ImageTool();
+    // remove 'create image' from context menu, it doesn't work, and there are 2 wokring methods.
+    imagetool.createContextMenuElements = function(selNode, event) {
+        return new Array();
+    };
     kupu.registerTool('imagetool', imagetool);
     var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 
                                         'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');

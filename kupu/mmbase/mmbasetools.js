@@ -59,6 +59,33 @@ function DivsTool() {
         };
     };
 
+    this.deleteDiv = function() {
+        /* delete the current link */
+        var currnode = this.editor.getSelectedNode();
+        var linkel = this.editor.getNearestParentOfType(currnode, 'div');
+        if (!linkel) {
+            this.editor.logMessage(_('Not inside block'));
+            return;
+        };
+        while (linkel.childNodes.length) {
+            linkel.parentNode.insertBefore(linkel.childNodes[0], linkel);
+        };
+        linkel.parentNode.removeChild(linkel);
+        
+        this.editor.logMessage(_('Block removed'));
+        this.editor.updateState();
+    };
+
+    this.createContextMenuElements = function(selNode, event) {
+        /* create the 'Create link' or 'Remove link' menu elements */
+        var ret = new Array();
+        var link = this.editor.getNearestParentOfType(selNode, 'div');
+        if (link) {
+            ret.push(new ContextMenuElement(_('Delete block'), this.deleteDiv, this));
+        };
+        return ret;
+    };
+
 }
 
 DivsTool.prototype = new KupuTool;
