@@ -65,7 +65,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template name="drawer-title">Drawer</xsl:template>
     <xsl:output indent="yes" method="xml" />
     <xsl:preserve-space elements="form div strong br input textarea"/>
-    <xsl:template match="/">
+    <xsl:template match="/"><!-- root is always 'libraries'? -->
         <html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupu" >
             <head>
                 <title>
@@ -239,14 +239,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="resource">
       <div>
         <div class="kupu-preview-row">
-            <xsl:choose>
-                <xsl:when test="preview">
-                    <img src="{preview}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <img onload="kupuFixImage(this);" width="1" height="1" src="{uri}" title="{title}"/>
-                </xsl:otherwise>
-            </xsl:choose>
+          <xsl:apply-templates select="." mode="image-view" />
         </div>
         <h1 class="kupu-title-row">
             <xsl:value-of select="title"/>
@@ -262,18 +255,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="resource|collection" mode="base-properties">
         <div class="kupu-preview-row">
             <xsl:apply-templates select="status"/>
-            <xsl:choose>
-                <xsl:when test="preview">
-                    <img src="{preview}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <img onload="kupuFixImage(this);" width="1" height="1" src="{uri}" title="{title}"/>
-                </xsl:otherwise>
-            </xsl:choose>
+            <xsl:apply-templates select="." mode="image-view" />
             <div>
                 <xsl:value-of select="size"/>
                 <xsl:if test="width" i18n:translate="imagedrawer_size">(<span i18n:name="width">
-                        <xsl:value-of select="width"/>
+                <xsl:value-of select="width"/>
                     </span> by <span i18n:name="height">
                         <xsl:value-of select="height"/>
                     </span>)</xsl:if>
@@ -289,6 +275,22 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </xsl:if>
         <div style="clear:both;"/>
     </xsl:template>
+
+    <!-- 
+     This template shows one image.
+     If a 'preview' tag is available then that one is used, otherwise 'uri'.
+    -->
+    <xsl:template match="resource|collection" mode="image-view">
+      <xsl:choose>
+        <xsl:when test="preview">
+          <img src="{preview}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <img onload="kupuFixImage(this);" width="1" height="1" src="{uri}" title="{title}"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+
     <xsl:template match="resource|collection" mode="image-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
         <div>
