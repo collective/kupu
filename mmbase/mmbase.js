@@ -118,6 +118,18 @@ function mmbaseInit(node, abs) {
 
 }
 
+/*
+function openPopup(url, width, height) {
+    var sw = screen.width;
+    var sh = screen.height;
+    var left = sw / 2 - width / 2;
+    var top = sh / 2 - height / 2;
+    var win = window.open(absoluteUrl + "../common/" + url, 'someWindow', 
+                'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+    return win;
+};
+*/
+
 function getRequest() {
     return new XMLHttpRequest();
 }
