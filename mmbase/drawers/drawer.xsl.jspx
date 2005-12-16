@@ -26,7 +26,10 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
     <xsl:import href="${_}" />
   </mm:link>
   
-  
+
+  <!-- 
+       Overridden to use the 'showupload' parameter always, if an 'uploadbutton' tab is present 
+  -->
   <xsl:template match="*" mode="panel">
     <xsl:choose>
       <xsl:when test="$drawertype='image'">
@@ -54,8 +57,50 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
     </xsl:if>
   </xsl:template>
 
+  <!--
+      Just overridden to rename it, because we use upload also for attachments, not only for images 
+      (Called in 'panel' mode)
+  -->
   <xsl:template match="uploadbutton" mode="upload">
     <xsl:apply-templates select="." mode="image-upload" />
   </xsl:template>
 
+
+  <!--
+      Overridden to remove 'target', we're not interested in that.
+  -->
+  <xsl:template match="resource|collection" mode="link-properties">
+    <xsl:apply-templates select="." mode="base-properties"/>
+    
+    <form onsubmit="return false;">
+      <div class="kupu-linkdrawer-name-row">
+        <input type="text" id="link_name" size="10"><xsl:attribute name="value"><xsl:value-of select="$link_name"/></xsl:attribute></input>
+      </div>   
+      <xsl:if test="$showanchors='yes'">
+        <xsl:apply-templates select="anchor"></xsl:apply-templates>
+      </xsl:if>
+    </form>
+  </xsl:template>
+
+  <!-- 
+       We know height and width beforehand, so we don't use the 'kupuFixImage' function.         
+       That works faster and more reliable.
+       They are added as attributes on all tags (icon, preview and uri).
+  -->
+  <xsl:template match="icon">
+    <img src="{.}" alt="{../title}" height="{@height}" width="{@width}" />
+  </xsl:template>
+  
+  <xsl:template match="resource|collection" mode="image-view">
+    <xsl:choose>
+      <xsl:when test="preview">
+        <img src="{preview}" title="{title}"  width="{preview/@width}" height="{preview/@height}"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <img width="{uri/@width}" height="{uri/@height}" src="{uri}" title="{title}"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+    
 </xsl:stylesheet>

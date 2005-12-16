@@ -11,8 +11,6 @@
     </head>
     <body >
       <mm:cloud jspvar="cloud">
-        <jsp:scriptlet>cloud.setProperty("request", request);</jsp:scriptlet>
-        <mm:log>CONTEXT <jsp:expression>request.getContextPath()</jsp:expression></mm:log>
         <mm:log jspvar="log">
           <mm:import externid="kupu_node" from="session" />
           <mm:node referid="kupu_node" jspvar="node">

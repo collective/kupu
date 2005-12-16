@@ -1,4 +1,4 @@
-x<!--
+<!--
     Produces: 'items' for images
     Needs: a request context 'drawer', containing a listcontainer 'query'.
 -->
@@ -7,6 +7,7 @@ x<!--
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
+  <mm:import externid="kupubasedir" reset="true" />
   <mm:content type="text/xml">
     <mm:listnodescontainer referid="query">
       <items>
@@ -14,8 +15,17 @@ x<!--
           <mm:listnodes id="segment">
             <resource id="${segment.number}">          
               <uri>mmbase://segments/${segment.number}</uri>
-              <title><mm:function name="index" /></title>
-              <description><mm:field name="title" /></description>
+              <title>
+                <mm:hasfunction name="index">
+                  <mm:function name="index">
+                    <mm:isempty>
+                      <mm:field name="title" />
+                    </mm:isempty>
+                    <mm:write />
+                  </mm:function>
+                </mm:hasfunction>
+              </title>
+              <description><h2><mm:field name="title" /></h2><mm:field name="subtitle" /><mm:field name="intro" ><mm:isnotempty> / <mm:write /></mm:isnotempty></mm:field></description>
               <icon>${kupubasedir}/common/kupuimages/document.png</icon>
             </resource>
           </mm:listnodes>

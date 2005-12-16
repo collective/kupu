@@ -7,11 +7,14 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
+  <mm:import externid="surpressupload" />
   <mm:content type="text/xml">
     <mm:listnodescontainer referid="query">
       <items>
         <mm:context>
-          <uploadbutton>yes</uploadbutton>
+          <mm:notpresent referid="surpressupload">
+            <uploadbutton>yes</uploadbutton>
+          </mm:notpresent>
           <mm:listnodes id="attachment">
             <resource id="${attachment.number}">          
               <uri>mmbase://attachments/${attachment.number}</uri>
