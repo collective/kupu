@@ -2,6 +2,42 @@
 Kupu changes
 ============
 
+- 1.3.3
+
+  - Plone
+
+      * Text is no longer automatically forced into a paragraph as
+        this caused problems on Mozilla when editing at the end of the
+        file. The style pulldown now distinguishes text with 'no
+        style' from 'Normal'.
+
+      * Fixes to Plone issues:
+
+        4434 - 'int' object is not callable on editing
+
+        4896 - Kupu interface invisible if color changed
+
+        4911 - Kupu creates incorrect relative link in new page
+
+        4801 - Kupu Links: search for private objects fails
+
+        4622 - It's not possible to insert link to local folder using kupu
+
+        4873 - Kupu removes u-tag
+
+      * Added some table styles to the sample customisation.
+
+- 1.3.2
+
+  - Zope 2
+  
+    * Updated Zope 2 distribution, it was broken in several ways.
+
+  - Silva
+    
+    * Fixed problem with ExternalSources, which made that sources could not be
+      added to a page (clicking 'add' would not do anything).
+
 - 1.3.1
 
   - Silva:
