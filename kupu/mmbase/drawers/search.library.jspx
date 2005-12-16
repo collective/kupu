@@ -25,7 +25,6 @@
       
       <mm:stringlist referid="nodetypes">        
         <mm:hasnodemanager name="$_">
-          <mm:log>${_}</mm:log>
           <mm:context id="drawer" scope="request">
             <mm:import externid="kupubasedir" reset="true" />
             <mm:remove referid="nodetype" />
@@ -40,10 +39,12 @@
               <mm:maxnumber value="$librarysize" />
               <mm:offset    value="${librarysize * page}" />              
               <mm:haspage page="${nodetype}.items.jspx">
-                <mm:include page="${nodetype}.items.jspx" />
+                <mm:include debug="xml" page="${nodetype}.items.jspx">
+                  <mm:param name="surpressupload" />
+                </mm:include>
               </mm:haspage>
-              <mm:haspage page="${nodetype}.items.jspx" inverse="true">
-                <mm:include page="texts.items.jspx" />
+              <mm:haspage page="texts.items.jspx" inverse="true">
+                <mm:include debug="xml" page="texts.items.jspx" />
               </mm:haspage>              
             </mm:listnodescontainer>
           </mm:context>

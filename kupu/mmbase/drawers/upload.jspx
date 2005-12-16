@@ -13,10 +13,12 @@
   <mm:cloud rank="basic user">
     <mm:import externid="nodetype">images</mm:import>    
     <mm:log>Uploading</mm:log>
-    <mm:import id="title" externid="node_prop_caption" from="multipart"/>
+    <mm:import id="title" externid="node_prop_title" from="multipart"/>
+    <mm:import id="description" externid="node_prop_desc" from="multipart"/>
     <mm:import id="file" externid="node_prop_image" from="multipart" vartype="fileitem"  />
     <mm:createnode type="$nodetype" id="node">
       <mm:setfield name="title" valueid="title" />
+      <mm:setfield name="subtitle" valueid="description" />
       <mm:hasfield name="filename">
         <mm:setfield name="filename">${file.name}</mm:setfield>
       </mm:hasfield>
@@ -25,7 +27,7 @@
     <mm:node referid="node">
       <mm:function name="mimetype" id="mimetype" write="false" />
       <mm:hasfunction name="cache">
-        <mm:image template="s(80)">
+        <mm:image template="s(100x100&gt;)">
           <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('${_}', '${mimetype}');">
           </body>
         </mm:image>
