@@ -1,13 +1,13 @@
-<!-- 
-     Used for for related.jspx 
-     Presents related nodes for one type, plus the functionality to delete and add those. 
+<!--
+     Used for for related.jspx
+     Presents related nodes for one type, plus the functionality to delete and add those.
 
 -->
 <mm:content
     type="text/html"
     expires="-1"
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     >
   <jsp:directive.page session="true" errorPage="../error.jspx" />
@@ -16,30 +16,32 @@
   <mm:import externid="commit" />
   <mm:import externid="objectnumber" required="true" />
   <mm:import externid="rich_language" from="session">client</mm:import>
-  <mm:locale language="$rich_language">    
+  <mm:locale language="$rich_language">
     <html>
       <head>
         <mm:link page="/mmbase/style/css/mmbase.css">
-          <link href="${_}" rel="stylesheet" type="text/css"/>    
+          <link href="${_}" rel="stylesheet" type="text/css"/>
         </mm:link>
       </head>
       <body>
-        <div>      
+        <div>
           <mm:import externid="offset">0</mm:import>
           <mm:import externid="search"></mm:import>
           <mm:cloud rank="basic user">
             <mm:present referid="new">
               <!-- new node form -->
-              <form id="create" action="" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="objectnumber" value="${objectnumber}" />
-                <input type="hidden" name="type"         value="${type}" />
-                <mm:fieldlist nodetype="${type}" type="edit">
-                  <p>
-                    <mm:fieldinfo type="guiname" />: <mm:fieldinfo type="input" />
-                  </p>
-                </mm:fieldlist>
-                <input type="submit" value="commit" name="commit" />
-              </form>
+              <mm:link>
+                <form id="create" action="${_}" method="post" enctype="multipart/form-data">
+                  <input type="hidden" name="objectnumber" value="${objectnumber}" />
+                  <input type="hidden" name="type"         value="${type}" />
+                  <mm:fieldlist nodetype="${type}" type="edit">
+                    <p>
+                      <mm:fieldinfo type="guiname" />: <mm:fieldinfo type="input" />
+                    </p>
+                  </mm:fieldlist>
+                  <input type="submit" value="commit" name="commit" />
+                </form>
+              </mm:link>
             </mm:present>
 
             <mm:notpresent referid="new">
@@ -52,23 +54,25 @@
                 </mm:createnode>
               </mm:present>
 
-                <!-- search tool -->
-              <form id="search" action="" method="post">
-                <input type="hidden" name="objectnumber" value="${objectnumber}" />
-                <input type="hidden" name="type"         value="${type}" />
-                <input name="search" value="${search}" />
-                <input type="submit" value="search" name="ssearch" />
-                <input type="submit" value="new" name="new" />
-              </form>
-
+              <!-- search tool -->
+              <mm:link>
+                <form id="search" action="${_}" method="post">
+                  <input type="hidden" name="objectnumber" value="${objectnumber}" />
+                  <input type="hidden" name="type"         value="${type}" />
+                  <input type="hidden" name="offset"       value="0" />
+                  <input name="search" value="${search}" />
+                  <input type="submit" value="search" name="ssearch" />
+                  <input type="submit" value="new" name="new" />
+                </form>
+              </mm:link>
               <mm:listnodescontainer type="${type}">
-                
+
                 <mm:isnotempty referid="search">
                   <!-- search action -->
                   <mm:composite operator="OR">
                     <mm:fieldlist nodetype="${type}" fields="title,subtitle,intro,body">
                       <mm:fieldinfo type="name">
-                        <mm:constraint field="${_}"  operator="LIKE" value="%${search}%" />
+                        <mm:constraint field="$_"  operator="LIKE" value="%${search}%" />
                       </mm:fieldinfo>
                     </mm:fieldlist>
                   </mm:composite>
@@ -87,7 +91,7 @@
                 </mm:previousbatches>
                 <mm:index offset="1" />
                 <mm:nextbatches indexoffset="1">
-                  , 
+                  ,
                   <mm:link referids="_@offset,objectnumber,search?,type">
                     <a href="${_}"><mm:index /></a>
                   </mm:link>
