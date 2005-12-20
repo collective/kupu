@@ -14,16 +14,16 @@
 
     <mm:import externid="librarysize">50</mm:import>
     <mm:import externid="page">0</mm:import>
-    <mm:import vartype="list" externid="nodetypes">images</mm:import>
+    <mm:import vartype="list" externid="link_nodetypes">images</mm:import>
     <mm:import externid="source" />
     
     <mm:log>${nodetypes}</mm:log>
     <library id="${nodetypes}_${search}">
-      <uri><mm:url referids="search,librarysize@max,nodetypes" page="drawers/collection.jspx" /></uri>
+      <uri><mm:url referids="search,librarysize@max,link_nodetypes@nodetypes" page="drawers/collection.jspx" /></uri>
       <title>"<mm:write referid="search" />"</title>
       <icon>icons/map.gif</icon>	
       
-      <mm:stringlist referid="nodetypes">        
+      <mm:stringlist referid="link_nodetypes">        
         <mm:hasnodemanager name="$_">
           <mm:context id="drawer" scope="request">
             <mm:import externid="kupubasedir" reset="true" />
@@ -43,7 +43,7 @@
                   <mm:param name="surpressupload" />
                 </mm:include>
               </mm:haspage>
-              <mm:haspage page="texts.items.jspx" inverse="true">
+              <mm:haspage page="${nodetype}.items.jspx" inverse="true">
                 <mm:include debug="xml" page="texts.items.jspx" />
               </mm:haspage>              
             </mm:listnodescontainer>

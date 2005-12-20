@@ -21,10 +21,10 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
   xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   >
-  <mm:link absolute="server" page="../../common/kupudrawers/drawer.xsl">
+  <mm:link absolute="true" page="../../common/kupudrawers/drawer.xsl">
     <!-- Must be absolute, or otherwise IE chokes -->
     <xsl:import href="${_}" />
-  </mm:link>
+  </mm:link>    
   
 
   <!-- 
@@ -102,5 +102,10 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
     </xsl:choose>
   </xsl:template>
   
-    
+  <xsl:template name="mystyle">
+    <link type="text/css" rel="stylesheet" media="all">
+      <xsl:attribute name="href">mydrawerstyle.css</xsl:attribute>
+    </link>
+  </xsl:template>
+
 </xsl:stylesheet>
