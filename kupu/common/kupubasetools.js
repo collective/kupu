@@ -631,7 +631,7 @@ function KupuUI(textstyleselectid) {
                 };
             }
             if (classname) {
-                doc.execCommand('fontsize', '7');
+                doc.execCommand('fontsize', '2');
                 // Now convert font tags to spans
                 var inner = doc.getDocument();
                 var elements = inner.getElementsByTagName('FONT');
