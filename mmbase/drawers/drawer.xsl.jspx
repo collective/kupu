@@ -88,7 +88,14 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
        They are added as attributes on all tags (icon, preview and uri).
   -->
   <xsl:template match="icon">
-    <img src="{.}" alt="{../title}" height="{@height}" width="{@width}" />
+    <img src="{.}" alt="{../title}">
+      <xsl:if test="@height">
+        <xsl:attribute name="height"><xsl:value-of select="@height" /></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@width">
+        <xsl:attribute name="width"><xsl:value-of select="@width" /></xsl:attribute>
+      </xsl:if>
+    </img>
   </xsl:template>
   
   <xsl:template match="resource|collection" mode="image-view">
