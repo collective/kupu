@@ -490,8 +490,14 @@ function XhtmlValidation(editor) {
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.className;
-                if (val) val = validation.classFilter(val);
-                if (val) xhtmlnode.setAttribute('class', val);
+                if (val) {
+                    val = validation.classFilter(val); 
+                    if (val) xhtmlnode.setAttribute('class', val);
+                } else {
+                    val = htmlnode.getAttribute("class");
+                    if (val) val = validation.classFilter(val);                        
+                    if (val) xhtmlnode.setAttribute('class', val);
+                }
             }
             this['http-equiv'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.httpEquiv;
@@ -567,7 +573,7 @@ function XhtmlValidation(editor) {
             // allow all attributes on this tag
             this.attrFilters['*'](name, htmlnode, xhtmlnode);
             return;
-        };
+        };        
         for (var i = 0; i < valid.length; i++) {
             var name = valid[i];
             var filter = this.attrFilters[name];
@@ -593,7 +599,7 @@ function XhtmlValidation(editor) {
                 var xhtmlnode = ownerdoc.createElement(nodename);
                 parentnode = xhtmlnode;
             } catch (e) { };
-
+            
             if (validattrs && xhtmlnode)
                 this._copyAttributes(htmlnode, xhtmlnode, validattrs);
         }
