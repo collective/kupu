@@ -111,8 +111,13 @@ class HTMLToCaptioned:
                         tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)
                         d['tag'] = tag
                         if not width:
-                            d['width'] = target.getWidth()
-
+                            width = target.getWidth()
+                        if not width:
+                            try:
+                                width = target.getImage().getWidth()
+                            except:
+                                width = 150
+                        d['width'] = width
                         return IMAGE_TEMPLATE % d
                 return match.group(0) # No change
 
