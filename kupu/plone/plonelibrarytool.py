@@ -31,6 +31,7 @@ from Products.kupu.plone import permissions, scanner, plonedrawers, util
 from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO
+from urllib import quote_plus
 
 _default_libraries = (
     dict(id="root",
@@ -242,6 +243,47 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                     break
 
         return template.macros
+
+    security.declarePublic("forcekupu_url")
+    def forcekupu_url(self, fieldName):
+        args = {'kupu.convert':fieldName,
+            'kupu.suppress':None,
+            'portal_status_message':None
+            }
+        qs = self.query_string(args);
+        return "%s?%s" % (self.REQUEST.URL0, qs)
+
+    security.declarePublic("query_string")
+    def query_string(self, replace={}, original=None):
+        """ Updates 'original' dictionary by the values in the 'replace'
+            dictionary and returns the result as url quoted query string.
+
+            The 'original' dictionary defaults to 'REQUEST.form' if no
+            parameter is passed to it. Keys in the 'replace' dictionary
+            with a value of 'None' (or _.None in DTML) will be deleted
+            from 'original' dictionary before being quoted.
+
+            The original 'REQUEST.form' will remain unchanged.
+        """
+        # Based on code by Grégoire Weber
+        if original is None:
+            query = self.REQUEST.form.copy()
+        else:
+            query = original.copy()
+
+        # delete key/value pairs if value is None
+        for k,v in replace.items():
+            if v is None:
+                if query.has_key(k):
+                    del query[k]
+                del replace[k]
+
+        # update dictionary
+        query.update(replace)
+        qs = '&'.join(["%s=%s" % (quote_plus(str(k)), quote_plus(str(v)))
+            for k,v in query.items()])
+
+        return qs
 
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (

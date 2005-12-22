@@ -86,8 +86,8 @@
         >
         <span class="discreet"><a class="forcekupu" href="#"
            i18n:translate="force-kupu"
-           tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)"
-           tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
+           tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
+           tal:attributes="href python:portal.kupu_library_tool.forcekupu_url(fieldName);"
            title="reload current page using kupu to edit this field">
            edit with Kupu
         </a></span>
