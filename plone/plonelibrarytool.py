@@ -31,7 +31,7 @@ from Products.kupu.plone import permissions, scanner, plonedrawers, util
 from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO
-from urllib import quote_plus
+from urllib import quote_plus, unquote_plus
 
 _default_libraries = (
     dict(id="root",
@@ -284,6 +284,45 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             for k,v in query.items()])
 
         return qs
+
+    security.declareProtected("View", "url_plus_query")
+    def url_plus_query(self, url, query=None):
+        """Adds query segment to an existing URL.
+        Existing query parameters are may be overridden by query,
+        otherwise they are preserved.
+        """
+        if query is None:
+            query = {}
+        parts = url.split('?', 1)
+        oldargs = {}
+        if len(parts) > 1:
+            for arg in parts[1].split('&'):
+                k,v = [unquote_plus(s) for s in arg.split('=',1)]
+                oldargs[k] = v
+
+        return "%s?%s" % (parts[0], self.query_string(query, oldargs))
+
+    security.declareProtected('View', 'kupuUrl')
+    def kupuUrl(self, url, query=None):
+        """Generate a url which includes resource_type and instance"""
+        request = self.REQUEST
+        resource_type = request.get('resource_type', 'mediaobject')
+        instance = request.get('instance', None)
+        newquery = { 'instance':instance, 'resource_type':resource_type }
+        if query is not None:
+            newquery.update(query)
+        return self.url_plus_query(url, newquery)
+        
+    security.declareProtected('View', "getCookedLibraries")
+    def getCookedLibraries(self, context):
+        """Return a list of libraries with our own parameters included"""
+        libraries = self.getLibraries(context)
+        default_library = getattr(self, '_default_library', '')
+
+        for l in libraries:
+            l['src'] = self.kupuUrl(l['src'])
+            l['selected'] = l['id']==default_library or None
+        return libraries
 
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (

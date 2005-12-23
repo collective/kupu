@@ -126,11 +126,11 @@ class ResourceType:
 
 class InfoAdaptor:
     """Convert either an object or a brain into an information dictionary."""
-    def __init__(self, tool, resource_type='mediaobject'):
-        self.url_tool = getToolByName(tool, 'portal_url')
-        self.uid_catalog = getToolByName(tool, 'uid_catalog', None)
-        self.portal_interface = getToolByName(tool, 'portal_interface')
-        self.workflow_tool = getToolByName(tool, 'portal_workflow')
+    def __init__(self, tool, resource_type, portal):
+        self.url_tool = getToolByName(portal, 'portal_url')
+        self.uid_catalog = getToolByName(portal, 'uid_catalog', None)
+        self.portal_interface = getToolByName(portal, 'portal_interface')
+        self.workflow_tool = getToolByName(portal, 'portal_workflow')
         self.workflow_states = self.wfTitles()
         self.linkbyuid = tool.getLinkbyuid()
         self.coll_types = tool.getResourceType('collection').portal_types
@@ -152,7 +152,6 @@ class InfoAdaptor:
         # should strip the url right back down to resolveuid/whatever.
         self.base = self.url_tool()
         self.security = getSecurityManager()
-        self.portal_url = tool.portal_url()
         self.tool = tool
 
     def wfTitles(self):
@@ -174,7 +173,7 @@ class InfoAdaptor:
         return dict([(id,title) for (title,id) in states])
 
     def icon(self, icon):
-        return "%s/%s" % (self.portal_url, icon)
+        return "%s/%s" % (self.base, icon)
 
     def sizes(self, obj):
         """Returns size, width, height"""
@@ -237,7 +236,6 @@ class InfoAdaptor:
 
             if UID and self.linkbyuid:
                 url = self.base+'/resolveuid/%s' % UID
-
 
             icon = self.icon(obj.getIcon(1))
             size, width, height = self.sizes(obj)
@@ -401,22 +399,16 @@ class PloneDrawers:
         return ResourceType(self, resource_type)
 
     security.declarePublic("getFolderItems")
-    def getFolderItems(self, context, resource_type=None):
+    def getFolderItems(self, context, resource_type=None, portal=None):
         """List the contents of a folder"""
-        # XXX TODO: This should handle folders separately from other
-        # content. Any collection types which are not in portal_type
-        # should form the basis of a separate query which is free
-        # from the main query restrictions. That way even if the
-        # query says we only want items modified today we'll still
-        # see the folders.
-        #
-        # Obviously any folder which is linkable should not be
-        # included in the separate folder-only list.
         resource_type = self.getResourceType(resource_type)
         collection_type = self.getResourceType('collection')
         coll_types = collection_type.portal_types
         link_types = resource_type.portal_types
         allow_browse = resource_type.allow_browse
+
+        if portal is None:
+            portal = getToolByName(self, 'portal_url').getPortalObject()
 
         query = resource_type.getQuery()
         content =  context.getFolderContents(contentFilter=query)
@@ -439,12 +431,9 @@ class PloneDrawers:
             allcontent = context.getFolderContents(contentFilter=query2)
             content = [c for c in allcontent
                 if c.portal_type in coll_types or c.id in linkable ]
-        
-        url_tool = getToolByName(self, 'portal_url')
-        portal = url_tool.getPortalObject()
 
         link_types = query['portal_type']
-        items = self.infoForBrains(content, resource_type, linkids=linkable)
+        items = self.infoForBrains(content, resource_type, portal, linkids=linkable)
 
         if allow_browse and context is not portal:
             parent = context.aq_parent
@@ -455,37 +444,44 @@ class PloneDrawers:
         return items
 
     security.declarePublic("getSingleObjectInfo")
-    def getSingleObjectInfo(self, context, resource_type=None):
+    def getSingleObjectInfo(self, context, resource_type=None, portal=None):
         """Return info for a single object"""
         if not resource_type: resource_type = self.getResourceType()
-        return self.infoForBrains([context], resource_type)[0]
+        if portal is None:
+            portal = getToolByName(self, 'portal_url').getPortalObject()
+        return self.infoForBrains([context], resource_type, portal)[0]
 
     security.declarePublic("getBreadCrumbs")
-    def getBreadCrumbs(self, context):
+    def getBreadCrumbs(self, context, template):
         """Return breadcrumbs for drawer"""
         resource_type = self.getResourceType()
         if not resource_type.allow_browse:
-            return None
+            return []
 
+        id = template.getId()
         putils = getToolByName(self, 'plone_utils')
-        home = [{
-            'Title': "Home",
-            'absolute_url': getToolByName(self, 'portal_url')()
-        }]
+        path = [ ("Home", getToolByName(self, 'portal_url')())]
 
         try:
-            return home + putils.createBreadCrumbs(context)
+            path = path + putils.createBreadCrumbs(context)
         except AttributeError:
-            return home + [ {'Title': b[0], 'absolute_url': b[1]}
-                for b in self.breadcrumbs(context)[1:-1]]
+            path = path + self.breadcrumbs(context)[1:-1]
 
+        # Last crumb should not be linked:
+        path[-1] = (path[-1][0], None)
+
+        crumbs = []
+        for title,url in path:
+            if url:
+                url = self.kupuUrl("%s/%s" % (url.rstrip('/'), id))
+            crumbs.append({'Title':title, 'absolute_url':url})
+
+        return crumbs
     
-    def _getCurrentObject(self):
+    def _getCurrentObject(self, portal):
         '''Returns object information for a selected object'''
         request = self.REQUEST
-        url_tool = getToolByName(self, 'portal_url')
-        reference_tool = getToolByName(self, 'reference_catalog')
-        portal = url_tool.getPortalObject()
+        reference_tool = getToolByName(portal, 'reference_catalog')
         rt = self.getResourceType()
         portal_types = rt.portal_types
         src = request.get('src')
@@ -503,7 +499,6 @@ class PloneDrawers:
         match = UIDURL.match(src)
         if match:
             uid = match.group(1)
-            reference_tool = getToolByName(self, 'reference_catalog')
             obj = reference_tool.lookupObject(uid)
         elif src:
             base = portal.absolute_url()
@@ -528,10 +523,10 @@ class PloneDrawers:
         return parent
 
     security.declarePublic("getCurrentSelection")
-    def getCurrentSelection(self):
+    def getCurrentSelection(self, portal=None):
         '''Returns object information for a selected object'''
-        objects = self._getCurrentObject()
-        return self.infoForBrains(objects, self.getResourceType())
+        objects = self._getCurrentObject(portal)
+        return self.infoForBrains(objects, self.getResourceType(), portal)
 
     security.declarePublic("getMyItems")
     def getMyItems(self):
@@ -575,29 +570,33 @@ class PloneDrawers:
         return self.infoForQuery(search_params)
 
     security.declareProtected("View", "infoForQuery")
-    def infoForQuery(self, query, resource_type=None):
+    def infoForQuery(self, query, resource_type=None, portal=None):
         resource_type = self.getResourceType()
+        if portal is None:
+            portal = getToolByName(self, 'portal_url').getPortalObject()
+        
         baseQuery = resource_type.getQuery()
         query.update(baseQuery)
-        
         limit = query.get('limit', None)
         pt = query['portal_type']
         if not pt:
             del query['portal_type']
-        catalog = getToolByName(self, 'portal_catalog')
+        catalog = getToolByName(portal, 'portal_catalog')
         values = catalog.searchResults(query)
         if limit:
             values = values[:limit]
-        return self.infoForBrains(values, resource_type)
+        return self.infoForBrains(values, resource_type, portal)
 
     security.declareProtected("View", "infoForBrains")
-    def infoForBrains(self, values, resource_type, linkids=None):
+    def infoForBrains(self, values, resource_type, portal=None, linkids=None):
         request = self.REQUEST
         response = request.RESPONSE
         response.setHeader('Cache-Control', 'no-cache')
         linktypes=resource_type.portal_types
-
-        adaptor = InfoAdaptor(self, resource_type)
+        if portal is None:
+            portal = getToolByName(self, 'portal_url').getPortalObject()
+        
+        adaptor = InfoAdaptor(self, resource_type, portal)
         
         # For Plone 2.0.5 compatability, if getId is callable we assume
         # we have an object rather than a brains.

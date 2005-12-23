@@ -8,10 +8,7 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n_domain="plone"
-    tal:define="resource_type request/resource_type | string:mediaobject;
-        instance python:request.get('instance', '');
-        instance python:test(instance, 'instance=%s&' % instance, '');"
-    >
+    tal:define="kupu context/kupu_library_tool;">
   <uri tal:content="template/absolute_url">URI</uri>
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
   <title i18n_translate="heading_search_results"
@@ -19,10 +16,9 @@
   <description>Search results.</description>
 
   <breadcrumbs>
-    <crumb
-      tal:define="url context/portal_url;
-        resource_type request/resource_type | string:mediaobject;"
-      tal:attributes="href string:${context/portal_url}/kupulocate.xml?resource_type=${resource_type}&amp;src=$$src$$">
+    <crumb tal:define="locator here/kupulocate.xml/absolute_url;
+                       url python:kupu.kupuUrl(locator);"
+      tal:attributes="href string:$url&src=$$src$$">
       Locate
     </crumb>
   </breadcrumbs>

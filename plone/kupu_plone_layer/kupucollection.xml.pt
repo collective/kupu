@@ -6,35 +6,21 @@
 <collection
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
-    tal:define="resource_type request/resource_type | string:mediaobject;
-        instance python:request.get('instance', '');
-        instance python:test(instance, 'instance=%s&' % instance, '');"
+    tal:define="kupu context/kupu_library_tool;upload string:possible"
     >
-
-  <tal:with define="kupu context/kupu_library_tool;
-        global supportsupload python:kupu.isUploadSupported(context);
-        info python:kupu.getSingleObjectInfo(context);
-        breadcrumbs python:kupu.getBreadCrumbs(context);">
+  <tal:with define="info python:kupu.getSingleObjectInfo(context);
+        breadcrumbs python:kupu.getBreadCrumbs(context,template);">
     <metal:macro use-macro="here/kupucollection.xml/macros/commonToAllItems" />
     <breadcrumbs tal:condition="breadcrumbs">
-      <tal:loop tal:repeat="crumb breadcrumbs">
-      <crumb tal:content="crumb/Title"
-        tal:define="url crumb/absolute_url; url python:url.rstrip('/');
-                href string:${url}/${template/getId}?${instance}resource_type=${resource_type};
-                href python:test(repeat['crumb'].end, None, href);"
-        tal:attributes="href href"/>
-      </tal:loop>
+      <crumb tal:repeat="crumb breadcrumbs"
+        tal:content="crumb/Title"
+        tal:attributes="href crumb/absolute_url"/>
     </breadcrumbs>
   </tal:with>
 
   <items metal:define-macro="collectionItems">
-     <tal:var define="global resource_type request/resource_type | string:mediaobject;" />
      <metal:slot define-slot="defineItems">
-       <tal:comment condition="nothing">
-         The default resource type is mediaobject
-       </tal:comment>
-       <tal:var define="kupu context/kupu_library_tool;
-        global items python:kupu.getFolderItems(context,resource_type);" />
+       <tal:var define="global items python:kupu.getFolderItems(context);" />
      </metal:slot>
 
     <tal:loop repeat="info items">
@@ -83,7 +69,7 @@
       </collection>
 
     </tal:loop>
-    <uploadbutton tal:condition="supportsupload|nothing">
+    <uploadbutton tal:condition="python:exists('upload') and kupu.isUploadSupported(context)">
        <uri tal:content="string:${here/absolute_url}/kupuUploadImage" />
     </uploadbutton>
   </items>

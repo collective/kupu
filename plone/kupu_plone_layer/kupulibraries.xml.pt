@@ -12,18 +12,14 @@
 <tal:with define="
     getToolByName nocall:modules/Products/CMFCore/utils/getToolByName;
     kupu_tool     python:getToolByName(context, 'kupu_library_tool');
-    libraries     python:kupu_tool.getLibraries(context);
-    default_library python:kupu_tool.zmi_get_default_library();
-    resource_type request/resource_type | string:mediaobject;
-    instance python:request.get('instance','');
-    instance python:test(instance, 'instance=%s&' % instance, '');
+    libraries     python:kupu_tool.getCookedLibraries(context);
     ">
 
   <library tal:repeat="library libraries"
-           tal:attributes="id python:library['id'];selected python:library['id']==default_library;">
+           tal:attributes="id library/id;selected library/selected;">
     <uri tal:content="library/uri">URI</uri>
     <title i18n:translate="" tal:content="library/title">Title</title>
-    <src tal:content="string:${library/src}?${instance}resource_type=${resource_type}">Source</src>
+    <src tal:content="library/src">Source</src>
     <icon tal:content="library/icon">Icon</icon>
   </library>
 
