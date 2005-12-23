@@ -3,8 +3,10 @@
  replace='structure string:&lt;?xml version="1.0" encoding="${charset}" ?&gt;'>
 <?xml version="1.0"?>
 </tal:block>
-<library tal:define="fldr context/kupu_library_tool/getCurrentParent;
+<library tal:define="kupu nocall:context/kupu_library_tool;
+        fldr kupu/getCurrentParent;
         response request/response;
-        target string:${fldr/absolute_url}/kupucollection.xml?resource_type=${request/resource_type};
-        dummy python:response.redirect(target, status=301)"
+        target string:${fldr/absolute_url}/kupucollection.xml;
+        target kupu.kupuUrl(target);
+        dummy python:response.redirect(target, status=301);"
     />

@@ -1172,15 +1172,22 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // something
         body=body?body:null;
 
-        xmlhttp.open(method, uri, true);
-        xmlhttp.onreadystatechange = _sarissaCallback;
-        if (method == "POST") {
-            // by default, we would send a 'text/xml' request, which
-            // is a dirty lie; explicitly set the content type to what
-            // a web server expects from a POST.
-            xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-        };
-        xmlhttp.send(body);
+        try {
+            xmlhttp.open(method, uri, true);
+            xmlhttp.onreadystatechange = _sarissaCallback;
+            if (method == "POST") {
+                // by default, we would send a 'text/xml' request, which
+                // is a dirty lie; explicitly set the content type to what
+                // a web server expects from a POST.
+                xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            };
+            xmlhttp.send(body);
+        } catch(e) {
+            if (e && e.name && e.message) { // Microsoft
+                e = e.name + ': ' + e.message;
+            }
+            alert(e);
+        }
     };
 
 };
