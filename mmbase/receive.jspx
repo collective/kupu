@@ -34,7 +34,7 @@
 
             <mm:compare referid="fields" value="true">
               <mm:fieldlist id="field" type="edit" >
-                <mm:fieldinfo type="useinput" />
+                <mm:fieldinfo type="useinput" options="trim" />
               </mm:fieldlist>
             </mm:compare>
           </mm:node>
