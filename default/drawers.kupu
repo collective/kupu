@@ -65,7 +65,8 @@
         </td></tr>
         <tr class="kupu-linkdrawer-anchors" style="display:none">
           <td colspan="2">
-            <label>Anchor<select><option i18n:translate="" value="">(none)</option></select></label> 
+            <label i18n:translate="" for="anchorselect">Anchor</label>
+            <select id="anchorselect"><option i18n:translate="" value="">(none)</option></select>
           </td>
         </tr>
         <tr><td colspan="2" align="center">
@@ -120,11 +121,15 @@
                 <tr>
                   <th class="kupu-toolbox-label"> </th>
                   <td>
-                    <label><input class="kupu-tabledrawer-makeheader"
+                    <input class="kupu-tabledrawer-makeheader"
                            type="checkbox"
                            onkeypress="return HandleDrawerEnter(event);"
+                           id="tabledrawer_makeheader"
                            />
-                    <span i18n:translate="tabledrawer_headings_label">Create Headings</span></label>
+                    <label i18n:translate="tabledrawer_headings_label" 
+                            for="tabledrawer_makeheader">
+                      Create Headings
+                    </label>
                   </td>
                 </tr>
                 <tr>
@@ -235,9 +240,14 @@
         <table class="kupu-ins-bm">
           <tr style="margin-bottom: 5px">
             <td colspan="2">
-              <label><input type="radio" name="kupu-bm-mode" checked="checked" i18n:translate="" id="kupu-ins-bm"/> Link
-                to anchor</label>
-              <label><input type="radio" name="kupu-bm-mode" i18n:translate="" id="kupu-toc"/> Table of contents</label>
+              <label i18n:translate="" for="kupu-ins-bm">
+                Link to anchor
+              </label>
+              <input type="radio" name="kupu-bm-mode" checked="checked" id="kupu-ins-bm"/>
+              <label for="kupu-toc" i18n:translate="">
+                Table of contents
+              </label>
+              <input type="radio" name="kupu-bm-mode" id="kupu-toc"/> 
             </td>
           </tr>
           <tr>
@@ -246,13 +256,18 @@
             </td>
             <td rowspan="2">
               <div class="kupu-bm-heading">
-                <label i18n:translate="" style="float:right;">Table style <select id="kupu-bm-outcls" size="1">
+                <div style="float:right">
+                  <label i18n:translate="" for="kupu-bm-outcls">
+                    Table style
+                  </label>
+                  <select id="kupu-bm-outcls" size="1">
                     <option value="" i18n:translate="">Normal</option>
-                  </select></label>
-                <label>
-                  <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
+                  </select>
+                </div>
+                <label for="kupu-bm-checkall">
                   <em i18n:translate="">toggle all</em>
                 </label>
+                <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
               <div class="kupu-bm-paras"/>
             </td>
