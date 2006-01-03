@@ -177,7 +177,7 @@ class Nationalizer:
         elif el.nodeType == 3:
             buf.append(el.nodeValue)
         else:
-            print 'ignoring node of type', node.nodeType
+            pass #print 'ignoring node of type', el.nodeType
         return ''.join([ustr(b) for b in buf])
 
     def entitize(self, string):
