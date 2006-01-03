@@ -1,4 +1,4 @@
-#!/usr/bin/python2.3
+#!/usr/bin/python
 
 import os, sys
 os.chdir(os.path.abspath(os.path.dirname(__file__)))
