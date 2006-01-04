@@ -66,6 +66,8 @@ class SpellChecker:
         buf = []
         while 1:
             char = self.read_char()
+            if not char:
+                return ''
             if char == '\n':
                 return ''.join(buf)
             buf.append(char)
