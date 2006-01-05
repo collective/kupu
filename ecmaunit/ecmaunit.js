@@ -40,16 +40,11 @@ function TestCase() {
         } else {
             message = "'" + message + "' ";
         }
-        if (var1 && var1.toSource && var2 && var2.toSource) {
-            if (var1.toSource() != var2.toSource()) {
-                this._throwException('Assertion ' + message + 'failed: ' + 
-                                        var1 + ' != ' + var2);
-            };
-        } else {
-            if (var1 != var2) {
-                this._throwException('Assertion ' + message + 'failed: ' + 
-                                        var1 + ' != ' + var2);
-            };
+        if (var1 != var2 &&
+                (!(var1 instanceof Array && var2 instanceof Array) ||
+                    !this._arrayDeepCompare(var1, var2))) {
+            this._throwException('Assertion ' + message + 'failed: ' + 
+                                    var1 + ' != ' + var2);
         };
     };
 
@@ -213,6 +208,25 @@ function TestCase() {
         } else {
             return false;
         };
+    };
+
+    this._arrayDeepCompare = function(a1, a2) {
+        if (!(a1 instanceof Array && a2 instanceof Array)) {
+            return false;
+        };
+        if (a1.length != a2.length) {
+            return false;
+        };
+        for (var i=0; i < a1.length; i++) {
+            if (a1[i] instanceof Array) {
+                if (!this._arrayDeepCompare(a1[i], a2[i])) {
+                    return false;
+                };
+            } else if (a1[i] != a2[i]) {
+                return false;
+            };
+        };
+        return true;
     };
 };
 
