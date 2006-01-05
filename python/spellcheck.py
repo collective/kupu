@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-"""SpellChecker for Kupu"""
+"""Zope 2 spellchecker web service for Kupu"""
 
 COMMAND = 'aspell -a'
 
@@ -65,7 +65,9 @@ class SpellChecker:
     def read_line(self):
         buf = []
         while 1:
-            char = self.read_char()
+	    char = self.read_char()
+            if not char:
+                return ''	    
             if char == '\n':
                 return ''.join(buf)
             buf.append(char)

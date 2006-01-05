@@ -85,7 +85,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
     # protect methods provided by super class KupuLibraryTool
     security.declareProtected(permissions.QueryLibraries, "getLibraries",
-                              "getPortalTypesForResourceType")
+                              "getPortalTypesForResourceType", "spellcheck")
     security.declareProtected(permissions.ManageLibraries, "addLibrary",
                               "deleteLibraries", "updateLibraries",
                               "moveUp", "moveDown")
