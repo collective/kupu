@@ -135,28 +135,29 @@ function KupuButton(buttonid, commandfunc, tool) {
     this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.tool = tool;
-
-    this.initialize = function(editor) {
-        this.editor = editor;
-        this._fixTabIndex(this.button);
-        addEventHandler(this.button, 'click', this.execCommand, this);
-    };
-
-    this.execCommand = function() {
-        /* exec this button's command */
-        this.commandfunc(this, this.editor, this.tool);
-    };
-
-    this.updateState = function(selNode, event) {
-        /* override this in subclasses to determine whether a button should
-            look 'pressed in' or not
-        */
-    };
     this.disable = KupuButtonDisable;
     this.enable = KupuButtonEnable;
 };
 
 KupuButton.prototype = new KupuTool;
+
+KupuButton.prototype.initialize = function(editor) {
+    this.editor = editor;
+    this._fixTabIndex(this.button);
+    addEventHandler(this.button, 'click', this.execCommand, this);
+};
+
+KupuButton.prototype.execCommand = function() {
+    /* exec this button's command */
+    this.commandfunc(this, this.editor, this.tool);
+};
+
+KupuButton.prototype.updateState = function(selNode, event) {
+    /* override this in subclasses to determine whether a button should
+        look 'pressed in' or not
+    */
+};
+
 function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
     /* A button that can have two states (e.g. pressed and
        not-pressed) based on CSS classes */
