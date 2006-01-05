@@ -1281,6 +1281,7 @@ String.prototype.reduceWhitespace = function() {
 String.prototype.entitize = function() {
     var ret = this.replace(/&/g, '&amp;');
     ret = ret.replace(/"/g, '&quot;');
+    ret = ret.replace(/'/g, '&apos;');
     ret = ret.replace(/</g, '&lt;');
     ret = ret.replace(/>/g, '&gt;');
     return ret;
@@ -1290,6 +1291,7 @@ String.prototype.deentitize = function() {
     var ret = this.replace(/&gt;/g, '>');
     ret = ret.replace(/&lt;/g, '<');
     ret = ret.replace(/&quot;/g, '"');
+    ret = ret.replace(/&apos;/g, "'");
     ret = ret.replace(/&amp;/g, '&');
     return ret;
 };
