@@ -11,21 +11,6 @@
 // $Id$
 
 function SelectionTestCase() {
-
-    this.assertEquals = function(var1, var2, message) {
-        /* assert whether 2 vars have the same value */
-        // XXX: this should be removed again when issue 188 is resolved
-        // toSource() of Mozilla objects returns always the same
-        if (!message)  {
-            message = '';
-        } else {
-            message = "'" + message + "' ";
-        }
-        if (var1 != var2) {
-            throw('Assertion '+message+'failed: ' + var1 + ' != ' + var2);
-        };
-    };
-
     var visibleEmptyElements = new Array('IMG', 'BR', 'HR');
     var blockElements = new Array('P', 'DIV');
 
