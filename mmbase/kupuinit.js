@@ -53,11 +53,11 @@ function initKupu(iframe) {
         };
     };
 
-    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'), 'fontWeight', 'bold', 'bold');
+    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'));
     var boldbutton = new KupuStateButton('kupu-bold-button', execCommand('bold'), boldchecker, 'kupu-bold', 'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'), 'fontStyle', 'italic', 'italic');
+    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'));
     var italicsbutton = new KupuStateButton('kupu-italic-button', execCommand('italic'), italicschecker, 'kupu-italic', 'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
