@@ -36,7 +36,7 @@ function initKupu(iframe) {
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
-    
+
     // the ui must be registered to the editor like a tool so it can be notified
     // of state changes
     kupu.registerTool('ui', ui); // XXX Should this be a different method?
@@ -53,11 +53,11 @@ function initKupu(iframe) {
         };
     };
 
-    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'));
+    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'), null, null, "bold");
     var boldbutton = new KupuStateButton('kupu-bold-button', execCommand('bold'), boldchecker, 'kupu-bold', 'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'));
+    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'), null, null, 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', execCommand('italic'), italicschecker, 'kupu-italic', 'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
@@ -88,7 +88,7 @@ function initKupu(iframe) {
     kupu.registerTool('listtool', listtool);
 
 
-    var linktool = new LinkTool();    
+    var linktool = new LinkTool();
     // remove 'create link' from context menu, it doesn't work, and there are 2 wokring methods.
     linktool.createContextMenuElements = function(selNode, event) {
         var ret = new Array();
@@ -96,7 +96,7 @@ function initKupu(iframe) {
         if (link) {
             ret.push(new ContextMenuElement(_('Delete link'), linktool.deleteLink, linktool));
         };
-        return ret;        
+        return ret;
     };
     kupu.registerTool('linktool', linktool);
     var linktoolbox = new LinkToolBox("kupu-link-input", "kupu-link-button", 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
@@ -109,18 +109,18 @@ function initKupu(iframe) {
         return new Array();
     };
     kupu.registerTool('imagetool', imagetool);
-    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton', 
+    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton',
                                         'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
 
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
-    var tabletoolbox = new TableToolBox('kupu-toolbox-addtable', 
+    var tabletoolbox = new TableToolBox('kupu-toolbox-addtable',
         'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
         'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
-        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 
-        'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button', 
+        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button',
+        'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button',
         'kupu-table-fix-button', 'kupu-table-fixall-button', 'kupu-toolbox-tables',
         'kupu-toolbox', 'kupu-toolbox-active'
         );
@@ -129,7 +129,7 @@ function initKupu(iframe) {
     var divstool = new DivsTool();
     kupu.registerTool('divstool', divstool);
 
-    var divstoolbox = new DivsToolBox('kupu-div-addbutton', 
+    var divstoolbox = new DivsToolBox('kupu-div-addbutton',
                                        'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
     divstool.registerToolBox('divstoolbox', divstoolbox);
 
@@ -144,7 +144,7 @@ function initKupu(iframe) {
     var zoom = new KupuZoomTool('kupu-zoom-button');
     kupu.registerTool('zoomtool', zoom);
 
-    // create some drawers, drawers are some sort of popups that appear when a 
+    // create some drawers, drawers are some sort of popups that appear when a
     // toolbar button is clicked
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
@@ -169,13 +169,13 @@ function initKupu(iframe) {
    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
                                             opendrawer('linklibdrawer'));
    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
-   
+
    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
                                          opendrawer('linkdrawer'));
    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
-   
 
-   // create some drawers, drawers are some sort of popups that appear when a 
+
+   // create some drawers, drawers are some sort of popups that appear when a
    // toolbar button is clicked
    var drawertool = new DrawerTool();
    kupu.registerTool('drawertool', drawertool);
@@ -183,22 +183,22 @@ function initKupu(iframe) {
    drawertool.search = function() {
        alert('haaai');
    }
-           
+
    try {
-       var linklibdrawer = new ResourceLibraryDrawer(linktool, 
+       var linklibdrawer = new ResourceLibraryDrawer(linktool,
                                                  conf['link_xsl_uri'],
                                                  conf['link_libraries_uri'],
                                                  conf['search_links_uri']);
        drawertool.registerDrawer('linklibdrawer', linklibdrawer);
-       
-       var imagelibdrawer = new ImageLibraryDrawer(imagetool, 
+
+       var imagelibdrawer = new ImageLibraryDrawer(imagetool,
                                                    conf['image_xsl_uri'],
                                                    conf['image_libraries_uri'],
                                                    conf['search_images_uri']);
        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
 
        /*
-       var imagelibdrawer2 = new ImageLibraryDrawer(null, 
+       var imagelibdrawer2 = new ImageLibraryDrawer(null,
                                                     conf['image_xsl_uri'],
                                                     conf['image_libraries_uri'],
                                                     conf['search_images_uri']);
@@ -221,7 +221,7 @@ function initKupu(iframe) {
    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
     */
    //var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
-   // drawertool.registerDrawer('tabledrawer', tabledrawer);   
+   // drawertool.registerDrawer('tabledrawer', tabledrawer);
 
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
@@ -229,7 +229,7 @@ function initKupu(iframe) {
    {'html': 1,
         'body': 1,
         'head': 1,
-        'title': 1,        
+        'title': 1,
         'a': 1,
         'abbr': 0,
         'acronym': 0,
