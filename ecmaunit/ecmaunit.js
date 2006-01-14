@@ -147,7 +147,7 @@ function TestCase() {
         /* find all methods of which the name starts with 'test'
             and call them */
         var ret = this._runHelper();
-	this._reporter.summarize(ret[0], ret[1], this._exceptions);
+        this._reporter.summarize(ret[0], ret[1], this._exceptions);
     };
 
     this._runHelper = function() {
