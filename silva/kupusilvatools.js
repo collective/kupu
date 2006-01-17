@@ -2156,7 +2156,8 @@ SilvaExternalSourceTool.prototype._addExternalSourceIfValidated = function(objec
                         continue;
                     };
                     extsource.setAttribute(key, value);
-                    var textel = doc.createTextNode('Key: ' + key + ', value: ' + value.toString());
+                    key = key.replace(/_/g, ' ');
+                    var textel = doc.createTextNode(key + ': ' + value.toString());
                     extsource.appendChild(textel);
                     extsource.appendChild(doc.createElement('br'));
                 };
