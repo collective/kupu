@@ -1956,6 +1956,7 @@ SilvaExternalSourceTool.prototype.initialize = function(editor) {
 
 SilvaExternalSourceTool.prototype.updateState = function(selNode) {
     var extsource = this.getNearestExternalSource(selNode);
+    var heading = this.toolbox.getElementsByTagName('h1')[0];
     if (extsource) {
         this._insideExternalSource = true;
         selectSelectItem(this.idselect, extsource.getAttribute('source_id'));
@@ -1967,12 +1968,21 @@ SilvaExternalSourceTool.prototype.updateState = function(selNode) {
         if (this.toolbox) {
             this.toolbox.className = this.activeclass;
         };
+        heading.replaceChild(
+            document.createTextNode('external source \xab' + 
+                extsource.getAttribute('source_id') + '\xbb'),
+            heading.firstChild
+        );
     } else {
         this._insideExternalSource = false;
         this.resetTool();
         if (this.toolbox) {
             this.toolbox.className = this.plainclass;
         };
+        heading.replaceChild(
+            document.createTextNode('external source'),
+            heading.firstChild
+        );
     };
 };
 
