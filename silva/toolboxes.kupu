@@ -406,6 +406,11 @@
                       <input type="button" class="warning" id="kupu-table-delete-button" value="remove" />
                     </td>
                   </tr>
+                  <tr>
+                    <td class="align-right" colspan="2">
+                      <input type="button" class="button" value="update table" />
+                    </td>
+                  </tr>
                 </table>
               </div>
             </td>
