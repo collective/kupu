@@ -20,10 +20,18 @@ kupu_globals = globals()
 
 # test for Zope2
 try:
-    import Zope
-    have_zope2 = 1
+    import Zope2 as Zope
 except ImportError:
-    have_zope2 = 0
+    have_zope_2 = 0
+else:
+    have_zope_2 = 1
+    
+if not have_zope_2:
+    try:
+        import Zope
+        have_zope2 = 1
+    except ImportError:
+        have_zope2 = 0
 
 # test for CMF
 try:
