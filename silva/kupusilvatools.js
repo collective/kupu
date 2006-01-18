@@ -2030,7 +2030,6 @@ SilvaExternalSourceTool.prototype.handleKeyPressOnExternalSource = function(even
 
 SilvaExternalSourceTool.prototype.getUrlAndContinue = function(id, handler) {
     if (id == this._id) {
-        alert('returning cached: ' + this._url);
         // return cached
         handler.call(this, this._url);
         return;
