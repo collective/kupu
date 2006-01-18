@@ -2030,19 +2030,26 @@ SilvaExternalSourceTool.prototype.handleKeyPressOnExternalSource = function(even
 
 SilvaExternalSourceTool.prototype.getUrlAndContinue = function(id, handler) {
     if (id == this._id) {
+        alert('returning cached: ' + this._url);
         // return cached
         handler.call(this, this._url);
         return;
     };
     var request = new XMLHttpRequest();
-    request.open('GET', 
-        this._baseurl + '/edit/get_extsource_url?id=' + id, true);
+    var url = this._baseurl + '/edit/get_extsource_url?id=' + id;
+    request.open('GET', url, true);
     var callback = new ContextFixer(function() {
                 if (request.readyState == 4) {
-                    var url = request.responseText;
-                    this._id = id;
-                    this._url = url;
-                    handler.call(this, url);
+                    if (request.status.toString() == '200') {
+                        var returl = request.responseText;
+                        this._id = id;
+                        this._url = returl;
+                        handler.call(this, returl);
+                    } else {
+                        alert('problem: url ' + url + 
+                                ' could not be loaded (status ' +
+                                request.status + ')');
+                    };
                 };
             }, this);
     request.onreadystatechange = callback.execute;
