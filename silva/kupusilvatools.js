@@ -2330,6 +2330,12 @@ SilvaExternalSourceTool.prototype.getNearestExternalSource = function(selNode) {
 function SilvaKupuUI(textstyleselectid) {
     this.tsselect = getFromSelector(textstyleselectid);
 
+    this.initialize = function(editor) {
+        this.editor = editor;
+        this._fixTabIndex(this.tsselect);
+        this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
+    };
+
     this.updateState = function(selNode) {
         /* set the text-style pulldown */
 
