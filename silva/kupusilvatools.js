@@ -184,7 +184,7 @@ SilvaLinkToolBox.prototype.updateState = function(selNode, event) {
 };
  
 function SilvaImageTool(editelid, urlinputid, targetselectid, targetinputid, 
-                        hireslinkradioid, linklinkradioid, linkinputid, 
+                        hireslinkcheckboxid, linkinputid, 
                         alignselectid, titleinputid, toolboxid, plainclass, 
                         activeclass) {
     /* Silva specific image tool */
@@ -192,8 +192,7 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, targetinputid,
     this.urlinput = getFromSelector(urlinputid);
     this.targetselect = getFromSelector(targetselectid);
     this.targetinput = getFromSelector(targetinputid);
-    this.hireslinkradio = getFromSelector(hireslinkradioid);
-    this.linklinkradio = getFromSelector(linklinkradioid);
+    this.hireslinkcheckbox = getFromSelector(hireslinkcheckboxid);
     this.linkinput = getFromSelector(linkinputid);
     this.alignselect = getFromSelector(alignselectid);
     this.titleinput = getFromSelector(titleinputid);
@@ -205,13 +204,12 @@ function SilvaImageTool(editelid, urlinputid, targetselectid, targetinputid,
 SilvaImageTool.prototype = new ImageTool;
 
 SilvaImageTool.prototype.initialize = function(editor) {
-   this.editor = editor;
+    this.editor = editor;
     addEventHandler(this.targetselect, 'change', this.setTarget, this);
     addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
     addEventHandler(this.targetinput, 'change', this.setTarget, this);
     addEventHandler(this.urlinput, 'change', this.setSrc, this);
-    addEventHandler(this.hireslinkradio, 'click', this.setHires, this);
-    addEventHandler(this.linklinkradio, 'click', this.setNoHires, this);
+    addEventHandler(this.hireslinkcheckbox, 'click', this.setHires, this);
     addEventHandler(this.linkinput, 'keypress', this.setLink, this);
     addEventHandler(this.linkinput, 'change', this.setLink, this);
     addEventHandler(this.alignselect, 'change', this.setAlign, this);
@@ -271,10 +269,10 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
         var hires = image.getAttribute('link_to_hires') == '1';
         if (!hires) {
             var link = image.getAttribute('link');
-            this.linklinkradio.checked = 'selected';
+            this.hireslinkcheckbox.checked = false;
             this.linkinput.value = link == null ? '' : link;
         } else {
-            this.hireslinkradio.checked = 'checked';
+            this.hireslinkcheckbox.checked = 'checked';
             this.linkinput.value = '';
         };
         if (this.toolboxel) {
@@ -358,9 +356,15 @@ SilvaImageTool.prototype.setHires = function() {
         this.editor.logMessage('No image selected!', 1);
         return;
     };
-    image.setAttribute('link_to_hires', '1');
-    image.removeAttribute('link');
-    this.linkinput.value = '';
+    if (this.hireslinkcheckbox.checked) {
+        image.setAttribute('link_to_hires', '1');
+        image.removeAttribute('link');
+        this.linkinput.disabled = 'disabled';
+    } else {
+        image.setAttribute('link_to_hires', '0');
+        image.setAttribute('link', this.linkinput.value);
+        this.linkinput.disabled = false;
+    };
 };
 
 SilvaImageTool.prototype.setNoHires = function() {
@@ -373,7 +377,7 @@ SilvaImageTool.prototype.setNoHires = function() {
     var link = this.linkinput.value;
     image.setAttribute('link_to_hires', '0');
     image.setAttribute('link', link);
-    this.linklinkradio.setAttribute('selected', 'selected');
+    this.hireslinkcheckbox.checked = false;
 };
 
 SilvaImageTool.prototype.setLink = function() {
