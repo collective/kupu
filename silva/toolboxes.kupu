@@ -157,7 +157,8 @@
             <option value="float-right">float right</option>
           </select><br />
           &#160;tooltip:<br />
-          <input type="text" id="kupu-toolbox-image-alt" style="margin-left:0.2em; width: 96%" />
+          <input type="text" id="kupu-toolbox-image-alt" style="margin-left:0.2em; width: 96%" /><br />
+          <input type="button" class="button" value="update image" />
         
         </div>
       </form>
