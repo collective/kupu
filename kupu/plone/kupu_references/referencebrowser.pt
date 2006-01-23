@@ -157,7 +157,9 @@
                         onClick=""
                         i18n:attributes="value label_remove_reference;"
                         tal:condition="not: multiVal"
-                        tal:attributes="onClick string:referencebrowser_removeReference($rFieldName, $multiVal);;;" />
+                        tal:define="display python:test(uids,'','display:none');"
+                        tal:attributes="onClick string:referencebrowser_removeReference($rFieldName, $multiVal);;;
+                                style display;id string:${fieldName}_remove;" />
           </div>          
 </tal:kupu>
 <tal:nokupu condition="not:useKupu">
