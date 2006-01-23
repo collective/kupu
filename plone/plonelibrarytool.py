@@ -167,6 +167,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def getClassBlacklist(self):
         return getattr(self, 'class_blacklist', [])
 
+    security.declareProtected('View', "getDefaultResource")
+    def getDefaultResource(self):
+        return getattr(self, 'default_resource', 'linkable')
+
     security.declareProtected('View', "installBeforeUnload")
     def installBeforeUnload(self):
         return getattr(self, 'install_beforeunload', False)
@@ -450,7 +454,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
     security.declareProtected(permissions.ManageLibraries,
                               "zmi_update_resource_types")
-    def zmi_update_resource_types(self, type_info=None, preview_action=None, REQUEST=None):
+    def zmi_update_resource_types(self, type_info=None, preview_action=None, default_resource=None, REQUEST=None):
         """Update resource types through the ZMI"""
 
         if type_info:
@@ -458,6 +462,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
         if preview_action:
             self.updatePreviewActions(preview_action)
+
+        if default_resource is not None:
+            self.default_resource = default_resource
+
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
 
