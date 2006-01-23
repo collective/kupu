@@ -64,10 +64,21 @@ class ResourceType:
                 
             self._widget = self._field.widget
 
+    def __repr__(self):
+        return "<ResourceType %s %s %s %s %s" % (
+            self.name,
+            self.portal_types, self.getQuery(), self.allow_browse, self.startup_directory
+            )
+
     def get_portal_types(self):
         if not hasattr(self, '_portal_types'):
             field = self._field
             allowed_types = getattr(field, 'allowed_types', ())
+
+            if allowed_types == ():
+                dr = self._tool.getDefaultResource()
+                allowed_types = self._tool.getResourceType(dr).portal_types
+
             allow_method = getattr(field, 'allowed_types_method', None)
             if allow_method is not None:
                 instance = self._instanceFromRequest()
@@ -478,9 +489,11 @@ class PloneDrawers:
 
         return crumbs
     
-    def _getCurrentObject(self, portal):
+    def _getCurrentObject(self, portal=None):
         '''Returns object information for a selected object'''
         request = self.REQUEST
+        if portal is None:
+            portal = getToolByName(self, 'portal_url').getPortalObject()
         reference_tool = getToolByName(portal, 'reference_catalog')
         rt = self.getResourceType()
         portal_types = rt.portal_types
