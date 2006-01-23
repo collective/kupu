@@ -11,6 +11,7 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
         this.libsuri = libsuri + resourcetype;
         this.searchuri = searchuri + resourcetype;
         this.selecturi = selecturi + resourcetype;
+        this.fieldName = fieldName;
 
         this.setTitle(label);
         this.loadSelection(fieldName, multiple);
@@ -66,6 +67,7 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
             preview.appendChild(div);
         }
         this.field.value = this.currentSelection.join('\n');
+        referencebrowse_showRemove(this.fieldName, this.currentSelection.length);
 
         drawertool.closeDrawer();
     };
@@ -165,6 +167,12 @@ function referencebrowser_draweropen(e, fieldName, label, multival, resource_typ
     drawertool.openDrawer(name, [e, fieldName, label, multival,resource_type]);
 };
 
+function referencebrowse_showRemove(fieldName, items)
+{
+    var btnRemove = document.getElementById(fieldName+'_remove');
+    if (btnRemove) btnRemove.style.display = items?'':'none';
+}
+
 // function to clear the reference field or remove items
 // from the multivalued reference list.
 function referencebrowser_removeReference(fieldName)
@@ -180,6 +188,7 @@ function referencebrowser_removeReference(fieldName)
             preview.removeChild(node);
         };
     };
+    referencebrowse_showRemove(fieldName, false);
 };
 
 /*------------------- Fallback code for non-kupu versions --------------*/
