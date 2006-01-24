@@ -209,7 +209,7 @@ SilvaImageTool.prototype.initialize = function(editor) {
     addEventHandler(this.targetselect, 'change', this.selectTargetHandler, this);
     addEventHandler(this.targetinput, 'change', this.setTarget, this);
     addEventHandler(this.urlinput, 'change', this.setSrc, this);
-    addEventHandler(this.hireslinkcheckbox, 'click', this.setHires, this);
+    addEventHandler(this.hireslinkcheckbox, 'change', this.setHires, this);
     addEventHandler(this.linkinput, 'keypress', this.setLink, this);
     addEventHandler(this.linkinput, 'change', this.setLink, this);
     addEventHandler(this.alignselect, 'change', this.setAlign, this);
@@ -274,6 +274,7 @@ SilvaImageTool.prototype.updateState = function(selNode, event) {
         } else {
             this.hireslinkcheckbox.checked = 'checked';
             this.linkinput.value = '';
+            this.linkinput.disabled = 'disabled';
         };
         if (this.toolboxel) {
             if (this.toolboxel.open_handler) {
@@ -359,25 +360,13 @@ SilvaImageTool.prototype.setHires = function() {
     if (this.hireslinkcheckbox.checked) {
         image.setAttribute('link_to_hires', '1');
         image.removeAttribute('link');
+        this.linkinput.value = '';
         this.linkinput.disabled = 'disabled';
     } else {
         image.setAttribute('link_to_hires', '0');
         image.setAttribute('link', this.linkinput.value);
         this.linkinput.disabled = false;
     };
-};
-
-SilvaImageTool.prototype.setNoHires = function() {
-    var selNode = this.editor.getSelectedNode();
-    var image = this.editor.getNearestParentOfType(selNode, 'img');
-    if (!image) {
-        this.editor.logMessage('Not inside an image!', 1);
-        return;
-    };
-    var link = this.linkinput.value;
-    image.setAttribute('link_to_hires', '0');
-    image.setAttribute('link', link);
-    this.hireslinkcheckbox.checked = false;
 };
 
 SilvaImageTool.prototype.setLink = function() {
