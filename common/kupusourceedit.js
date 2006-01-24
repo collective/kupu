@@ -16,13 +16,16 @@ function SourceEditTool(sourcebuttonid, sourceareaid) {
     this.sourceButton = getFromSelector(sourcebuttonid);
     this.sourcemode = false;
     this._currently_editing = null;
+
+    // method defined inline to support closure
+    // XXX would be nice to have this defined on the prototype too, because
+    // of subclassing issues?
+    this.getSourceArea = function() {
+        return getFromSelector(sourceareaid);
+    };
 };
 
 SourceEditTool.prototype = new KupuTool;
-
-SourceEditTool.prototype.getSourceArea = function() {
-    return getFromSelector(sourceareaid);
-};
 
 SourceEditTool.prototype.cancelSourceMode = function() {
     if (this._currently_editing) {
@@ -30,7 +33,8 @@ SourceEditTool.prototype.cancelSourceMode = function() {
     };
 };
 
-SourceEditTool.prototype.updateState = this.cancelSourceMode;
+SourceEditTool.prototype.updateState = 
+        SourceEditTool.prototype.cancelSourceMode;
 
 SourceEditTool.prototype.initialize = function(editor) {
     /* attach the event handlers */
@@ -60,7 +64,8 @@ SourceEditTool.prototype.switchSourceEdit = function(event, nograb) {
         var data='';
         if(kupu.config.filtersourceedit) {
             window.status = _('Cleaning up HTML...');
-            var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
+            var transform = kupu._filterContent(
+                                kupu.getInnerDocument().documentElement);
             data = kupu.getXMLBody(transform);
             data = kupu._fixupSingletons(data).replace(/<\/?body[^>]*>/g, "");
             window.status = '';
@@ -91,6 +96,7 @@ SourceEditTool.prototype.switchSourceEdit = function(event, nograb) {
 
         kupu._initialized = true;
         this._currently_editing = null;
+        this.editor.updateState();
     };
     this.sourcemode = !this.sourcemode;
 };
