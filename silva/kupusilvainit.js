@@ -227,9 +227,11 @@ function initSilvaKupu(iframe) {
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
+/*
     var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
                                             'kupu_spellcheck');
     kupu.registerTool('spellchecker', spellchecker);
+*/
 
     var cleanupexpressions = new CleanupExpressionsTool(
             'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');
