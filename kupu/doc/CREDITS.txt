@@ -118,6 +118,8 @@ Translations
 
 * Thanh Hai, Ha - Vietnamese
 
+* Fabrizio Reale - Italian
+
 Third party products included
 -----------------------------
 
