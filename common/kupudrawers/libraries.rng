@@ -187,6 +187,11 @@
             The optional breadcrumbs element may be used to provide a breadcrumb bar at the top of the drawer.
         </a:documentation>
         <element name="breadcrumbs">
+            <optional>
+              <attribute name="class">
+                  <data type="NMTOKENS"></data>
+              </attribute>
+            </optional>
             <zeroOrMore>
                 <element name="crumb">
                     <attribute name="href">

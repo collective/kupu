@@ -546,6 +546,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
     };
 
     this.createContent = function() {
+        this.removeSelection();
         // Make sure the drawer XML is in the current Kupu instance
         if (this.element.parentNode != this.baseelement) {
             this.baseelement.appendChild(this.element);
@@ -647,6 +648,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (!this.focussed) {
             this.focusElement();
         }
+
+        // Mark drawer as having a selection or not
+        var el = this.element;
+        el.className = el.className.replace(' kupu-has-selection', '');
+        if (this.xmldata.selectSingleNode("//*[@selected]//*[@checked]")) {
+            this.element.className += ' kupu-has-selection';
+        };
 
         if (this.editor.getBrowserName() == 'IE' && id == this.resourcespanelid) {
             this.updateDisplay(this.drawerid);
@@ -927,6 +935,10 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
     };
 
     this.removeSelection = function() {
+        // Mark the drawer as having no selection
+        var el = this.element;
+        if (!this.xmldata) return;
+        
         if (!this.multiple) {
             var items = this.xmldata.selectNodes('//resource[@checked]');
             for (var i = 0; i < items.length; i++) {
@@ -978,7 +990,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         // First turn off current selection, if any
         this.removeSelection();
-        
+
         // Grab XML DOM node for clicked "resource" and mark it selected
         var newselitem = this.xmldata.selectSingleNode(newselxpath);
         newselitem.setAttribute("selected", "1");
@@ -1030,6 +1042,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
     this.search = function() {
         /* search */
+        this.removeSelection();
         var searchvalue = getFromSelector('kupu-searchbox-input').value;
         //XXX make search variable configurable
         var body = 'SearchableText=' + encodeURIComponent(searchvalue);
@@ -1120,6 +1133,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         libraries.appendChild(resultlib);
         this.useCollection(resultlib);
         this.updateDisplay(this.librariespanelid);
+        this.updateDisplay(this.breadcrumbsid);
     }
 
     this.save = function() {

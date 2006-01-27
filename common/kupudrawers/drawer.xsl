@@ -99,13 +99,13 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         <h1 class="kupu-drawer-title">
                             <xsl:value-of select="$i18n_drawertitle"/>
                         </h1>
-                        <xsl:if test="//*[@selected]/breadcrumbs">
-                          <div id="kupu-breadcrumbs" class="kupu-breadcrumbs">
-                            <xsl:apply-templates select="//*[@selected]/breadcrumbs"/>
-                          </div>
-                        </xsl:if>
+                        <div id="kupu-breadcrumbs">
+                          <xsl:if test="//*[@selected]/breadcrumbs">
+                              <xsl:apply-templates select="//*[@selected]/breadcrumbs"/>
+                          </xsl:if>
+                        </div>
                         <div class="kupu-panels">
-                            <table>
+                          <table>
                                 <tr class="kupu-panelsrow">
                                     <td id="kupu-librariespanel" class="panel">
                                         <div id="kupu-librariesitems" class="overflow">
@@ -416,7 +416,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </div>
     </xsl:template>
     <xsl:template match="breadcrumbs">
+        <span>
+          <xsl:attribute name="class">
+              <xsl:value-of select="@class"/>
+          </xsl:attribute>
         <xsl:apply-templates select="crumb"></xsl:apply-templates>
+        </span>
     </xsl:template>
     <xsl:template match="crumb[@href]">
         <a>

@@ -7,6 +7,6 @@
         fldr kupu/getCurrentParent;
         response request/response;
         target string:${fldr/absolute_url}/kupucollection.xml;
-        target kupu.kupuUrl(target);
+        target python:kupu.kupuUrl(target);
         dummy python:response.redirect(target, status=301);"
     />

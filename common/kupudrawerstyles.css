@@ -266,13 +266,27 @@ td.kupu-bm-select {
 .kupu-drawer label {
    font-weight: bold;
 }
-.kupu-breadcrumbs {
+#kupu-breadcrumbs {
   text-align: left; clear:left;
   padding-left: 1em; padding-right: 1em;
 }
-.kupu-breadcrumbs a {
+#kupu-breadcrumbs a {
  text-decoration: none;
 }
 .kupu-breadcrumbSeparator {
     font-size: 120%;
+}
+
+.kupu-locate {
+    visibility:hidden;
+    display: block;
+}
+
+.kupu-has-selection .kupu-locate {
+    visibility:visible;
+}
+.kupu-has-selection .kupu-locate a {
+    background: transparent url(kupuimages/treeCollapsed.gif) 4px 6px no-repeat;
+    padding: 1px 0px 1px 16px;
+    font-style: italic;
 }
