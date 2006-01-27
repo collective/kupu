@@ -18,12 +18,12 @@ e.g. Call: kupuselection.xml?src=someurl
   <description>Current selection.</description>
   <src tal:content="string:${request/URL0}?${request/QUERY_STRING}">Source</src>
 
-  <breadcrumbs>
+  <breadcrumbs class="kupu-locate">
     <crumb
       tal:define="url context/portal_url;
         resource_type request/resource_type | string:mediaobject;"
       tal:attributes="href string:${context/portal_url}/kupulocate.xml?resource_type=${resource_type}&amp;src=$$src$$">
-      Locate
+      Breadcrumbs
     </crumb>
   </breadcrumbs>
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">

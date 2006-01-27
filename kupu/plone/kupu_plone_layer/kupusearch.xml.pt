@@ -15,11 +15,11 @@
         tal:content="string:Search '${request/SearchableText}'">Search Results</title>
   <description>Search results.</description>
 
-  <breadcrumbs>
+  <breadcrumbs class="kupu-locate">
     <crumb tal:define="locator here/kupulocate.xml/absolute_url;
                        url python:kupu.kupuUrl(locator);"
       tal:attributes="href string:$url&src=$$src$$">
-      Locate
+      Breadcrumbs
     </crumb>
   </breadcrumbs>
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">

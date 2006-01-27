@@ -498,22 +498,20 @@ class PloneDrawers:
         rt = self.getResourceType()
         portal_types = rt.portal_types
         src = request.get('src')
-        if request.get('instance',None):
-            src = src.split(' ') # src is a list of uids.
-            objects = [ reference_tool.lookupObject(uid) for uid in src ]
-            objects = [ o for o in objects if o is not None ]
-            return objects
-
         # Remove any spurious query string or fragment
         for c in '#?':
             if c in src:
                 src = src.split(c, 1)[0]
 
         match = UIDURL.match(src)
+
         if match:
+            # src=http://someurl/resolveuid/<uid>
             uid = match.group(1)
             obj = reference_tool.lookupObject(uid)
-        elif src:
+            
+        elif src and '://' in src:
+            # src=http://someurl/somepath/someobject
             base = portal.absolute_url()
             if src.startswith(base):
                 src = src[len(base):].lstrip('/')
@@ -523,10 +521,20 @@ class PloneDrawers:
                     obj = obj.aq_parent
                     if obj is portal:
                         return []
+        else:
+            # src=<uid1> <uid2> ... <uidn>
+            src = src.split(' ') # src is a list of uids.
+            objects = [ reference_tool.lookupObject(uid) for uid in src ]
+            objects = [ o for o in objects if o is not None ]
+            return objects
+
         return [obj]
 
     security.declarePublic("getCurrentParent")
     def getCurrentParent(self):
+        """Find the parent of the object specified in the src string.
+        If multiple objects and they don't have the same parent, or if no suitable object
+        returns None, otherwise returns the parent."""
         objects = self._getCurrentObject()
         parent = None
         for obj in objects:
