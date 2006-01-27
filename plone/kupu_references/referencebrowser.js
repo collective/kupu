@@ -188,6 +188,7 @@ function referencebrowser_removeReference(fieldName)
             preview.removeChild(node);
         };
     };
+    field.value = '';
     referencebrowse_showRemove(fieldName, false);
 };
 
