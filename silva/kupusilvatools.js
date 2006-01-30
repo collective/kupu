@@ -15,11 +15,11 @@
 // be moved to somewhere in Silva or something?)
 EDITABLE_METADATA = {
     'http://infrae.com/namespaces/metadata/silva-news': 
-            [['subjects', 'checkbox', 1, 'Subjects'],
-                ['target_audiences', 'checkbox', 1, 'Target audiences'],
-                ['start_datetime', 'datetime', 1, 'Start date/time'],
-                ['end_datetime', 'datetime', 0, 'End date/time'],
-                ['location', 'text', 0, 'Location']
+            [['subjects', 'checkbox', 1, 'subjects'],
+                ['target_audiences', 'checkbox', 1, 'target audiences'],
+                ['start_datetime', 'datetime', 1, 'start date/time'],
+                ['end_datetime', 'datetime', 0, 'end date/time'],
+                ['location', 'text', 0, 'location']
             ]
 }
  
