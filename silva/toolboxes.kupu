@@ -347,7 +347,7 @@
                   </tr>
                   <tr>
                     <td class="align-right" colspan="2">
-                      <input type="button" class="button" value="update image" />
+                      <input type="button" class="button" value="update table" />
                     </td>
                   </tr>
                 </table>
