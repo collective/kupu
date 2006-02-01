@@ -245,6 +245,24 @@ div.kupuoverride {
     border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
 }
 
+.kupu-reference .kupu-preview-row {
+   float: left;
+}
+
+.kupu-reference a .kupu-description-row {
+   display: none;
+}
+
+.kupu-reference a { position: relative; }
+
+.kupu-reference a:hover .kupu-description-row {
+   display: block;
+   position: absolute; top: 20px; left: 128px; width: 200px;
+   padding: 5px; margin: 10px; z-index: 100;
+   color: black; background: #ffffa0;
+   font: 10px Verdana, sans-serif;
+}
+
 .odd .kupu-preview-row {
     background-color: &dtml-oddRowBackgroundColor;;
 }

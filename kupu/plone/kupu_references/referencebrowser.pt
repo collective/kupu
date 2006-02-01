@@ -127,13 +127,15 @@
   </em>
   <tal:loop repeat="i info">
      <div tal:define="odd repeat/i/odd" tal:attributes="class python:test(odd,'odd','even');">
-        <div class="kupu-preview-row" tal:condition="i/preview">
+       <a href="#" tal:attributes="href string:${i/url}/view;">
+         <div class="kupu-preview-row" tal:condition="i/preview">
            <img tal:attributes="src i/preview; title i/title;"
-                    onload="kupuFixImage(this);" width="1" height="1"/>
-        </div>
-        <h1 class="kupu-title-row" tal:content="i/title">Item heading</h1>
-        <div tal:content="structure i/description" tal:condition="i/description"></div>
-        <div style="clear:both;line-height:1px;">&nbsp;</div>
+                        onload="kupuFixImage(this);" width="1" height="1"/>
+         </div>
+         <h1 class="kupu-title-row" tal:content="i/title">Item heading</h1>
+         <div class="kupu-description-row" tal:content="structure i/description" tal:condition="i/description"></div>
+         <div style="clear:both;line-height:1px;">&nbsp;</div>
+       </a>
     </div>
  </tal:loop>
 </div>
