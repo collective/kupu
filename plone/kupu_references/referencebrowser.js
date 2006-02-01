@@ -63,7 +63,10 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
             var imp = window.document.importNode(result, true);
             div = document.createElement("div");
             div.className = i%2?'odd':'even';
-            Sarissa.copyChildNodes(imp, div, true);
+            var link = document.createElement('a');
+            link.href = node.selectSingleNode('uri/text()').nodeValue.strip()+'/view';
+            Sarissa.copyChildNodes(imp, link, true);
+            div.appendChild(link);
             preview.appendChild(div);
         }
         this.field.value = this.currentSelection.join('\n');
