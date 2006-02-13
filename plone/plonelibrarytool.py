@@ -1,3 +1,4 @@
+# -*- coding: latin-1 -*-
 ##############################################################################
 #
 # Copyright (c) 2003-2005 Kupu Contributors. All rights reserved.
