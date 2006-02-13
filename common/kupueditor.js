@@ -344,7 +344,7 @@ function KupuEditor(document, config, logger) {
                 this.content_changed = true;
                 // Done here otherwise it doesn't always work or gets lost
                 // after some commands
-                this.getDocument().execCommand('styleWithCSS', this.config.use_css);
+                this.getDocument().execCommand('styleWithCSS', this.config.use_css == 1);
             };
         };
         this.getDocument().execCommand(command, param);
