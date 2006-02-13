@@ -72,8 +72,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     <xsl:value-of select="$i18n_drawertitle"/>
                 </title>
                 <link type="text/css" rel="stylesheet">
-                    <xsl:attribute name="href">kupudrawerstyles.css </xsl:attribute>
+                    <xsl:attribute name="href">kupudrawerstyles.css</xsl:attribute>
                 </link>
+                <xsl:call-template name="mystyle" />
             </head>
             <body>
                 <div class="kupu-drawer">
@@ -168,6 +169,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </xsl:otherwise>
       </xsl:choose>
     </xsl:template>
+
+    <xsl:template name="mystyle" />
 
     <xsl:template match="library">
         <div onclick="drawertool.current_drawer.selectLibrary('{@id}');" class="kupu-libsource"
@@ -426,7 +429,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="crumb[@href]">
         <a>
             <xsl:attribute name="href">
-                <xsl:value-of select="@href"/>
+              <xsl:value-of select="@href"/>
             </xsl:attribute>
             <xsl:attribute name="onclick">drawertool.current_drawer.selectBreadcrumb(this);return false;</xsl:attribute>
             <xsl:value-of select="node()"/>
