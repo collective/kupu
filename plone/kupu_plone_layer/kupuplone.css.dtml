@@ -20,7 +20,7 @@ expires="_.DateTime()+7" >
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
 */
-/* <dtml-with base_properties><dtml-let buttonhighlight="contentViewBorderColor" buttonshadow="contentViewBorderColor"> */
+/* <dtml-with base_properties><dtml-let buttonhighlight="'Black'" buttonshadow="'Black'"> */
 
 div.kupu-toolboxes {display: none}
 
