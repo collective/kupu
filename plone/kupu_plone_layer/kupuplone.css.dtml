@@ -204,6 +204,10 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-removeimage {background-image: url("plonekupuimages/delete_icon.gif");}
 .kupu-spellchecker { display:none; }
 
+.kupu-zoom {background-image: url("plonekupuimages/fullscreenexpand_icon.gif");}
+.kupu-zoom-pressed {background-image: url("plonekupuimages/fullscreencollapse_icon.gif");}
+
+
 div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
   background-color: &dtml-contentViewBackgroundColor;;
@@ -244,6 +248,10 @@ div.kupuoverride {
     text-transform: &dtml-textTransform;;
     border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
     background-color: white;
+}
+
+#kupu-logo-button {
+    display: none;
 }
 
 /* </dtml-let></dtml-with> */
