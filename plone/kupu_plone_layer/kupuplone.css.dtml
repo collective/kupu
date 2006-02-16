@@ -22,6 +22,14 @@ expires="_.DateTime()+7" >
 */
 /* <dtml-with base_properties><dtml-let buttonhighlight="'Black'" buttonshadow="'Black'"> */
 
+.kupu a {
+    color: &dtml-linkColor; !important;
+    background-color: transparent;
+    text-decoration: none !important;
+    border-bottom: 1px #cccccc solid !important;
+}
+
+
 div.kupu-toolboxes {display: none}
 
 /*select.kupu-tb-styles {display: block}*/
@@ -237,5 +245,5 @@ div.kupuoverride {
     border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
     background-color: white;
 }
-/* </dtml-let></dtml-with> */
 
+/* </dtml-let></dtml-with> */
