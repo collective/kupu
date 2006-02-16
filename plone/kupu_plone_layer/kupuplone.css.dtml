@@ -20,7 +20,7 @@ expires="_.DateTime()+7" >
 <dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
 </dtml-let>
 */
-/* <dtml-with base_properties><dtml-let buttonhighlight="'#fff'" buttonshadow="contentViewBorderColor"> */
+/* <dtml-with base_properties><dtml-let buttonhighlight="contentViewBorderColor" buttonshadow="contentViewBorderColor"> */
 
 div.kupu-toolboxes {display: none}
 
@@ -138,21 +138,21 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 
 
 .kupu-bold,
-.kupu-bold-pressed {background-image: url("kupuimages/bold.gif");}
+.kupu-bold-pressed {background-image: url("plonekupuimages/bold.gif");}
 
 .kupu-forecolor {background-image: url("plonekupuimages/text-color.gif");}
-.kupu-inthyperlink {background-image: url("plonekupuimages/anchor.gif");}
+.kupu-inthyperlink {background-image: url("plonekupuimages/hyperlink.gif");}
 .kupu-inthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
-.kupu-exthyperlink {background-image: url("plonekupuimages/hyperlink.gif");}
+.kupu-exthyperlink {background-image: url("link_icon.gif");}
 .kupu-exthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
-.kupu-image {background-image: url("kupuimages/image.png");}
+.kupu-image {background-image: url("plonekupuimages/image.gif");}
 
-.kupu-indent {background-image: url("kupuimages/indent.gif");}
+.kupu-indent {background-image: url("plonekupuimages/indent.gif");}
 .kupu-inserthorizontalrule {background-image: url("plonekupuimages/hr.gif");}
 
 .kupu-insertorderedlist,
@@ -164,7 +164,7 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 .kupu-insertdefinitionlist {background-image: url("plonekupuimages/definitionlist.gif");}
 
 .kupu-italic, 
-.kupu-italic-pressed {background-image: url("kupuimages/italic.gif");}
+.kupu-italic-pressed {background-image: url("plonekupuimages/italic.gif");}
 
 .kupu-justifycenter,
 .kupu-justifycenter-pressed {background-image: url("plonekupuimages/center.gif");}
@@ -178,7 +178,7 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 .kupu-outdent {background-image: url("plonekupuimages/outdent.gif");}
 .kupu-redo {background-image: url("plonekupuimages/redo.gif");}
-.kupu-save {background-image: url("kupuimages/save.png");}
+.kupu-save {background-image: url("plonekupuimages/save.png");}
 .kupu-save-and-exit {background-image: url("kupuimages/exit.gif");}
 .kupu-space {background-image: url("plonekupuimages/space.gif");}
 .kupu-source {background-image: url("plonekupuimages/view-source.gif");}
@@ -189,7 +189,7 @@ button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 
 .kupu-table {background-image: url("plonekupuimages/table.gif");}
 .kupu-underline, 
-.kupu-underline-pressed {background-image: url("kupuimages/underline.gif");}
+.kupu-underline-pressed {background-image: url("plonekupuimages/underline.gif");}
 
 .kupu-undo {background-image: url("plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("plonekupuimages/delete_icon.gif");}
