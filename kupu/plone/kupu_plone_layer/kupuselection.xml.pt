@@ -16,7 +16,7 @@ e.g. Call: kupuselection.xml?src=someurl
   <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
   <title i18n_translate="box_selected">Selected</title>
   <description>Current selection.</description>
-  <src tal:content="string:${request/URL0}?${request/QUERY_STRING}">Source</src>
+  <src tal:content="string:${request/URL0}?${context/kupu_library_tool/query_string}">Source</src>
 
   <breadcrumbs class="kupu-locate">
     <crumb
