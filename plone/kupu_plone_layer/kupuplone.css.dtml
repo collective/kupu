@@ -11,16 +11,9 @@
 
 /* $Id: kupuplone.css 7217 2004-11-11 13:20:56Z duncan $ */
 /*
-<dtml-var "enableHTTPCompression(request=REQUEST, debug=1, js=1)">
-<dtml-let last_modified="_.DateTime()-14"
-expires="_.DateTime()+7" >
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Content-Type', 'text/css' )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Last-Modified', last_modified.toZone('GMT').rfc822() )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Cache-Control', 'max-age=36000, must-revalidate' )">
-<dtml-call "REQUEST.RESPONSE.setHeader( 'Expires', expires.toZone('GMT').rfc822() )" >
-</dtml-let>
-*/
-/* <dtml-with base_properties><dtml-let buttonhighlight="'Black'" buttonshadow="'Black'"> */
+/* <dtml-with base_properties>
+ * <dtml-let buttonhighlight="'Black'" buttonshadow="'Black'"> 
+ * <dtml-call "REQUEST.set('portal_url', portal_url())"> */
 
 .kupu a {
     color: &dtml-linkColor; !important;
@@ -146,66 +139,66 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 
 
 .kupu-bold,
-.kupu-bold-pressed {background-image: url("plonekupuimages/bold.gif");}
+.kupu-bold-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/bold.gif");}
 
-.kupu-forecolor {background-image: url("plonekupuimages/text-color.gif");}
-.kupu-inthyperlink {background-image: url("plonekupuimages/hyperlink.gif");}
+.kupu-forecolor {background-image: url("&dtml-portal_url;/plonekupuimages/text-color.gif");}
+.kupu-inthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/hyperlink.gif");}
 .kupu-inthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
-.kupu-exthyperlink {background-image: url("link_icon.gif");}
+.kupu-exthyperlink {background-image: url("&dtml-portal_url;/link_icon.gif");}
 .kupu-exthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
-.kupu-image {background-image: url("plonekupuimages/image.gif");}
+.kupu-image {background-image: url("&dtml-portal_url;/plonekupuimages/image.gif");}
 
-.kupu-indent {background-image: url("plonekupuimages/indent.gif");}
-.kupu-inserthorizontalrule {background-image: url("plonekupuimages/hr.gif");}
+.kupu-indent {background-image: url("&dtml-portal_url;/plonekupuimages/indent.gif");}
+.kupu-inserthorizontalrule {background-image: url("&dtml-portal_url;/plonekupuimages/hr.gif");}
 
 .kupu-insertorderedlist,
-.kupu-insertorderedlist-pressed {background-image: url("plonekupuimages/numbered_list.gif");}
+.kupu-insertorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/numbered_list.gif");}
 
 .kupu-insertunorderedlist,
-.kupu-insertunorderedlist-pressed {background-image: url("plonekupuimages/list.gif");}
+.kupu-insertunorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/list.gif");}
 
-.kupu-insertdefinitionlist {background-image: url("plonekupuimages/definitionlist.gif");}
+.kupu-insertdefinitionlist {background-image: url("&dtml-portal_url;/plonekupuimages/definitionlist.gif");}
 
 .kupu-italic, 
-.kupu-italic-pressed {background-image: url("plonekupuimages/italic.gif");}
+.kupu-italic-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/italic.gif");}
 
 .kupu-justifycenter,
-.kupu-justifycenter-pressed {background-image: url("plonekupuimages/center.gif");}
+.kupu-justifycenter-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/center.gif");}
 
 .kupu-justifyleft,
-.kupu-justifyleft-pressed {background-image: url("plonekupuimages/left_just.gif");}
+.kupu-justifyleft-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/left_just.gif");}
 
 .kupu-justifyright,
-.kupu-justifyright-pressed {background-image: url("plonekupuimages/right_just.gif");}
+.kupu-justifyright-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/right_just.gif");}
 
-button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
-.kupu-outdent {background-image: url("plonekupuimages/outdent.gif");}
-.kupu-redo {background-image: url("plonekupuimages/redo.gif");}
-.kupu-save {background-image: url("plonekupuimages/save.png");}
-.kupu-save-and-exit {background-image: url("kupuimages/exit.gif");}
-.kupu-space {background-image: url("plonekupuimages/space.gif");}
-.kupu-source {background-image: url("plonekupuimages/view-source.gif");}
+button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.gif");}
+.kupu-outdent {background-image: url("&dtml-portal_url;/plonekupuimages/outdent.gif");}
+.kupu-redo {background-image: url("&dtml-portal_url;/plonekupuimages/redo.gif");}
+.kupu-save {background-image: url("&dtml-portal_url;/plonekupuimages/save.png");}
+.kupu-save-and-exit {background-image: url("&dtml-portal_url;/kupuimages/exit.gif");}
+.kupu-space {background-image: url("&dtml-portal_url;/plonekupuimages/space.gif");}
+.kupu-source {background-image: url("&dtml-portal_url;/plonekupuimages/view-source.gif");}
 .kupu-subscript,
-.kupu-subscript-pressed  {background-image: url("plonekupuimages/subscript.gif");}
+.kupu-subscript-pressed  {background-image: url("&dtml-portal_url;/plonekupuimages/subscript.gif");}
 .kupu-superscript,
-.kupu-superscript-pressed {background-image: url("plonekupuimages/superscript.gif");}
+.kupu-superscript-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/superscript.gif");}
 
-.kupu-table {background-image: url("plonekupuimages/table.gif");}
+.kupu-table {background-image: url("&dtml-portal_url;/plonekupuimages/table.gif");}
 .kupu-underline, 
-.kupu-underline-pressed {background-image: url("plonekupuimages/underline.gif");}
+.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
 
-.kupu-undo {background-image: url("plonekupuimages/undo.gif");}
-.kupu-removelink {background-image: url("plonekupuimages/delete_icon.gif");}
-.kupu-removeimage {background-image: url("plonekupuimages/delete_icon.gif");}
+.kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
+.kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
+.kupu-removeimage {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
 .kupu-spellchecker { display:none; }
 
-.kupu-zoom {background-image: url("plonekupuimages/fullscreenexpand_icon.gif");}
-.kupu-zoom-pressed {background-image: url("plonekupuimages/fullscreencollapse_icon.gif");}
+.kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
+.kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}
 
 
 div.kupu-drawer {
