@@ -291,7 +291,8 @@ StdoutReporter.prototype.reportSuccess = function(testcase, attr) {
     };
 };
 
-StdoutReporter.prototype.reportError = function(testcase, attr, exception, raw) {
+StdoutReporter.prototype.reportError = function(testcase, attr, 
+                                                exception, raw) {
     /* report a test failure */
     if (this.verbose) {
         print(testcase + '.' + attr + '(): FAILED!');
@@ -310,7 +311,7 @@ StdoutReporter.prototype.summarize = function(numtests, time, exceptions) {
             var exception = exceptions[i][2];
             var raw = exceptions[i][3];
             print(testcase + '.' + attr + ', exception: ' + exception);
-            if (verbose) {
+            if (this.verbose) {
                 this._printStackTrace(raw);
             };
         };
