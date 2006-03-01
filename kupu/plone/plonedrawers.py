@@ -47,7 +47,12 @@ class ResourceType:
         else:
             # Must be portal_type.fieldname
             typename, fieldname = parts
-            __traceback_info__ = (typename, fieldname)
+            # Topic criteria have typename and fieldname embedded in
+            # the criteria name.
+            if fieldname.startswith('crit__'):
+                typename, fieldname = fieldname.split('_')[-2:]
+
+            __traceback_info__ = (parts, typename, fieldname)
             archetype_tool = getToolByName(tool, 'archetype_tool', None)
             types = archetype_tool.listRegisteredTypes()
             typeinfo = [t for t in types if t['portal_type']==typename]
@@ -121,7 +126,9 @@ class ResourceType:
             # saved. The UID won't be in the catalog so we need to create
             # a dummy object instead.
             tool = self._tool
-            UID = tool.REQUEST.instance
+            UID = tool.REQUEST.get('instance', None)
+            if UID is None:
+                return None
             reference_tool = getToolByName(tool, 'reference_catalog')
             self._instance = reference_tool.lookupObject(UID)
 
@@ -432,7 +439,7 @@ class PloneDrawers:
             # doesn't match the original query.
             query2 = {}
             if link_types:
-                query2['portal_type'] = link_types + coll_types
+                query2['portal_type'] = link_types + list(coll_types)
             else:
                 query2['portal_type'] = ()
 
