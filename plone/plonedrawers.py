@@ -439,7 +439,7 @@ class PloneDrawers:
             # doesn't match the original query.
             query2 = {}
             if link_types:
-                query2['portal_type'] = link_types + list(coll_types)
+                query2['portal_type'] = tuple(link_types) + tuple(coll_types)
             else:
                 query2['portal_type'] = ()
 
