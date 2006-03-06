@@ -18,7 +18,8 @@
                 posfactory python:base.find('/portal_factory/');
                 base python:posfactory > 0 and base[:posfactory+15] or base;
                 base kupu_base_override|base;"
-        tal:attributes="src string:${base}/emptypage; tabindex python:tabindex+1;"
+        tal:attributes="src string:${base}/emptypage; 
+                        tabindex python:tabindex is not None and tabindex + 1 or None;"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"
