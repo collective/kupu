@@ -16,7 +16,8 @@
 
   <kupu:part name="xmlconfig">
     <tal:var define="field field|nothing;
-        usecaptions python:field and field.default_output_type=='text/x-html-captioned'">
+        default_output_type field/default_output_type|nothing;
+        usecaptions python:default_output_type=='text/x-html-captioned'">
         <captions tal:condition="usecaptions">1</captions>
     </tal:var>
     <image_xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl" />
