@@ -17,16 +17,18 @@
     <mm:import externid="objectnumber"  />
     <mm:import externid="tools"  />
     <mm:import externid="origin"  />
-    <mm:import externid="wizard" vartype="list" />
+    <mm:import externid="wizard" vartype="list" listdelimiter="/" />
     <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:compare referid="objectnumber" value="new">
       <mm:createnode type="${wizard[1]}" id="node">
 
       </mm:createnode>
       <mm:present referid="origin">
-        <mm:log>Creating relation between ${origin} and ${node}</mm:log>
-        <mm:node id="origin" referid="origin" />
-        <mm:createrelation role="related" source="origin" destination="node" />
+        <mm:hasnode number="$origin">
+          <mm:log>Creating relation between ${origin} and ${node}</mm:log>
+          <mm:node id="origin" referid="origin" />
+          <mm:createrelation role="related" source="origin" destination="node" />
+        </mm:hasnode>
       </mm:present>
       <mm:import externid="link_nodetypes" />
       <mm:redirect referids="node@objectnumber,tools?,language?,origin?,nodetypes?,back@kupu_back,link_nodetypes?" /> 
