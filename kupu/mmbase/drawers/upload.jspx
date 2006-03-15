@@ -17,8 +17,18 @@
     <mm:import id="description" externid="node_prop_desc" from="multipart"/>
     <mm:import id="file" externid="node_prop_image" from="multipart" vartype="fileitem"  />
     <mm:createnode type="$nodetype" id="node">
-      <mm:setfield name="title" valueid="title" />
-      <mm:setfield name="subtitle" valueid="description" />
+      <mm:hasfield name="title">
+        <mm:setfield name="title" valueid="title" />
+      </mm:hasfield>
+      <mm:hasfield name="name">
+        <mm:setfield name="name" valueid="title" />
+      </mm:hasfield>
+      <mm:hasfield name="subtitle">
+        <mm:setfield name="subtitle" valueid="description" />
+      </mm:hasfield>
+      <mm:hasfield name="description">
+        <mm:setfield name="description" valueid="description" />
+      </mm:hasfield>
       <mm:hasfield name="filename">
         <mm:setfield name="filename">${file.name}</mm:setfield>
       </mm:hasfield>
