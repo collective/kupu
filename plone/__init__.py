@@ -23,6 +23,7 @@ from Products.kupu import kupu_globals
 
 kupu_package_dir = package_home(kupu_globals)
 registerDirectory('plone/kupu_plone_layer', kupu_package_dir)
+registerDirectory('tests', kupu_package_dir)
 
 def initialize(context):
     utils.ToolInit("kupu Library Tool",
