@@ -155,6 +155,12 @@ function initPloneKupu(editorId) {
         prefix+'button.kupu-logo');
     kupu.registerTool('zoomtool', zoom);
 
+    // XXX  - Needs prefix here for multi area support, but also 
+    // added to the template
+    var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
+                                            'kupu_library_tool/spellcheck');
+    kupu.registerTool('spellchecker', spellchecker);
+
     // Use the generic beforeUnload handler if we have it:
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {

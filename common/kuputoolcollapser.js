@@ -57,6 +57,9 @@ this.kuputoolcollapser = new function() {
                 if (initial_state[child.id] === undefined || 
                         initial_state[child.id] == '0') {
                     body.style.display = 'none';
+                } else {
+                    heading.className = 'kupu-toolbox-heading-opened';
+                    heading.setAttribute('title', _('click to fold'));
                 };
                 // add a reference to the openhandler on the toolbox div
                 // so any toolbox code can use that to open the toolbox if

@@ -195,8 +195,8 @@ function initSilvaKupu(iframe) {
     var imagetool = new SilvaImageTool(
         'kupu-toolbox-image-edit', 'kupu-toolbox-image-src',
         'kupu-toolbox-image-target', 'kupu-toolbox-image-target-input',
-        'kupu-toolbox-image-link-radio-hires',
-        'kupu-toolbox-image-link-radio-link',  'kupu-toolbox-image-link',
+        'kupu-toolbox-image-link-checkbox-hires',
+        'kupu-toolbox-image-link',
         'kupu-toolbox-image-align', 'kupu-toolbox-image-alt', 
         'kupu-toolbox-images', 'kupu-toolbox',
         'kupu-toolbox-active');
@@ -227,9 +227,11 @@ function initSilvaKupu(iframe) {
                                             'kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
+/*
     var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
                                             'kupu_spellcheck');
     kupu.registerTool('spellchecker', spellchecker);
+*/
 
     var cleanupexpressions = new CleanupExpressionsTool(
             'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');

@@ -20,8 +20,8 @@
     <!--$Id: wire.kupu 23401 2006-02-16 13:47:33Z limi $-->
     <!--$Id: head.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: xmlconfig.kupu 18097 2005-10-03 09:51:28Z duncan $-->
-    <!--$Id: body.kupu 18006 2005-09-30 12:14:10Z duncan $-->
-    <!--$Id: toolbar.kupu 21203 2005-12-16 09:41:30Z duncan $-->
+    <!--$Id: body.kupu 24003 2006-03-06 01:40:07Z limi $-->
+    <!--$Id: toolbar.kupu 24003 2006-03-06 01:40:07Z limi $-->
     <!--$Id: drawers.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: beforeunload.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: sourceedit.kupu 14546 2005-07-12 14:35:55Z duncan $-->
@@ -105,6 +105,7 @@
     <script type="text/javascript" src="kupusourceedit.js" tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
 
     <script type="text/javascript" src="kupudrawers.js" tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
+    <script type="text/javascript" src="kupuspellchecker.js" tal:attributes="src string:${portal_url}/kupuspellchecker.js"> </script>
    </tal:test>
   
 <tal:condition condition="python:here.kupu_library_tool.installBeforeUnload() and not path('haveBeforeUnload|nothing')">
@@ -120,7 +121,7 @@
     <span id="kupu-tb-buttons" class="kupu-tb-buttons">
       
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu 1.3.3" accesskey="k" id="kupu-logo-button" onclick="window.open('http://kupu.oscom.org');" tal:attributes="tabindex python:tabindex is not None and tabindex + 1 or None;">&#160;</button>
+      <button type="button" class="kupu-logo" title="Kupu 1.3.5" accesskey="k" id="kupu-logo-button" onclick="window.open('http://kupu.oscom.org');" tal:attributes="tabindex python:tabindex is not None and tabindex + 1 or None;">&#160;</button>
     </span>
   
     <span class="kupu-tb-buttongroup" style="float: right" id="kupu-zoom">
@@ -182,7 +183,7 @@
     </span>
   
     <span class="kupu-tb-buttongroup kupu-source-span" id="kupu-source">
-      <button type="button" class="kupu-source" id="kupu-source-button" title="edit HTML code" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-source" id="kupu-source-button" title="edit HTML code" i18n:attributes="title" accesskey="h">&#160;</button>
     </span>
   
     <select class="kupu-tb-styles">

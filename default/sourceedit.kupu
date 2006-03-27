@@ -25,6 +25,7 @@ triggers the switchSourceEdit() function.
               id="kupu-source-button"
               title="edit HTML code"
               i18n:attributes="title"
+              accesskey="h"
               >&#160;</button>
     </span>
   </kupu:part>

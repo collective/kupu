@@ -50,6 +50,8 @@
 
     <script type="text/javascript" src="kupudrawers.js"
             tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
+    <script type="text/javascript" src="kupuspellchecker.js"
+            tal:attributes="src string:${portal_url}/kupuspellchecker.js"> </script>
    </tal:test>
   </kupu:part>
 

@@ -195,7 +195,6 @@ button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.
 .kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
 .kupu-removeimage {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
-.kupu-spellchecker { display:none; }
 
 .kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
 .kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}

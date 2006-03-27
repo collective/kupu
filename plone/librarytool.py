@@ -19,6 +19,7 @@ from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import createExprContext
 from Products.kupu.plone.interfaces import IKupuLibraryTool
 from Products.CMFCore.utils import getToolByName
+from Products.kupu.python.spellcheck import SpellChecker, format_result
 
 class KupuError(Exception): pass
 
@@ -163,3 +164,17 @@ class KupuLibraryTool(Acquisition.Implicit):
         """See IResourceTypeMapper"""
         for type in resource_types:
             del self._res_types[type]
+
+    def spellcheck(self, REQUEST, RESPONSE):
+        """Spellchecker button support fucntion"""
+        data = REQUEST.form.get('text')
+        c = SpellChecker()
+        result = c.check(data)
+        if result == None:
+            result = ''
+        else:
+            result = format_result(result)
+
+        RESPONSE.setHeader('Content-Type', 'text/xml,charset=UTF-8')
+        RESPONSE.setHeader('Content-Length', len(result))
+        RESPONSE.write(result)
