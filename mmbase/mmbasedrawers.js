@@ -1,6 +1,7 @@
 /**
  * Specialized drawer for mmbase-resources.
  * Like LinkLibraryDrawer, but with upload-functionality.
+ * $Id: $
  */
 
 function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
