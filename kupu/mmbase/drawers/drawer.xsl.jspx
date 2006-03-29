@@ -46,13 +46,13 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates
-            select="/libraries/*[@selected]//resource[@selected]"
+            select="//resource[@selected]"
             mode="properties"/>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:if test="$showupload='yes'">
       <xsl:apply-templates
-          select="/libraries/*[@selected]//uploadbutton"
+          select="/libraries/*[@selected]/uploadbutton"
           mode="upload"/>
     </xsl:if>
   </xsl:template>
@@ -71,15 +71,6 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
   -->
   <xsl:template match="resource|collection" mode="link-properties">
     <xsl:apply-templates select="." mode="base-properties"/>
-    
-    <form onsubmit="return false;">
-      <div class="kupu-linkdrawer-name-row">
-        <input type="text" id="link_name" size="10"><xsl:attribute name="value"><xsl:value-of select="$link_name"/></xsl:attribute></input>
-      </div>   
-      <xsl:if test="$showanchors='yes'">
-        <xsl:apply-templates select="anchor"></xsl:apply-templates>
-      </xsl:if>
-    </form>
   </xsl:template>
 
   <!-- 

@@ -17,7 +17,8 @@
 
     <mm:present referid="node">
       <mm:node  number="$node">
-        <mm:formatter xslt="xslt/mmxf2kupu.xslt" options="client=${fn:contains(header['user-agent'], 'MSIE')  ? 'msie' : 'gecko'}" id="sent" escape="none">
+        <mm:formatter xslt="xslt/mmxf2kupu.xslt" id="sent" escape="none">
+          <mm:param name="client" value="${fn:contains(header['user-agent'], 'MSIE')  ? 'msie' : 'gecko'}" />
           <mm:field name="body" />
           <mm:listrelations type="object" role="idrel" searchdir="destination" >
             <mm:relatednode>
