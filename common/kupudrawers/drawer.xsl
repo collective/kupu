@@ -298,7 +298,7 @@ i18n:translate="imagedrawer_upload_title_label">Title:</label>
             <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/><br/>
         </form>
 
-        <iframe id="kupu_upload_form_target" name="kupu_upload_form_target"
+        <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
                 src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
       </div>
