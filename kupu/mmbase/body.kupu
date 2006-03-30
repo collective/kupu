@@ -17,10 +17,25 @@
     <mm:import externid="objectnumber"  />
     <mm:import externid="tools"  />
     <mm:import externid="origin"  />
-    <mm:import externid="wizard" vartype="list" listdelimiter="/" />
     <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:compare referid="objectnumber" value="new">
-      <mm:createnode type="${wizard[1]}" id="node">
+      <mm:import externid="referrer">${header.referer}</mm:import>
+      <mm:import id="wizardxml">${mm:directory(referrer)}/${param.wizard}.xml</mm:import>
+      <mm:haspage page="$wizardxml">
+        <mm:formatter id="type" write="false">
+          <mm:include cite="true" page="${wizardxml}"/>
+          <mm:xslt>
+            <xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="/">
+              <xsl:value-of select="/wizard-schema/action[@type='create']/object/@type"/>
+            </xsl:template>
+          </mm:xslt>
+        </mm:formatter>
+      </mm:haspage>
+      <mm:haspage page="${wizardxml}" inverse="true">
+        <mm:import externid="wizard" vartype="list" listdelimiter="/" />
+        <mm:import id="type">${wizard[fn:length(wizard) - 1]}</mm:import>
+      </mm:haspage>
+      <mm:createnode type="$type" id="node">
 
       </mm:createnode>
       <mm:present referid="origin">
