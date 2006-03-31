@@ -241,8 +241,19 @@ test="$drawertype='link'">Insert Link</xsl:when>
                         id="image-caption" checked="checked"/>
                     <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                 </xsl:if>
+                <xsl:if test="sizes">
+                    <select name="image-size-selector">
+                        <option name="image-size-option" value="{uri}">Original</option>
+                        <xsl:apply-templates select="sizes/size" />
+                    </select>
+                </xsl:if>
             </form>
         </div>
+    </xsl:template>
+    <xsl:template match="size">
+        <option value="{uri}">
+            <xsl:value-of select="label" />
+        </option>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <form onsubmit="return false;">

@@ -937,7 +937,13 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
             return;
         };
 
-        var uri = selnode.selectSingleNode('uri/text()').nodeValue;
+        var sizeselector = document.getElementsByName('image-size-selector');
+        if (sizeselector && sizeselector.length > 0) {
+            sizeselector = sizeselector[0];
+            var uri = sizeselector.options[sizeselector.selectedIndex].value;
+        } else {
+            var uri = selnode.selectSingleNode('uri/text()').nodeValue;
+        }
         uri = uri.strip();  // needs kupuhelpers.js
         var alt = getFromSelector('image_alt').value;
 
