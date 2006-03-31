@@ -2279,9 +2279,9 @@ SilvaExternalSourceTool.prototype._gatherFormData = function() {
                 data[name] = child.options[child.selectedIndex].value;
             } else {
                 var value = new Array();
-                for (var i=0; i < child.options.length; i++) {
-                    if (child.options[i].selected) {
-                        value.push(child.options[i].value);
+                for (var j=0; j < child.options.length; j++) {
+                    if (child.options[j].selected) {
+                        value.push(child.options[j].value);
                     };
                 };
                 if (value.length > 1) {
