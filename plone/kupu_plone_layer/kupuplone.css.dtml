@@ -17,7 +17,10 @@
 
 /* Remove the text format selector when showing Kupu */
 .fieldTextFormat {
+  /* Doesn't work yet, since Kupu loads its style sheets even if it is not 
+     used :(
     display: none;
+   */
 }
 
 .kupu a {
@@ -230,11 +233,8 @@ div.kupu-drawer table td td {
 div.kupuoverride {
     margin-left: 0.75em;
 }
+
 .forcekupu {
-    background: transparent url(kupuimages/kupu_icon.gif) 5px 2px no-repeat;
-    padding: 6px 6px 1px 30px;
-    text-transform: &dtml-textTransform;;
-    height: 32px; width: auto; 
 }
 
 .kupu-dialog-button {

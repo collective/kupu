@@ -91,7 +91,7 @@
            tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)"
            tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
            title="reload current page using kupu to edit this field">
-           edit with Kupu
+           Edit with visual editor
         </a></span>
       </div>
     </tal:archetypes>
