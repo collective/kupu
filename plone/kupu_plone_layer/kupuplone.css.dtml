@@ -198,7 +198,7 @@ button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.
 
 .kupu-table {background-image: url("&dtml-portal_url;/plonekupuimages/table.gif");}
 .kupu-underline, 
-.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
+.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif"); display: none;}
 
 .kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
