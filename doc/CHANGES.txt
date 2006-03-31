@@ -2,6 +2,12 @@
 Kupu changes
 ============
 
+- 1.3.5
+
+  - Silva
+
+    * Fixed multi-value form element support in ExternalSource tool.
+
 - 1.3.4
 
   - Silva 
