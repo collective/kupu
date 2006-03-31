@@ -480,9 +480,10 @@ class PloneDrawers:
         putils = getToolByName(self, 'plone_utils')
         path = [ ("Home", getToolByName(self, 'portal_url')())]
 
-        try:
-            path = path + putils.createBreadCrumbs(context)
-        except AttributeError:
+        createBreadCrumbs = getattr(putils.aq_base, 'createBreadCrumbs', None)
+        if createBreadCrumbs is not None:
+            path = path + [(x['Title'],x['absolute_url']) for x in createBreadCrumbs(context)]
+        else:
             path = path + self.breadcrumbs(context)[1:-1]
 
         # Last crumb should not be linked:
