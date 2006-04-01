@@ -37,7 +37,8 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         // XXX requiring the user to know what link type to enter is a
         // little too much I think. (philiKON)
         var type = null;
-        var name = getFromSelector('link_name').value;
+        var elm = getFromSelector('link_name');
+        var name = elm ? elm.value : '';
         var target = null;
         if (getFromSelector('link_target') && getFromSelector('link_target').value != '')
             target = getFromSelector('link_target').value;

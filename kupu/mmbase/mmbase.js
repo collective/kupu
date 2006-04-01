@@ -156,7 +156,7 @@ function addMultiPart(content, a) {
 function saveNode(button, editor) {
     // hmm, i think editor == kupu
     kupu.logMessage(_("Saving body (kupu)") + " " + currentNode);
-    editor.saveDocument(undefined, false); // kupu-part of save
+    editor.saveDocument(undefined, true); // kupu-part of save
     var content = "";
     kupu.logMessage(_("Saving fields (form)") + " " + currentNode);
 
