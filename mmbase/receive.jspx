@@ -10,10 +10,10 @@
       <title>KUPU-receiver</title>
     </head>
     <body >
-      <mm:cloud jspvar="cloud">
+      <mm:cloud jspvar="cloud" rank="basic user">
         <mm:log jspvar="log">
           <mm:import externid="kupu_node" from="session" />
-          <mm:node referid="kupu_node" jspvar="node">
+          <mm:node number="${kupu_node.number}" jspvar="node">
             <mm:import externid="fields">false</mm:import>
             <mm:compare referid="fields" value="false">
               <mm:param name="org.mmbase.xml-mode" value="kupu" />
@@ -27,7 +27,6 @@
                   line = r.readLine();
                 }
                 node.setStringValue("body", received.toString());
-                node.commit();
                 log.debug("Saved " + received.toString());
               </jsp:scriptlet>
             </mm:compare>
