@@ -414,7 +414,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>   
                 </label>
             </form>
-            <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
+            <iframe id="kupu-upload-form-target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None"> </iframe>
         </div>
     </xsl:template>

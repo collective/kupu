@@ -44,4 +44,25 @@
     <kupu:insert-part feature="body" part="suppress-kupu" />
   </kupu:fill-slot>
 
+  <kupu:fill-slot name="toolbar-buttons">
+    <kupu:insert-part feature="toolbar" part="logo" />
+    <kupu:insert-part feature="toolbar" part="zoom" />
+    <kupu:insert-part feature="save" part="buttons" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-basicmarkup" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-subsuper" />
+    <kupu:insert-part feature="colorchooser" part="buttons" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-justify" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-list" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-definitionlist" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-indent" />
+    <kupu:insert-part feature="drawers" part="buttons" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
+    <kupu:insert-part feature="spellchecker" part="buttons" />
+    <kupu:insert-part feature="sourceedit" part="buttons" />
+    <kupu:insert-part feature="toolbar" part="select-styles" />
+  </kupu:fill-slot>
+
+
 </kupu:wire>
+
