@@ -332,6 +332,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                     </div>
                 </xsl:if>
+                <xsl:if test="sizes">
+                    <select name="image-size-selector">
+                        <option name="image-size-option" value="{uri}">Original</option>
+                        <xsl:apply-templates select="sizes/size" />
+                    </select>
+                </xsl:if>
                 <div id="image_alt_div">
                     <xsl:if test="$usecaptions='yes'">
                         <xsl:attribute name="style">display:none;</xsl:attribute>
@@ -342,6 +348,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 </div>
             </form>
         </div>
+    </xsl:template>
+    <xsl:template match="size">
+        <option value="{uri}">
+            <xsl:value-of select="label" />
+        </option>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
