@@ -23,7 +23,7 @@ triggers the switchSourceEdit() function.
       <button type="button"
               class="kupu-source"
               id="kupu-source-button"
-              title="edit HTML code"
+              title="Edit HTML code"
               i18n:attributes="title"
               accesskey="h"
               >&#160;</button>

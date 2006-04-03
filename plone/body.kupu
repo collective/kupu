@@ -74,7 +74,7 @@
         i18n:translate="suppress-kupu"
         tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};"
         title="reload current page without kupu">
-         Edit with visual editor
+         Edit without visual editor
       </a></span>
     </div>
   </kupu:part>

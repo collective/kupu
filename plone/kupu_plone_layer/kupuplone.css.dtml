@@ -198,7 +198,7 @@ button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.
 
 .kupu-table {background-image: url("&dtml-portal_url;/plonekupuimages/table.gif");}
 .kupu-underline, 
-.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif"); display: none;}
+.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
 
 .kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
@@ -245,10 +245,6 @@ div.kupuoverride {
     text-transform: &dtml-textTransform;;
     border: &dtml-borderWidth; solid &dtml-globalBorderColor;;
     background-color: white;
-}
-
-#kupu-logo-button {
-    display: none;
 }
 
 /* </dtml-let></dtml-with> */
