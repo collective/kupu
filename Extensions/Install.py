@@ -41,6 +41,7 @@ def install_plone(self, out):
     # register the plone skin layers
     register_layer(self, 'plone/kupu_plone_layer', 'kupu_plone', out)
     register_layer(self, 'plone/kupu_references', 'kupu_references', out)
+    register_layer(self, 'tests', 'kupu_tests', out)
 
     # register as editor
     portal_props = getToolByName(self, 'portal_properties')
