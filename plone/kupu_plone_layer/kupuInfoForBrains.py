@@ -32,6 +32,30 @@ prefix_length = len(portal_base)+1
 base = context.absolute_url()
 security = AccessControl.getSecurityManager()
 
+image_sizes_cache = {}
+
+def get_image_sizes(obj, portal_type, url):
+    if not image_sizes_cache.has_key(portal_type):
+        image_sizes_cache[portal_type] = {}
+        if getattr(obj, 'getObject', None) is not None:
+            obj = obj.getObject()
+        if getattr(obj, 'getField', None) is None:
+            return
+        image_field = obj.getWrappedField('image')
+        if image_field is None:
+            return
+        if getattr(image_field, 'getAvailableSizes', None) is None:
+            return
+        image_sizes_cache[portal_type] = image_field.getAvailableSizes(obj)
+    image_sizes = image_sizes_cache[portal_type]
+    results = []
+    sizes = [((v[0], v[1]), k) for k,v in image_sizes.items()]
+    sizes.sort()
+    for size, key in sizes:
+        results.append({'label':"%s (%s, %s)" % (key.capitalize(), size[0], size[1]),
+                        'uri':"%s/image_%s" % (url, key)})
+    return results
+
 def info_object(obj, allowCollection=True):
     '''Get information from a content object'''
 
@@ -58,6 +82,8 @@ def info_object(obj, allowCollection=True):
         width = height = size = None
         preview = obj.getTypeInfo().getActionById(preview_action, None)
 
+        sizes = get_image_sizes(obj, portal_type, url)
+
         try:
                 size = context.getObjSize(obj)
         except:
@@ -74,7 +100,7 @@ def info_object(obj, allowCollection=True):
 
         return {'id': id, 'url': url, 'portal_type': portal_type,
               'collection':  collection, 'icon': icon, 'size': size,
-              'width': width, 'height': height,
+              'width': width, 'height': height, 'sizes': sizes,
               'preview': preview, 'title': title, 'description': description,
               }
     except Unauthorized:
@@ -108,6 +134,8 @@ def info(brain, allowCollection=True):
     width = height = size = None
     preview = types_tool.getTypeInfo(brain.portal_type).getActionById(preview_action, None)
 
+    sizes = get_image_sizes(brain, portal_type, url)
+
     # It would be nice to do everything from the brain, but
     # unfortunately we need to get the object for the preview size.
     # XXX Figure out some way to get the image size client side
@@ -126,7 +154,7 @@ def info(brain, allowCollection=True):
 
     return {'id': id, 'url': url, 'portal_type': portal_type,
           'collection':  collection, 'icon': icon, 'size': size,
-          'width': width, 'height': height,
+          'width': width, 'height': height, 'sizes': sizes,
           'preview': preview, 'title': title, 'description': description,
           }
           
