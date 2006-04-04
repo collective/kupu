@@ -2,6 +2,20 @@
 Kupu changes
 ============
 
+- 1.3.6
+
+  - Plone
+
+      * Enabled selection of image sizes in standard libraries.
+
+  - General
+
+      * Added optional list of server provided image sizes.
+
+- 1.3.5
+
+  ?? no entries
+
 - 1.3.4
 
   - Silva 
