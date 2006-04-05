@@ -15,6 +15,7 @@ Python scripts, but has been moved here to make it easier to maintain.
 
 """
 import re
+from thread import get_ident
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
 from Globals import InitializeClass
@@ -31,6 +32,10 @@ else:
     HAS_PIL = True
 
 UIDURL = re.compile(".*\\bresolveuid/([^/?#]+)")
+
+# mapping (thread-id, portal-physicalPath, portal_type) ->
+# imagefield-getAvailableSizes (as tuple sorted by dimension) (width, height, key)
+IMAGE_SIZES_CACHE = {}
 
 class ResourceType:
     '''Resource types are wrapped into a class so we can easily
@@ -153,8 +158,8 @@ class InfoAdaptor:
         self.linkbyuid = tool.getLinkbyuid()
         self.coll_types = tool.getResourceType('collection').portal_types
         self.anchor_types =  tool.getResourceType('containsanchors').portal_types
-        portal_base = self.url_tool.getPortalPath()
-        self.prefix_length = len(portal_base)+1
+        self.portal_base = self.url_tool.getPortalPath()
+        self.prefix_length = len(self.portal_base)+1
         self.resource_type = tool.getResourceType(resource_type)
         
         instance = tool.REQUEST.get('instance', '')
@@ -210,6 +215,35 @@ class InfoAdaptor:
         if callable(height): height = height()
         return size, width, height
 
+    def get_image_sizes(self, obj, portal_type, url):
+        cache_key = (get_ident(), self.portal_base, portal_type)
+        if not IMAGE_SIZES_CACHE.has_key(cache_key):
+            IMAGE_SIZES_CACHE[cache_key] = {}
+            # if getId is not callable, we assume that we have a brain and
+            # need to get the object
+            if not callable(obj.getId):
+                if getattr(obj, 'getObject', None) is None:
+                    return
+                obj = obj.getObject()
+            if getattr(obj, 'getField', None) is None:
+                return
+            image_field = obj.getWrappedField('image')
+            if image_field is None:
+                return
+            if getattr(image_field, 'getAvailableSizes', None) is None:
+                return
+            image_sizes = image_field.getAvailableSizes(obj)
+            sizes = [((v[0], v[1]), k) for k,v in image_sizes.items()]
+            sizes.sort()
+            IMAGE_SIZES_CACHE[cache_key] = sizes
+        else:
+            sizes = IMAGE_SIZES_CACHE[cache_key]
+        results = []
+        for size, key in sizes:
+            results.append({'label':"%s (%s, %s)" % (key.capitalize(), size[0], size[1]),
+                            'uri':"%s/image_%s" % (url, key)})
+        return results
+    
     def getState(self, review_state):
         if review_state:
             className = 'state-'+review_state
@@ -245,6 +279,8 @@ class InfoAdaptor:
             url = obj.absolute_url()
             preview = self.tool.getPreviewUrl(portal_type, url)
 
+            sizes = self.get_image_sizes(obj, portal_type, url)
+
             if collection and self.resource_type.allow_browse:
                 src = obj.absolute_url()
                 if not src.endswith('/'): src += '/'
@@ -279,6 +315,7 @@ class InfoAdaptor:
                 'width': width,
                 'height': height,
                 'preview': preview,
+                'sizes': sizes,
                 'title': title,
                 'description': description,
                 'linkable': linkable,
@@ -298,6 +335,8 @@ class InfoAdaptor:
         portal_type = brain.portal_type
         collection = portal_type in self.coll_types
         preview = self.tool.getPreviewUrl(portal_type, url)
+
+        sizes = self.get_image_sizes(brain, portal_type, url)
 
         # Path for the uid catalog doesn't have the leading '/'
         path = brain.getPath()
@@ -346,6 +385,7 @@ class InfoAdaptor:
             'width': width,
             'height': height,
             'preview': preview,
+            'sizes': sizes,
             'title': title,
             'description': description,
             'linkable': linkable,
