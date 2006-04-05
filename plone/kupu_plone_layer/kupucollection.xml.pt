@@ -58,6 +58,14 @@
                  tal:content="info/title">title</title>
           <description metal:define-slot="description"
                        tal:content="structure info/description">description</description>
+          <tal:sizes tal:condition="info/sizes|nothing">
+            <sizes>
+              <size tal:repeat="size info/sizes">
+                <label tal:content="size/label" />
+                <uri tal:content="size/uri" />
+              </size>
+            </sizes>
+          </tal:sizes>
           <anchor tal:condition="info/anchor|nothing" />
           <src tal:condition="info/src" tal:content="info/src">Source</src>
         </metal:macro>
