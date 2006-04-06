@@ -29,6 +29,63 @@ Kupu changes
   - Plone configlet now makes it easier to enable linkbyuid and
     captioning options.
 
+- 1.3.5
+
+  - Silva
+
+    * Some minor glitches, button names changed, some names converted from
+      upper- to lowercase, etc.
+
+- 1.3.4
+
+  - Silva 
+
+      * Fixed some small issues in external sources support.
+
+      * Fixed some problems with tables, table column alignment and relative
+        width settings should not clash anymore.
+
+  - General
+
+      * Zope related: changed imports so they try to import Zope2 rather than
+        Zope (with Zope as a fallback) to not have Zope 2.8.x issue warnings.
+
+- 1.3.3
+
+  - Plone
+
+      * Text is no longer automatically forced into a paragraph as
+        this caused problems on Mozilla when editing at the end of the
+        file. The style pulldown now distinguishes text with 'no
+        style' from 'Normal'.
+
+      * Fixes to Plone issues:
+
+        4434 - 'int' object is not callable on editing
+
+        4896 - Kupu interface invisible if color changed
+
+        4911 - Kupu creates incorrect relative link in new page
+
+        4801 - Kupu Links: search for private objects fails
+
+        4622 - It's not possible to insert link to local folder using kupu
+
+        4873 - Kupu removes u-tag
+
+      * Added some table styles to the sample customisation.
+
+- 1.3.2
+
+  - Zope 2
+  
+    * Updated Zope 2 distribution, it was broken in several ways.
+
+  - Silva
+    
+    * Fixed problem with ExternalSources, which made that sources could not be
+      added to a page (clicking 'add' would not do anything).
+
 - 1.3.1
 
   - Silva:
