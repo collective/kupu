@@ -6,7 +6,6 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
-    i18n:domain="kupu"
     >
 
   <kupu:part name="styles">

@@ -64,7 +64,7 @@
     <kupu:insert-part feature="drawers" part="buttons" />
     <!--kupu:insert-part feature="toolbar" part="buttongroup-remove" /-->
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
-    <kupu:insert-part feature="spellchecker" part="buttons" />
+    <!--kupu:insert-part feature="spellchecker" part="buttons" /-->
     <kupu:insert-part feature="sourceedit" part="buttons" />
   </kupu:fill-slot>
 
