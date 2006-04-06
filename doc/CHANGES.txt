@@ -2,11 +2,18 @@
 Kupu changes
 ============
 
-- 1.3.5
+- SVN/unreleased
 
   - Silva
 
     * Fixed multi-value form element support in ExternalSource tool.
+
+- 1.3.5
+
+  - Silva
+
+    * Some minor glitches, button names changed, some names converted from
+      upper- to lowercase, etc.
 
 - 1.3.4
 
