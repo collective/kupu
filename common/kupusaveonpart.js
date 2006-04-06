@@ -12,8 +12,9 @@
 
 function saveOnPart() {
     /* ask the user if (s)he wants to save the document before leaving */
-    if (kupu.content_changed && 
-        confirm(_('You have unsaved changes. Do you want to save before leaving the page?'))) {
+    if (kupu.content_changed && confirm(
+            _('You are leaving the editor. Do you want to save your changes?')
+            )) {
         kupu.config.reload_src = 0;
         kupu.saveDocument(false, true);
     };
