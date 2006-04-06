@@ -3,8 +3,6 @@
     implementation="silva"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n:domain="kupu"
     >
 
   <!-- Silva specific configuration -->
@@ -12,12 +10,12 @@
     <dst>..</dst>
     <use_css>0</use_css>
     <reload_after_save>1</reload_after_save>
-    <strict_output>1</strict_output>
+    <strict_output>0</strict_output>
     <content_type>application/xhtml+xml</content_type>
     <compatible_singletons>1</compatible_singletons>
     <cleanup_expressions>
       <set>
-        <name i18n:translate="">Convert single quotes to curly ones</name>
+        <name>Convert single quotes to curly ones</name>
         <expression>
           <reg>
             (\W)'
@@ -36,7 +34,7 @@
         </expression>
       </set>
       <set>
-        <name i18n:translate="">Convert double quotes to curly ones</name>
+        <name>Convert double quotes to curly ones</name>
         <expression>
           <reg>
             (\W)"
@@ -55,7 +53,7 @@
         </expression>
       </set>
       <set>
-        <name i18n:translate="">Convert single dashes to n-dashes</name>
+        <name>Convert single dashes to n-dashes</name>
         <expression>
           <reg>
             ([^\-])\-([^\-])
@@ -90,7 +88,7 @@
         </expression>
       </set>
       <set>
-        <name i18n:translate="">Convert double dashes to m-dashes</name>
+        <name>Convert double dashes to m-dashes</name>
         <expression>
           <reg>
             ([^\-])\-\-([^\-])
@@ -125,7 +123,7 @@
         </expression>
       </set>
       <set>
-        <name i18n:translate="">Reduce whitespace in source</name>
+        <name>Reduce whitespace in source</name>
         <expression>
           <reg>
             [\n\r\t]
