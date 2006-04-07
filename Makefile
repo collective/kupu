@@ -20,7 +20,7 @@ JAVA_RESOURCE=org.oscom.kupu.Messages
 MSGFMT = /usr/bin/env msgfmt --verbose
 MSGEN  = /usr/bin/env msgen
 
-all: clean kupu.html kupuform.html kupumulti.html zope2macros plonemacros silvamacros lenyamacros kupucnf.html
+all: clean kupu.html kupuform.html kupumulti.html zope2macros plonemacros lenyamacros kupucnf.html
 
 kupu.html:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o common/kupu.html $(XSL_FILE) dist.kupu
@@ -39,9 +39,6 @@ kupucnf.html:
 
 plonemacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o plone/kupu_plone_layer/kupu_wysiwyg_support.html $(XSL_FILE) dist-plone.kupu
-
-silvamacros:
-	$(XSLTPROC) $(XSLTPROC_PARAMS) -o silva/kupumacros.html $(XSL_FILE) dist-silva.kupu
 
 lenyamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o apache-lenya/kupu/kupumacros.html $(XSL_FILE) dist-apache-lenya.kupu
@@ -70,7 +67,6 @@ clean:
 	rm -f common/kupumulti.html
 	rm -f common/kupucnf.html
 	rm -f plone/kupu_plone_layer/kupu_wysiwyg_support.html
-	rm -f silva/kupumacros.html
 	rm -f apache-lenya/kupu/kupumacros.html
 	rm -rf $(JAVA_DIR)
 	rm -f kupu-i18n.jar
