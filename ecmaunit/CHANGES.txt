@@ -2,10 +2,22 @@
 EcmaUnit changes
 ================
 
-- EcmaUnit 0.4
+- EcmaUnit 0.4 (2006-04-11)
 
   o Added assertNotEquals function.
-    [fschulze]
+    [fschulze].
+
+  o Changed object notation, methods are now defined on the prototypes instead
+    of inline.
+
+  o Fixed bug in assertEquals so it checks type and does comparisons based on
+    that (not doing blatant string conversions anymore).
+
+  o Allowing 'null' exceptions.
+
+  o assertThrows now does instanceof checks, meaning you can pass in a 'class'
+    to check whether exceptions are instances of that class, initializing it
+    is no longer required.
 
 - EcmaUnit 0.3 (2005-04-19)
   
