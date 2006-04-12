@@ -51,11 +51,11 @@ test="$drawertype='link'">Insert Link</xsl:when>
                         <div id="kupu-searchbox" style="text-align: right">
                             <form onsubmit="return false;">
                                 <xsl:variable name="search_value" 
-                                              i18n:translate="kupudrawer_search">search</xsl:variable>
+                                              i18n:translate="kupudrawer_search">Search</xsl:variable>
                                 <input id="kupu-searchbox-input"
                                     class="kupu-searchbox-input nofocus"
                                     name="searchbox"
-                                    style="font-style: italic;"
+                                    style="color: #666;"
                                     onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();">
                                    <xsl:attribute name="value">
                                       <xsl:value-of select="$search_value" />
@@ -216,18 +216,18 @@ test="$drawertype='link'">Insert Link</xsl:when>
             </xsl:otherwise>
         </xsl:choose>
         <div>
-            <xsl:value-of select="size"/>
-            <xsl:if test="width" i18n:translate="imagedrawer_size">(<span i18n:name="width"><xsl:value-of select="width" /></span> by <span i18n:name="height"><xsl:value-of select="height" /></span>)</xsl:if>
+            <xsl:value-of select="size" />
+            <xsl:if test="width" i18n:translate="imagedrawer_size"> (<span i18n:name="width"><xsl:value-of select="width" /></span> by <span i18n:name="height"><xsl:value-of select="height" /></span> pixels)</xsl:if>
         </div>
         <div>
             <xsl:value-of select="description"/>
         </div>
         <div>
             <form onsubmit="return false;">
-                <strong i18n:translate="imagedrawer_upload_alt_text">ALT-text</strong>
-                <br/>
+                <label style="display: block;margin-top: 1em;"
+                       i18n:translate="imagedrawer_upload_alt_text">"alt" attribute text</label>
                 <input type="text" id="image_alt" size="20" value="{title}"/>
-                <br/>
+                <label style="display: block;margin-top: 1em;">Image alignment</label>
                 <input type="radio" name="image-align" id="image-align-left"
                     checked="checked" value="image-left"/>
                 <label for="image-align-left" i18n:translate="imagedrawer_left">Left</label>
@@ -235,14 +235,32 @@ test="$drawertype='link'">Insert Link</xsl:when>
                 <label for="image-align-inline" i18n:translate="imagedrawer_inline">Inline</label>
                 <input type="radio" name="image-align" id="image-align-right" value="image-right"/>
                 <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
+                <div class="discreet" i18n:translate="imagedrawer_image_align_explanation">
+                    You have to select left/right alignment first, then
+                    move the image up or down in the document afterwards.
+                    This is a browser-imposed limitation.
+                </div>
                 <xsl:if test="$usecaptions='yes'">
                     <br/>
                     <input type="checkbox" name="image-caption"
                         id="image-caption" checked="checked"/>
                     <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                 </xsl:if>
+                <xsl:if test="sizes">
+                    <label for="image-size-selector"
+                            style="display: block;margin-top: 1em;">Image size</label>
+                    <select name="image-size-selector">
+                        <option name="image-size-option" value="{uri}">Original</option>
+                        <xsl:apply-templates select="sizes/size" />
+                    </select>
+                </xsl:if>
             </form>
         </div>
+    </xsl:template>
+    <xsl:template match="size">
+        <option value="{uri}">
+            <xsl:value-of select="label" />
+        </option>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <form onsubmit="return false;">
@@ -298,7 +316,7 @@ i18n:translate="imagedrawer_upload_title_label">Title:</label>
             <input id="kupu-upload-title" type="text" name="node_prop_caption" size="23" value=""/><br/>
         </form>
 
-        <iframe id="kupu-upload-form-target" name="kupu_upload_form_target"
+        <iframe id="kupu_upload_form_target" name="kupu_upload_form_target"
                 src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
       </div>

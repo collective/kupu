@@ -4,12 +4,10 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
-    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    >
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <kupu:id>$Id$</kupu:id>
   <kupu:part name="editorframe"><script type="text/javascript">var focuscount = 0;</script>
-    <iframe
-	class="kupu-editor-iframe"
+    <iframe class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
         onfocus="this.contentWindow.focus();"
@@ -56,8 +54,8 @@
 
         tal:condition="not:fieldName|nothing"
         tal:content="python:(is_stx and pss.structured_text(inputvalue))
-                                    			or (is_ptx and pss.newline_to_br(inputvalue))
-                                    			or inputvalue"
+                                    or (is_ptx and pss.newline_to_br(inputvalue))
+                                    or inputvalue"
         tal:attributes="name inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
@@ -76,7 +74,7 @@
         i18n:translate="suppress-kupu"
         tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};"
         title="reload current page without kupu">
-         edit without using Kupu
+         Edit without visual editor
       </a></span>
     </div>
   </kupu:part>
@@ -93,7 +91,7 @@
            tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST)"
            tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
            title="reload current page using kupu to edit this field">
-           edit with Kupu
+           Edit with visual editor
         </a></span>
       </div>
     </tal:archetypes>

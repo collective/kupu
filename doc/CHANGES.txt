@@ -2,11 +2,19 @@
 Kupu changes
 ============
 
-- SVN/unreleased
+- 1.3.6
+
+  - Plone
+
+      * Enabled selection of image sizes in standard libraries.
 
   - Silva
 
     * Fixed multi-value form element support in ExternalSource tool.
+
+  - General
+
+      * Added optional list of server provided image sizes.
 
 - 1.3.5
 
