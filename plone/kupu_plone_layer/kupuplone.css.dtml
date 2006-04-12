@@ -37,6 +37,7 @@ div.kupu-fulleditor .kupu-editorframe {
     left: 25%;
 }
 
+
 /* Kupu pulls in Plone stylesheets. If you want a paragraph to look
 different in Kupu from Plone, then don't add rules here, add them in
 ploneCustom.css and use the kupu class to distinguish them. e.g.
@@ -211,9 +212,6 @@ h1.kupu-drawer-title {
   border: none;
 }
 
-div.kupu-drawer table td {
-  font-size: 85%;
-}
 div.kupu-drawer table td td {
   font-size: 100%;
 }
@@ -226,6 +224,7 @@ div.kupu-drawer table td td {
 div.kupuoverride {
     margin-left: 0.75em;
 }
+
 .forcekupu {
     background: transparent url(kupuimages/kupu_icon.gif) 5px 2px no-repeat;
     padding: 6px 6px 1px 30px;
@@ -273,10 +272,6 @@ div.kupuoverride {
 }
 .even .kupu-preview-row {
     background-color: &dtml-evenRowBackgroundColor;;
-}
-
-#kupu-logo-button {
-    display: none;
 }
 
 /* </dtml-let></dtml-with> */

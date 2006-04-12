@@ -75,10 +75,6 @@ goto :eof
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o plone\kupu_plone_layer\kupu_wysiwyg_support.html %XSL_FILE% dist-plone.kupu
     goto :eof
 
-:target_silvamacros
-    %X%%XSLTPROC% %XSLTPROC_PARAMS% -o silva\kupumacros.html %XSL_FILE% dist-silva.kupu
-    goto :eof
-
 :target_lenyamacros
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o apache-lenya\kupu\kupumacros.html %XSL_FILE% dist-apache-lenya.kupu
     goto :eof
@@ -91,14 +87,13 @@ goto :eof
     call :target_kupumulti.html
     call :target_zope2macros
     call :target_plonemacros
-    call :target_silvamacros
     call :target_lenyamacros
     call :target_kupucnf.html
     goto :eof
 
 :target_clean
     SET FILES=common\kupumacros.html common\kupu.html common\kupuform.html
-    SET FILES=%FILES% plone\kupu_plone_layer\kupu_wysiwyg_support.html silva\kupumacros.html
+    SET FILES=%FILES% plone\kupu_plone_layer\kupu_wysiwyg_support.html
     SET FILES=%FILES% apache-lenya\kupu\kupumacros.html    
     SET FILES=%FILES% common\kupumulti.html common\kupucnf.html
     for %%F in (%FILES%) DO (

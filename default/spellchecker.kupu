@@ -17,7 +17,7 @@
       <button type="button"
               class="kupu-spellchecker"
               id="kupu-spellchecker-button"
-              title="check spelling"
+              title="Check spelling"
               i18n:attributes="title"
               >&#160;</button>
     </span>
