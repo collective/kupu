@@ -258,9 +258,18 @@ test="$drawertype='link'">Insert Link</xsl:when>
         </div>
     </xsl:template>
     <xsl:template match="size">
-        <option value="{uri}">
-            <xsl:value-of select="label" />
-        </option>
+      <xsl:choose>
+        <xsl:when test="selected">
+            <option value="{uri}" selected="">
+                <xsl:value-of select="label" />
+            </option>
+        </xsl:when>
+        <xsl:otherwise>
+            <option value="{uri}">
+                <xsl:value-of select="label" />
+            </option>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <form onsubmit="return false;">
