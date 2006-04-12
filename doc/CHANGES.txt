@@ -8,13 +8,20 @@ Kupu changes
 
       * Enabled selection of image sizes in standard libraries.
 
+  - Silva
+
+    * Fixed multi-value form element support in ExternalSource tool.
+
   - General
 
       * Added optional list of server provided image sizes.
 
 - 1.3.5
 
-  ?? no entries
+  - Silva
+
+    * Some minor glitches, button names changed, some names converted from
+      upper- to lowercase, etc.
 
 - 1.3.4
 

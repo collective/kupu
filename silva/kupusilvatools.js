@@ -2110,6 +2110,10 @@ SilvaExternalSourceTool.prototype._continueStartExternalSourceUpdate = function(
 SilvaExternalSourceTool.prototype._addFormToTool = function(object) {
     if (this.readyState == 4) {
         if (this.status != '200') {
+            if (this.status == '500') {
+                alert('error on the server. body returned:\n' + 
+                        this.responseText);
+            };
             // element not found, return without doing anythink
             object.resetTool();
             return;
@@ -2138,7 +2142,8 @@ SilvaExternalSourceTool.prototype._addFormToTool = function(object) {
     };
 };
 
-SilvaExternalSourceTool.prototype._addExternalSourceIfValidated = function(object) {
+SilvaExternalSourceTool.prototype._addExternalSourceIfValidated = 
+        function(object) {
     if (this.readyState == 4) {
         if (this.status == '200') {
             // success, add the external source element to the document
@@ -2152,7 +2157,8 @@ SilvaExternalSourceTool.prototype._addExternalSourceIfValidated = function(objec
             extsource.appendChild(header);
             extsource.className = 'externalsource';
             var metatype = 'Silva Code Source'; // a default just in case
-            for (var i=0; i < this.responseXML.documentElement.childNodes.length; i++) {
+            for (var i=0; i < 
+                    this.responseXML.documentElement.childNodes.length; i++) {
                 var child = this.responseXML.documentElement.childNodes[i];
                 if (child.nodeName.toLowerCase() == 'parameter') {
                     var key = child.getAttribute('key');
@@ -2164,9 +2170,16 @@ SilvaExternalSourceTool.prototype._addExternalSourceIfValidated = function(objec
                         metatype = value;
                         continue;
                     };
-                    extsource.setAttribute(key, value);
+                    // for presentation only change some stuff
+                    var displayvalue = value.toString();
+                    var attrkey = key;
+                    if (child.getAttribute('type') == 'list') {
+                        displayvalue = eval(value).join(', ');
+                        attrkey = key + '__type__list';
+                    };
+                    extsource.setAttribute(attrkey, value);
                     key = key.replace(/_/g, ' ');
-                    var textel = doc.createTextNode(key + ': ' + value.toString());
+                    var textel = doc.createTextNode(key + ': ' + displayvalue);
                     extsource.appendChild(textel);
                     extsource.appendChild(doc.createElement('br'));
                 };
@@ -2266,15 +2279,15 @@ SilvaExternalSourceTool.prototype._gatherFormData = function() {
                 data[name] = child.options[child.selectedIndex].value;
             } else {
                 var value = new Array();
-                for (var i=0; i < child.options.length; i++) {
-                    if (child.options[i].checked) {
-                        value.push(options[i].value);
+                for (var j=0; j < child.options.length; j++) {
+                    if (child.options[j].selected) {
+                        value.push(child.options[j].value);
                     };
-                    if (value.length > 1) {
-                        data[name] = value;
-                    } else if (value.length) {
-                        data[name] = value[0];
-                    };
+                };
+                if (value.length > 1) {
+                    data[name] = value;
+                } else if (value.length) {
+                    data[name] = value[0];
                 };
             };
         };
@@ -2284,10 +2297,16 @@ SilvaExternalSourceTool.prototype._gatherFormData = function() {
     var ret = new Array();
     for (var key in data) {
         var value = data[key];
-        // XXX does IE5 support encodeURIComponent?
-        ret.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+        if (!(value instanceof Array)) {
+            value = [value];
+        };
+        for (var i=0; i < value.length; i++) {
+            // XXX does IE5 support encodeURIComponent?
+            ret.push(encodeURIComponent(key) + '=' + 
+                        encodeURIComponent(value[i]));
+        };
     };
-    
+
     return ret.join("&");
 };
 
