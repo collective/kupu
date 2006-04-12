@@ -9,11 +9,6 @@
 <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="logo">
-    <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu SVN/unreleased" accesskey="k" id="kupu-logo-button"
-              onclick="window.open('http://kupu.oscom.org');"
-              tal:attributes="tabindex python:tabindex is not None and tabindex + 1 or None;">&#160;</button>
-    </span>
   </kupu:part>
 
   <kupu:part name="select-styles">
@@ -29,4 +24,14 @@
       </tal:block>
     </select>
   </kupu:part>
+
+  <kupu:part name="buttongroup-basicmarkup">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup">
+      <button type="button" class="kupu-bold" id="kupu-bold-button" title="Bold: Access key (Alt or Ctrl) + B"
+              i18n:attributes="title" accesskey="b">&#160;</button>
+      <button type="button" class="kupu-italic" id="kupu-italic-button" title="Italic: Access key (Alt or Ctrl) + I"
+              i18n:attributes="title" accesskey="i">&#160;</button>
+    </span>
+  </kupu:part>
+
 </kupu:feature>

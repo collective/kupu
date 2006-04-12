@@ -67,6 +67,7 @@ function initPloneKupu(editorId) {
                                            'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
+    /* disabled
     var underlinechecker = ParentWithStyleChecker(new Array('u'));
     var underlinebutton = new KupuStateButton(prefix+'button.kupu-underline', 
                                               execCommand('underline'),
@@ -74,6 +75,7 @@ function initPloneKupu(editorId) {
                                               'kupu-underline', 
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
+    */
 
     var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
     var subscriptbutton = new KupuStateButton(prefix+'button.kupu-subscript',
@@ -154,10 +156,22 @@ function initPloneKupu(editorId) {
     var linktool = NoContextMenu(new LinkTool());
     kupu.registerTool('linktool', linktool);
 
+    /* disabled
     var zoom = new KupuZoomTool(prefix+'button.kupu-zoom',
         prefix+'select.kupu-tb-styles',
         prefix+'button.kupu-logo');
     kupu.registerTool('zoomtool', zoom);
+    */
+
+    if (typeof KupuSpellChecker != 'undefined') {
+        var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
+                                                'kupu_library_tool/spellcheck');
+        kupu.registerTool('spellchecker', spellchecker);
+    } else {
+        // hide the button when not available
+        var spellchecker_tool = document.getElementById('kupu-spellchecker');
+        spellchecker_tool.style.display = 'none';
+    }
 
     // Use the generic beforeUnload handler if we have it:
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
