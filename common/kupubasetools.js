@@ -495,11 +495,11 @@ function KupuUI(textstyleselectid) {
         this.tsselect.selectedIndex = Math.max(index,0);
     };
 
-    this._cleanNode = function(node) {
+    this._cleanNode = function(node, preserveEmpty) {
                 /* Clean up a block style node (e.g. P, DIV, Hn)
                  * Remove trailing whitespace, then also remove up to one
                  * trailing <br>
-                 * If the node is now empty, remove the node itself.
+                 * If the node is now empty and no preserveEmpty, remove the node itself.
                  */
         var len = node.childNodes.length;
         function stripspace() {
@@ -514,7 +514,7 @@ function KupuUI(textstyleselectid) {
             node.removeChild(c);
         }
         stripspace();
-        if (node.childNodes.length==0) {
+        if (node.childNodes.length==0 && !preserveEmpty) {
             node.parentNode.removeChild(node);
         };
     }
@@ -579,11 +579,8 @@ function KupuUI(textstyleselectid) {
                 this._cleanNode(previous);
             }
             gp.insertBefore(el, parent);
-            this._cleanNode(el);
             this._cleanNode(parent);
-        } else {
-            this._cleanNode(el);
-        }
+        };
         // now set the classname
         if (classname) {
             el.className = classname;
