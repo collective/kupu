@@ -114,7 +114,7 @@
                           </mm:link>
                         </p>
                       </td>
-                      <mm:fieldlist type="list">
+                      <mm:fieldlist nodetype="${type}" type="list">
                         <td><mm:fieldinfo type="guivalue" /></td>
                       </mm:fieldlist>
                     </tr>

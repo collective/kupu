@@ -62,7 +62,7 @@
                     <mm:relatednode>
                       <nobr>
                         <mm:function name="gui" escape="none" />
-                        <mm:maydelete>
+                        <mm:maydelete node="relation">
                           <mm:link page="../common/kupuimages/remove.png">
                             <img alt="-"
                                  src="${_}" 
