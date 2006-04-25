@@ -26,7 +26,7 @@
               <mm:notpresent referid="loadonly">
                 <table>
                   <tr>
-                    <th>#<mm:field name="number" /></th>
+                    <th><jsp:text>#<mm:field name="number" /> (<mm:nodeinfo type="guitype" />)</jsp:text></th>
                     <mm:hasfunction name="index">
                       <th><mm:function name="index" /></th>
                     </mm:hasfunction>

@@ -4,13 +4,18 @@
     implementation="mmbase"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0">
-    >
   <kupu:id>$Id: head.kupu,v 1.15 2005/09/14 17:24:31 michiel Exp $</kupu:id>
-
+  
   <kupu:part name="meta">
-    <title>MMBase Richtext Editor</title>
+    <fmt:bundle basename="org.mmbase.kupu.Messages">
+      <title>
+        <fmt:message key="Richtext editor" />
+        <jsp:text>: ${param.objectnumber}</jsp:text>
+      </title>
+    </fmt:bundle>
     <mm:link page="/mmbase/style/images/edit.ico">
       <link rel="icon"          href="${_}" type="image/x-icon" />
       <link rel="shortcut icon" href="${_}" type="image/x-icon" />

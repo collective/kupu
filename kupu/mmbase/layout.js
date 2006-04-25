@@ -54,10 +54,10 @@ function adjustLayout() {
     xHeight('leftColumn', maxHeight - 3);
     xHeight('centerColumn', maxHeight);
     xWidth('centerColumn', maxWidth);
-
+    var pattern = new RegExp("\\bsmall\\b");
     var a = document.getElementById('leftColumn').getElementsByTagName('input');    
     for (i = 0; i < a.length; i++) {
-        if (a[i].className == 'small') { // to avoid date-time entries
+        if (pattern.test(a[i].className)) { // to avoid date-time entries
             xWidth(a[i], leftColumnWidth - 6);
         }
     }
