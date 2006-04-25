@@ -54,17 +54,19 @@ function adjustLayout() {
     xHeight('leftColumn', maxHeight - 3);
     xHeight('centerColumn', maxHeight);
     xWidth('centerColumn', maxWidth);
-    var pattern = new RegExp("\\bsmall\\b");
+    var pattern = new RegExp("\\bmm_validate\\b");
     var a = document.getElementById('leftColumn').getElementsByTagName('input');    
     for (i = 0; i < a.length; i++) {
-        if (pattern.test(a[i].className)) { // to avoid date-time entries
+        if (pattern.test(a[i].className)) {
             xWidth(a[i], leftColumnWidth - 6);
         }
     }
 
     a = document.getElementById('leftColumn').getElementsByTagName('textarea');
     for (i=0; i < a.length; i++) {
-        xWidth(a[i], leftColumnWidth - 6);
+        if (pattern.test(a[i].className)) {
+            xWidth(a[i], leftColumnWidth - 6);
+        }
     }
 
     var maxHeightArea = maxHeight - 27;
