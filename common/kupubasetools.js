@@ -2551,8 +2551,7 @@ KupuZoomTool.prototype.onresize = function() {
     }
     width = width + 'px';
     var offset = iframe.offsetTop;
-    if (sourceArea) offset = sourceArea.offsetTop-1;
-    // XXX: TODO: Using wrong values here, figure out why.
+    if (sourceArea && sourceArea.offsetTop) offset = sourceArea.offsetTop-1;
     var nheight = Math.max(height - offset -1/*top border*/, 10);
     nheight = nheight + 'px';
     fulleditor.style.width = width; /*IE needs this*/
@@ -2560,7 +2559,7 @@ KupuZoomTool.prototype.onresize = function() {
     iframe.style.height = nheight;
     if (sourceArea) {
         sourceArea.style.width = width;
-        sourceArea.style.height = height;
+        sourceArea.style.height = nheight;
     }
 }
 
