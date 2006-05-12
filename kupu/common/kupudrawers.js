@@ -116,21 +116,34 @@ DrawerWithAnchors.prototype = new Drawer;
 proto = DrawerWithAnchors.prototype;
 
 proto.initAnchors = function() {
+    var limit = 200;
+    var anchorframe = this.anchorframe;
+    function onloadEvent() {
+        var state = anchorframe.readyState;
+        if (state && state != 'complete') {
+            if (limit-- && anchorframe.src==src)
+                timer_instance.registerFunction(this, onloadEvent, 50);
+            return;
+        };
+        if(window.drawertool && window.drawertool.current_drawer) {
+            window.drawertool.current_drawer.anchorframe_loaded();
+        };
+    };
+
     var id = 'kupu-linkdrawer-anchors';
     var base = getBaseTagClass(this.element, 'div', id);
     if (base) {
         this.anchorui = getBaseTagClass(base, 'div', id);
 
         var inp = base.getElementsByTagName('input');
-        this.anchorframe.src = inp[0].value;
+        var src = inp[0].value;
+        anchorframe.src = src;
 
-        if (!this.anchorframe.onload) {
-            this.anchorframe.onload=function() {
-                if(window.drawertool && window.drawertool.current_drawer) {
-                    window.drawertool.current_drawer.anchorframe_loaded();
-                };
-            };
-        };
+        if (this.anchorframe.readyState) { // IE
+            timer_instance.registerFunction(this, onloadEvent, 50);
+        } else { // FF
+            this.anchorframe.onload = onloadEvent;
+        }
 
         inp[1].style.display = 'none';
     };
