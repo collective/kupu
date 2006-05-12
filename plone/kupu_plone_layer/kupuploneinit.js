@@ -22,7 +22,7 @@ function initPloneKupu(editorId) {
     // that without applying this change to the outter document. Damn iframes.
     var ibody = iframe.contentWindow.document.body;
     var form = textarea.form;
-    ibody.innerHTML = textarea.value || '<p class=""><br></p>';
+    var initialtext = textarea.value || (_SARISSA_IS_IE?'<p></p>':'<p><br></p>');
 
     // now some config values
     var conf = loadDictFromXML(document, prefix+'xml.kupuconfig');
@@ -32,6 +32,7 @@ function initPloneKupu(editorId) {
 
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
+    kupu.setHTMLBody(initialtext);
 
     // add the contextmenu
     var cm = new ContextMenu();
