@@ -156,12 +156,10 @@ function initPloneKupu(editorId) {
     var linktool = NoContextMenu(new LinkTool());
     kupu.registerTool('linktool', linktool);
 
-    /* disabled
     var zoom = new KupuZoomTool(prefix+'button.kupu-zoom',
         prefix+'select.kupu-tb-styles',
         prefix+'button.kupu-logo');
     kupu.registerTool('zoomtool', zoom);
-    */
 
     if (typeof KupuSpellChecker != 'undefined') {
         var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
