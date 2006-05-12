@@ -28,7 +28,7 @@ div.kupu-toolboxes {display: none}
 /*select.kupu-tb-styles {display: block}*/
 
 div.kupu-tb { margin: 0; }
-div.kupu-fulleditor { margin-right: 0; }
+div.kupu-fulleditor { margin-right: 0; width: 100%; }
 div.kupu-fulleditor .kupu-editorframe {
   margin-right: 0;
 }
