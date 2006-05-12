@@ -338,7 +338,6 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
          dict(label='Libraries', action='zmi_libraries'),
          dict(label='Resource types', action='zmi_resource_types'),
          dict(label='Documentation', action='zmi_docs'),
-         dict(label='Status', action='sanity_check'),
          ))
 
 
@@ -363,10 +362,6 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     security.declareProtected(permissions.ManageLibraries, "zmi_docs")
     zmi_docs = PageTemplateFile("zmi_docs.pt", globals())
     zmi_docs.title = 'kupu configuration documentation'
-
-    security.declareProtected(permissions.ManageLibraries, "sanity_check")
-    sanity_check = PageTemplateFile("sanity_check.pt", globals())
-    sanity_check.title = 'kupu status'
 
     security.declareProtected(permissions.ManageLibraries, "kupu_config")
     kupu_config = PageTemplateFile("kupu_config.pt", globals())
