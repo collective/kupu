@@ -563,7 +563,10 @@ class PloneDrawers:
             base = portal.absolute_url()
             if src.startswith(base):
                 src = src[len(base):].lstrip('/')
-            obj = portal.restrictedTraverse(src)
+            try:
+                obj = portal.restrictedTraverse(src)
+            except AttributeError:
+                return []
             if portal_types:
                 while obj.portal_type not in portal_types:
                     obj = obj.aq_parent
