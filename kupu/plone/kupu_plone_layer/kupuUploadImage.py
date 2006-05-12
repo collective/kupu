@@ -82,7 +82,9 @@ if not context.portal_membership.checkPermission('Add portal content',context):
 id = cleanupFilename(id)
 
 newid = context.invokeFactory(type_name=typename, id=id,
-    title=node_prop_title, description=node_prop_desc)
+    title=node_prop_title,
+    description=node_prop_desc,
+    )
 
 if newid is None or newid == '':
    newid = id 
@@ -91,7 +93,7 @@ obj = getattr(context,newid, None)
 obj.setImage(node_prop_image)
     
 if not obj:
-   return Error("Could not create %s with %s as id and %s as title!", typename,newid, node_prop_caption)
+   return Error("Could not create %s with %s as id and %s as title!", typename,newid, node_prop_title)
 
 obj.reindexObject() 
 if linkbyuid and hasattr(obj, 'UID'):
