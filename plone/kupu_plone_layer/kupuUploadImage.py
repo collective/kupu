@@ -7,21 +7,53 @@
 ##parameters=node_prop_caption, node_prop_image
 
 from Products.CMFCore.utils import getToolByName
+from Products.PythonScripts.standard import html_quote, newline_to_br
 request = context.REQUEST
 RESPONSE =  request.RESPONSE
 
 TEMPLATE = """
 <html>
 <head></head>
-<body onload="window.parent.drawertool.current_drawer.%s('%s');">
+<body onload="window.parent.drawertool.current_drawer.%s('%s');">%s
 </body>
 </html>
 """
 
 def Error(fmt, *args):
     msg = fmt % args
-    script = TEMPLATE % ('cancelUpload', msg.replace("'", "\\'"))
+    script = TEMPLATE % ('cancelUpload', msg.replace("'", "\\'"), newline_to_br(html_quote(printed)))
     return script
+
+def cleanupFilename(name):
+    """Generate a unique id which doesn't match
+    the system generated ids.
+    The reason being that setImage will blow up if we have a system
+    generated id and the id it generates from the filename is already in use.
+    """
+    id = ''
+    name = name.replace('\\', '/') # Fixup Windows filenames
+    name = name.split('/')[-1] # Throw away any path part.
+    for c in name:
+        if c.isalnum() or c in '._':
+            id += c
+
+    # Race condition here, but not a lot we can do about that
+    if context.check_id(id) is None and getattr(context,id,None) is None:
+        return id
+
+    # Now make the id unique
+    parts = id.split('.')
+    if len(parts)==1: parts.append('')
+    count = 1
+    while 1:
+        if count==1:
+            sc = ''
+        else:
+            sc = str(count)
+        id = "copy%s_of_%s" % (sc, id)
+        if context.check_id(id) is None and getattr(context,id,None) is None:
+            return id
+        count += 1
 
 kupu_tool = getToolByName(context, 'kupu_library_tool')
 ctr_tool = getToolByName(context, 'content_type_registry')
@@ -46,21 +78,20 @@ if not typename in [t.id for t in context.getAllowedTypes()]:
 if not context.portal_membership.checkPermission('Add portal content',context): 
     return Error("You do not have permission to add content in %s", context.getId())
 
-# IE submits whole path to file, moz just the filename
-id = id.split("\\")[-1]
+# Get an unused filename without path
+id = cleanupFilename(id)
 
-# check for a bad id
-if context.check_id(id) is not None or getattr(context,id,None) is not None:
-   id = context.generateUniqueId(typename)
-
-# check for a duplicate
-newid = context.invokeFactory(type_name=typename, id=id, title=node_prop_caption, file=node_prop_image)
+newid = context.invokeFactory(type_name=typename, id=id,
+    title=node_prop_caption,
+#    description=node_prop_desc,
+    )
 
 if newid is None or newid == '':
    newid = id 
 
 obj = getattr(context,newid, None)
-
+obj.setImage(node_prop_image)
+    
 if not obj:
    return Error("Could not create %s with %s as id and %s as title!", typename,newid, node_prop_caption)
 
@@ -70,6 +101,7 @@ if linkbyuid and hasattr(obj, 'UID'):
 else:
     url = obj.absolute_url()
 
-return TEMPLATE % ('finishUpload', url)
+print "Uploaded image"
+return TEMPLATE % ('finishUpload', url, newline_to_br(html_quote(printed)))
 
 

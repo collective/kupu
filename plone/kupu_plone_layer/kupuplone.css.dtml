@@ -232,9 +232,6 @@ div.kupuoverride {
     margin-left: 0.75em;
 }
 
-.forcekupu {
-}
-
 .kupu-dialog-button {
     background: transparent url(&dtml-portal_url;/linkTransparent.gif) 9px 1px no-repeat;
     cursor: pointer;

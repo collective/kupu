@@ -326,7 +326,7 @@ i18n:translate="imagedrawer_upload_title_label">Title:</label>
         </form>
 
         <iframe id="kupu_upload_form_target" name="kupu_upload_form_target"
-                src="kupublank.html" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
+                src="javascript:''" scrolling="off" frameborder="0" width="0px" height="0px" display="None">
         </iframe>
       </div>
     </xsl:template>
