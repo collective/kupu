@@ -1,1 +1,1 @@
-kupu 1.3.5
+kupu 1.3.6-plone

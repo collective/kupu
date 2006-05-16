@@ -52,7 +52,7 @@
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right" id="kupu-logo">
-      <button type="button" class="kupu-logo" title="Kupu 1.3.5" 
+      <button type="button" class="kupu-logo" title="Kupu 1.3.6-plone" 
               i18n:attributes="title" accesskey="k"
               onclick="window.open('http://kupu.oscom.org');">&#160;</button>
     </span>
