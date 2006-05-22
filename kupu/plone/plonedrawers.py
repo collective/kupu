@@ -520,9 +520,8 @@ class PloneDrawers:
         putils = getToolByName(self, 'plone_utils')
         path = [ ("Home", getToolByName(self, 'portal_url')())]
 
-        createBreadCrumbs = getattr(putils.aq_base, 'createBreadCrumbs', None)
-        if createBreadCrumbs is not None:
-            path = path + [(x['Title'],x['absolute_url']) for x in createBreadCrumbs(context)]
+        if getattr(putils.aq_base, 'createBreadCrumbs', None) is not None:
+            path = path + [(x['Title'],x['absolute_url']) for x in putils.createBreadCrumbs(context)]
         else:
             path = path + self.breadcrumbs(context)[1:-1]
 
@@ -563,7 +562,10 @@ class PloneDrawers:
             base = portal.absolute_url()
             if src.startswith(base):
                 src = src[len(base):].lstrip('/')
-            obj = portal.restrictedTraverse(src)
+            try:
+                obj = portal.restrictedTraverse(src)
+            except AttributeError:
+                return []
             if portal_types:
                 while obj.portal_type not in portal_types:
                     obj = obj.aq_parent

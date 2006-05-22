@@ -82,11 +82,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         <div id="kupu-searchbox">
                             <form onsubmit="return false;">
                                 <xsl:variable name="search_value" i18n:translate="kupudrawer_search"
-                                    >search</xsl:variable>
+                                    >Search</xsl:variable>
                                 <input id="kupu-searchbox-input"
                                     class="kupu-searchbox-input nofocus"
                                     name="searchbox"
-                                    style="font-style: italic;"
+                                    style="color: #666;"
                                     onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();">
                                     <xsl:attribute name="value">
                                         <xsl:value-of select="$search_value"/>
@@ -263,7 +263,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             <xsl:apply-templates select="." mode="image-view" />
             <div>
                 <xsl:value-of select="size"/>
-                <xsl:if test="width" i18n:translate="imagedrawer_size">(<span i18n:name="width">
+                <xsl:if test="width" i18n:translate="imagedrawer_size"> (<span i18n:name="width">
                 <xsl:value-of select="width"/>
                     </span> by <span i18n:name="height">
                         <xsl:value-of select="height"/>
@@ -301,6 +301,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <div>
             <form onsubmit="return false;">
                 <div>
+                    <label style="display: block;margin-top: 1em;">Image alignment</label>
                     <input type="radio" name="image-align" id="image-align-left" value="image-left">
                         <xsl:if test="$image-align='left'">
                             <xsl:attribute name="checked">checked</xsl:attribute>
@@ -319,6 +320,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         </xsl:if>
                     </input>
                     <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
+                    <div class="discreet" i18n:translate="imagedrawer_image_align_explanation">
+                        You have to select left/right alignment first, then
+                        move the image up or down in the document afterwards.
+                        This is a browser-imposed limitation.
+                    </div>
                 </div>
                 <xsl:if test="$usecaptions='yes'">
                     <div>
@@ -333,6 +339,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     </div>
                 </xsl:if>
                 <xsl:if test="sizes">
+                    <label for="image-size-selector"
+                            style="display: block;margin-top: 1em;">Image size</label>
                     <select name="image-size-selector">
                         <option name="image-size-option" value="{uri}">Original</option>
                         <xsl:apply-templates select="sizes/size" />
@@ -342,7 +350,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     <xsl:if test="$usecaptions='yes'">
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                      </xsl:if>   
-                    <label for="image_alt" i18n:translate="imagedrawer_upload_alt_text">ALT-text</label>
+                    <label for="image_alt" i18n:translate="imagedrawer_upload_alt_text">"alt" attribute text</label>
                     <input type="text" id="image_alt" size="20" value="{title}">
                     </input>
                 </div>
@@ -350,9 +358,18 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </div>
     </xsl:template>
     <xsl:template match="size">
-        <option value="{uri}">
-            <xsl:value-of select="label" />
-        </option>
+      <xsl:choose>
+        <xsl:when test="selected">
+            <option value="{uri}" selected="">
+                <xsl:value-of select="label" />
+            </option>
+        </xsl:when>
+        <xsl:otherwise>
+            <option value="{uri}">
+                <xsl:value-of select="label" />
+            </option>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
@@ -410,7 +427,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 border: 0;">
               <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
                 <label i18n:translate="imagedrawer_upload_to_label">Upload
-                    to <span i18n:name="folder">
+                    to: <span i18n:name="folder">
                         <xsl:value-of select="/libraries/*[@selected]/title"/>
                     </span></label>
                 <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
@@ -425,7 +442,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>   
                 </label>
             </form>
-            <iframe id="kupu-upload-form-target" name="kupu_upload_form_target" src="javascript:''"
+            <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None"> </iframe>
         </div>
     </xsl:template>
