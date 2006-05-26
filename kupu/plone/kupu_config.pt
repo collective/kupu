@@ -216,6 +216,7 @@ Turn this off to prevent Kupu loading its own handler.
   </tr>
   <tr>
     <td valign="top">
+      <input type="hidden" name="html_exclusions.recordmark:records" value="1" />
       <input type="checkbox" name="html_exclusions.keep:records" checked="1" disabled="1"
              tal:attributes="value python:1;" />
     </td>
