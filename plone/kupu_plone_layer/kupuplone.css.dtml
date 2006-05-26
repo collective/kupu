@@ -15,14 +15,6 @@
  * <dtml-let buttonhighlight="'Black'" buttonshadow="'Black'"> 
  * <dtml-call "REQUEST.set('portal_url', portal_url())"> */
 
-/* Remove the text format selector when showing Kupu */
-.fieldTextFormat {
-  /* Doesn't work yet, since Kupu loads its style sheets even if it is not 
-     used :(
-    display: none;
-   */
-}
-
 .kupu a {
     color: &dtml-linkColor; !important;
     background-color: transparent;
