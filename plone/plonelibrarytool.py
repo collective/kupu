@@ -500,16 +500,15 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if parastyles:
             self.paragraph_styles = [ line.strip() for line in parastyles if line.strip() ]
 
-        newex = html_exclusions[-1]
+        newex = html_exclusions.pop(-1)
             
         html_exclusions = [ (tuple(h.get('tags', ())), tuple(h.get('attributes', ())))
-            for h in html_exclusions[:-1] if h.get('keep')]
-        
-        tags, attr = newex.get('tags', ()), newex.get('attributes', ())
+            for h in html_exclusions if h.get('keep')]
+
+        tags = newex.get('tags', '').replace(',',' ').split()
+        attr = newex.get('attributes', '').replace(',',' ').split()
         if tags or attr:
-            tags = tuple(tags.replace(',',' ').split())
-            attr = tuple(attr.replace(',',' ').split())
-            html_exclusions.append((tags, attr))
+            html_exclusions.append((tuple(tags), tuple(attr)))
 
         self.html_exclusions = html_exclusions
 
