@@ -157,7 +157,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         return getattr(self, 'install_beforeunload', True)
 
     security.declareProtected('View', 'isKupuEnabled')
-    def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None, context=None):
+    def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None, context=None, fieldName=None):
         def numerics(s):
             '''Convert a string into a tuple of all digit sequences
             '''
@@ -179,10 +179,12 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
             return False
 
         # Then check whether the current content allows html
-        if context is not None:
-            allowedTypes = getattr(field, 'allowable_content_types', None)
-            if allowedTypes is not None and not 'text/html' in [t.lower() for t in allowedTypes]:
-                return False
+        if context is not None and fieldName:
+            field = context.getField(fieldName)
+            if field:
+                allowedTypes = getattr(field, 'allowable_content_types', None)
+                if allowedTypes is not None and not 'text/html' in [t.lower() for t in allowedTypes]:
+                    return False
 
         # Then check whether their browser supports it.
         if not useragent:

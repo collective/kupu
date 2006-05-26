@@ -214,10 +214,12 @@ function XhtmlValidation(editor) {
         var tagset = new this.Set(tags);
         for (var tag in tagset) {
             var val = this.tagAttributes[tag];
-            for (var i = val.length; i >= 0; i--) {
-                if (bad[val[i]]) {
-                    val = val.concat(); // Copy
-                    val.splice(i,1);
+            if (val) {
+                for (var i = val.length; i >= 0; i--) {
+                    if (bad[val[i]]) {
+                        val = val.concat(); // Copy
+                        val.splice(i,1);
+                    }
                 }
             }
             this.tagAttributes[tag] = val;
