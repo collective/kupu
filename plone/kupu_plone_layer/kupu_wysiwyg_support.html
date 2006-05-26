@@ -20,12 +20,12 @@
     <!--$Id: wire.kupu 23401 2006-02-16 13:47:33Z limi $-->
     <!--$Id: head.kupu 21720 2006-01-05 15:59:25Z paul $-->
     <!--$Id: xmlconfig.kupu 18097 2005-10-03 09:51:28Z duncan $-->
-    <!--$Id: body.kupu 27694 2006-05-26 08:16:10Z duncan $-->
+    <!--$Id: body.kupu 27707 2006-05-26 09:51:47Z duncan $-->
     <!--$Id: toolbar.kupu 25716 2006-04-12 10:07:19Z fschulze $-->
     <!--$Id: drawers.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: beforeunload.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: sourceedit.kupu 14546 2005-07-12 14:35:55Z duncan $-->
-    <!--$Id: wysiwyg_support.kupu 27694 2006-05-26 08:16:10Z duncan $-->
+    <!--$Id: wysiwyg_support.kupu 27707 2006-05-26 09:51:47Z duncan $-->
     
 
     <div xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="wysiwygEditorBox" id="kupu-editor" tal:define="name fieldName|inputname;                 editorid string:kupu-editor-${name}" tal:attributes="id editorid">
@@ -382,7 +382,7 @@
   
     <tal:archetypes tal:condition="fieldName|nothing">
       <div class="kupuoverride" tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');">
-        <span class="discreet"><a class="forcekupu" href="#" i18n:translate="force-kupu" tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST, context=context)" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
+        <span class="discreet"><a class="forcekupu" href="#" i18n:translate="force-kupu" tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST, context=context, fieldName=fieldName)" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};" title="reload current page using kupu to edit this field">
            Edit with visual editor
         </a></span>
       </div>
@@ -401,7 +401,7 @@
   <tal:noeditor tal:condition="not:usekupu">
     <tal:archetypes tal:condition="fieldName|nothing">
          <div metal:use-macro="here/widgets/visual/macros/area_format"/>
-         <span tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST, context=context)" tal:define="global kupu_convert_message_generated python:True">
+         <span tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST, context=context, fieldName=fieldName)" tal:define="global kupu_convert_message_generated python:True">
            <a href="#" tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};">Convert to HTML and edit with the visual editor</a></span>
     </tal:archetypes>
     <tal:nonat condition="not:fieldName|nothing">

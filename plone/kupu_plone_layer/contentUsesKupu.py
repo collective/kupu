@@ -13,7 +13,7 @@ tool = getToolByName(context, 'kupu_library_tool')
 REQUEST = context.REQUEST
 
 # If the user doesn't have kupu configured then we can't use it.
-if not tool.isKupuEnabled(REQUEST=REQUEST, context=context):
+if not tool.isKupuEnabled(REQUEST=REQUEST, context=context, fieldName=fieldname):
     return False
 
 if not fieldname:
