@@ -180,7 +180,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         return getattr(self, 'install_beforeunload', False)
 
     security.declareProtected('View', 'isKupuEnabled')
-    def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None):
+    def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None, context=None, fieldName=None):
         if not REQUEST:
             REQUEST = self.REQUEST
         def numerics(s):
@@ -202,6 +202,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         user = pm.getAuthenticatedMember()
         if user.getProperty('wysiwyg_editor').lower() != 'kupu':
             return False
+
+        # Then check whether the current content allows html
+        if context is not None and fieldName:
+            field = context.getField(fieldName)
+            if field:
+                allowedTypes = getattr(field, 'allowable_content_types', None)
+                if allowedTypes is not None and not 'text/html' in [t.lower() for t in allowedTypes]:
+                    return False
 
         # Then check whether their browser supports it.
         if not useragent:
