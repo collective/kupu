@@ -11,8 +11,7 @@
   <mm:cloud>
     <mm:notpresent referid="node">      
       <mm:remove referid="node" />
-      <mm:import externid="objectnumber" from="parameters" />
-      <mm:node referid="objectnumber" id="node" notfound="skip" />
+      <mm:node number="${param.objectnumber}" id="node" notfound="skip" />
     </mm:notpresent>
 
     <mm:present referid="node">
