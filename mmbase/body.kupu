@@ -30,19 +30,31 @@
             </xsl:template>
           </mm:xslt>
         </mm:formatter>
+        <mm:formatter id="role" write="false">
+          <mm:include cite="true" page="${wizardxml}"/>
+          <mm:xslt>
+            <xsl:template xmlns:xsl="http://www.w3.org/1999/XSL/Transform" match="/">
+              <xsl:value-of select="/wizard-schema/action[@type='create']/object/relation/@role"/>
+            </xsl:template>
+          </mm:xslt>
+        </mm:formatter>
+        <mm:isempty referid="role">
+          <mm:import reset="true" id="role">related</mm:import>
+        </mm:isempty>
       </mm:haspage>
       <mm:haspage page="${wizardxml}" inverse="true">
         <mm:import externid="wizard" vartype="list" listdelimiter="/" />
         <mm:import id="type">${wizard[fn:length(wizard) - 1]}</mm:import>
+        <mm:import id="role">related</mm:import>
       </mm:haspage>
       <mm:createnode type="$type" id="node">
 
       </mm:createnode>
       <mm:present referid="origin">
         <mm:hasnode number="$origin">
-          <mm:log>Creating relation between ${origin} and ${node}</mm:log>
+          <mm:log>Creating relation between ${origin} and ${node} with role ${role}</mm:log>
           <mm:node id="origin" referid="origin" />
-          <mm:createrelation role="related" source="origin" destination="node" />
+          <mm:createrelation role="${role}" source="origin" destination="node" />
         </mm:hasnode>
       </mm:present>
       <mm:import externid="link_nodetypes" />
