@@ -2,7 +2,7 @@
     The related tool is to related some object to the node directly
     argument: related_types: list of types, defaults to images, urls, mediafragments
  -->
- <div id="mmbase_related">
+<div id="mmbase_related mmbase-tool">
  <mm:content
      type="text/html"
      expires="-1"
