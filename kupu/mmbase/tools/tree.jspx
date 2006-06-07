@@ -1,4 +1,4 @@
-<div id="tree">
+<div id="tree" class="mmbase-tool">
 <mm:content
     type="text/xml"
     expires="-1"

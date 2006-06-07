@@ -75,18 +75,23 @@ function adjustLayout() {
     for (i=0; i < a.length; i++) {
         xHeight(a[i], maxHeightArea);
         xWidth(a[i], maxWidth);
-        
     }
+
 
     xHeight("toolboxes", maxHeight);
     xHeight("kupu-editor", maxHeightArea - 3);
     xWidth("kupu-editor", maxWidth - 201);
 
+    var nodeHeight = xHeight('nodefields');
+    var toolsHeight =  maxHeight - nodeHeight - 1;
+    if (toolsHeight < 100) {
+        toolsHeight = 100;
+        xHeight("nodefields", maxHeight - 100 - 1);
+    }
+
     adjustToolBoxesLayout();
 
-    var nodeHeight = xHeight('nodefields');
-
-    xHeight("mmbase-tools", maxHeight - nodeHeight - 1);
+    xHeight("mmbase-tools", toolsHeight);
 
     
 }

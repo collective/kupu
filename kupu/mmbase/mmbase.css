@@ -68,8 +68,13 @@ a.current  {
   background-color:  #76a2b6;
 }
 
+
 #mmbase-tools a.create {
   text-decoration: none;
+}
+
+#mmbase-tools .mmbase-tool { 
+  min-height: 100px;
 }
 		
 #preview { 
