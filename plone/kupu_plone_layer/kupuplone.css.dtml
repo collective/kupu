@@ -23,7 +23,10 @@
 }
 
 
-div.kupu-toolboxes {display: none}
+div.kupu-toolboxes,
+#kupu-spellchecker {display: none}
+
+
 
 /*select.kupu-tb-styles {display: block}*/
 
