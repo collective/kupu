@@ -43,7 +43,9 @@ TestCase.prototype.assertEquals = function(var1, var2, message) {
     }
     if (var1 != var2 &&
             (!(var1 instanceof Array && var2 instanceof Array) ||
-                !this._arrayDeepCompare(var1, var2))) {
+                !this._arrayDeepCompare(var1, var2)) &&
+            (!(var1 instanceof Date && var2 instanceof Date) ||
+                var1.getTime() != var2.getTime())) {
         this._throwException('Assertion ' + message + 'failed: ' + 
                                 var1 + ' != ' + var2);
     };
@@ -223,6 +225,8 @@ TestCase.prototype._arrayDeepCompare = function(a1, a2) {
             if (!this._arrayDeepCompare(a1[i], a2[i])) {
                 return false;
             };
+        } else if (a1 instanceof Date && var2 instanceof Date) {
+            return a1.getTime() == a2.getTime();
         } else if (a1[i] != a2[i]) {
             return false;
         };
