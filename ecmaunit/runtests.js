@@ -14,6 +14,9 @@
   Test runner for command-line environments, such as spidermonkey
 */
 
+load('ecmaunit.js');
+load('testecmaunit.js');
+
 function runTests() {
     reporter = new StdoutReporter;
     var testcase = new TestTestCase();
