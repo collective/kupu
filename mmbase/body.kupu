@@ -58,7 +58,8 @@
         </mm:hasnode>
       </mm:present>
       <mm:import externid="link_nodetypes" />
-      <mm:redirect referids="node@objectnumber,tools?,language?,origin?,nodetypes?,back@kupu_back,link_nodetypes?" /> 
+      <mm:import externid="related_types" />
+      <mm:redirect referids="node@objectnumber,tools?,language?,origin?,nodetypes?,back@kupu_back,link_nodetypes?,related_types?" /> 
     </mm:compare>
     <mm:compare referid="objectnumber" value="new" inverse="true">
       <mm:node id="node" referid="objectnumber" />
