@@ -7,7 +7,7 @@
   <jsp:output omit-xml-declaration="true" />
   <mm:content type="text/html" expires="0">
     <mm:import externid="objectnumber" />
-    <mm:cloud>
+    <mm:cloud method="asis">
       <mm:node referid="objectnumber">
         <mm:formatter format="xhtml"> 
           <mm:field name="body" />

@@ -10,11 +10,13 @@
   <mm:import externid="surpressupload" />
   <mm:content type="text/xml">
     <mm:notpresent referid="query">
-      <mm:cloud>
+      <mm:cloud method="asis">
         <mm:listnodescontainer id="query" type="images" />
       </mm:cloud>
     </mm:notpresent>
     <mm:listnodescontainer referid="query">
+      <mm:maxnumber value="100" />
+      <mm:sortorder field="number" direction="down" />
       <items>
         <mm:context>
           <mm:notpresent referid="surpressupload">
@@ -27,10 +29,12 @@
               </mm:image>
               <title><mm:field name="title" /></title>
               <size><mm:field name="filesize" />b</size>
-              <mm:image>
-                <height>${dimension.height}</height>
-                <width>${dimension.width}</width>
-              </mm:image>
+              <mm:hasfield name="height">
+                <mm:image>
+                  <height>${dimension.height}</height>
+                  <width>${dimension.width}</width>
+                </mm:image>
+              </mm:hasfield>
               <mm:image template="s(200x200&gt;)">
                 <preview height="${dimension.height}" width="${dimension.width}">${mm:escape('text/xml', _)}</preview>
               </mm:image>

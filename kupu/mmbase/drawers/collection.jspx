@@ -13,7 +13,7 @@
     <uri>drawers/collection.jspx?search=${search}</uri>
     <icon>${kupubasedir}/mmbase/icons/map.gif</icon>
     <title>MMBase</title>
-    <mm:cloud rank="basic user">
+    <mm:cloud method="asis">
       <mm:import externid="nodetype">images</mm:import>
       <mm:import externid="source" />
 

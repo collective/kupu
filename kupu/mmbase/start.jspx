@@ -17,7 +17,7 @@
           <title>Kupu text area</title>
           <link href="kupustyle.css" rel="stylesheet" type="text/css" />
         </head>
-        <body>
+        <body class="mmxf">
           <p><fmt:message key="No node" /></p>
         </body>
       </html>

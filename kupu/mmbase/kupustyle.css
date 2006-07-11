@@ -1,3 +1,4 @@
+@import url("../../style/css/mmxf.css");
 body { 
   background-color: white;
   font-size: 12pt;
@@ -59,6 +60,7 @@ table {
   border-spacing: 0px;
   empty-cells: show;
   border-collapse: collapse;
+  background-color: #fafafa;
 }
 
 td { 
