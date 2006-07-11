@@ -30,6 +30,10 @@
       <class>listing</class>
       <class>grid</class>
       <class>data</class>
+      <class>plain wide</class>
+      <class>listing wide</class>
+      <class>grid wide</class>
+      <class>data wide</class>
     </table_classes>
   </kupu:part>
  

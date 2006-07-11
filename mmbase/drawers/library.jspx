@@ -8,7 +8,7 @@
   -->
   <jsp:output omit-xml-declaration="yes" />
 
-  <mm:cloud>
+  <mm:cloud method="asis">
     <mm:import externid="nodetype">images</mm:import>
     <mm:import externid="source" />
     <mm:import externid="kupubasedir" />
@@ -17,7 +17,7 @@
         <title>
           <mm:nodeinfo nodetype="$nodetype" type="plural_guinodemanager" />
         </title>
-        <icon height="12" width="16">${kupubasedir}mmbase/icons/map.gif</icon>	        
+        <icon height="12" width="16">${kupubasedir}mmbase/icons/map.gif</icon>
         <mm:remove referid="query" />
         <mm:listnodescontainer id="query" type="$nodetype">
           <mm:present referid="source">
