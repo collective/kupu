@@ -513,6 +513,10 @@ function XhtmlValidation(editor) {
                 }
             }
         }
+        this.alt = function(name, htmlnode, xhtmlnode) {
+            var val = htmlnode.getAttribute(name);
+            if (val || xhtmlnode.tagName=='img') xhtmlnode.setAttribute(name, val);
+        }
         this.rowspan = this.colspan = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
             if (val && val != '1') xhtmlnode.setAttribute(name, val);
