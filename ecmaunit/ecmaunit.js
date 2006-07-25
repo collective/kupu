@@ -184,33 +184,7 @@ TestCase.prototype._runHelper = function() {
 };
 
 TestCase.prototype._throwException = function(message) {
-    var lineno = this._getLineNo();
-    if (lineno) {
-        message = 'line ' + lineno + ' - ' + message;
-    };
-    throw(message);
-};
-
-TestCase.prototype._getLineNo = function() {
-    /* tries to get the line no in Moz */
-    var stack = undefined;
-    try {notdefined()} catch(e) {stack = e.stack};
-    if (stack) {
-        stack = stack.toString().split('\n');
-        for (var i=0; i < stack.length; i++) {
-            var line = stack[i].split('@')[1];
-            if (line.indexOf('ecmaunit') == -1) {
-                // return the first line after we get out of ecmaunit
-                var chunks = line.split(':');
-                var lineno = chunks[chunks.length - 1];
-                if (lineno != '0') {
-                    return lineno;
-                };
-            };
-        };
-    } else {
-        return false;
-    };
+    throw(new AssertionError(message));
 };
 
 TestCase.prototype._arrayDeepCompare = function(a1, a2) {
@@ -316,7 +290,14 @@ StdoutReporter.prototype.summarize = function(numtests, time, exceptions) {
             var raw = exceptions[i][3];
             print(testcase + '.' + attr + ', exception: ' + exception);
             if (this.verbose) {
-                this._printStackTrace(raw);
+                if (exception instanceof AssertionError) {
+                    if (exception.stack) {
+                        print(exception.stack.slice(3).reverse().join('\n') + 
+                                '\n');
+                    };
+                } else {
+                    this._printStackTrace(raw);
+                };
             };
         };
         print('NOT OK!');
@@ -492,4 +473,58 @@ HTMLReporter.prototype._displayStackTrace = function(exc) {
         pre.appendChild(document.createTextNode('\n'));
         this.outputelement.appendChild(pre);
     };
+};
+
+// this mostly stolen from Guido Wesdorp's (yes, my own ;) 'jsbase'...
+function AssertionError(message) {
+    if (message !== undefined) {
+        this._initialize(message);
+    };
+};
+
+AssertionError.prototype.toString = function() {
+    return this.message;
+};
+
+AssertionError.prototype._initialize = function(message) {
+    this.message = message;
+    var stack = this.stack = this._createStack();
+    this.lineNo = this._getLineNo(stack);
+    this.fileName = this._getFileName(stack);
+};
+
+AssertionError.prototype._createStack = function() {
+    /* somewhat nasty trick to get a stack trace in (works only in Moz) */
+    var stack = undefined;
+    try {notdefined()} catch(e) {stack = e.stack};
+    if (stack) {
+        stack = stack.split('\n');
+        stack.shift();
+        stack.shift();
+    };
+    return stack  || '';
+};
+
+AssertionError.prototype._getLineNo = function(stack) {
+    /* tries to get the line no in (works only in Moz) */
+    if (!stack) {
+        return;
+    };
+    stack = stack.toString().split('\n');
+    var chunks = stack[0].split(':');
+    var lineno = chunks[chunks.length - 1];
+    if (lineno != '0') {
+        return lineno;
+    };
+};
+
+AssertionError.prototype._getFileName = function(stack) {
+    /* tries to get the filename in (works only in Moz) */
+    if (!stack) {
+        return;
+    };
+    stack = stack.toString().split('\n');
+    var chunks = stack[0].split(':');
+    var filename = chunks[chunks.length - 2];
+    return filename;
 };
