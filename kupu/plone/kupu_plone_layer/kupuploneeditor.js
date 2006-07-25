@@ -45,7 +45,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                    urlparts[common]==hrefparts[common])
                 common++;
             var last = urlparts[common];
-            if (common+1 == urlparts.length && last=='emptypage') {
+            if (common+1 == urlparts.length && (last=='emptypage'||last=='portal_factory')) {
                 urlparts[common] = '';
             }
             // The base and the url have 'common' parts in common.
