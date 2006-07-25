@@ -12,7 +12,8 @@
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/ploneCustom.css" />
     </tal:plone20>
     <base href="emptypage"
-        tal:define="folderish here/isPrincipiaFolderish; tail python:test(folderish, '/', '');"
+        tal:define="folderish here/isPrincipiaFolderish; hereid here/getId|nothing;
+          tail python:test(folderish or hereid=='portal_factory', '/', '');"
         tal:attributes="href string:${request/URL1}${tail}" />
   </head>
   <body class="kupu documentContent">
@@ -21,6 +22,5 @@
       This template is an empty placeholder, used for loading contents
       into the Kupu editor-iframe.
    </tal:comment>
-   
   </body>
 </html>

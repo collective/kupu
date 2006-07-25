@@ -28,7 +28,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
 
     var href = base.replace(/\/[^\/]*$/, '/');
     var hrefparts = href.split('/');
-    return contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
+    contents = contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
             var resolveuid = url.indexOf('/resolveuid/');
             if (resolveuid != -1) {
@@ -60,8 +60,8 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                 while (common < urlparts.length) {
                     path[i++] = urlparts[common++];
                 };
-                if (i==0) {
-                    path[i++] = '.';
+                if (i==0 && !anchor) {
+                    path[i++] = '#';
                 }
                 str = path.join('/');
                 if (anchor) {
@@ -71,6 +71,11 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
             };
             return str;
         });
+    // Remove empty links
+    contents = contents.replace(/<a\s+href="[^"]*"\s*>\s*<\/a>/g, '');
+    // Fixup empty paras.
+    contents = contents.replace(/<p[^>]*>\s*<\/p>(<br \/>)*/g, '<p$1><br /></p>').strip();
+    return contents;
 };
 
 KupuEditor.prototype.saveDataToField = function(form, field) {
