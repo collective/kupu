@@ -179,6 +179,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def installBeforeUnload(self):
         return getattr(self, 'install_beforeunload', False)
 
+    security.declareProtected('View', "getFiltersourceedit")
+    def getFiltersourceedit(self):
+        return getattr(self, 'filtersourceedit', True)
+
     security.declareProtected('View', 'isKupuEnabled')
     def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None, context=None, fieldName=None):
         if not REQUEST:
@@ -499,12 +503,16 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
         installBeforeUnload=None, parastyles=None, refbrowser=None,
         captioning=None,
+        filterSourceEdit=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         self.linkbyuid = int(linkbyuid)
         self.table_classnames = table_classnames
         if installBeforeUnload is not None:
             self.install_beforeunload = bool(installBeforeUnload)
+        if filterSourceEdit is not None:
+            self.filtersourceedit = bool(filterSourceEdit)
+
         if parastyles:
             self.paragraph_styles = [ line.strip() for line in parastyles if line.strip() ]
 
