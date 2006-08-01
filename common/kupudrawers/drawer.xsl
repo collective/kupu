@@ -80,14 +80,14 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <div class="kupu-drawer">
                     <div id="kupu-librarydrawer">
                         <div id="kupu-searchbox">
-                            <form onsubmit="return false;">
+                            <!--<form onsubmit="return false;">-->
                                 <xsl:variable name="search_value" i18n:translate="kupudrawer_search"
                                     >Search</xsl:variable>
                                 <input id="kupu-searchbox-input"
                                     class="kupu-searchbox-input nofocus"
-                                    name="searchbox"
-                                    style="color: #666;"
-                                    onkeyup="if (event.keyCode == 13 ) drawertool.current_drawer.search();">
+                                    style="color: #666;">
+                                  <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                                    <xsl:attribute name="onkeyup">if(event.keyCode == 13){drawertool.current_drawer.search();return false;}</xsl:attribute>
                                     <xsl:attribute name="value">
                                         <xsl:value-of select="$search_value"/>
                                     </xsl:attribute>
@@ -95,7 +95,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                         if (this.value == '<xsl:value-of
                                             select="$search_value"/>') this.value = ''; this.style.fontStyle='normal';</xsl:attribute>
                                 </input>
-                            </form>
+                            <!--</form>-->
                         </div>
                         <h1 class="kupu-drawer-title">
                             <xsl:value-of select="$i18n_drawertitle"/>

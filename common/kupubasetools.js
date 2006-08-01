@@ -2671,15 +2671,13 @@ proto.grubParas = function(style1, style2) {
     var doc = this.editor.getInnerDocument();
     var body = doc.body;
     var paras = [];
-    var lvl1 = 0, lvl2 = 0;
     for (var node = body.firstChild; node; node = node.nextSibling) {
         var name = node.nodeName.toLowerCase();
         var style = name + "|" + node.className;
         if (style==style1) {
-            paras.push([node,0,++lvl1]);
-            lvl2 = 0;
+            paras.push([node,0]);
         } else if (style==style2) {
-            paras.push([node,1,lvl1 + '.' + ++lvl2]);
+            paras.push([node,1]);
         }
     }
     return paras;

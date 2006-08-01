@@ -21,8 +21,13 @@
   padding: 0 8px 8px 8px;
   height: auto;
   width: 640px;
-  z-index: 2;
+  z-index: 3;
   color: black;
+}
+
+.kupu-maskframe {
+  position:absolute;
+  z-index: 3;
 }
 
 .kupu-tabledrawer {

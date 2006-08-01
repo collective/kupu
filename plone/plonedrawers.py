@@ -578,6 +578,8 @@ class PloneDrawers:
             objects = [ o for o in objects if o is not None ]
             return objects
 
+        if obj is None:
+            return None
         return [obj]
 
     security.declarePublic("getCurrentParent")
