@@ -338,8 +338,8 @@ function KupuUI(textstyleselectid) {
         parastyles['p'] = 0;
         while (options.length > 1) {
             opt = options[1];
-            var v = opt.value.toLowerCase();
-            if (/^thead|tbody|table|t[rdh]\b/.test(v)) {
+            var v = opt.value;
+            if (/^thead|tbody|table|t[rdh]\b/i.test(v)) {
                 var otable = tableoptions;
                 var styles = tablestyles;
             } else {
