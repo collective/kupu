@@ -27,6 +27,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     // text until all our links are relative.
 
     var href = base.replace(/\/[^\/]*$/, '/');
+    var pageid = /.*\/([^\/]*)$/.exec(base)[1];
     var hrefparts = href.split('/');
     contents = contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
@@ -45,7 +46,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                    urlparts[common]==hrefparts[common])
                 common++;
             var last = urlparts[common];
-            if (common+1 == urlparts.length && (last=='emptypage'||last=='portal_factory')) {
+            if (common+1 == urlparts.length && (last=='emptypage'||last==pageid)) {
                 urlparts[common] = '';
             }
             // The base and the url have 'common' parts in common.

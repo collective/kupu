@@ -223,3 +223,6 @@ will have to modify their content types to get the new behaviour).
 Make ReferenceTextField aggressive in the same way. Add configuration
 options to select whether TextField and ReferenceWidget are hijacked.
 
+The drawers really ought to be in a separate DIV: the XSL tries to
+create forms, but since the drawer is already inside a form this is
+illegal and sometimes crashes IE as a result.

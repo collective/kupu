@@ -468,11 +468,19 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             this.baseelement = getBaseTagClass(document.body, 'div', 'kupu-librarydrawer-parent');
         }
         this.anchorframe = getBaseTagClass(this.baseelement, 'iframe', 'kupu-anchorframe');
-
+        this.maskframe = getBaseTagClass(this.baseelement, 'iframe', 'kupu-maskframe');
+        var e;
+        if (!this.maskframe) {
+            e = this.maskframe = newElement('iframe',
+                {'className':'kupu-maskframe','src':"javascript:false;", 'frameBorder':"0", 'scrolling':"no" });
+            var style = e.style;
+            style.display = 'none';
+            this.baseelement.insertBefore(e, this.baseelement.firstChild);
+        }
         this.tool = tool;
         this.element = document.getElementById(this.drawerid);
         if (!this.element) {
-            var e = document.createElement('div');
+            e = document.createElement('div');
             e.id = this.drawerid;
             e.className = 'kupu-drawer '+this.drawerid;
             this.baseelement.appendChild(e);
@@ -511,8 +519,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
     this.hide = function() {
         var el = this.element;
-        el.style.left = '';
-        el.style.top = '';
+        el.style.left = el.style.top = '';
+        this.maskframe.style.display='none';
         LibraryDrawer.prototype.hide.call(this);
     };
 
@@ -542,6 +550,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                 xsltproc.setParameter("", "usecaptions", 'yes');
             }
         } catch(e) {
+            if (e && e.name && e.message) e = e.name+': '+e.message;
             alert("xlstproc error:" + e);
             return; // No XSLT Processor, maybe IE 5.5?
         }
@@ -590,6 +599,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         // display the drawer div
         this.element.style.display = 'block';
+        // display the mask to hide SELECT boxes in IE
+        var st = this.maskframe.style;
+        var st1 = this.element.style;
+        st.top=st1.top;st.left=st1.left;
+        st.width = this.element.offsetWidth+'px';
+        st.height = this.element.offsetHeight+'px';
+        st.display = '';
     };
 
     this._singleLibsXslCallback = function(dom) {
@@ -766,7 +782,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var newbc = dom.selectSingleNode("//breadcrumbs");
 
         // IE does not support importNode on XML document nodes. As an
-        // evil hack, clonde the node instead.
+        // evil hack, clone the node instead.
 
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
@@ -1482,6 +1498,7 @@ function AnchorDrawer(elementid, tool) {
         if (!isSingle) {
             var toc = ed.newElement('ul');
         };
+        var lvl1=0, lvl2=0;
         for (var i = 0; i < selected.length; i++) {
             if (selected[i].checked) {
                 var nodeinfo = this.nodelist[i];
@@ -1495,9 +1512,16 @@ function AnchorDrawer(elementid, tool) {
                 } else {
                     /* Insert TOC entry here */
                     var caption = Sarissa.getText(node).truncate(140);
+                    var number;
+                    if (level==0) {
+                        number = ++lvl1;
+                        lvl2 = 0;
+                    } else {
+                        number = lvl1 + '.' + ++lvl2;
+                    };
                     var li = ed.newElement('li', {'className': 'level'+level},
                         [ed.newElement('a', {'href': '#'+a},
-                        [ed.newText(nodeinfo[2] + ' ' + caption)])]);
+                        [ed.newText(number + ' ' + caption)])]);
 
                     if (level==0) {
                         toc.appendChild(li);
