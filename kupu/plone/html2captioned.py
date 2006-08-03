@@ -132,7 +132,7 @@ class HTMLToCaptioned:
                     try:
                         url = target.getRemoteUrl()
                     except AttributeError:
-                        url = target.absolute_url()
+                        url = target.absolute_url_path()
                     return tag + url
                 return match.group(0)
 
