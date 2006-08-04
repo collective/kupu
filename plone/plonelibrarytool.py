@@ -180,7 +180,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
 
         # Then check whether the current content allows html
         if context is not None and fieldName:
-            field = context.getField(fieldName)
+            field = context.getWrappedField(fieldName)
             if field:
                 allowedTypes = getattr(field, 'allowable_content_types', None)
                 if allowedTypes is not None and not 'text/html' in [t.lower() for t in allowedTypes]:
