@@ -1,1 +1,1 @@
-kupu 1.3.7 (SVN/Unreleased)
+kupu 1.3.8 (SVN/Unreleased)

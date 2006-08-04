@@ -2,6 +2,43 @@
 Kupu changes
 ============
 
+- 1.3.8
+
+  - HTML view now does filtering by default in Plone (can be turned
+    off in the configlet). This also means that after pasting from e.g.
+    Word the HTML can be cleaned up simply by toggling source view
+    on/off.
+
+  - Fix bugs:
+
+    * class names were being lowercased
+
+    * target="_self" being added to links when it shouldn't have been.
+
+    * stopped sniffing browser on event interface
+
+    * work round Opera not allowing _ in config tags.
+
+    * Sarissa patched for Opera.
+
+    * fixed bug with tabindex
+
+    * fix buggy lookup of allowable_content_types
+
+- 1.3.7
+
+ - Plone
+
+     * Disable spellchecker as it freezes IE
+
+ - General
+
+     * Robustness fix for js.
+
+     * Fix for customisation screen.
+
+     * isKupuEnabled should only return True for a field which actually allows html.
+
 - 1.3.6
 
   - Plone
@@ -25,7 +62,7 @@ Kupu changes
 
 - 1.3.4
 
-  - Silva 
+  - Silva
 
       * Fixed some small issues in external sources support.
 
@@ -65,18 +102,18 @@ Kupu changes
 - 1.3.2
 
   - Zope 2
-  
+
     * Updated Zope 2 distribution, it was broken in several ways.
 
   - Silva
-    
+
     * Fixed problem with ExternalSources, which made that sources could not be
       added to a page (clicking 'add' would not do anything).
 
 - 1.3.1
 
   - Silva:
-    
+
     * Fixed problem with IE that turned all src attributes (images) and hrefs
       (links) into absolute URLs, failing miserably on Zope/Silva setups.
 
@@ -162,7 +199,7 @@ Kupu changes
   - Linking to the current folder produced an empty link. Now it links to "."
 
   - Changed how kupu in Plone handles non-HTML content e.g. STX. Now it won't
-    load for fields in Archetypes content if the content type isn't HTML (but 
+    load for fields in Archetypes content if the content type isn't HTML (but
     it does put in a link allowing you to force a conversion). See
     http://plone.org/collector/3900
 
@@ -177,13 +214,13 @@ Kupu changes
     and tablecells to 'align'.
 
   Apache Lenya enhancements:
-  
+
   * improved handling of image assets
   * enabled roundtrip of image editing between Kupu and BXE
     (http://issues.apache.org/bugzilla/show_bug.cgi?id=29164)
   * fixed bug that inserted multiple meta charset entries per save.
   * slight wording changes here and there
-  
+
 - Kupu 1.2rc1
 
   The following issues have been resolved (see the `issue tracker`_
@@ -203,7 +240,7 @@ Kupu changes
   - Fixed 'phantom whitespace' problem. Saved format was 'text/html'
     which non-AT content types interpret as an alias for 'stx'. Now
     sets format to 'html' for non-AT content types.
-  - Opening a drawer gave error 404 on Plone systems when Archetypes 
+  - Opening a drawer gave error 404 on Plone systems when Archetypes
     was not installed.
 
 
@@ -273,7 +310,7 @@ Kupu changes
 
   * Added Selection object that provides a cross-browser API for working
     with the document's selection and cursor. This can be used to e.g. add
-    and manipulate arbitrary elements (it's used for instance in Silva's 
+    and manipulate arbitrary elements (it's used for instance in Silva's
     definition lists code).
 
   * Templates for different systems are now generated with an
@@ -327,7 +364,7 @@ Kupu changes
 
   * Added POST support
 
-  * Finally added some more documentation, made some older docs less 
+  * Finally added some more documentation, made some older docs less
     Zope specific
 
   * Added toolboxes, a plugin for tools, to seperate functionality from
@@ -355,7 +392,7 @@ Kupu changes
   * A lot of small bugfixes...
 
 - 1.0.1 (2003-12-10)
-  
+
   * Fixed bug that caused saving to fail in Mozilla 1.3.1
 
   * Fixed bug that prevented Zope from booting when Epoz and Plone were
@@ -412,7 +449,7 @@ Kupu changes
   * Added new attributes on <iframe> to configure the Epoz instance:
 
     - dst specifices the URL to PUT to.
-  
+
     - usecss is either 0 or 1, to tell Midas whether to use CSS or
       element styles like <b>.
 
@@ -427,7 +464,7 @@ Kupu changes
   * Added functionality for editing tables (adding and deleting
     rows and columns, setting alignment etc.)
 
-  * Fixed bug in link code, the url is now added to the link 
+  * Fixed bug in link code, the url is now added to the link
     correctly and can also be modified
 
   * Replaced some timeout code with a poll loop, which should work

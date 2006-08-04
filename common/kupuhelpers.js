@@ -81,9 +81,9 @@ function addEventHandler(element, event, method, context) {
     };
     wrappedmethod.args = args;
     try {
-        if (_SARISSA_IS_MOZ) {
+        if (element.addEventListener) {
             element.addEventListener(event, wrappedmethod.execute, false);
-        } else if (_SARISSA_IS_IE) {
+        } else if (element.attachEvent) {
             element.attachEvent("on" + event, wrappedmethod.execute);
         } else {
             throw _("Unsupported browser!");
@@ -100,9 +100,9 @@ function addEventHandler(element, event, method, context) {
 
 function removeEventHandler(element, event, method) {
     /* method to remove an event handler for both IE and Mozilla */
-    if (_SARISSA_IS_MOZ) {
-        window.removeEventListener(event, method, false);
-    } else if (_SARISSA_IS_IE) {
+    if (element.removeEventListener) {
+        element.removeEventListener(event, method, false);
+    } else if (element.detachEvent) {
         element.detachEvent("on" + event, method);
     } else {
         throw _("Unsupported browser!");
@@ -212,6 +212,9 @@ function _load_dict_helper(element) {
                 };
             };
             var name = child.nodeName.toLowerCase();
+            if (child.attributes[0] && /^_/.test(child.attributes[0])) {
+                name += child.attributes[0].toLowerCase(); // Fix for Opera
+            }
             if (dict[name] != undefined) {
                 if (!dict[name].push) {
                     dict[name] = new Array(dict[name], value);
