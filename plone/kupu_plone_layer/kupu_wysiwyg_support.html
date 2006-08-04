@@ -19,7 +19,7 @@
     <!--$Id: include.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: wire.kupu 23401 2006-02-16 13:47:33Z limi $-->
     <!--$Id: head.kupu 21720 2006-01-05 15:59:25Z paul $-->
-    <!--$Id: xmlconfig.kupu 18097 2005-10-03 09:51:28Z duncan $-->
+    <!--$Id: xmlconfig.kupu 30986 2006-08-04 11:38:46Z duncan $-->
     <!--$Id: body.kupu 27715 2006-05-26 10:35:22Z duncan $-->
     <!--$Id: toolbar.kupu 25716 2006-04-12 10:07:19Z fschulze $-->
     <!--$Id: drawers.kupu 14546 2005-07-12 14:35:55Z duncan $-->
@@ -349,7 +349,7 @@
   
     </div>
   <script type="text/javascript">var focuscount = 0;</script>
-    <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="                 base here/absolute_url;                 posfactory python:base.find('/portal_factory/');                 base python:posfactory &gt; 0 and base[:posfactory+15] or base;                 base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                          tabindex python:tabindex is not None and tabindex + 1 or None;">
+    <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="                 base here/absolute_url;                 posfactory python:base.find('/portal_factory/');                 base python:posfactory &gt; 0 and base[:posfactory+15] or base;                 base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                          tabindex tabindex/next|nothing;">
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
 <tal:test condition="fieldName|nothing">
