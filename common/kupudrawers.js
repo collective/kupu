@@ -134,6 +134,7 @@ function LinkDrawer(elementid, tool, wrap) {
     }
     var input = getBaseTagClass(this.element, 'input', 'kupu-linkdrawer-input');
     var preview = getBaseTagClass(this.element, 'iframe', 'kupu-linkdrawer-preview');
+    this.target = "";
 
     this.createContent = function() {
         /* display the drawer */
@@ -154,9 +155,7 @@ function LinkDrawer(elementid, tool, wrap) {
         /* add or modify a link */
         this.editor.resumeEditing();
         var url = input.value;
-        var target = '_self';
-        if (this.target) target = this.target;
-        this.tool.createLink(url, null, null, target);
+        this.tool.createLink(url, null, null, this.target);
         input.value = '';
 
         // XXX when reediting a link, the drawer does not close for
@@ -997,9 +996,8 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         // little too much I think. (philiKON)
         var type = null;
         var name = getFromSelector('link_name').value;
-        var target = null;
-        if (getFromSelector('link_target') && getFromSelector('link_target').value != '')
-            target = getFromSelector('link_target').value;
+        var node = getFromSelector('link_target');
+        var target = node && node.value;
         
         this.tool.createLink(uri, type, name, target, title);
         this.drawertool.closeDrawer();

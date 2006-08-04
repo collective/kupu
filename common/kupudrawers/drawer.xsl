@@ -299,7 +299,7 @@ test="$drawertype='link'">Insert Link</xsl:when>
                     <td>
                         <strong i18n:translate="linkdrawer_target_label">Target</strong>
                         <br/>
-                        <input type="text" id="link_target" value="_self" 
+                        <input type="text" id="link_target" value="" 
                                size="10"/>
                     </td>
                 </tr>
