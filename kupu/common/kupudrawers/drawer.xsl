@@ -51,7 +51,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="showanchors">yes</xsl:param>
     <xsl:param name="image-align">inline</xsl:param>
     <xsl:param name="image-caption">true</xsl:param>
-    <xsl:param name="link_target">_self</xsl:param>
+    <xsl:param name="link_target"></xsl:param>
     <xsl:param name="link_name"></xsl:param>
     <xsl:variable name="titlelength" select="60"/>
     <xsl:variable name="i18n_drawertitle"> 
