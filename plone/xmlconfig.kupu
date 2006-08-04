@@ -18,6 +18,7 @@
     <strict_output>1</strict_output>
     <content_type>application/xhtml+xml</content_type>
     <compatible_singletons>1</compatible_singletons>
+    <filtersourceedit tal:condition="here/kupu_library_tool/getFiltersourceedit">1</filtersourceedit>
     <!-- example of how to create a list of classnames for the table tool -->
     <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
     <table_classes tal:condition="table_classnames">

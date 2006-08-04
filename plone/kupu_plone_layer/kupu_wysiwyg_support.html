@@ -20,12 +20,12 @@
     <!--$Id: wire.kupu 23401 2006-02-16 13:47:33Z limi $-->
     <!--$Id: head.kupu 21720 2006-01-05 15:59:25Z paul $-->
     <!--$Id: xmlconfig.kupu 18097 2005-10-03 09:51:28Z duncan $-->
-    <!--$Id: body.kupu 27707 2006-05-26 09:51:47Z duncan $-->
+    <!--$Id: body.kupu 27715 2006-05-26 10:35:22Z duncan $-->
     <!--$Id: toolbar.kupu 25716 2006-04-12 10:07:19Z fschulze $-->
     <!--$Id: drawers.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: beforeunload.kupu 14546 2005-07-12 14:35:55Z duncan $-->
     <!--$Id: sourceedit.kupu 14546 2005-07-12 14:35:55Z duncan $-->
-    <!--$Id: wysiwyg_support.kupu 27707 2006-05-26 09:51:47Z duncan $-->
+    <!--$Id: wysiwyg_support.kupu 27715 2006-05-26 10:35:22Z duncan $-->
     
 
     <div xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="wysiwygEditorBox" id="kupu-editor" tal:define="name fieldName|inputname;                 editorid string:kupu-editor-${name}" tal:attributes="id editorid">
@@ -42,6 +42,7 @@
     <strict_output>1</strict_output>
     <content_type>application/xhtml+xml</content_type>
     <compatible_singletons>1</compatible_singletons>
+    <filtersourceedit tal:condition="here/kupu_library_tool/getFiltersourceedit">1</filtersourceedit>
     
     <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
     <table_classes tal:condition="table_classnames">

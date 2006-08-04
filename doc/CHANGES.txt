@@ -2,6 +2,14 @@
 Kupu changes
 ============
 
+- 1.3.8
+
+  - HTML view now does filtering by default in Plone (can be turned
+    off in the configlet). This also means that after pasting from e.g.
+    Word the HTML can be cleaned up simply by toggling source view
+    on/off.
+
+
 - 1.3.7
 
  - Plone

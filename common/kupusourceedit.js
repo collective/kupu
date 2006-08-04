@@ -64,10 +64,13 @@ SourceEditTool.prototype.switchSourceEdit = function(event, nograb) {
         var data='';
         if(kupu.config.filtersourceedit) {
             window.status = _('Cleaning up HTML...');
-            var transform = kupu._filterContent(
-                                kupu.getInnerDocument().documentElement);
+            var transform = kupu._filterContent(kupu.getInnerDocument().documentElement);
             data = kupu.getXMLBody(transform);
             data = kupu._fixupSingletons(data).replace(/<\/?body[^>]*>/g, "");
+            if (kupu._getBase && kupu.makeLinksRelative) {
+                var base = kupu._getBase(transform);
+                data = kupu.makeLinksRelative(data, base).replace(/<\/?body[^>]*>/g, "");
+            };
             window.status = '';
         } else {
             data = kupu.getHTMLBody();
