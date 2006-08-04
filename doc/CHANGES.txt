@@ -9,6 +9,21 @@ Kupu changes
     Word the HTML can be cleaned up simply by toggling source view
     on/off.
 
+  - Fix bugs:
+
+    * class names were being lowercased
+
+    * target="_self" being added to links when it shouldn't have been.
+
+    * stopped sniffing browser on event interface
+
+    * work round Opera not allowing _ in config tags.
+
+    * Sarissa patched for Opera.
+
+    * fixed bug with tabindex
+
+    * fix buggy lookup of allowable_content_types
 
 - 1.3.7
 
