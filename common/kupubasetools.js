@@ -937,7 +937,7 @@ function LinkTool() {
             } else {
                 linkel.removeAttribute('title');
             }
-            if (target && target != '') {
+            if (target) {
                 linkel.setAttribute('target', target);
             }
             else {

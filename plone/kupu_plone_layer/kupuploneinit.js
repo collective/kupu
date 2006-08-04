@@ -271,7 +271,7 @@ function initPloneKupu(editorId) {
     return kupu;
 };
 
-// modify LinkDrawer so all links have a target
-// defaults to _self, override here if reqd.
-//LinkDrawer.prototype.target = '_blank';
+// modify LinkDrawer so links don't have a target
+LinkDrawer.prototype.target = '';
+LinkLibraryDrawer.prototype.target = '';
 
