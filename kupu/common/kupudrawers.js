@@ -962,7 +962,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         var src_uri = src_node.selectSingleNode('text()').nodeValue;
         src_uri = src_uri.strip(); // needs kupuhelpers.js
-        this._loadXML(src_uri, this._libraryContentCallback);
+        this._loadXML(src_uri, this._libraryContentCallback, null, true);
     };
 
     this.removeSelection = function() {
@@ -1181,7 +1181,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         return result;
     };
 
-    this._loadXML = function(uri, callback, body) {
+    this._loadXML = function(uri, callback, body, reload) {
         function _sarissaCallback() {
         /* callback for Sarissa
             when the callback is called because the data's ready it
@@ -1226,6 +1226,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                 // a web server expects from a POST.
                 xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
             };
+            if (reload) {
+                xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
+            }
             xmlhttp.send(body);
         } catch(e) {
             if (e && e.name && e.message) { // Microsoft
