@@ -279,8 +279,6 @@ class InfoAdaptor:
             url = obj.absolute_url()
             preview = self.tool.getPreviewUrl(portal_type, url)
 
-            sizes = self.get_image_sizes(obj, portal_type, url)
-
             if collection and self.resource_type.allow_browse:
                 src = obj.absolute_url()
                 if not src.endswith('/'): src += '/'
@@ -290,6 +288,8 @@ class InfoAdaptor:
 
             if UID and self.linkbyuid:
                 url = self.base+'/resolveuid/%s' % UID
+
+            sizes = self.get_image_sizes(obj, portal_type, url)
 
             icon = self.icon(obj.getIcon(1))
             size, width, height = self.sizes(obj)
@@ -336,8 +336,6 @@ class InfoAdaptor:
         collection = portal_type in self.coll_types
         preview = self.tool.getPreviewUrl(portal_type, url)
 
-        sizes = self.get_image_sizes(brain, portal_type, url)
-
         # Path for the uid catalog doesn't have the leading '/'
         path = brain.getPath()
         UID = None
@@ -361,6 +359,8 @@ class InfoAdaptor:
 
         if UID and self.linkbyuid:
             url = self.base+'/resolveuid/%s' % UID
+
+        sizes = self.get_image_sizes(brain, portal_type, url)
 
         icon = self.icon(brain.getIcon)
         size, width, height = self.sizes(brain)

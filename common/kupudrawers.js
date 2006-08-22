@@ -758,7 +758,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             src_uri = src_uri.strip(); // needs kupuhelpers.js
             // Now load the library into the items pane. Since we have
             // to load the XML, do this via a call back
-            this._loadXML(src_uri, this._libraryContentCallback, null);
+            this._loadXML(src_uri, this._libraryContentCallback, null, false, libnode);
             this.shared.newimages = null;
         };
     };
@@ -771,13 +771,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         }
     }
 
-    this._libraryContentCallback = function(dom, src_uri) {
+    this._libraryContentCallback = function(dom, src_uri, libnode) {
         /* callback for when a library's contents (item list) is loaded
 
         This is also used as he handler for reloading a standard
         collection.
         */
-        var libnode = this.xmldata.selectSingleNode('//*[@selected]');
+        //var libnode = this.xmldata.selectSingleNode('//*[@selected]');
         var itemsnode = libnode.selectSingleNode("items");
         var bcnode = libnode.selectSingleNode("breadcrumbs");
         var newitemsnode = dom.selectSingleNode("//items");
@@ -962,7 +962,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         var src_uri = src_node.selectSingleNode('text()').nodeValue;
         src_uri = src_uri.strip(); // needs kupuhelpers.js
-        this._loadXML(src_uri, this._libraryContentCallback, null, true);
+        this._loadXML(src_uri, this._libraryContentCallback, null, true, current);
     };
 
     this.removeSelection = function() {
@@ -1181,7 +1181,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         return result;
     };
 
-    this._loadXML = function(uri, callback, body, reload) {
+    this._loadXML = function(uri, callback, body, reload, extra) {
         function _sarissaCallback() {
         /* callback for Sarissa
             when the callback is called because the data's ready it
@@ -1203,7 +1203,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                     dom = Sarissa.getDomDocument();
                     dom.loadXML(xmlhttp.responseText);
                 }
-                callback.apply(self, [dom, uri]);
+                callback.apply(self, [dom, uri, extra]);
             };
         };
         var self = this;
