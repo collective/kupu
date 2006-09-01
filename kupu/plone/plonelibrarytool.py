@@ -208,8 +208,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             return False
 
         # Then check whether the current content allows html
-        if context is not None and fieldName:
-            field = context.getField(fieldName)
+        if context is not None and fieldName and hasattr(context, 'getWrappedField'):
+            field = context.getWrappedField(fieldName)
             if field:
                 allowedTypes = getattr(field, 'allowable_content_types', None)
                 if allowedTypes is not None and not 'text/html' in [t.lower() for t in allowedTypes]:
@@ -503,6 +503,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
         installBeforeUnload=None, parastyles=None, refbrowser=None,
         captioning=None,
+        filterSourceEdit=None,
         filterSourceEdit=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""

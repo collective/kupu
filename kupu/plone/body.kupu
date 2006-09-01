@@ -14,7 +14,7 @@
         tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
-                        tabindex python:tabindex is not None and tabindex + 1 or None;"
+                        tabindex tabindex/next|nothing;"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"

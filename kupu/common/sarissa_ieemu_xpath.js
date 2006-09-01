@@ -24,6 +24,7 @@
  *
  */
 if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0")){
+    var xmldoc = window.XMLDocument || window.Document;
     /**
     * <p>SarissaNodeList behaves as a NodeList but is only used as a result to <code>selectNodes</code>,
     * so it also has some properties IEs proprietery object features.</p>
@@ -57,7 +58,7 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     */
     SarissaNodeList.prototype.expr = "";
     /** dummy, used to accept IE's stuff without throwing errors */
-    XMLDocument.prototype.setProperty  = function(x,y){};
+    xmldoc.prototype.setProperty  = function(x,y){};
     /**
     * <p>Programmatically control namespace URI/prefix mappings for XPath
     * queries.</p>
@@ -104,9 +105,9 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     * @private Flag to control whether a custom namespace resolver should
     *          be used, set to true by Sarissa.setXpathNamespaces
     */
-    XMLDocument.prototype._sarissa_useCustomResolver = false;
+    xmldoc.prototype._sarissa_useCustomResolver = false;
     /** @private */
-    XMLDocument.prototype._sarissa_xpathNamespaces = new Array();
+    xmldoc.prototype._sarissa_xpathNamespaces = new Array();
     /**
     * <p>Extends the XMLDocument to emulate IE's selectNodes.</p>
     * @argument sExpr the XPath expression to use
@@ -115,7 +116,7 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     * @returns the result of the XPath search as a SarissaNodeList
     * @throws An error if no namespace URI is found for the given prefix.
     */
-    XMLDocument.prototype.selectNodes = function(sExpr, contextNode){
+    xmldoc.prototype.selectNodes = function(sExpr, contextNode){
         var nsDoc = this;
         var nsresolver = this._sarissa_useCustomResolver
         ? function(prefix){
@@ -156,7 +157,7 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     *           method when called on Elements
     * @returns the result of the XPath search as an (Sarissa)NodeList
     */
-    XMLDocument.prototype.selectSingleNode = function(sExpr, contextNode){
+    xmldoc.prototype.selectSingleNode = function(sExpr, contextNode){
         var ctx = contextNode?contextNode:null;
         sExpr = "("+sExpr+")[1]";
         var nodeList = this.selectNodes(sExpr, ctx);
@@ -180,4 +181,5 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
             throw "Method selectNodes is only supported by XML Elements";
     };
     Sarissa.IS_ENABLED_SELECT_NODES = true;
+    xmldoc = undefined;
 };
