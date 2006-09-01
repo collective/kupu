@@ -651,6 +651,7 @@ function KupuEditor(document, config, logger) {
                 return '<'+close+tag+'>';
             });
         };
+        text = text.replace(/<p>(<hr.*?>)<\/p>/,'$1');
         bodies[bodies.length-1].innerHTML = text;
     };
 
