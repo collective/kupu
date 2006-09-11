@@ -360,7 +360,8 @@ the optional captioning support.
 .. _captioning:
 
 Optionally kupu can automatically add captions to images. To enable
-this feature you must be linking to an Archetypes based image type,
+this feature you must be linking to an Archetypes based image type and
+have 'link by uid' enabled in the configuration options,
 and the field you are editing must invoke the html-to-captioned output 
 transform.
 
@@ -389,7 +390,8 @@ and change it to::
 Once you have done this you can configure the portal_transforms tool as follows:
 
    * add a new transform id 'captioned_to_html', module
-     'Products.PortalTransforms.transforms.identity'.
+     'Products.PortalTransforms.transforms.identity' with input type
+     text/x-html-captioned and output type text/html.
 
    * On the portal_transforms policy tab add a policy with output
      type=text/x-html-safe, uses transforms='html-to-captioned'.

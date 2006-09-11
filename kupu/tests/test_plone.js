@@ -122,6 +122,17 @@ function KupuPloneTestCase() {
         this.ui.setTextStyle('th');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), withheader);
     }
+
+    this.testSetTextSpanStyle = function() {
+        var data = '<p>some text</p><p>some more</p>';
+        var expected = '<p>some <span class="highlight">text</span></p><p><span class="highlight">some</span> more</p>';
+        this.body.innerHTML = data;
+        this._setSelection(5, null, 14, null, 'textsome');
+        var ui = new KupuUI('span-styles');
+        ui.editor = this.editor;
+        ui.setTextStyle('span|highlight');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    }
 }
 
 KupuPloneTestCase.prototype = new SelectionTestCase;
