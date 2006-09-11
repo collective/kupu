@@ -71,7 +71,7 @@ function KupuPloneTestCase() {
 
     this.testRelativeLinks4 = function() {
         var data =  '<a href="http://localhost:9080/plone/Members/admin/art1">[1]</a>';
-        var expected = '<a href="art1">[1]</a>';
+        var expected = '<a href="">[1]</a>';
         var base = 'http://localhost:9080/plone/Members/admin/art1';
 
         var actual = this.editor.makeLinksRelative(data, base);
