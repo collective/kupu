@@ -66,7 +66,7 @@ _default_resource_types = {
 
 # Tidy up html by exlcluding lots of things.
 _excluded_html = [
-  (('center', 'span', 'tt', 'big', 'small', 's', 'strike', 'basefont', 'font'), ()),
+  (('center', 'tt', 'big', 'small', 's', 'strike', 'basefont', 'font'), ()),
   ((), ('dir','lang','valign','halign','border','frame','rules','cellspacing','cellpadding','bgcolor')),
   (('table','th','td'),('width','height')),
 ]
@@ -503,7 +503,6 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
         installBeforeUnload=None, parastyles=None, refbrowser=None,
         captioning=None,
-        filterSourceEdit=None,
         filterSourceEdit=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
