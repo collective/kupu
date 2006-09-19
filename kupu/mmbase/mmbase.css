@@ -163,7 +163,7 @@ div#kupu-toolbox-tables {
 
 }
 div#kupu-toolbox-debug { 
-  display: none;
+/*  display: none; */
   top: 750px;
 }
 
