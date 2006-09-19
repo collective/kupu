@@ -63,20 +63,23 @@ table {
   background-color: #fafafa;
 }
 
-td { 
-  border: 1px black solid;
+.mmxf table.plain td, .mmxf table.data td { 
+  border: 1px gray solid;
 }
+
 th { 
   border: 1px black solid;
 }
 
 img.image-right { 
+  width: 100px;
   float: right;
   margin-right: 0px;
   margin-left: 1ex;
 }
 
 img.image-left { 
+  width: 100px;
   float: left;
   margin-left: 0px;
   margin-right: 1ex;
@@ -94,6 +97,10 @@ img.paragraph {
 img.section { 
   float: left;
   border: solid 1px green;
+}
+img.big { 
+  width: 200px;
+  height: auto;
 }
 
 strong, b  { 
