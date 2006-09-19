@@ -185,16 +185,37 @@ function saveNode(button, editor) {
         if (request.readyState == 4) {
             kupu.handleSaveResponse(request);
             var node = currentNode;
-            currentNode = undefined;
             //alert("Posted \n" + content);
-            alert(_("saved") + " " + node);
-            kupu.logMessage("Reloading " + node);
-            loadedNodes.remove(node);
-            loadedNodeBodies.remove(node);
-            loadNode(node);
+            if (request.status == 200) {
+                currentNode = undefined;
+                alert(_("saved") + " " + node);
+                kupu.logMessage("Reloading " + node);
+                loadedNodes.remove(node);
+                loadedNodeBodies.remove(node);
+                loadNode(node);
+            } else {
+                alert(_("Not saved") + " " + node);
+                reloadAfterError();
+            }
         }
     }
 
+}
+
+function reloadAfterError() {
+    var req = getRequest();
+    // just to set up the session
+    req.open('GET', 'node.jspx?loadonly=true&objectnumber=' + currentNode, true);
+    req.send('');
+    req.onreadystatechange = function() {
+        if (req.readyState == 4) {
+            if (req.status != 200) {
+                setTimeout(reloadAfterError, 1000);
+            } else {
+                alert(_("Reinited ") + currentNode);
+            }
+        }
+    }
 }
 
 
@@ -214,6 +235,8 @@ function updateTree(nodeNumber, title) {
 function loadNode(nodeNumber) {
 
     var nodeDiv = document.getElementById('nodefields');
+
+    var prevCurrentNode = currentNode;
 
     if (nodeNumber == currentNode) {
         kupu.logMessage(_("RELOAD"));
@@ -235,40 +258,57 @@ function loadNode(nodeNumber) {
 
     }
 
+    var success;
     var nodeXml = loadedNodes.get(nodeNumber);
     if (nodeXml == null) {
         kupu.logMessage(_("Getting node fields for ") + nodeNumber);
-        var dom = Sarissa.getDomDocument();
-        dom.async = false;
-        dom.load('node.jspx?objectnumber=' + nodeNumber);
+        var request = getRequest();
+        request.open("GET", 'node.jspx?objectnumber=' + nodeNumber, false);
+        request.send('');
+        var dom = request.responseXML;
         nodeXml = Sarissa.serialize(dom);
-        //alert("received " + nodeXml);
-        loadedNodes.add(nodeNumber, nodeXml);
+        success = request.status == 200;
+        if (success) {
+            loadedNodes.add(nodeNumber, nodeXml);
+        }
     } else {
         kupu.logMessage(_("Loading node fields for ") + nodeNumber);
         var request = getRequest();
         request.open('GET', 'node.jspx?loadonly=true&objectnumber=' + nodeNumber, false);
         request.send('');
+        success = request.status == 200;
     }
 
     // request to node.jspx, should have put the node in the session
-
-    nodeDiv.innerHTML = nodeXml;
+    if (success) {
+        nodeDiv.innerHTML = nodeXml;
+    }
 
     var nodeBodyXml = loadedNodeBodies.get(nodeNumber);
     if (nodeBodyXml == null) {
         kupu.logMessage(_("Getting node body ") + " " + nodeNumber);
-        var dom = Sarissa.getDomDocument();
-        dom.async = false;
-        dom.load('node.body.jspx');
-        nodeBodyXml = Sarissa.serialize(dom);
-        loadedNodeBodies.add(nodeNumber, nodeBodyXml);
+        var request = getRequest();
+        request.open("GET", 'node.body.jspx', false);
+        request.send('');
+        success = success && request.status == 200;
+        if (request.status == 200) {
+            var dom = request.responseXML;
+            nodeBodyXml = Sarissa.serialize(dom);
+            loadedNodeBodies.add(nodeNumber, nodeBodyXml);
+        }
     } else {
         kupu.logMessage(_("Loading node body ") + " " + nodeNumber);
     }
+    if (success) {
+        kupu.setHTMLBody(nodeBodyXml);
+    }
 
-    kupu.setHTMLBody(nodeBodyXml);
-    currentNode = nodeNumber;
+    if (nodeNumber != undefined) {
+        currentNode = nodeNumber;
+    } else {
+        currentNode = prevCurrentNode;
+    }
+
     currentA = document.getElementById('a_' + currentNode);
     if (currentA != undefined) currentA.className = "current";
     adjustLayout();
@@ -330,7 +370,7 @@ function reloadTree() {
     }
     // trick to make current node active again
     var node = currentNode;
-    currentNode = undefined; // otherwise it will be relaoded from the server
+    currentNode = undefined; // otherwise it will be reloaded from the server
 
     loadNode(node);
 

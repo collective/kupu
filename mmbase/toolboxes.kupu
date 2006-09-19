@@ -74,7 +74,7 @@
     </div>
   </kupu:part>
 
-  <!-- Overridden just for the jsp:text (to avoid that it collaps, which doesn't work in browers -->
+  <!-- Overridden just for the jsp:text (to avoid that it collapses, which doesn't work in browers -->
   <kupu:part name="debug">
     <div class="kupu-toolbox" id="kupu-toolbox-debug">
       <h1 class="kupu-toolbox-heading" i18n:translate="">Debug Log</h1>
