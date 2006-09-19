@@ -23,6 +23,8 @@
           <option value="image-inline" i18n:translate="">Inline</option>
           <option value="image-left"   i18n:translate="">Left</option>
           <option value="image-right"  i18n:translate="">Right</option>
+          <option value="image-left big"   i18n:translate="">Left (Big)</option>
+          <option value="image-right big"  i18n:translate="">Right (Big)</option>
           <!--
           <option value="paragraph" i18n:translate="">Paragraph</option>
           <option value="section"   i18n:translate="">Section</option>
