@@ -125,12 +125,12 @@ function KupuPloneTestCase() {
 
     this.testSetTextSpanStyle = function() {
         var data = '<p>some text</p><p>some more</p>';
-        var expected = '<p>some <span class="highlight">text</span></p><p><span class="highlight">some</span> more</p>';
+        var expected = '<p>some <span class="high light">text</span></p><p><span class="high light">some</span> more</p>';
         this.body.innerHTML = data;
         this._setSelection(5, null, 14, null, 'textsome');
         var ui = new KupuUI('span-styles');
         ui.editor = this.editor;
-        ui.setTextStyle('span|highlight');
+        ui.setTextStyle('span|high light');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     }
 }
