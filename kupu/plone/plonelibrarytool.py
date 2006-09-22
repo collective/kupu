@@ -497,6 +497,18 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         expr = action_map.get(portal_type, {}).get('expression', '')
         return getattr(expr, 'text', expr)
 
+    security.declareProtected(permissions.ManageLibraries, "getNormalViewForType")
+    def getNormalViewForType(self, portal_type):
+        action_map = getattr(self, '_preview_actions', {})
+        expr = action_map.get(portal_type, {}).get('normal', '')
+        return getattr(expr, 'text', expr)
+
+    security.declareProtected(permissions.ManageLibraries, "getScaleFieldForType")
+    def getScaleFieldForType(self, portal_type):
+        action_map = getattr(self, '_preview_actions', {})
+        value = action_map.get(portal_type, {}).get('scalefield', 'image')
+        return value
+
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,

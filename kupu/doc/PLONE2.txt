@@ -293,6 +293,28 @@ In addition, when used with Archetypes content, a resource type can
 be the name of an Archetypes field (in the form 'portal
 type.field name'). See `Reference Browser`_.
 
+Action urls
+~~~~~~~~~~~
+
+For any type (but mostly images) you may specify expressions to be
+used for the preview in the drawer properties panel, the url to be
+inserted for a normal image, and the field to be used to determine
+image scales. The defaults are:
+
+    preview
+        No preview shown by default. Set to
+        'string:${object_url}/image_thumb' for an image preview.
+        object_url for the preview is the actual url of the object.
+
+    normal image
+        Defaults to 'string:${object_url}'. object_url for the normal
+        url will be the resolveuid form if uids are being used,
+        otherwise the actual url.
+
+    fieldname
+        Defaults to 'image'. N.B. This is a literal string, not a tal
+        expression.
+
 documentation tab
 =================
 
@@ -485,17 +507,14 @@ the field and widget are used as Kupu's resource type. The following
 attributes are recognised:
 
     allowed_types
-
         Direct equivalent of Kupu's own resource types. Lists
         permitted types for the drawer.
 
     allowed_types_method
-
         The name of a method on the object which can be called to
         return the list of types.
 
     base_query
-
         Either a dictionary, or the name of a method which returns a
         dictionary. This dictionary contains search parameters used
         by libraries.

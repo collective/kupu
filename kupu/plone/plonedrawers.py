@@ -160,14 +160,14 @@ class InfoAdaptor:
         self.anchor_types =  tool.getResourceType('containsanchors').portal_types
         self.portal_base = self.url_tool.getPortalPath()
         self.prefix_length = len(self.portal_base)+1
-        self.resource_type = tool.getResourceType(resource_type)
+        self.resource_type = resource_type
         
         instance = tool.REQUEST.get('instance', '')
         if instance:
             instance = 'instance=%s&' % tool.REQUEST.instance
 
         self.srctail = 'kupucollection.xml?'+instance+'resource_type=' + resource_type.name
-        self.showimagesize = resource_type=='mediaobject'
+        self.showimagesize = resource_type.name=='mediaobject'
 
         # The redirecting url must be absolute otherwise it won't work for
         # preview when the page is using portal_factory
@@ -219,6 +219,7 @@ class InfoAdaptor:
         cache_key = (get_ident(), self.portal_base, portal_type)
         if not IMAGE_SIZES_CACHE.has_key(cache_key):
             IMAGE_SIZES_CACHE[cache_key] = {}
+            imagefield = self.tool.getScaleFieldForType(portal_type)
             # if getId is not callable, we assume that we have a brain and
             # need to get the object
             if not callable(obj.getId):
@@ -227,21 +228,21 @@ class InfoAdaptor:
                 obj = obj.getObject()
             if getattr(obj, 'getField', None) is None:
                 return
-            image_field = obj.getWrappedField('image')
+            image_field = obj.getWrappedField(imagefield)
             if image_field is None:
                 return
             if getattr(image_field, 'getAvailableSizes', None) is None:
                 return
             image_sizes = image_field.getAvailableSizes(obj)
-            sizes = [((v[0], v[1]), k) for k,v in image_sizes.items()]
+            sizes = [(v[0], v[1], k, '%s_%s' % (imagefield,k)) for k,v in image_sizes.items()]
             sizes.sort()
             IMAGE_SIZES_CACHE[cache_key] = sizes
         else:
             sizes = IMAGE_SIZES_CACHE[cache_key]
         results = []
-        for size, key in sizes:
-            results.append({'label':"%s (%s, %s)" % (key.capitalize(), size[0], size[1]),
-                            'uri':"%s/image_%s" % (url, key)})
+        for width, height, key, action in sizes:
+            results.append({'label':"%s (%s, %s)" % (key.capitalize(), width, height),
+                            'uri':"%s/%s" % (url, action)})
         return results
     
     def getState(self, review_state):
@@ -276,8 +277,9 @@ class InfoAdaptor:
 
             portal_type = getattr(obj, 'portal_type','')
             collection = portal_type in self.coll_types
+            tool = self.tool
             url = obj.absolute_url()
-            preview = self.tool.getPreviewUrl(portal_type, url)
+            preview = tool.getPreviewUrl(portal_type, url)
 
             if collection and self.resource_type.allow_browse:
                 src = obj.absolute_url()
@@ -288,6 +290,11 @@ class InfoAdaptor:
 
             if UID and self.linkbyuid:
                 url = self.base+'/resolveuid/%s' % UID
+
+            if self.showimagesize:
+                normal = tool.getNormalUrl(portal_type, url)
+            else:
+                normal = url
 
             sizes = self.get_image_sizes(obj, portal_type, url)
 
@@ -307,7 +314,7 @@ class InfoAdaptor:
 
             return {
                 'id': id,
-                'url': url,
+                'url': normal,
                 'portal_type': portal_type,
                 'collection':  collection,
                 'icon': icon,
@@ -334,7 +341,8 @@ class InfoAdaptor:
         url = brain.getURL()
         portal_type = brain.portal_type
         collection = portal_type in self.coll_types
-        preview = self.tool.getPreviewUrl(portal_type, url)
+        tool = self.tool
+        preview = tool.getPreviewUrl(portal_type, url)
 
         # Path for the uid catalog doesn't have the leading '/'
         path = brain.getPath()
@@ -360,6 +368,11 @@ class InfoAdaptor:
         if UID and self.linkbyuid:
             url = self.base+'/resolveuid/%s' % UID
 
+        if self.showimagesize:
+            normal = tool.getNormalUrl(portal_type, url)
+        else:
+            normal = url
+
         sizes = self.get_image_sizes(brain, portal_type, url)
 
         icon = self.icon(brain.getIcon)
@@ -377,7 +390,7 @@ class InfoAdaptor:
 
         return {
             'id': id,
-            'url': url,
+            'url': normal,
             'portal_type': portal_type,
             'collection':  collection,
             'icon': icon,
