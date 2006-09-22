@@ -93,9 +93,16 @@ typetool = getToolByName(context, 'portal_types')
 # this picks the wrong preview URL, you might want to change these
 # expressions.
 PREVIEW_EXPR = 'string:${object_url}/%s'
-PREVIEW = [ { 'portal_type': type, 'expression': PREVIEW_EXPR % image }
+PREVIEW = [ { 'portal_type': type,
+    'expression': PREVIEW_EXPR % image,
+    'normal': None,
+    'scalefield': image.split('_',1)[0],
+    }
             for (type, image) in tool.getPreviewable() ]
-# e.g. PREVIEW=[{'portal_type': 'Image', 'expression':'string:${object_url}/image_thumb'}]
+# e.g. PREVIEW=[{'portal_type': 'Image',
+#                'expression':'string:${object_url}/image_thumb'
+#                'normal': 'string:$object_url',
+#                'scalefield': 'image' }]
 
 for p in PREVIEW:
     print p['portal_type'], p['expression']

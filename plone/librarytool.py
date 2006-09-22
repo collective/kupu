@@ -167,15 +167,22 @@ class KupuLibraryTool(Acquisition.Implicit):
             type_map[resource_type] = tuple(portal_types)
 
     def updatePreviewActions(self, preview_actions):
+        """Now a misnomer: actually updates preview, normal, and scaling data"""
         action_map = {}
 
         for a in preview_actions:
             portal_type = a.get('portal_type', '')
-            expr = a.get('expression', '')
+            preview = a.get('expression', '')
+            normal = a.get('normal', None)
+            if normal:
+                normal = Expression(normal)
+            scalefield = a.get('scalefield', 'image')
             if not portal_type:
                 continue
-            action_map[portal_type] = { 'expression': Expression(expr), }
-
+            action_map[portal_type] = {
+                'expression': Expression(preview),
+                'normal': normal,
+                'scalefield': scalefield, }
         self._preview_actions = action_map
 
     def deleteResourceTypes(self, resource_types):
@@ -205,4 +212,18 @@ class KupuLibraryTool(Acquisition.Implicit):
                 context = getEngine().getContext(data)
                 return expr(context)
         return None
+
+    def getNormalUrl(self, portal_type, url):
+        action_map = getattr(self, '_preview_actions', {})
+        if portal_type in action_map:
+            expr = action_map[portal_type]['normal']
+            if expr:
+                data = {
+                    'object_url':   url,
+                    'portal_type':  portal_type,
+                    'modules':      SecureModuleImporter,
+                }
+                context = getEngine().getContext(data)
+                return expr(context)
+        return url
 

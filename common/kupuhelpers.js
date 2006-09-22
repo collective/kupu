@@ -538,11 +538,11 @@ function MozillaSelection(document) {
                     container.insertBefore(node, afterNode);
                 } else {
                     container.appendChild(node);
+                    afterNode = container.nextSibling;
                 };
             }
-
-            range.setEnd(afterNode, 0);
-            range.setStart(afterNode, 0);
+            range.setEndAfter(node);
+            range.collapse(false);
         }
 
         if (selectAfterPlace) {
