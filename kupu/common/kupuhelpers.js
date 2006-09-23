@@ -749,7 +749,7 @@ function MozillaSelection(document) {
         return length;
     };
 
-    this.parentElement = function() {
+    this.parentElement = function(allowmulti) {
         /* return the selected node (or the node containing the selection) */
         // XXX this should be on a range object
         if (this.selection.rangeCount == 0) {
@@ -759,45 +759,114 @@ function MozillaSelection(document) {
             };
         } else {
             var range = this.selection.getRangeAt(0);
-            var parent = range.commonAncestorContainer;
+            var parent = this.parentElementOfRange(range);
+            if( allowmulti ) {
+                var numRanges = this.selection.rangeCount;
+                for( var i = 1; i < numRanges; i = i + 1 )
+                {
+                    var parent1 = parent;
+                    var parent2 = null;
+                    var range1 = this.document.getDocument().createRange();
+                    var range2 = this.document.getDocument().createRange();
+                
+                    var parent2 = this.parentElementOfRange(this.selection.getRangeAt(i));
 
-            // the following deals with cases where only a single child is
-            // selected, e.g. after a click on an image
-            var inv = range.compareBoundaryPoints(Range.START_TO_END, range) < 0;
-            var startNode = inv ? range.endContainer : range.startContainer;
-            var startOffset = inv ? range.endOffset : range.startOffset;
-            var endNode = inv ? range.startContainer : range.endContainer;
-            var endOffset = inv ? range.startOffset : range.endOffset;
-
-            var selectedChild = null;
-            var child = parent.firstChild;
-            while (child) {
-                // XXX the additional conditions catch some invisible
-                // intersections, but still not all of them
-                if (range.intersectsNode(child) &&
-                    !(child == startNode && startOffset == child.length) &&
-                    !(child == endNode && endOffset == 0)) {
-                    if (selectedChild) {
-                        // current child is the second selected child found
-                        selectedChild = null;
-                        break;
+                    range1.selectNode(parent1);
+                    range2.selectNode(parent2);
+                    
+                    if( range1.compareBoundaryPoints(Range.START_TO_START, range2) <= 0
+                        && range1.compareBoundaryPoints(Range.END_TO_END, range2) >= 0 ) {
+                        //parent1 contains parent2
+                        parent = parent1;
+                    } else if( range1.compareBoundaryPoints(Range.START_TO_START, range2) >= 0
+                        && range1.compareBoundaryPoints(Range.END_TO_END, range2) <= 0 ) {
+                        //parent2 contains parent1
+                        parent = parent2;
+                    } else if( range1.compareBoundaryPoints(Range.START_TO_END, range2) <= 0 ) {
+                        //parent1 comes before parent2
+                        //commonAncestorContainer returns the node parent if a range is
+                        //just one node, which we don't want; but since parent1
+                        //and parent2 are different, their range is not just
+                        //one node
+                        var coverRange = this.document.getDocument().createRange();
+                        coverRange.setStartBefore(parent1);
+                        coverRange.setEndAfter(parent2);
+                        parent = coverRange.commonAncestorContainer;
                     } else {
-                        // current child is the first selected child found
-                        selectedChild = child;
+                        //parent2 comes before parent1
+                        //commonAncestorContainer returns the node parent if a range is
+                        //just one node, which we don't want; but since parent1
+                        //and parent2 are different, their range is not just
+                        //one node
+                        var coverRange = this.document.getDocument().createRange();
+                        coverRange.setStartBefore(parent2);
+                        coverRange.setEndAfter(parent1);
+                        parent = coverRange.commonAncestorContainer;                    
                     };
-                } else if (selectedChild) {
-                    // current child is after the selection
-                    break;
                 };
-                child = child.nextSibling;
             };
-            if (selectedChild) {
-                parent = selectedChild;
+        };            
+
+        if (parent.nodeType == Node.TEXT_NODE) {
+            parent = parent.parentNode;
+        };
+        return parent;
+    };
+
+    this.parentElementOfRange = function(range) {
+        if( range.compareBoundaryPoints(Range.START_TO_END, range) < 0 ) {
+            var startNode = range.endContainer;
+            var startOffset = range.endOffset;
+            var endNode = range.startContainer;
+            var endOffset = range.startOffset;
+            range.setStart( startNode, startOffset );
+            range.setEnd( endNode, endOffset );
+        }
+            
+        var parent = range.commonAncestorContainer;
+            
+        // if there is only a single node selected, e.g. after a click on
+        // an image, then this node itself should be returned as the
+        // parentElement. however, in this case, "parent" is the selected
+        // node's parent. the following searches if any other node
+        // intersects the selection range; if not, then the selected node
+        // is set to the parentElement.     
+        var inv = range.compareBoundaryPoints(Range.START_TO_END, range) < 0;
+        var startNode = inv ? range.endContainer : range.startContainer;
+        var startOffset = inv ? range.endOffset : range.startOffset;
+        var endNode = inv ? range.startContainer : range.endContainer;
+        var endOffset = inv ? range.startOffset : range.endOffset;
+
+        var selectedChild = null;
+        var child = parent.firstChild;
+        while (child) {
+            if (range.intersectsNode(child) &&
+                !(child == startNode && startOffset == child.length) &&
+                !(child == endNode && endOffset == 0)) {
+                if (selectedChild) {
+                    // current child is the second node found that
+                    // intersects the selection, so commonAncestorContainer
+                    // is the correct parentElement to use                        
+                    selectedChild = null;
+                    break;
+                } else {
+                    // current child is the first selected child found
+                    selectedChild = child;
+                };
+            } else if (selectedChild) {
+                // current child is after the selection
+                break;
             };
+            child = child.nextSibling;
+        };
+
+        if (selectedChild) {
+            parent = selectedChild;
         };
         if (parent.nodeType == Node.TEXT_NODE) {
             parent = parent.parentNode;
         };
+
         return parent;
     };
 
@@ -901,6 +970,15 @@ function MozillaSelection(document) {
         selection.removeAllRanges();
         selection.addRange(range);
     }
+
+    this.intersectsNode = function(node) {
+        for(var i = 0; i < this.selection.rangeCount; i++ ) {
+           if( this.selection.getRangeAt(i).intersectsNode(node) ) {
+               return true;
+           }
+        };
+        return false;
+    };
 };
 
 MozillaSelection.prototype = new BaseSelection;
@@ -1068,7 +1146,7 @@ function IESelection(document) {
         return length;
     };
 
-    this.parentElement = function() {
+    this.parentElement = function(allowmulti) {
         /* return the selected node (or the node containing the selection) */
         // XXX this should be on a range object
         if (this.selection.type == 'Control') {
@@ -1143,6 +1221,19 @@ function IESelection(document) {
 
     this.toString = function() {
         return this.selection.createRange().text;
+    };
+
+    this.intersectsNode = function(node) {
+        var noderange = doc.body.createTextRange();
+        noderange.moveToElementText(node);
+        
+        var selrange = this.selection.createRange();
+        
+        if((selrange.compareEndPoints('StartToStart', noderange) <= 0 && selrange.compareEndPoints('EndToStart', noderange) > 0)
+           ||(selrange.compareEndPoints('StartToStart', noderange) > 0 && selrange.compareEndPoints('StartToEnd', noderange) < 0)) {
+           return true;
+        }
+        return false;
     };
 };
 

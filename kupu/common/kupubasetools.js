@@ -251,7 +251,10 @@ function KupuUI(textstyleselectid) {
     this.otherstyle = null;
     this.tablestyles = {};
     this.styles = {}; // use an object here so we can use the 'in' operator later on
-
+    var blocktagre = /^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/i;
+    var spanre = /^span\b/i;
+    var tblre = /^thead|tbody|table|t[rdh]\b/i;
+    
     this.initialize = function(editor) {
         /* initialize the ui like tools */
         this.editor = editor;
@@ -332,13 +335,16 @@ function KupuUI(textstyleselectid) {
         var options = this.tsselect.options;
         var parastyles = this.styles;
         var tablestyles = this.tablestyles;
+        var styleoptions = [];
 
-        tableoptions.push([options[0].text, 'td|']);
-        tablestyles['td'] = 0;
-        paraoptions.push([options[0].text, 'p|']);
-        parastyles['p'] = 0;
-        while (options.length > 1) {
-            opt = options[1];
+        var normal = ['Normal', 'p|'];
+        var td = ['Plain Cell', 'td|'];
+        var nochar = ['No char style', 'span|'];
+        
+        var opts = [];
+        while (options.length) {
+            opt = options[0];
+            options[0] = null;
             var v = opt.value;
             if (v.indexOf('|') > -1) {
                 var split = v.split('|');
@@ -346,21 +352,53 @@ function KupuUI(textstyleselectid) {
             } else {
                 v = v.toLowerCase()+"|";
             };
-            var optarray = [opt.text,v];
-            if (/^thead|tbody|table|t[rdh]\b/i.test(v)) {
-                tableoptions.push(optarray);
-                tablestyles[v] = tableoptions.length-1;
+            var optarray = [opt.text, v];
+            if (v=='td|') {
+                td = optarray;
+            } else if (v=='p|') {
+                normal = optarray;
+            } else if (v=='span|') {
+                nochar = optarray;
             } else {
-                paraoptions.push(optarray);
-                parastyles[v] = paraoptions.length-1;
-                if (/^span\b/i.test(v)) {
-                    tableoptions.push(optarray);
-                    tablestyles[v] = tableoptions.length-1;
-                };
-            };
-            options[1] = null;
+                opts.push([opt.text,v]);
+            }
         }
-        options[0] = null;
+        tableoptions.push(td);
+        tablestyles[td[1]] = 0;
+        paraoptions.push(normal);
+        parastyles[normal[1]] = 0;
+        styleoptions.push(nochar);
+
+        for (i = 0; i < opts.length; i++) {
+            optarray = opts[i];
+            v = optarray[1];
+
+            if (spanre.test(v)) {
+                styleoptions.push(optarray);
+            } else if (tblre.test(v)) {
+                tablestyles[v] = tableoptions.length;
+                tableoptions.push(optarray);
+            } else {
+                parastyles[v] = paraoptions.length;
+                paraoptions.push(optarray);
+            };
+        };
+        if (styleoptions.length > 1) {
+            for (var i = 0; i < styleoptions.length; i++) {
+                optarray = styleoptions[i];
+                parastyles[optarray[1]] = paraoptions.length;
+                paraoptions.push(optarray);
+            }
+        };
+        if (tableoptions.length < 2) {
+            tableoptions[0] = null;
+        }
+        // tableoptions needs paraoptions appended
+        for (var i = 0; i < paraoptions.length; i++) {
+            optarray = paraoptions[i];
+            tablestyles[optarray[1]] = tableoptions.length;
+            tableoptions.push(optarray);
+        }
     }
 
     // Remove otherstyle and switch to appropriate style set.
@@ -383,7 +421,7 @@ function KupuUI(textstyleselectid) {
             opt.text = valid[i][0];
             var v = valid[i][1];
             opt.value = v;
-            opt.className=(/^span\b/i.test(v))?"kupuCharStyle":"kupuParaStyle";
+            opt.className=(tblre.test(v))?"kupuTableStyle":(spanre.test(v))?"kupuCharStyle":"kupuParaStyle";
             options.add(opt);
         }
         select.selectedIndex = 0;
@@ -410,8 +448,22 @@ function KupuUI(textstyleselectid) {
         var options = this.tsselect.options;
         this.styletag = undefined;
         this.classname = '';
+
+        // Set the table state correctly
         this.intable = false;
 
+        while(currnode) {
+            var tag = currnode.nodeName;
+            if (/^body$/i.test(tag)) break;
+            if (tblre.test(tag)) {
+                this.intable = true;
+                break;
+            };
+            currnode = currnode.parentNode;
+        };
+        var styles = this.intable? this.tablestyles : this.styles;
+        
+        currnode = node;
         while (currnode) {
             var tag = currnode.nodeName.toLowerCase();
 
@@ -423,15 +475,14 @@ function KupuUI(textstyleselectid) {
                 }
                 break;
             }
-            if (/^span$/.test(tag)) {
-                index = this.setIndex(currnode, tag, index, this.styles);
+            if (spanre.test(tag)) {
+                index = this.setIndex(currnode, tag, index, styles);
                 if (index > 0) return index; // span takes priority
-            } else if (/^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/.test(tag)) {
-                index = this.setIndex(currnode, tag, index, this.styles);
-            } else if (/^thead|tbody|table|t[rdh]$/.test(tag)) {
-                this.intable = true;
-                index = this.setIndex(currnode, tag, index, this.tablestyles);
-
+            } else if (blocktagre.test(tag)) {
+                index = this.setIndex(currnode, tag, index, styles);
+            } else if (tblre.test(tag)) {
+                if (index > 0) return index; // block or span takes priority.
+                index = this.setIndex(currnode, tag, index, styles);
                 if (index > 0 || tag=='table') {
                     return index; // Stop processing if in a table
                 }
@@ -473,7 +524,6 @@ function KupuUI(textstyleselectid) {
         if (index===undefined) {
             index = this.nodeStyle(selNode);
         }
-
         this.enableOptions(this.intable);
 
         if (index < 0 || mixed) {
@@ -519,50 +569,79 @@ function KupuUI(textstyleselectid) {
         };
     }
 
-    this._cleanCell = function(eltype, classname) {
-        var selNode = this.editor.getSelectedNode();
+    this._cleanCell = function(eltype, classname, strip) {
+        var selNode = this.editor.getSelectedNode(true);
         var el = this.editor.getNearestParentOfType(selNode, eltype);
         if (!el) {
                 // Maybe changing type
             el = this.editor.getNearestParentOfType(selNode, eltype=='TD'?'TH':'TD');
         }
-        if (!el) return;
 
-            // Remove formatted div or p from a cell
-        var node, nxt, n;
-        for (node = el.firstChild; node;) {
-            if (/DIV|P/.test(node.nodeName)) {
-                for (var n = node.firstChild; n;) {
-                    var nxt = n.nextSibling;
-                    el.insertBefore(n, node); // Move nodes out of div
-                    n = nxt;
+        //either the selection is inside a cell, spans cells, or includes
+        //a collection of cells
+
+        //first, if contained in a cell
+        
+        if (el) {
+            if (eltype != el.tagName) {
+                    // Change node type.
+                var node = el.ownerDocument.createElement(eltype);
+                var parent = el.parentNode;
+                parent.insertBefore(node, el);
+                while (el.firstChild) {
+                    node.appendChild(el.firstChild);
                 }
-                nxt = node.nextSibling;
-                el.removeChild(node);
-                node = nxt;
-            } else {
-                node = node.nextSibling;
+                parent.removeChild(el);
+                el = node;
             }
-        }
-        if (eltype != el.tagName) {
-                // Change node type.
-            var node = el.ownerDocument.createElement(eltype);
-            var parent = el.parentNode;
-            parent.insertBefore(node, el);
-            while (el.firstChild) {
-                node.appendChild(el.firstChild);
-            }
-            parent.removeChild(el);
-            el = node;
-        }
-            // now set the classname
-        if (classname) {
-            el.className = classname;
+                // now set the classname
+            this._setClass(el, classname);
+            if (strip && el.childNodes.length==1) {
+                var node = el.firstChild;
+                if (blocktagre.test(node.nodeName)) {
+                    for (var n = node.firstChild; n;) {
+                        var nxt = n.nextSibling;
+                        el.insertBefore(n, node); // Move nodes out of block
+                        n = nxt;
+                    };
+                    nxt = node.nextSibling;
+                    el.removeChild(node);
+                    node = nxt;
+                };
+            };
         } else {
-            el.removeAttribute("class");
-            el.removeAttribute("className");
-        }
+            //otherwise, find all cells that intersect the selection
+            var selection = this.editor.getSelection();
+            var tdNodes = selNode.getElementsByTagName('TD');
+            var thNodes = selNode.getElementsByTagName('TH');
 
+            var cellNodes = Array();
+            for (var i = 0; i < tdNodes.length; i++) {
+                cellNodes.push(tdNodes.item(i));
+            };
+            for (var i = 0; i < thNodes.length; i++) {
+                cellNodes.push(thNodes.item(i));
+            };
+            
+            for (var i = 0; i < cellNodes.length; i++) {
+                el = cellNodes[i];
+
+                if(selection.intersectsNode(el)) {
+                    if (eltype != el.tagName) {
+                        // Change node type.
+                        var node = el.ownerDocument.createElement(eltype);
+                        var parent = el.parentNode;
+                        parent.insertBefore(node, el);
+                        while (el.firstChild) {
+                            node.appendChild(el.firstChild);
+                        };
+                        parent.removeChild(el);
+                        el = node;
+                    };
+                    this._setClass(el, classname);
+                }
+            }
+        }
     }
 
     this._setClass = function(el, classname) {
@@ -607,7 +686,7 @@ function KupuUI(textstyleselectid) {
         if (this.editor.getBrowserName() == 'IE') {
             command = '<' + eltype + '>';
         };
-        if (/T[RDH]/.test(eltype)) {
+        if (tblre.test(eltype)) {
             this._cleanCell(eltype, classname);
         } else if (eltype=='SPAN') {
             doc.execCommand('removeformat', null);
@@ -649,7 +728,7 @@ function KupuUI(textstyleselectid) {
             doc.execCommand('formatblock', command);
 
                 // now get a reference to the element just added
-            var selNode = this.editor.getSelectedNode();
+            var selNode = this.editor.getSelectedNode(true);
             var el = this.editor.getNearestParentOfType(selNode, eltype);
             if (el) {
                 this._setClass(el, classname);
@@ -1695,7 +1774,7 @@ function TableTool() {
         // Remove formatted div or p from a cell
         var node, nxt, n;
         for (node = el.firstChild; node;) {
-            if (/DIV|P/.test(node.nodeName)) {
+            if (/^DIV|P$/i.test(node.nodeName)) {
                 for (var n = node.firstChild; n;) {
                     var nxt = n.nextSibling;
                     el.insertBefore(n, node); // Move nodes out of div

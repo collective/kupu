@@ -279,6 +279,10 @@ button.disabled {
    filter:alpha(opacity=50);
 }
 
+.kupuTableStyle {
+  font-style: underline;
+  background-color: #82feff;
+}
 .kupuCharStyle {
   font-style: italic;
   background-color: #feff82;
