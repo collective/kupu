@@ -110,17 +110,18 @@ function KupuPloneTestCase() {
         var data = '<table><tbody><tr><td>test</td></tr></tbody></table>';
         // select   ................es...................
         var expected = '<table><tbody><tr><td><div class="te st">test</div></td></tr></tbody></table>';
-        var withheader = '<table><tbody><tr><th>test</th></tr></tbody></table>';
+        var withheader = '<table><tbody><tr><th><div class="te st">test</div></th></tr></tbody></table>';
         this.body.innerHTML = data;
         var idx = _SARISSA_IS_IE ? 2 : 1;
         this._setSelection(idx, null, idx+2, null, 'es');
         this.ui.setTextStyle('div|te st'); // Space in class forces IE to put it in quotes!
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
         this._setSelection(idx, null, idx+2, null, 'es');
-        this.ui.setTextStyle('td');
-        this.assertEquals(this._cleanHtml(this.body.innerHTML), data);
         this.ui.setTextStyle('th');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), withheader);
+        this._setSelection(idx, null, idx+2, null, 'es');
+        this.ui.setTextStyle('td');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     }
 
     this.testSetTextSpanStyle = function() {

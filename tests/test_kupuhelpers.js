@@ -62,10 +62,14 @@ function SelectionTestCase() {
     };
 
     this._setSelection = function(startOffset, startNextNode, endOffset,
-                                     endNextNode, verificationString) {
+        endNextNode, verificationString, ieskew) {
         var element = this.body;
         var innerSelection = this.selection.selection;
         if (_SARISSA_IS_IE) {
+            if (ieskew) {
+                startOffset += ieskew;
+                endOffset += ieskew;
+            };
             var range = innerSelection.createRange();
             var endrange = innerSelection.createRange();
             range.moveToElementText(element);

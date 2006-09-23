@@ -8,8 +8,6 @@
  *
  *****************************************************************************/
 
-// $Id$
-
 function KupuUITestCase() {
     this.name = 'KupuUITestCase';
     SelectionTestCase.apply(this);
@@ -18,8 +16,68 @@ function KupuUITestCase() {
     this.setUp = function() {
         this.base_setUp();
         this.editor = new KupuEditor(this.kupudoc, {}, null);
+        this.preserve = document.getElementById('preserve-this-div').innerHTML;
         this.ui = new KupuUI('kupu-tb-styles');
         this.ui.editor = this.editor;
+    };
+
+    this.tearDown = function() {
+        document.getElementById('preserve-this-div').innerHTML = this.preserve;
+    };
+
+    this._selectTableCells = function(indices, verificationString) {
+        var tableNodes = this.body.getElementsByTagName("table");
+        var cellNodes = new Array();
+        
+        var curNode = null;
+        var direction = null;
+        var foundNext = null;
+        
+        for(var i = 0; i < tableNodes.length; i = i + 1) {
+            curNode = tableNodes[i].firstChild;
+            //what if no child?
+            direction = 'down';
+            
+            while( curNode.nodeName.toLowerCase() != 'table' ) {
+                /*if(indices[1]==2) {
+                   alert(curNode.nodeName);
+                   alert(curNode.innerHTML);
+                }*/
+                if( curNode.nodeName.toLowerCase() == 'td' || curNode.nodeName.toLowerCase() == 'th' ) {
+                    cellNodes.push(curNode);
+                };
+            
+                foundNext = false;
+                while( !foundNext && curNode.nodeName.toLowerCase() != 'table' ) {
+                    if( direction == 'right' ) {
+                        if( curNode.nextSibling ) {
+                            curNode = curNode.nextSibling;
+                            direction = 'down';
+                            foundNext = true;
+                        } else {
+                            curNode = curNode.parentNode;
+                        };
+                    } else if( direction == 'down' ) {
+                        if( curNode.firstChild ) {
+                            curNode = curNode.firstChild;
+                            foundNext = true;
+                        } else {
+                            direction = 'right';
+                        };
+                    };
+                };
+            };
+        }; 
+
+        this.selection.selection.removeAllRanges();
+        for(var i = 0; i < indices.length; i = i + 1) {
+            var range = document.createRange();
+            range.selectNode(cellNodes[indices[i]]);
+            this.selection.selection.addRange(range);
+        };
+
+        this.assertEquals('"'+this.selection.toString().replace(/\r|\n/g, '')+'"',
+                          '"'+verificationString+'"');
     };
 
     this.test_updateState = function() {
@@ -33,6 +91,36 @@ function KupuUITestCase() {
         this.assertEquals(this.ui.tsselect.selectedIndex, 3);
     };
 
+    this.updateStateTest = function(html, start, end, verify, ieskew, label) {
+        this.body.innerHTML = html;
+        this.ui.cleanStyles();
+        this.ui.enableOptions(false);
+        this._setSelection(start, null, end, null, verify, ieskew);
+        node = this.editor.getSelectedNode();
+        this.ui.updateState(node);
+        var select = this.ui.tsselect;
+        this.assertEquals(select.options[select.selectedIndex].text, label);
+    };
+    this.test_updateState2 = function() {
+        this.updateStateTest('<table><tr><td>foo</td><td class="odd">bar</td></tr></table>',
+            1, 3, 'oo', 1, "Plain Cell");
+    };
+
+    this.test_updateState3 = function() {
+        this.updateStateTest('<table><tr><td>foo</td><td class="odd">bar</td></tr></table>',
+            4, 6, 'ar', 2, "Odd Cell");
+    };
+
+    this.test_updateState4 = function() {
+        this.updateStateTest('<table><tr><td>foo<span class="highlight">baz</span></td></tr></table>',
+            4, 6, 'az', 1, "Highlight");
+    }
+    
+    this.test_updateState5 = function() {
+        this.updateStateTest('<table><tr><td>foo<div class="Caption">baz</div></td></tr></table>',
+            4, 6, 'az', 2, "Caption");
+    }
+
     this.test_setTextStyle = function() {
         this.body.innerHTML = '<p>foo</p><p>bar</p><p>baz</p>';
         // select                          |bar|
@@ -41,10 +129,107 @@ function KupuUITestCase() {
         this.assertEquals(this._cleanHtml(this.body.innerHTML),
                           '<p>foo</p><h1>bar</h1><p>baz</p>');
     };
+    
+    this.test_setTextStyle_ParaStyle_SingleTableCell = function() {
+        //Apply a paragraph style inside a table cell 
+        var data = '<table><tbody><tr><td>bar</td></tr></tbody></table>';
+        var expected =  '<table><tbody><tr><td><h1 class="te st">bar</h1></td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(0, null, 3, null, 'bar', 1);
+        this.ui.setTextStyle('h1|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
 
-    this.XXXtest_setTextStyleReplacingDiv = function() {
+// This test doesn't work yet: the intention is that setting text style
+// to '' will remove a block style round the current selection.
+//     this.test_removeTextStyle_ParaStyle_SingleTableCell = function() {
+//         //Remove a paragraph style inside a table cell 
+//         var data = '<table><tbody><tr><td><h1 class="te st">bar</h1></td></tr></tbody></table>';
+//         var expected =  '<table><tbody><tr><td>bar</td></tr></tbody></table>';
+//         this.body.innerHTML = data;
+//         this._setSelection(0, null, 3, null, 'bar', 1);
+//         this.ui.setTextStyle('');
+//         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+//     };
+
+    this.test_setTextStyle_ParaStyleThenCellStyle_SingleTableCell = function() {
+        //Change the paragraph style inside a table cell, then change the cell
+        //style to a td with a class
+        var data = '<table><tbody><tr><td>bar</td></tr></tbody></table>';
+        var expected = '<table><tbody><tr><td><div class="te st">bar</div></td></tr></tbody></table>';
+        var withcellstyle = '<table><tbody><tr><td class="te st"><div class="te st">bar</div></td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(0, null, 3, null, 'bar', 1);
+        this.ui.setTextStyle('div|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+        this._setSelection(0, null, 3, null, 'bar', 1);
+        this.ui.setTextStyle('td|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), withcellstyle);
+    };
+
+    this.test_setTextStyle_TableHeaderThenParaStyle_SingleTableCell = function() {
+        //Apply a table header style to a cell, then a paragraph style
+        data = '<table><tbody><tr><td>bar</td></tr></tbody></table>';
+        expected = '<table><tbody><tr><th class="te st">bar</th></tr></tbody></table>';
+        withblockstyle = '<table><tbody><tr><th class="te st"><div class="te st">bar</div></th></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(0, null, 3, null, 'bar', 1);
+        this.ui.setTextStyle('th|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+        this._setSelection(0, null, 3, null, 'bar', 1);
+        this.ui.setTextStyle('div|te st');
+        if (_SARISSA_IS_IE) {
+            this.assertEquals(this._cleanHtml(this.body.innerHTML), withblockstyle);
+        } else {
+            // Firefox doesn't give us the answer we want
+            this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+        }
+    };
+    
+    this.test_setTextStyle_ParaStyle_AdjacentCells = function() {
+        //Change the paragraph style including *class*, when the selection
+        //covers two adjacent table cells
+        data = '<table><tbody><tr><td>foo</td><td>bar</td></tr></tbody></table>';
+        expected = '<table><tbody><tr><td><h1 class="te st">foo</h1></td><td><h1 class="te st">bar</h1></td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        if( _SARISSA_IS_IE ) {
+            this._setSelection(1, null, 8, null, 'foobar');
+        } else {
+            this._selectTableCells(new Array(0,1),'foo\tbar');
+        };
+        this.ui.setTextStyle('h1|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
+
+    this.test_setTextStyle_SetCellStyle_Column = function() {
+        //Apply a table cell (td) style, *with class*, on a column of cells --
+        //only available with Mozilla
+        data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>'; 
+        expected = '<table><tbody><tr><td class="te st">foo</td><td>foz</td></tr><tr><td class="te st">bar</td><td>baz</td></tr></tbody></table>'
+        if (!_SARISSA_IS_IE) {
+            this.body.innerHTML = data; 
+            this._selectTableCells(new Array(0,2),'foo\tbar');
+            this.ui.setTextStyle('td|te st');
+            this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+        };                        
+    };
+    
+    this.test_setTextStyle_ParaStyle_Column = function() {
+        //Apply a paragraph style, *with class*, on a column of cells -- only
+        //available with Mozilla
+        data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>';
+        expected = '<table><tbody><tr><td><h1 class="te st">foo</h1></td><td>foz</td></tr><tr><td><h1 class="te st">bar</h1></td><td>baz</td></tr></tbody></table>'
+        if (!_SARISSA_IS_IE) {
+            this.body.innerHTML = data; 
+            this._selectTableCells(new Array(0,2),'foo\tbar');
+            this.ui.setTextStyle('h1|te st');
+            this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+        };                        
+    };
+
+    this.test_setTextStyleReplacingDiv = function() {
         this.body.innerHTML = '<p>foo</p><div>bar</div><p>baz</p>';
-        // select                          |bar|
+        // select                            |bar|
         this._setSelection(4, null, 7, null, 'bar');
         this.ui.setTextStyle('h1');
         this.assertEquals(this._cleanHtml(this.body.innerHTML),

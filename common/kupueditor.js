@@ -363,9 +363,12 @@ function KupuEditor(document, config, logger) {
         return this.getDocument().getSelection();
     };
 
-    this.getSelectedNode = function() {
+    this.getSelectedNode = function(allowmulti) {
         /* returns the selected node (read: parent) or none */
-        return this.getSelection().parentElement();
+        /* if allowmulti is true, returns the parent of all ranges in the
+           selection (in the rare case that selection has more than one
+           range) */
+        return this.getSelection().parentElement(allowmulti);
     };
 
     this.getNearestParentOfType = function(node, type) {
@@ -831,4 +834,5 @@ function KupuEditor(document, config, logger) {
         return this.getInnerDocument().createTextNode(text);
     }
 }
+
 
