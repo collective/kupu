@@ -152,7 +152,7 @@ div.intermezzo  {
   font-style: normal;
 }
 div.quote { 
-  background-color: #fcc;
+  background-color: #fcc !important;
   font-style: italic;
 }
 
