@@ -152,6 +152,26 @@ function KupuUITestCase() {
 //         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
 //     };
 
+    this.test_setTextStyle_TableRow = function() {
+        //Apply a table row style inside a table cell 
+        var data = '<table><tbody><tr><td>foo</td><td>bar</td></tr></tbody></table>';
+        var expected =  '<table><tbody><tr class="te st"><td>foo</td><td>bar</td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(1, null, 5, null, 'ooba', 1, 2);
+        this.ui.setTextStyle('tr|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
+    
+    this.test_setTextStyle_TableRow2 = function() {
+        //Apply a table row style across 2 rows 
+        var data = '<table><tbody><tr><td>foo</td></tr><tr><td>bar</td></tr></tbody></table>';
+        var expected =  '<table><tbody><tr class="te st"><td>foo</td></tr><tr class="te st"><td>bar</td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(1, null, 5, null, 'ooba', 1, 2);
+        this.ui.setTextStyle('tr|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
+
     this.test_setTextStyle_ParaStyleThenCellStyle_SingleTableCell = function() {
         //Change the paragraph style inside a table cell, then change the cell
         //style to a td with a class

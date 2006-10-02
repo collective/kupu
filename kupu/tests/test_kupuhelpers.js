@@ -62,13 +62,17 @@ function SelectionTestCase() {
     };
 
     this._setSelection = function(startOffset, startNextNode, endOffset,
-        endNextNode, verificationString, ieskew) {
+        endNextNode, verificationString, ieskew, endskew) {
         var element = this.body;
         var innerSelection = this.selection.selection;
         if (_SARISSA_IS_IE) {
             if (ieskew) {
                 startOffset += ieskew;
-                endOffset += ieskew;
+                if (endskew) {
+                    endOffset += endskew;
+                } else {
+                    endOffset += ieskew;
+                }
             };
             var range = innerSelection.createRange();
             var endrange = innerSelection.createRange();
@@ -88,7 +92,7 @@ function SelectionTestCase() {
                 innerSelection.extend(position[0], position[1]);
             };
         };
-        this.assertEquals('"'+this.selection.toString().replace(/\r|\n/g, '')+'"',
+        this.assertEquals('"'+this.selection.toString().replace(/(\r|\n|\t)+/g, '')+'"',
                           '"'+verificationString+'"');
     };
 
