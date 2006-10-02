@@ -339,8 +339,8 @@ function KupuUI(textstyleselectid) {
 
         var normal = ['Normal', 'p|'];
         var td = ['Plain Cell', 'td|'];
-        var nochar = ['No char style', 'span|'];
-        
+        var nostyle = ['(remove style)', ''];
+
         var opts = [];
         while (options.length) {
             opt = options[0];
@@ -357,8 +357,8 @@ function KupuUI(textstyleselectid) {
                 td = optarray;
             } else if (v=='p|') {
                 normal = optarray;
-            } else if (v=='span|') {
-                nochar = optarray;
+            } else if (v=='') {
+                nostyle = optarray;
             } else {
                 opts.push([opt.text,v]);
             }
@@ -367,7 +367,7 @@ function KupuUI(textstyleselectid) {
         tablestyles[td[1]] = 0;
         paraoptions.push(normal);
         parastyles[normal[1]] = 0;
-        styleoptions.push(nochar);
+        styleoptions.push(nostyle);
 
         for (i = 0; i < opts.length; i++) {
             optarray = opts[i];
@@ -383,7 +383,7 @@ function KupuUI(textstyleselectid) {
                 paraoptions.push(optarray);
             };
         };
-        if (styleoptions.length > 1) {
+        if (styleoptions.length) {
             for (var i = 0; i < styleoptions.length; i++) {
                 optarray = styleoptions[i];
                 parastyles[optarray[1]] = paraoptions.length;
@@ -672,6 +672,38 @@ function KupuUI(textstyleselectid) {
             el.removeAttribute("className");
         }
     }
+    this._removeStyle = function() {
+        function needbreak(e) {
+            if (isblock && e) {
+                if (blocktagre.test(e.nodeName) || e.nodeName=='BR') return;
+                parent.insertBefore(ed.newElement('br'), n);
+            }
+        }
+        var n = this.editor.getSelectedNode(true);
+        var ed = this.editor;
+        while(n) {
+            var tag = n.nodeName.toLowerCase();
+            var isblock = blocktagre.test(tag);
+            if (tblre.test(tag) && n.className) {
+                n.removeAttribute("class");
+                n.removeAttribute("className");
+                return;
+            }
+            if (isblock || tag == 'span') {
+                var parent = n.parentNode;
+                var el;
+                needbreak(n.previousSibling);
+                while ((el = n.firstChild)) {
+                    parent.insertBefore(el, n);
+                }
+                needbreak(n.nextSibling);
+                parent.removeChild(n);
+                return;
+            }
+            n = n.parentNode;
+        };
+    };
+
     this.setTextStyle = function(style, noupdate) {
         /* parse the argument into a type and classname part
            generate a block element accordingly 
@@ -690,7 +722,9 @@ function KupuUI(textstyleselectid) {
         if (this.editor.getBrowserName() == 'IE') {
             command = '<' + eltype + '>';
         };
-        if (tblre.test(eltype)) {
+        if (!style) {
+            this._removeStyle();
+        } else if (tblre.test(eltype)) {
             this._cleanCell(eltype, classname);
         } else if (eltype=='SPAN') {
             doc.execCommand('removeformat', null);
