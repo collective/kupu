@@ -140,17 +140,35 @@ function KupuUITestCase() {
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };
 
-// This test doesn't work yet: the intention is that setting text style
-// to '' will remove a block style round the current selection.
-//     this.test_removeTextStyle_ParaStyle_SingleTableCell = function() {
-//         //Remove a paragraph style inside a table cell 
-//         var data = '<table><tbody><tr><td><h1 class="te st">bar</h1></td></tr></tbody></table>';
-//         var expected =  '<table><tbody><tr><td>bar</td></tr></tbody></table>';
-//         this.body.innerHTML = data;
-//         this._setSelection(0, null, 3, null, 'bar', 1);
-//         this.ui.setTextStyle('');
-//         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
-//     };
+    this.test_removeTextStyle_ParaStyle_SingleTableCell = function() {
+        //Remove a paragraph style inside a table cell 
+        var data = '<table><tbody><tr><td>foo<h1 class="te st">bar</h1>baz</td></tr></tbody></table>';
+        var expected =  '<table><tbody><tr><td>foo<br>bar<br>baz</td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(4, null, 6, null, 'ar', 2);
+        this.ui.setTextStyle('');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
+
+    this.test_removeTextStyle_SpanStyle_SingleTableCell = function() {
+        //Remove a paragraph style inside a table cell 
+        var data = '<table><tbody><tr><td>foo<span class="te st">bar</span>baz</td></tr></tbody></table>';
+        var expected =  '<table><tbody><tr><td>foobarbaz</td></tr></tbody></table>';
+        this.body.innerHTML = data;
+        this._setSelection(3, null, 6, null, 'bar', 1);
+        this.ui.setTextStyle('');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
+
+    this.test_removeTextStyle_NoStyle = function() {
+        //Remove a paragraph style when there isn't one 
+        var data = 'hello world';
+        var expected =  'hello world';
+        this.body.innerHTML = data;
+        this._setSelection(3, null, 6, null, 'lo ', 0);
+        this.ui.setTextStyle('');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
+    };
 
     this.test_setTextStyle_TableRow = function() {
         //Apply a table row style inside a table cell 
