@@ -280,7 +280,7 @@ button.disabled {
 }
 
 .kupuTableStyle {
-  font-style: underline;
+  text-decoration: underline;
   background-color: #82feff;
 }
 .kupuCharStyle {
