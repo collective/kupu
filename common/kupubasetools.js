@@ -570,11 +570,13 @@ function KupuUI(textstyleselectid) {
     }
 
     this._cleanCell = function(eltype, classname, strip) {
+        var alttype=eltype=='TD'?'TH':eltype=='TH'?'TD':null;
+        
         var selNode = this.editor.getSelectedNode(true);
         var el = this.editor.getNearestParentOfType(selNode, eltype);
-        if (!el) {
-                // Maybe changing type
-            el = this.editor.getNearestParentOfType(selNode, eltype=='TD'?'TH':'TD');
+        if (!el && alttype) {
+            // Maybe changing type
+            el = this.editor.getNearestParentOfType(selNode, alttype);
         }
 
         //either the selection is inside a cell, spans cells, or includes
@@ -612,15 +614,17 @@ function KupuUI(textstyleselectid) {
         } else {
             //otherwise, find all cells that intersect the selection
             var selection = this.editor.getSelection();
-            var tdNodes = selNode.getElementsByTagName('TD');
-            var thNodes = selNode.getElementsByTagName('TH');
+            var nodes = selNode.getElementsByTagName(eltype);
 
             var cellNodes = Array();
-            for (var i = 0; i < tdNodes.length; i++) {
-                cellNodes.push(tdNodes.item(i));
+            for (var i = 0; i < nodes.length; i++) {
+                cellNodes.push(nodes.item(i));
             };
-            for (var i = 0; i < thNodes.length; i++) {
-                cellNodes.push(thNodes.item(i));
+            if (alttype) {
+                nodes = selNode.getElementsByTagName(alttype);
+                for (var i = 0; i < nodes.length; i++) {
+                    cellNodes.push(nodes.item(i));
+                };
             };
             
             for (var i = 0; i < cellNodes.length; i++) {
