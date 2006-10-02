@@ -4,7 +4,11 @@ Kupu changes
 
 - 1.4 Beta 2
 
-  - Paragraph styling now permitted inside a table again.
+  - Paragraph styling now permitted inside a table again (contributed
+    by George Lee).
+
+  - Fixed a bug where changing a TR style while the selection covered
+    more than one row corrupted the DOM.
 
   - New style option '(remove style)' always present and removes the
     closest style round the selection (i.e. a span or block tag, or 
