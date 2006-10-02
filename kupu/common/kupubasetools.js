@@ -247,9 +247,13 @@ function KupuUI(textstyleselectid) {
     this.tsselect = getFromSelector(textstyleselectid);
     var paraoptions = [];
     var tableoptions = [];
+    var styleoptions = [];
+    var tableoffset = 0;
+    var styleoffset = 0;
     this.optionstate = -1;
     this.otherstyle = null;
     this.tablestyles = {};
+    this.charstyles = {};
     this.styles = {}; // use an object here so we can use the 'in' operator later on
     var blocktagre = /^(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center)$/i;
     var spanre = /^span\b/i;
@@ -335,8 +339,8 @@ function KupuUI(textstyleselectid) {
         var options = this.tsselect.options;
         var parastyles = this.styles;
         var tablestyles = this.tablestyles;
-        var styleoptions = [];
-
+        var charstyles = this.charstyles;
+        
         var normal = ['Normal', 'p|'];
         var td = ['Plain Cell', 'td|'];
         var nostyle = ['(remove style)', ''];
@@ -367,13 +371,13 @@ function KupuUI(textstyleselectid) {
         tablestyles[td[1]] = 0;
         paraoptions.push(normal);
         parastyles[normal[1]] = 0;
-        styleoptions.push(nostyle);
 
         for (i = 0; i < opts.length; i++) {
             optarray = opts[i];
             v = optarray[1];
 
             if (spanre.test(v)) {
+                charstyles[v] = styleoptions.length;
                 styleoptions.push(optarray);
             } else if (tblre.test(v)) {
                 tablestyles[v] = tableoptions.length;
@@ -383,22 +387,9 @@ function KupuUI(textstyleselectid) {
                 paraoptions.push(optarray);
             };
         };
-        if (styleoptions.length) {
-            for (var i = 0; i < styleoptions.length; i++) {
-                optarray = styleoptions[i];
-                parastyles[optarray[1]] = paraoptions.length;
-                paraoptions.push(optarray);
-            }
-        };
-        if (tableoptions.length < 2) {
-            tableoptions[0] = null;
-        }
-        // tableoptions needs paraoptions appended
-        for (var i = 0; i < paraoptions.length; i++) {
-            optarray = paraoptions[i];
-            tablestyles[optarray[1]] = tableoptions.length;
-            tableoptions.push(optarray);
-        }
+        paraoptions.push(nostyle);
+        styleoffset = paraoptions.length;
+        tableoffset = styleoffset + styleoptions.length;
     }
 
     // Remove otherstyle and switch to appropriate style set.
@@ -411,18 +402,32 @@ function KupuUI(textstyleselectid) {
         }
         if (this.optionstate == inTable) return; /* No change */
 
-        var valid = inTable ? tableoptions : paraoptions;
-
-        while (options.length) options[0] = null;
+        while (select.firstChild) select.removeChild(select.firstChild);
         this.otherstyle = null;
 
-        for (var i = 0; i < valid.length; i++) {
+        function option(info) {
             var opt = document.createElement('option');
-            opt.text = valid[i][0];
-            var v = valid[i][1];
+            opt.text = info[0];
+            var v = info[1];
             opt.value = v;
-            opt.className=(tblre.test(v))?"kupuTableStyle":(spanre.test(v))?"kupuCharStyle":"kupuParaStyle";
-            options.add(opt);
+            return opt;
+        }
+        for (var i = 0; i < paraoptions.length; i++) {
+            options.add(option(paraoptions[i]));
+        }
+        var grp = document.createElement('optgroup');
+        grp.label = 'Character styles';
+        for (var i = 0; i < styleoptions.length; i++) {
+            grp.appendChild(option(styleoptions[i]));
+        }
+        select.appendChild(grp);
+        if (inTable) {
+            var grp = document.createElement('optgroup');
+            grp.label = 'Table elements';
+            for (var i = 0; i < tableoptions.length; i++) {
+                grp.appendChild(option(tableoptions[i]));
+            }
+            select.appendChild(grp);
         }
         select.selectedIndex = 0;
         this.optionstate = inTable;
@@ -461,8 +466,6 @@ function KupuUI(textstyleselectid) {
             };
             currnode = currnode.parentNode;
         };
-        var styles = this.intable? this.tablestyles : this.styles;
-        
         currnode = node;
         while (currnode) {
             var tag = currnode.nodeName.toLowerCase();
@@ -476,15 +479,15 @@ function KupuUI(textstyleselectid) {
                 break;
             }
             if (spanre.test(tag)) {
-                index = this.setIndex(currnode, tag, index, styles);
-                if (index > 0) return index; // span takes priority
+                index = this.setIndex(currnode, tag, index, this.charstyles);
+                if (index >= 0) return index+styleoffset; // span takes priority
             } else if (blocktagre.test(tag)) {
-                index = this.setIndex(currnode, tag, index, styles);
+                index = this.setIndex(currnode, tag, index, this.styles);
             } else if (tblre.test(tag)) {
                 if (index > 0) return index; // block or span takes priority.
-                index = this.setIndex(currnode, tag, index, styles);
-                if (index > 0 || tag=='table') {
-                    return index; // Stop processing if in a table
+                index = this.setIndex(currnode, tag, index, this.tablestyles);
+                if (index >= 0 || tag=='table') {
+                    return index+tableoffset; // Stop processing if in a table
                 }
             }
             currnode = currnode.parentNode;
