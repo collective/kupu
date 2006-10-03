@@ -269,7 +269,13 @@
                 </label>
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
-              <div class="kupu-bm-paras"/>
+              <div class="kupu-bm-paras">&nbsp;</div>
+              <div class="kupu-bm-helpanchor">
+                Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
+              </div>
+              <div class="kupu-bm-helptoc">
+                Select one or two paragraph styles, then Ok to insert a table of contents.
+              </div>
             </td>
           </tr>
           <tr>
