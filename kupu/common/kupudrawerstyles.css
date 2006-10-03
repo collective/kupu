@@ -253,6 +253,9 @@ th.kupu-toolbox-label {
 .kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading {
    display:none;
 }
+.kupu-ins-bm .kupu-bm-helptoc,.kupu-toc .kupu-bm-helpanchor {
+  display: none;
+}
 
 table.kupu-ins-bm, table.kupu-toc {
    height: 20em;
@@ -261,7 +264,7 @@ td.kupu-bm-select {
    width: 1%;
 }
 .kupu-bm-paras {
-  height: 18em; width:100%;
+   height: 18em; width:100%;
    white-space: nowrap;
    overflow: auto;
 }

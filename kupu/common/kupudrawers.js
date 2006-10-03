@@ -1463,9 +1463,7 @@ function AnchorDrawer(elementid, tool) {
             }
         }
 
-        var paras = this.tool.grubParas(s[0], s[1]);
-        this.nodelist = paras;
-
+        var paras = this.nodelist = this.tool.grubParas(s[0], s[1]);
         for (var i = 0; i < paras.length; i++) {
             var node = paras[i][0];
             var text = Sarissa.getText(node, true).strip().truncate(60);
@@ -1508,13 +1506,12 @@ function AnchorDrawer(elementid, tool) {
                 var node = nodeinfo[0];
                 var level = nodeinfo[1];
                 var a = this.tool.getAnchor(node);
+                var caption = Sarissa.getText(node).truncate(140);
                 if (isSingle) {
-                    var title = '[' +(this.styleNames[nodeinfo[1]] + ' ' + nodeinfo[2]).strip() + ']';
-                    this.tool.createLink('#'+a, null, null, null, title);
+                    this.tool.createLink('#'+a, null, null, null, caption);
                     break;
                 } else {
                     /* Insert TOC entry here */
-                    var caption = Sarissa.getText(node).truncate(140);
                     var number;
                     if (level==0) {
                         number = ++lvl1;
