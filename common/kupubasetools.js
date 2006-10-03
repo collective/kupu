@@ -2779,7 +2779,7 @@ proto.fillStyleSelect = function(select) {
     var ui = this.editor.getTool('ui');
     var options = ui.getStyles()[0];
 
-    for (var i = 1; i < options.length; i++) {
+    for (var i = 1; i < options.length-1; i++) {
         var t = options[i][0];
         var v =options[i][1];
         

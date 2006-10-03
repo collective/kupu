@@ -161,6 +161,7 @@ class InfoAdaptor:
         self.portal_base = self.url_tool.getPortalPath()
         self.prefix_length = len(self.portal_base)+1
         self.resource_type = resource_type
+        self.ttool = getToolByName(portal, 'portal_types')
         
         instance = tool.REQUEST.get('instance', '')
         if instance:
@@ -195,8 +196,9 @@ class InfoAdaptor:
 
         return dict([(id,title) for (title,id) in states])
 
-    def icon(self, icon):
-        return "%s/%s" % (self.base, icon)
+    def icon(self, portal_type):
+        type = self.ttool.getTypeInfo(portal_type)
+        return "%s/%s" % (self.base, type.getIcon())
 
     def sizes(self, obj):
         """Returns size, width, height"""
@@ -298,7 +300,7 @@ class InfoAdaptor:
 
             sizes = self.get_image_sizes(obj, portal_type, url)
 
-            icon = self.icon(obj.getIcon(1))
+            icon = self.icon(portal_type)
             size, width, height = self.sizes(obj)
 
             title = obj.Title() or obj.getId()
@@ -375,7 +377,7 @@ class InfoAdaptor:
 
         sizes = self.get_image_sizes(brain, portal_type, url)
 
-        icon = self.icon(brain.getIcon)
+        icon = self.icon(portal_type)
         size, width, height = self.sizes(brain)
 
         title = brain.Title or brain.getId
