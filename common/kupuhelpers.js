@@ -102,7 +102,11 @@ function newDocumentElement(doc, tagName, args) {
             };
         } else {
             for (var i = 0; i < arg.length; i++) {
-                node.appendChild(arg[i]);
+                if(typeof(arg[i])=='string') {
+                    node.appendChild(doc.createTextNode(arg[i]));
+                } else {
+                    node.appendChild(arg[i]);
+                }
             }
         }
     }

@@ -121,6 +121,16 @@ function KupuUITestCase() {
             4, 6, 'az', 2, "Caption");
     }
 
+    this.test_updateState6 = function() {
+        this.updateStateTest('<p>foo</p><div class="other">baz</div>',
+            5, 7, 'az', 0, "Other: div other");
+    }
+
+    this.test_updateState7 = function() {
+        this.updateStateTest('<p>foo</p><div class="other">baz</div>',
+            1, 7, 'oobaz', 0, "Mixed styles");
+    }
+
     this.test_setTextStyle = function() {
         this.body.innerHTML = '<p>foo</p><p>bar</p><p>baz</p>';
         // select                          |bar|

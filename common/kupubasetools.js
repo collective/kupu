@@ -250,6 +250,7 @@ function KupuUI(textstyleselectid) {
     var styleoptions = [];
     var tableoffset = 0;
     var styleoffset = 0;
+    var tablegrp = null;
     this.optionstate = -1;
     this.otherstyle = null;
     this.tablestyles = {};
@@ -397,39 +398,43 @@ function KupuUI(textstyleselectid) {
         var select = this.tsselect;
         var options = select.options;
         if (this.otherstyle) {
-            options[options.length-1] = null;
+            options[0] = null;
             this.otherstyle = null;
         }
         if (this.optionstate == inTable) return; /* No change */
 
-        while (select.firstChild) select.removeChild(select.firstChild);
-        this.otherstyle = null;
+        // while (select.firstChild) select.removeChild(select.firstChild);
 
         function option(info) {
-            var opt = document.createElement('option');
-            opt.text = info[0];
-            var v = info[1];
-            opt.value = v;
-            return opt;
+            return newElement('option', {'value': info[1]}, [info[0]]);
         }
-        for (var i = 0; i < paraoptions.length; i++) {
-            options.add(option(paraoptions[i]));
-        }
-        var grp = document.createElement('optgroup');
-        grp.label = 'Character styles';
-        for (var i = 0; i < styleoptions.length; i++) {
-            grp.appendChild(option(styleoptions[i]));
-        }
-        select.appendChild(grp);
-        if (inTable) {
+        if (this.optionstate==-1) {
+            for (var i = 0; i < paraoptions.length; i++) {
+                select.appendChild(option(paraoptions[i]));
+            }
             var grp = document.createElement('optgroup');
+            grp.label = 'Character styles';
+            for (var i = 0; i < styleoptions.length; i++) {
+                grp.appendChild(option(styleoptions[i]));
+            }
+            select.appendChild(grp);
+        }
+        if (inTable) {
+            var grp = tablegrp = document.createElement('optgroup');
             grp.label = 'Table elements';
             for (var i = 0; i < tableoptions.length; i++) {
                 grp.appendChild(option(tableoptions[i]));
             }
             select.appendChild(grp);
-        }
-        select.selectedIndex = 0;
+        } else {
+            while (select.options[tableoffset]) {
+                select.options[tableoffset] = null;
+            };
+            if (tablegrp) {
+                select.removeChild(tablegrp);
+                tablegrp = null;
+            };
+        };
         this.optionstate = inTable;
     }
     
@@ -450,7 +455,6 @@ function KupuUI(textstyleselectid) {
     this.nodeStyle = function(node) {
         var currnode = node;
         var index = -1;
-        var options = this.tsselect.options;
         this.styletag = undefined;
         this.classname = '';
 
@@ -538,12 +542,11 @@ function KupuUI(textstyleselectid) {
                 var caption = '<no style>';
             }
 
-            var opt = document.createElement('option');
+            var opt = newElement('option');
             opt.text = caption;
             this.otherstyle = opt;
-            this.tsselect.options.add(opt);
-
-            index = this.tsselect.length-1;
+            this.tsselect.options.add(opt,0);
+            index = 0;
         }
         this.tsselect.selectedIndex = Math.max(index,0);
     };
