@@ -250,7 +250,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         """Find the appropriate template to use for the kupu widget"""
         pm = getToolByName(self, 'portal_membership')
         user = pm.getAuthenticatedMember()
-        editor = user.getProperty('wysiwyg_editor').lower()
+        editor = user.getProperty('wysiwyg_editor', '').lower()
         if editor=='fck editor':
             editor = 'editor_fck'
 
