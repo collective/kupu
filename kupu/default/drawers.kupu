@@ -269,7 +269,7 @@
                 </label>
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
-              <div class="kupu-bm-paras">&nbsp;</div>
+              <div class="kupu-bm-paras">&#xa0;</div>
               <div class="kupu-bm-helpanchor">
                 Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
               </div>
