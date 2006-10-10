@@ -13,6 +13,7 @@ from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 import re
 from cgi import escape
+from urlparse import urlsplit, urljoin, urlunsplit
 
 __revision__ = '$Id$'
 
@@ -151,3 +152,318 @@ def register():
 def initialize():
     engine = getToolByName(portal, 'portal_transforms')
     engine.registerTransform(register())
+
+ATTR_HREF = ATTR_VALUE % 'href'
+LINK_PATTERN = re.compile(
+    r'(?P<prefix>\<(?:img\s[^>]*src|a\s[^>]*href)=(?:"?))(?P<href>(?<=")[^"]*|[^ \/>]*)',
+    re.IGNORECASE)
+
+class Migration:
+    FIELDS = ('portal_type', 'typename', 'fieldname',
+        'fieldlabel', 'position', 'action', 'dryrun',
+        'image_tails'
+    )
+
+    def __init__(self, tool):
+        self.tool = tool
+        self.url_tool = getToolByName(tool, 'portal_url')
+        self.portal = self.url_tool.getPortalObject()
+        self.portal_base = self.url_tool.getPortalPath()
+        self.portal_base_url = self.portal.absolute_url()
+        self.prefix_length = len(self.portal_base)+1
+        self.uid_catalog = getToolByName(tool, 'uid_catalog')
+        self.reference_tool = getToolByName(tool, 'reference_catalog')
+        self.portal_catalog = getToolByName(tool, 'portal_catalog')
+        self._continue = True
+
+    def initFromRequest(self):
+        self.image_tails = self.tool._getImageSizes()
+        request = self.tool.REQUEST
+        fields = [f for f in request.form.get('fields',()) if f.get('selected',0)]
+        if fields:
+            f = fields[0]
+            self.portal_type = f.portal_type
+            self.typename = f.type
+            self.fieldname = f.name
+            self.fieldlabel = f.label
+        else:
+            self.portal_type = None
+            self.fieldname = None
+            self.fieldlabel = None
+
+        self.position = 0
+        self.action = request.form.get('button', None)
+        self.dryrun = request.form.get('dryrun', '') != 'I agree'
+
+    def saveState(self):
+        SESSION = self.tool.REQUEST.SESSION
+        SESSION['kupu_migrator'] = dict([(f, getattr(self, f, None)) for f in self.FIELDS])
+
+    def restoreState(self):
+        SESSION = self.tool.REQUEST.SESSION
+        state = SESSION['kupu_migrator']
+        for f in self.FIELDS:
+            setattr(self, f, state[f])
+
+    def clearState(self):
+        SESSION = self.tool.REQUEST.SESSION
+        if SESSION.has_key('kupu_migrator'):
+            del SESSION['kupu_migrator']
+
+    def status(self):
+        s = [ '%s=%s' % (f,getattr(self, f, 'unset')) for f in
+            self.FIELDS ]
+        return '\n'.join(s)
+
+    def getInfo(self):
+        info = {}
+        if self._continue:
+            info['nexturi'] = self.tool.absolute_url_path()+'/kupu_migration.xml?button=continue'
+        if hasattr(self, '_total'):
+            info['total'] = self._total
+            info['position'] = self.position
+            if self._total==0:
+                info['percent'] = '100%'
+            else:
+                info['percent'] = '%d%%' % ((100.*self.position)/self._total)
+            info['objects'] = getattr(self, '_objects', [])
+        action = getattr(self, 'action', '')
+        if action:
+            headings = { 'check': 'Bad links',
+                'touid': 'Links converted to resolveuid form',
+                'topath': 'Links converted to relative path',
+                }
+            heading = headings[action]
+            if self.typename:
+                heading += ' for %s (%s)' % (self.typename, self.fieldlabel)
+            info['heading'] = heading
+
+        if not self.action=='check':
+            if self.dryrun:
+                dryrun = 'Dryrun only, no changes are being made to your data'
+            else:
+                dryrun = '''Content is being updated
+                (actually that's a lie: until the code is more tested I'm not updating anything)'''
+            info['dryrun'] = dryrun
+
+        return info
+
+    def docontinue(self):
+        """Scan selected documents looking for convertible links"""
+        brains = self.portal_catalog.searchResults(portal_type=self.portal_type)
+        pos = self.position
+        self._total = total = len(brains)
+        brains = brains[pos:pos+10]
+        self.position = pos + len(brains)
+        if not brains:
+            self._continue = False
+            return False # Done
+
+        self._objects = res = []
+        for b in brains:
+            braininfo = self.brain_check(b)
+            if braininfo:
+                res.append(braininfo)
+
+        self._continue = True
+        return True
+
+    def brain_check(self, brain):
+        """Check the relative links within this object."""
+        def checklink(match):
+            matched = match.group(0)
+            newlink = link = match.group('href')
+            classification, uid, relpath, tail = self.classifyLink(link, base)
+
+            if self.action=='check':
+                if classification=='bad':
+                    info.append(link)
+            elif self.action=='touid':
+                if classification=='internal':
+                    if uid and uid==objuid:
+                        newlink = tail
+                    elif uid:
+                        newlink = 'resolveuid/%s%s' % (uid, tail)
+                    else:
+                        newlink = relpath+tail
+
+            elif self.action=='topath':
+                if classification=='internal':
+                    newlink = relpath+tail
+
+            if newlink != link:
+                prefix = match.group('prefix')
+                changes.append((match.start()+len(prefix), match.end(), newlink))
+                return prefix + newlink
+            return matched
+
+        info = []
+        changes = []
+        object = brain.getObject()
+        objuid = getattr(object.aq_base, 'UID', None)
+        if objuid:
+            objuid = objuid
+
+        base = object.absolute_url()
+        if getattr(object.aq_explicit, 'isPrincipiaFolderish', 0):
+            base += '/'
+        field = object.getField(self.fieldname)
+        data = field.getRaw(object)
+        newdata = LINK_PATTERN.sub(checklink, data)
+
+        if info or changes:
+            title = brain.Title
+            if not title:
+                title = getattr(brain, 'getId')
+            if not title:
+                title = '<object>'
+            if data != newdata:
+                diffs = htmlchanges(data, changes)
+            else:
+                diffs = None
+            return dict(title=title, info=info, url=object.absolute_url_path(),
+                diffs=diffs)
+        return None
+
+    def UIDfromURL(self, url):
+        """Convert an absolute URL to a UID"""
+        if not url.startswith(self.portal_base_url):
+            return None
+        path = url[len(self.portal_base_url)+1:]
+        if not path:
+            return None
+        try:
+            metadata = self.uid_catalog.getMetadataForUID(path)
+        except KeyError:
+            return None
+        return metadata.get('UID', None)
+
+    def brainfromurl(self, url):
+        """convert a url to a catalog brain"""
+        if not url.startswith(self.portal_base_url):
+            return None
+        url = self.portal_base + url[len(self.portal_base_url):]
+        brains = self.portal_catalog.searchResults(path=url)
+        if len(brains) != 1:
+            # Happens on Plone 2.0 :(
+            for b in brains:
+                if b.getPath()==url:
+                    return b
+            return None
+        return brains[0]
+
+    def resolveToPath(self, absurl):
+        if 'resolveuid/' in absurl:
+            bits = absurl.split('resolveuid/', 1)
+            bits = bits[1].split('/',1)
+            uid = bits[0]
+            if len(bits)==1:
+                tail = ''
+            else:
+                tail = '/' + bits[1]
+
+            # TODO: should be able to convert uid to brain without
+            # touching the actual object.
+            obj = self.reference_tool.lookupObject(uid)
+            if obj is not None:
+                newurl = obj.absolute_url()
+                return uid, newurl, tail
+        return None, None, None
+
+    def classifyLink(self, url, base, first=True):
+        """Classify a link as:
+        internal, external, bad
+
+        Returns a tuple:
+        (classification, uid, relpath, tail)
+        giving potential urls: resolveuid/<uid><tail>
+        or: <relpath><table>
+        """
+        if url.startswith('portal_factory'):
+            url = url[14:]
+        absurl = urljoin(base, url)
+        if not absurl.startswith(self.portal_base_url):
+            return 'external', None, url, ''
+        absurl = absurl.strip('/')
+
+        scheme, netloc, path, query, fragment = urlsplit(absurl)
+        tail = urlunsplit(('','','',query,fragment))
+        absurl = urlunsplit((scheme,netloc,path,'',''))
+
+        if 'resolveuid/' in absurl:
+            UID, newurl, ntail = self.resolveToPath(absurl)
+            if UID is None:
+                return 'bad', None, url, ''
+            absurl = newurl
+            tail = ntail + tail
+        else:
+            UID = self.UIDfromURL(absurl)
+
+        brain = self.brainfromurl(absurl)
+        if not brain:
+            if first:
+                # Allow image size modifiers on the end of urls.
+                p = absurl.split('/')
+                absurl = '/'.join(p[:-1])
+                if p[-1] in self.image_tails:
+                    tail = '/'+p[-1]+tail
+                    c, uid, url, _ = self.classifyLink(absurl, base, first=False)
+                    return c, uid, url, tail
+            return 'bad', None, url, ''
+
+        relative, _ = makeUrlRelative(absurl, base)
+        # Don't convert page-internal links to uids.
+        # Also fix up spurious portal_factory references
+        if not relative:
+            return 'internal', None, '', tail
+        return 'internal', UID, relative, tail
+
+def makeUrlRelative(url, base):
+    """Make a link relative to base.
+    This method assumes we have already checked that url and base have a common prefix.
+    """
+    sheme, netloc, path, query, fragment = urlsplit(url)
+    _, _, basepath, _, _ = urlsplit(base)
+
+    baseparts = basepath.split('/')
+    pathparts = path.split('/')
+
+    basetail = baseparts.pop(-1)
+
+    # Remove common elements
+    while pathparts and baseparts and baseparts[0]==pathparts[0]:
+        baseparts.pop(0)
+        pathparts.pop(0)
+
+    for i in range(len(baseparts)):
+        pathparts.insert(0, '..')
+
+    if not pathparts:
+        pathparts.insert(0, '.')
+    elif pathparts==[basetail]:
+        pathparts.pop(0)
+    
+
+    return '/'.join(pathparts), urlunsplit(('','','',query,fragment))
+
+def htmlchanges(data, changes):
+    out = []
+    prev = 0
+    lastend = 0
+    for s,e,new in changes:
+        start = max(prev, s-10)
+        if start != prev:
+            if start-10 > prev:
+                out.append(html_quote(data[prev:prev+10]))
+                out.append('...')
+            else:
+                out.append(html_quote(data[prev:start]))
+        out.append(html_quote(data[start:s]))
+        out.append('<del>%s</del>' % html_quote(data[s:e]))
+        out.append('<ins>%s</ins>' % html_quote(new))
+        prev = e
+    if prev:
+        out.append(html_quote(data[prev:prev+10]))
+        if prev+10 < len(data):
+            out.append('...')
+    return ''.join(out)

@@ -33,7 +33,7 @@
     <!-- simulating views -->
     <ul class="contentViews"
        tal:define="tabs python:('Config','kupu_config'),('Libraries','zmi_libraries'),('Resource Types','zmi_resource_types'),
-        ('Documentation', 'zmi_docs'),;
+        ('Documentation', 'zmi_docs'),('Links', 'zmi_links'),;
                    tabs python:[ {'label':label, 'name':name} for (label,name) in tabs ];"
     >
         <li tal:repeat="tab tabs"

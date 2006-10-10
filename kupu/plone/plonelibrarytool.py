@@ -33,6 +33,7 @@ from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO
 from urllib import quote_plus, unquote_plus
+import html2captioned
 
 _default_libraries = (
     dict(id="root",
@@ -110,9 +111,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         # We load default values here, so __init__ can still be used
         # in unit tests. Plus, it only makes sense to load these if
         # we're being added to a Plone site anyway
-        for lib in _default_libraries:
-            self.addLibrary(**lib)
-        self._res_types.update(_default_resource_types)
+        if not len(self._libraries):
+            for lib in _default_libraries:
+                self.addLibrary(**lib)
+            self._res_types.update(_default_resource_types)
 
     security.declareProtected('View', "getLinkbyuid")
     def getLinkbyuid(self):
@@ -370,6 +372,36 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         f = open(os.path.join(docpath, 'PLONE2.txt'), 'r')
         _docs = f.read()
         return _docs
+
+    security.declareProtected(permissions.ManageLibraries, "link_migration")
+    def link_migration(self, button='status'):
+        """Do link checking or conversion, a little bit at a time"""
+        action = button
+        migrator = html2captioned.Migration(self)
+        if action=='continue':
+            migrator.restoreState()
+            res = migrator.docontinue()
+            info = migrator.getInfo()
+            if res:
+                migrator.saveState()
+            else:
+                migrator.clearState()
+            return info
+        elif action=='status':
+            try:
+                migrator.restoreState()
+            except KeyError:
+                return "state cleared"
+            return migrator.status()
+
+        else:
+            migrator.initFromRequest()
+            migrator.saveState()
+            return migrator.getInfo()
+
+    security.declareProtected(permissions.ManageLibraries, "zmi_links")
+    zmi_links = PageTemplateFile("zmi_links.pt", globals())
+    zmi_links.title = 'kupu link maintenance'
 
     security.declareProtected(permissions.ManageLibraries, "zmi_docs")
     zmi_docs = PageTemplateFile("zmi_docs.pt", globals())

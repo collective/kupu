@@ -6,15 +6,6 @@ from unittest  import TestCase, TestSuite, main, makeSuite
 from Products.CMFPlone.tests import PloneTestCase
 from os.path import join, abspath, dirname
 
-#try:
-#    import Zope # Sigh, make product initialization happen
-#    HAS_ZOPE = 1
-#    Zope.startup()
-#except ImportError:
-#    HAS_ZOPE = 0
-#except AttributeError: # Zope > 2.6
-#    pass
-
 from Products.PortalTransforms.tests.test_transforms import *
 from Products.PortalTransforms.tests.utils import normalize_html
 
@@ -43,6 +34,8 @@ class MockImage:
     def Description(self):
         return self.description
     def absolute_url(self):
+        return '[url for %s]' % self.uid
+    def absolute_url_path(self):
         return '[url for %s]' % self.uid
 
 class MockCatalogTool:

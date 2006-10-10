@@ -273,6 +273,17 @@ div.kupuoverride {
 .even .kupu-preview-row {
     background-color: &dtml-evenRowBackgroundColor;;
 }
-
+.kupu-progress {
+    background-color: white;;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-contentViewBorderColor;;
+    width: 90%; margin: 1em; position: relative;
+}
+.kupu-progressbar {
+    background-color: &dtml-contentViewBackgroundColor;;
+    width: 50%; position:absolute;top:0;
+}
+.kupu-progresstext {
+    text-align:center;position:absolute;top:0;width:100%;
+}
 /* </dtml-let></dtml-with> */
 

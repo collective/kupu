@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tal:block
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:html="http://www.w3.org/TR/REC-html40"
+    define="charset here/portal_properties/site_properties/default_charset|here/portal_properties/default_charset|string:utf-8;
+        content_type python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=%s' % charset);">
+<html
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:metal="http://xml.zope.org/namespaces/metal"
+     xmlns:html="http://www.w3.org/TR/REC-html40"
+     xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
+  <body>
+    <div tal:condition="request/qlen|nothing"
+         tal:define="length python:len(context.portal_catalog.searchResults(**request.form));"
+         id="query_length"
+         kj:mode="replace"
+         tal:content="string: $length objects in catalog">
+    </div>
+  </body>
+</html>
+</tal:block>
