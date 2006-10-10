@@ -10,7 +10,7 @@
 
 /* Javascript to aid migration page. */
 
-function Migration() {};
+function KJax() {};
 (function(p){
     var fudge = new LibraryDrawer();
     p._loadXML = fudge._loadXML;
@@ -19,6 +19,7 @@ function Migration() {};
         this.updateDisplay();
     };
     p.updateDisplay = function() {
+        Sarissa.setXpathNamespaces(this.xmldata, "xmlns:kj='http://kupu.oscom.org/namespaces/kjax'");
         var nodes = this.xmldata.selectNodes("//*[@kj:mode]");
         for (var i = 0; i < nodes.length; i++) {
             var n = nodes[i];
@@ -89,6 +90,6 @@ function Migration() {};
         var el = document.getElementById("log");
         if (el) el.appendChild(newElement("div", [s]));
     };
-})(Migration.prototype);
+})(KJax.prototype);
 
-var kj = new Migration();
+var kj = new KJax();
