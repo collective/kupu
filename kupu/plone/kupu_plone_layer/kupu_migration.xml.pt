@@ -74,11 +74,10 @@
             <!-- <pre tal:content="context/link_migration">current status</pre> -->
             <div tal:condition="m/position|nothing">
               <!-- progress bar -->
-              <div class="kupu-progress">&#xa0;
-                 <div class="kupu-progressbar"
+              <div class="kupu-progress"><div class="kupu-progressbar"
                       tal:attributes="style string:width:${m/percent}">&#xa0;</div>
                  <div class="kupu-progresstext"
-                      tal:content="string:${m/position} of ${m/total}" />
+                      tal:content="string:${m/position} of ${m/total}" />&#xa0;
               </div>
             </div>
 
