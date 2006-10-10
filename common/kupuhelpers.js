@@ -258,7 +258,7 @@ function _load_dict_helper(element) {
             };
             var name = child.nodeName.toLowerCase();
             if (child.attributes[0] && /^_/.test(child.attributes[0])) {
-                name += child.attributes[0].toLowerCase(); // Fix for Opera
+                name += child.attributes[0].name.toLowerCase(); // Fix for Opera
             }
             if (dict[name] != undefined) {
                 if (!dict[name].push) {

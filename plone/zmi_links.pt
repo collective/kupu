@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+lang="en"
+metal:use-macro="here/kupu_config/macros/master"
+i18n:domain="plone">
+
+  <metal:cssslot fill-slot="css_slot">
+    <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
+    <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+  </metal:cssslot>
+  <body>
+
+    <div class="documentContent" metal:fill-slot="kupu_content">
+      <tal:if condition="not:exists:portal/portal_javascripts"
+        metal:use-macro="context/kupu_wysiwyg_support/macros/kupu_js_include">
+      </tal:if>
+      <script type="text/javascript"
+              tal:attributes="src context/kupu_kjax.js/absolute_url_path"
+              ></script>
+      <script type="text/javascript">
+registerPloneFunction(function() {kj.newRequest('kupu_migration.xml');});
+      </script>
+      <div id="target">
+        Loading kupu link maintenance...
+      </div>
+      <div id="kupu-output"></div>
+<!--       <div id="log" style="height:100px;overflow:scroll;"> -->
+<!--       </div> -->
+    </div>
+  </body>
+</html>
+

@@ -21,7 +21,15 @@ from Testing import ZopeTestCase
 from Products.CMFPlone.tests import PloneTestCase
 from Products.CMFPlone.tests.PloneTestCase import portal_name, portal_owner
 from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
+try:
+    import transaction
+except ImportError:
+    class dummy:
+        def get(self): return get_transaction()
+        def commit(self): return self.get().commit()
+    transaction = dummy()
 
+    
 def installKupu(quiet=0):
     _start = time.time()
     if not quiet: ZopeTestCase._print('Adding Kupu ... ')
@@ -40,7 +48,7 @@ def installKupu(quiet=0):
 
     # Log out
     noSecurityManager()
-    get_transaction().commit()
+    transaction.commit()
     if not quiet: ZopeTestCase._print('done (%.3fs)\n' \
                                       % (time.time()-_start,))
     ZopeTestCase.close(app)

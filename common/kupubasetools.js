@@ -412,12 +412,14 @@ function KupuUI(textstyleselectid) {
             for (var i = 0; i < paraoptions.length; i++) {
                 select.appendChild(option(paraoptions[i]));
             }
-            var grp = document.createElement('optgroup');
-            grp.label = 'Character styles';
-            for (var i = 0; i < styleoptions.length; i++) {
-                grp.appendChild(option(styleoptions[i]));
+            if (styleoptions.length) {
+                var grp = document.createElement('optgroup');
+                grp.label = 'Character styles';
+                for (var i = 0; i < styleoptions.length; i++) {
+                    grp.appendChild(option(styleoptions[i]));
+                }
+                select.appendChild(grp);
             }
-            select.appendChild(grp);
         }
         if (inTable) {
             var grp = tablegrp = document.createElement('optgroup');

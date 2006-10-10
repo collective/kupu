@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tal:block
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:html="http://www.w3.org/TR/REC-html40"
+          define="charset here/portal_properties/site_properties/default_charset|here/portal_properties/default_charset|string:utf-8;
+          content_type python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=%s' % charset);">
+  <html
+       xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:kj="http://kupu.oscom.org/namespaces/kjax"
+
+       tal:define="pss modules/Products/PythonScripts/standard;
+       wantform not:request/form.submitted|request/button|nothing;
+       uri string:${context/absolute_url_path}/${template/getId}">
+    <body>
+      <div id="target" kj:mode="replace" tal:condition="wantform">
+        <form action="kupu_migration.xml"
+              method="post"
+              name="options_form"
+              onsubmit="return kj.submitForm(this);">
+          <fieldset>
+            <legend>Type (Field name)</legend>
+          <div tal:repeat="f context/getKupuFields">
+            <tal:var define="id string:type_radio_${repeat/f/index};
+                     first repeat/f/start;
+                     checked python:test(first,'checked',None);
+                     pt python:pss.url_quote(f['portal_type']);
+                     infouri string:${context/absolute_url_path}/kupu_kjax_support.xml?qlen=1&amp;portal_type=$pt;">
+            <input type="hidden" tal:attributes="value f/portal_type" name="fields.portal_type:records" />
+            <input type="hidden" tal:attributes="value f/type" name="fields.type:records" />
+            <input type="hidden" tal:attributes="value f/name" name="fields.name:records" />
+            <input type="hidden" tal:attributes="value f/label" name="fields.label:records" />
+            <input type="radio" name="fields.selected:records" value="1"
+                   tal:attributes="onclick string:kj.newRequest('$infouri');
+                   id id;checked checked;" />
+            <label tal:attributes="for id;">
+              <span tal:omit-tag="" tal:content="string:${f/type} (${f/label})" />
+            </label><span tal:attributes="kj:next infouri" tal:condition="checked" />
+            </tal:var>
+          </div>
+          </fieldset>
+          <fieldset>
+            <legend>Info</legend>
+            <div id="query_length"></div>
+          </fieldset>
+          <fieldset>
+            <legend>Save changes</legend>
+            <div class="formHelp">
+              Unless you agree that you are willing to let it update
+              your content, this tool will normally only show you what it could do.
+              If you have backed up your data and want to convert your links, type
+              'I agree' in the box below. The 'check links' option never changes content
+              whatever you type.
+            </div>
+            <input type="text" name="dryrun" value="" />
+          </fieldset>
+          <input type="hidden" name="form.submitted" value="1" />
+          <input type="hidden" name="button" value="" />
+          <input type="submit" value="check links" name="checklinks"
+                onclick="this.form.button.value='check'" />
+          <input type="submit" value="relative -> uids" name="touids"
+                 onclick="this.form.button.value='touid'" />
+          <input type="submit" value="uids -> path" name="topath"
+                 onclick="this.form.button.value='topath'" />
+        </form>
+      </div>
+      <div id="kupu-output" kj:mode="replace" tal:condition="wantform" />
+
+      <div tal:condition="not:wantform">
+        <tal:var tal:define="action request/button|nothing;
+                 m python:context.link_migration(action);">
+          <div tal:condition="m/nexturi|nothing" tal:attributes="kj:next m/nexturi" />
+          <div id="target" kj:mode="replace">
+            <!-- <pre tal:content="context/link_migration">current status</pre> -->
+            <div tal:condition="m/position|nothing">
+              <!-- progress bar -->
+              <div class="kupu-progress">&#xa0;
+                 <div class="kupu-progressbar"
+                      tal:attributes="style string:width:${m/percent}">&#xa0;</div>
+                 <div class="kupu-progresstext"
+                      tal:content="string:${m/position} of ${m/total}" />
+              </div>
+            </div>
+
+            <input type="button"
+                   value="go again!"
+                   tal:condition="not:m/nexturi|nothing"
+                   tal:attributes="onclick string:kj.newRequest('${uri}')" />
+
+            <h3 tal:condition="m/heading|nothing" tal:content="m/heading|nothing" />
+            <div class="highlightedSearchTerm" style="text-align:center"
+                 tal:condition="m/dryrun|nothing"
+                 tal:content="m/dryrun|nothing" />
+          </div>
+          <div id="kupu-output" kj:mode="append"
+               tal:condition="m/objects|nothing">
+            <div tal:repeat="o m/objects">
+              <div style="margin-top:1em"><a tal:attributes="href o/url" tal:content="o/title" /></div>
+              <blockquote tal:condition="o/info|nothing">
+                <div tal:repeat="link o/info" tal:content="link" />
+              </blockquote>
+              <div style="padding-left:1em"
+                   tal:content="structure o/diffs"
+                   tal:condition="o/diffs|nothing" />
+            </div>
+          </div>
+        </tal:var>
+      </div>
+    </body>
+  </html>
+</tal:block>

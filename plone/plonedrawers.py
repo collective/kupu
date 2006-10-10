@@ -714,7 +714,15 @@ class PloneDrawers:
     def canCaption(self, field):
         return (getattr(field, 'default_output_type', None) in
             ('text/x-html-safe', 'text/x-html-captioned'))
-        
+
+    security.declareProtected("View", "getKupuFields")
+    def getKupuFields(self, filter=1):
+        """Returns a list of all kupu editable fields"""
+        inuse = getToolByName(self, 'portal_catalog').uniqueValuesFor('portal_type')
+        for t,f,pt in self._getKupuFields():
+            if pt in inuse or not filter:
+                yield { 'type': t, 'name': f.getName(), 'label': f.widget.label, 'portal_type':pt }
+
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
         archetype_tool = getToolByName(self, 'archetype_tool', None)
@@ -726,18 +734,18 @@ class PloneDrawers:
                 for f in schema.fields():
                     w = f.widget
                     if isinstance(w, (RichWidget, VisualWidget)):
-                        yield typename, f
+                        yield typename, f, t['portal_type']
 
     security.declareProtected("View", "supportedCaptioning")
     def supportedCaptioning(self):
         """Returns a list of document/fields which have support for captioning"""
-        supported = [t+'/'+f.widget.label for (t,f) in self._getKupuFields() if self.canCaption(f) ]
+        supported = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
         return str.join(', ', supported)
 
     security.declareProtected("View", "unsupportedCaptioning")
     def unsupportedCaptioning(self):
         """Returns a list of document/fields which do not have support for captioning"""
-        unsupp = [t+'/'+f.widget.label for (t,f) in self._getKupuFields() if not self.canCaption(f) ]
+        unsupp = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
         return str.join(', ', unsupp)
 
     def transformIsEnabled(self):
@@ -788,5 +796,21 @@ class PloneDrawers:
             else:
                 base = base[:posfactory]
         return base
+
+    def _getImageSizes(self):
+        resource_type = self.getResourceType()
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        mediatypes = resource_type.get_portal_types()
+        catalog = getToolByName(self, 'portal_catalog')
+        adaptor = InfoAdaptor(self, resource_type, portal)
+
+        sizes = {}
+        for portal_type in mediatypes:
+            brains = catalog.searchResults(portal_type=portal_type, limit=1)[:1]
+            if brains:
+                info = adaptor.get_image_sizes(brains[0], portal_type, '')
+                for i in info:
+                    sizes[i['uri']] = 1
+        return sizes
 
 InitializeClass(PloneDrawers)

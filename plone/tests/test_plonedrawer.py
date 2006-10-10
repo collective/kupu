@@ -27,6 +27,10 @@ except:
     constraintypes = None
 from Products.kupu.plone.tests import TestContent
 
+try:
+    installProduct('Five', 1)
+except:
+    pass
 installProduct('ATContentTypes', 1)
 installProduct('kupu', 1)
 

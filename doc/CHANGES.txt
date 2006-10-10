@@ -14,6 +14,11 @@ Kupu changes
     closest style round the selection (i.e. a span or block tag, or 
     removes the className if it hits a table tag with a class).
 
+  - Added a link maintenance page. Checks for bad links (i.e. those 
+    kupu doesn't understand), also converts links from relative paths
+    to resolveuid and back again. Currently it doesn't actually change
+    anything though!
+
 - 1.4 Beta 1
 
   - Fixed some problems with handling of multi-valued form fields in the

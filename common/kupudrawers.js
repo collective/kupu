@@ -1199,7 +1199,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                     throw "Error loading XML";
                 };
                 var dom = xmlhttp.responseXML;
-                if (!dom.documentElement) { /* IE bug! */
+                if (!dom || !dom.documentElement) { /* IE bug! */
                     dom = Sarissa.getDomDocument();
                     dom.loadXML(xmlhttp.responseText);
                 }
