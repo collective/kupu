@@ -12,13 +12,66 @@
 
 function KJax() {};
 (function(p){
-    var fudge = new LibraryDrawer();
-    p._loadXML = fudge._loadXML;
+    p._loadXML = function(uri, callback, body, reload, extra) {
+        function _sarissaCallback() {
+        /* callback for Sarissa
+            when the callback is called because the data's ready it
+            will get the responseXML DOM and call user_callback
+            with the DOM as the first argument and the uri loaded
+            as the second
+
+            note that this method should be called in the context of an 
+            xmlhttp object
+        */
+            if (xmlhttp.readyState == 4) {
+                this.xmlhttp = null;
+                if (xmlhttp.status && xmlhttp.status != 200) {
+                    var errmessage = 'Error '+xmlhttp.status+' loading '+(uri||'XML');
+                    alert(errmessage);
+                    throw "Error loading XML";
+                };
+                var dom = xmlhttp.responseXML;
+                if (!dom || !dom.documentElement) { /* IE bug! */
+                    dom = Sarissa.getDomDocument();
+                    dom.loadXML(xmlhttp.responseText);
+                }
+                callback.apply(self, [dom, uri, extra]);
+            };
+        };
+        var self = this;
+        /* load the XML from a uri
+           calls callback with one arg (the XML DOM) when done
+           the (optional) body arg should contain the body for the request
+         */
+        var xmlhttp = new XMLHttpRequest();
+        var method = body?'POST':'GET';
+        // be sure that body is null and not an empty string or
+        // something
+        body=body?body:null;
+
+        try {
+            xmlhttp.open(method, uri, true);
+            xmlhttp.onreadystatechange = _sarissaCallback;
+            if (method == "POST") {
+                // by default, we would send a 'text/xml' request, which
+                // is a dirty lie; explicitly set the content type to what
+                // a web server expects from a POST.
+                xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+            };
+            if (reload) {
+                xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
+            }
+            this.xmlhttp = xmlhttp;
+            xmlhttp.send(body);
+        } catch(e) {
+            if (e && e.name && e.message) { // Microsoft
+                e = e.name + ': ' + e.message;
+            }
+            alert(e);
+        }
+    };
     p._xmlcallback = function(dom) {
         this.xmldata = dom;
-        this.updateDisplay();
-    };
-    p.updateDisplay = function() {
         Sarissa.setXpathNamespaces(this.xmldata, "xmlns:kj='http://kupu.oscom.org/namespaces/kjax'");
         var nodes = this.xmldata.selectNodes("//*[@kj:mode]");
         for (var i = 0; i < nodes.length; i++) {
@@ -58,13 +111,14 @@ function KJax() {};
         };
     };
     p.newRequest = function(uri) {
+        if (this.xmlhttp) this.xmlhttp.abort();
         this._loadXML(uri, this._xmlcallback);
     };
     p.clearLog = function() {
         var el = document.getElementById("log");
         while (el.firstChild) el.removeChild(el.firstChild);
     };
-    p.submitForm = function(form) {
+    p.submitForm = function(form, uri, extra) {
         var fields = [];
         function push(el, v) {
             fields.push(el.name+"="+encodeURIComponent(v));
@@ -82,8 +136,14 @@ function KJax() {};
                 push(el, el.value);
             };
         }
-        //alert(fields.join('\n'));
-        this._loadXML(form.getAttribute('action'), this._xmlcallback, fields.join('&'));
+        if (!uri) { uri = form.getAttribute('action'); };
+        if (extra) {
+            for (var name in extra) {
+                fields.push(name+"="+encodeURIComponent(extra[name]));
+            }
+        }
+        this.trace("submit form: "+uri);
+        this._loadXML(uri, this._xmlcallback, fields.join('&'));
         return false;
     };
     p.trace = function(s) {

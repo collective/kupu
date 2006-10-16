@@ -15,15 +15,26 @@ i18n:domain="plone">
         metal:use-macro="context/kupu_wysiwyg_support/macros/kupu_js_include">
       </tal:if>
       <script type="text/javascript"
-              tal:attributes="src context/kupu_kjax.js/absolute_url_path"
+              tal:attributes="src portal/kupu_kjax.js/absolute_url_path"
+              ></script>
+      <script type="text/javascript"
+              tal:attributes="src portal/kupu_references/referencebrowser.js/absolute_url_path"
               ></script>
       <script type="text/javascript">
 registerPloneFunction(function() {kj.newRequest('kupu_migration.xml');});
       </script>
+      <metal:call use-macro="here/referencebrowser/macros/kupudrawer" />
       <div id="target">
         Loading kupu link maintenance...
       </div>
-      <div id="kupu-output"></div>
+      <form action="kupu_migration.xml"
+            method="post"
+            name="changes_form"
+            onsubmit="alert('submitting'); return false;return kj.submitForm(this);"
+            tal:define="infouri string:${context/absolute_url_path}/kupu_kjax_support.xml"
+            >
+        <div id="kupu-output"></div>
+      </form>
 <!--       <div id="log" style="height:100px;overflow:scroll;"> -->
 <!--       </div> -->
     </div>
