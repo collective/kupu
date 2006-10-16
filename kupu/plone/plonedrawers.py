@@ -813,4 +813,21 @@ class PloneDrawers:
                     sizes[i['uri']] = 1
         return sizes
 
+    security.declareProtected("View", "convertUidsToPaths")
+    def convertUidsToPaths(self, value=None):
+        """Convert a list of uids
+        (or a single space or newline separated string)
+        to a list of paths"""
+        uid_catalog = getToolByName(self, 'uid_catalog')
+        ppath = getToolByName(self, 'portal_url').getPortalPath()[1:]+'/'
+        
+        if isinstance(value, basestring):
+            value = value.split()
+        if not value:
+            return []
+            
+        brains = uid_catalog.searchResults(UID=value)
+        paths = [ppath+b.getPath() for b in brains]
+        return paths
+
 InitializeClass(PloneDrawers)

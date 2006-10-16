@@ -14,6 +14,7 @@ from DocumentTemplate.DT_Var import newline_to_br
 import re
 from cgi import escape
 from urlparse import urlsplit, urljoin, urlunsplit
+from Acquisition import aq_base
 
 __revision__ = '$Id$'
 
@@ -160,8 +161,9 @@ LINK_PATTERN = re.compile(
 
 class Migration:
     FIELDS = ('portal_type', 'typename', 'fieldname',
-        'fieldlabel', 'position', 'action', 'dryrun',
-        'image_tails'
+        'fieldlabel', 'position', 'action', 'commit_changes',
+        'image_tails', 'paths', 'pathuids', 'uids', 'found',
+        'batch_size',
     )
 
     def __init__(self, tool):
@@ -175,11 +177,17 @@ class Migration:
         self.reference_tool = getToolByName(tool, 'reference_catalog')
         self.portal_catalog = getToolByName(tool, 'portal_catalog')
         self._continue = True
+        self._firstoutput = False
+        self.commit_changes = False
+        self._objects = []
 
     def initFromRequest(self):
         self.image_tails = self.tool._getImageSizes()
+        self.uids = None
+        self.found = 0
         request = self.tool.REQUEST
-        fields = [f for f in request.form.get('fields',()) if f.get('selected',0)]
+        rfg = request.form.get
+        fields = [f for f in rfg('fields',()) if f.get('selected',0)]
         if fields:
             f = fields[0]
             self.portal_type = f.portal_type
@@ -187,13 +195,33 @@ class Migration:
             self.fieldname = f.name
             self.fieldlabel = f.label
         else:
-            self.portal_type = None
+            self.portal_type = rfg('portal_type', None)
             self.fieldname = None
             self.fieldlabel = None
+            self.typename = None
 
         self.position = 0
-        self.action = request.form.get('button', None)
-        self.dryrun = request.form.get('dryrun', '') != 'I agree'
+        self.action = rfg('button', None)
+        self.commit_changes = rfg('commit', False)
+        self.batch_size = 10
+        if self.commit_changes:
+            self.uids = rfg('uids', [])
+
+        pathuids = rfg('folderpaths', [])
+        self.paths = self.tool.convertUidsToPaths(pathuids)
+        self.pathuids = pathuids
+
+    def initCommit(self):
+        """Reset counters for a commit pass"""
+        self.restoreState()
+        request = self.tool.REQUEST
+        rfg = request.form.get
+        self.commit_changes = True
+        self._firstoutput = True
+        self.found = 0
+        self.position = 0
+        self.batch_size = 1
+        self.uids = rfg('uids')
 
     def saveState(self):
         SESSION = self.tool.REQUEST.SESSION
@@ -205,20 +233,34 @@ class Migration:
         for f in self.FIELDS:
             setattr(self, f, state[f])
 
-    def clearState(self):
-        SESSION = self.tool.REQUEST.SESSION
-        if SESSION.has_key('kupu_migrator'):
-            del SESSION['kupu_migrator']
+#     def clearState(self):
+#         return
+#         SESSION = self.tool.REQUEST.SESSION
+#         if SESSION.has_key('kupu_migrator'):
+#             del SESSION['kupu_migrator']
 
     def status(self):
         s = [ '%s=%s' % (f,getattr(self, f, 'unset')) for f in
             self.FIELDS ]
         return '\n'.join(s)
 
-    def getInfo(self):
+    def mkQuery(self):
+        query = {}
+        if self.portal_type:
+            query['portal_type'] = self.portal_type
+        if self.paths:
+            query['path'] = self.paths
+        return query
+
+    def getInfo(self, saveState=True):
         info = {}
         if self._continue:
             info['nexturi'] = self.tool.absolute_url_path()+'/kupu_migration.xml?button=continue'
+        else:
+            info['nexturi'] = None
+
+        info['firstoutput'] = self._firstoutput
+
         if hasattr(self, '_total'):
             info['total'] = self._total
             info['position'] = self.position
@@ -226,49 +268,61 @@ class Migration:
                 info['percent'] = '100%'
             else:
                 info['percent'] = '%d%%' % ((100.*self.position)/self._total)
-            info['objects'] = getattr(self, '_objects', [])
-        action = getattr(self, 'action', '')
-        if action:
-            headings = { 'check': 'Bad links',
-                'touid': 'Links converted to resolveuid form',
-                'topath': 'Links converted to relative path',
-                }
-            heading = headings[action]
-            if self.typename:
-                heading += ' for %s (%s)' % (self.typename, self.fieldlabel)
-            info['heading'] = heading
 
-        if not self.action=='check':
-            if self.dryrun:
-                dryrun = 'Dryrun only, no changes are being made to your data'
-            else:
-                dryrun = '''Content is being updated
-                (actually that's a lie: until the code is more tested I'm not updating anything)'''
-            info['dryrun'] = dryrun
+        info['objects'] = self._objects
+        info['action'] = action = self.action
+        info['action_check'] = action=='check'
+        info['action_touid'] = action=='touid'
+        info['action_topath'] = action=='topath'
+        info['typename'] = self.typename
+        info['fieldlabel'] = self.fieldlabel
+        info['checkboxes'] = action != 'check' and not self.commit_changes
+        info['commit_changes'] = self.commit_changes
+        info['dryrun'] = not (self.action == 'check' or self.commit_changes)
+        info['found'] = self.found
 
+        if saveState:
+            self.saveState()
         return info
 
     def docontinue(self):
         """Scan selected documents looking for convertible links"""
-        brains = self.portal_catalog.searchResults(portal_type=self.portal_type)
+        uids = self.uids
+        if uids is None:
+            self.uids = uids = []
+            brains = self.portal_catalog.searchResults(self.mkQuery())
+            for b in brains:
+                uid = self.UIDfromBrain(b)
+                if uid:
+                    uids.append(uid)
+            self._firstoutput = True
+            self._continue = True
+            return True
+
         pos = self.position
-        self._total = total = len(brains)
-        brains = brains[pos:pos+10]
-        self.position = pos + len(brains)
-        if not brains:
+        self._total = total = len(uids)
+
+        uids = uids[pos:pos+self.batch_size]
+        self.position = pos + len(uids)
+        if not uids:
             self._continue = False
             return False # Done
-
+            
         self._objects = res = []
-        for b in brains:
-            braininfo = self.brain_check(b)
-            if braininfo:
-                res.append(braininfo)
+        for uid in uids:
+            obj = self.reference_tool.lookupObject(uid)
+            objinfo = self.object_check(obj)
+            if objinfo:
+                res.append(objinfo)
 
         self._continue = True
         return True
 
     def brain_check(self, brain):
+        object = brain.getObject()
+        return self.object_check(object)
+
+    def object_check(self, object):
         """Check the relative links within this object."""
         def checklink(match):
             matched = match.group(0)
@@ -299,31 +353,50 @@ class Migration:
 
         info = []
         changes = []
-        object = brain.getObject()
-        objuid = getattr(object.aq_base, 'UID', None)
-        if objuid:
-            objuid = objuid
+        try:
+            objuid = aq_base(object).UID
+        except:
+            return None  # only archetypes objects
 
         base = object.absolute_url()
         if getattr(object.aq_explicit, 'isPrincipiaFolderish', 0):
             base += '/'
         field = object.getField(self.fieldname)
-        data = field.getRaw(object)
+        data = field.getEditAccessor(object)()
+        __traceback_info__ = (object, data)
         newdata = LINK_PATTERN.sub(checklink, data)
+        if data != newdata and self.commit_changes:
+            mutator = field.getMutator(object)
+            print "set field"
+            print repr(newdata)
+            print mutator
+            mutator(newdata)
 
         if info or changes:
-            title = brain.Title
+            self.found += 1
+            title = object.Title()
             if not title:
-                title = getattr(brain, 'getId')
+                title = object.getId()
             if not title:
                 title = '<object>'
             if data != newdata:
                 diffs = htmlchanges(data, changes)
             else:
                 diffs = None
-            return dict(title=title, info=info, url=object.absolute_url_path(),
+            return dict(title=title, uid = objuid, info=info, url=object.absolute_url_path(),
                 diffs=diffs)
         return None
+
+    def UIDfromBrain(self, brain):
+        """Convert a brain to a UID without hitting the object"""
+        path = brain.getPath()
+        if not path.startswith(self.portal_base):
+            return None
+        try:
+            metadata = self.uid_catalog.getMetadataForUID(path[self.prefix_length:])
+        except KeyError:
+            return None
+        return metadata.get('UID', None)
 
     def UIDfromURL(self, url):
         """Convert an absolute URL to a UID"""
@@ -343,6 +416,8 @@ class Migration:
         if not url.startswith(self.portal_base_url):
             return None
         url = self.portal_base + url[len(self.portal_base_url):]
+        if isinstance(url, unicode):
+            url = url.encode('utf8') # ExtendedPathIndex can't cope with unicode paths
         brains = self.portal_catalog.searchResults(path=url)
         if len(brains) != 1:
             # Happens on Plone 2.0 :(

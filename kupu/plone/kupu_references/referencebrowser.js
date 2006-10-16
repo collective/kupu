@@ -69,7 +69,11 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
             div.appendChild(link);
             preview.appendChild(div);
         }
-        this.field.value = this.currentSelection.join('\n');
+        var nvalue =  this.currentSelection.join('\n');
+        if (nvalue != this.field.value) {
+            this.field.value = nvalue;
+            kupuFireEvent(this.field, 'change');
+        }
         referencebrowse_showRemove(this.fieldName, this.currentSelection.length);
 
         drawertool.closeDrawer();
@@ -121,6 +125,15 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
     };    
 };
 
+function kupuFireEvent(el, event) {
+    if (el.fireEvent) {
+        el.fireEvent('on'+event); //IE
+    } else {
+        var evt = document.createEvent("HTMLEvents");
+        evt.initEvent(event,true,true);
+        el.dispatchEvent( evt );
+    }
+}
 function fakeEditor() {
     this.getBrowserName = function() {
         if (_SARISSA_IS_MOZ) {
@@ -193,6 +206,7 @@ function referencebrowser_removeReference(fieldName)
         };
     };
     field.value = '';
+    kupuFireEvent(field, 'change');
     referencebrowse_showRemove(fieldName, false);
 };
 

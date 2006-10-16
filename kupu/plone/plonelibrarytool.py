@@ -374,29 +374,31 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         return _docs
 
     security.declareProtected(permissions.ManageLibraries, "link_migration")
-    def link_migration(self, button='status'):
+    def link_migration(self, action=None):
         """Do link checking or conversion, a little bit at a time"""
-        action = button
+        if action is None:
+            action = self.REQUEST.form.get('button', '')
+
+        commit = self.REQUEST.form.get('commit', False)
         migrator = html2captioned.Migration(self)
         if action=='continue':
             migrator.restoreState()
             res = migrator.docontinue()
-            info = migrator.getInfo()
-            if res:
-                migrator.saveState()
-            else:
-                migrator.clearState()
-            return info
+            return migrator.getInfo()
         elif action=='status':
             try:
                 migrator.restoreState()
             except KeyError:
                 return "state cleared"
             return migrator.status()
-
+        elif action=='query':
+            migrator.initFromRequest()
+            return migrator.mkQuery()
+        elif commit:
+            migrator.initCommit()
+            return migrator.getInfo()
         else:
             migrator.initFromRequest()
-            migrator.saveState()
             return migrator.getInfo()
 
     security.declareProtected(permissions.ManageLibraries, "zmi_links")
