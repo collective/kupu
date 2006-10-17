@@ -16,8 +16,7 @@ Kupu changes
 
   - Added a link maintenance page. Checks for bad links (i.e. those 
     kupu doesn't understand), also converts links from relative paths
-    to resolveuid and back again. Currently it doesn't actually change
-    anything though!
+    to resolveuid and back again.
 
 - 1.4 Beta 1
 
