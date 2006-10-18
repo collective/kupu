@@ -56,7 +56,7 @@
             <div class="formHelp">
               You may restrict the search to specific folders.
             </div>
-            <div metal:use-macro="context/kupu_references/kupu_kjax_support.xml/macros/edit" />
+            <div metal:use-macro="context/kupu_kjax_support.xml/macros/edit" />
           </fieldset>
           <fieldset>
             <legend>Info</legend>
