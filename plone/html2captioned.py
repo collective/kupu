@@ -250,6 +250,7 @@ class Migration:
             query['portal_type'] = self.portal_type
         if self.paths:
             query['path'] = self.paths
+        query['Language'] = 'all'
         return query
 
     def getInfo(self, saveState=True):
@@ -418,7 +419,7 @@ class Migration:
         url = self.portal_base + url[len(self.portal_base_url):]
         if isinstance(url, unicode):
             url = url.encode('utf8') # ExtendedPathIndex can't cope with unicode paths
-        brains = self.portal_catalog.searchResults(path=url)
+        brains = self.portal_catalog.searchResults(path=url, Language='all')
         if len(brains) != 1:
             # Happens on Plone 2.0 :(
             for b in brains:

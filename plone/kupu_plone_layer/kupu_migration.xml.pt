@@ -138,7 +138,8 @@
             <div id="kupu-output" kj:mode="append" tal:condition="python:m['dryrun'] or not m['commit_changes']">
               <div tal:condition="m/found">
                 Search found <span tal:replace="m/found" />
-                <span tal:content="m/typename" /> objects.</div>
+                <span tal:content="m/typename" /> objects from <span
+                tal:content="m/total" /> searched.</div>
               <div tal:condition="not:m/found">Sorry, nothing was found</div>
             </div>
             <div id="kupu-message" kj:mode="replace">
