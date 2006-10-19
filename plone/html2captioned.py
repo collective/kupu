@@ -250,10 +250,7 @@ class Migration:
     def mkQuery(self):
         query = {}
         if self.portal_type:
-            if self.portal_type==FRAGMENT_TYPE:
-                query['portal_type'] = NAVIGATION_PAGE
-            else:
-                query['portal_type'] = self.portal_type
+            query['portal_type'] = sanitize_portal_type(self.portal_type)
         if self.paths:
             query['path'] = self.paths
         query['Language'] = 'all'
