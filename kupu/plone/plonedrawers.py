@@ -23,6 +23,7 @@ from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone.librarytool import KupuError
+import html2captioned
 
 try:
     from PIL import Image
@@ -720,7 +721,7 @@ class PloneDrawers:
         """Returns a list of all kupu editable fields"""
         inuse = getToolByName(self, 'portal_catalog').uniqueValuesFor('portal_type')
         for t,f,pt in self._getKupuFields():
-            if pt in inuse or not filter:
+            if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
                 yield { 'type': t, 'name': f.getName(), 'label': f.widget.label, 'portal_type':pt }
 
     def _getKupuFields(self):
