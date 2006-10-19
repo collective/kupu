@@ -14,6 +14,7 @@ from DocumentTemplate.DT_Var import newline_to_br
 import re
 from cgi import escape
 from urlparse import urlsplit, urljoin, urlunsplit
+from urllib import unquote_plus
 from Acquisition import aq_base
 
 __revision__ = '$Id$'
@@ -158,6 +159,7 @@ ATTR_HREF = ATTR_VALUE % 'href'
 LINK_PATTERN = re.compile(
     r'(?P<prefix>\<(?:img\s[^>]*src|a\s[^>]*href)=(?:"?))(?P<href>(?<=")[^"]*|[^ \/>]*)',
     re.IGNORECASE)
+FRAGMENT_TYPE = 'CompositePack Fragments'
 
 class Migration:
     FIELDS = ('portal_type', 'typename', 'fieldname',
@@ -247,7 +249,10 @@ class Migration:
     def mkQuery(self):
         query = {}
         if self.portal_type:
-            query['portal_type'] = self.portal_type
+            if self.portal_type==FRAGMENT_TYPE:
+                query['portal_type'] = 'Navigation Page'
+            else:
+                query['portal_type'] = self.portal_type
         if self.paths:
             query['path'] = self.paths
         query['Language'] = 'all'
@@ -312,9 +317,20 @@ class Migration:
         self._objects = res = []
         for uid in uids:
             obj = self.reference_tool.lookupObject(uid)
-            objinfo = self.object_check(obj)
-            if objinfo:
-                res.append(objinfo)
+            if self.portal_type==FRAGMENT_TYPE:
+                try:
+                    fldr = obj.cp_container.titles
+                except:
+                    continue
+                else:
+                    for o in fldr.objectValues([FRAGMENT_TYPE]):
+                        objinfo = self.object_check(o)
+                        if objinfo:
+                            res.append(objinfo)
+            else:
+                objinfo = self.object_check(obj)
+                if objinfo:
+                    res.append(objinfo)
 
         self._continue = True
         return True
@@ -332,7 +348,8 @@ class Migration:
 
             if self.action=='check':
                 if classification=='bad':
-                    info.append(link)
+                    abslink = urljoin(base, link)
+                    info.append({'text':link, 'url':abslink})
             elif self.action=='touid':
                 if classification=='internal':
                     if uid and uid==objuid:
@@ -359,18 +376,22 @@ class Migration:
         except:
             return None  # only archetypes objects
 
-        base = object.absolute_url()
-        if getattr(object.aq_explicit, 'isPrincipiaFolderish', 0):
+        baseobj = object
+        if object.portal_type==FRAGMENT_TYPE:
+            baseobj = object.aq_parent.aq_parent.aq_parent
+        base = baseobj.absolute_url()
+        if getattr(baseobj.aq_explicit, 'isPrincipiaFolderish', 0):
             base += '/'
+
         field = object.getField(self.fieldname)
+        if field is None:
+            return None
+
         data = field.getEditAccessor(object)()
         __traceback_info__ = (object, data)
         newdata = LINK_PATTERN.sub(checklink, data)
         if data != newdata and self.commit_changes:
             mutator = field.getMutator(object)
-            print "set field"
-            print repr(newdata)
-            print mutator
             mutator(newdata)
 
         if info or changes:
@@ -380,11 +401,13 @@ class Migration:
                 title = object.getId()
             if not title:
                 title = '<object>'
+            if object.portal_type == FRAGMENT_TYPE:
+                title = "%s (%s)" % (baseobj.title_or_id(), title)
             if data != newdata:
                 diffs = htmlchanges(data, changes)
             else:
                 diffs = None
-            return dict(title=title, uid = objuid, info=info, url=object.absolute_url_path(),
+            return dict(title=title, uid = objuid, info=info, url=baseobj.absolute_url_path(),
                 diffs=diffs)
         return None
 
@@ -416,6 +439,7 @@ class Migration:
         """convert a url to a catalog brain"""
         if not url.startswith(self.portal_base_url):
             return None
+        url = unquote_plus(url)
         url = self.portal_base + url[len(self.portal_base_url):]
         if isinstance(url, unicode):
             url = url.encode('utf8') # ExtendedPathIndex can't cope with unicode paths
@@ -457,12 +481,13 @@ class Migration:
         """
         if url.startswith('portal_factory'):
             url = url[14:]
+
         absurl = urljoin(base, url)
         if not absurl.startswith(self.portal_base_url):
             return 'external', None, url, ''
-        absurl = absurl.strip('/')
 
         scheme, netloc, path, query, fragment = urlsplit(absurl)
+        path = path.strip('/')
         tail = urlunsplit(('','','',query,fragment))
         absurl = urlunsplit((scheme,netloc,path,'',''))
 

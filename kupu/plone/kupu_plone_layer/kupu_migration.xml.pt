@@ -126,9 +126,14 @@
                        tal:condition="m/checkboxes"
                        tal:attributes="value o/uid" checked="checked" />
                 <a tal:attributes="href o/url" tal:content="o/title" /></div>
-              <blockquote tal:condition="o/info|nothing">
-                <div tal:repeat="link o/info" tal:content="link" />
-              </blockquote>
+              <ul tal:condition="o/info|nothing">
+                <li tal:repeat="link o/info"
+                    tal:define="portal_url context/portal_url">
+                  <span tal:content="link/text" />
+                  <a target="badlink"
+                    tal:attributes="href link/url">link</a>
+                </li>
+              </ul>
               <div style="padding-left:1em"
                    tal:content="structure o/diffs"
                    tal:condition="o/diffs|nothing" />
