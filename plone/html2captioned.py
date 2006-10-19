@@ -160,6 +160,7 @@ LINK_PATTERN = re.compile(
     r'(?P<prefix>\<(?:img\s[^>]*src|a\s[^>]*href)=(?:"?))(?P<href>(?<=")[^"]*|[^ \/>]*)',
     re.IGNORECASE)
 FRAGMENT_TYPE = 'CompositePack Fragments'
+NAVIGATION_PAGE = 'Navigation Page'
 
 class Migration:
     FIELDS = ('portal_type', 'typename', 'fieldname',
@@ -250,7 +251,7 @@ class Migration:
         query = {}
         if self.portal_type:
             if self.portal_type==FRAGMENT_TYPE:
-                query['portal_type'] = 'Navigation Page'
+                query['portal_type'] = NAVIGATION_PAGE
             else:
                 query['portal_type'] = self.portal_type
         if self.paths:
@@ -568,3 +569,10 @@ def htmlchanges(data, changes):
         if prev+10 < len(data):
             out.append('...')
     return ''.join(out)
+
+def sanitize_portal_type(pt):
+    """Performs portal type mapping prior to database query.
+    Needed for CompositePack pages"""
+    if pt==FRAGMENT_TYPE:
+        return NAVIGATION_PAGE
+    return pt
