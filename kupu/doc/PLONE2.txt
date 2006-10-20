@@ -323,9 +323,89 @@ has Portal Transforms and docutils installed the file will be
 formatted, otherwise it displays the reStructuredText source of the
 file.
 
-Custom Paragraph styles
------------------------
-Paragraph styles come from 3 sources:
+links tab
+=========
+
+This tab allows you to check and maintain links in kupu-editable
+fields.
+
+    Type (Field Name)
+        Lists content types and field names which are editable using
+        Kupu. Only those content types which are exist in the catalog
+        are listed.
+
+    Folders
+        You may use the popup to restrict the search to one or
+        more folders. If you do not select a folder the entire site
+        will be searched.
+
+    Info
+        This field lists the number of matching objects in the
+        catalog based on the current type and folder selection.
+
+There are three command buttons: check links, relative path -> uids,
+and uids -> relative path.
+
+You should convert relative path to uids if you are enabling the 'link
+by uid' option and have existing content, or if you have imported
+content from another source which contains relative links.
+
+The 'uid to relative path' conversion is useful if you have decided to
+stop using 'link by uid' or if you wish to transfer content to another
+system and uids might not preserved during the process. Also, if you
+want to copy a folder within Plone convert to relative paths before
+copying and convert both folders back to uids after copying will
+ensure wherever appropriate that any links within the copied folder
+point to the copy rather than the original.
+
+All commands look for links in the HREF attribute of A tags, and the
+SRC attribute of IMG tags in the selected field. Only relative URLs
+are processed: links to other sites or for other protocols are not
+checked.
+
+Pressing a command button should load the results page and then after
+a short pause should start searching. A progress bar indicates how the
+search is progressing.
+
+check links
+        This command does not modify any content. It simply lists all relative
+        links which are not obviously valid. It is possible that some of these
+        links are correct. Each potentially bad link is displayed with
+        a link to the URL to which Kupu believes it refers. You should review
+        the links individually within the documents and fix them as required.
+
+        Links to methods within objects (except for the difference
+        image sizes) may also be flagged as potential errors.
+
+relative path -> uids
+        This button searches for all relative path URLs which could be
+        replaced by references using the resolveuid form of link. Nothing is
+        actually changed at this point. Each title link has a checkbox and you
+        may de-select any which you wish to be left unchanged: you may only
+        control the changes at the field level, you cannot choose to apply
+        only some of the changes within a field. Changes will only be made
+        when you press the 'commit selected changes' button.
+
+        The proposed changes are displayed with deleted and inserted text
+        highlighted appropriately.
+
+        If you confirm the changes then the resulting text is displayed with
+        the change highlighted.
+
+uids -> relative path
+        This command searches for all resolveuid links and replaces them with
+        normal relative urls. As with the previous command you are given a
+        screen showing the proposed changes and may exclude any of them
+        before confirming the search.
+
+Custom styles
+-------------
+Kupu allows you to specify styles for paragraphs (P or DIV tags),
+character styles (SPAN tags), and table elements (TABLE, THEAD, TBODY,
+TFOOT, TR, TH, TD tags). The table styles are only available while the
+cursor is inside a table, other styles are available at all times.
+
+Styles come from 3 sources:
 
    a) The style ``Normal`` is always defined
 
@@ -343,6 +423,8 @@ or ``title|tag|class``. e.g.::
     Subheading|h3
     Formatted|pre
     Pull Quote|div|pullQuote
+    Highlight|span|highlight
+    Table Head|th
 
 Each rich text field can define its own set of paragraph styles to be
 made available in kupu. These are defined on the ``parastyles`` attribute
