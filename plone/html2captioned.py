@@ -162,6 +162,8 @@ LINK_PATTERN = re.compile(
 FRAGMENT_TYPE = 'CompositePack Fragments'
 NAVIGATION_PAGE = 'Navigation Page'
 
+SUMMARY_PATTERN = re.compile(r'(\<a[^>]*>.*?</a>)|(\<img[^>]*\>)', re.IGNORECASE|re.DOTALL)
+
 class Migration:
     FIELDS = ('portal_type', 'typename', 'fieldname',
         'fieldlabel', 'position', 'action', 'commit_changes',
@@ -337,6 +339,18 @@ class Migration:
         object = brain.getObject()
         return self.object_check(object)
 
+    def link_summary(self, data, start, link):
+        """Summary information for a link"""
+        m = SUMMARY_PATTERN.match(data, start)
+        if m:
+            text = m.group(0)
+        else:
+            text = data[start:start+200]
+        bits = text.split(link, 1)
+        if len(bits)==1:
+            bits.append('')
+        return bits
+
     def object_check(self, object):
         """Check the relative links within this object."""
         def checklink(match):
@@ -347,7 +361,11 @@ class Migration:
             if self.action=='check':
                 if classification=='bad':
                     abslink = urljoin(base, link)
-                    info.append({'text':link, 'url':abslink})
+                    before, after = self.link_summary(data, match.start(), link)
+                    summary = {'text':link, 'url':abslink,
+                        'before': before,
+                        'after': after, }
+                    info.append(summary)
             elif self.action=='touid':
                 if classification=='internal':
                     if uid and uid==objuid:

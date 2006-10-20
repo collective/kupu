@@ -108,13 +108,15 @@
             <h3 tal:condition="m/action_check" tal:content="m/heading|nothing" />
             <h3 tal:condition="m/heading|nothing" tal:content="m/heading|nothing" />
             <div id="kupu-message">
-              <div class="highlightedSearchTerm" style="text-align:center">
-                <span tal:condition="m/dryrun">
+              <div class="highlightedSearchTerm"
+                   style="text-align:center"
+                   tal:condition="m/dryrun">
                 Dry run only: no changes are being made to your data.
-                </span>
-                <span tal:condition="m/commit_changes">
+              </div>
+              <div class="highlightedSearchTerm"
+                   style="text-align:center"
+                   tal:condition="m/commit_changes">
                 Content is being updated.
-                </span>
               </div>
             </div>
           </div>
@@ -129,9 +131,13 @@
               <ul tal:condition="o/info|nothing">
                 <li tal:repeat="link o/info"
                     tal:define="portal_url context/portal_url">
-                  <span tal:content="link/text" />
-                  <a target="badlink"
-                    tal:attributes="href link/url">link</a>
+                  <code>
+                  <span tal:content="link/before" /><a
+                     target="badlink"
+                     tal:attributes="href link/url"
+                     tal:content="link/text|default">[no text in link]</a><span
+                     tal:content="link/after" />
+                  </code>
                 </li>
               </ul>
               <div style="padding-left:1em"

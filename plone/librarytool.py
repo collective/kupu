@@ -216,7 +216,7 @@ class KupuLibraryTool(Acquisition.Implicit):
     def getNormalUrl(self, portal_type, url):
         action_map = getattr(self, '_preview_actions', {})
         if portal_type in action_map:
-            expr = action_map[portal_type]['normal']
+            expr = action_map[portal_type].get('normal', None)
             if expr:
                 data = {
                     'object_url':   url,
