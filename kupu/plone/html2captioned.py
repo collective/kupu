@@ -355,7 +355,7 @@ class Migration:
         """Check the relative links within this object."""
         def checklink(match):
             matched = match.group(0)
-            newlink = link = match.group('href')
+            newlink = link = decodeEntities(match.group('href'))
             classification, uid, relpath, tail = self.classifyLink(link, base)
 
             if self.action=='check':
@@ -382,7 +382,7 @@ class Migration:
             if newlink != link:
                 prefix = match.group('prefix')
                 changes.append((match.start()+len(prefix), match.end(), newlink))
-                return prefix + newlink
+                return prefix + html_quote(newlink)
             return matched
 
         info = []
@@ -403,12 +403,17 @@ class Migration:
         if field is None:
             return None
 
+        content_type = field.getContentType(object)
+        if content_type != 'text/html':
+            # Don't attempt to modify non-html
+            return None
+            
         data = field.getEditAccessor(object)()
         __traceback_info__ = (object, data)
         newdata = LINK_PATTERN.sub(checklink, data)
         if data != newdata and self.commit_changes:
             mutator = field.getMutator(object)
-            mutator(newdata)
+            mutator(newdata, mimetype='text/html')
 
         if info or changes:
             self.found += 1
@@ -591,3 +596,15 @@ def sanitize_portal_type(pt):
     if pt==FRAGMENT_TYPE:
         return NAVIGATION_PAGE
     return pt
+
+EntityPattern = re.compile('&(?:#(\d+)|([a-zA-Z]+));')
+def decodeEntities(s, encoding='utf-8'):
+    def unescape(match):
+	code = match.group(1)
+        if code:
+            return unichr(int(code, 10))
+        else:
+            code = match.group(2)
+            return unichr(name2codepoint[code])
+
+    return EntityPattern.sub(unescape, s)

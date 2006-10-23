@@ -722,7 +722,7 @@ class PloneDrawers:
         inuse = getToolByName(self, 'portal_catalog').uniqueValuesFor('portal_type')
         for t,f,pt in self._getKupuFields():
             if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
-                yield { 'type': t, 'name': f.getName(), 'label': f.widget.label, 'portal_type':pt }
+                yield { 'type': t, 'name': f.getName(), 'label': f.widget.Label(self), 'portal_type':pt }
 
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
