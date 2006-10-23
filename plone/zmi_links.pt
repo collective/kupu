@@ -7,10 +7,6 @@ i18n:domain="plone">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
-  </metal:cssslot>
-  <body>
-
-    <div class="documentContent" metal:fill-slot="kupu_content">
       <tal:if condition="not:exists:portal/portal_javascripts"
         metal:use-macro="context/kupu_wysiwyg_support/macros/kupu_js_include">
       </tal:if>
@@ -18,11 +14,15 @@ i18n:domain="plone">
               tal:attributes="src portal/kupu_kjax.js/absolute_url_path"
               ></script>
       <script type="text/javascript"
-              tal:attributes="src portal/kupu_references/referencebrowser.js/absolute_url_path"
+              tal:attributes="src portal/portal_skins/kupu_references/referencebrowser.js/absolute_url_path"
               ></script>
       <script type="text/javascript">
 registerPloneFunction(function() {kj.newRequest('kupu_migration.xml');});
       </script>
+  </metal:cssslot>
+  <body>
+
+    <div class="documentContent" metal:fill-slot="kupu_content">
       <metal:call use-macro="here/referencebrowser/macros/kupudrawer" />
       <div id="target">
         Loading kupu link maintenance...
