@@ -140,9 +140,11 @@
                   </code>
                 </li>
               </ul>
-              <div style="padding-left:1em"
+              <div>
+              <code 
                    tal:content="structure o/diffs"
                    tal:condition="o/diffs|nothing" />
+              </div>
             </div>
           </div>
           <tal:if tal:condition="not:m/nexturi">
