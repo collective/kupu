@@ -587,6 +587,11 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                 util.register_layer(self, 'plone/kupu_references', 'kupu_references', out)
             else:
                 util.unregister_layers(self, ['kupu_references'], out)
+            # Force compressed javascript to be recomputed.
+            try:
+                self.portal_javascripts.cookResources()
+            except AttributeError:
+                pass
 
         if captioning is not None:
             self.captioning = captioning
