@@ -44,9 +44,13 @@ CLASS_BLACKLIST = ['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
 TABLE_CLASSNAMES = ('plain', 'listing', 'grid', 'data')
 
 PARAGRAPH_STYLES = (
-    "Heading|h2|Heading",
-    "Subheading|h3|Subheading",
-    "Formatted|pre",
+    "Heading|h2",
+    "Subheading|h3",
+    "Literal|pre",
+    "Discreet|p|discreet",
+    "Pull-quote|blockquote|pullquote",
+    "Call-out|p|callout",
+    "Highlight|span|visualHighlight",
     "Odd row|tr|odd",
     "Even row|tr|even",
     "Heading cell|th|",
