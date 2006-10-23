@@ -81,7 +81,11 @@ _default_paragraph_styles = (
     "Literal|pre",
     "Discreet|p|discreet",
     "Pull-quote|blockquote|pullquote",
-    "Call-out|p|callout"
+    "Call-out|p|callout",
+    "Highlight|span|visualHighlight",
+    "Odd row|tr|odd",
+    "Even row|tr|even",
+    "Heading cell|th|",
 )
 
 class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
