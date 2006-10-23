@@ -16,9 +16,6 @@ i18n:domain="plone">
       <script type="text/javascript"
               tal:attributes="src portal/portal_skins/kupu_references/referencebrowser.js/absolute_url_path"
               ></script>
-      <script type="text/javascript">
-registerPloneFunction(function() {kj.newRequest('kupu_migration.xml');});
-      </script>
   </metal:cssslot>
   <body>
 
@@ -27,6 +24,10 @@ registerPloneFunction(function() {kj.newRequest('kupu_migration.xml');});
       <div id="target">
         Loading kupu link maintenance...
       </div>
+      <div id="start" kj:nexturi="kupu_migration.xml"></div>
+      <script type="text/javascript">
+       addEventHandler(window, 'load', function(){kj.newRequest('kupu_migration.xml');}, document);
+      </script>
       <form action="kupu_migration.xml"
             method="post"
             name="changes_form"

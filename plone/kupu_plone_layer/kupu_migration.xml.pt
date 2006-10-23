@@ -3,6 +3,8 @@
           xmlns:tal="http://xml.zope.org/namespaces/tal"
           xmlns:metal="http://xml.zope.org/namespaces/metal"
           xmlns:html="http://www.w3.org/TR/REC-html40"
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	  i18n:domain="plone"
           define="charset here/portal_properties/site_properties/default_charset|here/portal_properties/default_charset|string:utf-8;
           content_type python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=%s' % charset);">
   <html
@@ -41,7 +43,8 @@
                    onclick string:kj.submitForm(this.form,'$infouri',{'qlen':1,'portal_type':'$pt'});
                    id id;checked checked;" />
             <label tal:attributes="for id;">
-              <span tal:omit-tag="" tal:content="string:${f/type} (${f/label})" />
+              <span tal:omit-tag="" i18n:translate="" tal:content="f/type" />
+	       (<span i18n:translate="" tal:content="f/label"></span>)
             </label>
             <span tal:define="folderpaths python:'\n'.join(uids)"
                   tal:attributes="kj:next string:$infouri?qlen=1&amp;portal_type=$pt&amp;folderpaths=$folderpaths"
@@ -107,6 +110,12 @@
             </h3>
             <h3 tal:condition="m/action_check" tal:content="m/heading|nothing" />
             <h3 tal:condition="m/heading|nothing" tal:content="m/heading|nothing" />
+	    <div class="discreet" tal:condition="m/action_check">
+	       Links listed below are not recognised by kupu as pointing to content
+	       within this Plone instance. There are several reasons why links which
+	       are valid may not be recognised by kupu: you may click on each link to
+	       verify whether it is indeed broken.
+	    </div>
             <div id="kupu-message">
               <div class="highlightedSearchTerm"
                    style="text-align:center"
