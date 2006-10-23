@@ -20,14 +20,14 @@ Requirements
 
 * Archetypes 1.3.x
 
-If you are installing a development build checked out from SVN then
+If you plan on customizing kupu by editing the '.kupu' files then
 you also need:
 
 * An XSLT processor with XInclude support, such as xsltproc from
   Gnome's libxml/libxslt.
 
 You do not require an XSLT processor if you are installing a released
-version of Kupu.
+version of Kupu, or simply checking it out from SVN to use in Plone.
 
 Installation
 ------------
@@ -35,12 +35,13 @@ Installation
 Drop the 'kupu' directory into your instance home's Products
 directory.
 
-If you are installing from a release tar bundle, the following build
+If you are installing from a release tar bundle, or simply checking
+out kupu to use in Plone and not to edit then the following build
 steps may be skipped. Skip down to the paragraph starting `Now restart
 the Zope instance`_.
 
-If you are installing a version checked out of SVN then you must
-generate the Plone template by typing::
+If you edit any of the files with .kupu extensions then you must
+re-generate the Plone template by typing::
 
   $ make plonemacros
 
