@@ -16,6 +16,7 @@ from cgi import escape
 from urlparse import urlsplit, urljoin, urlunsplit
 from urllib import unquote_plus
 from Acquisition import aq_base
+from htmlentitydefs import name2codepoint
 
 __revision__ = '$Id$'
 
@@ -413,7 +414,8 @@ class Migration:
         newdata = LINK_PATTERN.sub(checklink, data)
         if data != newdata and self.commit_changes:
             mutator = field.getMutator(object)
-            mutator(newdata, mimetype='text/html')
+            if mutator:
+                mutator(newdata, mimetype='text/html')
 
         if info or changes:
             self.found += 1
