@@ -87,6 +87,7 @@ BROWSERNAMES = ['NOTUSED', 'Mozilla', 'Internet Explorer', 'Opera',
 SUPPORTED = {
     MOZILLA: (1,3,1),
     INTERNET_EXPLORER: (5,5),
+    OPERA: (9,0),
 }
 
 # BROWSERS records contain:
@@ -405,7 +406,23 @@ BROWSERS = (
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; www.ASPSimply.com)', 'Windows 2000', '6.0', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; ESB{59E9535D-AE57-4D68-A91A-F568540A69C8})', 'Windows 2000', '6.0', INTERNET_EXPLORER),
     ('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.0.2) Gecko/20030208 Netscape/7.02', 'Windows XP', '1.0.2', MOZILLA),
-    )
+    ('Opera/9.02 (X11; Linux i686; U; en)', 'Linux', '9.02', OPERA),
+    ('Opera/9.02 (Windows 98; U; en)', 'Windows 98', '9.02', OPERA),
+    ('Opera/9.02 (Macintosh; PPC Mac OS X; U; en)', 'PPC Mac', '9.02', OPERA),
+    ('Opera/9.01 (X11; Linux i686; U; en)', 'Linux', '9.01', OPERA),
+    ('Opera/9.01 (Macintosh; Intel Mac OS X; U; fr)', 'Intel Max', '9.01', OPERA),
+    ('Opera/9.00 (Macintosh; PPC Mac OS X; U; en)', 'PPC Mac', '9.00', OPERA),
+    ('Opera/9.00 (Windows NT 5.0; U; en)', 'Windows 2000', '9.00', OPERA),
+    ('Opera/9.00 (Macintosh; PPC Mac OS X; U; en)', 'PPC Mac', '9.00', OPERA),
+    ('Mozilla/5.0 (X11; Linux i686; U; en) Opera 9.00', 'Linux', '9.00', OPERA),
+    ('Mozilla/5.0 (Windows NT 5.1; U; en) Opera 9.01', 'Windows XP', '9.01', OPERA),
+    ('Mozilla/5.0 (Windows NT 5.1; U; en) Opera 9.00', 'Windows XP', '9.00', OPERA),
+    ('Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.0) Gecko/20060728 Firefox/1.5.0 Opera 9.10', 'Windows XP', '9.10', OPERA),
+    ('Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.0.7) Gecko/20060728 Firefox/1.5.0.7 Opera 9.10', 'Windows XP', '9.10', OPERA),
+    ('Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1b1) Gecko/20060728 Firefox/2.0 Opera 9.20', 'Windows XP', '9.20', OPERA),
+    ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; en) Opera 9.01', 'Windows XP', '9.01', OPERA),
+    ('Mozilla/4.0 (compatible; MSIE 6.0; X11; Linux i686; en) Opera 9.00', 'Linux', '9.00', OPERA),
+     )
 
 def createTest(sig, isSupported, index, os, browser, version):
     def test(self):
