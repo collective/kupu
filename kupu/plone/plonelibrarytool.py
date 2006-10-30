@@ -225,27 +225,36 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if not useragent:
             useragent = REQUEST['HTTP_USER_AGENT']
 
-        if 'Opera' in useragent or 'BEOS' in useragent:
+        if 'BEOS' in useragent:
             return False
 
-        if not useragent.startswith('Mozilla/'):
-            return False
-
+        def getver(s):
+            """Extract a version number given the string which precedes it"""
+            pos = useragent.find(s)
+            if pos >= 0:
+                tail = useragent[pos+len(s):].strip()
+                verno = numerics(tail.split(' ')[0])
+                return verno
+            return None
+            
         try:
-            mozillaver = numerics(useragent[len('Mozilla/'):].split(' ')[0])
+            v = getver('Opera/')
+            if not v:
+                v = getver('Opera ')
+            if v:
+                return v >= (9,0)
+
+            mozillaver = getver('Mozilla/')
             if mozillaver > (5,0):
                 return True
             elif mozillaver == (5,0):
-                rv = useragent.find(' rv:')
-                if rv >= 0:
-                    verno = numerics(useragent[rv+4:].split(')')[0])
+                verno = getver(' rv:')
+                if verno:
                     return verno >= (1,3,1)
 
-            MSIE = useragent.find('MSIE')
-            if MSIE >= 0:
-                verno = numerics(useragent[MSIE+4:].split(';')[0])
+            verno = getver('MSIE')
+            if verno:
                 return verno >= (5,5)
-
         except:
             # In case some weird browser makes the test code blow up.
             pass
