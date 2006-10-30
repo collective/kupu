@@ -186,9 +186,13 @@ class Migration:
         self._firstoutput = False
         self.commit_changes = False
         self._objects = []
+        self.image_tails = []
+
+    def initImageSizes(self):
+        self.image_tails = self.tool._getImageSizes()
 
     def initFromRequest(self):
-        self.image_tails = self.tool._getImageSizes()
+        self.initImageSizes()
         self.uids = None
         self.found = 0
         request = self.tool.REQUEST
@@ -416,6 +420,7 @@ class Migration:
             mutator = field.getMutator(object)
             if mutator:
                 mutator(newdata, mimetype='text/html')
+                object.reindexObject() # Need to flag update
 
         if info or changes:
             self.found += 1
@@ -529,7 +534,7 @@ class Migration:
                 # Allow image size modifiers on the end of urls.
                 p = absurl.split('/')
                 absurl = '/'.join(p[:-1])
-                if p[-1] in self.image_tails:
+                if '/'+p[-1] in self.image_tails:
                     tail = '/'+p[-1]+tail
                     c, uid, url, _ = self.classifyLink(absurl, base, first=False)
                     return c, uid, url, tail
