@@ -257,7 +257,7 @@ function _load_dict_helper(element) {
                 };
             };
             var name = child.nodeName.toLowerCase();
-            if (child.attributes[0] && /^_/.test(child.attributes[0])) {
+            if (child.attributes[0] && /^_/.test(child.attributes[0].name)) {
                 name += child.attributes[0].name.toLowerCase(); // Fix for Opera
             }
             if (dict[name] != undefined) {

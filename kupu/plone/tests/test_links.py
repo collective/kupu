@@ -225,6 +225,7 @@ class TestLinkCode(ArchetypesTestCase.ArcheSiteTestCase):
     def test_image(self):
         self.setup_content()
         migrator = Migration(self.kupu)
+        migrator.initImageSizes()
         portal = self.portal
         base = portal.folder.alpha.absolute_url()
         path = 'gamma/image_thumb'
