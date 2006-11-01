@@ -18,14 +18,19 @@ function KupuXhtmlTestCase() {
     this.incontext = function(s) {
         return '<html><head><title>test</title></head><body>'+s+'</body></html>';
     }
+    this.serializeNode = function(n) {
+        var serializer = new XMLSerializer();
+        return serializer.serializeToString(n);
+    }
     this.verifyResult = function(newdoc, exp) {
         var expected = this.incontext(exp);
-        var actual = Sarissa.serialize(newdoc);
+        var actual = this.serializeNode(newdoc);
         actual = actual.replace('\xa0', '&nbsp;');
+        actual = actual.replace(/^<html[^>]*>/, '<html>');
         if (actual == expected)
             return;
 
-        var context = /<html><head><title>test<\/title><\/head><body>(.*)<\/body><\/html>/;
+        var context = /<html[^>]*><head><title>test<\/title><\/head><body>(.*)<\/body><\/html>/i;
         if (context.test(actual) && context.test(expected)) {
             var a = context.exec(actual)[1];
             var e = context.exec(expected)[1];

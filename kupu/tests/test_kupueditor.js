@@ -10,6 +10,13 @@
 
 // $Id$
 
+function serializeDocument(d) {
+    return serializeNode(d.documentElement);
+}
+function serializeNode(n) {
+    var serializer = new XMLSerializer();
+    return serializer.serializeToString(n);
+}
 function KupuEditorTestCase() {
     this.name = 'KupuEditorTestCase';
 
@@ -21,7 +28,7 @@ function KupuEditorTestCase() {
         var parser = new DOMParser();
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
         var doc = parser.parseFromString(xmlstring, 'text/xml');
-        this.assertEquals(Sarissa.serialize(doc).strip(),xmlstring);
+        this.assertEquals(serializeDocument(doc).strip(),xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
@@ -40,20 +47,20 @@ function KupuEditorTestCase() {
     this.testRemoveNearestParentOfType = function() {
         var xmlstring = '<p><a id="outer"><a id="inner"><b><span>some link</span></b> Even more</a></a></p>'
         var doc = (new DOMParser()).parseFromString(xmlstring, 'text/xml');
-        this.assertEquals(Sarissa.serialize(doc).strip(), xmlstring);
+        this.assertEquals(serializeDocument(doc).strip(), xmlstring);
 
         var span = doc.documentElement.firstChild.firstChild.firstChild.firstChild;
 
         // first try to remove a parent we don't have; we expect the
         // xml not to change.
         this.editor.removeNearestParentOfType(span, 'br');
-        this.assertEquals(Sarissa.serialize(doc).strip(), xmlstring);  
+        this.assertEquals(serializeDocument(doc).strip(), xmlstring);  
 
         // now remove a real parent; we expect it to be gone in the
         // resulting xml.
         this.editor.removeNearestParentOfType(span, 'a');
         var expected = '<p><a id="outer"><b><span>some link</span></b> Even more</a></p>';
-        this.assertEquals(Sarissa.serialize(doc).strip(), expected);
+        this.assertEquals(serializeDocument(doc).strip(), expected);
     };
 
     this.test_serializeOutputToString = function() {

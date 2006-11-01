@@ -74,6 +74,27 @@ the local machine aren't allowed to run scripts.-->
         iframe.style.display = 'none';
     };
 
+    // Mark a specific test as failing under Opera. When Opera is
+    // fixed (or the test rewritten to cope with it) the flagged test
+    // will then fail.
+    function opera_is_broken(self, fname) {
+        var fn = self[fname];
+        if (navigator.userAgent.toLowerCase().indexOf("opera") == -1) {
+            return; // Browser is not opera.
+        }
+        self.debug('Invert test '+fname+'for broken browser');
+        function test() {
+            try {
+                fn.call(self);
+            } catch(e) {
+                // The function threw an exception, which is what we
+                // expect.
+                return
+            };
+            self.assert(false, 'expected test '+fname+' to fail, but it passed!');
+        };
+        self[fname] = test;
+    }
 //]]>
 </script>
 </head>
