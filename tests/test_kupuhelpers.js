@@ -27,18 +27,18 @@ function SelectionTestCase() {
         // this does not skip invisible whitespace
         var node = element.firstChild;
         for (var i=0; i < element.childNodes.length; i++) {
-            if (node.nodeType == node.TEXT_NODE) {
+            if (node.nodeType == Node.TEXT_NODE) {
                 var endcounts = !node.nextSibling &&
                          blockElements.contains(element.tagName.toUpperCase());
-                if ((offset < node.length) ||
-                    ((offset == node.length) && (!lastnode || endcounts))) {
+                if ((offset < node.data.length) ||
+                    ((offset == node.data.length) && (!lastnode || endcounts))) {
                     return [node, offset];
                 };
                 if (endcounts) {
                     offset -= 1;
                 };
-                offset -= node.length;
-            } else if (node.nodeType == node.ELEMENT_NODE) {
+                offset -= node.data.length;
+            } else if (node.nodeType == Node.ELEMENT_NODE) {
                 if (visibleEmptyElements.contains(node.tagName.toUpperCase())) {
                     if (offset > 0 && !node.nextSibling) {
                         offset -= 1;
@@ -65,7 +65,7 @@ function SelectionTestCase() {
         endNextNode, verificationString, ieskew, endskew) {
         var element = this.body;
         var innerSelection = this.selection.selection;
-        if (_SARISSA_IS_IE) {
+        if (innerSelection.createRange) {
             if (ieskew) {
                 startOffset += ieskew;
                 if (endskew) {
@@ -83,13 +83,14 @@ function SelectionTestCase() {
             range.setEndPoint('EndToStart', endrange);
             range.select();
         } else {
-            var position = this._MozillaPosition(element, startOffset,
-                                                 startNextNode);
-            innerSelection.collapse(position[0], position[1]);
+            var position = this._MozillaPosition(element, startOffset, startNextNode);
+            var epos = null;
             if (startOffset != endOffset) {
-                var position = this._MozillaPosition(element, endOffset,
-                                                     endNextNode);
-                innerSelection.extend(position[0], position[1]);
+                var epos = this._MozillaPosition(element, endOffset, endNextNode);
+            }
+            innerSelection.collapse(position[0], position[1]);
+            if (epos) {
+                innerSelection.extend(epos[0], epos[1]);
             };
         };
         this.assertEquals('"'+this.selection.toString().replace(/(\r|\n|\t)+/g, '')+'"',
@@ -99,6 +100,7 @@ function SelectionTestCase() {
     this._cleanHtml = function(s) {
         s = s.toLowerCase().replace(/[\r\n]/g, "");
         s = s.replace(/\>[ ]+\</g, "><");
+        s = s.replace(/\/>/g, ">");
         return s;
     };
 
@@ -207,14 +209,18 @@ function KupuHelpersTestCase() {
 KupuHelpersTestCase.prototype = new TestCase;
 
 function KupuSelectionTestCase() {
-
+    this.cleanbody = function() {
+        var s = this.body.innerHTML.toLowerCase();
+        s = s.replace(/<img([^\/>]*)\/>/g, '<img$1>');
+        return s;
+    }
     this.testReplaceWithNode = function() {
         this.body.innerHTML = '<p>foo bar baz</p>';
         // select                    |bar|
         this._setSelection(4, null, 7, null, 'bar');
         node = this.doc.createElement('img');
         this.selection.replaceWithNode(node, true);
-        this.assertEquals(this.body.innerHTML.toLowerCase(), '<p>foo <img> baz</p>');
+        this.assertEquals(this.cleanbody(), '<p>foo <img> baz</p>');
     };
 
     this.testReplaceWithNodeTwice = function() {
@@ -224,7 +230,7 @@ function KupuSelectionTestCase() {
         node = this.doc.createElement('img');
         this.selection.replaceWithNode(node, true);
         this.selection.replaceWithNode(node, true);
-        this.assertEquals(this.body.innerHTML.toLowerCase(), '<p>foo <img> baz</p>');
+        this.assertEquals(this.cleanbody(), '<p>foo <img> baz</p>');
     };
 
     this.testParentElementMissing = function() {
@@ -237,9 +243,11 @@ function KupuSelectionTestCase() {
     };
 
     this.testParentElementBold = function() {
-        this.body.innerHTML = '<p>foo <b>bar</b><img/><img/> baz</p>';
-        // select                       |bar|
-        this._setSelection(4, true, 7, false, 'bar');
+        this.body.innerHTML = '<p>foo <b>xbar!</b><img/><img/> baz</p>';
+        // select                        |bar|
+        // kludged for opera which cannot do a selection involving the
+        // first character of the <b> tag.
+        this._setSelection(5, true, 8, true, 'bar');
         node = this.doc.getElementsByTagName('b')[0];
         this.assertEquals(this.selection.parentElement(), node);
     };
@@ -272,7 +280,7 @@ function KupuSelectionTestCase() {
     this.testParentElement_r9516 = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img/></p><p>baz</p>';
         // select                              |<img/></p><p>baz|
-        this._setSelection(7, true, 12, false, 'baz');
+        this._setSelection(6, true, 12, false, 'rbaz');
         node = this.doc.getElementsByTagName('body')[0];
         this.assertEquals(this.selection.parentElement(), node);
     };
@@ -288,7 +296,7 @@ function KupuSelectionTestCase() {
         this.body.innerHTML = '<p>foo <b>bar</b> baz</p>';
         var selection = this.kupudoc.getSelection();
         selection.selectNodeContents(this.body);
-        this.assertEquals(selection.toString(), 'foo bar baz');
+        this.assertEquals('['+selection.toString()+']', '[foo bar baz]');
         selection.selectNodeContents(this.body.firstChild.childNodes[1]);
         this.assertEquals(selection.toString(), 'bar');
     };

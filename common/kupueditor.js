@@ -92,6 +92,7 @@ function KupuEditor(document, config, logger) {
     this.log = logger; // simple logger object
     this.tools = {}; // mapping id->tool
     this.filters = new Array(); // contentfilters
+    this.serializer = new XMLSerializer();
     
     this._designModeSetAttempts = 0;
     this._initialized = false;
@@ -624,7 +625,7 @@ function KupuEditor(document, config, logger) {
         var bodies = transform.getElementsByTagName('body');
         var data = '';
         for (var i = 0; i < bodies.length; i++) {
-            data += Sarissa.serialize(bodies[i]);
+            data += this.serializer.serializeToString(bodies[i]);
         }
         return this.escapeEntities(data);
     };
@@ -746,13 +747,13 @@ function KupuEditor(document, config, logger) {
             var contents =  '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" ' + 
                             '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n' + 
                             '<html xmlns="http://www.w3.org/1999/xhtml">' +
-                            Sarissa.serialize(transform.getElementsByTagName("head")[0]) +
-                            Sarissa.serialize(transform.getElementsByTagName("body")[0]) +
+                            this.serializer.serializeToString(transform.getElementsByTagName("head")[0]) +
+                            this.serializer.serializeToString(transform.getElementsByTagName("body")[0]) +
                             '</html>';
         } else {
             var contents = '<html>' + 
-                            Sarissa.serialize(transform.getElementsByTagName("head")[0]) +
-                            Sarissa.serialize(transform.getElementsByTagName("body")[0]) +
+                            this.serializer.serializeToString(transform.getElementsByTagName("head")[0]) +
+                            this.serializer.serializeToString(transform.getElementsByTagName("body")[0]) +
                             '</html>';
         };
 

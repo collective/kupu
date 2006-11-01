@@ -71,11 +71,10 @@ function KupuUITestCase() {
 
         this.selection.selection.removeAllRanges();
         for(var i = 0; i < indices.length; i = i + 1) {
-            var range = document.createRange();
+            var range = this.doc.createRange();
             range.selectNode(cellNodes[indices[i]]);
             this.selection.selection.addRange(range);
         };
-
         this.assertEquals('"'+this.selection.toString().replace(/\r|\n/g, '')+'"',
                           '"'+verificationString+'"');
     };
@@ -268,7 +267,7 @@ function KupuUITestCase() {
         data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>';
         expected = '<table><tbody><tr><td><h1 class="te st">foo</h1></td><td>foz</td></tr><tr><td><h1 class="te st">bar</h1></td><td>baz</td></tr></tbody></table>'
         if (!_SARISSA_IS_IE) {
-            this.body.innerHTML = data; 
+            this.body.innerHTML = data;
             this._selectTableCells(new Array(0,2),'foo\tbar');
             this.ui.setTextStyle('h1|te st');
             this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
