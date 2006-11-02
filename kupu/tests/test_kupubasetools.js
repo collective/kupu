@@ -129,6 +129,7 @@ function KupuUITestCase() {
         this.updateStateTest('<p>foo</p><div class="other">baz</div>',
             1, 7, 'oobaz', 0, "Mixed styles");
     }
+    opera_is_broken(this, 'test_updateState7');
 
     this.test_setTextStyle = function() {
         this.body.innerHTML = '<p>foo</p><p>bar</p><p>baz</p>';
@@ -213,6 +214,7 @@ function KupuUITestCase() {
         this.ui.setTextStyle('td|te st');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), withcellstyle);
     };
+    opera_is_broken(this, 'test_setTextStyle_ParaStyleThenCellStyle_SingleTableCell');
 
     this.test_setTextStyle_TableHeaderThenParaStyle_SingleTableCell = function() {
         //Apply a table header style to a cell, then a paragraph style
@@ -247,32 +249,34 @@ function KupuUITestCase() {
         this.ui.setTextStyle('h1|te st');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };
+    opera_is_broken(this, 'test_setTextStyle_ParaStyle_AdjacentCells');
 
     this.test_setTextStyle_SetCellStyle_Column = function() {
         //Apply a table cell (td) style, *with class*, on a column of cells --
         //only available with Mozilla
         data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>'; 
         expected = '<table><tbody><tr><td class="te st">foo</td><td>foz</td></tr><tr><td class="te st">bar</td><td>baz</td></tr></tbody></table>'
-        if (!_SARISSA_IS_IE) {
-            this.body.innerHTML = data; 
-            this._selectTableCells(new Array(0,2),'foo\tbar');
-            this.ui.setTextStyle('td|te st');
-            this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
-        };                        
+
+        this.body.innerHTML = data; 
+        this._selectTableCells(new Array(0,2),'foo\tbar');
+        this.ui.setTextStyle('td|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };
-    
+    opera_is_broken(this, 'test_setTextStyle_SetCellStyle_Column');
+    ie_is_broken(this, 'test_setTextStyle_SetCellStyle_Column');
+
     this.test_setTextStyle_ParaStyle_Column = function() {
         //Apply a paragraph style, *with class*, on a column of cells -- only
         //available with Mozilla
         data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>';
         expected = '<table><tbody><tr><td><h1 class="te st">foo</h1></td><td>foz</td></tr><tr><td><h1 class="te st">bar</h1></td><td>baz</td></tr></tbody></table>'
-        if (!_SARISSA_IS_IE) {
-            this.body.innerHTML = data;
-            this._selectTableCells(new Array(0,2),'foo\tbar');
-            this.ui.setTextStyle('h1|te st');
-            this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
-        };                        
+        this.body.innerHTML = data;
+        this._selectTableCells(new Array(0,2),'foo\tbar');
+        this.ui.setTextStyle('h1|te st');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };
+    opera_is_broken(this, 'test_setTextStyle_ParaStyle_Column');
+    ie_is_broken(this, 'test_setTextStyle_ParaStyle_Column');
 
     this.test_setTextStyleReplacingDiv = function() {
         this.body.innerHTML = '<p>foo</p><div>bar</div><p>baz</p>';

@@ -259,6 +259,7 @@ function KupuSelectionTestCase() {
         node = this.doc.getElementsByTagName('img')[0];
         this.assertEquals(this.selection.parentElement(), node);
     };
+    opera_is_broken(this, 'testParentElementImg');
 
     this.testParentElementImgSpecial = function() {
         this.body.innerHTML = '<p>foo <a><img/></a></p>';
@@ -268,6 +269,7 @@ function KupuSelectionTestCase() {
         foo = this.selection.parentElement();
         this.assertEquals(this.selection.parentElement(), node);
     };
+    opera_is_broken(this, 'testParentElementImgSpecial');
 
     this.testParentElementMixed = function() {
         this.body.innerHTML = '<p>foo <b>bar</b><img><img> baz</p>';
@@ -300,6 +302,7 @@ function KupuSelectionTestCase() {
         selection.selectNodeContents(this.body.firstChild.childNodes[1]);
         this.assertEquals(selection.toString(), 'bar');
     };
+    opera_is_broken(this, 'testToString');
 };
 
 KupuSelectionTestCase.prototype = new SelectionTestCase;

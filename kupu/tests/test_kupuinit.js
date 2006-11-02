@@ -84,6 +84,7 @@ function InitKupuCheckersTestCase() {
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), false);
     };
+    opera_is_broken(this, 'testBoldcheckerMixed');
 
     this.testBoldcheckerBoldLeftOuter = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
@@ -93,6 +94,7 @@ function InitKupuCheckersTestCase() {
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
+    opera_is_broken(this, 'testBoldcheckerBoldLeftOuter');
 
     this.testBoldcheckerBoldInner = function() {
         this.body.innerHTML = '<p>foo <b>bar</b></p>';
@@ -102,6 +104,7 @@ function InitKupuCheckersTestCase() {
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
+    opera_is_broken(this, 'testBoldcheckerBoldInner');
 
     this.testBoldcheckerExecCommand = function() {
         this.body.innerHTML = '<p>foo bar</p>';
@@ -115,7 +118,6 @@ function InitKupuCheckersTestCase() {
 
     this.testBoldcheckerExecCommandCollapsed = function() {
         // XXX: the feature seems to work, but test is broken on IE
-        if (_SARISSA_IS_IE) return;
         this.body.innerHTML = '<p>foo bar</p>';
         // select                   ||
         this._setSelection(3, null, 3, null, '');
@@ -124,9 +126,10 @@ function InitKupuCheckersTestCase() {
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
-
+    opera_is_broken(this, 'testBoldcheckerExecCommandCollapsed');
+    ie_is_broken(this, 'testBoldcheckerExecCommandCollapsed');
+    
     this.testBoldcheckerExecCommandNoCSS = function() {
-        if (_SARISSA_IS_IE) return;
         this.editor.getDocument().execCommand('styleWithCSS', null, false);
 
         this.body.innerHTML = '<p>foo bar</p>';
@@ -139,6 +142,7 @@ function InitKupuCheckersTestCase() {
 
         this.editor.getDocument().execCommand('styleWithCSS', null, true);
     };
+    ie_is_broken(this, 'testBoldcheckerExecCommandNoCSS');
 
     this.testBoldcheckerStrong = function() {
         this.body.innerHTML = '<p>foo <strong>bar</strong></p>';
@@ -158,6 +162,7 @@ function InitKupuCheckersTestCase() {
         var boldchecker = this._makeBoldchecker();
         this.assertEquals(boldchecker(selNode, null, this.editor), true);
     };
+    opera_is_broken(this, 'testBoldcheckerStyle');
 
     this.testItalicscheckerItalics = function() {
         this.body.innerHTML = '<p>foo <i>bar</i></p>';
