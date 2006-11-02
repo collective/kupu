@@ -105,6 +105,7 @@ function KupuPloneTestCase() {
         this.ui.setTextStyle('h2');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     }
+    opera_is_broken(this, 'testSetTextStyle');
 
     this.testSetTextStyleTable = function() {
         var data = '<table><tbody><tr><td>test</td></tr></tbody></table>';
@@ -123,6 +124,7 @@ function KupuPloneTestCase() {
         this.ui.setTextStyle('td');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     }
+    opera_is_broken(this, 'testSetTextStyleTable');
 
     this.testSetTextSpanStyle = function() {
         var data = '<p>some text</p><p>some more</p>';
