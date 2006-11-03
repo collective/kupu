@@ -46,6 +46,7 @@ class ResourceType:
         self.name = name
         self._tool = tool
         parts = name.split('.', 1)
+        self.subObject = None
 
         if len(parts)==1:
             self._portal_types = tool.queryPortalTypesForResourceType(name, ())
@@ -56,6 +57,7 @@ class ResourceType:
             # Topic criteria have typename and fieldname embedded in
             # the criteria name.
             if fieldname.startswith('crit__'):
+                self.subObject = '_'.join(fieldname.split('_')[:-1])
                 typename, fieldname = fieldname.split('_')[-2:]
 
             __traceback_info__ = (parts, typename, fieldname)
@@ -137,6 +139,8 @@ class ResourceType:
                 return None
             reference_tool = getToolByName(tool, 'reference_catalog')
             self._instance = reference_tool.lookupObject(UID)
+        if self.subObject:
+            return self._instance[self.subObject]
 
         return self._instance
 
