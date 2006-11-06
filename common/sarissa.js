@@ -74,7 +74,7 @@ if(_SARISSA_IS_IE){
      * @param idList an array of MSXML PROGIDs from which the most recent will be picked for a given object
      * @param enabledList an array of arrays where each array has two items; the index of the PROGID for which a certain feature is enabled
      */
-    pickRecentProgID = function (idList, enabledList){
+    Sarissa.pickRecentProgID = function (idList, enabledList){
         // found progID flag
         var bFound = false;
         for(var i=0; i < idList.length && !bFound; i++){
@@ -94,18 +94,14 @@ if(_SARISSA_IS_IE){
         idList = null;
         return o2Store;
     };
-    // pick best available MSXML progIDs
-    _SARISSA_DOM_PROGID = pickRecentProgID(["Msxml2.DOMDocument.5.0", "Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"], [["SELECT_NODES", 2],["TRANSFORM_NODE", 2]]);
-    _SARISSA_XMLHTTP_PROGID = pickRecentProgID(["Msxml2.XMLHTTP.5.0", "Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"], [["XMLHTTP", 4]]);
-    _SARISSA_THREADEDDOM_PROGID = pickRecentProgID(["Msxml2.FreeThreadedDOMDocument.5.0", "MSXML2.FreeThreadedDOMDocument.4.0", "MSXML2.FreeThreadedDOMDocument.3.0"]);
-    _SARISSA_XSLTEMPLATE_PROGID = pickRecentProgID(["Msxml2.XSLTemplate.5.0", "Msxml2.XSLTemplate.4.0", "MSXML2.XSLTemplate.3.0"], [["XSLTPROC", 2]]);
-    // we dont need this anymore
-    pickRecentProgID = null;
     //============================================
     // Factory methods (IE)
     //============================================
     // see non-IE version
     Sarissa.getDomDocument = function(sUri, sName){
+        if (!_SARISSA_DOM_PROGID) {
+            _SARISSA_DOM_PROGID = Sarissa.pickRecentProgID(["Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"], [["SELECT_NODES", 2],["TRANSFORM_NODE", 2]]);
+        };
         var oDoc = new ActiveXObject(_SARISSA_DOM_PROGID);
         // if a root tag name was provided, we need to load it in the DOM
         // object
@@ -150,6 +146,9 @@ if(_SARISSA_IS_IE){
      * @constructor
      */
     XSLTProcessor = function(){
+        if (!_SARISSA_XSLTEMPLATE_PROGID) {
+            _SARISSA_XSLTEMPLATE_PROGID = Sarissa.pickRecentProgID(["Msxml2.XSLTemplate.4.0", "MSXML2.XSLTemplate.3.0"], [["XSLTPROC", 2]]);
+        };
         this.template = new ActiveXObject(_SARISSA_XSLTEMPLATE_PROGID);
         this.processor = null;
     };
@@ -159,6 +158,9 @@ if(_SARISSA_IS_IE){
      */
     XSLTProcessor.prototype.importStylesheet = function(xslDoc){
         // convert stylesheet to free threaded
+        if (!_SARISSA_THREADEDDOM_PROGID) {
+            _SARISSA_THREADEDDOM_PROGID = Sarissa.pickRecentProgID(["MSXML2.FreeThreadedDOMDocument.4.0", "MSXML2.FreeThreadedDOMDocument.3.0"]);
+        }
         var converted = new ActiveXObject(_SARISSA_THREADEDDOM_PROGID); 
         converted.loadXML(xslDoc.xml);
         this.template.stylesheet = converted;
@@ -368,17 +370,19 @@ if(!window.DOMParser){
     
 };
 
-if(window.XMLHttpRequest){
-    Sarissa.IS_ENABLED_XMLHTTP = true;
-}
-else if(_SARISSA_IS_IE){
+if (!window.XMLHttpRequest && window.ActiveXObject) {
     /**
      * Emulate XMLHttpRequest
      * @constructor
      */
     XMLHttpRequest = function() {
+        if(!_SARISSA_XMLHTTP_PROGID){
+            _SARISSA_XMLHTTP_PROGID = Sarissa.pickRecentProgID(["Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
+        };
         return new ActiveXObject(_SARISSA_XMLHTTP_PROGID);
     };
+}
+if(window.XMLHttpRequest){
     Sarissa.IS_ENABLED_XMLHTTP = true;
 };
 
@@ -507,7 +511,7 @@ Sarissa.copyChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
     };
     var ownerDoc = nodeTo.nodeType == Node.DOCUMENT_NODE ? nodeTo : nodeTo.ownerDocument;
     var nodes = nodeFrom.childNodes;
-    if(ownerDoc.importNode && (!_SARISSA_IS_IE)) {
+    if(ownerDoc.importNode) {
         for(var i=0;i < nodes.length;i++) {
             nodeTo.appendChild(ownerDoc.importNode(nodes[i], true));
         };

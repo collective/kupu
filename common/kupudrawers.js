@@ -472,7 +472,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var doc = this._transformXml();
         var sourcenode = doc.selectSingleNode('//*[@id="'+id+'"]');
         var targetnode = document.getElementById(id);
-        sourcenode = document.importNode(sourcenode, true);
         Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
             this.focusElement();
@@ -788,7 +787,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         if (this.editor.getBrowserName() == 'IE') {
             resultlib = resultlib.cloneNode(true);
         } else {
-            this.shared.xmldata.importNode(resultlib, true);
+            resultlib = this.shared.xmldata.importNode(resultlib, true);
         }
         var libraries = this.shared.xmldata.selectSingleNode("/libraries");
         libraries.appendChild(resultlib);
