@@ -2543,8 +2543,12 @@ KupuZoomTool.prototype.onresize = function() {
         var width = window.innerWidth;
         var height = window.innerHeight;
     } else if (document.documentElement) {
-        var width = document.documentElement.offsetWidth-5;
-        var height = document.documentElement.offsetHeight-5;
+        if (!window._IE_VERSION) {
+            _IE_VERSION = /MSIE\s*([0-9.]*)/.exec(navigator.appVersion);
+        };
+        var kludge = (_IE_VERSION[1]<7)?5:0;
+        var width = document.documentElement.offsetWidth-kludge;
+        var height = document.documentElement.offsetHeight-kludge;
     } else {
         var width = document.body.offsetWidth-5;
         var height = document.body.offsetHeight-5;
