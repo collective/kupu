@@ -68,6 +68,8 @@ if(_SARISSA_IS_IE){
     // used to store the most recent ProgID available out of the above
     var _SARISSA_DOM_PROGID = "";
     var _SARISSA_XMLHTTP_PROGID = "";
+    var _SARISSA_THREADEDDOM_PROGID = "";
+    var _SARISSA_XSLTEMPLATE_PROGID = "";
     /**
      * Called when the Sarissa_xx.js file is parsed, to pick most recent
      * ProgIDs for IE, then gets destroyed.
