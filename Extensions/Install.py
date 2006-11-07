@@ -108,6 +108,7 @@ def install_resources(self, out):
             enabled=True,
             cookable=cookable)
 
+    jstool.manage_removeScript('kupucontextmenu.js');
     for id in js_files(data):
         print >>out, "JS file", id
         jstool.manage_removeScript(id=id)

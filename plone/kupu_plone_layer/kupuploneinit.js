@@ -34,10 +34,6 @@ function initPloneKupu(editorId) {
     var kupu = new KupuEditor(doc, conf, l);
     kupu.setHTMLBody(initialtext);
 
-    // add the contextmenu
-    var cm = new ContextMenu();
-    kupu.setContextMenu(cm);
-
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI(prefix+'select.kupu-tb-styles');
     kupu.registerTool('ui', ui);
