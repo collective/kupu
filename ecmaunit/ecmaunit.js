@@ -72,7 +72,11 @@ TestCase.prototype.assertNotEquals = function(var1, var2, message) {
 };
 
 TestCase.prototype.debug = function(msg) {
-    this._reporter.debug(msg);
+    var args = [];
+    for (var i=0; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    };
+    this._reporter.debug(args.join(', '));
 }
 TestCase.prototype.assert = function(statement, message) {
     /* assert whether a variable resolves to true */
@@ -170,6 +174,25 @@ TestCase.prototype._runHelper = function() {
                 var raw = e;
                 if (e && e.name && e.message) { // Microsoft
                     e = e.name + ': ' + e.message;
+                }
+                if (e.code && /.*DOMException/i.test(e.toString())) {
+                    var msg = ['', 'INDEX_SIZE_ERR',
+                        'DOMSTRING_SIZE_ERR',
+                        'HIERARCHY_REQUEST_ERR',
+                        'WRONG_DOCUMENT_ERR',
+                        'INVALID_CHARACTER_ERR',
+                        'NO_DATA_ALLOWED_ERR',
+                        'NO_MODIFICATION_ALLOWED_ERR',
+                        'NOT_FOUND_ERR',
+                        'NOT_SUPPORTED_ERR',
+                        'INUSE_ATTRIBUTE_ERR',
+                        'INVALID_STATE_ERR',
+                        'SYNTAX_ERR',
+                        'INVALID_MODIFICATION_ERR',
+                        'NAMESPACE_ERR',
+                        'INVALID_ACCESS_ERR',
+                        ][e.code];
+                    e = "DOMException:" + e.code + ", "+msg;
                 }
                 this._reporter.reportError(this.name, attr, e, raw);
                 this._exceptions.push(new Array(this.name, attr, e, raw));
