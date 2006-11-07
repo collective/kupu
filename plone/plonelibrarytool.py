@@ -104,9 +104,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool):
         # We load default values here, so __init__ can still be used
         # in unit tests. Plus, it only makes sense to load these if
         # we're being added to a Plone site anyway
-        for lib in _default_libraries:
-            self.addLibrary(**lib)
-        self._res_types.update(_default_resource_types)
+        if not len(self._libraries):
+            for lib in _default_libraries:
+                self.addLibrary(**lib)
+            self._res_types.update(_default_resource_types)
 
     security.declareProtected('View', "getLinkbyuid")
     def getLinkbyuid(self):
