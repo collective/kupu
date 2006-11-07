@@ -40,8 +40,6 @@
             tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupucontextmenu.js"> </script>
 
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
