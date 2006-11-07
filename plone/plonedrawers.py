@@ -232,7 +232,11 @@ class InfoAdaptor:
             if not callable(obj.getId):
                 if getattr(obj, 'getObject', None) is None:
                     return
-                obj = obj.getObject()
+                try:
+                    obj = obj.getObject()
+                except:
+                    return 
+                
             if getattr(obj, 'getField', None) is None:
                 return
             image_field = obj.getWrappedField(imagefield)
