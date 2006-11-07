@@ -674,7 +674,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var targetnode = document.getElementById(id);
         if (!sourcenode || !targetnode) return;
 
-        sourcenode = document.importNode(sourcenode, true);
         Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
             this.focusElement();

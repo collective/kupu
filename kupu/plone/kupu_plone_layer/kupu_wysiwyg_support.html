@@ -416,6 +416,7 @@
   
     </div>
   <script type="text/javascript">var focuscount = 0;</script>
+    <div>
     <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);                     base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                         tabindex tabindex/next|nothing;">
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
@@ -425,6 +426,7 @@
 </tal:test>
     <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" id="kupu-editor-textarea" tal:define="pss modules/Products/PythonScripts/standard;                 text_format python: getattr(here,'text_format','html');                 is_stx python:text_format=='structured-text';                 is_ptx python:text_format=='plain';" tal:condition="not:fieldName|nothing" tal:content="python:(is_stx and pss.structured_text(inputvalue))                                     or (is_ptx and pss.newline_to_br(inputvalue))                                     or inputvalue" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
+    </div>
   
     <div class="kupuoverride" tal:condition="python:exists('kupu_content') and len(kupu_content)==0" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" title="reload current page without kupu">
          Edit without visual editor

@@ -428,9 +428,9 @@ if(!document.importNode && _SARISSA_IS_IE){
         document.importNode = function(oNode, bChildren){
             var tmp = document.createElement("div");
             if(bChildren){
-                tmp.innerHTML = oNode.xml ? oNode.xml : oNode.innerHTML;
+                tmp.innerHTML = oNode.xml ? oNode.xml : oNode.outerHTML;
             }else{
-                tmp.innerHTML = oNode.xml ? oNode.cloneNode(false).xml : oNode.cloneNode(false).innerHTML;
+                tmp.innerHTML = oNode.xml ? oNode.cloneNode(false).xml : oNode.cloneNode(false).outerHTML;
             };
             return tmp.getElementsByTagName("*")[0];
         };
