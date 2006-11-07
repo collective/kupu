@@ -618,7 +618,7 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < bodies.length; i++) {
             data += Sarissa.serialize(bodies[i]);
         }
-        return this.escapeEntities(data);
+        return this.layoutsource(this.escapeEntities(data));
     };
 
     this.getHTMLBody = function() {
@@ -629,7 +629,7 @@ function KupuEditor(document, config, logger) {
         for (var i = 0; i < bodies.length; i++) {
             data += bodies[i].innerHTML;
         }
-        return this.escapeEntities(data);
+        return this.layoutsource(this.escapeEntities(data));
     };
 
     // If we have multiple bodies this needs to remove the extras.
@@ -747,6 +747,13 @@ function KupuEditor(document, config, logger) {
         
         return contents;
     };
+    this.layoutsource = function(data) {
+        data = data.replace(
+            /\s*(<(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td))\b/ig, '\n$1');
+        data = data.replace(
+            /\s*(<\/(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td)>)\s*/ig, '$1\n');
+        return data.strip();
+    }
     this.escapeEntities = function(xml) {
         // XXX: temporarily disabled
         return xml;

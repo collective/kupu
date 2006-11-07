@@ -7,6 +7,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n">
   <kupu:id>$Id$</kupu:id>
   <kupu:part name="editorframe"><script type="text/javascript">var focuscount = 0;</script>
+    <div>
     <iframe class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
@@ -63,6 +64,7 @@
                         rows rows|default;
                         cols cols|default;">
     </textarea>
+   </div>
   </kupu:part>
 
   <kupu:part name="suppress-kupu">

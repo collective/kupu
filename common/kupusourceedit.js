@@ -75,7 +75,7 @@ SourceEditTool.prototype.switchSourceEdit = function(event, nograb) {
         } else {
             data = kupu.getHTMLBody();
         };
-        sourcearea.value = data;
+        sourcearea.value = data.strip();
         kupu.setClass(sourceClass);
         editorframe.style.display = 'none';
         sourcearea.style.display = 'block';

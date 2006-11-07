@@ -2554,10 +2554,8 @@ KupuZoomTool.prototype.onresize = function() {
         var height = document.body.offsetHeight-5;
     }
     width = width + 'px';
-    var offset = iframe.offsetTop;
-    if (sourceArea && sourceArea.offsetTop) offset = sourceArea.offsetTop-1;
-    var nheight = Math.max(height - offset -1/*top border*/, 10);
-    nheight = nheight + 'px';
+    var offset = iframe.parentNode.offsetTop;
+    var nheight = Math.max(height - offset -1/*top border*/, 10) + 'px';
     fulleditor.style.width = width; /*IE needs this*/
     iframe.style.width = width;
     iframe.style.height = nheight;
