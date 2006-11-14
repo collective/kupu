@@ -18,6 +18,7 @@ function DivsTool() {
     this.createDiv = function(divclass) {
         /* create a div */
         var currnode = this.editor.getSelectedNode();
+        var currp = this.editor.getNearestParentOfType(currnode, 'p');
 
         var doc = this.editor.getInnerDocument();
         var div = doc.createElement('div');
@@ -25,17 +26,24 @@ function DivsTool() {
         if (divclass) {
             div.className = divclass;
         };
-        var text = this.editor.getSelection();
-        var child;
-        if (! text || text == '') {
-            child = doc.createElement("p");
-            child.appendChild(doc.createTextNode(".")); // should not be empty, otherwise doesn't work well in firefox
+        var selection  = this.editor.getSelection();
+        var fragment   = selection ? selection.cloneContents() : undefined;
+        if(fragment == undefined || fragment.firstChild == undefined || fragment.firstChild.nodeType == Node.TEXT_NODE) {
+            var child = doc.createElement("p");
+            if (fragment != undefined) {
+                child.appendChild(selection.cloneContents());
+            }
+            div.appendChild(child);
+            if (child.childNodes.length == 0 || (child.childNodes.length == 1 && (child.firstChild.nodeValue == "" || child.firstChild.nodeValue == undefined))) {
+                child.appendChild(doc.createTextNode("."));
+            }
         } else {
-            child = doc.createTextNode(text);
+            div.appendChild(fragment);
         }
-        var marker = doc.createTextNode("");
-        div.appendChild(child);
-        var currp = this.editor.getNearestParentOfType(currnode, 'p');
+
+        //var ser = new XMLSerializer();
+        //alert("inserting " + ser.serializeToString(div));
+
         if (currp) {
             this.editor.logMessage(_("Found paragraph"));
             currp.parentNode.insertBefore(div, currp);
@@ -45,7 +53,6 @@ function DivsTool() {
             //alert("Inserting " + div);
             div = this.editor.insertNodeAtSelection(div, 1);
         }
-        this.editor.insertNodeAtSelection(marker, 1);
 
         this.editor.logMessage(_("Div inserted"));
         this.editor.updateState();
@@ -99,7 +106,7 @@ function DivsToolBox(insertbuttonid, classselectid, toolboxid, plainclass, activ
     this.toolboxel    = getFromSelector(toolboxid);
     this.plainclass   = plainclass;
     this.activeclass  = activeclass;
-
+    this.classRe = new RegExp('\\bfloat\\b', 'i');
     this.initialize = function(tool, editor) {
         this.tool = tool;
         this.editor = editor;
@@ -110,7 +117,7 @@ function DivsToolBox(insertbuttonid, classselectid, toolboxid, plainclass, activ
     this.updateState = function(selNode, event) {
         /* update the state of the toolbox element */
         var divel = this.editor.getNearestParentOfType(selNode, 'div');
-        if (divel) {
+        if (divel && this.classRe.test(divel.className)) {
             // check first before setting a class for backward compatibility
             if (this.toolboxel) {
                 this.toolboxel.className = this.activeclass;

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mmbase 18\n"
+"Project-Id-Version: mmbase 19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 18:04+0100\n"
-"PO-Revision-Date: 2005-11-28 18:05+0100\n"
+"POT-Creation-Date: 2006-09-19 17:56+0200\n"
+"PO-Revision-Date: 2006-09-19 18:00+0200\n"
 "Last-Translator: Michiel Meeuwissen <mihxil@xs4all.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,53 +16,53 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: mmbase.js:141
+#: mmbase.js:141 mmbase.js:158
 msgid "Saving body (kupu)"
 msgstr "Schrijft tekst weg (kupu)"
 
-#: mmbase.js:144
+#: mmbase.js:144 mmbase.js:161
 msgid "Saving fields (form)"
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:173
+#: mmbase.js:173 mmbase.js:191
 msgid "saved"
 msgstr "opgeslagen"
 
-#: mmbase.js:202
+#: mmbase.js:202 mmbase.js:242
 msgid "RELOAD"
-msgstr ""
+msgstr "Herladen"
 
-#: mmbase.js:223
+#: mmbase.js:223 mmbase.js:264
 msgid "Getting node fields for "
 msgstr "Haalt velden (formulier) voor"
 
-#: mmbase.js:231
+#: mmbase.js:231 mmbase.js:275
 msgid "Loading node fields for "
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:243
+#: mmbase.js:243 mmbase.js:289
 msgid "Getting node body "
 msgstr "Haalt node text"
 
-#: mmbase.js:250
+#: mmbase.js:250 mmbase.js:300
 msgid "Loading node body "
 msgstr "Haalt node op"
 
-#: mmbasetools.js:13
+#: mmbasetools.js:13 mmbasetools.js:14
 msgid "Div tool initialized"
-msgstr ""
+msgstr "Blok-tool geinitialiseerd"
 
-#: mmbasetools.js:39
+#: mmbasetools.js:39 mmbasetools.js:40
 msgid "Found paragraph"
-msgstr ""
+msgstr "Alinea gevonden"
 
-#: mmbasetools.js:43
+#: mmbasetools.js:43 mmbasetools.js:44
 msgid "Didn't find paragraph"
-msgstr ""
+msgstr "Geen alinea gevonden"
 
-#: mmbasetools.js:48
+#: mmbasetools.js:48 mmbasetools.js:50
 msgid "Div inserted"
-msgstr ""
+msgstr "Blok ingevoegd"
 
 #: phony.js:1
 msgid "No node"
@@ -70,9 +70,9 @@ msgstr "Geen node"
 
 #: phony.js:2
 msgid "Normal"
-msgstr ""
+msgstr "Normaal"
 
-#: phony.js:3 phony.js:5
+#: phony.js:3 phony.js:5 phony.js:2
 msgid "Richtext editor"
 msgstr "Richtext editor"
 
@@ -80,27 +80,27 @@ msgstr "Richtext editor"
 msgid "Heading 1"
 msgstr ""
 
-#: phony.js:6
+#: phony.js:6 phony.js:3
 msgid "default"
 msgstr "default"
 
-#: phony.js:7
+#: phony.js:7 phony.js:4 phony.js:6
 msgid "Block"
 msgstr "Blok"
 
-#: phony.js:8
+#: phony.js:8 phony.js:5 phony.js:7
 msgid "Block class"
 msgstr "Blok-soort"
 
-#: phony.js:9
+#: phony.js:9 phony.js:6 phony.js:8
 msgid "Note left"
 msgstr "Noot (links)"
 
-#: phony.js:10
+#: phony.js:10 phony.js:7 phony.js:9
 msgid "Note right"
 msgstr "Noot (rechts)"
 
-#: phony.js:11
+#: phony.js:11 phony.js:8 phony.js:10
 msgid "Insert block"
 msgstr "Voeg blok in"
 
@@ -111,3 +111,19 @@ msgstr "sterker: alt-b"
 #: override.js:3
 msgid "emphasis: alt-i"
 msgstr "benadrukt: alt-i"
+
+#: mmbase.js:197
+msgid "Not saved"
+msgstr "Niet opgeslagen"
+
+#: mmbase.js:215
+msgid "Reinited "
+msgstr "Herladen "
+
+#: phony.js:4
+msgid "Left (Big)"
+msgstr "Links (Groot)"
+
+#: phony.js:5
+msgid "Right (Big)"
+msgstr "Rechts (Groot)"

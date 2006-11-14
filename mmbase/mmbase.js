@@ -78,8 +78,8 @@ function startKupu(language) {
     kupu.initialize();
     if (window.kuputoolcollapser) {
         var collapser = new window.kuputoolcollapser.Collapser('kupu-toolboxes');
-        if (kupu.getBrowserName() != 'IE') {        
-            collapser.initialize();	
+        if (kupu.getBrowserName() != 'IE') {
+            collapser.initialize();
         }
         var toolboxes =  document.getElementById('kupu-toolboxes');
         for (var i=0; i < toolboxes.childNodes.length; i++) {
@@ -89,11 +89,11 @@ function startKupu(language) {
                 addEventHandler(heading, 'click', adjustToolBoxesLayout);
             };
         };
-        if (kupu.getBrowserName() == 'IE') {        
-            collapser.initialize();	
+        if (kupu.getBrowserName() == 'IE') {
+            collapser.initialize();
         }
     };
-
+    //alert(" kupu " + kupu.getBrowserName());
     return kupu;
 };
 
@@ -124,7 +124,7 @@ function openPopup(url, width, height) {
     var sh = screen.height;
     var left = sw / 2 - width / 2;
     var top = sh / 2 - height / 2;
-    var win = window.open(absoluteUrl + "../common/" + url, 'someWindow', 
+    var win = window.open(absoluteUrl + "../common/" + url, 'someWindow',
                 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
     return win;
 };
@@ -137,7 +137,8 @@ function getRequest() {
 function serialize(request) {
     //return request.responseXML.xml;
     // new sarissa:
-    return Sarissa.serialize(request.responseXML);
+    var ser = new XMLSerializer();
+    return ser.serializeToString(request.responseXML);
 }
 
 var boundary = "----------mmbase-kupu-node-fields----1234567890";
@@ -160,7 +161,7 @@ function saveNode(button, editor) {
     var content = "";
     kupu.logMessage(_("Saving fields (form)") + " " + currentNode);
 
-    
+
     var a = document.getElementsByTagName('input', document.getElementById('nodefields'));
     for (i=0; i < a.length; i++) {
         content = addMultiPart(content, a[i]);
@@ -257,7 +258,6 @@ function loadNode(nodeNumber) {
         }
 
     }
-
     var success;
     var nodeXml = loadedNodes.get(nodeNumber);
     if (nodeXml == null) {
@@ -266,7 +266,7 @@ function loadNode(nodeNumber) {
         request.open("GET", 'node.jspx?objectnumber=' + nodeNumber, false);
         request.send('');
         var dom = request.responseXML;
-        nodeXml = Sarissa.serialize(dom);
+        nodeXml = serialize(request);
         success = request.status == 200;
         if (success) {
             loadedNodes.add(nodeNumber, nodeXml);
@@ -278,11 +278,11 @@ function loadNode(nodeNumber) {
         request.send('');
         success = request.status == 200;
     }
-
     // request to node.jspx, should have put the node in the session
     if (success) {
         nodeDiv.innerHTML = nodeXml;
     }
+
 
     var nodeBodyXml = loadedNodeBodies.get(nodeNumber);
     if (nodeBodyXml == null) {
@@ -292,13 +292,13 @@ function loadNode(nodeNumber) {
         request.send('');
         success = success && request.status == 200;
         if (request.status == 200) {
-            var dom = request.responseXML;
-            nodeBodyXml = Sarissa.serialize(dom);
+            nodeBodyXml = serialize(request);
             loadedNodeBodies.add(nodeNumber, nodeBodyXml);
         }
     } else {
         kupu.logMessage(_("Loading node body ") + " " + nodeNumber);
     }
+
     if (success) {
         kupu.setHTMLBody(nodeBodyXml);
     }
@@ -420,11 +420,11 @@ function createRelation(type, nodeNumber, relatedNode) {
 // ================================================================================
 
 /**
- * our own version to also save the other fields 
+ * our own version to also save the other fields
  */
 function saveOnPart() {
     /* ask the user if (s)he wants to save the document before leaving */
-    if (kupu.content_changed && 
+    if (kupu.content_changed &&
         confirm(_('You have unsaved changes. Do you want to save before leaving the page?'))) {
         kupu.config.reload_src = 0;
         saveNode(null, kupu);

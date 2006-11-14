@@ -1,5 +1,6 @@
 <mm:content type="text/xml"
             expires="-1"
+            postprocessor="none"
             xmlns="http://www.w3.org/1999/xhtml" 
             xmlns:jsp="http://java.sun.com/JSP/Page" 
             xmlns:fn="http://java.sun.com/jsp/jstl/functions"
@@ -11,7 +12,9 @@
   <mm:cloud method="asis">
     <mm:notpresent referid="node">      
       <mm:remove referid="node" />
-      <mm:node number="${param.objectnumber}" id="node" notfound="skip" />
+      <mm:node number="${param.objectnumber}" id="node" notfound="skip">
+
+      </mm:node>
     </mm:notpresent>
 
     <mm:present referid="node">

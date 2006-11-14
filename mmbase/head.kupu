@@ -16,6 +16,7 @@
         <jsp:text>: ${param.objectnumber}</jsp:text>
       </title>
     </fmt:bundle>
+    <kupu:id> saved from url=(0013)about:internet </kupu:id>
     <mm:link page="/mmbase/style/images/edit.ico">
       <link rel="icon"          href="${_}" type="image/x-icon" />
       <link rel="shortcut icon" href="${_}" type="image/x-icon" />
