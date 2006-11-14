@@ -9,6 +9,7 @@
     <mm:import externid="objectnumber" />
     <mm:cloud method="asis">
       <mm:node referid="objectnumber">
+        <!--
         <mm:formatter format="xhtml"> 
           <mm:field name="body" />
           <mm:listrelations type="object" role="idrel" searchdir="destination">
@@ -23,6 +24,7 @@
             </mm:relatednode>
           </mm:listrelations>
         </mm:formatter>
+        -->
       </mm:node>    
     </mm:cloud>
   </mm:content>

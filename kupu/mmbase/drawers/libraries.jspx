@@ -13,7 +13,7 @@
     <libraries>
       <param name="showupload">yes</param>
       <param name="drawertype">image</param>
-      <mm:url absolute="server" id="kupubasedir" page="../.." write="false" />
+      <mm:import id="kupubasedir"><mm:url absolute="server" page="../.." /></mm:import>
       <mm:stringlist referid="nodetypes" id="nodetype">
         <mm:hasnodemanager name="$_">
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel">

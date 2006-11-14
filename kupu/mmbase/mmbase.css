@@ -29,6 +29,12 @@ img {
 }
 
 
+#nodefields p { 
+  font-size: smaller;
+}
+#nodefields span.mm_datetime { 
+
+}
 #nodefields a:hover { 
    background-color: #527d94;
 }
@@ -163,7 +169,6 @@ div#kupu-toolbox-tables {
 
 }
 div#kupu-toolbox-debug { 
-/*  display: none; */
   top: 750px;
 }
 

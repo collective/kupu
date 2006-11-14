@@ -6,8 +6,11 @@
   <jsp:output omit-xml-declaration="true" />
   <mm:cloud method="asis">
     <mm:import id="nodetypes">images</mm:import>
-    <mm:formatter xslt="drawer.xsl" escape="none">
+    <mm:formatter escape="none">
       <mm:include referids="nodetypes" page="libraries.jspx" escape="none" />
+      <mm:xslt>
+        <mm:include page="drawer.xsl.jspx" />
+      </mm:xslt>
     </mm:formatter>
   </mm:cloud>
 </mm:content>

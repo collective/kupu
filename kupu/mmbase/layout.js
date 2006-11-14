@@ -7,7 +7,7 @@ if (document.getElementById || document.all) { // minimum dhtml support required
 function winOnLoad() {
   var ele = document.getElementById('leftColumn');
   if (ele && xDef(ele.style, ele.offsetHeight)) { // another compatibility check
-      //adjustLayout();
+    adjustLayout();
     addEventHandler(window, 'resize', winOnResize, window);
   }
 }
