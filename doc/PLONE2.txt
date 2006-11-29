@@ -499,7 +499,7 @@ Once you have done this you can configure the portal_transforms tool as follows:
      text/x-html-captioned and output type text/html.
 
    * On the portal_transforms policy tab add a policy with output
-     type=text/x-html-safe, uses transforms='html-to-captioned'.
+     type=text/x-html-captioned, uses transforms='html-to-captioned'.
 
 This will force the captioning transform to be applied before the
 safe_html transform.
