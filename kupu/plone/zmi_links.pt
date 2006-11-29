@@ -20,7 +20,7 @@ i18n:domain="plone">
   <body>
 
     <div class="documentContent" metal:fill-slot="kupu_content">
-      <metal:call use-macro="here/referencebrowser/macros/kupudrawer" />
+      <metal:call use-macro="portal/portal_skins/kupu_references/referencebrowser/macros/kupudrawer" />
       <div id="target">
         Loading kupu link maintenance...
       </div>
