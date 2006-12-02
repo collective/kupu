@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 
-// $Id: kupuinit_multi.js 6259 2004-09-01 15:25:36Z guido $
+// $Id$
 
 
 //----------------------------------------------------------------------------
@@ -26,16 +26,17 @@ function initKupu(iframeids) {
 
     // first we create a logger
     var l = new PlainLogger('kupu-toolbox-debuglog', 5);
-    
+
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
-    
+
     var documents = new Array();
     for (var i=0; i < iframeids.length; i++) {
         var iframe = getFromSelector(iframeids[i]);
         documents.push(new KupuDocument(iframe));
     };
 
+    // now we can create the controller
     var kupu = new KupuMultiEditor(documents, conf, l);
 
     /* doesn't work yet
@@ -58,7 +59,7 @@ function initKupu(iframeids) {
     };
 
     var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-                                             'fontWeight', 'bold');
+                                             'fontWeight', 'bold', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
                                          boldchecker,
@@ -67,7 +68,7 @@ function initKupu(iframeids) {
     kupu.registerTool('boldbutton', boldbutton);
 
     var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-                                                'fontStyle', 'italic');
+                                              'fontStyle', 'italic', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
                                            italicschecker, 
@@ -76,7 +77,7 @@ function initKupu(iframeids) {
     kupu.registerTool('italicsbutton', italicsbutton);
 
     var underlinechecker = ParentWithStyleChecker(new Array('u'),
-                                                'textDecoration', 'underline');
+                                   'textDecoration', 'underline', 'underline');
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
                                               underlinechecker,
@@ -84,7 +85,8 @@ function initKupu(iframeids) {
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
+    var subscriptchecker = ParentWithStyleChecker(new Array('sub'),
+                                                  null, null, 'subscript');
     var subscriptbutton = new KupuStateButton('kupu-subscript-button',
                                               execCommand('subscript'),
                                               subscriptchecker,
@@ -92,7 +94,8 @@ function initKupu(iframeids) {
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'));
+    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'),
+                                                    null, null, 'superscript');
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
                                                 execCommand('superscript'),
                                                 superscriptchecker,
@@ -125,12 +128,13 @@ function initKupu(iframeids) {
     kupu.registerTool('redobutton', redobutton);
 
     var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
-							'img',
-							'kupu-removeimage');
+                                                        'img',
+                                                        'kupu-removeimage');
     kupu.registerTool('removeimagebutton', removeimagebutton);
+
     var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
-						       'a',
-						       'kupu-removelink');
+                                                       'a',
+                                                       'kupu-removelink');
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     // add some tools
@@ -144,10 +148,10 @@ function initKupu(iframeids) {
                                 'kupu-list-ol-addbutton',
                                 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
-    
+
     var definitionlisttool = new DefinitionListTool('kupu-list-dl-addbutton');
     kupu.registerTool('definitionlisttool', definitionlisttool);
-    
+
     /* dunno if we'll ever want to support this
     var proptool = new PropertyTool('kupu-properties-title', 'kupu-properties-description');
     kupu.registerTool('proptool', proptool);
@@ -187,6 +191,10 @@ function initKupu(iframeids) {
                                                     'kupu-editor-textarea-');
     kupu.registerTool('sourceedittool', sourceedittool);
 
+    var cleanupexpressions = new CleanupExpressionsTool(
+            'kupucleanupexpressionselect', 'kupucleanupexpressionbutton');
+    kupu.registerTool('cleanupexpressions', cleanupexpressions);
+
     // Drawers...
 
     // Function that returns function to open a drawer
@@ -221,15 +229,26 @@ function initKupu(iframeids) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
-                                              conf['link_libraries_uri'],
-                                              conf['link_images_uri']);
-    drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+    try {
+        var linklibdrawer = new LinkLibraryDrawer(linktool, 
+                                                  conf['link_xsl_uri'],
+                                                  conf['link_libraries_uri'],
+                                                  conf['link_images_uri']);
+        drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
-                                                conf['image_libraries_uri'],
-                                                conf['search_images_uri']);
-    drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+        var imagelibdrawer = new ImageLibraryDrawer(imagetool, 
+                                                    conf['image_xsl_uri'],
+                                                    conf['image_libraries_uri'],
+                                                    conf['search_images_uri']);
+        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+    } catch(e) {
+        var msg = _('There was a problem initializing the drawers. Most ' +
+                'likely the XSLT or XML files aren\'t available. If this ' +
+                'is not the Kupu demo version, check your files or the ' +
+                'service that provide them (error: ${error}).',
+                {'error': (e.message || e.toString())});
+        alert(msg);
+    };
 
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
@@ -244,6 +263,12 @@ function initKupu(iframeids) {
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter();
     kupu.registerFilter(nonxhtmltagfilter);
+
+    if (window.kuputoolcollapser) {
+        var collapser = new window.kuputoolcollapser.Collapser(
+                                                        'kupu-toolboxes');
+        collapser.initialize();
+    };
 
     return kupu;
 };

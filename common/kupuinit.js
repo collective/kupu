@@ -26,13 +26,13 @@ function initKupu(iframe) {
 
     // first we create a logger
     var l = new PlainLogger('kupu-toolbox-debuglog', 5);
-    
+
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
-    
+
     // the we create the document, hand it over the id of the iframe
     var doc = new KupuDocument(iframe);
-    
+
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
 
@@ -128,12 +128,13 @@ function initKupu(iframe) {
     kupu.registerTool('redobutton', redobutton);
 
     var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
-							'img',
-							'kupu-removeimage');
+                                                        'img',
+                                                        'kupu-removeimage');
     kupu.registerTool('removeimagebutton', removeimagebutton);
+
     var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
-						       'a',
-						       'kupu-removelink');
+                                                       'a',
+                                                       'kupu-removelink');
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     // add some tools
@@ -147,10 +148,10 @@ function initKupu(iframe) {
                                 'kupu-list-ol-addbutton',
                                 'kupu-ulstyles', 'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
-    
+
     var definitionlisttool = new DefinitionListTool('kupu-list-dl-addbutton');
     kupu.registerTool('definitionlisttool', definitionlisttool);
-    
+
     var proptool = new PropertyTool('kupu-properties-title', 'kupu-properties-description');
     kupu.registerTool('proptool', proptool);
 
@@ -273,6 +274,6 @@ function initKupu(iframe) {
                                                         'kupu-toolboxes');
         collapser.initialize();
     };
-    
+
     return kupu;
 };

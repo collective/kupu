@@ -26,13 +26,13 @@ function initKupu(iframe) {
 
     // first we create a logger
     var l = new PlainLogger('kupu-toolbox-debuglog', 5);
-    
+
     // now some config values
     var conf = loadDictFromXML(document, 'kupuconfig');
-    
+
     // the we create the document, hand it over the id of the iframe
     var doc = new KupuDocument(iframe);
-    
+
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
 
@@ -59,7 +59,7 @@ function initKupu(iframe) {
     };
 
     var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
-                                             'fontWeight', 'bold');
+                                             'fontWeight', 'bold', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
                                          boldchecker,
@@ -68,7 +68,7 @@ function initKupu(iframe) {
     kupu.registerTool('boldbutton', boldbutton);
 
     var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
-                                                'fontStyle', 'italic');
+                                              'fontStyle', 'italic', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
                                            italicschecker, 
@@ -77,7 +77,7 @@ function initKupu(iframe) {
     kupu.registerTool('italicsbutton', italicsbutton);
 
     var underlinechecker = ParentWithStyleChecker(new Array('u'),
-                                                'textDecoration', 'underline');
+                                   'textDecoration', 'underline', 'underline');
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
                                               underlinechecker,
@@ -85,7 +85,8 @@ function initKupu(iframe) {
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
+    var subscriptchecker = ParentWithStyleChecker(new Array('sub'),
+                                                  null, null, 'subscript');
     var subscriptbutton = new KupuStateButton('kupu-subscript-button',
                                               execCommand('subscript'),
                                               subscriptchecker,
@@ -93,7 +94,8 @@ function initKupu(iframe) {
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'));
+    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'),
+                                                    null, null, 'superscript');
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
                                                 execCommand('superscript'),
                                                 superscriptchecker,
@@ -126,12 +128,13 @@ function initKupu(iframe) {
     kupu.registerTool('redobutton', redobutton);
 
     var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
-							'img',
-							'kupu-removeimage');
+                                                        'img',
+                                                        'kupu-removeimage');
     kupu.registerTool('removeimagebutton', removeimagebutton);
+
     var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
-						       'a',
-						       'kupu-removelink');
+                                                       'a',
+                                                       'kupu-removelink');
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     // add some tools
@@ -149,7 +152,7 @@ function initKupu(iframe) {
     // since we use the inspector we don't need much else ;)
     var inspector = new KupuInspector('kupu-inspector-form');
     kupu.registerTool('inspector', inspector);
-    
+
     var linktool = new LinkTool();
     kupu.registerTool('linktool', linktool);
 
@@ -161,7 +164,7 @@ function initKupu(iframe) {
 
     var showpathtool = new ShowPathTool();
     kupu.registerTool('showpathtool', showpathtool);
-    
+
     var viewsourcetool = new ViewSourceTool();
     kupu.registerTool('viewsourcetool', viewsourcetool);
 
