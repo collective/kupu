@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4 unreleased
+
+  - Fixed a bug where createLink deleted the selected text.
+
 - 1.4 Beta 2
 
   - Paragraph styling now permitted inside a table again (contributed

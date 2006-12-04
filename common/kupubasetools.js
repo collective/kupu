@@ -1111,6 +1111,11 @@ function LinkTool() {
     // the order of the arguments is a bit odd here because of backward
     // compatibility
     this.createLink = function(url, type, name, target, title) {
+        url = url.strip();
+        if (!url) {
+            this.deleteLink();
+            return;
+        };
         if (!this.formatSelectedLink(url, type, name, target, title)) {
             // No links inside or outside.
             this.editor.execCommand("CreateLink", url);

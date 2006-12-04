@@ -101,6 +101,8 @@ function SelectionTestCase() {
         s = s.toLowerCase().replace(/[\r\n]/g, "");
         s = s.replace(/\>[ ]+\</g, "><");
         s = s.replace(/\/>/g, ">");
+        s = s.replace(' style=""', "");
+        s = s.replace(" style=''", "");
         return s;
     };
 

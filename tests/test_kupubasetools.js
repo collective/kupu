@@ -291,7 +291,7 @@ function KupuUITestCase() {
 KupuUITestCase.prototype = new SelectionTestCase;
 
 function ImageToolTestCase() {
-    this.name = 'KupuUITestCase';
+    this.name = 'ImageToolTestCase';
     SelectionTestCase.apply(this);
     this.base_setUp = this.setUp;
 
@@ -325,3 +325,37 @@ function ImageToolTestCase() {
 };
 
 ImageToolTestCase.prototype = new SelectionTestCase;
+
+function LinkToolTestCase() {
+    this.name = 'LinkToolTestCase';
+    SelectionTestCase.apply(this);
+    this.base_setUp = this.setUp;
+
+    this.setUp = function() {
+        this.base_setUp();
+        this.editor = new KupuEditor(this.kupudoc, {}, new DummyLogger());
+        this.editor._initialized = true;
+        this.linktool = new LinkTool();
+        this.linktool.editor = this.editor;
+    };
+
+    this.test_createLink = function() {
+        this.body.innerHTML = '<p>foo bar baz</p>';
+        // select                    |bar|
+        this._setSelection(4, null, 7, null, 'bar');
+        this.linktool.createLink('http://www.example.org');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML),
+                          '<p>foo <a href="http://www.example.org">bar</a> baz</p>');
+    };
+
+    this.test_createLinkEmpty = function() {
+        this.body.innerHTML = '<p>foo bar baz</p>';
+        // select                    |bar|
+        this._setSelection(4, null, 7, null, 'bar');
+        this.linktool.createLink('');
+        this.assertEquals(this._cleanHtml(this.body.innerHTML),
+                          '<p>foo bar baz</p>');
+    };
+};
+
+LinkToolTestCase.prototype = new SelectionTestCase;
