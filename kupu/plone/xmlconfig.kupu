@@ -32,7 +32,7 @@
     </tal:block>
 
 <tal:block define="excludes here/kupu_library_tool/getHtmlExclusions">
-<htmlfilter tal:condition="excludes">
+<htmlfilter>
 <tal:block repeat="exclude excludes"><tal:block
      define="tags python:exclude[0]; attributes python:exclude[1];"
   ><c tal:omit-tag="not:python:tags and attributes"

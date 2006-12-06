@@ -440,18 +440,19 @@ of the ``RichWidget``. For example, a typical field definition might be::
             (description='Please paste or type your article here',
                 label='Body Copy',
                 parastyles=(
-                 ('div|pullQuote','Pull Quote'),
-                 ('div|Caption','Caption'),
-                 ('div|contactInformation','Contact Information'),
-                 ('div|notesToEditors','Notes to editors'),
+                 'div|pullQuote|Pull Quote',
+                 'div|Caption|Caption',
+                 'div|contactInformation|Contact Information',
+                 'div|notesToEditors|Notes to editors',
                 ),
             ),
         ),
 
-``parastyles`` is a sequence of style definitions. Each definition should
-be a 2-tuple of strings. The first string if either the tag to be
-added, or tag, vertical bar, class to be assigned to the tag. The
-second string is the caption that appears in the style pulldown.
+``parastyles`` is a sequence of style definitions. Each definition
+should be a string as for the style definitions in the control panel
+containing the tag to be added, vertical bar, class to be assigned to
+the tag, vertical bar, description that appears in the style pulldown.
+The class may be omitted, so tag, vertical bar, description is also valid.
 
 Images
 ------
@@ -499,7 +500,7 @@ Once you have done this you can configure the portal_transforms tool as follows:
      text/x-html-captioned and output type text/html.
 
    * On the portal_transforms policy tab add a policy with output
-     type=text/x-html-captioned, uses transforms='html-to-captioned'.
+     type=text/x-html-safe, uses transforms='html-to-captioned'.
 
 This will force the captioning transform to be applied before the
 safe_html transform.

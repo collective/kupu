@@ -19,7 +19,7 @@
     <!--$Id: drawers.kupu 32938 2006-10-06 06:56:24Z guido $-->
     <!--$Id: include.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: wire.kupu 25247 2006-04-03 11:23:02Z fschulze $-->
-    <!--$Id: head.kupu 20919 2005-12-09 10:14:44Z duncan $-->
+    <!--$Id: head.kupu 34332 2006-11-07 14:50:40Z duncan $-->
     <!--$Id: xmlconfig.kupu 30512 2006-07-25 10:17:05Z duncan $-->
     <!--$Id: body.kupu 34311 2006-11-07 11:18:23Z duncan $-->
     <!--$Id: toolbar.kupu 25717 2006-04-12 10:33:01Z fschulze $-->
@@ -57,7 +57,7 @@
     </tal:block>
 
 <tal:block define="excludes here/kupu_library_tool/getHtmlExclusions">
-<htmlfilter tal:condition="excludes">
+<htmlfilter>
 <tal:block repeat="exclude excludes"><tal:block define="tags python:exclude[0]; attributes python:exclude[1];"><c tal:omit-tag="not:python:tags and attributes"><a tal:repeat="attr attributes" tal:content="attr">
   </a><t tal:repeat="tag tags" tal:content="tag"/></c></tal:block></tal:block>
 <xstyle tal:repeat="st here/kupu_library_tool/getStyleWhitelist" tal:content="st"/>
