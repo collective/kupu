@@ -14,7 +14,7 @@ from DocumentTemplate.DT_Var import newline_to_br
 import re
 from cgi import escape
 from urlparse import urlsplit, urljoin, urlunsplit
-from urllib import unquote_plus
+from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
 
@@ -386,8 +386,9 @@ class Migration:
 
             if newlink != link:
                 prefix = match.group('prefix')
+                newlink = html_quote(newlink).encode('ascii', 'xmlcharrefreplace')
                 changes.append((match.start()+len(prefix), match.end(), newlink))
-                return prefix + html_quote(newlink)
+                return prefix + newlink
             return matched
 
         info = []
@@ -413,13 +414,13 @@ class Migration:
             # Don't attempt to modify non-html
             return None
             
-        data = field.getEditAccessor(object)()
+        data = field.getEditAccessor(object)().decode('utf8')
         __traceback_info__ = (object, data)
         newdata = LINK_PATTERN.sub(checklink, data)
         if data != newdata and self.commit_changes:
             mutator = field.getMutator(object)
             if mutator:
-                mutator(newdata, mimetype='text/html')
+                mutator(newdata.encode('utf8'), mimetype='text/html')
                 object.reindexObject() # Need to flag update
 
         if info or changes:
