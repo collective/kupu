@@ -61,7 +61,6 @@ class ButtonFilter:
         self.filter_buttons = getattr(widget, 'filter_buttons', None)
         self.allow_buttons = getattr(widget, 'allow_buttons', None)
         self.visible_buttons = tool.getToolbarFilters(context, field)
-        print "visible=", self.visible_buttons
 
     def isButtonAllowed(self, name):
         visible = self.visible_buttons.get(name, True)
@@ -76,5 +75,4 @@ class ButtonFilter:
         if name[0]=='_':
             raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
         allowed = self.isButtonAllowed(name)
-        print "ButtonFilter",name,"->",allowed
         return allowed
