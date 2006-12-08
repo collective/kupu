@@ -147,7 +147,7 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 .kupu-inthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
-.kupu-exthyperlink {background-image: url("&dtml-portal_url;/link_icon.gif");}
+.kupu-exthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/link_icon.gif");}
 .kupu-exthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }

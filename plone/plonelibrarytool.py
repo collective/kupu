@@ -28,7 +28,7 @@ from Products.CMFCore.utils import UniqueObject, getToolByName
 from Products.PythonScripts.standard import Object
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
-from Products.kupu.plone import permissions, scanner, plonedrawers, util
+from Products.kupu.plone import permissions, scanner, plonedrawers, util, helpers
 from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO
@@ -156,6 +156,66 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             return self.paragraph_styles
         except AttributeError:
             return _default_paragraph_styles
+
+    security.declareProtected('View', "getStyleList")
+    def getStyleList(self, field=None):
+        """Return the paragraph styles for a field."""
+        gstyles = self.getParagraphStyles()
+        if field:
+            widget = field.widget
+            redefine = getattr(widget, 'redefine_parastyles', False)
+            lstyles = getattr(widget, 'parastyles', ())
+        else:
+            redefine = False
+            lstyles = False
+
+        result = []
+        if redefine:
+            styles = lstyles
+        else:
+            styles = list(gstyles) + list(lstyles)
+            
+        for style in styles:
+            parts = style.split('|',1)+['','']
+            value = parts[1]
+            content = parts[0]
+            result.append({'value':value, 'content':content})
+
+        return result
+
+    security.declareProtected('View', "filterToolbar")
+    def filterToolbar(self, context, field=None):
+        return helpers.ButtonFilter(self, context, field)
+
+    security.declareProtected('View', "getFilterOptions")
+    def getFilterOptions(self, field=None):
+        filters = helpers.FILTERS
+        config = self._getToolbarFilterOptions()
+        res = []
+        for (id, title, default) in filters:
+            cfg = config.get(id, {})
+            visible = cfg.get('visible', default)
+            expr = cfg.get('override', None)
+            if expr is not None:
+                expr = expr.text
+            res.append(dict(id=id, title=title, visible=visible, override=expr))
+        return res
+
+    security.declareProtected(permissions.ManageLibraries, "set_toolbar_filters")
+    def set_toolbar_filters(self, filters, REQUEST=None):
+        """Set the toolbar filtering
+        filter is a list of records with: id, checked, expression"""
+        DEFAULTS = helpers.FILTERDICT
+        def nonstandard(f):
+            expr = f['override']
+            id = f['id']
+            visible = bool(f.get('visible', False))
+            return expr != '' or visible != DEFAULTS.get(id, False)
+            
+        cleaned = [ f for f in filters if nonstandard(f) ]
+        self._setToolbarFilters(filters)
+        if REQUEST:
+            REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_toolbar')
 
     security.declareProtected('View', "getHtmlExclusions")
     def getHtmlExclusions(self):
@@ -417,6 +477,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     security.declareProtected(permissions.ManageLibraries, "zmi_links")
     zmi_links = PageTemplateFile("zmi_links.pt", globals())
     zmi_links.title = 'kupu link maintenance'
+
+    security.declareProtected(permissions.ManageLibraries, "zmi_toolbar")
+    zmi_toolbar = PageTemplateFile("zmi_toolbar.pt", globals())
+    zmi_toolbar.title = 'kupu toolbar customisation'
 
     security.declareProtected(permissions.ManageLibraries, "zmi_docs")
     zmi_docs = PageTemplateFile("zmi_docs.pt", globals())
