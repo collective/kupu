@@ -89,6 +89,11 @@ function initPloneKupu(editorId) {
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
+    var colorchoosertool = new ColorchooserTool(prefix+'button.kupu-forecolor',
+        prefix+'button.kupu-hilitecolor',
+        prefix+'table.kupu-colorchooser');
+    kupu.registerTool('colorchooser', colorchoosertool);
+
     var justifyleftbutton = new KupuButton(prefix+'button.kupu-justifyleft',
                                            execCommand('justifyleft'));
     kupu.registerTool('justifyleftbutton', justifyleftbutton);
@@ -163,8 +168,8 @@ function initPloneKupu(editorId) {
         kupu.registerTool('spellchecker', spellchecker);
     } else {
         // hide the button when not available
-        var spellchecker_tool = document.getElementById('kupu-spellchecker');
-        spellchecker_tool.style.display = 'none';
+        var sc = getFromSelector(prefix+'span.kupu-spellchecker-span');
+        if (sc) sc.style.display = 'none';
     }
 
     // Use the generic beforeUnload handler if we have it:

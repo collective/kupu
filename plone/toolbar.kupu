@@ -133,7 +133,8 @@
   <kupu:part name="select-styles">
     <select class="kupu-tb-styles"
             tal:condition="filter/styles"
-            tal:define="styles python:tool.getStyleList(field);">
+            
+            tal:define="field field|nothing;styles python:tool.getStyleList(field);">
       <option value="p" i18n:translate="">Normal</option>
       <tal:block condition="styles" repeat="style styles">
         <option i18n:translate=""

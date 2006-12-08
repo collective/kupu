@@ -142,7 +142,8 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 .kupu-bold,
 .kupu-bold-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/bold.gif");}
 
-.kupu-forecolor {background-image: url("&dtml-portal_url;/plonekupuimages/text-color.gif");}
+.kupu-forecolor {background-image: url("&dtml-portal_url;/kupuimages/text-color.png");}
+.kupu-hilitecolor {background-image: url("&dtml-portal_url;/kupuimages/background-color.png");}
 .kupu-inthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/hyperlink.gif");}
 .kupu-inthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
@@ -196,7 +197,7 @@ button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.
 .kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
 .kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
 .kupu-removeimage {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
-.kupu-spellchecker { display:none; }
+.kupu-spellchecker {background-image: url("&dtml-portal_url;/kupuimages/text-check.png");}
 
 .kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
 .kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}

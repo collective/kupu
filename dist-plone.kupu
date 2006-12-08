@@ -22,6 +22,5 @@
   <!-- Plone does not want to use certain features -->
   <kupu:disable-feature name="toolboxes" />
   <kupu:disable-feature name="save" />
-  <kupu:disable-feature name="colorchooser" />
 
 </kupu:dist>
