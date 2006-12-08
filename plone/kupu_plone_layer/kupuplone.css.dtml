@@ -79,7 +79,7 @@ textarea { width: 90%; } /* Override buggy Plone setting */
   border:1px solid &dtml-contentViewBorderColor;;
 }
 
-span.kupu-tb-buttons button {
+.kupu-tb-buttons button {
   width: 24px;
   height: 24px;
   border-color:&dtml-contentViewBackgroundColor;;
