@@ -2,9 +2,15 @@
 Kupu changes
 ============
 
-- 1.4 unreleased
+- 1.4 Beta 3
 
   - Fixed a bug where createLink deleted the selected text.
+
+  - Paragraph styles may now be replaced as well as added to in a
+    widget definition.
+
+  - Toolbar buttons may be hidden globally, according to an 
+    expression, or from a widget definition.
 
 - 1.4 Beta 2
 
