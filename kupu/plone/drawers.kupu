@@ -14,6 +14,35 @@
   <kupu:part name="jsincludes">
   </kupu:part>
 
+  <kupu:part name="buttons">
+    <span class="kupu-tb-buttongroup" tal:condition="filter/bg-drawers">
+      <button type="button" class="kupu-image"
+              tal:condition="filter/imagelibdrawer-button"
+              id="kupu-imagelibdrawer-button"
+              title="Insert image" i18n:attributes="title"
+        >&#160;</button>
+      <button type="button" class="kupu-inthyperlink"
+              tal:condition="filter/linklibdrawer-button"
+              id="kupu-linklibdrawer-button"
+              title="Insert internal link"
+        i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-exthyperlink"
+              tal:condition="filter/linkdrawer-button"
+              id="kupu-linkdrawer-button"
+              title="Insert external link"
+        i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-anchors"
+              tal:condition="filter/anchors-button"
+              id="kupu-anchors"
+              title="Insert anchors" i18n:attributes="title">&#160;</button>
+      <button type="button" class="kupu-table"
+              tal:condition="filter/tabledrawer-button"
+              id="kupu-tabledrawer-button"
+              title="Insert table" i18n:attributes="title"
+        >&#160;</button>
+    </span>
+  </kupu:part>
+
   <kupu:part name="xmlconfig">
     <tal:var define="field field|nothing;
             tool here/kupu_library_tool;
