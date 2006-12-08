@@ -97,3 +97,4 @@ The Sarissa ECMAScript library shipped in this distribution
 (common/sarissa.js) is the work of Manos Batsis and distributed under
 the Kupu License with his kind permission. See the Sarissa homepage at
 http://sarissa.sourceforge.net for more information.
+
