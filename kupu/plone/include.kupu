@@ -14,6 +14,8 @@
   <xi:include href="drawers.kupu" />
   <xi:include href="beforeunload.kupu" />
   <xi:include href="sourceedit.kupu" />
+  <xi:include href="colorchooser.kupu" />
+  <xi:include href="spellchecker.kupu" />
   <xi:include href="wysiwyg_support.kupu" />
 
 </kupu:include>

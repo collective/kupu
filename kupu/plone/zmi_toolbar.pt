@@ -45,7 +45,7 @@ i18n:domain="plone">
               <th>Expression</th>
             </thead>
             <tbody class="kupu-tb-buttons">
-              <tr tal:repeat="opt context/getFilterOptions">
+              <tr tal:repeat="opt context/getFilterOptions" style="height:28px">
                 <td><button tal:condition="opt/classname" disabled
                   tal:attributes="class opt/classname">&#160;</button>
                 </td>

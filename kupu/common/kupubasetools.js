@@ -839,15 +839,13 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
     this.initialize = function(editor) {
         /* attach the event handlers */
         this.editor = editor;
-        
+        if (!(this.fgcolorbutton && this.hlcolorbutton && this.ccwindow)) return;
         this.createColorchooser(this.ccwindow);
 
         addEventHandler(this.fgcolorbutton, "click", this.openFgColorChooser, this);
         addEventHandler(this.hlcolorbutton, "click", this.openHlColorChooser, this);
         addEventHandler(this.ccwindow, "click", this.chooseColor, this);
-
         this.hide();
-
         this.editor.logMessage(_('Colorchooser tool initialized'));
     };
 
@@ -876,7 +874,12 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
         /* event handler for choosing the color */
         var target = _SARISSA_IS_MOZ ? event.target : event.srcElement;
         var cell = this.editor.getNearestParentOfType(target, 'td');
-        this.editor.execCommand(this.command, cell.getAttribute('bgColor'));
+        var ed = this.editor;
+        var doc = ed.getDocument();
+        ed.execCommand('styleWithCSS', true);
+        doc.execCommand(this.command, cell.bgColor);
+        ed.execCommand('styleWithCSS', false);
+        // this.editor.execCommand(this.command, cell.bgColor);
         this.hide();
     
         this.editor.logMessage(_('Color chosen'));
@@ -889,7 +892,6 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
 
     this.hide = function() {
         /* hide the colorchooser */
-        this.command = null;
         this.ccwindow.style.display = "none";
     };
 

@@ -15,6 +15,9 @@ FILTERS = [
     ('bg-subsuper', 'Subscript/Superscript group', True, None),
     ('subscript-button', 'Subscript button', True, 'kupu-subscript'),
     ('superscript-button', 'Superscript button', True, 'kupu-superscript'),
+    ('bg-colorchooser', 'Colour chooser group', False, None),
+    ('forecolor-button', 'Psychedelic foreground', False, 'kupu-forecolor'),
+    ('hilitecolor-button', 'Psychedelic background', False, 'kupu-hilitecolor'),
     ('bg-justify', 'Justify group', True, None),
     ('justifyleft-button', 'Justify left button', True, 'kupu-justifyleft'),
     ('justifycenter-button', 'Justify center button', True, 'kupu-justifycenter'),
@@ -38,7 +41,7 @@ FILTERS = [
     ('bg-undo', 'Undo group', True, None),
     ('undo-button', 'Undo button', True, 'kupu-undo'),
     ('redo-button', 'Redo button', True, 'kupu-redo'),
-    ('spellchecker', 'Spellchecker', False, ''),
+    ('spellchecker', 'Spellchecker', False, 'kupu-spellchecker'),
     ('source', 'Source', True, 'kupu-source'),
     ('styles', 'Styles pulldown', True, None),
     ('ulstyles', 'Unordered list style pulldown', True, None),
@@ -50,7 +53,7 @@ FILTERDICT = dict([(k,v) for (k,title,v,cl) in FILTERS])
 class ButtonFilter:
     """Helper class to control visibility of buttons.
     Works from both a whitelist and a blacklist in the widget.
-    XXX Add expressions to the configlet so that a button may be hidden conditionally.
+    The configlet also provides a master list of visibilities
     """
     __allow_access_to_unprotected_subobjects__ = 1
 
@@ -63,7 +66,9 @@ class ButtonFilter:
         self.visible_buttons = tool.getToolbarFilters(context, field)
 
     def isButtonAllowed(self, name):
-        visible = self.visible_buttons.get(name, True)
+        visible = self.visible_buttons.get(name, None)
+        if visible is None:
+            visible = FILTERDICT.get(name, True)
         if self.allow_buttons is not None:
             return visible and name in self.allow_buttons
         if self.filter_buttons is not None:
@@ -75,4 +80,5 @@ class ButtonFilter:
         if name[0]=='_':
             raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
         allowed = self.isButtonAllowed(name)
+        #print name, "->", allowed
         return allowed
