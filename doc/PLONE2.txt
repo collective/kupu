@@ -399,6 +399,72 @@ uids -> relative path
         screen showing the proposed changes and may exclude any of them
         before confirming the search.
 
+toolbar tab
+===========
+
+This tab allows you to control which buttons and groups of buttons are
+displayed on the kupu toolbar. N.B. Be carefule, some combinations of
+buttons may render kupu hard to use.
+
+You may hide a button or group completely simply by unchecking the
+appropriate ``visible`` checkbox in this page. A button can only be
+visible if the group which contains it is also visible.
+
+You may enter an expression to control whether a button should be
+visible, e.g. to restrict buttons based on the user's roles.
+If there is an expression for a button the setting of the checkbox is
+ignored. The following values are available within the expression
+context:
+
+    field object_url folder_url portal_url object folder portal 
+    nothing request modules member
+
+The visibility of buttons may be further controlled within the widget
+definition for a field, but the this can only hide buttons, it cannot
+force a button to display if the settings on this tab have made it
+invisible. The widget allows for either a whitelist ``allow_buttons``
+attribute or a blacklist ``filter_buttons``. Either attribute should
+contain a list or tuple of button or group ids. The available ids are
+listed on the toolbar tab.
+
+If the widget has an attribute ``allow_buttons`` then only buttons and
+groups listed in this attribute will be visible; all other buttons are
+hidden. If there is no ``allow_buttons`` attribute (or its value is
+``None`` then all buttons are allowed unless excluded by
+``filter_buttons``.
+
+This example would hide all buttons except for bold, italic, left and
+right justify::
+
+        TextField('text',
+            allowable_content_types=('text/html',),
+            default_output_type='text/x-html-safe',
+            required=1,
+            widget=RichWidget
+            (label='Content',
+                allow_buttons=(
+                'bg-basicmarkup',
+                'bold-button', 'italic-button',
+                'bg-justify',
+                'justifyleft-button',
+                'justifyright-button',
+                ),
+            ),
+        ),
+
+This example would hide only the zoom button::
+
+        TextField('text',
+            allowable_content_types=('text/html',),
+            default_output_type='text/x-html-safe',
+            required=1,
+            widget=RichWidget
+            (label='Content',
+                filter_buttons=('zoom',
+                ),
+            ),
+        ),
+
 Custom styles
 -------------
 Kupu allows you to specify styles for paragraphs (P or DIV tags),
@@ -439,20 +505,27 @@ of the ``RichWidget``. For example, a typical field definition might be::
             widget=RichWidget
             (description='Please paste or type your article here',
                 label='Body Copy',
+                redefine_parastyles=False,
                 parastyles=(
-                 'div|pullQuote|Pull Quote',
-                 'div|Caption|Caption',
-                 'div|contactInformation|Contact Information',
-                 'div|notesToEditors|Notes to editors',
+                 'Pull Quote|div|pullQuote',
+                 'Caption|div|caption',
+                 'Contact Information|div|contactInformation',
+                 'Notes to editors|div|notesToEditors',
                 ),
             ),
         ),
 
 ``parastyles`` is a sequence of style definitions. Each definition
 should be a string as for the style definitions in the control panel
-containing the tag to be added, vertical bar, class to be assigned to
-the tag, vertical bar, description that appears in the style pulldown.
-The class may be omitted, so tag, vertical bar, description is also valid.
+containing the description that appears in the style pulldown, vertical
+bar, the tag to be added, vertical bar, class to be assigned to
+the tag.
+The class may be omitted, so description, vertical bar, tag is also valid.
+
+If the widget has an attribute ``redefine_parastyles`` which is true,
+then the styles defined for the field will replace the globally
+configured styles. If false or not set the field styles are added to
+the global styles.
 
 Images
 ------
@@ -470,6 +543,10 @@ this feature you must be linking to an Archetypes based image type and
 have 'link by uid' enabled in the configuration options,
 and the field you are editing must invoke the html-to-captioned output 
 transform.
+
+The field must have a default output type of text/x-html-safe or
+text/x-html-captioned otherwise image drawer will not include the
+caption option.
 
 If both of these conditions are filled, then the image drawer will
 include a checkbox for captioning an image. By default this is
@@ -565,11 +642,6 @@ then define your field as::
             widget=RichWidget
             (description='Please paste or type your article here',
                 label='Body Copy',
-                parastyles=(
-                 ('div|pullQuote','Pull Quote'),
-                 ('div|Caption','Caption'),
-                 ('div|contactInformation','Contact Information'),
-                 ('div|notesToEditors','Notes to editors'),
                 ),
             ),
         ),

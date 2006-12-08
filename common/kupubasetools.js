@@ -115,13 +115,17 @@ function NoContextMenu(object) {
 // Helper function for enabling/disabling tools
 function KupuButtonDisable(button) {
     button = button || this.button;
-    button.disabled = "disabled";
-    button.className += ' disabled';
+    if (button) {
+        button.disabled = "disabled";
+        button.className += ' disabled';
+    }
 }
 function KupuButtonEnable(button) {
     button = button || this.button;
-    button.disabled = "";
-    button.className = button.className.replace(/ *\bdisabled\b/g, '');
+    if (button) {
+        button.disabled = "";
+        button.className = button.className.replace(/ *\bdisabled\b/g, '');
+    }
 }
 
 
@@ -143,6 +147,7 @@ KupuButton.prototype = new KupuTool;
 
 KupuButton.prototype.initialize = function(editor) {
     this.editor = editor;
+    if (!this.button) return;
     this._fixTabIndex(this.button);
     addEventHandler(this.button, 'click', this.execCommand, this);
 };
@@ -182,6 +187,7 @@ function KupuStateButton(buttonid, commandfunc, checkfunc, offclass, onclass) {
         
             if the state of the button should be changed, we set the class
         */
+        if (!this.button) return;
         var currclass = this.button.className;
         var newclass = null;
         if (this.checkfunc(selNode, this, this.editor, event)) {
@@ -265,8 +271,10 @@ function KupuUI(textstyleselectid) {
         this.editor = editor;
         this.cleanStyles();
         this.enableOptions(false);
-        this._fixTabIndex(this.tsselect);
-        this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
+        if (this.tsselect) {
+            this._fixTabIndex(this.tsselect);
+            this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
+        }
     };
 
     this.getStyles = function() {
@@ -337,6 +345,7 @@ function KupuUI(textstyleselectid) {
     };
 
     this.cleanStyles = function() {
+        if (!this.tsselect) return;
         var options = this.tsselect.options;
         var parastyles = this.styles;
         var tablestyles = this.tablestyles;
@@ -395,6 +404,7 @@ function KupuUI(textstyleselectid) {
 
     // Remove otherstyle and switch to appropriate style set.
     this.enableOptions = function(inTable) {
+        if (!this.tsselect) return;
         var select = this.tsselect;
         var options = select.options;
         if (this.otherstyle) {
@@ -509,6 +519,7 @@ function KupuUI(textstyleselectid) {
         // this method does some more than the original one since it can handle commands in
         // the form of '<style>|<classname>' next to the plain
         // '<style>' commands
+        if (!this.tsselect) return;
         var index = undefined;
         var mixed = false;
         var styletag, classname;
@@ -808,10 +819,10 @@ function KupuUI(textstyleselectid) {
         return ret;
     };
     this.disable = function() {
-        this.tsselect.disabled = "disabled";
+        if (this.tsselect) this.tsselect.disabled = "disabled";
     }
     this.enable = function() {
-        this.tsselect.disabled = "";
+        if (this.tsselect) this.tsselect.disabled = "";
     }
 }
 
@@ -1179,6 +1190,7 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
         /* attach the event handlers */
         this.tool = tool;
         this.editor = editor;
+        if (!this.button) return;
         addEventHandler(this.input, "blur", this.updateLink, this);
         addEventHandler(this.button, "click", this.addLink, this);
     };
@@ -2157,17 +2169,24 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
     this.initialize = function(editor) {
         /* attach event handlers */
         this.editor = editor;
-        this._fixTabIndex(this.addulbutton);
-        this._fixTabIndex(this.addolbutton);
-        this._fixTabIndex(this.ulselect);
-        this._fixTabIndex(this.olselect);
-
-        addEventHandler(this.addulbutton, "click", this.addUnorderedList, this);
-        addEventHandler(this.addolbutton, "click", this.addOrderedList, this);
-        addEventHandler(this.ulselect, "change", this.setUnorderedListStyle, this);
-        addEventHandler(this.olselect, "change", this.setOrderedListStyle, this);
-        this.ulselect.style.display = "none";
-        this.olselect.style.display = "none";
+        if (this.addulbutton) {
+            this._fixTabIndex(this.addulbutton);
+            addEventHandler(this.addulbutton, "click", this.addUnorderedList, this);
+        }
+        if (this.addolbutton) {
+            this._fixTabIndex(this.addolbutton);
+            addEventHandler(this.addolbutton, "click", this.addOrderedList, this);
+        }
+        if (this.ulselect) {
+            this._fixTabIndex(this.ulselect);
+            addEventHandler(this.ulselect, "change", this.setUnorderedListStyle, this);
+            this.ulselect.style.display = "none";
+        }
+        if (this.olselect) {
+            this._fixTabIndex(this.olselect);
+            addEventHandler(this.olselect, "change", this.setOrderedListStyle, this);
+            this.olselect.style.display = "none";
+        }
 
         this.editor.logMessage(_('List style tool initialized'));
     };
@@ -2178,10 +2197,14 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
         } else {
             var currstyle = this.type_to_style[currnode.getAttribute('type')];
         }
-        selectSelectItem(onselect, currstyle);
-        offselect.style.display = "none";
-        onselect.style.display = "inline";
-        offselect.selectedIndex = 0;
+        if (onselect) {
+            selectSelectItem(onselect, currstyle);
+            onselect.style.display = "inline";
+        }
+        if (offselect) {
+            offselect.style.display = "none";
+            offselect.selectedIndex = 0;
+        }
     };
 
     this.updateState = function(selNode) {
@@ -2198,19 +2221,19 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
                 return;
             }
         }
-        with(this.ulselect) {
+        if (this.ulselect) with(this.ulselect) {
             selectedIndex = 0;
             style.display = "none";
         };
-        with(this.olselect) {
+        if (this.olselect) with(this.olselect) {
             selectedIndex = 0;
             style.display = "none";
         };
     };
 
     this.addList = function(command) {
-        this.ulselect.style.display = "inline";
-        this.olselect.style.display = "none";
+        if (this.ulselect) this.ulselect.style.display = "inline";
+        if (this.olselect) this.olselect.style.display = "none";
         this.editor.execCommand(command);
         this.editor.focusDocument();
     };
@@ -2226,6 +2249,7 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
 
     this.setListStyle = function(tag, select) {
         /* set the type of an ul */
+        if (!select) return;
         var currnode = this.editor.getSelectedNode();
         var l = this.editor.getNearestParentOfType(currnode, tag);
         var style = select.options[select.selectedIndex].value;
@@ -2251,14 +2275,14 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
     this.enable = function() {
         KupuButtonEnable(this.addulbutton);
         KupuButtonEnable(this.addolbutton);
-        this.ulselect.disabled = "";
-        this.olselect.disabled = "";
+        if (this.ulselect) this.ulselect.disabled = "";
+        if (this.olselect) this.olselect.disabled = "";
     }
     this.disable = function() {
         KupuButtonDisable(this.addulbutton);
         KupuButtonDisable(this.addolbutton);
-        this.ulselect.disabled = "disabled";
-        this.olselect.disabled = "disabled";
+        if (this.ulselect) this.ulselect.disabled = "disabled";
+        if (this.olselect) this.olselect.disabled = "disabled";
     }
 };
 
@@ -2343,6 +2367,7 @@ function DefinitionListTool(dlbuttonid) {
     this.initialize = function(editor) {
         /* initialize the tool */
         this.editor = editor;
+        if (!this.dlbutton) return;
         this._fixTabIndex(this.dlbutton);
         addEventHandler(this.dlbutton, 'click', this.createDefinitionList, this);
         addEventHandler(editor.getInnerDocument(), 'keyup', this._keyDownHandler, this);
@@ -2650,7 +2675,7 @@ function KupuZoomTool(buttonid, firsttab, lasttab) {
         this.offclass = 'kupu-zoom';
         this.onclass = 'kupu-zoom-pressed';
         this.pressed = false;
-
+        if (!this.button) return;
         this.baseinitialize(editor);
         this.button.tabIndex = this.editor.document.editable.tabIndex;
         addEventHandler(window, "resize", this.onresize, this);
