@@ -34,6 +34,7 @@ i18n:domain="plone">
 
           <table class="listing nosort">
             <thead>
+              <th></th>
               <th>Id</th>
               <th>Title</th>
               <th>Visible<br/>
@@ -43,9 +44,13 @@ i18n:domain="plone">
               </th>
               <th>Expression</th>
             </thead>
-            <tbody>
+            <tbody class="kupu-tb-buttons">
               <tr tal:repeat="opt context/getFilterOptions">
-                <td><span tal:content="opt/id" />
+                <td><button tal:condition="opt/classname"
+                  tal:attributes="class opt/classname">&#160;</button>
+                </td>
+                <td>
+                  <span tal:content="opt/id" />
                   <input type="hidden" name="filters.id:records" tal:attributes="value opt/id" />
                 </td>
                 <td tal:content="opt/title">

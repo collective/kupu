@@ -192,13 +192,13 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         filters = helpers.FILTERS
         config = self._getToolbarFilterOptions()
         res = []
-        for (id, title, default) in filters:
+        for (id, title, default, klass) in filters:
             cfg = config.get(id, {})
             visible = cfg.get('visible', default)
             expr = cfg.get('override', None)
             if expr is not None:
                 expr = expr.text
-            res.append(dict(id=id, title=title, visible=visible, override=expr))
+            res.append(dict(id=id, title=title, visible=visible, override=expr, classname=klass))
         return res
 
     security.declareProtected(permissions.ManageLibraries, "set_toolbar_filters")
