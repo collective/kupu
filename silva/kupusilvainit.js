@@ -79,8 +79,9 @@ function initSilvaKupu(iframe) {
         };
     };
 
-    var cm = new ContextMenu();
-    kupu.setContextMenu(cm);
+    //change to fix wrongful caching of images
+    //var cm = new ContextMenu();
+    //kupu.setContextMenu(cm);
 
     // now we can create a UI object which we can use from the UI
     var ui = new SilvaKupuUI('kupu-tb-styles');
