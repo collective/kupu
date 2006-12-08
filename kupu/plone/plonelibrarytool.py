@@ -270,8 +270,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             return False
 
         user = pm.getAuthenticatedMember()
-        if user.getProperty('wysiwyg_editor').lower() != 'kupu':
-            return False
+        if not pm.isAnonymousUser():
+            editor = user.getProperty('wysiwyg_editor')
+            if editor and editor.lower() != 'kupu':
+                return False
 
         # Then check whether the current content allows html
         if context is not None and fieldName and hasattr(context, 'getWrappedField'):
@@ -325,7 +327,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         """Find the appropriate template to use for the kupu widget"""
         pm = getToolByName(self, 'portal_membership')
         user = pm.getAuthenticatedMember()
-        editor = user.getProperty('wysiwyg_editor', '').lower()
+        editor = user.getProperty('wysiwyg_editor', '')
+        if editor: editor = editor.lower()
         if editor=='fck editor':
             editor = 'editor_fck'
 
