@@ -12,6 +12,9 @@ Kupu changes
   - Toolbar buttons may be hidden globally, according to an 
     expression, or from a widget definition.
 
+  - Support for generic setup added (when present, older systems may
+    continue to use the quickinstaller) 
+
 - 1.4 Beta 2
 
   - Paragraph styling now permitted inside a table again (contributed
