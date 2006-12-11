@@ -167,7 +167,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             lstyles = getattr(widget, 'parastyles', ())
         else:
             redefine = False
-            lstyles = False
+            lstyles = []
 
         result = []
         if redefine:
@@ -213,7 +213,6 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             return expr != '' or visible != DEFAULTS.get(id, False)
             
         cleaned = [ f for f in filters if nonstandard(f) ]
-        print cleaned
         self._setToolbarFilters(cleaned)
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_toolbar')
