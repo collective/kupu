@@ -40,8 +40,8 @@ def install_plone(self, out):
     """
     # register the plone skin layers
     register_layer(self, 'plone/kupu_plone_layer', 'kupu_plone', out)
-    # Leave the reference browser turned off by default :(
-    #register_layer(self, 'plone/kupu_references', 'kupu_references', out)
+    # By default, add the directory view but not the skin layer for the reference browser
+    register_layer(self, 'plone/kupu_references', 'kupu_references', out, add=False)
     register_layer(self, 'tests', 'kupu_tests', out)
 
     # register as editor

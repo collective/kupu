@@ -7,7 +7,7 @@ from Products.kupu import kupu_globals
 
 kupu_package_dir = package_home(kupu_globals)
 
-def register_layer(self, relpath, name, out):
+def register_layer(self, relpath, name, out, add=True):
     """Register a file system directory as skin layer
     """
     print >>out, "register skin layers"
@@ -16,6 +16,9 @@ def register_layer(self, relpath, name, out):
         kupu_plone_skin_dir = minimalpath(os.path.join(kupu_package_dir, relpath))
         createDirectoryView(skinstool, kupu_plone_skin_dir, name)
         print >>out, "The layer '%s' was added to the skins tool" % name
+
+    if not add:
+        return
 
     # put this layer into all known skins
     for skinName in skinstool.getSkinSelections():

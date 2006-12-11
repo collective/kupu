@@ -21,6 +21,13 @@ from Products.CMFCore import utils
 from Products.kupu.plone.plonelibrarytool import PloneKupuLibraryTool
 from Products.kupu import kupu_globals
 
+try:
+    from Products.GenericSetup import profile_registry
+    from Products.GenericSetup import BASE, EXTENSION
+    from Products.CMFPlone.interfaces import IPloneSiteRoot
+except ImportError:
+    profile_registry = None
+
 kupu_package_dir = package_home(kupu_globals)
 registerDirectory('plone/kupu_plone_layer', kupu_package_dir)
 registerDirectory('plone/kupu_references', kupu_package_dir)
@@ -40,3 +47,13 @@ def initialize(context):
                        icon="kupu_icon.gif",
                        )
     init.initialize(context)
+
+    if profile_registry is not None:
+        profile_registry.registerProfile('default',
+                                     'Kupu',
+                                     'Extension profile for Kupu',
+                                     'plone/profiles/default',
+                                     'kupu',
+                                     EXTENSION,
+                                     for_=IPloneSiteRoot)
+
