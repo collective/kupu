@@ -35,6 +35,14 @@ from StringIO import StringIO
 from urllib import quote_plus, unquote_plus
 import html2captioned
 
+# Zope 3 interfaces, but on older zopes we'll just skip this bit.
+try:
+    from zope.interface import implements
+except ImportError:
+    def implements(*args): pass
+
+from z3interfaces import IPloneKupuLibraryTool
+
 _default_libraries = (
     dict(id="root",
          title="string:Home",
@@ -96,6 +104,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     meta_type = "Kupu Library Tool"
     title = TOOLTITLE
     security = ClassSecurityInfo()
+    implements(IPloneKupuLibraryTool)
 
     # protect methods provided by super class KupuLibraryTool
     security.declareProtected(permissions.QueryLibraries, "getLibraries",
@@ -124,9 +133,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def getLinkbyuid(self):
         """Returns 'is linking by UID enabled'?"""
         try:
-            return self.linkbyuid
+            return bool(self.linkbyuid)
         except AttributeError:
-            return 1
+            return False
 
     security.declareProtected('View', "getRefBrowser")
     def getRefBrowser(self):
@@ -137,7 +146,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def getCaptioning(self):
         """Returns True if captioning is enabled"""
         try:
-            return self.captioning
+            return bool(self.captioning)
         except AttributeError:
             return False
 
@@ -170,6 +179,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             lstyles = []
 
         result = []
+        __traceback_info__ = (gstyles, lstyles)
         if redefine:
             styles = lstyles
         else:
@@ -563,9 +573,9 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
            Old version of code. Returns name,types pairs plus a dummy"""
         return [(t.name, t.types) for t in self.zmi_get_resourcetypes()] + [('',())]
 
-    security.declareProtected(permissions.ManageLibraries, "zmi_get_resourcetypes")
-    def zmi_get_resourcetypes(self):
-        """Return the type mapping for the ZMI view"""
+    security.declareProtected(permissions.ManageLibraries, "get_resourcetypes")
+    def get_resourcetypes(self):
+        """Return the type mapping, but without the ZMI dummy entry"""
         keys = self._res_types.keys()
         keys.sort()
         real = []
@@ -573,7 +583,12 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             value = self._res_types[name]
             wrapped = Object(name=name, types=tuple(value))
             real.append(wrapped)
-            
+        return real
+
+    security.declareProtected(permissions.ManageLibraries, "zmi_get_resourcetypes")
+    def zmi_get_resourcetypes(self):
+        """Return the type mapping for the ZMI view"""
+        real = self.get_resourcetypes()
         real.append(Object(name='', types=()))
         return real
 
@@ -623,39 +638,57 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         value = action_map.get(portal_type, {}).get('scalefield', 'image')
         return value
 
+    security.declareProtected(permissions.ManageLibraries, "set_html_exclusions")
+    def set_html_exclusions(self, exclusions):
+        """Set the html_exclusions.
+        Expects a list/tuple of 2-tuples [(tags,attrs),...]
+        """
+        for (tag,attr) in exclusions:
+            pass
+        self.html_exclusions = exclusions
+
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,
-        linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
+        linkbyuid=None,
+        table_classnames=None,
+        html_exclusions=None,
+        style_whitelist=None,
+        class_blacklist=None,
         installBeforeUnload=None, parastyles=None, refbrowser=None,
         captioning=None,
         filterSourceEdit=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
-        self.linkbyuid = int(linkbyuid)
-        self.table_classnames = table_classnames
+        if linkbyuid is not None:
+            self.linkbyuid = bool(linkbyuid)
+        if table_classnames is not None:
+            self.table_classnames = [t for t in table_classnames if t]
         if installBeforeUnload is not None:
             self.install_beforeunload = bool(installBeforeUnload)
         if filterSourceEdit is not None:
             self.filtersourceedit = bool(filterSourceEdit)
 
-        if parastyles:
+        if parastyles is not None:
             self.paragraph_styles = [ line.strip() for line in parastyles if line.strip() ]
 
-        newex = html_exclusions.pop(-1)
+        if html_exclusions is not None:
+            newex = html_exclusions[-1]
+            html_exclusions = html_exclusions[:-1]
             
-        html_exclusions = [ (tuple(h.get('tags', ())), tuple(h.get('attributes', ())))
-            for h in html_exclusions if h.get('keep')]
+            html_exclusions = [ (tuple(h.get('tags', ())), tuple(h.get('attributes', ())))
+                for h in html_exclusions if h.get('keep')]
 
-        tags = newex.get('tags', '').replace(',',' ').split()
-        attr = newex.get('attributes', '').replace(',',' ').split()
-        if tags or attr:
-            html_exclusions.append((tuple(tags), tuple(attr)))
+            tags = newex.get('tags', '').replace(',',' ').split()
+            attr = newex.get('attributes', '').replace(',',' ').split()
+            if tags or attr:
+                html_exclusions.append((tuple(tags), tuple(attr)))
+            self.set_html_exclusions(html_exclusions)
 
-        self.html_exclusions = html_exclusions
-
-        self.style_whitelist = list(style_whitelist)
-        self.class_blacklist = list(class_blacklist)
+        if style_whitelist is not None:
+            self.style_whitelist = list(style_whitelist)
+        if class_blacklist is not None:
+            self.class_blacklist = list(class_blacklist)
 
         if refbrowser is not None:
             out = StringIO()
@@ -670,7 +703,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                 pass
 
         if captioning is not None:
-            self.captioning = captioning
+            self.captioning = bool(captioning)
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 

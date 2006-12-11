@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<kupu-settings>
+  <config captioning="False" userefbrowser="False"
+          linkbyuid="False" filtersourceedit="True">
+    <table>plain</table>
+    <table>listing</table>
+    <table>vertical listing</table>
+    <table>listing nosort|unsorted listing</table>
+    <style>Heading|h2</style>
+    <style>Subheading|h3</style>
+    <style>Literal|pre</style>
+    <style>Discreet|p|discreet</style>
+    <style>Pull-quote|blockquote|pullquote</style>
+    <style>Call-out|p|callout</style>
+    <style>Highlight|span|visualHighlight</style>
+    <style>Odd row|tr|odd</style>
+    <style>Even row|tr|even</style>
+    <style>Heading cell|th|</style>
+    <filter attributes=""
+            tags="center tt big small s strike basefont font"/>
+    <filter attributes="dir lang valign halign border frame rules cellspacing cellpadding bgcolor"
+            tags=""/>
+    <filter attributes="width height" tags="table th td"/>
+    <filterstyle>text-align</filterstyle>
+    <filterstyle>list-style-type</filterstyle>
+    <filterstyle>float</filterstyle>
+  </config>
+  <library src="string:${portal_url}/kupucollection.xml"
+           uri="string:${portal_url}" id="root"
+           icon="string:${portal_url}/misc_/CMFPlone/plone_icon"
+           title="string:Home">
+  </library>
+  <library src="string:${folder_url}/kupucollection.xml"
+           uri="string:${folder_url}" id="current"
+           icon="string:${portal_url}/folder_icon.gif"
+           title="string:Current folder">
+  </library>
+  <library src="string:${portal_url}/kupumyitems.xml"
+           uri="string:${portal_url}/kupumyitems.xml"
+           id="myitems"
+           icon="string:${portal_url}/kupuimages/kupusearch_icon.gif"
+           title="string:My recent items">
+  </library>
+  <library src="string:${portal_url}/kupurecentitems.xml"
+           uri="string:${portal_url}/kupurecentitems.xml"
+           id="recentitems"
+           icon="string:${portal_url}/kupuimages/kupusearch_icon.gif"
+           title="string:Recent items">
+  </library>
+  <default>myitems</default>
+  <resource mode="whitelist" id="collection">
+    <type>Plone Site</type>
+    <type>Folder</type>
+    <type>Large Plone Folder</type>
+  </resource>
+  <resource mode="whitelist" id="containsanchors">
+    <type>Document</type>
+    <type>News Item</type>
+    <type>Event</type>
+  </resource>
+  <resource mode="whitelist" id="linkable">
+    <type>Document</type>
+    <type>Image</type>
+    <type>File</type>
+    <type>News Item</type>
+    <type>Event</type>
+  </resource>
+  <resource mode="whitelist" id="mediaobject">
+    <type>Image</type>
+  </resource>
+  <generatepreviews />
+  <toolbar>
+    <element visible="True" id="bg-basicmarkup"/>
+    <element visible="True" id="bold-button"/>
+    <element visible="True" id="italic-button"/>
+    <element visible="True" id="bg-subsuper"/>
+    <element visible="True" id="subscript-button"/>
+    <element visible="True" id="superscript-button"/>
+    <element visible="False" id="bg-colorchooser"/>
+    <element visible="False" id="forecolor-button"/>
+    <element visible="False" id="hilitecolor-button"/>
+    <element visible="True" id="bg-justify"/>
+    <element visible="True" id="justifyleft-button"/>
+    <element visible="True" id="justifycenter-button"/>
+    <element visible="True" id="justifyright-button"/>
+    <element visible="True" id="bg-list"/>
+    <element visible="True" id="list-ol-addbutton"/>
+    <element visible="True" id="list-ul-addbutton"/>
+    <element visible="True" id="definitionlist"/>
+    <element visible="True" id="bg-indent"/>
+    <element visible="True" id="outdent-button"/>
+    <element visible="True" id="indent-button"/>
+    <element visible="True" id="bg-drawers"/>
+    <element visible="True" id="imagelibdrawer-button"/>
+    <element visible="True" id="linklibdrawer-button"/>
+    <element visible="True" id="linkdrawer-button"/>
+    <element visible="True" id="anchors-button"/>
+    <element visible="True" id="tabledrawer-button"/>
+    <element visible="True" id="bg-remove"/>
+    <element visible="True" id="removeimage-button"/>
+    <element visible="True" id="removelink-button"/>
+    <element visible="True" id="bg-undo"/>
+    <element visible="True" id="undo-button"/>
+    <element visible="True" id="redo-button"/>
+    <element visible="False" id="spellchecker"/>
+    <element visible="True" id="source"/>
+    <element visible="True" id="styles"/>
+    <element visible="True" id="ulstyles"/>
+    <element visible="True" id="olstyles"/>
+    <element visible="True" id="zoom"/>
+  </toolbar>
+</kupu-settings>
