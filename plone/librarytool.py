@@ -227,7 +227,7 @@ class KupuLibraryTool(Acquisition.Implicit):
                 return expr(context)
         return url
 
-    def _setToolbarFilters(self, filters):
+    def _setToolbarFilters(self, filters, globalfilter):
         """Set the toolbar filtering
         filter is a list of records with: id, visible, override"""
         clean = {}
@@ -246,20 +246,30 @@ class KupuLibraryTool(Acquisition.Implicit):
             clean[id] = dict(id=id, visible=visible, override=expr)
 
         self._toolbar_filters = clean
+        if globalfilter:
+            self._global_toolbar_filter = Expression(globalfilter)
+        else:
+            self._global_toolbar_filter = None
 
     def getToolbarFilters(self, context, field=None):
         expr_context = self._getExpressionContext(context)
         expr_context.setGlobal('field', field)
         filters = getattr(self, '_toolbar_filters', {})
+        gfilter = getattr(self, '_global_toolbar_filter', None)
+        if gfilter:
+            gvisible = gfilter(expr_context)
+        else:
+            gvisible = None
+
         visible = {}
         for k in filters:
             f = filters[k]
             override = f.get('override', None)
             if override:
-                visible[k] = override(expr_context)
+                visible[k] = bool(override(expr_context))
             else:
                 visible[k] = f['visible']
-        return visible
+        return visible, gvisible
 
     def _getToolbarFilterOptions(self):
         return getattr(self, '_toolbar_filters', {})

@@ -110,7 +110,6 @@ def importKupuSettings(context):
         PREVIEW = []
 
     preview = PREVIEW + list(info['previews'])
-    print preview
     kupu.updatePreviewActions(preview)
 
     # Set up libraries
@@ -124,7 +123,8 @@ def importKupuSettings(context):
 
     
     toolbar = info['toolbar'][0]['elements']
-    kupu.set_toolbar_filters(toolbar)
+    globaltoolbar = info['globaltoolbar'][0]
+    kupu.set_toolbar_filters(toolbar, globaltoolbar)
     
     return 'Kupu settings imported.'
 
@@ -191,10 +191,11 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                 {
                     'config': {},
                     'library': { KEY: 'libraries' },
-                    'default': {},
+                    'default': { DEFAULT: ('',) },
                     'resource': { KEY: 'resources' },
                     'preview': { KEY: 'previews', DEFAULT: () },
                     'generatepreviews': {},
+                    'globaltoolbar': { DEFAULT: ('',) },
                     'toolbar': {}
                 },
             'config':
@@ -245,6 +246,7 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                     'scalefield': { DEFAULT: 'image' },
                 },
             'generatepreviews': {},
+            'globaltoolbar': { '#text': { KEY:None }, },
             'toolbar':
                 {
                     'element': { KEY: 'elements' },
