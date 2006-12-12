@@ -258,6 +258,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def getDefaultResource(self):
         return getattr(self, 'default_resource', 'linkable')
 
+    security.declareProtected(permissions.ManageLibraries, "setDefaultResource")
+    def setDefaultResource(self, resource_type):
+        self.default_resource = resource_type
+
     security.declareProtected('View', "installBeforeUnload")
     def installBeforeUnload(self):
         return getattr(self, 'install_beforeunload', False)
@@ -580,6 +584,22 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
            Old version of code. Returns name,types pairs plus a dummy"""
         return [(t.name, t.types) for t in self.zmi_get_resourcetypes()] + [('',())]
 
+    security.declareProtected(permissions.ManageLibraries, "export_resource_types")
+    def export_resource_types(self):
+        """Build a list of resource types formatted for export.
+        'blacklist' type lists are inverted so the listed types are the ones we don't want.
+        """
+        types = self.get_resourcetypes()
+        typetool = getToolByName(self, 'portal_types')
+        portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
+        for t in types:
+            if t.newtype:
+                t.types = self.invertTypeList(t.types)
+                t.mode = 'blacklist'
+            else:
+                t.mode = 'whitelist'
+        return types
+
     security.declareProtected(permissions.ManageLibraries, "get_resourcetypes")
     def get_resourcetypes(self):
         """Return the type mapping, but without the ZMI dummy entry"""
@@ -588,7 +608,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         real = []
         for name in keys:
             value = self._res_types[name]
-            wrapped = Object(name=name, types=tuple(value))
+            wrapped = Object(name=name, types=tuple(value), newtype=self.getNewTypeHandler(name))
             real.append(wrapped)
         return real
 
