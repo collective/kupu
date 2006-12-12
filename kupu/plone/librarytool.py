@@ -133,6 +133,7 @@ class KupuLibraryTool(Acquisition.Implicit):
         """Should unknown portal types be added to the list or ignored"""
         _res_newtype = getattr(self, '_res_newtype', None)
         if _res_newtype is None:
+            self._res_newtype = _res_newtype = {}
             for k in self._res_types:
                 if k in ('linkable', 'containsanchors', 'composable'):
                     _res_newtype[k] = NEWTYPE_ADD
