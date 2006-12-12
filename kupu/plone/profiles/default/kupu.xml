@@ -47,27 +47,77 @@
            icon="string:${portal_url}/kupuimages/kupusearch_icon.gif"
            title="string:Recent items">
   </library>
-  <default>myitems</default>
-  <resource mode="whitelist" id="collection">
+  <defaultlibrary>myitems</defaultlibrary>
+  <resource id="collection" mode="whitelist">
     <type>Plone Site</type>
-    <type>Folder</type>
     <type>Large Plone Folder</type>
+    <type>Folder</type>
   </resource>
-  <resource mode="whitelist" id="containsanchors">
-    <type>Document</type>
-    <type>News Item</type>
-    <type>Event</type>
-  </resource>
-  <resource mode="whitelist" id="linkable">
-    <type>Document</type>
-    <type>Image</type>
+  <resource id="containsanchors" mode="blacklist">
+    <type>ATBooleanCriterion</type>
+    <type>ATCurrentAuthorCriterion</type>
+    <type>ATDateCriteria</type>
+    <type>ATDateRangeCriterion</type>
+    <type>ATListCriterion</type>
+    <type>ATPathCriterion</type>
+    <type>ATPortalTypeCriterion</type>
+    <type>ATReferenceCriterion</type>
+    <type>ATSelectionCriterion</type>
+    <type>ATSimpleIntCriterion</type>
+    <type>ATSimpleStringCriterion</type>
+    <type>ATSortCriterion</type>
+    <type>CMF Document</type>
+    <type>CMF Event</type>
+    <type>CMF Favorite</type>
+    <type>CMF File</type>
+    <type>CMF Folder</type>
+    <type>CMF Image</type>
+    <type>CMF Large Plone Folder</type>
+    <type>CMF Link</type>
+    <type>CMF News Item</type>
+    <type>CMF Topic</type>
+    <type>Discussion Item</type>
+    <type>Favorite</type>
     <type>File</type>
-    <type>News Item</type>
-    <type>Event</type>
+    <type>Folder</type>
+    <type>Image</type>
+    <type>Large Plone Folder</type>
+    <type>Link</type>
+    <type>Plone Site</type>
+    <type>TempFolder</type>
+    <type>Topic</type>
+  </resource>
+  <resource id="linkable" mode="blacklist">
+    <type>ATBooleanCriterion</type>
+    <type>ATCurrentAuthorCriterion</type>
+    <type>ATDateCriteria</type>
+    <type>ATDateRangeCriterion</type>
+    <type>ATListCriterion</type>
+    <type>ATPathCriterion</type>
+    <type>ATPortalTypeCriterion</type>
+    <type>ATReferenceCriterion</type>
+    <type>ATSelectionCriterion</type>
+    <type>ATSimpleIntCriterion</type>
+    <type>ATSimpleStringCriterion</type>
+    <type>ATSortCriterion</type>
+    <type>CMF Document</type>
+    <type>CMF Event</type>
+    <type>CMF Favorite</type>
+    <type>CMF File</type>
+    <type>CMF Image</type>
+    <type>CMF Link</type>
+    <type>CMF News Item</type>
+    <type>Discussion Item</type>
+    <type>Favorite</type>
+    <type>Folder</type>
+    <type>Link</type>
+    <type>Plone Site</type>
+    <type>TempFolder</type>
   </resource>
   <resource mode="whitelist" id="mediaobject">
     <type>Image</type>
   </resource>
+  <defaultresource>linkable</defaultresource>
   <generatepreviews />
   <toolbar>
     <element visible="True" id="bg-basicmarkup"/>

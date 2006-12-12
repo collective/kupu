@@ -72,7 +72,7 @@ class IResourceTypeMapper(Interface):
         Returns 'default' if resource_type is not found.
         """
 
-    def addResourceType(resource_type, portal_types):
+    def addResourceType(resource_type, portal_types, mode='whitelist'):
         """Add a resource type pointing to a sequence of portal_types."""
 
     def updateResourceTypes(type_mapping):

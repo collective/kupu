@@ -21,11 +21,12 @@
            tal:attributes="id lib/id; title lib/title; uri lib/uri;
            src lib/src;icon lib/icon">
   </library>
-  <default tal:content="info/zmi_get_default_library" />
-  <resource tal:repeat="res info/get_resourcetypes"
-            tal:attributes="id res/name" mode="whitelist">
+  <defaultlibrary tal:content="info/zmi_get_default_library" />
+  <resource tal:repeat="res info/export_resource_types"
+            tal:attributes="id res/name;mode res/mode">
     <type tal:repeat="t res/types" tal:content="t"/>
   </resource>
+  <defaultresource tal:content="info/getDefaultResource" />
   <preview tal:repeat="t context/getPreviews"
            tal:attributes="portaltype t/portal_type;
            preview t/previewaction; normal t/normalaction; scalefield t/scalefield" />

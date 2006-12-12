@@ -40,7 +40,7 @@ ideally return an image no larger than 128 pixels square.</p>
 
  <tal:loop tal:repeat="resource here/zmi_get_resourcetypes">
 <tbody
-  tal:define="oddrow repeat/resource/odd;"
+  tal:define="oddrow repeat/resource/odd;name resource/name; types resource/types;"
   tal:attributes="class python:test(oddrow, 'even', 'odd');"
   align="left"
   style="margin-top: 1em !important;"
@@ -51,15 +51,15 @@ ideally return an image no larger than 128 pixels square.</p>
   <tr>
     <td>
       <input type="hidden" name="type_info.old_type:records"
-             tal:attributes="value resource/name" />
+             tal:attributes="value name" />
       <input type="checkbox" name="resource_types:list"
-             tal:condition="resource/name"
-             tal:attributes="value resource/name" />
+             tal:condition="name"
+             tal:attributes="value name" />
     </td>
     <th>Resource</th>
     <td>
       <input type="text" name="type_info.resource_type:records"
-             tal:attributes="value resource/name" />
+             tal:attributes="value name" />
     </td>
   </tr>
   <tr>
@@ -67,11 +67,11 @@ ideally return an image no larger than 128 pixels square.</p>
     <th>Portal Types</th>
     <td>
       <select name="type_info.portal_types:list:records" size="5" multiple
-          tal:attributes="size python:max(5,len(resource.types));">
+          tal:attributes="size python:max(5,len(types));">
           <tal:block repeat="ti typeinfos">
             <option tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));
                         id ti/getId;
-                        selected python:id in resource.types;"
+                        selected python:id in types;"
                     tal:content="title"
                     tal:condition="selected"
                     tal:attributes="value ti/getId;" selected></option>
@@ -80,7 +80,7 @@ ideally return an image no larger than 128 pixels square.</p>
           <tal:block repeat="ti typeinfos">
             <option tal:define="title python:path('string:${ti/Title}' + test(ti.Title()==ti.getId(),'',' (${ti/getId})'));
                         id ti/getId;
-                        selected python:id in resource.types;"
+                        selected python:id in types;"
                     tal:content="title"
                     tal:condition="not:selected"
                     tal:attributes="value ti/getId;"></option>
@@ -89,6 +89,14 @@ ideally return an image no larger than 128 pixels square.</p>
       </select>
     </td>
   </tr>
+  <tr><td></td><th>New types</th>
+    <td>
+      <select name="type_info.newtypes:int:records" size="1"
+              tal:define="newtype python:context.getNewTypeHandler(name)">
+        <option value="0" tal:attributes="selected python:test(newtype==0,True,None)">are not added to selection</option>
+        <option value="1" tal:attributes="selected python:test(newtype==1,True,None)">are added to selection</option>
+      </select>
+    </td>
   <tr><td colspan="3">&nbsp;</td></tr>
 </tbody>
  </tal:loop>

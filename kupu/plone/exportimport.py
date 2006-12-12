@@ -89,7 +89,8 @@ def importKupuSettings(context):
     types = kupu.zmi_get_resourcetypes()
     kupu.deleteResourceTypes([ t.name for t in types])
     for k in resources:
-        kupu.addResourceType(k['id'], k['types'])
+        kupu.addResourceType(k['id'], k['types'], k['mode'])
+    kupu.setDefaultResource(info['defaultresource'][0])
 
     if info.has_key('generatepreviews'):
         # This code generates preview URLs automatically from the most
@@ -114,7 +115,7 @@ def importKupuSettings(context):
 
     # Set up libraries
     libraries = info['libraries']
-    deflib = info['default'][0]
+    deflib = info['defaultlibrary'][0]
     libs = kupu.zmi_get_libraries()
     kupu.deleteLibraries(range(len(libs)))
     for lib in libraries:
@@ -191,8 +192,9 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                 {
                     'config': {},
                     'library': { KEY: 'libraries' },
-                    'default': { DEFAULT: ('',) },
+                    'defaultlibrary': { DEFAULT: ('',) },
                     'resource': { KEY: 'resources' },
+                    'defaultresource': { DEFAULT: ('linkable',) },
                     'preview': { KEY: 'previews', DEFAULT: () },
                     'generatepreviews': {},
                     'globaltoolbar': { DEFAULT: ('',) },
@@ -228,13 +230,14 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                     'icon': {},
                     'title': {},
                 },
-            'default': { '#text': { KEY:None }, },
+            'defaultlibrary': { '#text': { KEY:None }, },
             'resource':
                 {
                     'mode': {},
                     'id': {},
                     'type': { KEY:'types' },
                 },
+            'defaultresource': { '#text': { KEY:None }, },
             'type':
                 { '#text': { KEY: None },
                 },

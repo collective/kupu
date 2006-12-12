@@ -21,6 +21,7 @@ from Products.kupu.plone.interfaces import IKupuLibraryTool
 from Products.CMFCore.utils import getToolByName
 
 class KupuError(Exception): pass
+NEWTYPE_IGNORE, NEWTYPE_ADD = 0, 1
 
 class Resource:
     """Class to hold resources"""
@@ -128,15 +129,71 @@ class KupuLibraryTool(Acquisition.Implicit):
                               libraries[new_index], libraries[index]
         self._libraries = libraries
 
+    def getNewTypeHandler(self, resource_type):
+        """Should unknown portal types be added to the list or ignored"""
+        _res_newtype = getattr(self, '_res_newtype', None)
+        if _res_newtype is None:
+            for k in self._res_types:
+                if k in ('linkable', 'containsanchors', 'composable'):
+                    _res_newtype[k] = NEWTYPE_ADD
+                else:
+                    _res_newtype[k] = NEWTYPE_IGNORE
+            self._res_newtype = _res_newtype
+
+        return _res_newtype.get(resource_type, NEWTYPE_IGNORE)
+
+    def setNewTypeHandler(self, resource_type, mode):
+        """Update how unknown types are handled."""
+        if self.getNewTypeHandler(resource_type) != mode:
+            self._res_newtype[resource_type] = mode
+            self._res_newtype = self._res_newtype # Flag ourselves as modified.
+
+    def checkNewResourceTypes(self):
+        # Check for new types added. It would be nice if this
+        # was called automatically but not every time we query a
+        # resource.
+        handle_new = self.getNewTypeHandler(resource_type)
+        if handle_new != NEWTYPE_IGNORE:
+            typetool = getToolByName(self, 'portal_types')
+            new_portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
+            if getattr(self, '_last_known_types', None) is None:
+                # Migrate from old version
+                self._last_known_types = all_portal_types
+            else:
+                for t in new_types:
+                    if t in new_portal_types:
+                        del new_portal_types[t]
+                if new_portal_types:
+                    self._addNewTypesToResources()
+
+    def _addNewTypesToResources(self):
+        """This method is called when the list of types in the system has changed.
+        It updates all current resource types to include or exclude new types as
+        appropriate.
+        """
+        alltypes = typetool.listTypeInfo()
+        lastknown = self._last_known_types
+        newtypes = dict.fromkeys([ t.id for t in alltypes if t.id not in lastknown])
+
+        for resource_type in self._res_types.keys():
+            handle_new = self.getNewTypeHandler(resource_type)
+            if handle_new==NEWTYPE_ADD:
+                types = dict.fromkeys(self._res_types[resource_type])
+                types.update(newtypes)
+                self._res_types[resource_type] = types.keys()
+        self._res_types = self._res_types
+        
     def getPortalTypesForResourceType(self, resource_type):
         """See IResourceTypeMapper"""
-        return self._res_types[resource_type][:]
+        self.checkNewResourceTypes()
+        types = self._res_types[resource_type]
+        return types[:]
 
     def queryPortalTypesForResourceType(self, resource_type, default=None):
         """See IResourceTypeMapper"""
         if not self._res_types.has_key(resource_type):
             return default
-        return self._res_types[resource_type][:]
+        return self.getPortalTypesForResourceType(resource_type)
 
     def _validate_portal_types(self, resource_type, portal_types):
         typetool = getToolByName(self, 'portal_types')
@@ -148,14 +205,28 @@ class KupuLibraryTool(Acquisition.Implicit):
                 raise KupuError, "Resource type: %s, invalid type: %s" % (resource_type, p)
         return portal_types
 
-    def addResourceType(self, resource_type, portal_types):
+    def invertTypeList(self, types):
+        """Convert a list of portal_types to a list of all the types not in the list"""
+        typetool = getToolByName(self, 'portal_types')
+        portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
+        res = [ name for name in portal_types if name not in types ]
+        res.sort()
+        return res
+
+    def addResourceType(self, resource_type, portal_types, mode='whitelist'):
         """See IResourceTypeMapper"""
+        newtype = NEWTYPE_IGNORE
+        if mode != 'whitelist':
+            portal_types = self.invertTypeList(portal_types)
+            newtype = NEWTYPE_ADD
         portal_types = self._validate_portal_types(resource_type, portal_types)
         self._res_types[resource_type] = tuple(portal_types)
+        self.setNewTypeHandler(resource_type, newtype)
 
     def updateResourceTypes(self, type_info):
         """See IResourceTypeMapper"""
         type_map = self._res_types
+        
         for type in type_info:
             resource_type = type['resource_type']
             if not resource_type:
@@ -165,6 +236,9 @@ class KupuLibraryTool(Acquisition.Implicit):
             if old_type:
                 del type_map[old_type]
             type_map[resource_type] = tuple(portal_types)
+            nt = type.get('newtypes', None)
+            if nt is not None:
+                self.setNewTypeHandler(resource_type, nt)
 
     def updatePreviewActions(self, preview_actions):
         """Now a misnomer: actually updates preview, normal, and scaling data"""
