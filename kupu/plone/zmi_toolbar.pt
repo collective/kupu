@@ -24,12 +24,31 @@ i18n:domain="plone">
             tal:attributes="action here/absolute_url">
 
         <fieldset>
+          <legend i18n:translate="legend_link_options">Global button visibility</legend>
+          <div class="formHelp" i18n:translate="help_link_uid">
+            You may enter an expression to control the visibility of all buttons together.
+            It should return a list of visible button ids, or None to leave all buttons visible.
+            The visibility rules below are then applied to further filter out individual buttons.
+            You might use this to restrict a particular class of users to a subset of kupu functions.
+
+            <input type="text" style="width:90%" tal:attributes="value context/getGlobalButtonFilter"
+                   name="globalfilter" />
+          </div>
+        </fieldset>
+
+        <fieldset>
           <legend i18n:translate="legend_link_options">Button visibility</legend>
           <div class="formHelp" i18n:translate="help_link_uid">Control the global visibility of toolbar buttons from this screen.
             If no expression is entered, only checked buttons are visible. Enter an expression for finer control of visibility.
             Individual fields may also whitelist or blacklist buttons: see the field schema.
             <div>Values available in expressions includes 'field' as well as the usual names</div>
             <!-- object_url folder_url portal_url object folder portal nothing request modules member -->
+            e.g. to restrict the drawer buttons to users with the
+            appropriate permissions give imagelibdrawer-button and
+            linklibdrawer-button the expression:
+            <div>
+              <code>python:member and member.has_permission('Kupu: Query libraries',portal)</code>
+            </div>
           </div>
 
           <table class="listing nosort">

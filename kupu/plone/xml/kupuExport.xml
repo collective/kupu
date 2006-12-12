@@ -29,6 +29,7 @@
   <preview tal:repeat="t context/getPreviews"
            tal:attributes="portaltype t/portal_type;
            preview t/previewaction; normal t/normalaction; scalefield t/scalefield" />
+  <globaltoolbar tal:content="info/getGlobalButtonFilter" />
   <toolbar>
     <element tal:repeat="opt info/getFilterOptions"
              tal:attributes="id opt/id; visible opt/visible; expression opt/override;" />

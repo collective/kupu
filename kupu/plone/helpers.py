@@ -58,27 +58,24 @@ class ButtonFilter:
     __allow_access_to_unprotected_subobjects__ = 1
 
     def __init__(self, tool, context, field=None):
-        self.tool = tool
-        self.field = field
+        def isButtonAllowed(name):
+            visible = visible_buttons.get(name, None)
+            if visible is None:
+                visible = FILTERDICT.get(name, True)
+            if allow_buttons is not None:
+                return visible and name in allow_buttons
+            if filter_buttons is not None:
+               return visible and name not in filter_buttons
+            return visible
+
         widget = getattr(field, 'widget', None)
-        self.filter_buttons = getattr(widget, 'filter_buttons', None)
-        self.allow_buttons = getattr(widget, 'allow_buttons', None)
-        self.visible_buttons = tool.getToolbarFilters(context, field)
-
-    def isButtonAllowed(self, name):
-        visible = self.visible_buttons.get(name, None)
-        if visible is None:
-            visible = FILTERDICT.get(name, True)
-        if self.allow_buttons is not None:
-            return visible and name in self.allow_buttons
-        if self.filter_buttons is not None:
-           return visible and name not in self.filter_buttons
-        return visible
-
-    def __getattr__(self, name):
-        """name should be an id of a button or a button group in the kupu toolbar."""
-        if name[0]=='_':
-            raise AttributeError("'%s' object has no attribute '%s'" % (self.__class__.__name__, name))
-        allowed = self.isButtonAllowed(name)
-        #print name, "->", allowed
-        return allowed
+        filter_buttons = getattr(widget, 'filter_buttons', None)
+        allow_buttons = getattr(widget, 'allow_buttons', None)
+        visible_buttons, gvisible = tool.getToolbarFilters(context, field)
+        if gvisible is None:
+            gvisible = FILTERDICT.keys()
+        else:
+            for k in FILTERDICT.keys():
+                setattr(self, k, False)
+        for k in gvisible:
+            setattr(self, k, isButtonAllowed(k))

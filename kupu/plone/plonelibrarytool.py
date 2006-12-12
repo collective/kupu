@@ -212,7 +212,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         return res
 
     security.declareProtected(permissions.ManageLibraries, "set_toolbar_filters")
-    def set_toolbar_filters(self, filters, REQUEST=None):
+    def set_toolbar_filters(self, filters, globalfilter, REQUEST=None):
         """Set the toolbar filtering
         filter is a list of records with: id, checked, expression"""
         DEFAULTS = helpers.FILTERDICT
@@ -223,9 +223,16 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             return expr != '' or visible != DEFAULTS.get(id, False)
             
         cleaned = [ f for f in filters if nonstandard(f) ]
-        self._setToolbarFilters(cleaned)
+        self._setToolbarFilters(cleaned, globalfilter)
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_toolbar')
+
+    security.declareProtected(permissions.ManageLibraries, "getGlobalButtonFilter")
+    def getGlobalButtonFilter(self):
+        gfilter = getattr(self, '_global_toolbar_filter', None)
+        if gfilter is not None:
+            return gfilter.text
+        return ''
 
     security.declareProtected('View', "getHtmlExclusions")
     def getHtmlExclusions(self):
