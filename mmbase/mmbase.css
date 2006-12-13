@@ -51,6 +51,11 @@ img {
 
 #nodefields input.mm_year { 
   width: 5ex;
+  font-size: smaller;
+}
+
+#nodefields select { 
+	font-size: smaller;
 }
 
 
