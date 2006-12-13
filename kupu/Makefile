@@ -43,7 +43,6 @@ plonemacros:
 lenyamacros:
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o apache-lenya/kupu/kupumacros.html $(XSL_FILE) dist-apache-lenya.kupu
 
-
 #used by kupu-18n.jar
 $(JAVA_DIR)/kupu-defaults.po: i18n/kupu.pot
 	mkdir -p $(JAVA_DIR)

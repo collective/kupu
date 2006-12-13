@@ -6,6 +6,7 @@ goto :eof
 :cmdok
 setlocal
 setlocal enabledelayedexpansion
+cd %~P0
 
 call :searchpath xsltproc.exe
 if errorlevel 1 goto :eof
@@ -77,6 +78,15 @@ goto :eof
 
 :target_lenyamacros
     %X%%XSLTPROC% %XSLTPROC_PARAMS% -o apache-lenya\kupu\kupumacros.html %XSL_FILE% dist-apache-lenya.kupu
+    goto :eof
+
+:target_lint
+    echo before lint %ERRORLEVEL%
+    echo on
+    for %%f in (common\*.js) do (
+%X%java org.mozilla.javascript.tools.shell.Main jslint.js %%f
+if !ERRORLEVEL!==1 goto :eof
+)
     goto :eof
 
 :target_

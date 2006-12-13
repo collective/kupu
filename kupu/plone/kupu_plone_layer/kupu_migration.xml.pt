@@ -83,7 +83,7 @@
 
       <div tal:condition="not:wantform">
         <tal:var tal:define="m python:context.link_migration();">
-          <div tal:condition="m/nexturi" tal:attributes="kj:next m/nexturi" />
+          <div tal:condition="m/nexturi" tal:attributes="kj:next m/nexturi;kj:delay m/delay|nothing" />
           <div id="kupu-output" kj:mode="replace" tal:condition="m/firstoutput" />
           <div id="target" kj:mode="replace">
             <!-- <pre tal:content="context/link_migration">current status</pre> -->

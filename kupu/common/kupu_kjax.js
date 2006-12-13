@@ -105,7 +105,12 @@ function KJax() {};
         var next = this.xmldata.selectSingleNode('//*[@kj:next]');
         if (next) {
             var xmluri = next.getAttribute('kj:next');
-            this._loadXML(xmluri, this._xmlcallback);
+            var delay = next.getAttribute('kj:delay');
+            if (delay) {
+                timer_instance.registerFunction(this, this._loadXML, delay*1000, xmluri, this._xmlcallback);
+            } else {
+                this._loadXML(xmluri, this._xmlcallback);
+            };
         } else {
             this.trace("complete");
         };
