@@ -230,7 +230,7 @@ class Migration:
         self._firstoutput = True
         self.found = 0
         self.position = 0
-        self.batch_size = 1
+        self.batch_size = 5
         self.uids = rfg('uids')
 
     def saveState(self):
@@ -267,6 +267,8 @@ class Migration:
         info = {}
         if self._continue:
             info['nexturi'] = self.tool.absolute_url_path()+'/kupu_migration.xml?button=continue'
+            if self.commit_changes:
+                info['delay'] = 5 # Avoid killing everyone else with conflict errors.
         else:
             info['nexturi'] = None
 
