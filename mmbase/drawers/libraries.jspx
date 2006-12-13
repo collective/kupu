@@ -22,6 +22,9 @@
               <mm:include referids="kupubasedir" page="library.jspx" />
             </mm:context>
           </mm:hasrelationmanager>
+          <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel" inverse="true">
+            Cannot make relations beteeen ${s} and ${_}.
+          </mm:hasrelationmanager>
         </mm:hasnodemanager>
       </mm:stringlist>
     </libraries>
