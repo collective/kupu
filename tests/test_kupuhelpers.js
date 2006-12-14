@@ -11,8 +11,8 @@
 // $Id$
 
 function SelectionTestCase() {
-    var visibleEmptyElements = new Array('IMG', 'BR', 'HR');
-    var blockElements = new Array('P', 'DIV');
+    var visibleEmptyElements = ['IMG', 'BR', 'HR'];
+    var blockElements = ['P', 'DIV'];
 
     this.setUp = function() {
         var iframe = document.getElementById('iframe');
@@ -141,7 +141,7 @@ function KupuHelpersTestCase() {
     };
 
     this.testArrayContains = function() {
-        var array = new Array(1, 2, 3);
+        var array = [1, 2, 3];
         this.assert(array.contains(1));
         this.assert(array.contains(2));
         this.assertFalse(array.contains(4));

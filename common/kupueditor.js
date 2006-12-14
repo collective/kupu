@@ -91,7 +91,7 @@ function KupuEditor(document, config, logger) {
     this.config = config; // an object that holds the config values
     this.log = logger; // simple logger object
     this.tools = {}; // mapping id->tool
-    this.filters = new Array(); // contentfilters
+    this.filters = []; // contentfilters
     this.serializer = new XMLSerializer();
     
     this._designModeSetAttempts = 0;
@@ -158,7 +158,7 @@ function KupuEditor(document, config, logger) {
     this.updateStateHandler = function(event) {
         /* check whether the event is interesting enough to trigger the 
         updateState machinery and act accordingly */
-        var interesting_codes = new Array(8, 13, 37, 38, 39, 40, 46);
+        var interesting_codes = [8, 13, 37, 38, 39, 40, 46];
         // unfortunately it's not possible to do this on blur, since that's
         // too late. also (some versions of?) IE 5.5 doesn't support the
         // onbeforedeactivate event, which would be ideal here...
@@ -260,7 +260,7 @@ function KupuEditor(document, config, logger) {
             request.open("PUT", this.config.dst, false);
             request.setRequestHeader("Content-type", this.config.content_type);
             request.send(contents);
-            this.handleSaveResponse(request,redirect)
+            this.handleSaveResponse(request,redirect);
         };
     };
     
@@ -377,7 +377,7 @@ function KupuEditor(document, config, logger) {
         var type = type.toLowerCase();
         while (node) {
             if (node.nodeName.toLowerCase() == type) {
-                return node
+                return node;
             }   
             var node = node.parentNode;
         }
@@ -430,7 +430,7 @@ function KupuEditor(document, config, logger) {
 
     this.focusDocument = function() {
         this.getDocument().getWindow().focus();
-    }
+    };
 
     this.logMessage = function(message, severity) {
         /* log a message using the logger, severity can be 0 (message, default), 1 (warning) or 2 (error) */
@@ -488,7 +488,7 @@ function KupuEditor(document, config, logger) {
     this._saveCallback = function(request, redirect) {
         /* callback for Sarissa */
         if (request.readyState == 4) {
-            this.handleSaveResponse(request, redirect)
+            this.handleSaveResponse(request, redirect);
         };
     };
     
@@ -519,7 +519,7 @@ function KupuEditor(document, config, logger) {
         this._addEventHandler(this.getInnerDocument(), "click", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
-        this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true}, this);
+        this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true;}, this);
         this._addEventHandler(this.getInnerDocument(), "mouseup", this.updateStateHandler, this);
     };
 
@@ -648,7 +648,7 @@ function KupuEditor(document, config, logger) {
             bodies[i].parentNode.removeChild(bodies[i]);
         }
         if (!_SARISSA_IS_IE) { /* Mozilla doesn't understand strong/em */
-            var fixups = { 'strong':'b', 'em':'i' }
+            var fixups = { 'strong':'b', 'em':'i' };
 
             text = text.replace(/<(\/?)(strong|em)>/gi, function(all,close,tag) {
                 tag = fixups[tag.toLowerCase()];
@@ -681,23 +681,23 @@ function KupuEditor(document, config, logger) {
             title.appendChild(titletext);
         };
         // create a closing element for all elements that require one in XHTML
-        var dualtons = new Array('a', 'abbr', 'acronym', 'address', 'applet', 
-                                    'b', 'bdo', 'big', 'blink', 'blockquote', 
-                                    'button', 'caption', 'center', 'cite', 
-                                    'comment', 'del', 'dfn', 'dir', 'div',
-                                    'dl', 'dt', 'em', 'embed', 'fieldset',
-                                    'font', 'form', 'frameset', 'h1', 'h2',
-                                    'h3', 'h4', 'h5', 'h6', 'i', 'iframe',
-                                    'ins', 'kbd', 'label', 'legend', 'li',
-                                    'listing', 'map', 'marquee', 'menu',
-                                    'multicol', 'nobr', 'noembed', 'noframes',
-                                    'noscript', 'object', 'ol', 'optgroup',
-                                    'option', 'p', 'pre', 'q', 's', 'script',
-                                    'select', 'small', 'span', 'strike', 
-                                    'strong', 'style', 'sub', 'sup', 'table',
-                                    'tbody', 'td', 'textarea', 'tfoot',
-                                    'th', 'thead', 'title', 'tr', 'tt', 'u',
-                                    'ul', 'xmp');
+        var dualtons = ['a', 'abbr', 'acronym', 'address', 'applet', 
+            'b', 'bdo', 'big', 'blink', 'blockquote', 
+            'button', 'caption', 'center', 'cite', 
+            'comment', 'del', 'dfn', 'dir', 'div',
+            'dl', 'dt', 'em', 'embed', 'fieldset',
+            'font', 'form', 'frameset', 'h1', 'h2',
+            'h3', 'h4', 'h5', 'h6', 'i', 'iframe',
+            'ins', 'kbd', 'label', 'legend', 'li',
+            'listing', 'map', 'marquee', 'menu',
+            'multicol', 'nobr', 'noembed', 'noframes',
+            'noscript', 'object', 'ol', 'optgroup',
+            'option', 'p', 'pre', 'q', 's', 'script',
+            'select', 'small', 'span', 'strike', 
+            'strong', 'style', 'sub', 'sup', 'table',
+            'tbody', 'td', 'textarea', 'tfoot',
+            'th', 'thead', 'title', 'tr', 'tt', 'u',
+            'ul', 'xmp'];
         // XXX I reckon this is *way* slow, can we use XPath instead or
         // something to speed this up?
         for (var i=0; i < dualtons.length; i++) {
@@ -737,7 +737,7 @@ function KupuEditor(document, config, logger) {
 
     this._fixupSingletons = function(xml) {
         return xml.replace(/<([^>]+)\/>/g, "<$1 />");
-    }
+    };
     this._serializeOutputToString = function(transform) {
         // XXX need to fix this.  Sometimes a spurious "\n\n" text 
         // node appears in the transform, which breaks the Moz 
@@ -771,33 +771,33 @@ function KupuEditor(document, config, logger) {
         data = data.replace(
             /\s*(<\/(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td)>)\s*/ig, '$1\n');
         return data.strip();
-    }
+    };
     this.escapeEntities = function(xml) {
         // XXX: temporarily disabled
         return xml;
         // Escape non-ascii characters as entities.
-        return xml.replace(/[^\r\n -\177]/g,
-            function(c) {
-            return '&#'+c.charCodeAt(0)+';';
-        });
-    }
+//         return xml.replace(/[^\r\n -\177]/g,
+//             function(c) {
+//             return '&#'+c.charCodeAt(0)+';';
+//         });
+    };
 
     this.getFullEditor = function() {
         var fulleditor = this.getDocument().getEditable();
-        while (!/kupu-fulleditor/.test(fulleditor.className)) {
+        while (!(/kupu-fulleditor/.test(fulleditor.className))) {
             fulleditor = fulleditor.parentNode;
         }
         return fulleditor;
-    }
+    };
     // Control the className and hence the style for the whole editor.
     this.setClass = function(name) {
         this.getFullEditor().className += ' '+name;
-    }
+    };
     
     this.clearClass = function(name) {
         var fulleditor = this.getFullEditor();
         fulleditor.className = fulleditor.className.replace(' '+name, '');
-    }
+    };
 
     this.suspendEditing = function() {
         this._previous_range = this.getSelection().getRange();
@@ -812,7 +812,7 @@ function KupuEditor(document, config, logger) {
             this.getDocument().execCommand('contentReadOnly', 'true');
         }
         this.suspended = true;
-    }
+    };
     
     this.resumeEditing = function() {
         if (!this.suspended) {
@@ -834,13 +834,13 @@ function KupuEditor(document, config, logger) {
             this.focusDocument();
             this.getSelection().restoreRange(this._previous_range);
         }
-    }
+    };
     this.newElement = function(tagName) {
         return newDocumentElement(this.getInnerDocument(), tagName, arguments);
-    }
+    };
     this.newText = function(text) {
         return this.getInnerDocument().createTextNode(text);
-    }
+    };
 }
 
 

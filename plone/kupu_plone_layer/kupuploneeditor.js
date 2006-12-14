@@ -15,7 +15,7 @@ KupuEditor.prototype._getBase = function(dom) {
     } else {
         return '';
     }
-}
+};
 
 // $Id$
 KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
@@ -43,8 +43,9 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
             var common = 0;
             while (common < urlparts.length &&
                    common < hrefparts.length &&
-                   urlparts[common]==hrefparts[common])
+                   urlparts[common]==hrefparts[common]) {
                 common++;
+            }
             var last = urlparts[common];
             if (common == urlparts.length) { urlparts[common] = '.'; }
             else if (common+1 == urlparts.length && (last=='emptypage'||last==pageid)) {
@@ -54,7 +55,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
             // First two are the protocol, so only do stuff if more
             // than two match.
             if (common > 2) {
-                var path = new Array();
+                var path = [];
                 var i = 0;
                 for (; i+common < hrefparts.length-1; i++) {
                     path[i] = '..';

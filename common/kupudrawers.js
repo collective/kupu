@@ -105,7 +105,7 @@ proto.focusElement = function() {
         }
         currnode = iterator.next();
     }
-}
+};
 
 function DrawerWithAnchors(editor, drawertool, anchorui) {
     Drawer.call(this, editor, drawertool);
@@ -121,8 +121,9 @@ proto.initAnchors = function() {
     function onloadEvent() {
         var state = anchorframe.readyState;
         if (state && state != 'complete') {
-            if (limit-- && anchorframe.src==src)
+            if (limit-- && anchorframe.src==src) {
                 timer_instance.registerFunction(this, onloadEvent, 50);
+            }
             return;
         };
         if(window.drawertool && window.drawertool.current_drawer) {
@@ -146,21 +147,22 @@ proto.initAnchors = function() {
         }
 
         inp[1].style.display = 'none';
-    };
-}
+    }
+};
 proto.anchorSelect = function() {
     return this.anchorui && this.anchorui.getElementsByTagName('select')[0];
-}
+};
 
 proto.addSelectEvent = function() {
     var s = this.anchorSelect();
-    if (s)
+    if (s) {
         addEventHandler(s, 'change', this.selChange, this);
-}
+    }
+};
 
 proto.hideAnchors = function() {
     this.anchorui.style.display = 'none';
-}
+};
 
 proto.anchorText = function(a) {
     // Text inside anchor, or immediate sibling block tag, or parent block. 
@@ -190,7 +192,7 @@ findlabel:
         txt = ' (' + (txt||'').substring(0,80).reduceWhitespace().strip()+')';
     }
     return prefix + txt;
-}
+};
 
 proto.selChange = function() {};
 
@@ -224,7 +226,7 @@ proto.showAnchors = function(selected) {
     if (opts.length > 1) {
         this.anchorui.style.display = '';
     }
-}
+};
 
 proto.getFragment = function() {
     var select = this.anchorSelect();
@@ -233,7 +235,7 @@ proto.getFragment = function() {
         if (anchor) return '#' + anchor;
     }
     return '';
-}
+};
 
 function LinkDrawer(elementid, tool) {
     /* Link drawer */
@@ -301,7 +303,7 @@ function LinkDrawer(elementid, tool) {
             preview.height = "365";
             preview.style.zoom = "60%";
         };
-    }
+    };
 
     this.preview_loaded = function() {
         var here = input.value;
@@ -309,11 +311,11 @@ function LinkDrawer(elementid, tool) {
             var there = preview.contentWindow.location.href;
         } catch(e) { return; }
 
-        if (here != there && !/^about:/.test(there)) {
+        if (here != there && !(/^about:/.test(there))) {
             input.value = there;
         }
         this.showAnchors(currentAnchor());
-    }
+    };
     addEventHandler(preview, "load", this.preview_loaded, this);
 };
 
@@ -649,7 +651,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             var id = libnode.getAttribute('id');
             this.selectLibrary(id);
         }
-    }
+    };
 
     this.updateDisplay = function(id) {
       /* (re-)transform XML and (re-)display the necessary part
@@ -699,7 +701,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             this.updateDisplay(this.resourcespanelid);
             this.updateDisplay(this.propertiespanelid);
         }
-    }
+    };
 
     this.deselectActiveCollection = function() {
         var librariespanel = document.getElementById(this.librariespanelid);
@@ -768,7 +770,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (newseldiv) {
             newseldiv.className = 'kupu-libsource-selected';
         }
-    }
+    };
 
     this._libraryContentCallback = function(dom, src_uri, libnode) {
         /* callback for when a library's contents (item list) is loaded
@@ -838,7 +840,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // Case 3: We've not loaded the data yet, so we need to load it
         this._loadXML(src_uri, this._collectionContentCallback, null);
         return false;
-    }
+    };
 
     this.useCollection = function(collnode) {
         if (this.currentSelection) {
@@ -860,7 +862,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         collnode.setAttribute('selected', '1');
         this.flagSelectedLib(collnode.getAttribute('id'));
         this.updateResources();
-    }
+    };
     /*** Load a collection ***/
     this.selectCollection = function(item, tag) {
         var id = item.id;
@@ -921,7 +923,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (leafnode) {
             leafnode.setAttribute('loadedInNode', time);
         }
-        this.deselectActiveCollection()
+        this.deselectActiveCollection();
 
         var collnode = dom.selectSingleNode('/collection');
         collnode.setAttribute('id', time);
@@ -992,13 +994,13 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             }
         }
         this.showupload = '';
-    }
+    };
 
     this.selectUpload = function() {
         this.removeSelection();
         this.showupload = 'yes';
         this.updateResources();
-    }
+    };
     /*** Selecting a resource ***/
 
     this.selectItem = function (item, event) {
@@ -1060,14 +1062,14 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         }
 
         if (this.editor.getBrowserName() == 'IE') {
-            var ppanel = document.getElementById(this.propertiespanelid)
+            var ppanel = document.getElementById(this.propertiespanelid);
             var height = ppanel.clientHeight;
             if (height > ppanel.scrollHeight) height = ppanel.scrollHeight;
             if (height < 260) height = 260;
             document.getElementById(this.resourcespanelid).style.height = height+'px';
         }
         return;
-    }
+    };
 
 
     this.search = function() {
@@ -1164,7 +1166,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         this.useCollection(resultlib);
         this.updateDisplay(this.librariespanelid);
         this.updateDisplay(this.breadcrumbsid);
-    }
+    };
 
     this.save = function() {
         /* save the element, should be implemented on subclasses */
@@ -1266,7 +1268,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
             this.options['image-caption'] = /\bcaptioned\b/.test(className);
         }
         ImageLibraryDrawer.prototype.createContent.call(this);
-    }
+    };
     
     // upload, on submit/insert press
     this.uploadImage = function() {
@@ -1367,8 +1369,8 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, select
         this.selectedSrc = curranchor?curranchor.href:null;
         this.options = {};
         if (curranchor) {
-            this.options['link_name'] = curranchor.name || '';
-            this.options['link_target'] = curranchor.target || '';
+            this.options.link_name = curranchor.name || '';
+            this.options.link_target = curranchor.target || '';
         }
         LinkLibraryDrawer.prototype.createContent.call(this);
     };
@@ -1425,10 +1427,10 @@ function AnchorDrawer(elementid, tool) {
         this.tool.fillStyleSelect(this.style1);
         this.tool.fillStyleSelect(this.style2);
         this.tool.fillStyleSelect(this.ostyle);
-    }
+    };
     this.getMode = function() {
         return this.radio1.checked;
-    }
+    };
 
     this.checkAll = function() {
         var nodes = this.paralist.getElementsByTagName('input');
@@ -1436,13 +1438,13 @@ function AnchorDrawer(elementid, tool) {
         for (var i = 0; i < nodes.length; i++) {
             nodes[i].checked = state;
         };
-    }
+    };
     this.switchMode = function(event) {
         event = event || window.event;
         var target = event.currentTarget || event.srcElement;
         this.table.className = target.id;
         this.fillList();
-    }
+    };
     this.fillList = function() {
         var el = newElement;
         while (this.paralist.firstChild) {
@@ -1462,7 +1464,7 @@ function AnchorDrawer(elementid, tool) {
             }
         }
 
-        var paras = this.nodelist = this.tool.grubParas(s[0], s[1]);
+        var paras = (this.nodelist = this.tool.grubParas(s[0], s[1]));
         for (var i = 0; i < paras.length; i++) {
             var node = paras[i][0];
             var text = Sarissa.getText(node, true).strip().truncate(60);
@@ -1480,7 +1482,7 @@ function AnchorDrawer(elementid, tool) {
             
             this.paralist.appendChild(div);
         };
-    }
+    };
     this.createContent = function() {
         var editor = this.editor;
         if (this.radio2.checked) this.table.className=this.radio2.id;
@@ -1516,7 +1518,7 @@ function AnchorDrawer(elementid, tool) {
                         number = ++lvl1;
                         lvl2 = 0;
                     } else {
-                        number = lvl1 + '.' + ++lvl2;
+                        number = lvl1 + '.' + (++lvl2);
                     };
                     var li = ed.newElement('li', {'className': 'level'+level},
                         [ed.newElement('a', {'href': '#'+a},

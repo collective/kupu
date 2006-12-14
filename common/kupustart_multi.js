@@ -12,7 +12,7 @@
 
 function startKupu() {
     // initialize the editor, this version groks an array of iframeids
-    var iframeids = new Array('kupu_1', 'kupu_2', 'kupu_3');
+    var iframeids = ['kupu_1', 'kupu_2', 'kupu_3'];
     var kupu = initKupu(iframeids); 
 
     // if there's no global 'i18n_message_catalog' variable available, don't
@@ -52,4 +52,4 @@ function continueStartKupu(kupu) {
     kupu.initialize();
 
     return kupu;
-};
+}

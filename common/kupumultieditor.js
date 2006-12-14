@@ -49,7 +49,7 @@ function KupuMultiEditor(documents, config, logger) {
     this.updateStateHandler = function(event) {
         /* check whether the event is interesting enough to trigger the 
         updateState machinery and act accordingly */
-        var interesting_codes = new Array(8, 13, 37, 38, 39, 40, 46);
+        var interesting_codes = [8, 13, 37, 38, 39, 40, 46];
         if (event.type == 'click' || event.type == 'dblclick' || 
                 event.type == 'select' ||
                 (event.type == 'keyup' && 
@@ -162,7 +162,7 @@ function KupuMultiEditor(documents, config, logger) {
         
         // pass the content through the filters
         this.logMessage(_("Starting HTML cleanup"));
-        var contents = new Array();
+        var contents = [];
         for (var i=0; i < this.documents.length; i++) {
             var transform = this._filterContent(this.documents[i].getDocument().documentElement);
             contents.push(this._serializeOutputToString(transform));

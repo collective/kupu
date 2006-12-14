@@ -15,7 +15,7 @@ function InitKupuCheckersTestCase() {
     // Please note that we are cheating here a bit:
     // 1. No idea how to get the real checkers without setting up a complete
     //    Kupu, so we work on a copy here.
-    // 2. We test parentElement, ParentWithStyleChecker and the arguments
+    // 2. We test parentElement, parentWithStyleChecker and the arguments
     //    used in initKupu simultanously, so these tests don't tell you what's
     //    responsible if they fail.
 
@@ -43,21 +43,21 @@ function InitKupuCheckersTestCase() {
 
     this._makeBoldchecker = function() {
         // XXX copied from initKupu, must be synced manually!
-        var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
+        var boldchecker = parentWithStyleChecker(['b', 'strong'],
                                                  'fontWeight', 'bold', 'bold');
         return boldchecker;
         };
 
     this._makeItalicschecker = function() {
         // XXX copied from initKupu, must be synced manually!
-        var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
+        var italicschecker = parentWithStyleChecker(['i', 'em'],
                                               'fontStyle', 'italic', 'italic');
         return italicschecker;
         };
 
     this._makeUnderlinechecker = function() {
         // XXX copied from initKupu, must be synced manually!
-        var underlinechecker = ParentWithStyleChecker(new Array('u'),
+        var underlinechecker = parentWithStyleChecker(['u'],
                                    'textDecoration', 'underline', 'underline');
         return underlinechecker;
         };

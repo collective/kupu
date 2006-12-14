@@ -70,4 +70,4 @@ function DummyLogger() {
             throw message;
         }
     };
-};
+}

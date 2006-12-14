@@ -87,7 +87,7 @@ function DivsTool() {
 
     this.createContextMenuElements = function(selNode, event) {
         /* create the 'Create link' or 'Remove link' menu elements */
-        var ret = new Array();
+        var ret = [];
         var link = this.editor.getNearestParentOfType(selNode, 'div');
         if (link) {
             ret.push(new ContextMenuElement(_('Delete block'), this.deleteDiv, this));

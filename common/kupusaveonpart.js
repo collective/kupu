@@ -18,4 +18,4 @@ function saveOnPart() {
         kupu.config.reload_src = 0;
         kupu.saveDocument(false, true);
     };
-};
+}

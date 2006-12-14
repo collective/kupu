@@ -14,7 +14,7 @@ this.kuputoolcollapser = new function() {
             var cookie = document.cookie;
             var reg = /initial_state=([^;]+);?/;
             var match = cookie.match(reg);
-            if (match) {
+            if (match) { /*lint 558*/
                 eval(unescape(match[0]));
             };
         };

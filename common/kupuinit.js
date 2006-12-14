@@ -47,7 +47,7 @@ function initKupu(iframe) {
     kupu.registerTool('ui', ui); // XXX Should this be a different method?
 
     // add the buttons to the toolbar
-    var savebuttonfunc = function(button, editor) {editor.saveDocument()};
+    var savebuttonfunc = function(button, editor) {editor.saveDocument();};
     var savebutton = new KupuButton('kupu-save-button', savebuttonfunc);
     kupu.registerTool('savebutton', savebutton);
 
@@ -58,7 +58,7 @@ function initKupu(iframe) {
         };
     };
 
-    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
+    var boldchecker = parentWithStyleChecker(['b', 'strong'],
                                              'fontWeight', 'bold', 'bold');
     var boldbutton = new KupuStateButton('kupu-bold-button', 
                                          execCommand('bold'),
@@ -67,7 +67,7 @@ function initKupu(iframe) {
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
+    var italicschecker = parentWithStyleChecker(['i', 'em'],
                                               'fontStyle', 'italic', 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', 
                                            execCommand('italic'),
@@ -76,7 +76,7 @@ function initKupu(iframe) {
                                            'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
-    var underlinechecker = ParentWithStyleChecker(new Array('u'),
+    var underlinechecker = parentWithStyleChecker(['u'],
                                    'textDecoration', 'underline', 'underline');
     var underlinebutton = new KupuStateButton('kupu-underline-button', 
                                               execCommand('underline'),
@@ -85,7 +85,7 @@ function initKupu(iframe) {
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
-    var subscriptchecker = ParentWithStyleChecker(new Array('sub'),
+    var subscriptchecker = parentWithStyleChecker(['sub'],
                                                   null, null, 'subscript');
     var subscriptbutton = new KupuStateButton('kupu-subscript-button',
                                               execCommand('subscript'),
@@ -94,7 +94,7 @@ function initKupu(iframe) {
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'),
+    var superscriptchecker = parentWithStyleChecker(['super', 'sup'],
                                                     null, null, 'superscript');
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
                                                 execCommand('superscript'),
@@ -175,8 +175,7 @@ function initKupu(iframe) {
         'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button', 
         'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button', 
         'kupu-table-fix-button', 'kupu-table-fixall-button', 'kupu-toolbox-tables',
-        'kupu-toolbox', 'kupu-toolbox-active'
-        );
+        'kupu-toolbox', 'kupu-toolbox-active');
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
     var anchortool = new AnchorTool();
@@ -236,15 +235,15 @@ function initKupu(iframe) {
 
     try {
         var linklibdrawer = new LinkLibraryDrawer(linktool, 
-                                                  conf['link_xsl_uri'],
-                                                  conf['link_libraries_uri'],
-                                                  conf['link_images_uri']);
+                                                  conf.link_xsl_uri,
+                                                  conf.link_libraries_uri,
+                                                  conf.link_images_uri);
         drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
         var imagelibdrawer = new ImageLibraryDrawer(imagetool, 
-                                                    conf['image_xsl_uri'],
-                                                    conf['image_libraries_uri'],
-                                                    conf['search_images_uri']);
+                                                    conf.image_xsl_uri,
+                                                    conf.image_libraries_uri,
+                                                    conf.search_images_uri);
         drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
     } catch(e) {
         var msg = _('There was a problem initializing the drawers. Most ' +
@@ -276,4 +275,4 @@ function initKupu(iframe) {
     };
 
     return kupu;
-};
+}

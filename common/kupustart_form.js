@@ -53,4 +53,4 @@ function continueStartKupu(kupu) {
     kupu.initialize();
 
     return kupu;
-};
+}

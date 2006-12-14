@@ -195,7 +195,7 @@ if(_SARISSA_IS_IE){
         this.template.stylesheet = converted;
         this.processor = this.template.createProcessor();
         // (re)set default param values
-        this.paramsSet = new Array();
+        this.paramsSet = [];
     };
 
     /**
@@ -284,7 +284,7 @@ if(_SARISSA_IS_IE){
         };
         /* update updated params for getParameter */
         if(!this.paramsSet[""+nsURI]){
-            this.paramsSet[""+nsURI] = new Array();
+            this.paramsSet[""+nsURI] = [];
         };
         this.paramsSet[""+nsURI][name] = value;
     };
@@ -331,8 +331,10 @@ if(_SARISSA_IS_IE){
         Sarissa.__setReadyState__ = function(oDoc, iReadyState){
             oDoc.readyState = iReadyState;
             oDoc.readystate = iReadyState;
-            if (oDoc.onreadystatechange != null && typeof oDoc.onreadystatechange == "function")
+            if (oDoc.onreadystatechange != null &&
+                typeof oDoc.onreadystatechange == "function") {
                 oDoc.onreadystatechange();
+            }
         };
         Sarissa.getDomDocument = function(sUri, sName){
             var oDoc = document.implementation.createDocument(sUri?sUri:null, sName?sName:null, null);
@@ -470,18 +472,18 @@ Sarissa.getText = function(oNode, deep){
         var nodeType = node.nodeType;
         if(nodeType == Node.TEXT_NODE || nodeType == Node.CDATA_SECTION_NODE){
             s += node.data;
-        } else if(deep == true
-                    && (nodeType == Node.ELEMENT_NODE
-                        || nodeType == Node.DOCUMENT_NODE
-                        || nodeType == Node.DOCUMENT_FRAGMENT_NODE)){
+        } else if(deep == true &&
+            (nodeType == Node.ELEMENT_NODE ||
+            nodeType == Node.DOCUMENT_NODE ||
+            nodeType == Node.DOCUMENT_FRAGMENT_NODE)){
             s += Sarissa.getText(node, true);
         };
     };
     return s;
 };
-if(!window.XMLSerializer 
-    && Sarissa.getDomDocument 
-    && Sarissa.getDomDocument("","foo", null).xml){
+if(!window.XMLSerializer &&
+   Sarissa.getDomDocument &&
+   Sarissa.getDomDocument("","foo", null).xml){
     /**
      * Utility class to serialize DOM Node objects to XML strings
      * @constructor
@@ -588,8 +590,9 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
     indentSpace = indentSpace?indentSpace:'';
     var s = indentSpace  + '<' + objectName + '>';
     var isLeaf = false;
-    if(!(anyObject instanceof Object) || anyObject instanceof Number || anyObject instanceof String 
-        || anyObject instanceof Boolean || anyObject instanceof Date){
+    if(!(anyObject instanceof Object) || anyObject instanceof Number ||
+        anyObject instanceof String || anyObject instanceof Boolean ||
+        anyObject instanceof Date){
         s += Sarissa.escape(""+anyObject);
         isLeaf = true;
     }else{
@@ -601,7 +604,7 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
         };
         s += indentSpace;
     };
-    return s += (objectName.indexOf(' ')!=-1?"</array-item>\n":"</" + objectName + ">\n");
+    return (s += (objectName.indexOf(' ')!=-1?"</array-item>\n":"</" + objectName + ">\n"));
 };
 
 /** 
@@ -609,11 +612,11 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
  * @param sXml the string to escape
  */
 Sarissa.escape = function(sXml){
-    return sXml.replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;");
+    return sXml.replace(/&/g, "&amp;").
+        replace(/</g, "&lt;").
+        replace(/>/g, "&gt;").
+        replace(/"/g, "&quot;").
+        replace(/'/g, "&apos;");
 };
 
 /** 
@@ -622,10 +625,10 @@ Sarissa.escape = function(sXml){
  * @param sXml the string to unescape
  */
 Sarissa.unescape = function(sXml){
-    return sXml.replace(/&apos;/g,"'")
-        .replace(/&quot;/g,"\"")
-        .replace(/&gt;/g,">")
-        .replace(/&lt;/g,"<")
-        .replace(/&amp;/g,"&");
+    return sXml.replace(/&apos;/g,"'").
+        replace(/&quot;/g,"\"").
+        replace(/&gt;/g,">").
+        replace(/&lt;/g,"<").
+        replace(/&amp;/g,"&");
 };
 //   EOF

@@ -3,7 +3,7 @@
 // Part of X, a Cross-Browser Javascript Library, Distributed under the terms of the GNU LGPL
 
 function xGetElementsByClassName(c, p, t, f) {
-  var found = new Array();
+  var found = [];
   var re = new RegExp('\\b'+c+'\\b', 'i');
   var list = document.getElementsByTagName(t);
   for (var i = 0; i < list.length; ++i) {

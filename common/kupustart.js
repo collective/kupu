@@ -46,8 +46,8 @@ function startKupu() {
     } else {
         // some versions of Mozilla support onbeforeunload (starting with 1.7)
         // so let's try to register and if it fails fall back on onunload
-        var re = /rv:([0-9\.]+)/
-        var match = re.exec(navigator.userAgent)
+        var re = /rv:([0-9\.]+)/;
+        var match = re.exec(navigator.userAgent);
         if (match && match[1] && parseFloat(match[1]) > 1.6) {
             addEventHandler(window, 'beforeunload', saveOnPart);
         } else {
@@ -59,4 +59,4 @@ function startKupu() {
     kupu.initialize();
 
     return kupu;
-};
+}

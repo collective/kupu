@@ -45,7 +45,7 @@ function initPloneKupu(editorId) {
         };
     };
 
-    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'),
+    var boldchecker = parentWithStyleChecker(['b', 'strong'],
 					     'font-weight', 'bold');
     var boldbutton = new KupuStateButton(prefix+'button.kupu-bold', 
                                          execCommand('bold'),
@@ -54,7 +54,7 @@ function initPloneKupu(editorId) {
                                          'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'),
+    var italicschecker = parentWithStyleChecker(['i', 'em'],
 						'font-style', 'italic');
     var italicsbutton = new KupuStateButton(prefix+'button.kupu-italic', 
                                            execCommand('italic'),
@@ -64,7 +64,7 @@ function initPloneKupu(editorId) {
     kupu.registerTool('italicsbutton', italicsbutton);
 
     /* disabled
-    var underlinechecker = ParentWithStyleChecker(new Array('u'));
+    var underlinechecker = parentWithStyleChecker(['u']);
     var underlinebutton = new KupuStateButton(prefix+'button.kupu-underline', 
                                               execCommand('underline'),
                                               underlinechecker,
@@ -73,7 +73,7 @@ function initPloneKupu(editorId) {
     kupu.registerTool('underlinebutton', underlinebutton);
     */
 
-    var subscriptchecker = ParentWithStyleChecker(new Array('sub'));
+    var subscriptchecker = parentWithStyleChecker(['sub']);
     var subscriptbutton = new KupuStateButton(prefix+'button.kupu-subscript',
                                               execCommand('subscript'),
                                               subscriptchecker,
@@ -81,7 +81,7 @@ function initPloneKupu(editorId) {
                                               'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'));
+    var superscriptchecker = parentWithStyleChecker(['super', 'sup']);
     var superscriptbutton = new KupuStateButton(prefix+'button.kupu-superscript', 
                                                 execCommand('superscript'),
                                                 superscriptchecker,
@@ -151,10 +151,10 @@ function initPloneKupu(editorId) {
                                             prefix+'textarea.kupu-editor-textarea');
     kupu.registerTool('sourceedittool', sourceedittool);
 
-    var imagetool = NoContextMenu(new ImageTool());
+    var imagetool = noContextMenu(new ImageTool());
     kupu.registerTool('imagetool', imagetool);
 
-    var linktool = NoContextMenu(new LinkTool());
+    var linktool = noContextMenu(new LinkTool());
     kupu.registerTool('linktool', linktool);
 
     var zoom = new KupuZoomTool(prefix+'button.kupu-zoom',
@@ -179,7 +179,7 @@ function initPloneKupu(editorId) {
         beforeunloadTool.addHandler(function() {
             return ibody.innerHTML != initialBody;
         });
-        beforeunloadTool.chkId[textarea.id] = function() { return false; }
+        beforeunloadTool.chkId[textarea.id] = function() { return false; };
         beforeunloadTool.addForm(form);
     }
     // Patch for bad AT format pulldown.
@@ -233,12 +233,12 @@ function initPloneKupu(editorId) {
     kupu.registerTool('drawertool', drawertool);
 
     var drawerparent = prefix+'div.kupu-librarydrawer-parent';
-    var xsl_uri = conf['xsl_uri'];
-    var link_resource = conf['link_resource'];
-    var image_resource = conf['image_resource'];
-    var lib_prefix = conf['lib_prefix'];
-    var search_prefix = conf['search_prefix'];
-    var select_prefix = conf['select_prefix'];
+    var xsl_uri = conf.xsl_uri;
+    var link_resource = conf.link_resource;
+    var image_resource = conf.image_resource;
+    var lib_prefix = conf.lib_prefix;
+    var search_prefix = conf.search_prefix;
+    var select_prefix = conf.select_prefix;
     var linklibdrawer = new LinkLibraryDrawer(linktool, xsl_uri,
         lib_prefix+link_resource, search_prefix+link_resource,
         drawerparent, select_prefix+link_resource);
