@@ -149,23 +149,26 @@ class KupuLibraryTool(Acquisition.Implicit):
             self._res_newtype[resource_type] = mode
             self._res_newtype = self._res_newtype # Flag ourselves as modified.
 
-    def checkNewResourceTypes(self):
+    def checkNewResourceTypes(self, resource_type=None):
         # Check for new types added. It would be nice if this
         # was called automatically but not every time we query a
         # resource.
-        handle_new = self.getNewTypeHandler(resource_type)
-        if handle_new != NEWTYPE_IGNORE:
-            typetool = getToolByName(self, 'portal_types')
-            new_portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
-            if getattr(self, '_last_known_types', None) is None:
-                # Migrate from old version
-                self._last_known_types = all_portal_types
-            else:
-                for t in new_types:
-                    if t in new_portal_types:
-                        del new_portal_types[t]
-                if new_portal_types:
-                    self._addNewTypesToResources()
+        if resource_type != None:
+            handle_new = self.getNewTypeHandler(resource_type)
+            if handle_new == NEWTYPE_IGNORE:
+                return
+                
+        typetool = getToolByName(self, 'portal_types')
+        new_portal_types = dict([ (t.id, 1) for t in typetool.listTypeInfo()])
+        if getattr(self, '_last_known_types', None) is None:
+            # Migrate from old version
+            self._last_known_types = new_portal_types
+        else:
+            for t in self._last_known_types:
+                if t in new_portal_types:
+                    del new_portal_types[t]
+            if new_portal_types:
+                self._addNewTypesToResources()
 
     def _addNewTypesToResources(self):
         """This method is called when the list of types in the system has changed.
