@@ -106,11 +106,11 @@ SourceEditTool.prototype.switchSourceEdit = function(event, nograb) {
 };
 
 SourceEditTool.prototype.enable = function() {
-    KupuButtonEnable(this.sourceButton);
+    kupuButtonEnable(this.sourceButton);
 };
 
 SourceEditTool.prototype.disable = function() {
-    KupuButtonDisable(this.sourceButton);
+    kupuButtonDisable(this.sourceButton);
 };
 
 function MultiSourceEditTool(sourcebuttonid, textareaprefix) {

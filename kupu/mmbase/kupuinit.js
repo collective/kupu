@@ -53,20 +53,20 @@ function initKupu(iframe) {
         };
     };
 
-    var boldchecker = ParentWithStyleChecker(new Array('b', 'strong'), null, null, "bold");
+    var boldchecker = parentWithStyleChecker(['b', 'strong'], null, null, "bold");
     var boldbutton = new KupuStateButton('kupu-bold-button', execCommand('bold'), boldchecker, 'kupu-bold', 'kupu-bold-pressed');
     kupu.registerTool('boldbutton', boldbutton);
 
-    var italicschecker = ParentWithStyleChecker(new Array('i', 'em'), null, null, 'italic');
+    var italicschecker = parentWithStyleChecker(['i', 'em'], null, null, 'italic');
     var italicsbutton = new KupuStateButton('kupu-italic-button', execCommand('italic'), italicschecker, 'kupu-italic', 'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
 
-    var subscriptchecker = ParentWithStyleChecker(new Array('sub'), null, null, 'subscript');
+    var subscriptchecker = parentWithStyleChecker(['sub'], null, null, 'subscript');
     var subscriptbutton = new KupuStateButton('kupu-subscript-button', execCommand('subscript'), subscriptchecker, 'kupu-subscript', 'kupu-subscript-pressed');
     kupu.registerTool('subscriptbutton', subscriptbutton);
 
-    var superscriptchecker = ParentWithStyleChecker(new Array('super', 'sup'), null, null, 'superscript');
+    var superscriptchecker = parentWithStyleChecker(['super', 'sup'], null, null, 'superscript');
     var superscriptbutton = new KupuStateButton('kupu-superscript-button', execCommand('superscript'), superscriptchecker, 'kupu-superscript', 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
@@ -91,7 +91,7 @@ function initKupu(iframe) {
     var linktool = new LinkTool();
     // remove 'create link' from context menu, it doesn't work, and there are 2 wokring methods.
     linktool.createContextMenuElements = function(selNode, event) {
-        var ret = new Array();
+        var ret = [];
         var link = linktool.editor.getNearestParentOfType(selNode, 'a');
         if (link) {
             ret.push(new ContextMenuElement(_('Delete link'), linktool.deleteLink, linktool));
@@ -106,7 +106,7 @@ function initKupu(iframe) {
     var imagetool = new ImageTool();
     // remove 'create image' from context menu, it doesn't work, and there are 2 wokring methods.
     imagetool.createContextMenuElements = function(selNode, event) {
-        return new Array();
+        return [];
     };
     kupu.registerTool('imagetool', imagetool);
     var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton',

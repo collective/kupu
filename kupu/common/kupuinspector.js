@@ -25,7 +25,7 @@
 
 function Panel() {
     /* the container (user interface element) of the elements */
-    this.elements = new Array();
+    this.elements = [];
     
     this.element = document.createElement('table');
     this.element.style.width = '100%';
@@ -44,7 +44,7 @@ function Element(node, panel, visibility) {
     /* an element in the panel (reflecting an element in the document) */
     this.panel = panel;
     this.node = node;
-    this.nodes = new Array();
+    this.nodes = [];
     this.default_visibility = visibility;
     
     // create a header
@@ -117,7 +117,7 @@ function Element(node, panel, visibility) {
         input.setAttribute('name', stylename);
         input.style.width = "100%";
         input.element = this.node;
-        addEventHandler(input, 'change', function() {this.element.style[this.getAttribute('name')] = this.value}, input);
+        addEventHandler(input, 'change', function() {this.element.style[this.getAttribute('name')] = this.value;}, input);
         inputcell.appendChild(input);
         this.nodes.push(row);
     };
@@ -151,32 +151,32 @@ function KupuInspector(inspectorelement) {
     this.element = getFromSelector(inspectorelement);
     this._lastnode = null;
 
-    this.default_attrs = new Array('id', 'className');
-    this.special_attrs = {'a': new Array('href', 'name', 'target'),
-                            'img': new Array('url', 'width', 'height'),
-                            'ul': new Array('type'),
-                            'ol': new Array('type'),
-                            'table': new Array('border', 'cellPadding', 'cellSpacing'),
-                            'td': new Array('align')
+    this.default_attrs = ['id', 'className'];
+    this.special_attrs = {'a': ['href', 'name', 'target'],
+                            'img': ['url', 'width', 'height'],
+                            'ul': ['type'],
+                            'ol': ['type'],
+                            'table': ['border', 'cellPadding', 'cellSpacing'],
+                            'td': ['align']
                             };
-    this.styles = new Array('background', 'borderWidth', 'borderColor', 
+    this.styles = ['background', 'borderWidth', 'borderColor', 
                                 'borderStyle', 'color', 'fontSize', 
                                 'fontFamily', 'float', 'height', 
                                 'lineHeight', 'margin', 'padding', 
                                 'textAlign', 'verticalAlign', 'whiteApace', 
-                                'width');
+                                'width'];
     
     this.updateState = function(selNode, event) {
         /* repopulate the inspector (if required) */
         if (selNode != this._lastnode) {
             // we need to repopulate
-            this._lastnode = selNode
+            this._lastnode = selNode;
             this._clear();
             var panel = new Panel();
             var currnode = selNode;
             // walk up to the body, add the elements in an array so we can
             // walk through it backwards later on
-            var els = new Array();
+            var els = [];
             while (currnode.nodeName.toLowerCase() != 'html') {
                 // only use element nodes
                 if (currnode.nodeType == 1) {

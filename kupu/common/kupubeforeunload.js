@@ -25,9 +25,9 @@ if (!window.beforeunload) (function() {
             if (message===false) message = undefined;
             if (event && message) event.returnValue = message;
             return message;
-        }
+        };
         this.execute.tool = this;
-    }
+    };
     var Class = BeforeUnloadHandler.prototype;
 
     // form checking code
@@ -39,14 +39,14 @@ if (!window.beforeunload) (function() {
             }
         }
         return false;
-    }
+    };
     Class.addHandler = function(fn) {
         this.handlers.push(fn);
-    }
+    };
     Class.onsubmit = function() {
         var tool = window.onbeforeunload && window.onbeforeunload.tool;
         tool.submitting = true;
-    }
+    };
     Class.addForm = function(form) {
         for (var i = 0; i < this.forms.length; i++) {
             if (this.forms[i]==form) return;
@@ -60,7 +60,7 @@ if (!window.beforeunload) (function() {
                 ele.setAttribute('originalValue', ele.defaultValue);
             }
         }
-    }
+    };
     Class.addForms = function() {
         for (var i = 0; i < arguments.length; i++) {
             var element = arguments[i];
@@ -75,7 +75,7 @@ if (!window.beforeunload) (function() {
                 }
             }
         }
-    }
+    };
     Class.removeForms = function() {
         for (var i = 0; i < arguments.length; i++) {
             var element = arguments[i];
@@ -94,21 +94,21 @@ if (!window.beforeunload) (function() {
                 }
             }
         }
-    }
+    };
 
     Class.CheckType = function() {};
     var c = Class.CheckType.prototype;
     c.checkbox = c.radio = function(ele) {
         return ele.checked != ele.defaultChecked;
-    }
+    };
     c.password = c.textarea = c.text = function(ele) {
         return ele.value != ele.defaultValue;
-    }
+    };
     // hidden: cannot tell on Mozilla without special treatment
     c.hidden = function(ele) {
         var orig = ele.getAttribute("originalValue");
         return orig && (ele.value != orig);
-    }
+    };
 
     c['select-one'] = function(ele) {
         for (var i=0 ; i < ele.length; i++) {
@@ -119,7 +119,7 @@ if (!window.beforeunload) (function() {
             }
         }
         return false;
-    }
+    };
 
     c['select-multiple'] = function(ele) {
         for (var i=0 ; i < ele.length; i++) {
@@ -129,7 +129,7 @@ if (!window.beforeunload) (function() {
             }
         }
         return false;
-    }
+    };
 
     Class.chk_form = function(form) {
         var elements = form.elements;
@@ -140,14 +140,16 @@ if (!window.beforeunload) (function() {
             }
         }
         return false;
-    }
+    };
 
     Class.isElementChanged = function(ele) {
         var method = ele.id && this.chkId[ele.id];
-        if (!method && ele.type && ele.name)
+        if (!method && ele.type && ele.name) {
             method = this.chkType[ele.type];
-        if (!method && ele.tagName)
+        }
+        if (!method && ele.tagName) {
             method = this['chk_'+ele.tagName.toLowerCase()];
+        }
 
         return method? method.apply(this, [ele]) : false;
     };

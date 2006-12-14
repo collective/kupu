@@ -10,7 +10,6 @@
 
 // $Id$
 
-
 //----------------------------------------------------------------------------
 //
 // Toolboxes
@@ -67,11 +66,11 @@ function KupuTool() {
 
     this.enable = function() {
         // Called when the tool is enabled after a form is dismissed.
-    }
+    };
 
     this.disable = function() {
         // Called when the tool is disabled (e.g. for a modal form)
-    }
+    };
     // private methods
     addEventHandler = addEventHandler;
     
@@ -83,7 +82,7 @@ function KupuTool() {
         if (tabIndex && !element.tabIndex) {
             element.tabIndex = tabIndex;
         }
-    }
+    };
 }
 
 function KupuToolBox() {
@@ -104,23 +103,23 @@ function KupuToolBox() {
     };
 };
 
-function NoContextMenu(object) {
+function noContextMenu(object) {
     /* Decorator for a tool to suppress the context menu */
     object.createContextMenuElements = function(selNode, event) {
         return [];
-    }
+    };
     return object;
 }
 
 // Helper function for enabling/disabling tools
-function KupuButtonDisable(button) {
+function kupuButtonDisable(button) {
     button = button || this.button;
     if (button) {
         button.disabled = "disabled";
         button.className += ' disabled';
     }
 }
-function KupuButtonEnable(button) {
+function kupuButtonEnable(button) {
     button = button || this.button;
     if (button) {
         button.disabled = "";
@@ -139,8 +138,8 @@ function KupuButton(buttonid, commandfunc, tool) {
     this.button = getFromSelector(buttonid);
     this.commandfunc = commandfunc;
     this.tool = tool;
-    this.disable = KupuButtonDisable;
-    this.enable = KupuButtonEnable;
+    this.disable = kupuButtonDisable;
+    this.enable = kupuButtonEnable;
 };
 
 KupuButton.prototype = new KupuTool;
@@ -282,7 +281,7 @@ function KupuUI(textstyleselectid) {
             this.cleanStyles();
         }
         return [ paraoptions, tableoptions ];
-    }
+    };
 
     this.setTextStyleHandler = function(event) {
         this.setTextStyle(this.tsselect.options[this.tsselect.selectedIndex].value);
@@ -400,7 +399,7 @@ function KupuUI(textstyleselectid) {
         paraoptions.push(nostyle);
         styleoffset = paraoptions.length;
         tableoffset = styleoffset + styleoptions.length;
-    }
+    };
 
     // Remove otherstyle and switch to appropriate style set.
     this.enableOptions = function(inTable) {
@@ -432,7 +431,7 @@ function KupuUI(textstyleselectid) {
             }
         }
         if (inTable) {
-            var grp = tablegrp = document.createElement('optgroup');
+            var grp = (tablegrp = document.createElement('optgroup'));
             grp.label = 'Table elements';
             for (var i = 0; i < tableoptions.length; i++) {
                 grp.appendChild(option(tableoptions[i]));
@@ -448,7 +447,7 @@ function KupuUI(textstyleselectid) {
             };
         };
         this.optionstate = inTable;
-    }
+    };
     
     this.setIndex = function(currnode, tag, index, styles) {
         var className = currnode.className;
@@ -462,7 +461,7 @@ function KupuUI(textstyleselectid) {
             return styles[tag];
         }
         return index;
-    }
+    };
 
     this.nodeStyle = function(node) {
         var currnode = node;
@@ -509,7 +508,7 @@ function KupuUI(textstyleselectid) {
             currnode = currnode.parentNode;
         }
         return index;
-    }
+    };
 
     this.updateState = function(selNode) {
         /* set the text-style pulldown */
@@ -573,7 +572,7 @@ function KupuUI(textstyleselectid) {
         var len = node.childNodes.length;
         function stripspace() {
             var c;
-            while ((c = node.lastChild) && c.nodeType==3 && /^\s*$/.test(c.data)) {
+            while ((c = node.lastChild) && c.nodeType==3 && (/^\s*$/.test(c.data))) {
                 node.removeChild(c);
             }
         }
@@ -586,7 +585,7 @@ function KupuUI(textstyleselectid) {
         if (node.childNodes.length==0 && !preserveEmpty) {
             node.parentNode.removeChild(node);
         };
-    }
+    };
 
     this._cleanCell = function(eltype, classname, strip) {
         var alttype=eltype=='TD'?'TH':eltype=='TH'?'TD':null;
@@ -635,7 +634,7 @@ function KupuUI(textstyleselectid) {
             var selection = this.editor.getSelection();
             var nodes = selNode.getElementsByTagName(eltype);
 
-            var cellNodes = Array();
+            var cellNodes = [];
             for (var i = 0; i < nodes.length; i++) {
                 cellNodes.push(nodes.item(i));
             };
@@ -665,7 +664,7 @@ function KupuUI(textstyleselectid) {
                 }
             }
         }
-    }
+    };
 
     this._setClass = function(el, classname) {
         var parent = el.parentNode;
@@ -690,7 +689,7 @@ function KupuUI(textstyleselectid) {
             el.removeAttribute("class");
             el.removeAttribute("className");
         }
-    }
+    };
     this._removeStyle = function() {
         function needbreak(e) {
             if (isblock && e) {
@@ -809,7 +808,7 @@ function KupuUI(textstyleselectid) {
     };
   
     this.createContextMenuElements = function(selNode, event) {
-        var ret = new Array();
+        var ret = [];
         ret.push(new ContextMenuElement(_('Cut'), 
                     this.cutButtonHandler, this));
         ret.push(new ContextMenuElement(_('Copy'), 
@@ -820,10 +819,10 @@ function KupuUI(textstyleselectid) {
     };
     this.disable = function() {
         if (this.tsselect) this.tsselect.disabled = "disabled";
-    }
+    };
     this.enable = function() {
         if (this.tsselect) this.tsselect.disabled = "";
-    }
+    };
 }
 
 KupuUI.prototype = new KupuTool;
@@ -898,7 +897,7 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
     this.createColorchooser = function(table) {
         /* create the colorchooser table */
         
-        var chunks = new Array('00', '33', '66', '99', 'CC', 'FF');
+        var chunks = ['00', '33', '66', '99', 'CC', 'FF'];
         table.setAttribute('id', 'kupu-colorchooser-table');
         table.style.borderWidth = '2px';
         table.style.borderStyle = 'solid';
@@ -936,13 +935,13 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
         return table;
     };
     this.enable = function() {
-        KupuButtonEnable(this.fgcolorbutton);
-        KupuButtonEnable(this.hlcolorbutton);
-    }
+        kupuButtonEnable(this.fgcolorbutton);
+        kupuButtonEnable(this.hlcolorbutton);
+    };
     this.disable = function() {
-        KupuButtonDisable(this.fgcolorbutton);
-        KupuButtonDisable(this.hlcolorbutton);
-    }
+        kupuButtonDisable(this.fgcolorbutton);
+        kupuButtonDisable(this.hlcolorbutton);
+    };
 }
 
 ColorchooserTool.prototype = new KupuTool;
@@ -1109,7 +1108,7 @@ function LinkTool() {
             }
         };
         return containsLink;
-    }
+    };
 
     // Can create a link in the following circumstances:
     //   The selection is inside a link:
@@ -1166,7 +1165,7 @@ function LinkTool() {
     
     this.createContextMenuElements = function(selNode, event) {
         /* create the 'Create link' or 'Remove link' menu elements */
-        var ret = new Array();
+        var ret = [];
         var link = this.editor.getNearestParentOfType(selNode, 'a');
         if (link) {
             ret.push(new ContextMenuElement(_('Delete link'), this.deleteLink, this));
@@ -1282,7 +1281,7 @@ function ImageTool() {
     };
 
     this.createContextMenuElements = function(selNode, event) {
-        return new Array(new ContextMenuElement(_('Create image'), this.createImageHandler, this));
+        return [new ContextMenuElement(_('Create image'), this.createImageHandler, this)];
     };
 }
 
@@ -1348,12 +1347,12 @@ function TableTool() {
     this.createContextMenuElements = function(selNode, event) {
         var table =  this.editor.getNearestParentOfType(selNode, 'table');
         if (!table) {
-            ret = new Array();
+            var ret = [];
             var el = new ContextMenuElement(_('Add table'), this.addPlainTable, this);
             ret.push(el);
             return ret;
         } else {
-            var ret = new Array();
+            var ret = [];
             ret.push(new ContextMenuElement(_('Add row'), this.addTableRow, this));
             ret.push(new ContextMenuElement(_('Delete row'), this.delTableRow, this));
             ret.push(new ContextMenuElement(_('Add column'), this.addTableColumn, this));
@@ -1384,7 +1383,7 @@ function TableTool() {
         if (makeHeader) {
             var tr = doc.createElement("tr");
             var thead = doc.createElement("thead");
-            for (i=0; i < cols; i++) {
+            for (var i=0; i < cols; i++) {
                 var th = doc.createElement("th");
                 th.appendChild(doc.createTextNode("Col " + i+1));
                 tr.appendChild(th);
@@ -1681,7 +1680,7 @@ function TableTool() {
                 if (tr.nodeType != 1) {
                     continue;
                 }
-                var currindex = 0
+                var currindex = 0;
                 for (var k=0; k < tr.childNodes.length; k++) {
                     var cell = tr.childNodes[k];
                     if (cell.nodeType != 1) {
@@ -1832,7 +1831,7 @@ function TableTool() {
             }
         }
         return false;
-    }
+    };
 
     this._cleanCell = function(el) {
         dump('_cleanCell('+el.innerHTML+')\n');
@@ -1853,7 +1852,7 @@ function TableTool() {
             }
         }
         var c;
-        while (el.firstChild && (c = el.firstChild).nodeType==3 && /^\s+/.test(c.data)) {
+        while (el.firstChild && (c = el.firstChild).nodeType==3 && (/^\s+/.test(c.data))) {
             c.data = c.data.replace(/^\s+/, '');
             if (!c.data) {
                 el.removeChild(c);
@@ -1861,7 +1860,7 @@ function TableTool() {
                 break;
             };
         };
-        while (el.lastChild && (c = el.lastChild).nodeType==3 && /\s+$/.test(c.data)) {
+        while (el.lastChild && (c = el.lastChild).nodeType==3 && (/\s+$/.test(c.data))) {
             c.data = c.data.replace(/\s+$/, '');
             if (!c.data) {
                 el.removeChild(c);
@@ -1871,7 +1870,7 @@ function TableTool() {
         };
         el.removeAttribute('colSpan');
         el.removeAttribute('rowSpan');
-    }
+    };
     this._countCols = function(rows, numcols) {
         for (var i=0; i < rows.length; i++) {
             var row = rows[i];
@@ -1886,7 +1885,7 @@ function TableTool() {
             };
         };
         return numcols;
-    }
+    };
 
     this._cleanRows = function(rows, container, numcols) {
         // now walk through all rows to clean them up
@@ -1999,12 +1998,15 @@ function TableTool() {
         while (table.firstChild) {
             table.removeChild(table.firstChild);
         }
-        if (hrows.length)
+        if (hrows.length) {
             table.appendChild(thead);
-        if (brows.length)
+        }
+        if (brows.length) {
             table.appendChild(tbody);
-        if (frows.length)
+        }
+        if (frows.length) {
             table.appendChild(tfoot);
+        }
         dump('finish up\n');
 
         this.editor.focusDocument();
@@ -2223,13 +2225,13 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
                 return;
             }
         }
-        if (this.ulselect) with(this.ulselect) {
-            selectedIndex = 0;
-            style.display = "none";
+        if (this.ulselect) {
+            this.ulselect.selectedIndex = 0;
+            this.ulselect.style.display = "none";
         };
-        if (this.olselect) with(this.olselect) {
-            selectedIndex = 0;
-            style.display = "none";
+        if (this.olselect) {
+            this.olselect.selectedIndex = 0;
+            this.olselect.style.display = "none";
         };
     };
 
@@ -2275,17 +2277,17 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
     };
 
     this.enable = function() {
-        KupuButtonEnable(this.addulbutton);
-        KupuButtonEnable(this.addolbutton);
+        kupuButtonEnable(this.addulbutton);
+        kupuButtonEnable(this.addolbutton);
         if (this.ulselect) this.ulselect.disabled = "";
         if (this.olselect) this.olselect.disabled = "";
-    }
+    };
     this.disable = function() {
-        KupuButtonDisable(this.addulbutton);
-        KupuButtonDisable(this.addolbutton);
+        kupuButtonDisable(this.addulbutton);
+        kupuButtonDisable(this.addolbutton);
         if (this.ulselect) this.ulselect.disabled = "disabled";
         if (this.olselect) this.olselect.disabled = "disabled";
-    }
+    };
 };
 
 ListTool.prototype = new KupuTool;
@@ -2313,8 +2315,7 @@ function ShowPathTool() {
                     path;
         } catch (e) {
             this.editor.logMessage(_('Could not set status bar message, ' +
-                                    'check your browser\'s security settings.'
-                                    ), 1);
+                                    'check your browser\'s security settings.'), 1);
         };
     };
 };
@@ -2351,7 +2352,7 @@ function ViewSourceTool() {
     
     this.createContextMenuElements = function(selNode, event) {
         /* create the context menu element */
-        return new Array(new ContextMenuElement(_('View source'), this.viewSource, this));
+        return [new ContextMenuElement(_('View source'), this.viewSource, this)];
     };
 };
 
@@ -2460,14 +2461,12 @@ function DefinitionListTool(dlbuttonid) {
         if (!dl) {
             return;
         };
-        switch (event.keyCode) {
-            case 13:
-                if (event.preventDefault) {
-                    event.preventDefault();
-                } else {
-                    event.returnValue = false;
-                };
-                break;
+        if (event.keyCode) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            };
         };
     };
 
@@ -2508,7 +2507,7 @@ function DefinitionListTool(dlbuttonid) {
         var iterator = new NodeIterator(cloned);
         var currnode = null;
         var remove = false;
-        while (currnode = iterator.next()) {
+        while ((currnode = iterator.next())) {
             if (currnode.nodeName.toLowerCase() == 'br') {
                 remove = true;
             };
@@ -2704,7 +2703,7 @@ KupuZoomTool.prototype.onscroll = function() {
     var top = window.pageYOffset!=undefined ? window.pageYOffset : document.documentElement.scrollTop;
     var left = window.pageXOffset!=undefined ? window.pageXOffset : document.documentElement.scrollLeft;
     if (top || left) window.scrollTo(0, 0);
-}
+};
 
 // Handle tab pressed from a control.
 KupuZoomTool.prototype.setTabbing = function(control, forward, backward) {
@@ -2722,7 +2721,7 @@ KupuZoomTool.prototype.setTabbing = function(control, forward, backward) {
         return false;
     }
     addEventHandler(control, "keydown", TabDown, this);
-}
+};
 
 KupuZoomTool.prototype.onresize = function() {
     if (!this.zoomed) return;
@@ -2759,11 +2758,11 @@ KupuZoomTool.prototype.onresize = function() {
         sourceArea.style.width = width;
         sourceArea.style.height = nheight;
     }
-}
+};
 
 KupuZoomTool.prototype.checkfunc = function(selNode, button, editor, event) {
     return this.zoomed;
-}
+};
 
 KupuZoomTool.prototype.commandfunc = function(button, editor) {
     /* Toggle zoom state */
@@ -2804,7 +2803,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
 
     window.scrollTo(0, iframe.offsetTop);
     editor.focusDocument();
-}
+};
 
 /* The anchor tool */
 function AnchorTool() {};
@@ -2872,6 +2871,6 @@ proto.getAnchor = function(node) {
 };
 
 /* IE doesn't have a dump function */
-if (dump===undefined) {
+if (window.dump===undefined) {
     var dump = function(msg) { };
 }

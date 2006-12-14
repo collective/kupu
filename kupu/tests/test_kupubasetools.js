@@ -27,7 +27,7 @@ function KupuUITestCase() {
 
     this._selectTableCells = function(indices, verificationString) {
         var tableNodes = this.body.getElementsByTagName("table");
-        var cellNodes = new Array();
+        var cellNodes = [];
         
         var curNode = null;
         var direction = null;
@@ -244,7 +244,7 @@ function KupuUITestCase() {
         if( _SARISSA_IS_IE ) {
             this._setSelection(1, null, 8, null, 'foobar');
         } else {
-            this._selectTableCells(new Array(0,1),'foo\tbar');
+            this._selectTableCells([0,1],'foo\tbar');
         };
         this.ui.setTextStyle('h1|te st');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
@@ -258,7 +258,7 @@ function KupuUITestCase() {
         expected = '<table><tbody><tr><td class="te st">foo</td><td>foz</td></tr><tr><td class="te st">bar</td><td>baz</td></tr></tbody></table>'
 
         this.body.innerHTML = data; 
-        this._selectTableCells(new Array(0,2),'foo\tbar');
+        this._selectTableCells([0,2],'foo\tbar');
         this.ui.setTextStyle('td|te st');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };
@@ -271,7 +271,7 @@ function KupuUITestCase() {
         data = '<table><tbody><tr><td>foo</td><td>foz</td></tr><tr><td>bar</td><td>baz</td></tr></tbody></table>';
         expected = '<table><tbody><tr><td><h1 class="te st">foo</h1></td><td>foz</td></tr><tr><td><h1 class="te st">bar</h1></td><td>baz</td></tr></tbody></table>'
         this.body.innerHTML = data;
-        this._selectTableCells(new Array(0,2),'foo\tbar');
+        this._selectTableCells([0,2],'foo\tbar');
         this.ui.setTextStyle('h1|te st');
         this.assertEquals(this._cleanHtml(this.body.innerHTML), expected);
     };

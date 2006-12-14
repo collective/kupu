@@ -86,7 +86,7 @@ KupuSpellChecker.prototype.displayUnrecognized = function(mapping) {
     html = html.replace(/<meta[^>]*http-equiv="[Cc]ontent-[Tt]ype"[^>]*>/gm, 
                         '');
     win.document.write('<html>' + html + '</html>');
-    win.deentitize = function(str) {return str.deentitize()};
+    win.deentitize = function(str) {return str.deentitize();};
     win.document.close();
     if (!win.document.getElementsByTagName('body').length) {
         addEventHandler(win, 'load', this.continueDisplay, this, win, mapping);

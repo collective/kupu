@@ -82,7 +82,7 @@ CleanupExpressionsTool.prototype.initialize = function(editor) {
 CleanupExpressionsTool.prototype.generateExpressionsMapping = function() {
     /* convert the config struct to a somewhat simpler mapping */
     var ret = {};
-    var expressions = this.editor.config['cleanup_expressions'];
+    var expressions = this.editor.config.cleanup_expressions;
     if (!expressions) {
         // no expressions in the XML config, bail out
         alert('no cleanup expressions configured');
@@ -99,7 +99,7 @@ CleanupExpressionsTool.prototype.generateExpressionsMapping = function() {
           for (var j=0; j < exprs.length; j++) {
               var expr = exprs[j];
               var regexp = expr.reg.strip();
-              var replacement = this._prepareReplacement(expr.replacement)
+              var replacement = this._prepareReplacement(expr.replacement);
               ret[name].push([regexp, replacement]);
           };
         } else {

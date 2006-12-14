@@ -172,7 +172,7 @@ function XhtmlValidation(editor) {
                 this[v] = 1;
             }
         }
-    }
+    };
 
     this._exclude = function(array, exceptions) {
         var ex;
@@ -187,19 +187,19 @@ function XhtmlValidation(editor) {
             if (!exclude[array[k]]) res.push(array[k]);
         }
         return res;
-    }
+    };
     this.setAttrFilter = function(attributes, filter) {
         for (var j = 0; j < attributes.length; j++) {
             var attr = attributes[j];
             this.attrFilters[attr] = filter || this._defaultCopyAttribute;
         }
-    }
+    };
 
     this.setTagAttributes = function(tags, attributes) {
         for (var j = 0; j < tags.length; j++) {
             this.tagAttributes[tags[j]] = attributes;
         }
-    }
+    };
 
     // define some new attributes for existing tags
     this.includeTagAttributes = function(tags, attributes) {
@@ -207,7 +207,7 @@ function XhtmlValidation(editor) {
             var tag = tags[j];
             this.tagAttributes[tag] = this.tagAttributes[tag].concat(attributes);
         }
-    }
+    };
 
     this.excludeTagAttributes = function(tags, attributes) {
         var bad = new this.Set(attributes);
@@ -228,21 +228,21 @@ function XhtmlValidation(editor) {
             // but also filtering some out
             this.badTagAttributes[tag] = attributes;
         }
-    }
+    };
 
     this.excludeTags = function(badtags) {
         if (typeof(badtags)==typeof('')) badtags = [badtags];
         for (var i = 0; i < badtags.length; i++) {
             delete this.tagAttributes[badtags[i]];
         }
-    }
+    };
 
     this.excludeAttributes = function(badattrs) {
         this.excludeTagAttributes(this.tagAttributes, badattrs);
         for (var i = 0; i < badattrs.length; i++) {
             delete this.attrFilters[badattrs[i]];
         }
-    }
+    };
     var replaceNodes = { 'b': 'strong', 'i': 'em' };
     if (editor.getBrowserName()=="IE") {
         this._getTagName = function(htmlnode) {
@@ -251,12 +251,12 @@ function XhtmlValidation(editor) {
                 nodename = htmlnode.scopeName+':'+nodename;
             }
             return replaceNodes[nodename]||nodename;
-        }
+        };
     } else {
         this._getTagName = function(htmlnode) {
             var nodename = htmlnode.nodeName.toLowerCase();
             return replaceNodes[nodename]||nodename;
-        }
+        };
     };
 
     // Supporting declarations
@@ -325,7 +325,7 @@ function XhtmlValidation(editor) {
         for (var n = 0; n < names.length; n++) {
             self[names[n]] = value;
         }
-    }
+    };
     
     // The tagAttributes class returns all valid attributes for a tag,
     // e.g. a = this.tagAttributes.head
@@ -410,13 +410,11 @@ function XhtmlValidation(editor) {
         setStates(['head'], ['title','base','script','style', 'meta','link','object','isindex']);
         setStates([
             'base', 'meta', 'link', 'hr', 'param', 'img', 'area', 'input',
-            'br', 'basefont', 'isindex', 'col',
-            ], []);
+            'br', 'basefont', 'isindex', 'col'], []);
 
         setStates(['title','style','script','option','textarea'], ['#PCDATA']);
         setStates([ 'noscript', 'iframe', 'noframes', 'body', 'div',
-            'li', 'dd', 'blockquote', 'center', 'ins', 'del', 'td', 'th',
-            ], el.Flow);
+            'li', 'dd', 'blockquote', 'center', 'ins', 'del', 'td', 'th'], el.Flow);
 
         setStates(el.heading, el.Inline);
         setStates([ 'p', 'dt', 'address', 'span', 'bdo', 'caption',
@@ -425,7 +423,7 @@ function XhtmlValidation(editor) {
             'b','big','small','u','s','strike','font','label',
             'legend'], el.Inline);
 
-        setStates(['ul', 'ol', 'menu', 'dir', 'ul', ], ['li']);
+        setStates(['ul', 'ol', 'menu', 'dir', 'ul'], ['li']);
         setStates(['dl'], ['dt','dd']);
         setStates(['pre'], validation._exclude(el.Inline, "img|object|applet|big|small|sub|sup|font|basefont"));
         setStates(['a'], validation._exclude(el.Inline, "a"));
@@ -457,11 +455,11 @@ function XhtmlValidation(editor) {
             }
         }
         return filtered.join(' ');
-    }
+    };
     this._defaultCopyAttribute = function(name, htmlnode, xhtmlnode) {
         var val = htmlnode.getAttribute(name);
         if (val) xhtmlnode.setAttribute(name, val);
-    }
+    };
     // Set up filters for attributes.
     var filter = this;
     this.attrFilters = new function(validation, editor) {
@@ -473,7 +471,7 @@ function XhtmlValidation(editor) {
             var val = htmlnode.getAttribute('class');
             if (val) val = validation.classFilter(val);
             if (val) xhtmlnode.setAttribute('class', val);
-        }
+        };
         // allow a * wildcard to make all attributes valid in the filter
         // note that this is pretty slow on IE
         this['*'] = function(name, htmlnode, xhtmlnode) {
@@ -488,7 +486,7 @@ function XhtmlValidation(editor) {
                     xhtmlnode.setAttribute(attr.name, attr.value);
                 };
             };
-        }
+        };
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.className;
@@ -500,27 +498,27 @@ function XhtmlValidation(editor) {
                     if (val) val = validation.classFilter(val);                        
                     if (val) xhtmlnode.setAttribute('class', val);
                 }
-            }
+            };
             this['http-equiv'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.httpEquiv;
                 if (val) xhtmlnode.setAttribute('http-equiv', val);
-            }
+            };
             this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
                 try {
                     var val = htmlnode.getAttribute(name);
                     if (val) xhtmlnode.setAttribute(name, val);
                 } catch(e) {
                 }
-            }
+            };
         }
         this.alt = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
             if (val || xhtmlnode.tagName=='img') xhtmlnode.setAttribute(name, val);
-        }
+        };
         this.rowspan = this.colspan = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
             if (val && val != '1') xhtmlnode.setAttribute(name, val);
-        }
+        };
         this.style = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.style.cssText;
             if (val) {
@@ -538,7 +536,7 @@ function XhtmlValidation(editor) {
                 val = styles.join('; ').strip();
             }
             if (val) xhtmlnode.setAttribute('style', val);
-        }
+        };
     }(this, editor);
 
     // Exclude unwanted tags.
@@ -548,10 +546,12 @@ function XhtmlValidation(editor) {
         this.filterStructure = editor.config.htmlfilter.filterstructure;
         
         var exclude = editor.config.htmlfilter;
-        if (exclude.a)
+        if (exclude.a) {
             this.excludeAttributes(exclude.a);
-        if (exclude.t)
+        }
+        if (exclude.t) {
             this.excludeTags(exclude.t);
+        }
         if (exclude.c) {
             var c = exclude.c;
             if (!c.length) c = [c];
@@ -575,17 +575,18 @@ function XhtmlValidation(editor) {
 
     // Copy all valid attributes from htmlnode to xhtmlnode.
     this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
+        var name;
         if (valid.contains('*')) {
             // allow all attributes on this tag
             this.attrFilters['*'](name, htmlnode, xhtmlnode);
             return;
         };        
         for (var i = 0; i < valid.length; i++) {
-            var name = valid[i];
+            name = valid[i];
             var filter = this.attrFilters[name];
             if (filter) filter(name, htmlnode, xhtmlnode);
         }
-    }
+    };
 
     this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
         return this._convertNodes(ownerdoc, htmlnode, xhtmlparent, new this.Set(['html']));
@@ -606,8 +607,9 @@ function XhtmlValidation(editor) {
                 parentnode = xhtmlnode;
             } catch (e) { };
             
-            if (validattrs && xhtmlnode)
+            if (validattrs && xhtmlnode) {
                 this._copyAttributes(htmlnode, xhtmlnode, validattrs);
+            }
         }
 
         var kids = htmlnode.childNodes;
@@ -638,11 +640,13 @@ function XhtmlValidation(editor) {
                         parentnode.appendChild(newkid);
                     };
                 } else if (kid.nodeType == 3) {
-                    if (nostructure || permittedChildren['#PCDATA'])
+                    if (nostructure || permittedChildren['#PCDATA']) {
                         parentnode.appendChild(ownerdoc.createTextNode(kid.nodeValue));
+                    }
                 } else if (kid.nodeType == 4) {
-                    if (nostructure || permittedChildren['#PCDATA'])
+                    if (nostructure || permittedChildren['#PCDATA']) {
                         parentnode.appendChild(ownerdoc.createCDATASection(kid.nodeValue));
+                    }
                 }
             }
         } 

@@ -120,7 +120,7 @@ function newElement(tagName) {
 function addEventHandler(element, event, method, context) {
     /* method to add an event handler for both IE and Mozilla */
     var wrappedmethod = new ContextFixer(method, context);
-    var args = new Array(null, null);
+    var args = [null, null];
     for (var i=4; i < arguments.length; i++) {
         args.push(arguments[i]);
     };
@@ -204,13 +204,13 @@ function selectSelectItem(select, item) {
     select.selectedIndex = 0;
 };
 
-function ParentWithStyleChecker(tagnames, style, stylevalue, command) {
+function parentWithStyleChecker(tagnames, style, stylevalue, command) {
     /* small wrapper that provides a generic function to check if a
        button should look pressed in */
     return function(selNode, button, editor, event) {
         /* check if the button needs to look pressed in */
         if (command) {
-            var result = editor.getInnerDocument().queryCommandState(command)
+            var result = editor.getInnerDocument().queryCommandState(command);
             if (result || editor.getSelection().getContentLength() == 0) {
                 return result;
             };
@@ -258,12 +258,12 @@ function _load_dict_helper(element) {
             };
             var name = child.nodeName.toLowerCase();
             var attr = child.attributes[0];
-            if (attr && ! /^([^_]|_moz)/.test(attr.name)) {
+            if (attr && !(/^([^_]|_moz)/.test(attr.name))) {
                 name += attr.name.toLowerCase(); // Fix for Opera
             }
             if (dict[name] != undefined) {
                 if (!dict[name].push) {
-                    dict[name] = new Array(dict[name], value);
+                    dict[name] = [dict[name], value];
                 } else {
                     dict[name].push(value);
                 };
@@ -624,7 +624,7 @@ function MozillaSelection(document) {
         // XXX this should be on a range object
         var endnode = this.endNode();
         var endnodeoffset = 0;
-        if (endnode = this.selection.focusNode) {
+        if (endnode == this.selection.focusNode) {
             endnodeoffset = this.selection.focusOffset;
         } else {
             endnodeoffset = this.selection.anchorOffset;
@@ -779,12 +779,12 @@ function MozillaSelection(document) {
                     range1.selectNode(parent1);
                     range2.selectNode(parent2);
                     
-                    if( range1.compareBoundaryPoints(Range.START_TO_START, range2) <= 0
-                        && range1.compareBoundaryPoints(Range.END_TO_END, range2) >= 0 ) {
+                    if( range1.compareBoundaryPoints(Range.START_TO_START, range2) <= 0 &&
+                        range1.compareBoundaryPoints(Range.END_TO_END, range2) >= 0 ) {
                         //parent1 contains parent2
                         parent = parent1;
-                    } else if( range1.compareBoundaryPoints(Range.START_TO_START, range2) >= 0
-                        && range1.compareBoundaryPoints(Range.END_TO_END, range2) <= 0 ) {
+                    } else if( range1.compareBoundaryPoints(Range.START_TO_START, range2) >= 0 &&
+                        range1.compareBoundaryPoints(Range.END_TO_END, range2) <= 0 ) {
                         //parent2 contains parent1
                         parent = parent2;
                     } else if( range1.compareBoundaryPoints(Range.START_TO_END, range2) <= 0 ) {
@@ -961,7 +961,7 @@ function MozillaSelection(document) {
 
     this.containsNode = function(node) {
         return this.selection.containsNode(node, true);
-    }
+    };
 
     this.toString = function() {
         return this.selection.toString();
@@ -969,12 +969,12 @@ function MozillaSelection(document) {
 
     this.getRange = function() {
         return this.selection.getRangeAt(0);
-    }
+    };
     this.restoreRange = function(range) {
         var selection = this.selection;
         selection.removeAllRanges();
         selection.addRange(range);
-    }
+    };
 
     this.intersectsNode = function(node) {
         for(var i = 0; i < this.selection.rangeCount; i++ ) {
@@ -996,7 +996,7 @@ function IESelection(document) {
      * main page, so force an inner selection. */
     var doc = document.getDocument();
 
-    var range = this.selection.createRange()
+    var range = this.selection.createRange();
     var parent = this.selection.type=="Text" ?
         range.parentElement() :
         this.selection.type=="Control" ?  range.parentElement : null;
@@ -1215,14 +1215,14 @@ function IESelection(document) {
     
     this.getRange = function() {
         return this.selection.createRange();
-    }
+    };
 
     this.restoreRange = function(range) {
         try {
             range.select();
         } catch(e) {
         };
-    }
+    };
 
     this.toString = function() {
         return this.selection.createRange().text;
@@ -1234,8 +1234,10 @@ function IESelection(document) {
         
         var selrange = this.selection.createRange();
         
-        if((selrange.compareEndPoints('StartToStart', noderange) <= 0 && selrange.compareEndPoints('EndToStart', noderange) > 0)
-           ||(selrange.compareEndPoints('StartToStart', noderange) > 0 && selrange.compareEndPoints('StartToEnd', noderange) < 0)) {
+        if((selrange.compareEndPoints('StartToStart', noderange) <= 0 &&
+            selrange.compareEndPoints('EndToStart', noderange) > 0) ||
+            (selrange.compareEndPoints('StartToStart', noderange) > 0 &&
+            selrange.compareEndPoints('StartToEnd', noderange) < 0)) {
            return true;
         }
         return false;
@@ -1269,7 +1271,7 @@ function ContextFixer(func, context) {
     
     this.execute = function() {
         /* execute the method */
-        var args = new Array();
+        var args = [];
         // the first arguments will be the extra ones of the class
         for (var i=0; i < self.args.length - 2; i++) {
             args.push(self.args[i + 2]);
@@ -1321,12 +1323,12 @@ function Timer() {
                 
             all other args will be passed 1:1 to the function when called
         */
-        var args = new Array();
+        var args = [];
         for (var i=0; i < arguments.length - 3; i++) {
             args.push(arguments[i + 3]);
         }
         var id = this._createUniqueId();
-        this.functions[id] = new Array(object, func, args);
+        this.functions[id] = [object, func, args];
         setTimeout("timer_instance._handleFunction(" + id + ")", timeout);
     };
 
@@ -1418,7 +1420,7 @@ String.prototype.truncate = function(len) {
         var trimmed = this.substring(0, len+1).replace(/\s[^\s]*$/, '...');
         return trimmed;
     }
-}
+};
 
 String.prototype.entitize = function() {
     var ret = this.replace(/&/g, '&amp;');
@@ -1504,4 +1506,4 @@ function kupuFixImage(image) {
     };
     image.height = height;
     image.width = width;
-};
+}

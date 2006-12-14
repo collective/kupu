@@ -45,7 +45,7 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
         this.length = i;
     };
     /** <p>Set an Array as the prototype object</p> */
-    SarissaNodeList.prototype = new Array(0);
+    SarissaNodeList.prototype = [0];
     /** <p>Inherit the Array constructor </p> */
     SarissaNodeList.prototype.constructor = Array;
     /**
@@ -97,8 +97,8 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     Sarissa.setXpathNamespaces = function(oDoc, sNsSet) {
         //oDoc._sarissa_setXpathNamespaces(sNsSet);
         oDoc._sarissa_useCustomResolver = true;
-        var namespaces = sNsSet.indexOf(" ")>-1?sNsSet.split(" "):new Array(sNsSet);
-        oDoc._sarissa_xpathNamespaces = new Array(namespaces.length);
+        var namespaces = sNsSet.indexOf(" ")>-1?sNsSet.split(" "):[sNsSet];
+        oDoc._sarissa_xpathNamespaces = [namespaces.length];
         for(var i=0;i < namespaces.length;i++){
             var ns = namespaces[i];
             var colonPos = ns.indexOf(":");
@@ -118,7 +118,7 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     */
     XMLDocument.prototype._sarissa_useCustomResolver = false;
     /** @private */
-    XMLDocument.prototype._sarissa_xpathNamespaces = new Array();
+    XMLDocument.prototype._sarissa_xpathNamespaces = [];
     /**
     * <p>Extends the XMLDocument to emulate IE's selectNodes.</p>
     * @argument sExpr the XPath expression to use
@@ -129,13 +129,13 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     */
     XMLDocument.prototype.selectNodes = function(sExpr, contextNode, returnSingle){
         var nsDoc = this;
-        var nsresolver = this._sarissa_useCustomResolver
-            ? function(prefix){
+        var nsresolver = this._sarissa_useCustomResolver?
+            function(prefix) {
             var s = nsDoc._sarissa_xpathNamespaces[prefix];
             if(s)return s;
             else throw "No namespace URI found for prefix: '" + prefix+"'";
-        }
-        : this.createNSResolver(this.documentElement);
+            }:
+            this.createNSResolver(this.documentElement);
         var result = null;
         if(!returnSingle){
             var oResult = this.evaluate(sExpr,
@@ -144,8 +144,9 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
                 XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
             var nodeList = new SarissaNodeList(oResult.snapshotLength);
             nodeList.expr = sExpr;
-            for(var i=0;i<nodeList.length;i++)
+            for(var i=0;i<nodeList.length;i++) {
                 nodeList[i] = oResult.snapshotItem(i);
+            }
             result = nodeList;
         }
         else {
@@ -166,10 +167,12 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     */
     Element.prototype.selectNodes = function(sExpr){
         var doc = this.ownerDocument;
-        if(doc.selectNodes)
+        if(doc.selectNodes) {
             return doc.selectNodes(sExpr, this);
-        else
+        }
+        else {
             throw "Method selectNodes is only supported by XML Elements";
+        }
     };
     /**
     * <p>Extends the XMLDocument to emulate IE's selectSingleNode.</p>
@@ -191,10 +194,11 @@ if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0"
     */
     Element.prototype.selectSingleNode = function(sExpr){
         var doc = this.ownerDocument;
-        if(doc.selectSingleNode)
+        if(doc.selectSingleNode) {
             return doc.selectSingleNode(sExpr, this);
-        else
+        } else {
             throw "Method selectNodes is only supported by XML Elements";
+        }
     };
     Sarissa.IS_ENABLED_SELECT_NODES = true;
-};
+}

@@ -28,7 +28,7 @@ function Map() {
 var loadedNodes      = new Map();
 var loadedTrees      = new Map();
 var unloadedTrees    = new Map();
-var uncollapsedNodes = new Array();
+var uncollapsedNodes = [];
 var loadedNodeBodies = new Map();
 
 function startKupu(language) {
