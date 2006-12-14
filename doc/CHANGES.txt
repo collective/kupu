@@ -15,6 +15,18 @@ Kupu changes
   - Support for generic setup added (when present, older systems may
     continue to use the quickinstaller) 
 
+  - Resource definitions can now optionally add any new Plone types to
+    the resource. This means that all custom types will be 'linkable'
+    unless otherwise configured.
+
+  - A modified version of jslint is included in the kupu
+    sources (with the ability to suppress a lot of the warnings).
+
+  - The javascript files used by Plone (and some of the other ones)
+    now run through jslint without warnings. This means they can be
+    compressed by programs which remove line endings in an unsafe
+    manner.
+
 - 1.4 Beta 2
 
   - Paragraph styling now permitted inside a table again (contributed
