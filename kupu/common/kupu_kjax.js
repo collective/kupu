@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  * 
  *****************************************************************************/
-
+/*extern Sarissa timer_instance newElement */
 /* Javascript to aid migration page. */
 
 function KJax() {};
@@ -134,7 +134,7 @@ function KJax() {};
             var name = /input/i.test(el.tagName)?el.type:el.tagName;
             if (/checkbox|radio/i.test(name) && !el.checked) continue;
             if (/select/i.test(name)) {
-                push(el, options[el.selectedIndex].value);
+                push(el, el.options[el.selectedIndex].value);
                 continue;
             }
             if (/text|hidden|checkbox|radio|textarea/i.test(name)) {

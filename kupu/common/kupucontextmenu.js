@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern addEventHandler */
 // $Id$
 
 

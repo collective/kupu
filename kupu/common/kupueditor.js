@@ -7,7 +7,11 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern _SARISSA_IS_IE IESelection MozillaSelection addEventHandler
+         XMLSerializer XhtmlValidation _ UpdateStateCancelBubble
+         ContextFixer _SARISSA_IS_MOZ timer_instance newDocumentElement
+         Sarissa
+         */
 // $Id$
 
 //----------------------------------------------------------------------------

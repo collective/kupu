@@ -593,7 +593,7 @@ function XhtmlValidation(editor) {
     };
 
     this._convertNodes = function(ownerdoc, htmlnode, xhtmlparent, permitted) {
-        var name, parentnode = xhtmlparent;
+        var parentnode = xhtmlparent;
         var nodename = this._getTagName(htmlnode);
         var nostructure = !this.filterstructure;
 

@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern addEventHandler NodeIterator */
 // $Id: kupueditor.js 7951 2004-12-21 15:06:38Z guido $
 
 // WARNING: this file can contain non-ascii characters, *always* make sure your

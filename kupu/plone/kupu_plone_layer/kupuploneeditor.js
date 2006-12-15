@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern kupu */
 KupuEditor.prototype._getBase = function(dom) {
     var base = dom.getElementsByTagName('base');
     if (base.length) {
@@ -110,8 +110,6 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
     this.logMessage("Cleanup done, sending document to server");
 
     // now create the form input
-    var document = form.ownerDocument;
-
     field.value = contents;
     
     kupu.content_changed = false;

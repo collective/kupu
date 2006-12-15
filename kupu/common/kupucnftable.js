@@ -7,8 +7,8 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
-// $Id: kupubasetools.js 6120 2004-08-22 23:23:42Z roku $
+/*extern _ getFromSelector addEventHandler selectSelectItem */
+// $Id$
 
 TableTool.prototype.setTableRowRepeat = function() {
     var selNode = this.editor.getSelectedNode();

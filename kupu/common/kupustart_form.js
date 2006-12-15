@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern getFromSelector initKupu ContextFixer _ */
 // $Id$
 
 function startKupu() {

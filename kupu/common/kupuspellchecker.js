@@ -1,3 +1,4 @@
+/*extern addEventHandler ContextFixer _ NodeIterator timer_instance */
 function KupuSpellChecker(buttonid, scripturl, spanstyle, 
                             winwidth, winheight, skip_tags) {
     this.button = document.getElementById(buttonid);
@@ -195,6 +196,5 @@ KupuSpellChecker.prototype.xmlToMapping = function(docnode) {
         };
         result[word] = replacements;
     };
-    var attrs = [];
     return result;
 };

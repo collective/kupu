@@ -1,4 +1,5 @@
 /* BeforeUnload form processing */
+/*extern _ */
 if (!window.beforeunload) (function() {
     var BeforeUnloadHandler = function() {
         var self = this;

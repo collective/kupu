@@ -7,7 +7,10 @@
  * Contributors see CREDITS.txt.
  * 
  *****************************************************************************/
-
+/*extern getFromSelector timer_instance NodeIterator getBaseTagClass
+         addEventHandler selectSelectItem newElement XSLTProcessor
+         Sarissa
+         */
 // $Id$
 
 function DrawerTool() {
@@ -76,7 +79,7 @@ proto.createContent = function() {
     /* fill the drawer with some content */
     // here's where any intelligence and XSLT transformation and such 
     // is done
-    el.style.display = 'block';
+    this.element.style.display = 'block';
     this.focusElement();
 };
 
@@ -272,7 +275,6 @@ function LinkDrawer(elementid, tool) {
         this.element.style.display = 'block';
         this.hideAnchors();
         this.focusElement();
-        var style = this.element.style;
     };
 
     this.save = function() {
@@ -362,7 +364,7 @@ function TableDrawer(elementid, tool) {
         fixClasses(editclassselect);
         
         var table = editor.getNearestParentOfType(selNode, 'table');
-
+        var show, hide;
         if (!table) {
             // show add table drawer
             show = this.addpanel;
@@ -914,8 +916,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // that is handled in _libraryContentCallback anyway).
         // We need to give the newly retrieved data a unique ID, we
         // just use the time.
-        date = new Date();
-        time = date.getTime();
+        var date = new Date();
+        var time = date.getTime();
 
         // attach 'loadedInNode' attribute to leaf node so Case 1
         // applies next time.
@@ -968,7 +970,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
     this.removeSelection = function() {
         // Mark the drawer as having no selection
-        var el = this.element;
         if (!this.xmldata) return;
         
         if (!this.multiple) {
@@ -1102,8 +1103,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         // we need to give the newly retrieved data a unique ID, we
         // just use the time.
-        date = new Date();
-        time = date.getTime();
+        var date = new Date();
+        var time = date.getTime();
         resultlib.setAttribute("id", time);
 
         // deselect the previous collection and mark the result
@@ -1177,7 +1178,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
     this._transformXml = function() {
         /* transform this.xmldata to HTML using this.shared.xsl and return it */
-        var doc = Sarissa.getDomDocument();
 	var result = this.shared.xsltproc.transformToDocument(this.xmldata);
         return result;
     };
@@ -1455,7 +1455,7 @@ function AnchorDrawer(elementid, tool) {
 
         var isSingle = this.getMode();
         var s = ['', ''];
-        for (idx=0; idx < (isSingle?1:2); idx++) {
+        for (var idx=0; idx < (isSingle?1:2); idx++) {
             var sel = this['style'+(idx+1)];
             var i = sel.selectedIndex;
             if (i >= 0) {
@@ -1484,7 +1484,6 @@ function AnchorDrawer(elementid, tool) {
         };
     };
     this.createContent = function() {
-        var editor = this.editor;
         if (this.radio2.checked) this.table.className=this.radio2.id;
         this.fillList(); 
         this.element.style.display = 'block';
@@ -1538,7 +1537,7 @@ function AnchorDrawer(elementid, tool) {
         if (!isSingle && toc.firstChild) {
             var o = this.ostyle.selectedIndex;
             if (o > 0) {
-                ostyle = this.ostyle.options[o].value.split('|');
+                var ostyle = this.ostyle.options[o].value.split('|');
                 if (ostyle[0]=='ul') {
                     toc.className=ostyle[1];
                 } else {
