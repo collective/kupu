@@ -43,7 +43,7 @@ ATTR_PATTERN = re.compile('''
      | width%s
      | .
      )*\>
-    )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE)
+    )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE | re.IGNORECASE | re.DOTALL)
 
 CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
 ALT_PATTERN = re.compile('\\balt=("[^"]*"|[^" \/>]+)')
@@ -59,7 +59,7 @@ IMAGE_TEMPLATE = '''\
 </div>
 '''
 
-UID_PATTERN = re.compile('(?P<tag><(?:a|img) [^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))')
+UID_PATTERN = re.compile('(?P<tag><(?:a|img)\\s[^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
