@@ -101,6 +101,62 @@ String.prototype.isDigit = function () {
     return (this >= '0' && this <= '9');
 };
 
+String.prototype.format = function() {
+    function repl() {
+        function spaces(n) {
+            n = Math.floor(n);
+            if (n<=0) return '';
+            if (n==1) return ' ';
+            return spaces(n/2)+spaces(n-n/2);
+        }
+        var flag = arguments[1];
+        var width = Number(arguments[2] || 0);
+        var prec = Number(arguments[3] || 0);
+        var type = arguments[4];
+        var value;
+        switch(type) {
+            case '%':
+                value = '%';
+                break;
+            case 'f':
+                value = args[n++].toFixed(prec);
+                width = width+prec+1;
+                break;
+            case 'd':
+                value = String(Math.floor(args[n++]));
+                break;
+            case 'r': case 's':
+                value = args[n++];
+                if (type=='r') {
+                    if (typeof(value)=='string') {
+                        value = "'"+value.replace("'","\\'")+"'";
+                    } else {
+                        value = value.toString();
+                    }
+                }
+                if (prec !== 0) {
+                    value = value.substr(0,prec);
+                }
+                break;
+            default:
+                throw("String.format: unrecognised format character '"+type+"'");
+                break;
+        }
+        var padding = spaces(width-value.length);
+        if (flag=='-') { // Left align
+            value = value + padding;
+        } else {
+            value = padding + value;
+        }
+        return value;
+    }
+    var n = 0, args = arguments;
+    var res = this.replace(/%([-0]?)(\d*)(?:\.)?(\d*)(.)/g, repl);
+    if (n != args.length) {
+        throw("String.format given %d arguments, expecting %d".format(args.length, n));
+    }
+    return res;
+}
 
 // We build the application inside a function so that we produce only a single
 // global variable. The function will be invoked, its return value is the JSLINT
@@ -2651,6 +2707,149 @@ JSLINT = function () {
         return o.join('');
     };
 
+    itself.textreport = function (option) {
+        var a = [], c, cc, f, i, k, o = [], s;
+
+        function detail(h) {
+            if (s.length) {
+                o.push(h + ': ' + s.sort().join(', '));
+            }
+        }
+
+        if (!option) {
+            for (k in member) {
+                a.push(k);
+            }
+            if (a.length) {
+                a = a.sort();
+                o.push('Members       Occurrences');
+                for (i = 0; i < a.length; i += 1) {
+                    o.push(a[i]+'    '+member[a[i]]);
+                }
+                o.push('');
+            }
+            for (i = 0; i < functions.length; i += 1) {
+                f = functions[i];
+                for (k in f) {
+                    if (f[k] === 'global') {
+                        c = f['(context)'];
+                        for (;;) {
+                            cc = c['(context)'];
+                            if (!cc) {
+                                if ((!funlab[k] || funlab[k] === 'var?') &&
+                                    !builtin(k)) {
+                                    funlab[k] = 'var?';
+                                    f[k] = 'global?';
+                                }
+                                break;
+                            }
+                            if (c[k] === 'parameter!' || c[k] === 'var!') {
+                                f[k] = 'var.';
+                                break;
+                            }
+                            if (c[k] === 'var' || c[k] === 'var*' ||
+                                c[k] === 'var!') {
+                                f[k] = 'var.';
+                                c[k] = 'var!';
+                                break;
+                            }
+                            if (c[k] === 'parameter') {
+                                f[k] = 'var.';
+                                c[k] = 'parameter!';
+                                break;
+                            }
+                            c = cc;
+                        }
+                    }
+                }
+            }
+            s = [];
+            for (k in funlab) {
+                c = funlab[k];
+                if (typeof c === 'string' && c.substr(0, 3) === 'var') {
+                    if (c === 'var?') {
+                        s.push(k+' (?)');
+                        warning(1001, 'Global %r defined by default'.format(k));
+                    } else {
+                        s.push(k);
+                    }
+                }
+            }
+            detail('Global');
+            if (functions.length) {
+                o.push('Function:');
+            }
+            for (i = 0; i < functions.length; i += 1) {
+                f = functions[i];
+                o.push('  * ' +
+                    f['(line)'] + ' ' + (f['(name)'] || ''));
+                s = [];
+                for (k in f) {
+                    if (k.charAt(0) !== '(') {
+                        switch (f[k]) {
+                            case 'parameter':
+                                s.push(k);
+                                break;
+                            case 'parameter!':
+                                s.push(k + ' (closure)');
+                                warning(1002, 'Parameter %r used in nested function in %s'.format(k,f['(name)']), f['(line)']);
+                                break;
+                        }
+                    }
+                }
+                detail('Parameter');
+                s = [];
+                for (k in f) {
+                    if (k.charAt(0) !== '(') {
+                        switch(f[k]) {
+                            case 'var':
+                                s.push(k + ' (unused)');
+                                warning(1003, 'Unused local variable %r in %s'.format(k,f['(name)']), f['(line)']);
+                                break;
+                            case 'var*':
+                                s.push(k);
+                                break;
+                            case 'var!':
+                                s.push(k + ' (closure)');
+                                warning(1004, 'Var %r used in nested function in %s'.format(k,f['(name)']), f['(line)']);
+                                break;
+                            case 'var.':
+                                s.push(k + ' (outer)');
+                                warning(1005, 'Var %r used from outer function in %s'.format(k,f['(name)']), f['(line)']);
+                                break;
+                        }
+                    }
+                }
+                detail('Var');
+                s = [];
+                c = f['(context)'];
+                for (k in f) {
+                    if (k.charAt(0) !== '(' && f[k].substr(0, 6) === 'global') {
+                        if (f[k] === 'global?') {
+                            s.push(k + ' (?)');
+                            warning(1006, 'Undefined global %r in %s'.format(k,f['(name)']), f['(line)']);
+                        } else {
+                            s.push(k);
+                        }
+                    }
+                }
+                detail('Global');
+                s = [];
+                for (k in f) {
+                    if (k.charAt(0) !== '(' && f[k] === 'label') {
+                        s.push(k);
+                    }
+                }
+                detail('Label');
+                o.push('');
+            }
+            if (functions.length) {
+                o.push('');
+            }
+        }
+        return o.join('\n');
+    };
+
     return itself;
 
 }();// rhino.js
@@ -2671,16 +2870,13 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         print("jslint: Couldn't open file '" + a[0] + "'.");
         quit(1);
     }
-    ignore = [501, 510, 531, 535, 544, 546, 554, 557];
-    if (!JSLINT(input, {passfail: false, redef:true, ignore:ignore})) {
+    ignore = [501, 510, 531, 535, 544, 546, 554, 557,1001,1002,1004,1005];
+    if (!JSLINT(input, {passfail: false, redef:true, ignore:ignore, browser:true})) {
         for (var i = 0; i < JSLINT.errors.length; i += 1) {
             var e = JSLINT.errors[i];
             if (e) {
-                print(a[0]+':'+(e.line+1)+','+(e.character+1)+':'+
-                    ' Error '+e.errno+': '+
-                    //'Lint at line ' + (e.line + 1) +
-                    //' character ' + (e.character + 1) + ': ' +
-                    e.reason);
+                var type = (e.errno >= 500)?"Warning":"Error";
+                print("%s:%d,%d: %s %d:%s".format(a[0],e.line+1, e.character+1, type, e.errno,e.reason));
                 print((e.evidence || '').
                         replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
                 print('');
@@ -2689,6 +2885,17 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
         quit(1);
     } else {
         print("jslint: No problems found in " + a[0]);
+        JSLINT.textreport(false);
+        if (JSLINT.errors.length) {
+            for (var i = 0; i < JSLINT.errors.length; i += 1) {
+                var e = JSLINT.errors[i];
+                if (e) {
+                    var type = (e.errno >= 500)?"Warning":"Error";
+                    print("%s:%d,%d: %s %d:%s".format(a[0],e.line+1, e.character+1, type, e.errno,e.reason));
+                }
+            }
+            quit(1);
+        }
         quit();
     }
 })(arguments);

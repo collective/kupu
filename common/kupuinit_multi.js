@@ -7,7 +7,17 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern KupuButton loadDictFromXML listtool ImageTool PlainLogger
+         SourceEditTool LinkTool KupuSpellChecker DrawerTool
+         ImageToolBox TableDrawer KupuDocument KupuStateButton
+         KupuUI DefinitionListTool PropertyTool LinkDrawer LinkToolBox
+         AnchorTool parentWithStyleChecker AnchorDrawer TableToolBox
+         LinkLibraryDrawer ColorchooserTool KupuEditor CleanupExpressionsTool
+         KupuZoomTool ImageLibraryDrawer KupuRemoveElementButton
+         ContextMenu TableTool NonXHTMLTagFilter ShowPathTool _ ListTool
+         KupuInspector ViewSourceTool addEventHandler getFromSelector
+ */
+/*extern KupuMultiEditor MultiSourceEditTool */
 // $Id$
 
 

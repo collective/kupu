@@ -1,3 +1,4 @@
+/*extern addEventHandler _ */
 // turn this into a nice module-like namespace to avoid messing up the global
 // (window) namespace
 this.kuputoolcollapser = new function() {
@@ -78,7 +79,7 @@ this.kuputoolcollapser = new function() {
             currchild = currchild.nextSibling;
             if (!currchild) {
                 throw('body not found by collapser for toolbox ' +
-                        child.id);
+                        tool.id);
             };
         };
         return currchild;

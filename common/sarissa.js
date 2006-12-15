@@ -26,6 +26,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+/*extern ActiveXObject */
 /**
  * <p>Sarissa is a utility class. Provides "static" methods for DOMDocument, 
  * DOM Node serialization to XML strings and other utility goodies.</p>
@@ -66,18 +67,20 @@ if(_SARISSA_IS_IE){
      */
     Sarissa.pickRecentProgID = function (idList){
         // found progID flag
-        var bFound = false;
+        var bFound = false, e;
         for(var i=0; i < idList.length && !bFound; i++){
             try{
-                var oDoc = new ActiveXObject(idList[i]);
-                o2Store = idList[i];
+                var _ = new ActiveXObject(idList[i]);
+                _ = _;
+                var o2Store = idList[i];
                 bFound = true;
             }catch (objException){
                 // trap; try next progID
+                e = objException;
             };
         };
         if (!bFound) {
-            throw "Could not retreive a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
+            throw "Could not retrieve a valid progID of Class: " + idList[idList.length-1]+". (original exception: "+e+")";
         };
         idList = null;
         return o2Store;
@@ -597,7 +600,6 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
         isLeaf = true;
     }else{
         s += "\n";
-        var itemKey = '';
         var isArrayItem = anyObject instanceof Array;
         for(var name in anyObject){
             s += Sarissa.xmlize(anyObject[name], (isArrayItem?"array-item key=\""+name+"\"":name), indentSpace + "   ");

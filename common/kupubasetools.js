@@ -7,7 +7,10 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern addEventHandler _ getFromSelector newElement
+         ContextMenuElement _SARISSA_IS_MOZ openPopup selectSelectItem
+         NodeIterator _IE_VERSION Sarissa
+         */
 // $Id$
 
 //----------------------------------------------------------------------------
@@ -59,7 +62,7 @@ function KupuTool() {
             Calls the updateState for all toolboxes and may want perform
             some actions itself
         */
-        for (id in this.toolboxes) {
+        for (var id in this.toolboxes) {
             this.toolboxes[id].updateState(selNode, event);
         };
     };
@@ -356,7 +359,7 @@ function KupuUI(textstyleselectid) {
 
         var opts = [];
         while (options.length) {
-            opt = options[0];
+            var opt = options[0];
             options[0] = null;
             var v = opt.value;
             if (v.indexOf('|') > -1) {
@@ -381,7 +384,7 @@ function KupuUI(textstyleselectid) {
         paraoptions.push(normal);
         parastyles[normal[1]] = 0;
 
-        for (i = 0; i < opts.length; i++) {
+        for (var i = 0; i < opts.length; i++) {
             optarray = opts[i];
             v = optarray[1];
 
@@ -569,7 +572,6 @@ function KupuUI(textstyleselectid) {
                  * trailing <br>
                  * If the node is now empty and no preserveEmpty, remove the node itself.
                  */
-        var len = node.childNodes.length;
         function stripspace() {
             var c;
             while ((c = node.lastChild) && c.nodeType==3 && (/^\s*$/.test(c.data))) {
@@ -1135,7 +1137,7 @@ function LinkTool() {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 var doc = this.editor.getInnerDocument();
-                linkel = doc.createElement("a");
+                var linkel = doc.createElement("a");
                 linkel.setAttribute('href', url);
                 linkel.setAttribute('class', 'generated');
                 this.editor.getSelection().replaceWithNode(linkel, true);
@@ -1375,8 +1377,7 @@ function TableTool() {
         };
 
         var doc = this.editor.getInnerDocument();
-
-        table = doc.createElement("table");
+        var table = doc.createElement("table");
         table.className = tableclass;
 
         // If the user wants a row of headings, make them
@@ -1392,7 +1393,7 @@ function TableTool() {
             table.appendChild(thead);
         }
 
-        tbody = doc.createElement("tbody");
+        var tbody = doc.createElement("tbody");
         for (var i=0; i < rows; i++) {
             var tr = doc.createElement("tr");
             for (var j=0; j < cols; j++) {
@@ -1541,7 +1542,6 @@ function TableTool() {
             this.editor.logMessage(_('No parentcolumn found!'), 1);
             return;
         }
-        var currtr = this.editor.getNearestParentOfType(currnode, 'TR');
         var currtable = this.editor.getNearestParentOfType(currnode, 'TABLE');
         
         // get the current index
@@ -1674,7 +1674,6 @@ function TableTool() {
         var bodies = currtable.getElementsByTagName('TBODY');
         for (var i=0; i < bodies.length; i++) {
             var currtbody = bodies[i];
-            var relevant_rowspan = 0;
             for (var j=0; j < currtbody.childNodes.length; j++) {
                 var tr = currtbody.childNodes[j];
                 if (tr.nodeType != 1) {
@@ -1686,7 +1685,6 @@ function TableTool() {
                     if (cell.nodeType != 1) {
                         continue;
                     }
-                    var colspan = cell.colSpan;
                     if (currindex == currcolindex) {
                         tr.removeChild(cell);
                         break;
@@ -2117,8 +2115,6 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         var rows = this.newrowsinput.value;
         var cols = this.newcolsinput.value;
         var makeHeader = this.makeheaderinput.checked;
-        // XXX getFromSelector
-        var classchooser = getFromSelector("kupu-table-classchooser-add");
         var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
         
         this.tool.createTable(rows, cols, makeHeader, tableclass);
@@ -2730,9 +2726,7 @@ KupuZoomTool.prototype.onresize = function() {
     var iframe = editor.getDocument().editable;
     var sourcetool = editor.getTool('sourceedittool');
     var sourceArea = sourcetool?sourcetool.getSourceArea():null;
-
     var fulleditor = iframe.parentNode;
-    var body = document.body;
 
     if (window.innerWidth) {
         var width = window.innerWidth;
@@ -2815,12 +2809,10 @@ proto.fillStyleSelect = function(select) {
     var options = ui.getStyles()[0];
 
     for (var i = 1; i < options.length-1; i++) {
-        var t = options[i][0];
-        var v =options[i][1];
-        
+        var cur = options[i];
         var opt = document.createElement('option');
-        opt.text = options[i][0];
-        opt.value = options[i][1];
+        opt.text = cur[0];
+        opt.value = cur[1];
         select.options.add(opt);
     }
 };

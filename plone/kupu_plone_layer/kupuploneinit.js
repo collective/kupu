@@ -7,11 +7,16 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern KupuButton loadDictFromXML ListTool ImageTool SourceEditTool
+ KupuSpellChecker LinkTool DrawerTool TableDrawer KupuDocument
+ KupuStateButton KupuUI DefinitionListTool AnchorTool
+ parentWithStyleChecker AnchorDrawer DummyLogger ColorchooserTool
+ KupuEditor KupuZoomTool ImageLibraryDrawer addEventHandler KupuRemoveElementButton
+ _SARISSA_IS_IE noContextMenu getFromSelector TableTool ShowPathTool
+ */
 // $Id$
 
 function initPloneKupu(editorId) {
-    var topnode = getFromSelector(editorId);
     var prefix = '#'+editorId+' ';
 
     var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');

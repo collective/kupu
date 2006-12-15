@@ -33,6 +33,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+/*extern XPathResult */
 if(_SARISSA_HAS_DOM_FEATURE && document.implementation.hasFeature("XPath", "3.0")){
     /**
     * <p>SarissaNodeList behaves as a NodeList but is only used as a result to <code>selectNodes</code>,

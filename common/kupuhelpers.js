@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
+/*extern _SARISSA_IS_IE _ Node Range */
 // $Id$
 
 /*
@@ -711,7 +711,7 @@ function MozillaSelection(document) {
         var curroffset = 0;
 
         var endparent = null;
-        var endoffset = 0;
+        var endparentoffset = 0;
         
         while (currnode) {
             if (currnode.nodeType == 3) { // XXX need to add CDATA support
@@ -887,8 +887,6 @@ function MozillaSelection(document) {
         if (realoffset >= 0) {
             var currnode = offsetparent.firstChild;
             var curroffset = 0;
-            var startparent = null;
-            var startoffset = 0;
             while (currnode) {
                 if (currnode.nodeType == 3) { // XXX need to support CDATA sections
                     var nodelength = currnode.nodeValue.length;
@@ -1055,7 +1053,7 @@ function IESelection(document) {
             var range = this.selection.createRange();
 
             range.pasteHTML('<img id="kupu-tempnode">');
-            tempnode = document.getElementById('kupu-tempnode');
+            var tempnode = document.getElementById('kupu-tempnode');
             tempnode.replaceNode(newnode);
 
             if (selectAfterPlace) {

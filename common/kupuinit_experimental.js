@@ -7,6 +7,16 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
+/*extern KupuButton loadDictFromXML listtool ImageTool PlainLogger
+         SourceEditTool LinkTool KupuSpellChecker DrawerTool
+         ImageToolBox TableDrawer KupuDocument KupuStateButton
+         KupuUI DefinitionListTool PropertyTool LinkDrawer LinkToolBox
+         AnchorTool parentWithStyleChecker AnchorDrawer TableToolBox
+         LinkLibraryDrawer ColorchooserTool KupuEditor CleanupExpressionsTool
+         KupuZoomTool ImageLibraryDrawer KupuRemoveElementButton
+         ContextMenu TableTool NonXHTMLTagFilter ShowPathTool _ ListTool
+         KupuInspector ViewSourceTool
+ */
 
 // $Id$
 
@@ -198,12 +208,12 @@ function initKupu(iframe) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linklibdrawer = new LinkLibrarydrawer(linktool, conf.link_xsl_uri,
+    var linklibdrawer = new LinkLibraryDrawer(linktool, conf.link_xsl_uri,
                                               conf.link_libraries_uri,
                                               conf.link_images_uri);
     drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagelibdrawer = new ImageLibrarydrawer(imagetool, conf.image_xsl_uri,
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf.image_xsl_uri,
                                                 conf.image_libraries_uri,
                                                 conf.search_images_uri);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
