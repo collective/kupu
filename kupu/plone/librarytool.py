@@ -175,6 +175,7 @@ class KupuLibraryTool(Acquisition.Implicit):
         It updates all current resource types to include or exclude new types as
         appropriate.
         """
+        typetool = getToolByName(self, 'portal_types')
         alltypes = typetool.listTypeInfo()
         lastknown = self._last_known_types
         newtypes = dict.fromkeys([ t.id for t in alltypes if t.id not in lastknown])
