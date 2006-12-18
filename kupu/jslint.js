@@ -101,12 +101,44 @@ String.prototype.isDigit = function () {
     return (this >= '0' && this <= '9');
 };
 
+function repr(o) {
+    if (o===undefined||o===null) {return o+'';}
+    if (o.__repr__) {
+        return o.__repr__();
+    }
+    if (typeof o =='string') {
+        var v = o.replace(/\\/g, '\\\\').replace(/\n/g, '\\n').
+            replace(/\r/g,'\\r');
+        if (/'/.test(o)) {
+            return '"'+v.replace(/"/g, '\\"')+'"';
+    } else {
+        return "'"+v+"'";
+    }
+}
+if (o instanceof Array) {
+    var els = [];
+    for (var i = 0; i < o.length; i++) {
+        els.push(repr(o[i]));
+    }
+    return "["+els.join(', ')+"]";
+}
+if (o instanceof Object) {
+    var attrs = [];
+    for (var name in o) {
+        if (o.hasOwnProperty(name)) {
+            attrs.push(repr(name)+': '+repr(o[name]));
+        }
+    }
+    return "{"+attrs.join(', ')+"}";
+}
+return o.toString? o.toString() : o;
+}
 String.prototype.format = function() {
     function repl() {
         function spaces(n) {
             n = Math.floor(n);
-            if (n<=0) return '';
-            if (n==1) return ' ';
+            if (n<=0) { return '';}
+            if (n==1) { return ' ';}
             return spaces(n/2)+spaces(n-n/2);
         }
         var flag = arguments[1];
@@ -128,19 +160,15 @@ String.prototype.format = function() {
             case 'r': case 's':
                 value = args[n++];
                 if (type=='r') {
-                    if (typeof(value)=='string') {
-                        value = "'"+value.replace("'","\\'")+"'";
-                    } else {
-                        value = value.toString();
-                    }
+                    value = repr(value);
                 }
                 if (prec !== 0) {
                     value = value.substr(0,prec);
                 }
+                value=value+'';
                 break;
             default:
                 throw("String.format: unrecognised format character '"+type+"'");
-                break;
         }
         var padding = spaces(width-value.length);
         if (flag=='-') { // Left align
@@ -156,7 +184,7 @@ String.prototype.format = function() {
         throw("String.format given %d arguments, expecting %d".format(args.length, n));
     }
     return res;
-}
+};
 
 // We build the application inside a function so that we produce only a single
 // global variable. The function will be invoked, its return value is the JSLINT
@@ -216,7 +244,7 @@ JSLINT = function () {
             window: true,
             XMLHttpRequest: true
         },
-        funlab, funstack, functions, globals, directive,
+        funlab, funstack, functions, globals,
 
 // konfab contains the global names which are provided to a Yahoo
 // (fna Konfabulator) widget.
@@ -330,7 +358,7 @@ JSLINT = function () {
 
         xtype,
 // token
-        tx = /^([(){}[.,:;'"~]|\](\]>)?|\?>?|==?=?|\/(\*(global|extern|lint)*|=|)|\*[\/=]?|\+[+=]?|-[-=]?|%[=>]?|&[&=]?|\|[|=]?|>>?>?=?|<([\/=%\?]|\!(\[|--)?|<=?)?|\^=?|\!=?=?|[a-zA-Z_$][a-zA-Z0-9_$]*|[0-9]+([xX][0-9a-fA-F]+|\.[0-9]*)?([eE][+-]?[0-9]+)?)/,
+        tx = /^([(){}[.,:;'"~]|\](\]>)?|\?>?|==?=?|\/(\*(global|extern|ignore|warning|error)*|=|)|\*[\/=]?|\+[+=]?|-[-=]?|%[=>]?|&[&=]?|\|[|=]?|>>?>?=?|<([\/=%\?]|\!(\[|--)?|<=?)?|\^=?|\!=?=?|[a-zA-Z_$][a-zA-Z0-9_$]*|[0-9]+([xX][0-9a-fA-F]+|\.[0-9]*)?([eE][+-]?[0-9]+)?)/,
 // string ending in single quote
         sx = /^((\\[^\x00-\x1f]|[^\x00-\x1f'\\])*)'/,
         sxx = /^(([^\x00-\x1f'])*)'/,
@@ -360,11 +388,16 @@ JSLINT = function () {
 
 // Produce an error warning.
 
-    function warning(n, m, x, y) {
+    function warning(n, m, x, y, f) {
         var l, c, t = typeof x === 'object' ? x : token;
         if (typeof x === 'number') {
             l = x;
-            c = y || 0;
+            if (typeof y === 'number') {
+                c = y || 0;
+            } else {
+                f = y;
+                c = 0;
+            }
         } else {
             if (t.id === '(end)') {
                 t = prevtoken;
@@ -372,16 +405,17 @@ JSLINT = function () {
             l = t.line || 0;
             c = t.from || 0;
         }
-        if (directive[n]) { return; } // Ignore this warning.
+        if (JSLINT.errorlevels[n]=='ignore') { return; } // Ignore this warning.
         JSLINT.errors.push({
             id: '(error)',
             reason: m,
             evidence: lines[l] || '',
+            filename: f || JSLINT.filename,
             line: l,
             character: c,
             errno: n
         });
-        if (option.passfail) {
+        if (option.passfail || JSLINT.errorlevels[n]=='error') {
             JSLINT.errors.push(null);
             throw null;
         }
@@ -615,8 +649,10 @@ JSLINT = function () {
                                 error(105,"Unclosed comment.");
                             }
                         }
-                    } else if (t== '/*lint') {
+                    } else if (/\/\*(ignore|warning|error)/.test(t)) {
+                        var level = /\/\*(ignore|warning|error)/.exec(t)[1];
                         for (;;) {
+                            
                             r = hx.exec(s);
                             if (r) {
                                 l = r[0].length;
@@ -632,9 +668,9 @@ JSLINT = function () {
                                     l = r[0].length;
                                     s = s.substr(l);
                                     character += l;
-                                    directive[r[1]] = true;
+                                    JSLINT.errorlevels[r[1]] = level;
                                 } else {
-                                    error(104,"Bad lint directive: '" +
+                                    error(104,"Bad error level directive: '" +
                                         s + "'.", line, character);
                                 }
                             } else if (!nextLine()) {
@@ -701,7 +737,7 @@ JSLINT = function () {
 
     function builtin(name) {
         return standard[name] === true ||
-               globals[name] === true ||
+               globals[name] === true || option.extern[name] === true ||
              ((xtype === 'widget' || option.widget) && konfab[name] === true) ||
              ((xtype === 'html' || option.browser) && browser[name] === true);
     }
@@ -885,7 +921,7 @@ JSLINT = function () {
 
 
     function beginfunction(i) {
-        var f = {'(name)': i, '(line)': token.line + 1, '(context)': funlab};
+        var f = {'(name)': i, '(filename)': JSLINT.filename, '(line)': token.line + 1, '(context)': funlab};
         funstack.push(funlab);
         funlab = f;
         functions.push(funlab);
@@ -2493,14 +2529,14 @@ JSLINT = function () {
 
 // The actual JSLINT function itself.
 
-    var itself = function (s, o) {
+    var itself = function (filename, s, o) {
         option = o;
         if (!o) {
             option = {};
         }
         JSLINT.errors = [];
+        JSLINT.filename = filename;
         globals = {};
-        directive ={};
         functions = [];
         xmode = false;
         xtype = '';
@@ -2510,11 +2546,6 @@ JSLINT = function () {
         funstack = [];
         lookahead = [];
         lex.init(s);
-        if (o.ignore) {
-            for (var i=0; i < o.ignore.length; i++) {
-                directive[o.ignore[i]] = true;
-            }
-        }
         prevtoken = token = syntax['(begin)'];
         try {
             advance();
@@ -2792,7 +2823,7 @@ JSLINT = function () {
                                 break;
                             case 'parameter!':
                                 s.push(k + ' (closure)');
-                                warning(1002, 'Parameter %r used in nested function in %s'.format(k,f['(name)']), f['(line)']);
+                                warning(1002, 'Parameter %r used in nested function in %s'.format(k,f['(name)']), f['(line)'], f['(filename)']);
                                 break;
                         }
                     }
@@ -2804,18 +2835,18 @@ JSLINT = function () {
                         switch(f[k]) {
                             case 'var':
                                 s.push(k + ' (unused)');
-                                warning(1003, 'Unused local variable %r in %s'.format(k,f['(name)']), f['(line)']);
+                                warning(1003, 'Unused local variable %r in %s'.format(k,f['(name)']), f['(line)'], f['(filename)']);
                                 break;
                             case 'var*':
                                 s.push(k);
                                 break;
                             case 'var!':
                                 s.push(k + ' (closure)');
-                                warning(1004, 'Var %r used in nested function in %s'.format(k,f['(name)']), f['(line)']);
+                                warning(1004, 'Var %r used in nested function in %s'.format(k,f['(name)']), f['(line)'], f['(filename)']);
                                 break;
                             case 'var.':
                                 s.push(k + ' (outer)');
-                                warning(1005, 'Var %r used from outer function in %s'.format(k,f['(name)']), f['(line)']);
+                                warning(1005, 'Var %r used from outer function in %s'.format(k,f['(name)']), f['(line)'], f['(filename)']);
                                 break;
                         }
                     }
@@ -2849,7 +2880,7 @@ JSLINT = function () {
         }
         return o.join('\n');
     };
-
+    itself.errorlevels={};
     return itself;
 
 }();// rhino.js
@@ -2859,43 +2890,220 @@ Copyright (c) 2002 Douglas Crockford  (www.JSLint.com) Rhino Edition
 */
 
 /*extern JSLINT, print, quit, readFile */
-
-(function (a) {
-    if (!a[0]) {
-        print("Usage: jslint.js file.js");
-        quit(1);
-    }
-    var input = readFile(a[0]);
-    if (!input) {
-        print("jslint: Couldn't open file '" + a[0] + "'.");
-        quit(1);
-    }
-    ignore = [501, 510, 531, 535, 544, 546, 554, 557,1001,1002,1004,1005];
-    if (!JSLINT(input, {passfail: false, redef:true, ignore:ignore, browser:true})) {
-        for (var i = 0; i < JSLINT.errors.length; i += 1) {
-            var e = JSLINT.errors[i];
-            if (e) {
-                var type = (e.errno >= 500)?"Warning":"Error";
-                print("%s:%d,%d: %s %d:%s".format(a[0],e.line+1, e.character+1, type, e.errno,e.reason));
-                print((e.evidence || '').
-                        replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
-                print('');
+function parserange(r, action) {
+    var RP = /(\d+)(?:-)?(\d+)?(?:,|$)?/g;
+    do {
+        var m = RP.exec(r);
+        if (m) {
+            var start = parseInt(m[1], 0);
+            var end = parseInt(m[2], 0);
+            if (!end) {
+                end = start;
+            }
+            for (var i=start; i <= end; i++) {
+                action(i);
             }
         }
-        quit(1);
-    } else {
-        print("jslint: No problems found in " + a[0]);
+    } while(RP.lastIndex !== 0);
+}
+
+function usage(options, msg) {
+    if (msg) { print(msg); }
+    print("Usage:");
+    var optlist = [], name, opt;
+    for (name in options) {
+        optlist.push(name);
+    }
+    optlist.sort();
+    for (var i = 0; i < optlist.length; i++) {
+        name = optlist[i];
+        opt = options[name];
+        var keys = [];
+        if (opt.hasarg) {
+            keys.push("--%s #".format(name));
+        } else if (opt.action) {
+            keys.push("--%s".format(name));
+        } else {
+            keys.push("--%s%s".format(name, opt.def?'*':''));
+            keys.push("--no%s%s".format(name, opt.def?'':'*'));
+        }
+        print(keys.join(', '));
+        if (opt.help) {
+            print("        %s".format(opt.help.replace(/\n/g, '\n        ')));
+        }
+    }
+}
+
+function processarguments(options, args, defaults) {
+    var shortopts = {};
+    var result = {};
+    var name, opt;
+    if(typeof args == 'string') {
+        args = [args];
+    }
+    for (name in options) {
+        opt = options[name];
+        var sname = opt.shortname;
+        if (sname) {
+            shortopts[sname] = opt;
+        }
+        if (!opt.dest) {
+            opt.dest = name;
+        }
+        if (opt.def!==undefined) {
+            result[name] = opt.def;
+        } else if (!opt.hasarg&&!opt.action) {
+            result[name] = false;
+        }
+    }
+    if (defaults) {
+        for (name in defaults) {
+            result[name] = defaults[name];
+        }
+    }
+    for (var i = 0; i < args.length; i++) {
+        var arg = args[i];
+        var value = true;
+        var pat = /(?:--(\w+))|(?:-(.))/;
+        var m = pat.exec(args[i]);
+        if (!m) {
+            opt = options[''];
+            value = arg;
+        } else if (m[1]) {
+            name = m[1];
+            opt = options[name];
+            if (!opt && (/^no/.test(name))) {
+                opt = options[name.substr(2)];
+                if (opt && (opt.hasarg || opt.action)) {
+                    opt = undefined;
+                }
+                value = false;
+            }
+        } else {
+            opt = shortopts[m[2]];
+        }
+        if (!opt) {
+            usage(options, "Unrecognised argument: "+arg);
+            return;
+        }
+        if (opt.hasarg) {
+            value = args[++i];
+        }
+        if (opt.action) {
+            value = opt.action(arg, value, result);
+        }
+        if (value===undefined) {
+            return;
+        } else {
+            result[opt.dest] = value;
+        }
+    }
+    return result;
+}
+
+(function (a) {
+    function lintfile(arg, filename, options) {
+        var input = readFile(filename);
+        if (!input) {
+            print("jslint: Couldn't open file %r".format(filename));
+            quit(1);
+        }
+        oksofar &= JSLINT(filename, input, options);
+        /* The report and the error reporting should be consolidated at
+         * the end, but there isn't yet any code to merge the reports
+         * across files. :(
+         */
         JSLINT.textreport(false);
-        if (JSLINT.errors.length) {
+        if (JSLINT.errors && JSLINT.errors.length) {
             for (var i = 0; i < JSLINT.errors.length; i += 1) {
                 var e = JSLINT.errors[i];
                 if (e) {
-                    var type = (e.errno >= 500)?"Warning":"Error";
-                    print("%s:%d,%d: %s %d:%s".format(a[0],e.line+1, e.character+1, type, e.errno,e.reason));
+                    var type = JSLINT.errorlevels[e.errno] || "warning";
+                    print("%s:%d,%d: %s %d:%s".format(e.filename,e.line+1, e.character+1, type, e.errno,e.reason));
+                    print((e.evidence || '').
+                        replace(/^\s*(\S*(\s+\S+)*)\s*$/, "$1"));
+                    print('');
                 }
             }
             quit(1);
+        } else {
+            print("%s: No problems found".format(filename));
         }
-        quit();
+        filesdone++;
+        return oksofar;
     }
+    function doextern(arg, value, result) {
+        var names = value.split(/[ ,]+/);
+        for (var i = 0; i < names.length; i++) {
+            result.extern[names[i]] = true;
+        }
+        return result.extern;
+    }
+    function readconfigfile(arg, filename, result) {
+        var data = readFile(filename);
+        if (!data) {
+            print("jslint: Couldn't open file %r".format(filename));
+            return;
+        }
+        data = data.split(/\s+/);
+        while (data.length && !data[data.length-1]) {
+            data.length--;
+        }
+        var newres = processarguments(options, data, result);
+        if (!newres) { return; }
+        for (var name in newres) {
+            result[name]=newres[name];
+        }
+        return true;
+    }
+    /* Set up default error message handling */
+    parserange("100-163", function(i) { JSLINT.errorlevels[i]='error'; });
+    parserange("501-571,1001-1006", function(i) { JSLINT.errorlevels[i]='warning'; });
+    parserange("1001,1002,1004,1005", function(i) { JSLINT.errorlevels[i]='ignore'; });
+//     parserange("501,510,531,535,544,546,554,557,1001,1002,1004,1005",
+//         function(i) { JSLINT.errorlevels[i]='ignore'; });
+
+    var options = {
+        browser: { help: "true if the standard browser globals should be predefined" },
+        cap: { help: "true if upper case HTML should be allowed" },
+        debug: { help: "true if debugger statements should be allowed" },
+        eqeqeq: { help: "true if === should be required" },
+        evil: { help: "true if eval should be allowed" },
+        jscript: { help: "true if jscript deviations should be allowed" },
+        laxLineEnd: { help: "true if line breaks should not be checked" },
+        passfail: { help: "true if the scan should stop on first error" },
+        plusplus: { help: "true if increment/decrement should not be allowed" },
+        redef: { help: "true if var redefinition should be allowed" },
+        undef: { help: "true if undefined variables are errors" },
+        widget:  { help: "true if the Yahoo Widgets globals should be predefined" },
+            options: { hasarg: true, action: readconfigfile,
+            help: "Read additional arguments and options from a file" },
+        ignore: { hasarg: true,
+            action: function(a,r,o) { parserange(r, function(i) { JSLINT.errorlevels[i]='ignore';}); return true;},
+            help: "Specified messages are ignored" },
+        warn: { hasarg: true,
+            action: function(a,r,o) { parserange(r, function(i) { JSLINT.errorlevels[i]='warn';}); return true;},
+            help: "Specified messages are warnings" },
+        error: { hasarg: true,
+            action: function(a,r,o) { parserange(r, function(i) { JSLINT.errorlevels[i]='error';}); return true;},
+            help: "Specified messages are fatals" },
+        extern: { hasarg: true, def: {},
+            action: doextern,
+            help: "Add external names" },
+        help: { shortname: '?', action: function() { usage(options); }, help: "show usage text" },
+        '': { action: lintfile }
+    };
+    var oksofar = true;
+    var filesdone = 0;
+    
+    var finalopts = processarguments(options, arguments[0]);
+
+    if (oksofar && finalopts) {
+        if (filesdone===0) {
+            usage(options, "You must give at least one filename");
+            quit(1);
+        }
+        JSLINT.textreport(false);
+    }
+    quit();
 })(arguments);

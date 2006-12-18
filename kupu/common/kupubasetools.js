@@ -7,10 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern addEventHandler _ getFromSelector newElement
-         ContextMenuElement _SARISSA_IS_MOZ openPopup selectSelectItem
-         NodeIterator _IE_VERSION Sarissa
-         */
 // $Id$
 
 //----------------------------------------------------------------------------

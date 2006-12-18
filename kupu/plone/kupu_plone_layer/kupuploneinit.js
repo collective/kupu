@@ -7,13 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern KupuButton loadDictFromXML ListTool ImageTool SourceEditTool
- KupuSpellChecker LinkTool DrawerTool TableDrawer KupuDocument
- KupuStateButton KupuUI DefinitionListTool AnchorTool
- parentWithStyleChecker AnchorDrawer DummyLogger ColorchooserTool
- KupuEditor KupuZoomTool ImageLibraryDrawer addEventHandler KupuRemoveElementButton
- _SARISSA_IS_IE noContextMenu getFromSelector TableTool ShowPathTool
- */
+/*extern DummyLogger noContextMenu */
 // $Id$
 
 function initPloneKupu(editorId) {

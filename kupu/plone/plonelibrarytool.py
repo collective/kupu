@@ -325,7 +325,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             if not v:
                 v = getver('Opera ')
             if v:
-                return False and v >= (9,0)
+                return v >= (9,0)
 
             mozillaver = getver('Mozilla/')
             if mozillaver > (5,0):

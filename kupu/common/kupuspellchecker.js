@@ -1,4 +1,3 @@
-/*extern addEventHandler ContextFixer _ NodeIterator timer_instance */
 function KupuSpellChecker(buttonid, scripturl, spanstyle, 
                             winwidth, winheight, skip_tags) {
     this.button = document.getElementById(buttonid);

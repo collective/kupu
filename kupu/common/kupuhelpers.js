@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern _SARISSA_IS_IE _ Node Range */
 // $Id$
 
 /*

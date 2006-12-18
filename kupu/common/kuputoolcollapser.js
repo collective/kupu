@@ -1,4 +1,3 @@
-/*extern addEventHandler _ */
 // turn this into a nice module-like namespace to avoid messing up the global
 // (window) namespace
 this.kuputoolcollapser = new function() {
@@ -15,7 +14,7 @@ this.kuputoolcollapser = new function() {
             var cookie = document.cookie;
             var reg = /initial_state=([^;]+);?/;
             var match = cookie.match(reg);
-            if (match) { /*lint 558*/
+            if (match) { /*ignore 558 */
                 eval(unescape(match[0]));
             };
         };

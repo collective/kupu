@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  * 
  *****************************************************************************/
-/*extern Sarissa timer_instance newElement */
 /* Javascript to aid migration page. */
 
 function KJax() {};

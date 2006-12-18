@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern _SARISSA_IS_IE addEventHandler getFromSelector */
 // $Id$
 
 /* The Kupu Inspector tool 

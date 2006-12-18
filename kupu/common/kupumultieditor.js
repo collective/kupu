@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern _ timer_instance */
 // $Id: kupumultieditor.js 3450 2004-03-28 11:07:30Z guido $
 
 function KupuMultiEditor(documents, config, logger) {

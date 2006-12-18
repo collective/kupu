@@ -7,8 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern getFromSelector addEventHandler _ kupuButtonEnable
-         kupuButtonDisable kupu */
 // $Id$
 
 
