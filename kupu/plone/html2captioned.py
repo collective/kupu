@@ -44,6 +44,7 @@ ATTR_PATTERN = re.compile('''
      | .
      )*\>
     )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE | re.IGNORECASE | re.DOTALL)
+SRC_TAIL = re.compile(r'/([^" \/>]+)')
 
 CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
 ALT_PATTERN = re.compile('\\balt=("[^"]*"|[^" \/>]+)')
@@ -103,6 +104,11 @@ class HTMLToCaptioned:
                 tag = match.group(1) or match.group(2)
                 attrs = ATTR_PATTERN.match(tag)
                 src = attrs.group('src')
+                m = SRC_TAIL.match(tag, attrs.end('src'))
+                if m:
+                    srctail = m.group(1)
+                else:
+                    srctail = None
                 klass = attrs.group('class')
                 width = attrs.group('width')
                 if src:
@@ -114,6 +120,12 @@ class HTMLToCaptioned:
                         tag = ALT_PATTERN.sub('', tag)
                         tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)
                         d['tag'] = tag
+                        if not width and srctail:
+                            subtarget = getattr(target, srctail, None)
+                            try:
+                                width = subtarget.width
+                            except AttributeError:
+                                pass
                         if not width:
                             width = target.getWidth()
                         if not width:
