@@ -26,9 +26,15 @@ tests =(
 ('Products.kupu.plone.html2captioned', "linked.in", "linked.out", normalize_html, 0),
     )
 
+class MockSubImage:
+    def getWidth(self):
+        return 20
+
 class MockImage:
     def __init__(self, uid, description):
         self.uid, self.description = uid, description
+        self.image_thumb = MockSubImage()
+
     def Title(self):
         return 'image '+self.uid
     def Description(self):
@@ -37,6 +43,8 @@ class MockImage:
         return '[url for %s]' % self.uid
     def absolute_url_path(self):
         return '[url for %s]' % self.uid
+    def getWidth(self):
+        return 600
 
 class MockCatalogTool:
     def lookupObject(self, uid):
@@ -45,7 +53,8 @@ class MockCatalogTool:
         }
         if uid not in dummydata:
             return None
-        return MockImage(uid, dummydata[uid])
+        image = MockImage(uid, dummydata[uid])
+        return image
 
 class MockArchetypeTool:
     reference_catalog = MockCatalogTool()

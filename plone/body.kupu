@@ -46,7 +46,7 @@
         name="description"
         id="kupu-editor-textarea"
         tal:define="pss modules/Products/PythonScripts/standard;
-                text_format python: getattr(here,'text_format','html');
+                text_format text_format | python: getattr(here,'text_format','html');
                 is_stx python:text_format=='structured-text';
                 is_ptx python:text_format=='plain';"
 
