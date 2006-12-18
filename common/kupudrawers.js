@@ -7,10 +7,6 @@
  * Contributors see CREDITS.txt.
  * 
  *****************************************************************************/
-/*extern getFromSelector timer_instance NodeIterator getBaseTagClass
-         addEventHandler selectSelectItem newElement XSLTProcessor
-         Sarissa
-         */
 // $Id$
 
 function DrawerTool() {

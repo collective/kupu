@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern _ getFromSelector addEventHandler selectSelectItem */
 // $Id$
 
 TableTool.prototype.setTableRowRepeat = function() {

@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern getFromSelector */
 // $Id$
 
 

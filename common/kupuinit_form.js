@@ -19,16 +19,6 @@
 // We only want to disable the save button, but unfortunately that currently
 // still means this method should be overridden completely
 //----------------------------------------------------------------------------
-/*extern KupuButton loadDictFromXML listtool ImageTool PlainLogger
-         SourceEditTool LinkTool KupuSpellChecker DrawerTool
-         ImageToolBox TableDrawer KupuDocument KupuStateButton
-         KupuUI DefinitionListTool PropertyTool LinkDrawer LinkToolBox
-         AnchorTool parentWithStyleChecker AnchorDrawer TableToolBox
-         LinkLibraryDrawer ColorchooserTool KupuEditor CleanupExpressionsTool
-         KupuZoomTool ImageLibraryDrawer KupuRemoveElementButton
-         ContextMenu TableTool NonXHTMLTagFilter ShowPathTool _ ListTool
-         KupuInspector ViewSourceTool addEventHandler getFromSelector
- */
 
 function initKupu(iframe) {
     /* Although this is meant to be a sample implementation, it can

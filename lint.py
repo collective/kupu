@@ -11,7 +11,7 @@
 import os, sys, glob, time
 import cPickle
 
-COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s %(file)s"
+COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options jslint.opts %(file)s"
 
 def lint(name):
     cmd = COMPILE_COMMAND % dict(lint=LINT, file=name)

@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern kupu */
 KupuEditor.prototype._getBase = function(dom) {
     var base = dom.getElementsByTagName('base');
     if (base.length) {

@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-/*extern saveOnPart getFromSelector initKupu addEventHandler */
 // $Id$
 
 function startKupu() {
