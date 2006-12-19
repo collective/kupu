@@ -2419,6 +2419,7 @@ JSLINT = function () {
                     advance('var');
                     varstatement();
                 } else {
+                    warning(572,"'for' using existing variable", token);
                     for (;;) {
                         parse(0);
                         if (token.id !== ',') {
@@ -3058,10 +3059,8 @@ function processarguments(options, args, defaults) {
     }
     /* Set up default error message handling */
     parserange("100-163", function(i) { JSLINT.errorlevels[i]='error'; });
-    parserange("501-571,1001-1006", function(i) { JSLINT.errorlevels[i]='warning'; });
+    parserange("501-572,1001-1006", function(i) { JSLINT.errorlevels[i]='warning'; });
     parserange("1001,1002,1004,1005", function(i) { JSLINT.errorlevels[i]='ignore'; });
-//     parserange("501,510,531,535,544,546,554,557,1001,1002,1004,1005",
-//         function(i) { JSLINT.errorlevels[i]='ignore'; });
 
     var options = {
         browser: { help: "true if the standard browser globals should be predefined" },

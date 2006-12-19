@@ -279,7 +279,7 @@ class Migration:
         info = {}
         if self._continue:
             info['nexturi'] = self.tool.absolute_url_path()+'/kupu_migration.xml?button=continue'
-            if self.commit_changes:
+            if self.commit_changes and self._objects and self.position < getattr(self, '_total', -1):
                 info['delay'] = 5 # Avoid killing everyone else with conflict errors.
         else:
             info['nexturi'] = None
@@ -332,11 +332,11 @@ class Migration:
         if not uids:
             self._continue = False
             return False # Done
-            
+
         self._objects = res = []
         for uid in uids:
             obj = self.reference_tool.lookupObject(uid)
-            if self.portal_type==FRAGMENT_TYPE:
+            if self.portal_type==FRAGMENT_TYPE and obj.portal_type!=FRAGMENT_TYPE:
                 try:
                     fldr = obj.cp_container.titles
                 except:

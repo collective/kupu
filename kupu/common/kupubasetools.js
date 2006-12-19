@@ -1828,10 +1828,9 @@ function TableTool() {
     };
 
     this._cleanCell = function(el) {
-        dump('_cleanCell('+el.innerHTML+')\n');
         // Remove formatted div or p from a cell
-        var node, nxt, n;
-        for (node = el.firstChild; node;) {
+        var nxt, n;
+        for (var node = el.firstChild; node;) {
             if (/^DIV|P$/i.test(node.nodeName)) {
                 for (var n = node.firstChild; n;) {
                     var nxt = n.nextSibling;
@@ -1884,7 +1883,6 @@ function TableTool() {
     this._cleanRows = function(rows, container, numcols) {
         // now walk through all rows to clean them up
         for (var i=0; i < rows.length; i++) {
-            dump("row "+i+'\n');
             var row = rows[i];
             var doc = this.editor.getInnerDocument();
             var newrow = doc.createElement('tr');
@@ -1892,7 +1890,6 @@ function TableTool() {
                 newrow.className = row.className;
             }
             for (var node = row.firstChild; node;) {
-                dump("child\n");
                 var nxt = node.nextSibling;
                 if (/TD|TH/.test(node.nodeName)) {
                     this._cleanCell(node);
@@ -1905,7 +1902,7 @@ function TableTool() {
             };
         };
         // now make sure all rows have the correct length
-        for (row = container.firstChild; row; row=row.nextSibling) {
+        for (var row = container.firstChild; row; row=row.nextSibling) {
             var cellname = row.lastChild.nodeName;
             while (row.childNodes.length < numcols) {
                 var cell = doc.createElement(cellname);
@@ -1964,7 +1961,6 @@ function TableTool() {
             };
         };
         /* Extract thead and tfoot from tbody */
-        dump('extract head and foot\n');
         while (brows.length && !this._isBodyRow(brows[0])) {
             hrows.push(brows[0]);
             brows.shift();
@@ -1974,13 +1970,11 @@ function TableTool() {
             brows.length -= 1;
             frows.unshift(last);
         }
-        dump('count cols\n');
         // now find out how many cells our rows should have
         var numcols = this._countCols(hrows, 0);
         numcols = this._countCols(brows, numcols);
         numcols = this._countCols(frows, numcols);
 
-        dump('clean rows\n');
         // now walk through all rows to clean them up
         this._cleanRows(hrows, thead);
         this._cleanRows(brows, tbody);
@@ -1988,7 +1982,6 @@ function TableTool() {
 
         // now remove all the old stuff from the table and add the new
         // tbody
-        dump('remove old\n');
         while (table.firstChild) {
             table.removeChild(table.firstChild);
         }
@@ -2001,7 +1994,6 @@ function TableTool() {
         if (frows.length) {
             table.appendChild(tfoot);
         }
-        dump('finish up\n');
 
         this.editor.focusDocument();
         this.editor.logMessage(_('Table cleaned up'));
