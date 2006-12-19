@@ -115,7 +115,7 @@ class HTMLToCaptioned:
                     d = attrs.groupdict()
                     target = at_tool.reference_catalog.lookupObject(src)
                     if target:
-                        d['caption'] = newline_to_br(target.Description())
+                        d['caption'] = newline_to_br(html_quote(target.Description()))
                         tag = CLASS_PATTERN.sub('', d['tag'])
                         tag = ALT_PATTERN.sub('', tag)
                         tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)

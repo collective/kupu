@@ -439,11 +439,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                  </label>
                 <label i18n:translate="imagedrawer_upload_desc_label"
                     >Description<br />
-                <textarea rows="5" cols="40" name="node_prop_desc"> </textarea>   
+                <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
                 </label>
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
-                scrolling="off" frameborder="0" width="0px" height="0px" display="None"> </iframe>
+                scrolling="off" frameborder="0" width="0px" height="0px" display="None">&#160;</iframe>
         </div>
     </xsl:template>
     <xsl:template match="breadcrumbs">
