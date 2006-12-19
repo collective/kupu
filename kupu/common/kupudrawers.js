@@ -1274,6 +1274,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
             alert("Please enter a title for the image you are uploading");
             return;        
         };
+        form.node_prop_desc.value = form.node_prop_desc.value.replace(/^\xa0|\xa0$/g,'')
         form.submit();
     };
     
