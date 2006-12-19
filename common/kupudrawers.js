@@ -165,12 +165,11 @@ proto.hideAnchors = function() {
 
 proto.anchorText = function(a) {
     // Text inside anchor, or immediate sibling block tag, or parent block. 
-    var node = a;
     var blocktag = /^DIV|P|BODY|TD|H.$/;
     var txt = '';
     var prefix = '#' + a.name;
 findlabel:
-    for (node = a; node && !txt; node=node.parentNode) {
+    for (var node = a; node && !txt; node=node.parentNode) {
         var txt = node.textContent || node.innerText || '';
         if (txt || blocktag.test(node.nodeName)) {
             break;

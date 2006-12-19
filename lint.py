@@ -11,10 +11,10 @@
 import os, sys, glob, time
 import cPickle
 
-COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options jslint.opts %(file)s"
+COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options %(options)s %(file)s"
 
 def lint(name):
-    cmd = COMPILE_COMMAND % dict(lint=LINT, file=name)
+    cmd = COMPILE_COMMAND % dict(lint=LINT, file=name, options=OPTIONS)
     ret = os.system(cmd)
     if ret != 0:
         sys.exit(ret)
@@ -25,6 +25,7 @@ def scriptrelative(relative):
     return os.path.join(base, relative)
 
 LINT = scriptrelative('jslint.js')
+OPTIONS = scriptrelative('jslint.opts')
 STATUSFILE = scriptrelative('lint.record')
 
 def filelist(*patterns):
