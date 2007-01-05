@@ -21,5 +21,5 @@ QueryLibraries = "Kupu: Query libraries"
 ManageLibraries = "Kupu: Manage libraries"
 
 # Set up default roles for permissions
-setDefaultRoles(QueryLibraries, ('Manager', 'Member'))
+setDefaultRoles(QueryLibraries, ('Manager', 'Authenticated'))
 setDefaultRoles(ManageLibraries, ('Manager',))
