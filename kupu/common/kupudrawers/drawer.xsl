@@ -432,14 +432,13 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     </span></label>
                 <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
                 <br/>
-                <label i18n:translate="imagedrawer_upload_title_label"
-                    >Title
-                <input id="kupu-upload-title" type="text" name="node_prop_title" size="23"
-                    value=""/>
-                 </label>
-                <label i18n:translate="imagedrawer_upload_desc_label"
-                    >Description<br />
-                <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
+                <label>
+                   <span i18n:translate="imagedrawer_upload_title_label">Title</span>
+                   <input id="kupu-upload-title" type="text" name="node_prop_title" size="23" value=""/>
+                </label>
+                <label>
+                   <span i18n:translate="imagedrawer_upload_desc_label">Description</span><br />
+                   <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
                 </label>
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
