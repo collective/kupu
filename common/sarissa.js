@@ -364,7 +364,7 @@ if(_SARISSA_IS_IE){
         
         //if(window.XMLDocument) , now mainly for opera  
         }// TODO: check if the new document has content before trying to copynodes, check  for error handling in DOM 3 LS
-        else if(_SARISSA_HAS_DOM_FEATURE && !Document.prototype.load && document.implementation.hasFeature('LS', '3.0')){
+        else if(_SARISSA_HAS_DOM_FEATURE && (typeof Document != 'undefined') && !Document.prototype.load && document.implementation.hasFeature('LS', '3.0')){
     		//Opera 9 may get the XPath branch which gives creates XMLDocument, therefore it doesn't reach here which is good
             /**
             * <p>Factory method to obtain a new DOM Document object</p>
