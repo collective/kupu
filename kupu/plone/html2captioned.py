@@ -17,6 +17,8 @@ from urlparse import urlsplit, urljoin, urlunsplit
 from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
+name2codepoint = name2codepoint.copy()
+name2codepoint['apos']=ord("'")
 
 __revision__ = '$Id$'
 
@@ -622,11 +624,14 @@ def sanitize_portal_type(pt):
 EntityPattern = re.compile('&(?:#(\d+)|([a-zA-Z]+));')
 def decodeEntities(s, encoding='utf-8'):
     def unescape(match):
-	code = match.group(1)
+        code = match.group(1)
         if code:
             return unichr(int(code, 10))
         else:
             code = match.group(2)
-            return unichr(name2codepoint[code])
+            if code:
+                return unichr(int(code, 16))
+            else:
+                return unichr(name2codepoint[match.group(3)])
 
     return EntityPattern.sub(unescape, s)
