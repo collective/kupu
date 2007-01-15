@@ -621,7 +621,7 @@ def sanitize_portal_type(pt):
         return NAVIGATION_PAGE
     return pt
 
-EntityPattern = re.compile('&(?:#(\d+)|([a-zA-Z]+));')
+EntityPattern = re.compile('&(?:#(\d+)|(?:#x([\da-fA-F]+))|([a-zA-Z]+));')
 def decodeEntities(s, encoding='utf-8'):
     def unescape(match):
         code = match.group(1)
