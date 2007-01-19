@@ -50,6 +50,7 @@ function NonXHTMLTagFilter() {
                             'address': 1,
                             'b': 1,
                             'base': 1,
+                            'big': 1,
                             'blockquote': 1,
                             'br': 1,
                             'caption': 1,
@@ -69,7 +70,6 @@ function NonXHTMLTagFilter() {
                             'h4': 1,
                             'h5': 1,
                             'h6': 1,
-                            'h7': 1,
                             'i': 1,
                             'img': 1,
                             'kbd': 1,
@@ -82,6 +82,7 @@ function NonXHTMLTagFilter() {
                             'q': 1,
                             'samp': 1,
                             'script': 1,
+                            'small': 1,
                             'span': 1,
                             'strong': 1,
                             'style': 1,
@@ -94,6 +95,7 @@ function NonXHTMLTagFilter() {
                             'th': 1,
                             'thead': 1,
                             'tr': 1,
+                            'tt': 1,
                             'ul': 1,
                             'u': 1,
                             'var': 1,
@@ -302,11 +304,11 @@ function XhtmlValidation(editor) {
         this.fontstyle_basic = ['tt','i','b','u','s','strike'];
         this.fontstyle = [].concat(this.fontstyle_basic, this.fontstyle_extra);
         this.phrase_extra = ['sub','sup'];
-        this.phrase_basic=[
-                          'em','strong','dfn','code','q',
-                          'samp','kbd','var', 'cite','abbr','acronym'];
+        this.phrase_basic = ['em','strong','dfn','code','q',
+                             'samp','kbd','var','cite','abbr','acronym'];
+        this.phrase = [].concat(this.phrase_basic, this.phrase_extra);
         this.inline_forms = ['input','select','textarea','label','button'];
-        this.misc_inline = ['ins','del'];
+        this.misc_inline = ['ins','del', 'script'];
         this.misc = ['noscript'].concat(this.misc_inline);
         this.inline = ['a'].concat(this.special, this.fontstyle, this.phrase, this.inline_forms);
 
@@ -318,7 +320,7 @@ function XhtmlValidation(editor) {
         this.block = ['p','div','isindex','fieldset','table'].concat(
                      this.heading, this.lists, this.blocktext);
 
-        this.Flow = ['#PCDATA','form'].concat(this.block, this.inline);
+        this.Flow = ['#PCDATA','form'].concat(this.block, this.inline, this.misc);
     }(this);
 
     this._commonsetting = function(self, names, value) {
