@@ -4,6 +4,11 @@ Kupu changes
 
 - 1.4 Beta 3
 
+  - Fixed NonXHTMLTagFilter default filterdata: 'big', 'small' and 'tt' are
+    valid XHTML tags, 'h7' not.
+
+  - Fixed some small issues in XhtmlValidation elements.
+
   - Fixed a bug where createLink deleted the selected text.
 
   - Paragraph styles may now be replaced as well as added to in a

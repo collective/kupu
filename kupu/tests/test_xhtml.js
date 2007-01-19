@@ -212,6 +212,30 @@ function KupuXhtmlTestCase() {
         this.conversionTest(data, data);
     }
 
+    this.testXHTML10Strict = function() {
+        // Some XHTML 1.0 Strict tags
+        var data = '<hr/>'+
+            '<bdo>bdo</bdo>'+
+            '<big>big</big>'+
+            '<del>del</del>'+
+            '<ins>ins</ins>'+
+            '<small>small</small>'+
+            '<tt>tt</tt>';
+        this.editor.xhtmlvalid.filterstructure = true;
+        this.conversionTest(data, data);
+    };
+
+    this.testXHTML10Transitional = function() {
+        // Some XHTML 1.0 Transitional tags
+        var data = '<dir><li>dir</li></dir>'+
+            '<menu><li>menu</li></menu>'+
+            '<s>s</s>'+
+            '<strike>strike</strike>'+
+            '<basefont size="2"/>';
+        this.editor.xhtmlvalid.filterstructure = true;
+        this.conversionTest(data, data);
+    };
+
     this.tearDown = function() {
         this.body.innerHTML = '';
     };
