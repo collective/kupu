@@ -108,13 +108,27 @@ def install_resources(self, out):
             enabled=True,
             cookable=cookable)
 
-    jstool.manage_removeScript('kupucontextmenu.js');
+    existing = [ sheet.getId() for sheet in jstool.getResources()]
+    if 'kupucontextmenu.js' in existing:
+        jstool.manage_removeScript('kupucontextmenu.js');
+    # Insert sarissa.js into the scripts but only if it isn't already
+    # there.
+    SARISSA = 'sarissa.js'
+    if SARISSA not in existing:
+        jstool.manage_addScript(id=SARISSA, enabled=True,
+            cookable=True,
+            compression='safe-encode',
+            cacheable=True)
+        jstool.moveResourceAfter(SARISSA, 'plone_javascripts.js')
+        print >>out, "JS file", SARISSA
+
     for id in js_files(data):
         print >>out, "JS file", id
         jstool.manage_removeScript(id=id)
         jstool.manage_addScript(id=id,
             expression=CONDITION,
             enabled=True,
+            compression='safe-encode',
             cookable=True)
 
 def uninstall_resources(self, out):
