@@ -228,7 +228,9 @@ function KupuRemoveElementButton(buttonid, element_name, cssclass) {
     this.pressed = false;
 
     this.commandfunc = function(button, editor) {
+        editor.focusDocument();
         editor.removeNearestParentOfType(editor.getSelectedNode(), element_name);
+        editor.updateState();
     };
 
     this.checkfunc = function(currnode, button, editor, event) {
@@ -1141,7 +1143,6 @@ function LinkTool() {
             };
         }
         this.editor.logMessage(_('Link added'));
-        this.editor.updateState();
     };
     
     this.deleteLink = function() {
@@ -1158,7 +1159,6 @@ function LinkTool() {
         linkel.parentNode.removeChild(linkel);
         
         this.editor.logMessage(_('Link removed'));
-        this.editor.updateState();
     };
     
     this.createContextMenuElements = function(selNode, event) {
@@ -1215,11 +1215,14 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
     this.addLink = function(event) {
         /* add a link */
         var url = this.input.value;
+        this.editor.focusDocument();
         this.tool.createLink(url);
+        this.editor.updateState();
     };
     
     this.updateLink = function() {
         /* update the current link */
+        this.editor.focusDocument();
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'A');
         if (!linkel) {
@@ -1230,6 +1233,7 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
         linkel.setAttribute('href', url);
 
         this.editor.logMessage(_('Link modified'));
+        this.editor.updateState();
     };
 };
 
@@ -1265,7 +1269,6 @@ function ImageTool() {
         };
         img = this.editor.insertNodeAtSelection(img, 1);
         this.editor.logMessage(_('Image inserted'));
-        this.editor.updateState();
         return img;
     };
 
@@ -1324,15 +1327,17 @@ function ImageToolBox(inputfieldid, insertbuttonid, classselectid, toolboxid, pl
         /* add an image */
         var url = this.inputfield.value;
         var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
-        this.tool.createImage(url, null, sel_class);
         this.editor.focusDocument();
+        this.tool.createImage(url, null, sel_class);
+        this.editor.updateState();
     };
 
     this.setImageClass = function() {
         /* set the class for the current image */
         var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
-        this.tool.setImageClass(sel_class);
         this.editor.focusDocument();
+        this.tool.setImageClass(sel_class);
+        this.editor.updateState();
     };
 };
 
@@ -1406,7 +1411,6 @@ function TableTool() {
         this._setTableCellHandlers(table);
 
         this.editor.logMessage(_('Table added'));
-        this.editor.updateState();
         return table;
     };
 
@@ -1497,7 +1501,6 @@ function TableTool() {
             currtbody.insertBefore(newrow, nextrow);
         }
         
-        this.editor.focusDocument();
         this.editor.logMessage(_('Table row added'));
     };
 
@@ -1523,7 +1526,6 @@ function TableTool() {
         // remove the row
         parentrow.parentNode.removeChild(parentrow);
 
-        this.editor.focusDocument();
         this.editor.logMessage(_('Table row removed'));
     };
 
@@ -1617,7 +1619,6 @@ function TableTool() {
                 }
             }
         }
-        this.editor.focusDocument();
         this.editor.logMessage(_('Table column added'));
     };
 
@@ -1689,7 +1690,6 @@ function TableTool() {
                 }
             }
         }
-        this.editor.focusDocument();
         this.editor.logMessage(_('Table column deleted'));
     };
 
@@ -1995,7 +1995,6 @@ function TableTool() {
             table.appendChild(tfoot);
         }
 
-        this.editor.focusDocument();
         this.editor.logMessage(_('Table cleaned up'));
     };
 
@@ -2061,14 +2060,14 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
             };
         };
         addEventHandler(this.addtablebutton, "click", this.addTable, this);
-        addEventHandler(this.addrowbutton, "click", this.tool.addTableRow, this.tool);
-        addEventHandler(this.delrowbutton, "click", this.tool.delTableRow, this.tool);
-        addEventHandler(this.addcolbutton, "click", this.tool.addTableColumn, this.tool);
-        addEventHandler(this.delcolbutton, "click", this.tool.delTableColumn, this.tool);
+        addEventHandler(this.addrowbutton, "click", this.addTableRow, this);
+        addEventHandler(this.delrowbutton, "click", this.delTableRow, this);
+        addEventHandler(this.addcolbutton, "click", this.addTableColumn, this);
+        addEventHandler(this.delcolbutton, "click", this.delTableColumn, this);
         addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
-        addEventHandler(this.fixbutton, "click", this.tool.fixTable, this.tool);
-        addEventHandler(this.fixallbutton, "click", this.tool.fixAllTables, this.tool);
+        addEventHandler(this.fixbutton, "click", this.fixTable, this);
+        addEventHandler(this.fixallbutton, "click", this.fixAllTables, this);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
         this.editor.logMessage(_('Table tool initialized'));
@@ -2105,21 +2104,63 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         var makeHeader = this.makeheaderinput.checked;
         var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
         
+        this.editor.focusDocument();
         this.tool.createTable(rows, cols, makeHeader, tableclass);
+        this.editor.updateState();
     };
 
     this.setColumnAlign = function() {
         /* set the alignment of the current column */
         var newalign = this.alignselect.options[this.alignselect.selectedIndex].value;
+        this.editor.focusDocument();
         this.tool.setColumnAlign(newalign);
+        this.editor.updateState();
     };
 
     this.setTableClass = function() {
         /* set the class for the current table */
         var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
         if (sel_class) {
+            this.editor.focusDocument();
             this.tool.setTableClass(sel_class);
+            this.editor.updateState();
         };
+    };
+
+    this.addTableRow = function() {
+        this.editor.focusDocument();
+        this.tool.addTableRow();
+        this.editor.updateState();
+    };
+
+    this.delTableRow = function() {
+        this.editor.focusDocument();
+        this.tool.delTableRow();
+        this.editor.updateState();
+    };
+
+    this.addTableColumn = function() {
+        this.editor.focusDocument();
+        this.tool.addTableColumn();
+        this.editor.updateState();
+    };
+
+    this.delTableColumn = function() {
+        this.editor.focusDocument();
+        this.tool.delTableColumn();
+        this.editor.updateState();
+    };
+
+    this.fixTable = function() {
+        this.editor.focusDocument();
+        this.tool.fixTable();
+        this.editor.updateState();
+    };
+
+    this.fixAllTables = function() {
+        this.editor.focusDocument();
+        this.tool.fixAllTables();
+        this.editor.updateState();
     };
 };
 
