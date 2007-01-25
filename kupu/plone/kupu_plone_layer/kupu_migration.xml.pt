@@ -136,7 +136,7 @@
                 <input type="checkbox" name="uids:list"
                        tal:condition="m/checkboxes"
                        tal:attributes="value o/uid" checked="checked" />
-                <a tal:attributes="href o/url" tal:content="o/title" /></div>
+                <a tal:attributes="href o/url" tal:content="o/title" /> [<span tal:content="o/url" />]</div>
               <ul tal:condition="o/info|nothing">
                 <li tal:repeat="link o/info"
                     tal:define="portal_url context/portal_url">
