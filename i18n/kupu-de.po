@@ -1005,7 +1005,7 @@ msgstr ""
 
 #: /silva/toolboxes.kupu:None
 msgid "table of contents"
-msgstr ""
+msgstr "Inhaltsverzeichnis"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Convert single quotes to curly ones"
