@@ -2102,9 +2102,9 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         var cols = this.newcolsinput.value;
         var makeHeader = this.makeheaderinput.checked;
         var tableclass = this.classselect.options[this.classselect.selectedIndex].value;
-        
-        this.editor.focusDocument();
+
         this.tool.createTable(rows, cols, makeHeader, tableclass);
+        this.editor.focusDocument();
         this.editor.updateState();
     };
 
