@@ -1002,6 +1002,7 @@ function IESelection(document) {
             var range = doc.body.createTextRange();
             range.collapse();
             range.select();
+            this.reset();
     }
 
     this.selectNodeContents = function(node) {
@@ -1017,14 +1018,14 @@ function IESelection(document) {
         range.moveEnd('character', -1);
         range.moveEnd('character', 1);
         range.select();
-        this.selection = this.document.getDocument().selection;
+        this.reset();
     };
 
     this.collapse = function(collapseToEnd) {
         var range = this.selection.createRange();
         range.collapse(!collapseToEnd);
         range.select();
-        this.selection = document.getDocument().selection;
+        this.reset();
     };
 
     this.replaceWithNode = function(newnode, selectAfterPlace) {
@@ -1166,6 +1167,7 @@ function IESelection(document) {
         var range = this.selection.createRange();
         range.moveStart('character', offset);
         range.select();
+        this.reset();
     };
 
     this.moveEnd = function(offset) {
@@ -1173,6 +1175,7 @@ function IESelection(document) {
         var range = this.selection.createRange();
         range.moveEnd('character', offset);
         range.select();
+        this.reset();
     };
 
     this.reset = function() {
@@ -1217,6 +1220,7 @@ function IESelection(document) {
     this.restoreRange = function(range) {
         try {
             range.select();
+            this.reset();
         } catch(e) {
         };
     };
