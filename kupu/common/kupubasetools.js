@@ -1222,7 +1222,6 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
     
     this.updateLink = function() {
         /* update the current link */
-        this.editor.focusDocument();
         var currnode = this.editor.getSelectedNode();
         var linkel = this.editor.getNearestParentOfType(currnode, 'A');
         if (!linkel) {
