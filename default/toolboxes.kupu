@@ -144,7 +144,9 @@
                     i18n:translate="">Remove Row</button>
           
             <button type="button" id="kupu-table-fix-button" 
-                    i18n:translate="">Fix</button>
+                    i18n:translate="">Fix Table</button>
+            <button type="button" id="kupu-table-del-button" 
+                    i18n:translate="">Remove Table</button>
           </div>
           
       </div>

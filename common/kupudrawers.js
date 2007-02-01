@@ -387,41 +387,55 @@ function TableDrawer(elementid, tool) {
         this.tool.createTable(parseInt(rows), parseInt(cols), add_header, style);
         this.drawertool.closeDrawer();
     };
+
     this.delTableRow = function() {
         this.editor.resumeEditing();
         this.tool.delTableRow();
         this.editor.suspendEditing();
     };
+
     this.addTableRow = function() {
         this.editor.resumeEditing();
         this.tool.addTableRow();
         this.editor.suspendEditing();
     };
+
     this.delTableColumn = function() {
         this.editor.resumeEditing();
         this.tool.delTableColumn();
         this.editor.suspendEditing();
     };
+
     this.addTableColumn = function() {
         this.editor.resumeEditing();
         this.tool.addTableColumn();
         this.editor.suspendEditing();
     };
+
     this.fixTable = function() {
         this.editor.resumeEditing();
         this.tool.fixTable();
         this.editor.suspendEditing();
     };
+
     this.fixAllTables = function() {
         this.editor.resumeEditing();
         this.tool.fixAllTables();
         this.editor.suspendEditing();
     };
+
+    this.delTable = function() {
+        this.editor.resumeEditing();
+        this.tool.delTable();
+        this.drawertool.closeDrawer();
+    };
+
     this.setTableClass = function(className) {
         this.editor.resumeEditing();
         this.tool.setTableClass(className);
         this.editor.suspendEditing();
     };
+
     this.setColumnAlign = function(align) {
         this.editor.resumeEditing();
         this.tool.setColumnAlign(align);
