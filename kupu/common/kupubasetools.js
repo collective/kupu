@@ -1543,8 +1543,6 @@ function TableTool() {
         
         // get the current index
         var tdindex = this._getColIndex(currtd);
-        // XXX this looks like a debug message, remove
-        this.editor.logMessage(_('tdindex: ${tdindex}'));
 
         // now add a column to all rows
         // first the thead
@@ -2011,11 +2009,8 @@ TableTool.prototype = new KupuTool;
 function TableToolBox(addtabledivid, edittabledivid, newrowsinputid, 
                     newcolsinputid, makeheaderinputid, classselectid, alignselectid, addtablebuttonid,
                     addrowbuttonid, delrowbuttonid, addcolbuttonid, delcolbuttonid, fixbuttonid,
-                    fixallbuttonid, toolboxid, plainclass, activeclass) {
+                    delbuttonid, fixallbuttonid, toolboxid, plainclass, activeclass) {
     /* The table tool */
-
-    // XXX There are some awfully long methods in here!!
-    
 
     // a lot of dependencies on html elements here, but most implementations
     // will use them all I guess
@@ -2032,6 +2027,7 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.addcolbutton = getFromSelector(addcolbuttonid);
     this.delcolbutton = getFromSelector(delcolbuttonid);
     this.fixbutton = getFromSelector(fixbuttonid);
+    this.delbutton = getFromSelector(delbuttonid);
     this.fixallbutton = getFromSelector(fixallbuttonid);
     this.toolboxel = getFromSelector(toolboxid);
     this.plainclass = plainclass;
@@ -2066,6 +2062,7 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.alignselect, "change", this.setColumnAlign, this);
         addEventHandler(this.classselect, "change", this.setTableClass, this);
         addEventHandler(this.fixbutton, "click", this.fixTable, this);
+        addEventHandler(this.delbutton, "click", this.delTable, this);
         addEventHandler(this.fixallbutton, "click", this.fixAllTables, this);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
@@ -2159,6 +2156,12 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
     this.fixAllTables = function() {
         this.editor.focusDocument();
         this.tool.fixAllTables();
+        this.editor.updateState();
+    };
+
+    this.delTable = function() {
+        this.editor.focusDocument();
+        this.tool.delTable();
         this.editor.updateState();
     };
 };

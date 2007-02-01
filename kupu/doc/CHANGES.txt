@@ -2,17 +2,21 @@
 Kupu changes
 ============
 
+- 1.4 (unreleased)
+
+  - Added 'remove table' button to table drawer and tool box.
+
   - the uid/captioning transform now has a hook which gets called if
     kupu fails to resolve the uid.  Use this for any fallback processing
     (e.g. lookup the uid catalog in a different plone site, or just return
     a default error page.
 
-- 1.4 Beta 3
-
   - Fixed NonXHTMLTagFilter default filterdata: 'big', 'small' and 'tt' are
     valid XHTML tags, 'h7' not.
 
   - Fixed some small issues in XhtmlValidation elements.
+
+- 1.4 Beta 3
 
   - Fixed a bug where createLink deleted the selected text.
 

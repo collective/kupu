@@ -72,13 +72,18 @@ function initKupu(iframe) {
 
     var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'));
     kupu.registerTool('undobutton', undobutton);
+
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
-    var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button', 'img', 'kupu-removeimage');
+    var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
+                                                        'img',
+                                                        'kupu-removeimage');
     kupu.registerTool('removeimagebutton', removeimagebutton);
 
-    var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button', 'a', 'kupu-removelink');
+    var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
+                                                       'a',
+                                                       'kupu-removelink');
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     var removedivbutton = new KupuRemoveElementButton('kupu-removediv-button', 'div', 'kupu-removediv');
@@ -102,7 +107,6 @@ function initKupu(iframe) {
     var linktoolbox = new LinkToolBox("kupu-link-input", "kupu-link-button", 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
     linktool.registerToolBox('linktoolbox', linktoolbox);
 
-
     var imagetool = new ImageTool();
     // remove 'create image' from context menu, it doesn't work, and there are 2 wokring methods.
     imagetool.createContextMenuElements = function(selNode, event) {
@@ -113,17 +117,17 @@ function initKupu(iframe) {
                                         'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
-
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
     var tabletoolbox = new TableToolBox('kupu-toolbox-addtable',
         'kupu-toolbox-edittable', 'kupu-table-newrows', 'kupu-table-newcols',
-        'kupu-table-makeheader', 'kupu-table-classchooser', 'kupu-table-alignchooser',
-        'kupu-table-addtable-button', 'kupu-table-addrow-button', 'kupu-table-delrow-button',
+        'kupu-table-makeheader', 'kupu-table-classchooser',
+        'kupu-table-alignchooser', 'kupu-table-addtable-button',
+        'kupu-table-addrow-button', 'kupu-table-delrow-button',
         'kupu-table-addcolumn-button', 'kupu-table-delcolumn-button',
-        'kupu-table-fix-button', 'kupu-table-fixall-button', 'kupu-toolbox-tables',
-        'kupu-toolbox', 'kupu-toolbox-active'
-        );
+        'kupu-table-fix-button', 'kupu-table-del-button',
+        'kupu-table-fixall-button', 'kupu-toolbox-tables',
+        'kupu-toolbox', 'kupu-toolbox-active');
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
     var divstool = new DivsTool();

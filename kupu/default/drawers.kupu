@@ -209,12 +209,16 @@
                 </tr>
                 <tr>
                   <th class="kupu-toolbox-label"
-                      i18n:translate="tabledrawer_fix_table_label">Fix Table</th>
+                      i18n:translate="tabledrawer_table_label">Table</th>
                   <td>
                     <button class="kupu-dialog-button"
                             type="button"
                             i18n:translate="tabledrawer_fix_button"
                             onclick="drawertool.current_drawer.fixTable()">Fix</button> 
+                    <button class="kupu-dialog-button"
+                            type="button"
+                            i18n:translate="tabledrawer_remove_button"
+                            onclick="drawertool.current_drawer.delTable()">Remove</button> 
                   </td>
                 </tr>
               </table>
