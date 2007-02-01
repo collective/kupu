@@ -2,6 +2,11 @@
 Kupu changes
 ============
 
+  - the uid/captioning transform now has a hook which gets called if
+    kupu fails to resolve the uid.  Use this for any fallback processing
+    (e.g. lookup the uid catalog in a different plone site, or just return
+    a default error page.
+
 - 1.4 Beta 3
 
   - Fixed NonXHTMLTagFilter default filterdata: 'big', 'small' and 'tt' are

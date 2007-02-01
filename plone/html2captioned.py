@@ -88,6 +88,19 @@ class HTMLToCaptioned:
             return self.config['output']
         raise AttributeError(attr)
 
+    def resolveuid(self, context, reference_catalog, uid):
+        """Convert a uid to an object by looking it up in the reference catalog.
+        If not found then tries to fallback to a possible hook (e.g. so you could
+        resolve uids on another system).
+        """
+        target = reference_catalog.lookupObject(uid)
+        if target is not None:
+            return target
+        hook = getattr(context, 'kupu_resolveuid_hook', None)
+        if hook:
+            target = hook(uid)
+        return target
+
     def convert(self, data, idata, filename=None, **kwargs):
         """convert the data, store the result in idata and return that
         optional argument filename may give the original file name of received data
@@ -100,6 +113,7 @@ class HTMLToCaptioned:
         context = kwargs.get('context', None)
         if context:
             at_tool = context.archetype_tool
+            rc = at_tool.reference_catalog
 
         if context and at_tool:        
             def replaceImage(match):
@@ -115,7 +129,7 @@ class HTMLToCaptioned:
                 width = attrs.group('width')
                 if src:
                     d = attrs.groupdict()
-                    target = at_tool.reference_catalog.lookupObject(src)
+                    target = self.resolveuid(context, rc, src)
                     if target:
                         d['caption'] = newline_to_br(html_quote(target.Description()))
                         tag = CLASS_PATTERN.sub('', d['tag'])
@@ -145,7 +159,7 @@ class HTMLToCaptioned:
             def replaceUids(match):
                 tag = match.group('tag')
                 uid = match.group('uid')
-                target = at_tool.reference_catalog.lookupObject(uid)
+                target = self.resolveuid(context, rc, uid)
                 if target:
                     try:
                         url = target.getRemoteUrl()
