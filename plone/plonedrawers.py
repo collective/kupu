@@ -26,7 +26,7 @@ from Products.kupu.plone.librarytool import KupuError
 import html2captioned
 
 try:
-    import Image
+    from PIL import Image
 except ImportError:
     HAS_PIL = False
 else:
