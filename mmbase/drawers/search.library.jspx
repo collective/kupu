@@ -36,6 +36,7 @@
                 <mm:constraint field="number" inverse="true" value="${source}" />
               </mm:present>
               <mm:sortorder field="number" direction="down" />
+              <mm:size id="size" write="false" />
               <mm:maxnumber value="$librarysize" />
               <mm:offset    value="${librarysize * page}" />
               <mm:haspage page="${nodetype}.items.jspx">

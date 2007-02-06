@@ -103,6 +103,12 @@ textarea#kupu-editor-textarea {
   display: none;
   background-color: white;
 }
+#kupu div.kupu-drawer { 
+  width: 800px;
+} 
+#kupu div.kupu-resourceitems { 
+  width: 400px;
+}
 #kupu div.kupu-drawer textarea, #kupu div.kupu-drawer input { 
   border: 1px solid;
   background-color: #eee;
@@ -110,6 +116,10 @@ textarea#kupu-editor-textarea {
 #kupu div.kupu-drawer textarea { 
   width: 95%;
 }
+div.kupu-panels td.panel { 
+  height: 300px;
+} 
+
 #kupu div#image_alt_div { 
   display: none;
 }

@@ -8,7 +8,7 @@
   <jsp:directive.page session="false" errorPage="error.jspx" />
   <jsp:output omit-xml-declaration="true" />
   <mm:import id="kupu_node" from="session" externid="node" />
-  <mm:import id="node" externid="kupu_node" from="this,session" />
+  <mm:import id="node" externid="kupu_node" from="parameters,this,session" />
   <mm:cloud method="asis">
     <mm:notpresent referid="node">      
       <mm:remove referid="node" />
