@@ -34,14 +34,15 @@
 
   <kupu:part name="xmlconfig">
     <mm:import externid="link_nodetypes">urls,segments,attachments</mm:import>
+    <mm:import externid="librarysize">50</mm:import>
     <image_xsl_uri>drawers/drawer.xsl.jspx</image_xsl_uri>
     <link_xsl_uri>drawers/drawer.xsl.jspx</link_xsl_uri>
     
-    <image_libraries_uri>drawers/libraries.jspx?nodetypes=images&amp;amp;source=${objectnumber}</image_libraries_uri>
-    <link_libraries_uri>drawers/libraries.jspx?nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}</link_libraries_uri>
+    <image_libraries_uri>drawers/libraries.jspx?nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</image_libraries_uri>
+    <link_libraries_uri>drawers/libraries.jspx?nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</link_libraries_uri>
 
-    <search_images_uri>drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=images&amp;amp;source=${objectnumber}</search_images_uri>
-    <search_links_uri> drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}</search_links_uri>
+    <search_images_uri>drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</search_images_uri>
+    <search_links_uri> drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</search_links_uri>
   </kupu:part>
 
 
