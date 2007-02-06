@@ -16,7 +16,6 @@
     </mm:notpresent>
     <mm:import externid="max">100</mm:import>
     <mm:listnodescontainer referid="query">
-      <mm:maxnumber value="${100}" />
       <mm:sortorder field="number" direction="down" />
       <items>
         <mm:context>

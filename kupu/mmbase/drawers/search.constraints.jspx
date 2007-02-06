@@ -11,6 +11,7 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     >
   <mm:isnotempty  xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" referid="search">
+    <mm:log>bla</mm:log>
     <mm:composite operator="OR">
       <mm:fieldlist type="search" nodetype="$nodetype">
         <mm:fieldinfo type="typedescription">
@@ -19,12 +20,12 @@
               <mm:constraint field="$_" operator="LIKE" value="%$search%" />
             </mm:fieldinfo>
           </mm:compare>
-      </mm:fieldinfo>
+        </mm:fieldinfo>
       </mm:fieldlist>
     </mm:composite>
   </mm:isnotempty>
   <!-- see remark in library.jspx -->
-  <mm:hasfield nodetype="$nodetype" name="version">
+  <mm:hasfield nodetype="${nodetype}" name="version">
     <mm:constraint field="version" value="10000" />
   </mm:hasfield>
 </jsp:root>

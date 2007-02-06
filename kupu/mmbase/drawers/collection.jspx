@@ -10,7 +10,7 @@
   <mm:import externid="max" vartype="integer">50</mm:import>
   <mm:import externid="kupubasedir" />
   <collection>
-    <uri>drawers/collection.jspx?search=${search}&amp;max=${max}</uri>
+    <uri>drawers/collection.jspx?search=${search}&amp;amp;max=${max}</uri>
     <icon>${kupubasedir}/mmbase/icons/map.gif</icon>
     <title>MMBase</title>
     <mm:cloud method="asis">
@@ -24,7 +24,7 @@
           </mm:present>
           <jsp:directive.include file="search.constraints.jspx" />
           <mm:sortorder field="number" direction="down" />
-          <mm:maxnumber value="$max" />
+          <mm:maxnumber value="${max}" />
           <mm:offset    value="${page * max}" />
           <mm:haspage page="${nodetype}.items.jspx">
             <mm:include referids="kupubasedir,max" page="${nodetype}.items.jspx" />
