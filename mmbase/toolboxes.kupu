@@ -26,6 +26,7 @@
           <fmt:bundle basename="org.mmbase.kupu.Messages">             
             <option value="image-left big" ><fmt:message key="Left (Big)" /></option>
             <option value="image-right big"><fmt:message key="Right (Big)" /></option>
+            <option value="image-center big"><fmt:message key="Big" /></option>
           </fmt:bundle>
           <!--
           <option value="paragraph" i18n:translate="">Paragraph</option>
