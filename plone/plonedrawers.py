@@ -757,22 +757,24 @@ class PloneDrawers:
         unsupp = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
         return str.join(', ', unsupp)
 
+    security.declareProtected("View", "transformIsEnabled")
     def transformIsEnabled(self):
         """Test whether the output transform is enabled for x-html-safe"""
-        archetype_tool = getToolByName(self, 'archetype_tool', None)
+        uid_catalog = getToolByName(self, 'uid_catalog', None)
         portal_transforms = getToolByName(self, 'portal_transforms', None)
-        if not archetype_tool or not portal_transforms:
+        if not uid_catalog or not portal_transforms:
             return False
-        content = archetype_tool.Content()
+        # Find something, anything which has a UID
+        content = uid_catalog.searchResults(sort_on='', sort_limit=1)
         if not content:
             return False
-
         uid = content[0].UID # Get an arbitrary used UID.
-        test = '<a href="resolveuid/%s"></a>' % uid
+        link = 'resolveuid/%s' % uid
+        test = '<a href="%s"></a>' % link
         txfrm = portal_transforms.convertTo('text/x-html-safe', test, mimetype='text/html', context=self)
         if hasattr(txfrm, 'getData'):
             txfrm = txfrm.getData()
-        return txfrm and not uid in txfrm
+        return txfrm and not link in txfrm
 
     security.declareProtected("View", "isUploadSupported")
     def isUploadSupported(self, context):
