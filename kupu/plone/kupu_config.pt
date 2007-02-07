@@ -54,7 +54,7 @@
     name="configure_kupu"
     method="post"
     tal:attributes="action here/absolute_url"
-    tal:define="isTransformEnabled here/transformIsEnabled">
+    tal:define="isTransformEnabled context/transformIsEnabled">
 
 <fieldset>
 <legend i18n:translate="legend_link_options">Link options</legend>
