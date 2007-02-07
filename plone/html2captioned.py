@@ -143,7 +143,10 @@ class HTMLToCaptioned:
                             except AttributeError:
                                 pass
                         if not width:
-                            width = target.getWidth()
+                            try:
+                                width = target.getWidth()
+                            except AttributeError:
+                                pass
                         if not width:
                             try:
                                 width = target.getImage().getWidth()

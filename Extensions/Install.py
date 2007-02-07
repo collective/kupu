@@ -24,6 +24,7 @@ from Products.CMFCore.utils import getToolByName, minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.kupu import kupu_globals
 from Products.kupu.plone.util import register_layer, unregister_layers
+from Products.kupu.plone import util
 from Products.kupu.config import TOOLNAME, PROJECTNAME, TOOLTITLE
 from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest
@@ -194,28 +195,10 @@ def install_configlet(self, out):
 
 def install_transform(self, out):
     try:
-        print >>out, "Adding new mimetype"
-        mimetypes_tool = getToolByName(self, 'mimetypes_registry')
-        newtype = MimeTypeItem.MimeTypeItem('HTML with captioned images',
-            ('text/x-html-captioned',), ('html-captioned',), 0)
-        mimetypes_tool.register(newtype)
-
-        print >>out,"Add transform"
-        transform_tool = getToolByName(self, 'portal_transforms')
-        try:
-            transform_tool.manage_delObjects(['html-to-captioned'])
-        except: # XXX: get rid of bare except
-            pass
-        transform_tool.manage_addTransform('html-to-captioned', 'Products.kupu.plone.html2captioned')
-        print >>out,"Add identity transform"
-        transform_tool = getToolByName(self, 'portal_transforms')
-        try:
-            transform_tool.manage_delObjects(['captioned-to-html'])
-        except: # XXX: get rid of bare except
-            pass
-        transform_tool.manage_addTransform('captioned-to-html', 'Products.PortalTransforms.transforms.identity')
+        util.install_transform(self)
+        util.remove_transform(self) # Transform is installed but disabled by default.
     except (NameError,AttributeError):
-        print >>out, "No MimetypesRegistry, captioning not supported."
+        print >>out, "Transform not installed."
 
 def install_customisation(self, out):
     """Default settings may be stored in a customisation policy script so
@@ -260,9 +243,10 @@ def install(self):
 def uninstall_transform(self, out):
     transform_tool = getToolByName(self, 'portal_transforms')
     try:
-        transform_tool.manage_delObjects(['html-to-captioned'])
+        util.remove_transform(self)
+        transform_tool.manage_delObjects(['html-to-captioned', 'captioned-to-html'])
     except:
-        print >>out, "transform not removed"
+        print >>out, "Transform not removed"
         pass
     else:
         print >>out, "Transform removed"

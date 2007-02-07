@@ -18,7 +18,7 @@ Requirements
 
 * CMF 1.4 or greater
 
-* Archetypes 1.3.x
+* Archetypes 1.3.9 or greater
 
 If you plan on customizing kupu by editing the '.kupu' files then
 you also need:
@@ -160,10 +160,10 @@ When this is checked:
    means that you can move the target object to a different location, or
    even rename it, and the link will continue to work.
 
- - the URL used for the link will require an extra hit on the server,
-   and will contain the internal UID. These issues may be avoided by
-   configuring the output transform for image caption support (`see
-   below`__).
+ - the URL used for the link would require an extra hit on the server,
+   and will contain the internal UID so a transform is installed for any
+   field which has text/x-safe-html or text/x-html-captioned as its
+   output format.  (`see below`__).
 
 __ captioning_
 
@@ -172,6 +172,29 @@ __ captioning_
 When this is not checked:
 
  - Links to all objects simply link to the current URL of the object.
+
+Links which are redirected use Kupu's transform to correct the URL
+when the page is rendered in view mode, but in edit mode the links use
+the resolveuid script to resolve as they are accessed. This involves
+an additional hit through the server.
+
+If a UID link does not have a UID which is currently valid then Kupu
+will look for an additional script kupu_resolveuid_hook. This script
+may be used to lookup the UIDs in an external system, or to provide a
+customised error page for broken UID links.
+
+To point all broken links to a specific URL you could for example
+invent a dummy object::
+
+   from Products.PythonScripts.standard import Object
+   def absurl():
+        return '[insert url of broken link page here]'
+   def Title():
+        return 'This link is broken'
+   return Object(absolute_url=absurl,
+       absolute_url_path=absurl,
+       Title=Title, Description=Description,)
+
 
 Warn before losing changes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -205,7 +228,7 @@ should add suitable rules for the other styles to ``ploneCustom.css``.
 Paragraph Styles
 ::::::::::::::::
 Enter a list of styles to be added to the style pulldown. See `Custom
-Paragraph Styles`_.
+Styles`_.
 
 
 HTML Filter
@@ -556,11 +579,12 @@ There are (at least) 2 ways to arrange this. One way is that the field
 should have its ``default_output_type`` set to
 ``text/x-html-captioned`` in the Archetypes schema. The problem with
 this is that the default ATContentTypes use an output type of
-'text/x-html-safe'. It should be possible to configure the
-portal_transforms tool to apply the captioning transform in addition
-to the safe html, but (at the time of writing) bugs in
-PortalTransforms prevent this working correctly unless you also patch
-Products/PortalTransforms/TransformEngine.py:
+'text/x-html-safe'. If either link by uid or captioning is enabled
+then Kupu will attempt to configure the Portal Transform engine to
+apply the transform automatically.
+
+If you have a version of Portal Transforms earlier than 1.3.9 then you
+may need to patch it to work correctly with the transform:
 
 Find the line::
 
@@ -570,7 +594,7 @@ and change it to::
 
         requirements = self._policies.get(str(target_mt), [])
 
-Once you have done this you can configure the portal_transforms tool as follows:
+Once you have done kupu will configure the portal_transforms tool as follows:
 
    * add a new transform id 'captioned_to_html', module
      'Products.PortalTransforms.transforms.identity' with input type
