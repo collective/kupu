@@ -731,7 +731,16 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
         if captioning is not None:
             self.captioning = bool(captioning)
+
+        if self.linkbyuid or self.captioning:
+            util.install_transform(self)
+        else:
+            util.remove_transform(self)
+
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
 
+    def _enableuidtransform(self, enable):
+        """Enable or disable the uid transform."""
+        
 InitializeClass(PloneKupuLibraryTool)

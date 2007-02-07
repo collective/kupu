@@ -17,9 +17,13 @@ uuid = traverse_subpath.pop(0)
 reference_tool = getToolByName(context, 'reference_catalog')
 obj = reference_tool.lookupObject(uuid)
 if not obj:
-    return context.standard_error_message(error_type=404,
-     error_message='''The link you followed appears to be broken''')
-    
+    hook = getattr(context, 'kupu_resolveuid_hook', None)
+    if hook:
+        obj = hook(uid)
+    if not obj:
+        return context.standard_error_message(error_type=404,
+            error_message='''The link you followed appears to be broken''')
+
 if traverse_subpath:
     traverse_subpath.insert(0, obj.absolute_url())
     target = '/'.join(traverse_subpath)

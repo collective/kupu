@@ -78,10 +78,11 @@ currently operating for the fields:
 <blockquote tal:content="here/supportedCaptioning"></blockquote>
 </span>
 <span tal:condition="not:isTransformEnabled">
-If you enable this option you should also
-enable the output transform as for image captioning (see <a
-href="zmi_docs#images">image captioning documentation</a>).  This
-transform will hide the UID based URLs from client browsers.
+If you enable this option a transform to hide UIDs and support image
+captioning from client browsers will also be enabled (see <a
+href="zmi_docs#images">image captioning documentation</a>).  If the
+transform does not enable itself automatically you may need to update
+your PortalTransforms product.
 </span>
 </div>
 
@@ -98,10 +99,16 @@ transform will hide the UID based URLs from client browsers.
 Allow captioned images</label>
 
 <div class="formHelp">
+Images which are linked using UID based links may be automatically captioned.
+
 <div tal:condition="not:isTransformEnabled">
-<span i18n:translate="help_captioning">To support
-captioning you may need to apply a patch to PortalTransforms. See
-the <a href="zmi_docs#images">image captioning documentation</a> for details.</span>
+<span i18n:translate="help_captioning">
+If you enable this option a transform to hide UIDs and support image
+captioning from client browsers will also be enabled (see <a
+href="zmi_docs#images">image captioning documentation</a>).  If the
+transform does not enable itself automatically you may need to update
+your PortalTransforms product.
+</span>
 <div>Fields which could support image captioning:</div>
 </div>
 <div tal:condition="isTransformEnabled">
