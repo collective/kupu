@@ -108,6 +108,8 @@ def remove_transform(self):
     """Disable the UID transform: remove the policy but leave everything else intact."""
     transform_tool = getToolByName(self, 'portal_transforms')
     policies = [ (mimetype, required) for (mimetype, required) in transform_tool.listPolicies() if mimetype==MT_SAFE ]
+    if not policies:
+        return
     required = list(policies[0][1])
     if UID_TRANSFORM in required:
         required.remove(UID_TRANSFORM)
