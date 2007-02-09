@@ -2,6 +2,13 @@
 Kupu changes
 ============
 
+- 1.3.x
+
+  - Fix bugs:
+
+   * Handle acquisition wrapping correctly when looking for the portal
+     root
+
 - 1.3.9
 
   - Fixes for IE7 compatability.
