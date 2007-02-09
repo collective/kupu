@@ -317,7 +317,7 @@ function initKupu(iframe) {
 
     var linklibdrawer = new LinkLibraryDrawer(linktool, conf['link_xsl_uri'],
                                               conf['link_libraries_uri'],
-                                              conf['link_images_uri']);
+                                              conf['search_links_uri']);
     drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
     var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf['image_xsl_uri'],
