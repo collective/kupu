@@ -51,7 +51,6 @@ containing Kupu.
 ===================== ================================================
 Directive             Possible values
 ===================== ================================================
-src                   the source URL of the document
 dst                   the URL to PUT to (not used for POST setups)
 use_css               whether Kupu should try to (it will succeed in
                       Mozilla use CSS for bold, italic etc. rather
