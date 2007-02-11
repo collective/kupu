@@ -277,7 +277,7 @@ and `font` tags, the `cellspacing` attribute everywhere, and the
 `width` attribute for the `th` and `td` tags only. ::
 
         <htmlfilter>
-                <t>center></t><t>font</t>
+                <t>center</t><t>font</t>
                 <a>cellspacing</a>
                 <c><t>th</t><t>td</t><a>width</a></c>
         </htmlfilter>
