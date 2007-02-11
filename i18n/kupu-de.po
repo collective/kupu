@@ -106,7 +106,7 @@ msgstr "Bildwerkzeug geladen."
 
 #: /common/kupu.pox:None
 msgid "End offset out of range!"
-msgstr ""
+msgstr "Auswahlende außerhalb des Bereichs."
 
 #: /common/kupu.pox:None
 msgid "tdindex: ${tdindex}"
@@ -167,7 +167,7 @@ msgstr ""
 
 #: /common/kupu.pox:None
 msgid "Start offset out of range!"
-msgstr ""
+msgstr "Auswahlbeginn außerhalb des Bereichs."
 
 #: /common/kupu.pox:None
 msgid ""
