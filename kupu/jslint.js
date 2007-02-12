@@ -3002,6 +3002,31 @@ function processarguments(options, args, defaults) {
     return result;
 }
 
+if (WScript) {
+    var arguments = [];
+    for (var arg = 0; arg < WScript.Arguments.Count(); arg++) {
+        arguments.push(WScript.Arguments(arg));
+    }
+    var print = function() {
+        for (var i = 0; i < arguments.length; i++) {
+            try {
+                WScript.StdOut.WriteLine(arguments[i]);
+            } catch(e) {
+                WScript.Echo("Run this program using the command-line script program:\n"+
+                    "    cscript "+WScript.ScriptFullName+" [arguments]\n"+
+                    "Don't run it with wscript.\n"+
+                    "Use --help for usage text\n");
+                WScript.Quit();
+            }
+        }
+    }
+    var quit = function(n) { WScript.Quit(n); };
+    var readFile = function(fname) {
+        var filesys = WScript.CreateObject("Scripting.FileSystemObject");
+        var file = filesys.OpenTextFile(fname, 1);
+        return file.ReadAll();
+    };
+};
 (function (a) {
     function lintfile(arg, filename, options) {
         var input = readFile(filename);

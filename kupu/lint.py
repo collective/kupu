@@ -12,6 +12,8 @@ import os, sys, glob, time
 import cPickle
 
 COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options %(options)s %(file)s"
+if sys.platform=='win32':
+    COMPILE_COMMAND = "cscript /NoLogo %(lint)s --options %(options)s %(file)s"
 
 def lint(name):
     cmd = COMPILE_COMMAND % dict(lint=LINT, file=name, options=OPTIONS)
@@ -54,8 +56,12 @@ def loadstatus(name):
         f = open(name, 'rb')
     except (IOError, WindowsError):
         return {}
-    data = cPickle.load(f)
-    f.close()
+    try:
+        data = cPickle.load(f)
+    except EOFError:
+        return {}
+    finally:
+        f.close()
     return data
 
 def savestatus(name, status):
@@ -68,3 +74,4 @@ if __name__=='__main__':
     for n in newfiles(status, 'common/*.js', 'plone/kupu_plone_layer/*.js'):
         lint(n)
         savestatus(STATUSFILE, status)
+
