@@ -773,6 +773,7 @@ function KupuEditor(document, config, logger) {
     };
     this.escapeEntities = function(xml) {
         // XXX: temporarily disabled
+        xml = xml.replace(/\xa0/g, '&nbsp;');
         return xml;
         // Escape non-ascii characters as entities.
 //         return xml.replace(/[^\r\n -\177]/g,

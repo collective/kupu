@@ -10,6 +10,8 @@
 # Run jslint over modified javascript files
 import os, sys, glob, time
 import cPickle
+from Queue import Queue
+import threading
 
 COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options %(options)s %(file)s"
 if sys.platform=='win32':
@@ -17,9 +19,10 @@ if sys.platform=='win32':
 
 def lint(name):
     cmd = COMPILE_COMMAND % dict(lint=LINT, file=name, options=OPTIONS)
-    ret = os.system(cmd)
-    if ret != 0:
-        sys.exit(ret)
+    stream = os.popen(cmd)
+    data = stream.read()
+    rc = stream.close()
+    return data, rc
 
 def scriptrelative(relative):
     """Find absolute path of file relative to this script"""
@@ -69,9 +72,55 @@ def savestatus(name, status):
     cPickle.dump(status, f)
     f.close()
 
+# Thread pool code.
+class Pool:
+    def __init__(self, nThreads):
+        self.nThreads = nThreads
+        self.requestQueue = Queue()
+        self.responseQueue = Queue()
+        self.exitcode = 0
+        self.thread_pool = [
+                threading.Thread(target=self.run)
+                for i in range(nThreads)]
+        for t in self.thread_pool:
+            t.start()
+
+    def run(self):
+        for item in iter(self.requestQueue.get, None):
+            if not self.exitcode:
+                self.responseQueue.put([item, lint(item)])
+            else:
+                # Error state, just ignore this item
+                self.responseQueue.put([item, ("skipped %s" % item, 1)])
+
+    def handleResponse(self, item, data, rc):
+        if rc is not None:
+            if item in status:
+                del status[item]
+            self.exitcode = max(self.exitcode, rc)
+        print data
+
+    def process(self, items):
+        items = list(items)
+        for item in items:
+             self.requestQueue.put(item)
+        for dummy in items:
+            item, (data, rc) = self.responseQueue.get()
+            self.handleResponse(item, data, rc)
+
+    def shutdown(self):
+        # and then to shut down the threads when you've finished:
+        for t in self.thread_pool:
+            self.requestQueue.put(None)
+        for t in self.thread_pool:
+             t.join()
+
 if __name__=='__main__':
     status = loadstatus(STATUSFILE)
-    for n in newfiles(status, 'common/*.js', 'plone/kupu_plone_layer/*.js'):
-        lint(n)
-        savestatus(STATUSFILE, status)
-
+    exitcode = None
+    threads = Pool(4)
+    work = newfiles(status, 'common/*.js', 'plone/kupu_plone_layer/*.js')
+    threads.process(work)
+    threads.shutdown()
+    savestatus(STATUSFILE, status)
+    sys.exit(exitcode)
