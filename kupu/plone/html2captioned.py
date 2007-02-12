@@ -138,10 +138,10 @@ class HTMLToCaptioned:
                         d['tag'] = tag
                         if not width and srctail:
                             subtarget = getattr(target, srctail, None)
-                            try:
-                                width = subtarget.width
-                            except AttributeError:
-                                pass
+                            if hasattr(aq_base(subtarget), 'getWidth'):
+                                width = subtarget.getWidth()
+                            elif hasattr(aq_base(subtarget), 'width'):
+                                width = subtarget.getWidth()
                         if not width:
                             try:
                                 width = target.getWidth()
