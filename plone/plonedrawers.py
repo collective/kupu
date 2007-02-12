@@ -14,7 +14,7 @@ support code for drawers. Much of this code was formerly in separate
 Python scripts, but has been moved here to make it easier to maintain.
 
 """
-import re
+import re, string
 from thread import get_ident
 from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
@@ -33,6 +33,7 @@ else:
     HAS_PIL = True
 
 UIDURL = re.compile(".*\\bresolveuid/([^/?#]+)")
+NOCC = nocc = string.maketrans(''.join([chr(c) for c in range(32) if c not in (9,10,13)]), "?"*29)
 
 # mapping (thread-id, portal-physicalPath, portal_type) ->
 # imagefield-getAvailableSizes (as tuple sorted by dimension) (width, height, key)
@@ -312,7 +313,7 @@ class InfoAdaptor:
             icon = self.icon(portal_type)
             size, width, height = self.sizes(obj)
 
-            title = obj.Title() or obj.getId()
+            title = (obj.Title() or obj.getId()).translate(NOCC)
             description = newline_to_br(html_quote(obj.Description()))
 
             linkable = None
