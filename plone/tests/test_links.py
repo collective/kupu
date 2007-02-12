@@ -16,7 +16,12 @@ if __name__ == '__main__':
 import Acquisition
 from Testing.ZopeTestCase import ZopeTestCase, installProduct
 from Products.CMFPlone.tests.PloneTestCase import portal_name, portal_owner
-from Products.Archetypes.tests import ArchetypesTestCase
+try:
+    from Products.Archetypes.tests.atsitetestcase import ATSiteTestCase
+except ImportError:
+    from Products.Archetypes.tests.ArchetypesTestCase import \
+        ArcheSiteTestCase as ATSiteTestCase
+
 from AccessControl.SecurityManagement import newSecurityManager
 try:
     from Products.ATContentTypes.lib import constraintypes
@@ -56,7 +61,7 @@ TypeMapping = {
 def MapType(typename):
     return TypeMapping[typename]
 
-class TestLinkCode(ArchetypesTestCase.ArcheSiteTestCase):
+class TestLinkCode(ATSiteTestCase):
     """Test the link checking code"""
 
     def afterSetUp(self):
