@@ -18,50 +18,15 @@ if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
 from Testing import ZopeTestCase
-from Products.CMFPlone.tests import PloneTestCase
-from Products.CMFPlone.tests.PloneTestCase import portal_name, portal_owner
-from AccessControl.SecurityManagement import newSecurityManager, noSecurityManager
-try:
-    import transaction
-except ImportError:
-    class dummy:
-        def get(self): return get_transaction()
-        def commit(self): return self.get().commit()
-    transaction = dummy()
+from Products.PloneTestCase import PloneTestCase
 
-    
-def installKupu(quiet=0):
-    _start = time.time()
-    if not quiet: ZopeTestCase._print('Adding Kupu ... ')
-
-    ZopeTestCase.installProduct('kupu')
-
-    # Install kupu into the test site. Done here because otherwise
-    # it slows the tests down a lot on Plone 2.1
-    app = ZopeTestCase.app()
-    user = app.acl_users.getUserById(portal_owner).__of__(app.acl_users)
-    newSecurityManager(None, user)
-
-    portal = app[portal_name]
-    quickinstaller = portal.portal_quickinstaller
-    quickinstaller.installProduct('kupu')
-
-    # Log out
-    noSecurityManager()
-    transaction.commit()
-    if not quiet: ZopeTestCase._print('done (%.3fs)\n' \
-                                      % (time.time()-_start,))
-    ZopeTestCase.close(app)
-
-installKupu()
+PloneTestCase.setupPloneSite(products=['kupu'])
 
 class TestBrowserSupportsKupu(PloneTestCase.PloneTestCase):
 
     def afterSetUp(self):
         md = self.portal.portal_memberdata
         md._updateProperty('wysiwyg_editor', 'Kupu')
-        #self.qi = self.portal.portal_quickinstaller
-        #self.qi.installProduct('kupu')
         #self.script = self.portal.portal_skins.kupu_plone.browserSupportsKupu
         self.script = self.portal.kupu_library_tool.isKupuEnabled
 

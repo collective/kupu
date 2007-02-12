@@ -92,7 +92,7 @@ Special thanks to
 Translations
 ------------
 
-* Roman Joost and Carsten Senger - German
+* Roman Joost, Carsten Senger, Thomas Lotze and Hanno Schlichting - German
 
 * Michiel Meeuwissen - Esperanto
 
@@ -158,6 +158,8 @@ Also thanks to
   - Kit Blake for documentation and administrative tasks.
 
   - Danny Hope from Adaptive Technologies for help on icons.
+
+  - Hanno Schlichting for some bug fixing
 
 Missing your name here?
 -----------------------

@@ -4,6 +4,8 @@ Kupu changes
 
 - 1.4 (unreleased)
 
+  - Adjusted some Plone tests to work on Plone 3.0.
+
   - Added 'remove table' button to table drawer and tool box.
 
   - the uid/captioning transform now has a hook which gets called if
