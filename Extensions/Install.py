@@ -96,8 +96,10 @@ def install_resources(self, out):
     data = _read_resources()
     
     CONDITION = '''python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)'''
-    csstool = getToolByName(self, CSSTOOLNAME)
-    jstool = getToolByName(self, JSTOOLNAME)
+    csstool = getToolByName(self, CSSTOOLNAME, None)
+    jstool = getToolByName(self, JSTOOLNAME, None)
+    if csstool is None or jstool is None:
+        return
 
     for id in css_files(data):
         print >>out, "CSS file", id

@@ -390,7 +390,7 @@ class InfoAdaptor:
         icon = self.icon(portal_type)
         size, width, height = self.sizes(brain)
 
-        title = brain.Title or brain.getId
+        title = (brain.Title or brain.getId).translate(NOCC)
         description = newline_to_br(html_quote(brain.Description))
         linkable = None
         if allowLink:
