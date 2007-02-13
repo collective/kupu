@@ -59,13 +59,21 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
             var id = sel[i];
             var t = id;
             var node = xml.selectSingleNode("//resource[@id='"+id+"']");
-            var result = this.shared.xsltproc.transformToDocument(node);
-            var imp = window.document.importNode(result, true);
             div = document.createElement("div");
             div.className = i%2?'odd':'even';
             var link = document.createElement('a');
             link.href = node.selectSingleNode('uri/text()').nodeValue.strip()+'/view';
-            Sarissa.copyChildNodes(imp, link, true);
+
+            if (_SARISSA_IS_IE) {
+                /* IE won't take a node to transformToDocument */
+                var result = node.transformNode(this.shared.xsl);
+                link.innerHTML = result;
+            } else {
+                var result = this.shared.xsltproc.transformToDocument(node);
+                var imp = window.document.importNode(result, true);
+                Sarissa.copyChildNodes(imp, link, true);
+            };
+
             div.appendChild(link);
             preview.appendChild(div);
         }
