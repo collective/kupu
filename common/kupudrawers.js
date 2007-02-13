@@ -547,6 +547,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             will also make the first loadLibraries call
         */
         this.shared.xsl = dom;
+        Sarissa.getDomDocument(); /* Work round Sarissa initialisation glitch */
 
         // Change by Paul to have cached xslt transformers for reuse of 
         // multiple transforms and also xslt params
