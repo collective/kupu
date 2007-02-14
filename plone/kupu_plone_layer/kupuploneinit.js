@@ -17,8 +17,6 @@ function initPloneKupu(editorId) {
     var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
     var l = new DummyLogger();
 
-    // XXX this should be fixed in stylesheets, but I don't know how to do 
-    // that without applying this change to the outter document. Damn iframes.
     var ibody = iframe.contentWindow.document.body;
     var form = textarea.form;
     var initialtext = textarea.value || (_SARISSA_IS_IE?'<p></p>':'<p><br></p>');
