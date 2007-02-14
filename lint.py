@@ -60,9 +60,10 @@ def loadstatus(name):
     except (IOError, WindowsError):
         return {}
     try:
-        data = cPickle.load(f)
-    except EOFError:
-        return {}
+        try:
+            data = cPickle.load(f)
+        except EOFError:
+            return {}
     finally:
         f.close()
     return data
