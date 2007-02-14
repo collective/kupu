@@ -204,7 +204,10 @@ class InfoAdaptor:
 
     def icon(self, portal_type):
         type = self.ttool.getTypeInfo(portal_type)
+        if type is None:
+            return None
         return "%s/%s" % (self.base, type.getIcon())
+            
 
     def sizes(self, obj):
         """Returns size, width, height"""
