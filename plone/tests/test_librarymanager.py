@@ -32,8 +32,8 @@ class FakeContextObject(Acquisition.Implicit):
 
     __allow_access_to_unprotected_subobjects__ = True
     isPrincipiaFolderish = True
-    REQUEST = 42
-    absolute_url = lambda(self): "The answer is 42"
+    REQUEST = 'whatever'
+    absolute_url = lambda(self): u"The answer is 42"
 
 class TestILibraryManager(ZopeTestCase):
     """Test the implementation of ILibraryManger in KupuLibraryTool"""
@@ -69,7 +69,7 @@ class TestILibraryManager(ZopeTestCase):
         libs = self.libs
         context = self.context
         new_libs = (
-            dict(id='foo_id', title='Foobar', uri='python:request',
+            dict(id='foo_id', title='Foobar', uri='python:42',
                  src='foosrc', icon='fooicon'),
             dict(id='bar_id', title='Barfoo', uri='python:object',
                  src='barsrc', icon='baricon'),
@@ -83,10 +83,11 @@ class TestILibraryManager(ZopeTestCase):
                  src='foosrc', icon='fooicon'),
             dict(id='bar_id', title='Barfoo', uri=context,
                  src='barsrc', icon='baricon'),
-            dict(id='baz_id', title='Baz', uri="The answer is 42",
+            dict(id='baz_id', title='Baz', uri=u"The answer is 42",
                  src='bazsrc', icon='bazicon')
             )
-        self.assertEqual(libs.getLibraries(context), expected)
+        v = libs.getLibraries(context)
+        self.assertEqual(v, expected)
 
     def test_delete(self):
         libs = self.libs
