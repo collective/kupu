@@ -117,7 +117,29 @@ function KupuXhtmlTestCase() {
     this.testConvertToSarissa = function() {
         var data = '<p class="blue">This is a test</p>';
         this.conversionTest(data, data);
-    }
+    };
+    
+    this.testRemoveTrailingBr = function() {
+        var data = '<p class="blue">This is a test<br></p>';
+        var expected = '<p class="blue">This is a test</p>';
+        this.conversionTest(data, expected);
+    };
+    this.testRemoveTrailingBr2 = function() {
+        var data = '<p class="blue">This is a test<br>with more text<br></p>';
+        var expected = '<p class="blue">This is a test<br/>with more text</p>';
+        this.conversionTest(data, expected);
+    };
+    this.testFixTopLevelBr = function() {
+        var data = '<p>alpha</p>beta<br><p>gamma</p>';
+        var expected = '<p>alpha</p><p>beta</p><p>gamma</p>';
+        this.conversionTest(data, expected);
+    };
+    this.testNakedBr = function() {
+        var data = '<p>alpha</p><br><p>gamma</p>';
+        var expected = '<p>alpha</p><p/><p>gamma</p>';
+        this.conversionTest(data, expected);
+    };
+    
     this.testXmlAttrs = function() {
         var data = '<pre xml:space="preserve" xml:lang="fr">This is a test</pre>';
         var expected1 = '<pre xml:lang="fr" xml:space="preserve">This is a test</pre>';
