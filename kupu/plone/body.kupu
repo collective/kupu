@@ -15,7 +15,9 @@
         tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
-                        tabindex tabindex/next|nothing;"
+                        tabindex tabindex/next|nothing;
+			id string:kupu-editor-iframe-${fname};
+			name string:kupu-editor-iframe-${fname};"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"
