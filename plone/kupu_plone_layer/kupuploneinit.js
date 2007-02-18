@@ -32,7 +32,7 @@ function initPloneKupu(editorId) {
     var doc = new KupuDocument(iframe);
 
     // now we can create the controller
-    var kupu = window.kupu = new KupuEditor(doc, conf, l);
+    var kupu = (window.kupu = new KupuEditor(doc, conf, l));
     kupu.setHTMLBody(initialtext);
 
     // now we can create a UI object which we can use from the UI
