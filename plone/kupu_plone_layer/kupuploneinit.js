@@ -14,6 +14,10 @@ function initPloneKupu(editorId) {
     var prefix = '#'+editorId+' ';
 
     var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
+    if (iframe._kupuIsInitialized) {
+	    return window.kupu;
+    };
+    iframe._kupuIsInitialized = true;
     var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
     var l = new DummyLogger();
 
