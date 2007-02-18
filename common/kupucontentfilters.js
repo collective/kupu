@@ -541,6 +541,26 @@ function XhtmlValidation(editor) {
         };
     }(this, editor);
 
+    // Node filtering. May modify html node or xhtml parentNode.
+    // Return true to continue processing html node, false to skip it.
+    this.nodefilters = new function(editor) {
+        // Strip <br> at end of paragraph.
+        // Top level <br>: enclose preceding text (if any) in <p> and
+        // drop the <br>
+        this['br'] = function(node, parentNode) {
+            if (parentNode.tagName=='body') {
+                var p = parentNode.ownerDocument.createElement('p');
+                if (parentNode.lastChild && parentNode.lastChild.nodeType==3) {
+                    p.appendChild(parentNode.lastChild);
+                }
+                parentNode.appendChild(p);
+                return false;
+            }
+            if (!node.nextSibling) return false;
+            return true;
+        };
+    }
+
     // Exclude unwanted tags.
     this.excludeTags(['center']);
 
@@ -599,6 +619,12 @@ function XhtmlValidation(editor) {
         var nodename = this._getTagName(htmlnode);
         var nostructure = !this.filterstructure;
 
+        var filter = this.nodefilters[nodename];
+        if (filter) {
+            if (!filter(htmlnode, xhtmlparent)) {
+                return;
+            }
+        }
         // TODO: This permits valid tags anywhere. it should use the state
         // table in xhtmlvalid to only permit tags where the XHTML DTD
         // says they are valid.
