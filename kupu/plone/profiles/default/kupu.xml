@@ -17,7 +17,7 @@
     <style>Even row|tr|even</style>
     <style>Heading cell|th|</style>
     <filter attributes=""
-            tags="center tt big small s strike basefont font"/>
+            tags="center tt big small basefont font"/>
     <filter attributes="dir lang valign halign border frame rules cellspacing cellpadding bgcolor"
             tags=""/>
     <filter attributes="width height" tags="table th td"/>

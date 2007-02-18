@@ -21,7 +21,7 @@ RESOURCES = dict(
     )
 
 EXCLUDED_HTML = [
-  {'tags': ('center','tt','big','small','s','strike','basefont','font',),
+  {'tags': ('center','tt','big','small','basefont','font',),
    'attributes':(),
    'keep': 1 },
   

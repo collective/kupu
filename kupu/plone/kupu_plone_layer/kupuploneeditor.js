@@ -76,8 +76,8 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     // Remove empty links
     contents = contents.replace(/<a\s+href="[^"]*"\s*>\s*<\/a>/g, '');
     // Fixup empty paras.
-    contents = contents.replace(/<p[^>]*>\s*<\/p>(<br \/>)*/g, '<p$1><br /></p>').strip();
-    return contents;
+    contents = contents.replace(/<p[^>]*>\s*<\/p>(<br \/>)*/g, '<p$1>&#160;</p>').strip();
+    return contents;	
 };
 
 KupuEditor.prototype.saveDataToField = function(form, field) {
