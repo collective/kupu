@@ -53,7 +53,7 @@ SUPPORTED = {
     MOZILLA: (1,3,1),
     INTERNET_EXPLORER: (5,5),
     OPERA: (9,0),
-    SAFARI: (420,0),
+    SAFARI: (999,9), #(420,0), # Safari not yet supported
 }
 
 # BROWSERS records contain:
@@ -395,7 +395,11 @@ BROWSERS = (
 def createTest(sig, isSupported, index, os, browser, version):
     def test(self):
         actual = self.script(sig)
-        self.assertEquals(isSupported, actual)
+        if isSupported:
+            expect = "expected supported but it isn't"
+        else:
+            expect = "found supported when not expecting it"
+        self.assertEquals(isSupported, actual, expect)
     testname = 'test_%d %s %s %s' % (index, os, BROWSERNAMES[browser],
                                      '.'.join([str(v) for v in version]))
     setattr(TestBrowserSupportsKupu, testname.strip(), test)
