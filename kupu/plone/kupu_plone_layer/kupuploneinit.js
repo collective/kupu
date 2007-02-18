@@ -28,12 +28,13 @@ function initPloneKupu(editorId) {
     var doc = new KupuDocument(iframe);
 
     // now we can create the controller
-    var kupu = new KupuEditor(doc, conf, l);
+    var kupu = window.kupu = new KupuEditor(doc, conf, l);
     kupu.setHTMLBody(initialtext);
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI(prefix+'select.kupu-tb-styles');
     kupu.registerTool('ui', ui);
+    window.kupuui = ui;
 
     // function that returns a function to execute a button command
     var execCommand = function(cmd) {
@@ -227,6 +228,7 @@ function initPloneKupu(editorId) {
     // create some drawers, drawers are some sort of popups that appear when a 
     // toolbar button is clicked
     var drawertool = window.drawertool || new DrawerTool();
+    window.drawertool = drawertool;
     kupu.registerTool('drawertool', drawertool);
 
     var drawerparent = prefix+'div.kupu-librarydrawer-parent';
@@ -266,6 +268,7 @@ function initPloneKupu(editorId) {
     };
     addEventHandler(textarea.form, 'submit', prepareForm, textarea);
 
+    kupu.initialize();
     return kupu;
 };
 
