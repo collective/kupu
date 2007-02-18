@@ -43,16 +43,17 @@ class TestBrowserSupportsKupu(PloneTestCase.PloneTestCase):
 # 9, GALEON             -- not supported
 
 (MOZILLA, INTERNET_EXPLORER, OPERA, KONQUEROR, NETSCAPE, OTHER,
- GOOGLE, YAHOO, GALEON) = range(1,10)
+ GOOGLE, YAHOO, GALEON, SAFARI) = range(1,11)
 
 BROWSERNAMES = ['NOTUSED', 'Mozilla', 'Internet Explorer', 'Opera',
                 'Konqueror', 'Netscape', 'Other', 'Google',
-                'Yahoo', 'Galeon' ]
- 
+                'Yahoo', 'Galeon', 'Safari' ]
+
 SUPPORTED = {
     MOZILLA: (1,3,1),
     INTERNET_EXPLORER: (5,5),
     OPERA: (9,0),
+    SAFARI: (420,0),
 }
 
 # BROWSERS records contain:
@@ -86,7 +87,7 @@ BROWSERS = (
     ('Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.6) Gecko/20040113', 'Windows XP', '1.6', MOZILLA),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows 98) Opera 7.20  [en]', 'Windows 95', '7.20', OPERA),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; YComp 5.0.0.0; Avalon Ltd.)', 'Windows 2000', '6.0', INTERNET_EXPLORER),
-    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.7', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', MOZILLA),
+    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/85.7 (KHTML, like Gecko) Safari/85.7', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', SAFARI),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; Hotbar 4.4.2.0; .NET CLR 1.0.3705)', 'Windows XP', '6.0', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0) Active Cache Request', 'Windows 2000', '5.5', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 5.0; Windows 98; DigExt)', 'Windows 95', '5.0', INTERNET_EXPLORER),
@@ -112,7 +113,7 @@ BROWSERS = (
     ('Lynx/2.8.4dev.16 libwww-FM/2.14 SSL-MM/1.4.1 OpenSSL/0.9.6', None, None, OTHER),
     ('Mozilla/4.0 (compatible; MSIE 5.5; Windows 98)', 'Windows 95', '5.5', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; TUCOWS; MyIE2)', 'Windows XP', '6.0', INTERNET_EXPLORER),
-    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/124 (KHTML, like Gecko) Safari/125.1', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', MOZILLA),
+    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/124 (KHTML, like Gecko) Safari/125.1', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', SAFARI),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; H010818; .NET CLR 1.0.3705)', 'Windows 2000', '6.0', INTERNET_EXPLORER),
     ('Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.5) Gecko/20031007 Firebird/0.7', 'Windows 2000', '1.5', MOZILLA),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; Hotbar 4.4.0.0)', 'Windows XP', '6.0', INTERNET_EXPLORER),
@@ -267,7 +268,7 @@ BROWSERS = (
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; winweb; .NET CLR 1.0.3705)', 'Windows XP', '6.0', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; AUTOSIGN W2000 WNT VER03; .NET CLR 1.0.3705; .NET CLR 1.1.4322)', 'Windows XP', '6.0', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 5.01; Windows 98; Feat Ext 15)', 'Windows 95', '5.01', INTERNET_EXPLORER),
-    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/124 (KHTML, like Gecko) Safari/125', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', MOZILLA),
+    ('Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/124 (KHTML, like Gecko) Safari/125', 'Mac PPC', '5.0 (Macintosh; U; PPC Mac OS X; en', SAFARI),
     ('Mozilla/4.0 compatible ZyBorg/1.0 (wn.zyborg@looksmart.net; http://www.WISEnutbot.com)', 'uknown OS', '4.0 compatible ZyBorg/1.0', 5),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; YComp 5.0.2.6)', 'Windows XP', '6.0', INTERNET_EXPLORER),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; AUTOSIGN W2000 WNT VER03; .NET CLR 1.1.4322; .NET CLR 1.0.3705)', 'Windows XP', '6.0', INTERNET_EXPLORER),
@@ -387,7 +388,9 @@ BROWSERS = (
     ('Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1b1) Gecko/20060728 Firefox/2.0 Opera 9.20', 'Windows XP', '9.20', OPERA),
     ('Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; en) Opera 9.01', 'Windows XP', '9.01', OPERA),
     ('Mozilla/4.0 (compatible; MSIE 6.0; X11; Linux i686; en) Opera 9.00', 'Linux', '9.00', OPERA),
-     )
+    ('Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Safari/419.3', 'Mac', '420.0', SAFARI),
+    ('Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/418.9.1 (KHTML, like Gecko) Safari/419.3', 'Mac', '418.9.1', SAFARI),
+)
 
 def createTest(sig, isSupported, index, os, browser, version):
     def test(self):
@@ -409,8 +412,8 @@ def createTests():
 
         # Specifically exclude support for some browsers
         #XXX Hack
-        if 'Safari' in sig:
-            supported = False
+        #if 'Safari' in sig:
+        #    supported = False
 
         createTest(sig, supported, id, os, browser, version)
 
