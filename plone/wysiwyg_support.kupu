@@ -31,11 +31,7 @@
   <kupu:part name="eventhandler">
     <script type="text/javascript"
       tal:content="string:
-      addEventHandler(window, 'load',  function() {
-          window.kupu = initPloneKupu('${editorid}');
-          window.kupuui = window.kupu.getTool('ui');
-          window.drawertool = window.kupu.getTool('drawertool');
-          window.kupu.initialize();}  , document);"></script>
+      addEventHandler(window, 'load',  function() { initPloneKupu('${editorid}'); }, document);"></script>
   </kupu:part>
 
   <kupu:part name="textarea">
