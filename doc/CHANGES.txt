@@ -18,6 +18,15 @@ Kupu changes
 
   - Fixed some small issues in XhtmlValidation elements.
 
+  - Improved KSS integration:
+
+	* Added an invisible save button to Plone toolbar: KSS will link up
+	  events and make it visible when editing inline.
+
+	* Fixed site error on empty page (Plone 3 compatibility)
+
+  - HTML cleanup improved: spurious <br/> tags removed.
+
 - 1.4 Beta 3
 
   - Fixed a bug where createLink deleted the selected text.
