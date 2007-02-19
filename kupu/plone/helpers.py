@@ -8,7 +8,9 @@
 #
 ##############################################################################
 # Helper classes
+# Filter list: filter name, title, enabled by default, css class
 FILTERS = [
+    ('save-button', 'Save button', True, 'kupu-save'),
     ('bg-basicmarkup', 'Bold/Italic group', True, None),
     ('bold-button', 'Bold button', True, 'kupu-bold'),
     ('italic-button', 'Italic button', True, 'kupu-italic'),
