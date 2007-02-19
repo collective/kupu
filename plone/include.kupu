@@ -11,6 +11,7 @@
   <xi:include href="xmlconfig.kupu" />
   <xi:include href="body.kupu" />
   <xi:include href="toolbar.kupu" />
+  <xi:include href="save.kupu" />
   <xi:include href="drawers.kupu" />
   <xi:include href="beforeunload.kupu" />
   <xi:include href="sourceedit.kupu" />
