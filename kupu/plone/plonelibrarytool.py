@@ -742,8 +742,5 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/kupu_config')
-
-    def _enableuidtransform(self, enable):
-        """Enable or disable the uid transform."""
         
 InitializeClass(PloneKupuLibraryTool)
