@@ -184,8 +184,8 @@ def install_configlet(self, out):
                , 'string:${portal_url}/%s/kupu_config' % TOOLNAME
                , ''                 # a condition   
                , 'Manage portal'    # access permission
-               , 'Products'         # section to which the configlet should be added: 
-                                    #(Plone,Products,Members) 
+               , 'Plone'            # category to which kupu should be added: 
+                                    # (Plone,Products,Members) 
                , 1                  # visibility
                , PROJECTNAME
                , 'kupuimages/kupu_icon.gif' # icon in control_panel
