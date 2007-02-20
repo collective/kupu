@@ -27,5 +27,6 @@
       This template is an empty placeholder, used for loading contents
       into the Kupu editor-iframe.
    </tal:comment>
+   <script type="text/javascript">document._kssReadyForLoadEvent=1;</script> 
   </body>
 </html>
