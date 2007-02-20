@@ -677,6 +677,22 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             pass
         self.html_exclusions = exclusions
 
+    security.declareProtected("View", "get_stripped_tags")
+    def get_stripped_tags(self):
+        """Returns a list of tags to be stripped"""
+        stripped = []
+        for (tags, attrs) in self.html_exclusions:
+            if not attrs:
+                stripped.extend(list(tags))
+        return stripped
+
+    security.declareProtected(permissions.ManageLibraries, "set_stripped_tags")
+    def set_stripped_tags(self, stripped):
+        """Sets a list of tags to be stripped"""
+        exclusions = [(tags, attrs) for (tags, attrs) in self.html_exclusions if attrs]
+        exclusions.append((tuple(stripped), ()))
+        self.set_html_exclusions(exclusions)
+
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,
