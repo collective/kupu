@@ -7,7 +7,6 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-
 // $Id$
 
 
@@ -19,8 +18,8 @@ function initKupu(iframe) {
     /* Although this is meant to be a sample implementation, it can
         be used out-of-the box to run the sample pagetemplate or for simple
         implementations that just don't use some elements. When you want
-        to do some customization, this should probably be overridden. For 
-        larger customization actions you will have to subclass or roll your 
+        to do some customization, this should probably be overridden. For
+        larger customization actions you will have to subclass or roll your
         own UI object.
     */
 
@@ -60,7 +59,7 @@ function initKupu(iframe) {
 
     var boldchecker = parentWithStyleChecker(['b', 'strong'],
                                              'fontWeight', 'bold', 'bold');
-    var boldbutton = new KupuStateButton('kupu-bold-button', 
+    var boldbutton = new KupuStateButton('kupu-bold-button',
                                          execCommand('bold'),
                                          boldchecker,
                                          'kupu-bold',
@@ -69,19 +68,19 @@ function initKupu(iframe) {
 
     var italicschecker = parentWithStyleChecker(['i', 'em'],
                                               'fontStyle', 'italic', 'italic');
-    var italicsbutton = new KupuStateButton('kupu-italic-button', 
-                                           execCommand('italic'),
-                                           italicschecker, 
-                                           'kupu-italic', 
-                                           'kupu-italic-pressed');
+    var italicsbutton = new KupuStateButton('kupu-italic-button',
+                                            execCommand('italic'),
+                                            italicschecker,
+                                            'kupu-italic',
+                                            'kupu-italic-pressed');
     kupu.registerTool('italicsbutton', italicsbutton);
 
     var underlinechecker = parentWithStyleChecker(['u'],
                                    'textDecoration', 'underline', 'underline');
-    var underlinebutton = new KupuStateButton('kupu-underline-button', 
+    var underlinebutton = new KupuStateButton('kupu-underline-button',
                                               execCommand('underline'),
                                               underlinechecker,
-                                              'kupu-underline', 
+                                              'kupu-underline',
                                               'kupu-underline-pressed');
     kupu.registerTool('underlinebutton', underlinebutton);
 
@@ -96,10 +95,10 @@ function initKupu(iframe) {
 
     var superscriptchecker = parentWithStyleChecker(['super', 'sup'],
                                                     null, null, 'superscript');
-    var superscriptbutton = new KupuStateButton('kupu-superscript-button', 
+    var superscriptbutton = new KupuStateButton('kupu-superscript-button',
                                                 execCommand('superscript'),
                                                 superscriptchecker,
-                                                'kupu-superscript', 
+                                                'kupu-superscript',
                                                 'kupu-superscript-pressed');
     kupu.registerTool('superscriptbutton', superscriptbutton);
 
@@ -138,7 +137,6 @@ function initKupu(iframe) {
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     // add some tools
-    // XXX would it be better to pass along elements instead of ids?
     var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
                                                 'kupu-hilitecolor-button',
                                                 'kupu-colorchooser');
@@ -146,7 +144,8 @@ function initKupu(iframe) {
 
     var listtool = new ListTool('kupu-list-ul-addbutton',
                                 'kupu-list-ol-addbutton',
-                                'kupu-ulstyles', 'kupu-olstyles');
+                                'kupu-ulstyles',
+                                'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
 
     // since we use the inspector we don't need much else ;)
@@ -193,17 +192,19 @@ function initKupu(iframe) {
                                            opendrawer('tabledrawer'));
     kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
 
-    // create some drawers, drawers are some sort of popups that appear when a 
+    // create some drawers, drawers are some sort of popups that appear when a
     // toolbar button is clicked
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-    var linklibdrawer = new LinkLibraryDrawer(linktool, conf.link_xsl_uri,
+    var linklibdrawer = new LinkLibraryDrawer(linktool,
+                                              conf.link_xsl_uri,
                                               conf.link_libraries_uri,
                                               conf.search_links_uri);
     drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-    var imagelibdrawer = new ImageLibraryDrawer(imagetool, conf.image_xsl_uri,
+    var imagelibdrawer = new ImageLibraryDrawer(imagetool,
+                                                conf.image_xsl_uri,
                                                 conf.image_libraries_uri,
                                                 conf.search_images_uri);
     drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);

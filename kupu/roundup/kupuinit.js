@@ -26,16 +26,16 @@ function initKupu(iframe) {
     /* Although this is meant to be a sample implementation, it can
         be used out-of-the box to run the sample pagetemplate or for simple
         implementations that just don't use some elements. When you want
-        to do some customization, this should probably be overridden. For 
-        larger customization actions you will have to subclass or roll your 
+        to do some customization, this should probably be overridden. For
+        larger customization actions you will have to subclass or roll your
         own UI object.
     */
 
     // first we create a logger
     var l = new DummyLogger();
-    
+
     // now some config values
-    // XXX To mimic the 'old' behaviour, vars should be retrieved from the 
+    // XXX To mimic the 'old' behaviour, vars should be retrieved from the
     // iframe (attributes)
     var src = iframe.getAttribute('src');
     var dst = iframe.getAttribute('dst');
@@ -49,7 +49,7 @@ function initKupu(iframe) {
     if (iframe.getAttribute('content_type')) {
         content_type = iframe.getAttribute('content_type');
     };
-    
+
     var conf = {'src': src,
                 'dst': dst,
                 'use_css': use_css,
@@ -57,20 +57,23 @@ function initKupu(iframe) {
                 'strict_output': strict_output,
                 'content_type': content_type
                 };
-    
+
     // the we create the document, hand it over the id of the iframe
     var doc = new KupuDocument(iframe);
-    
+
     // now we can create the controller
     var kupu = new KupuEditor(doc, conf, l);
 
     // add the contextmenu
-    var cm = new ContextMenu();
-    kupu.setContextMenu(cm);
+    var contextmenu = new ContextMenu();
+    kupu.setContextMenu(contextmenu);
 
-    var listtool = new ListTool('kupu-list-ul-addbutton', 'kupu-list-ol-addbutton', 'kupu-ulstyles', 'kupu-olstyles');
+    var listtool = new ListTool('kupu-list-ul-addbutton',
+                                'kupu-list-ol-addbutton',
+                                'kupu-ulstyles',
+                                'kupu-olstyles');
     kupu.registerTool('listtool', listtool);
-    
+
     var linktool = new RoundupLinkTool();
     kupu.registerTool('linktool', linktool);
 
