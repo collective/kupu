@@ -237,10 +237,18 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     security.declareProtected('View', "getHtmlExclusions")
     def getHtmlExclusions(self):
         try:
-            return self.html_exclusions
+            excl = self.html_exclusions
         except AttributeError:
-            self.html_exclusions = _excluded_html
-            return self.html_exclusions
+            excl = self.html_exclusions = _excluded_html
+
+        res = []
+        for (t,a) in excl:
+            if t and t[0]=='':
+                t = []
+            if a and a[0]=='':
+                a = []
+            res.append((t,a))
+        return res
 
     security.declareProtected('View', "getStyleWhitelist")
     def getStyleWhitelist(self):
@@ -673,26 +681,60 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         """Set the html_exclusions.
         Expects a list/tuple of 2-tuples [(tags,attrs),...]
         """
-        for (tag,attr) in exclusions:
-            pass
-        self.html_exclusions = exclusions
+        excl = []
+        for (tags,attrs) in exclusions:
+            if len(tags)==1 and tags[0]=="":
+                tags = []
+            if len(attrs)==1 and attrs[0]=="":
+                attrs = []
+            excl.append((tags, attrs))
+        self.html_exclusions = excl
 
     security.declareProtected("View", "get_stripped_tags")
     def get_stripped_tags(self):
         """Returns a list of tags to be stripped"""
         stripped = []
-        for (tags, attrs) in self.html_exclusions:
+        for (tags, attrs) in self.getHtmlExclusions():
             if not attrs:
-                stripped.extend(list(tags))
+                stripped.extend(tags)
         return stripped
 
     security.declareProtected(permissions.ManageLibraries, "set_stripped_tags")
     def set_stripped_tags(self, stripped):
         """Sets a list of tags to be stripped"""
-        exclusions = [(tags, attrs) for (tags, attrs) in self.html_exclusions if attrs]
+        exclusions = [(tags, attrs) for (tags, attrs) in self.getHtmlExclusions() if attrs]
         exclusions.append((tuple(stripped), ()))
         self.set_html_exclusions(exclusions)
 
+    security.declareProtected('View', "get_stripped_attributes")
+    def get_stripped_attributes(self):
+        """Returns a list of attributes to be stripped"""
+        stripped = []
+        for (tags, attrs) in self.getHtmlExclusions():
+            if not tags:
+                stripped.extend(attrs)
+        return stripped
+        
+    security.declareProtected(permissions.ManageLibraries, "set_stripped_attributes")
+    def set_stripped_attributes(self, stripped):
+        """Sets a list of attributes to be stripped"""
+        exclusions = [(tags, attrs) for (tags, attrs) in self.html_exclusions if tags]
+        exclusions.append(((), tuple(stripped)))
+        self.set_html_exclusions(exclusions)
+
+    security.declareProtected('View', "get_stripped_combinations")
+    def get_stripped_combinations(self):
+        """Returns a list of tag/attribute combinations to be stripped"""
+        stripped = [(tags, attrs) for (tags, attrs) in self.getHtmlExclusions() if tags and attrs]
+        return stripped
+
+    security.declareProtected(permissions.ManageLibraries, "set_stripped_combinations")
+    def set_stripped_combinations(self, stripped):
+        """Sets a list of tag/attribute pairs to be stripped"""
+        exclusions = [(tags, attrs) for (tags, attrs) in self.getHtmlExclusions() if not (tags and attrs)]
+        self.set_html_exclusions(stripped + exclusions)
+
+        
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,
