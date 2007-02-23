@@ -127,7 +127,7 @@
       <button type="button" class="kupu-zoom" id="kupu-zoom-button" i18n:attributes="title" title="Zoom: Access key (Alt or Ctrl) + X" accesskey="x">&#160;</button>
     </span>
   
-    <span class="kupu-tb-buttongroup" tal:condition="not:context/checkCreationFlag">
+    <span class="kupu-tb-buttongroup" tal:condition="not:context/checkCreationFlag|python:True">
       <button type="button" class="kupu-save" id="kupu-save-button" title="Save" i18n:attributes="title" accesskey="s" tal:condition="filter/save-button">&#160;</button>
     </span>
   
