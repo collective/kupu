@@ -15,7 +15,13 @@ def register_layer(self, relpath, name, out, add=True):
     skinstool = getToolByName(self, 'portal_skins')
     if name not in skinstool.objectIds():
         kupu_plone_skin_dir = minimalpath(os.path.join(kupu_package_dir, relpath))
-        createDirectoryView(skinstool, kupu_plone_skin_dir, name)
+        # XXX Hack around problems in CMF 2.1
+        try:
+            createDirectoryView(skinstool, kupu_plone_skin_dir, name)
+        except ValueError:
+            kupu_plone_skin_dir = 'Products.kupu:/%s' % relpath
+            createDirectoryView(skinstool, kupu_plone_skin_dir, name)
+        
         print >>out, "The layer '%s' was added to the skins tool" % name
 
     if not add:
