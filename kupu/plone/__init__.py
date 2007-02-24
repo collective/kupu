@@ -28,10 +28,9 @@ try:
 except ImportError:
     profile_registry = None
 
-kupu_package_dir = package_home(kupu_globals)
-registerDirectory('plone/kupu_plone_layer', kupu_package_dir)
-registerDirectory('plone/kupu_references', kupu_package_dir)
-registerDirectory('tests', kupu_package_dir)
+registerDirectory('plone/kupu_plone_layer', kupu_globals)
+registerDirectory('plone/kupu_references', kupu_globals)
+registerDirectory('tests', kupu_globals)
 
 def initialize(context):
     try:
