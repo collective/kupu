@@ -120,7 +120,7 @@ def install_resources(self, out):
     if SARISSA not in existing:
         jstool.manage_addScript(id=SARISSA, enabled=True,
             cookable=True,
-            compression='safe-encode',
+            compression='safe',
             cacheable=True)
         jstool.moveResourceAfter(SARISSA, 'plone_javascripts.js')
         print >>out, "JS file", SARISSA
@@ -131,7 +131,7 @@ def install_resources(self, out):
         jstool.manage_addScript(id=id,
             expression=CONDITION,
             enabled=True,
-            compression='safe-encode',
+            compression='safe',
             cookable=True)
 
 def uninstall_resources(self, out):
