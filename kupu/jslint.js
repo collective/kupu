@@ -3002,7 +3002,7 @@ function processarguments(options, args, defaults) {
     return result;
 }
 
-if (WScript) {
+if (typeof(WScript) != 'undefined') {
     var arguments = [];
     for (var arg = 0; arg < WScript.Arguments.Count(); arg++) {
         arguments.push(WScript.Arguments(arg));

@@ -14,8 +14,10 @@ from Queue import Queue
 import threading
 
 COMPILE_COMMAND = "java org.mozilla.javascript.tools.shell.Main %(lint)s --options %(options)s %(file)s"
+ERRORS = (IOError, )
 if sys.platform=='win32':
     COMPILE_COMMAND = "cscript /NoLogo %(lint)s --options %(options)s %(file)s"
+    ERRORS = (IOError, WindowsError)
 
 def lint(name):
     cmd = COMPILE_COMMAND % dict(lint=LINT, file=name, options=OPTIONS)
@@ -50,14 +52,14 @@ def newfiles(status, *patterns):
 def basetime(marker):
     try:
         mtime = os.stat(marker).st_mtime
-    except (IOError, WindowsError):
+    except ERRORS:
         mtime = 0.0
     return mtime
 
 def loadstatus(name):
     try:
         f = open(name, 'rb')
-    except (IOError, WindowsError):
+    except ERRORS:
         return {}
     try:
         try:
