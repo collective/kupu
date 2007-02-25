@@ -3,53 +3,66 @@
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupunoi18n.js" inline="False"/>
+    id="kupunoi18n.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="sarissa_ieemu_xpath.js" inline="False"/>
+    id="sarissa_ieemu_xpath.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuhelpers.js" inline="False"/>
+    id="kupuhelpers.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupueditor.js" inline="False"/>
+    id="kupueditor.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupubasetools.js" inline="False"/>
+    id="kupubasetools.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuloggers.js" inline="False"/>
+    id="kupuloggers.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupucontentfilters.js" inline="False"/>
+    id="kupucontentfilters.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupucontextmenu.js" inline="False"/>
+    id="kupucontextmenu.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuploneeditor.js" inline="False"/>
+    id="kupuploneeditor.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuploneui.js" inline="False"/>
+    id="kupuploneui.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupusourceedit.js" inline="False"/>
+    id="kupusourceedit.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupudrawers.js" inline="False"/>
+    id="kupudrawers.js" inline="False"
+    position-bottom="" />
  <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuploneinit.js" inline="False"/>
+    id="kupuploneinit.js" inline="False"
+    position-bottom="" />
 </object>
