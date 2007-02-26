@@ -430,6 +430,9 @@ if(!document.importNode && _SARISSA_IS_IE){
         * @returns the imported node for further use
         */
         document.importNode = function(oNode, bChildren){
+            if (oNode.nodeName=='#text') {
+		return document.createTextElement(oNode.data);
+	    }
             var tmp = document.createElement("div");
             if(bChildren){
                 tmp.innerHTML = oNode.xml ? oNode.xml : oNode.outerHTML;
