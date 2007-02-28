@@ -122,7 +122,10 @@ def install_resources(self, out):
             cookable=True,
             compression='safe',
             cacheable=True)
-        jstool.moveResourceAfter(SARISSA, 'plone_javascripts.js')
+        if 'plone_javascripts.js' in existing:
+            jstool.moveResourceAfter(SARISSA, 'plone_javascripts.js')
+        else:
+            jstool.moveResourceToBottom(SARISSA)
         print >>out, "JS file", SARISSA
 
     for id in js_files(data):
