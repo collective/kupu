@@ -201,7 +201,11 @@ filtered HTML which will be sent to the server. Uncheck this box to see the raw 
 <fieldset>
 <legend i18n:translate="legend_html_filter">HTML Filter</legend>
 
-<table>
+<div tal:condition="here/have_plone_filtering|nothing">
+	Please use the <a href="#" tal:attributes="href string:${portal_url}/@@filter-controlpanel.html">
+	Plone HTML filter control panel</a> to set filtering options.
+</div>
+<table tal:condition="not:here/have_plone_filtering|nothing">
   <tr>
     <td></td>
     <th i18n:translate="label_tags">Tags</th>

@@ -34,6 +34,11 @@ from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO
 from urllib import quote_plus, unquote_plus
 import html2captioned
+try:
+    from plone.app.controlpanel import filter
+    HAVE_PLONE_FILTERING = True
+except:
+    HAVE_PLONE_FILTERING = False
 
 # Zope 3 interfaces, but on older zopes we'll just skip this bit.
 try:
@@ -734,7 +739,11 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         exclusions = [(tags, attrs) for (tags, attrs) in self.getHtmlExclusions() if not (tags and attrs)]
         self.set_html_exclusions(stripped + exclusions)
 
-        
+
+    security.declareProtected('View', "have_plone_filtering")
+    def have_plone_filtering(self):
+        return HAVE_PLONE_FILTERING
+
     security.declareProtected(permissions.ManageLibraries,
                               "configure_kupu")
     def configure_kupu(self,
