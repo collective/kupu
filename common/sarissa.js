@@ -431,15 +431,17 @@ if(!document.importNode && _SARISSA_IS_IE){
         */
         document.importNode = function(oNode, bChildren){
             if (oNode.nodeName=='#text') {
-		return document.createTextElement(oNode.data);
+		return document.createTextNode(oNode.data);
 	    }
-            var tmp = document.createElement("div");
+	    var tmp = document.createElement("div");
+
+	    var pNode = (oNode.nodeName.toLowerCase()=='tbody')? oNode.parentNode: oNode;
             if(bChildren){
-                tmp.innerHTML = oNode.xml ? oNode.xml : oNode.outerHTML;
+                tmp.innerHTML = pNode.xml ? pNode.xml : pNode.outerHTML;
             }else{
-                tmp.innerHTML = oNode.xml ? oNode.cloneNode(false).xml : oNode.cloneNode(false).outerHTML;
+                tmp.innerHTML = pNode.xml ? pNode.cloneNode(false).xml : pNode.cloneNode(false).outerHTML;
             };
-            return tmp.getElementsByTagName("*")[0];
+            return tmp.getElementsByTagName(oNode.nodeName)[0];
         };
     }catch(e){ };
 };
