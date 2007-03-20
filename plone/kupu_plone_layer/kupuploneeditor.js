@@ -30,54 +30,54 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     var hrefparts = href.split('/');
     contents = contents.replace(/(<[^>]* (?:src|href)=")([^"]*)"/g,
         function(str, tag, url, offset, contents) {
-            var resolveuid = url.indexOf('/resolveuid/');
-            if (resolveuid != -1) {
-                str = tag + url.substr(resolveuid+1)+'"';
-                return str;
-            }
-            var urlparts = url.split('#');
-            var anchor = urlparts[1] || '';
-            url = urlparts[0];
-            var urlparts = url.split('/');
-            var common = 0;
-            while (common < urlparts.length &&
-                   common < hrefparts.length &&
-                   urlparts[common]==hrefparts[common]) {
-                common++;
-            }
-            var last = urlparts[common];
-            if (common == urlparts.length) { urlparts[common] = '.'; }
-            else if (common+1 == urlparts.length && (last=='emptypage'||last==pageid)) {
-                urlparts[common] = '';
-            }
+        var resolveuid = url.indexOf('/resolveuid/');
+        if (resolveuid != -1) {
+            str = tag + url.substr(resolveuid+1)+'"';
+            return str;
+        }
+        var urlparts = url.split('#');
+        var anchor = urlparts[1] || '';
+        url = urlparts[0];
+        var urlparts = url.split('/');
+        var common = 0;
+        while (common < urlparts.length &&
+            common < hrefparts.length &&
+            urlparts[common]==hrefparts[common]) {
+            common++;
+        }
+        var last = urlparts[common];
+        if (common == urlparts.length) { urlparts[common] = '.'; }
+        else if (common+1 == urlparts.length && (last=='emptypage'||last==pageid)) {
+            urlparts[common] = '';
+        }
             // The base and the url have 'common' parts in common.
             // First two are the protocol, so only do stuff if more
             // than two match.
-            if (common > 2) {
-                var path = [];
-                var i = 0;
-                for (; i+common < hrefparts.length-1; i++) {
-                    path[i] = '..';
-                };
-                while (common < urlparts.length) {
-                    path[i++] = urlparts[common++];
-                };
-                if (i==0 && !anchor) {
-                    path[i++] = '#';
-                }
-                str = path.join('/');
-                if (anchor) {
-                    str = [str,anchor].join('#');
-                }
-                str = tag + str+'"';
+        if (common > 2) {
+            var path = [];
+            var i = 0;
+            for (; i+common < hrefparts.length-1; i++) {
+                path[i] = '..';
             };
-            return str;
-        });
+            while (common < urlparts.length) {
+                path[i++] = urlparts[common++];
+            };
+            if (i==0 && !anchor) {
+                path[i++] = '#';
+            }
+            str = path.join('/');
+            if (anchor) {
+                str = [str,anchor].join('#');
+            }
+            str = tag + str+'"';
+        };
+        return str;
+    });
     // Remove empty links
     contents = contents.replace(/<a\s+href="[^"]*"\s*>\s*<\/a>/g, '');
     // Fixup empty paras.
-    contents = contents.replace(/<p[^>]*>\s*<\/p>(<br \/>)*/g, '<p$1>&#160;</p>').strip();
-    return contents;	
+    contents = contents.replace(/<((p|div)\b[^>]*)>\s*<\/\2>(<br \/>)*/g, '<$1>&nbsp;</$2>').strip();
+    return contents;
 };
 
 KupuEditor.prototype.saveDataToField = function(form, field) {
@@ -110,6 +110,6 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
 
     // now create the form input
     field.value = contents;
-    
+
     kupu.content_changed = false;
 };
