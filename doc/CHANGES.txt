@@ -2,6 +2,8 @@
 Kupu changes
 ============
 
+  - Adjusted some more Plone tests to work on Plone 3.0.
+
 - 1.4 Beta 4
 
   - Adjusted some Plone tests to work on Plone 3.0.
