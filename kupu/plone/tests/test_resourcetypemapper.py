@@ -18,7 +18,6 @@ if __name__ == '__main__':
 
 import Acquisition
 from Testing.ZopeTestCase import ZopeTestCase
-# from Products.CMFPlone.tests import PloneTestCase
 from Products.kupu.plone.librarytool import KupuLibraryTool
 
 class FakeType:

@@ -16,9 +16,10 @@ import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-import Acquisition
-from Testing.ZopeTestCase import ZopeTestCase
+from Products.PloneTestCase import PloneTestCase
+PloneTestCase.setupPloneSite(products=['kupu'])
 
+import Acquisition
 from Products.kupu.plone.plonelibrarytool import PloneKupuLibraryTool
 
 class FakeMembershipTool:
@@ -35,7 +36,7 @@ class FakeContextObject(Acquisition.Implicit):
     REQUEST = 'whatever'
     absolute_url = lambda(self): u"The answer is 42"
 
-class TestILibraryManager(ZopeTestCase):
+class TestILibraryManager(PloneTestCase.PloneTestCase):
     """Test the implementation of ILibraryManger in KupuLibraryTool"""
 
     def afterSetUp(self):

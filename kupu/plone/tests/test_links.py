@@ -13,30 +13,17 @@ import os, sys
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-import Acquisition
-from Testing.ZopeTestCase import ZopeTestCase, installProduct
-from Products.CMFPlone.tests.PloneTestCase import portal_name, portal_owner
-try:
-    from Products.Archetypes.tests.atsitetestcase import ATSiteTestCase
-except ImportError:
-    from Products.Archetypes.tests.ArchetypesTestCase import \
-        ArcheSiteTestCase as ATSiteTestCase
+from Products.PloneTestCase import PloneTestCase
+from Products.PloneTestCase.ptc import portal_owner
+
+PloneTestCase.setupPloneSite(products=['kupu'])
 
 from AccessControl.SecurityManagement import newSecurityManager
 try:
     from Products.ATContentTypes.lib import constraintypes
 except:
     constraintypes = None
-from Products.kupu.plone.tests import TestContent
 
-try:
-    installProduct('Five', 1)
-except:
-    pass
-installProduct('ATContentTypes', 1)
-installProduct('kupu', 1)
-
-from Products.kupu.plone.plonelibrarytool import PloneKupuLibraryTool
 from Products.kupu.plone.html2captioned import Migration
 
 RESOURCES = dict(
@@ -61,15 +48,12 @@ TypeMapping = {
 def MapType(typename):
     return TypeMapping[typename]
 
-class TestLinkCode(ATSiteTestCase):
+class TestLinkCode(PloneTestCase.PloneTestCase):
     """Test the link checking code"""
 
     def afterSetUp(self):
         portal = self.portal
         self.setRoles(['Manager',])
-        quickinstaller = portal.portal_quickinstaller
-        quickinstaller.installProduct('ATContentTypes')
-        quickinstaller.installProduct('kupu')
         self.kupu = portal.kupu_library_tool
         typestool = self.portal.portal_types
         if not hasattr(typestool, 'ATDocument'):
