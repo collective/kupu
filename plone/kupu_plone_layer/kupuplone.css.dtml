@@ -202,6 +202,7 @@ button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.
 .kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
 .kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}
 
+.kupu-anchors {background-image:url("&dtml-portal_url;/plonekupuimages/anchor.gif");}
 
 div.kupu-drawer {
   border: solid 1px &dtml-contentViewBorderColor;;
