@@ -156,6 +156,7 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 .kupu-image {background-image: url("&dtml-portal_url;/plonekupuimages/image.gif");}
 
 .kupu-indent {background-image: url("&dtml-portal_url;/plonekupuimages/indent.gif");}
+.kupu-outdent {background-image: url("&dtml-portal_url;/plonekupuimages/outdent.gif");}
 .kupu-inserthorizontalrule {background-image: url("&dtml-portal_url;/plonekupuimages/hr.gif");}
 
 .kupu-insertorderedlist,
@@ -179,7 +180,6 @@ span.kupu-tb-buttons .kupu-underline-pressed {
 .kupu-justifyright-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/right_just.gif");}
 
 button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.gif");}
-.kupu-outdent {background-image: url("&dtml-portal_url;/plonekupuimages/outdent.gif");}
 .kupu-redo {background-image: url("&dtml-portal_url;/plonekupuimages/redo.gif");}
 .kupu-save {background-image: url("&dtml-portal_url;/kupuimages/save.png");display:none;}
 .kupu-save-and-exit {background-image: url("&dtml-portal_url;/kupuimages/exit.gif");}
@@ -228,8 +228,7 @@ div.kupuoverride {
 }
 
 .forcekupu {
-    background: transparent url(kupuimages/kupu_icon.gif) 5px 2px no-repeat;
-    padding: 6px 6px 1px 30px;
+    padding: 6px 6px 1px 0px;
     text-transform: &dtml-textTransform;;
     height: 32px; width: auto; 
 }
