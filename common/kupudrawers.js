@@ -1517,7 +1517,7 @@ function AnchorDrawer(elementid, tool) {
                 var node = nodeinfo[0];
                 var level = nodeinfo[1];
                 var a = this.tool.getAnchor(node);
-                var caption = Sarissa.getText(node).truncate(140);
+                var caption = Sarissa.getText(node, true).strip().truncate(140);
                 if (isSingle) {
                     this.tool.createLink('#'+a, null, null, null, caption);
                     break;
