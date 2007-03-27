@@ -523,7 +523,7 @@ class PloneDrawers:
 
         if allow_browse and context is not portal:
             parent = context.aq_parent
-            pt = getattr(parent, 'portal_type', None)
+            pt = getattr(parent.aq_base, 'portal_type', None)
             if pt in collection_type.portal_types:
                 data = self.getSingleObjectInfo(parent, resource_type)
                 data['label'] = '.. (Parent folder)'
