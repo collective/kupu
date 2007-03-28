@@ -7,7 +7,7 @@
 ##bind subpath=traverse_subpath
 ##parameters=
 # (reference_url is supposed to do the same thing, but is broken)
-from Products.CMFCore.utils import getToolByName
+from Products.kupu.plone.util import getToolByName
 from Products.PythonScripts.standard import html_quote
 
 request = context.REQUEST

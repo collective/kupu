@@ -16,13 +16,13 @@ Python scripts, but has been moved here to make it easier to maintain.
 """
 import re, string
 from thread import get_ident
-from Products.CMFCore.utils import getToolByName
 from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
 from Globals import InitializeClass
 from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone.librarytool import KupuError
+from Products.kupu.plone.util import getToolByName
 import html2captioned
 
 try:

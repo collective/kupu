@@ -1,12 +1,65 @@
 # Utility functions used by Kupu tool
 import os
 from App.Common import package_home
-from Products.CMFCore.utils import getToolByName, minimalpath
+from Products.CMFCore.utils import minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.MimetypesRegistry import MimeTypeItem
 from Products.kupu import kupu_globals
 
+from AccessControl import ModuleSecurityInfo
+security = ModuleSecurityInfo('Products.kupu.plone.util')
+
 kupu_package_dir = package_home(kupu_globals)
+
+# trying to get rid of some deprecation warnings in a
+# backwards compatible way
+try:
+    from zope.component import getUtility
+    from zope.component.interfaces import ComponentLookupError
+    HAVE_GET_UTILITY = True
+except ImportError:
+    HAVE_GET_UTILITY = False
+from Products.CMFCore.utils import getToolByName as gtbn
+
+if HAVE_GET_UTILITY:
+    INTERFACEMAP = {
+        'portal_catalog': ('Products.CMFCore.interfaces', 'ICatalogTool'),
+        'portal_memberdata': ('Products.CMFCore.interfaces', 'IMemberDataTool'),
+        'portal_membership': ('Products.CMFCore.interfaces', 'IMembershipTool'),
+        'portal_types': ('Products.CMFCore.interfaces', 'ITypesTool'),
+        'portal_url': ('Products.CMFCore.interfaces', 'IURLTool'),
+        'portal_workflow': ('Products.CMFCore.interfaces', 'IWorkflowTool'),
+        'plone_utils': ('Products.CMFPlone.interfaces', 'IPloneTool'),
+        'portal_interface': ('Products.CMFPlone.interfaces', 'IInterfaceTool'),
+        'portal_skins': ('Products.CMFPlone.interfaces', 'ISkinsContainer'),
+        'content_type_registry': ('Products.CMFPlone.interfaces', 'IContentTypeRegistry'),
+        'portal_quickinstaller': ('Products.CMFQuickInstallerTool.interfaces', 'IQuickInstallerTool'),
+        'archetype_tool': ('Products.Archetypes.interfaces', 'IArchetypeTool'),
+        'reference_catalog': ('Products.Archetypes.interfaces', 'IReferenceCatalog'),
+        'uid_catalog': ('Products.Archetypes.interfaces', 'IUIDCatalog'),
+        'mimetypes_registry': ('Products.MimetypesRegistry.interfaces', 'IMimetypesRegistryTool'),
+        'portal_transforms': ('Products.PortalTransforms.interfaces', 'IPortalTransformsTool'),
+        'kupu_library_tool': ('Products.kupu.plone.z3interfaces', 'IPloneKupuLibraryTool'),
+        }
+    iname_mapping = {}
+    for id, (module, interface) in INTERFACEMAP.iteritems():
+        mod = __import__(module, globals(), locals(), [interface])
+        if hasattr(mod, interface):
+            iname_mapping[id] = getattr(mod, interface)
+    print iname_mapping
+
+security.declarePublic('getToolByName')
+def getToolByName(context, tool_name, default=None):
+    if HAVE_GET_UTILITY:
+        interface = iname_mapping.get(tool_name, None)
+        if interface is not None:
+            try:
+                return getUtility(interface)
+            except ComponentLookupError:
+                # Behave in backward compatible way
+                # fall through to old implementation
+                pass
+    return gtbn(context, tool_name, default)
 
 def register_layer(self, relpath, name, out, add=True):
     """Register a file system directory as skin layer
