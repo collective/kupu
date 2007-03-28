@@ -7,10 +7,10 @@
 # The transform finds all the embedded images, and replaces them with
 # an appropriate chunk of HTML to include the caption.
 #
-from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import itransform
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
+from Products.kupu.plone.util import getToolByName
 import re
 from cgi import escape
 from urlparse import urlsplit, urljoin, urlunsplit

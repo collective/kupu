@@ -6,7 +6,7 @@
 ##bind script=script
 ##bind subpath=traverse_subpath
 ##parameters=fieldname
-from Products.CMFCore.utils import getToolByName
+from Products.kupu.plone.util import getToolByName
 
 from Products.CMFCore.utils import getToolByName
 tool = getToolByName(context, 'kupu_library_tool')
@@ -32,6 +32,7 @@ if not field:
   return True
 text_format = REQUEST.get('%s_text_format' % fieldname, context.getContentType(fieldname))
 content = field.getEditAccessor(context)()
-
+if content.startswith('<!--'):
+    return False
 return len(content)==0 or 'html' in text_format.lower()
 

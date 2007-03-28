@@ -18,7 +18,7 @@ from Acquisition import aq_parent, aq_inner, aq_base
 from Products.CMFCore.Expression import Expression, createExprContext
 from Products.PageTemplates.Expressions import getEngine, SecureModuleImporter
 from Products.kupu.plone.interfaces import IKupuLibraryTool
-from Products.CMFCore.utils import getToolByName
+from Products.kupu.plone.util import getToolByName
 
 class KupuError(Exception): pass
 NEWTYPE_IGNORE, NEWTYPE_ADD = 0, 1

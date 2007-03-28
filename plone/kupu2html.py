@@ -7,9 +7,9 @@
 # The transform is the same as the one done by html2captioned, but
 # this version expects to work on text/x-html-raw
 
-from Products.CMFCore.utils import getToolByName
 from Products.PortalTransforms.interfaces import itransform
 from Products.kupu.plone import html2captioned
+from Products.kupu.plone.util import getToolByName
 
 class KupuOutputTransform(html2captioned.HTMLToCaptioned):
     """Transform which adds captions to images embedded in HTML"""
