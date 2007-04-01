@@ -46,7 +46,7 @@ if HAVE_GET_UTILITY:
         mod = __import__(module, globals(), locals(), [interface])
         if hasattr(mod, interface):
             iname_mapping[id] = getattr(mod, interface)
-    print iname_mapping
+
 
 security.declarePublic('getToolByName')
 def getToolByName(context, tool_name, default=None):
