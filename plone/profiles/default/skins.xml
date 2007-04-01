@@ -9,7 +9,7 @@
  <object name="kupu_tests" meta_type="Filesystem Directory View"
     directory="kupu/tests"/>
  <skin-path name="*">
-  <layer name="kupu" insert-before="*"/>
+  <layer name="kupu" insert-after="custom"/>
   <layer name="kupu_plone" insert-before="kupu"/>
   <layer name="kupu_tests" insert-after="kupu"/>
  </skin-path>
