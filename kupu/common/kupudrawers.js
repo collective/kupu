@@ -1425,6 +1425,7 @@ function AnchorDrawer(elementid, tool) {
         this.style1 = getFromSelector('kupu-bm-sel1');
         this.style2 = getFromSelector('kupu-bm-sel2');
         this.ostyle = getFromSelector('kupu-bm-outcls');
+        this.nstyle = getFromSelector('kupu-bm-number');
         this.radio1 = getFromSelector('kupu-ins-bm');
         this.radio2 = getFromSelector('kupu-toc');
         this.paralist = getBaseTagClass(this.element, 'div', 'kupu-bm-paras');
@@ -1532,7 +1533,7 @@ function AnchorDrawer(elementid, tool) {
                     };
                     var li = ed.newElement('li', {'className': 'level'+level},
                         [ed.newElement('a', {'href': '#'+a},
-                        [ed.newText(number + ' ' + caption)])]);
+                        [ed.newText((this.nstyle.checked?number + ' ':'') + caption)])]);
 
                     if (level==0) {
                         toc.appendChild(li);
