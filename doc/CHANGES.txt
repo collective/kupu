@@ -2,7 +2,18 @@
 Kupu changes
 ============
 
+- latest
   - Adjusted some more Plone tests to work on Plone 3.0.
+
+  - Kupu is automatically suppressed when the content being edited
+    starts with an html comment (<!--).
+
+  - getToolByName directed through a local kupu implementation in an
+    attempt to suppress CMFCore deprecation warning. (This is the wrong
+    way round, we should really call queryUtility everywhere in kupu and
+    have the mapping fallback to getToolByName, but it should do for now)
+
+  - Table of contents numbering is now optional.
 
 - 1.4 Beta 4
 
