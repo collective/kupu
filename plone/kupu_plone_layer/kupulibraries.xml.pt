@@ -10,7 +10,7 @@
     >
 
 <tal:with define="
-    getToolByName nocall:modules/Products/kupu/util/getToolByName;
+    getToolByName nocall:modules/Products/kupu/plone/util/getToolByName;
     kupu_tool     python:getToolByName(context, 'kupu_library_tool');
     libraries     python:kupu_tool.getCookedLibraries(context);
     ">
