@@ -17,9 +17,19 @@ import time
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
+from Testing import ZopeTestCase
+DEPS = ('MimetypesRegistry', 'PortalTransforms', 'Archetypes', 'ATContentTypes')
+try:
+    import Products.TextIndexNG2
+    DEPS = DEPS + ('TextIndexNG2',)
+except ImportError:
+    pass
+
+for product in DEPS:
+    ZopeTestCase.installProduct(product, 1)
 from Products.PloneTestCase import PloneTestCase
 
-PloneTestCase.setupPloneSite(products=['kupu'])
+PloneTestCase.setupPloneSite(products=['ATContentTypes', 'kupu'])
 
 class TestBrowserSupportsKupu(PloneTestCase.PloneTestCase):
 

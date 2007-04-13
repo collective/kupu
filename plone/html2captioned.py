@@ -25,7 +25,7 @@ __revision__ = '$Id$'
 # IMAGE_PATTERN matches an image tag on its own, or an image tag
 # enclosed in a simple <p> or <div>. In the latter case we strip out
 # the enclosing tag since we are going to insert our own.
-PATIMG = '\\<img[^>]+class=[^=>]*captioned[^>]+\\>'
+PATIMG = '\\<img[^>]+class\s*=[^=>]*captioned[^>]+\\>'
 PATA = '(?:\\<a[^>]*\\>'+PATIMG+'\\</a\\>)' + '|' + PATIMG
 PAT0 = '('+PATA+')'
 PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0
@@ -41,15 +41,15 @@ ATTR_WIDTH = ATTR_VALUE % 'width'
 ATTR_PATTERN = re.compile('''
     (?P<tag>\<
      ( class%s
-     | src="resolveuid/(?P<src>([^/"#? ]*))
+     | src\s*=\s*"resolveuid/(?P<src>([^/"#? ]*))
      | width%s
      | .
      )*\>
     )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE | re.IGNORECASE | re.DOTALL)
 SRC_TAIL = re.compile(r'/([^" \/>]+)')
 
-CLASS_PATTERN = re.compile('\s*class=("[^"]*captioned[^"]*"|[^" \/>]+)')
-ALT_PATTERN = re.compile('\\balt=("[^"]*"|[^" \/>]+)')
+CLASS_PATTERN = re.compile('\s*class\s*=\s*("[^"]*captioned[^"]*"|[^" \/>]+)')
+ALT_PATTERN = re.compile('\\balt\s*=\s*("[^"]*"|[^" \/>]+)')
 END_TAG_PATTERN = re.compile('(<img[^>]*?)( */?>)')
 IMAGE_TEMPLATE = '''\
 <div class="%(class)s" style="width:%(width)spx;">
@@ -62,7 +62,7 @@ IMAGE_TEMPLATE = '''\
 </div>
 '''
 
-UID_PATTERN = re.compile('(?P<tag><(?:a|img)\\s[^>]*(?:src|href)=")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
+UID_PATTERN = re.compile('(?P<tag><(?:a|img)\\s[^>]*(?:src|href)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
@@ -189,7 +189,7 @@ def initialize():
 
 ATTR_HREF = ATTR_VALUE % 'href'
 LINK_PATTERN = re.compile(
-    r'(?P<prefix>\<(?:img\s[^>]*src|a\s[^>]*href)=(?:"?))(?P<href>(?<=")[^"]*|[^ \/>]*)',
+    r'(?P<prefix>\<(?:img\s[^>]*src|a\s[^>]*href)\s*=\s*(?:"?))(?P<href>(?<=")[^"]*|[^ \/>]*)',
     re.IGNORECASE)
 FRAGMENT_TYPE = 'CompositePack Fragments'
 NAVIGATION_PAGE = 'Navigation Page'
