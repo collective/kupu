@@ -556,7 +556,7 @@ function XhtmlValidation(editor) {
                 parentNode.appendChild(p);
                 return false;
             }
-            if (!node.nextSibling) return false;
+            if (!node.nextSibling && parentNode.nodeName.test(/p|div/)) return false;
             return true;
         };
     }
