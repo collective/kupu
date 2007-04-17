@@ -46,7 +46,7 @@ FILTERS = [
     ('spellchecker', 'Spellchecker', False, 'kupu-spellchecker'),
     ('source', 'Source', True, 'kupu-source'),
     ('styles', 'Styles pulldown', True, None),
-    ('ulstyles', 'Unordered list style pulldown', True, None),
+    ('ulstyles', 'Unordered list style pulldown', False, None),
     ('olstyles', 'Ordered list style pulldown', True, None),
     ('zoom', 'Zoom button', True, 'kupu-zoom'),
 ]
