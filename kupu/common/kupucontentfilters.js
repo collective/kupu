@@ -297,7 +297,7 @@ function XhtmlValidation(editor) {
         this.attrs = [].concat(this.coreattrs, this.i18n, this.events);
 
         // entities
-        this.special_extra = ['object','applet','img','map','iframe'];
+        this.special_extra = ['object','applet','img','map','iframe', 'embed'];
         this.special_basic=['br','span','bdo'];
         this.special = [].concat(this.special_basic, this.special_extra);
         this.fontstyle_extra = ['big','small','font','basefont'];
@@ -368,6 +368,7 @@ function XhtmlValidation(editor) {
         this.basefont = ['id','size','color','face'];
         this.font = el.coreattrs.concat(el.i18n, 'size','color','face');
         this.object = el.attrs.concat('declare','classid','codebase','data','type','codetype','archive','standby','height','width','usemap','name','tabindex','align','border','hspace','vspace');
+        this.embed=['*'];
         this.param = ['id','name','value','valuetype','type'];
         this.applet = el.coreattrs.concat('codebase','archive','code','object','alt','name','width','height','align','hspace','vspace');
         this.img = el.attrs.concat('src','alt','name','longdesc','height','width','usemap','ismap','align','border','hspace','vspace');
@@ -427,9 +428,9 @@ function XhtmlValidation(editor) {
 
         setStates(['ul', 'ol', 'menu', 'dir', 'ul'], ['li']);
         setStates(['dl'], ['dt','dd']);
-        setStates(['pre'], validation._exclude(el.Inline, "img|object|applet|big|small|sub|sup|font|basefont"));
+        setStates(['pre'], validation._exclude(el.Inline, "img|object|embed|applet|big|small|sub|sup|font|basefont"));
         setStates(['a'], validation._exclude(el.Inline, "a"));
-        setStates(['applet', 'object'], ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc));
+        setStates(['applet', 'object','embed'], ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc));
         setStates(['map'], ['form', 'area'].concat(el.block, el.misc));
         setStates(['form'], validation._exclude(el.Flow, ['form']));
         setStates(['select'], ['optgroup','option']);
@@ -556,7 +557,7 @@ function XhtmlValidation(editor) {
                 parentNode.appendChild(p);
                 return false;
             }
-            if (!node.nextSibling && parentNode.nodeName.test(/p|div/)) return false;
+            if (!node.nextSibling && /p|div/i.test(parentNode.nodeName)) return false;
             return true;
         };
     }
