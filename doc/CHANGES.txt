@@ -2,7 +2,8 @@
 Kupu changes
 ============
 
-- latest
+- 1.4 Beta 5
+
   - Adjusted some more Plone tests to work on Plone 3.0.
 
   - Kupu is automatically suppressed when the content being edited
@@ -14,6 +15,10 @@ Kupu changes
     have the mapping fallback to getToolByName, but it should do for now)
 
   - Table of contents numbering is now optional.
+
+  - Disabled undo/redo, sub/superscript and unordered list buttons
+
+  - Link checker now recognises attributes with whitespace round '='.
 
 - 1.4 Beta 4
 
