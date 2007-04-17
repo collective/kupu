@@ -123,9 +123,9 @@
     <element visible="True" id="bg-basicmarkup"/>
     <element visible="True" id="bold-button"/>
     <element visible="True" id="italic-button"/>
-    <element visible="True" id="bg-subsuper"/>
-    <element visible="True" id="subscript-button"/>
-    <element visible="True" id="superscript-button"/>
+    <element visible="False" id="bg-subsuper"/>
+    <element visible="False" id="subscript-button"/>
+    <element visible="False" id="superscript-button"/>
     <element visible="False" id="bg-colorchooser"/>
     <element visible="False" id="forecolor-button"/>
     <element visible="False" id="hilitecolor-button"/>
@@ -149,9 +149,9 @@
     <element visible="True" id="bg-remove"/>
     <element visible="True" id="removeimage-button"/>
     <element visible="True" id="removelink-button"/>
-    <element visible="True" id="bg-undo"/>
-    <element visible="True" id="undo-button"/>
-    <element visible="True" id="redo-button"/>
+    <element visible="False" id="bg-undo"/>
+    <element visible="False" id="undo-button"/>
+    <element visible="False" id="redo-button"/>
     <element visible="False" id="spellchecker"/>
     <element visible="True" id="source"/>
     <element visible="True" id="styles"/>
