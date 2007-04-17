@@ -155,7 +155,7 @@
     <element visible="False" id="spellchecker"/>
     <element visible="True" id="source"/>
     <element visible="True" id="styles"/>
-    <element visible="True" id="ulstyles"/>
+    <element visible="False" id="ulstyles"/>
     <element visible="True" id="olstyles"/>
     <element visible="True" id="zoom"/>
   </toolbar>

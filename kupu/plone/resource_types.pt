@@ -168,7 +168,7 @@ ideally return an image no larger than 128 pixels square.</p>
     </td>
   </tr>
   <tr>
-    <td style="border-right: none;" width="1%">Normal Image</td>
+    <td style="border-right: none;" width="1%">Normal&nbsp;mage</td>
     <td>
       <input type="text" name="preview_action.normal:records"
              style="width:90%"
