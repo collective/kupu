@@ -167,15 +167,14 @@ if values and callable(values[0].getId):
 res = []
 
 portal = url_tool.getPortalObject()
-portal = portal.aq_base
-if linkhere and portal is not context.aq_base:
+if linkhere and portal is not context.aq_inner:
     data = info_object(context, False)
     if data:
         data['label'] = '. (%s)' % context.title_or_id()
         res.append(data)
 
 if linkparent:
-    if portal is not context.aq_base:
+    if portal is not context.aq_inner:
         data = info_object(context.aq_parent, True)
         if data:
             data['label'] = '.. (Parent folder)'
