@@ -21,7 +21,7 @@
           tail python:test(folderish, '/', '');"
         tal:attributes="href string:${request/URL1}${tail}" />
   </head>
-  <body class="kupu documentContent" id="region-content">
+  <body class="kupu documentContent" id="content">
 
    <tal:comment replace="nothing">    
       This template is an empty placeholder, used for loading contents
