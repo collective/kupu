@@ -4,12 +4,12 @@
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/kupuplone.css" />
     <tal:plone21 condition="exists:here/portal_css">
        <tal:plone25 condition="exists:here/renderAllTheStylesheets">
-	    <metal:css metal:use-macro="here/renderAllTheStylesheets/macros/cssrenderer|nothing">
-		<!-- Fetch stylesheets from the CSS Registry -->
-	    </metal:css>
+        <metal:css metal:use-macro="here/renderAllTheStylesheets/macros/cssrenderer|nothing">
+        <!-- Fetch stylesheets from the CSS Registry -->
+        </metal:css>
        </tal:plone25>
        <tal:plone3 condition="not:exists:here/renderAllTheStylesheets">
-	  <tal:styles replace="structure context/emptypageresources" />
+      <tal:styles replace="structure context/emptypageresources" />
        </tal:plone3>
     </tal:plone21>
     <tal:plone20 condition="not:exists:here/portal_css">
