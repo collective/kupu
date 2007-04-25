@@ -5,7 +5,7 @@ from Products.Archetypes.Field import TextField
 from Products.Archetypes.ReferenceEngine import Reference
 from Products.Archetypes.exceptions import ReferenceException
 from ZPublisher.HTTPRequest import FileUpload
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 import re
 
 # UID_PATTERN matches a UID in an anchor or image tag.
