@@ -9,7 +9,7 @@
 
 from Products.PortalTransforms.interfaces import itransform
 from Products.kupu.plone import html2captioned
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 class KupuOutputTransform(html2captioned.HTMLToCaptioned):
     """Transform which adds captions to images embedded in HTML"""

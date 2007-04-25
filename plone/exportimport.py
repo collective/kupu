@@ -20,7 +20,7 @@ from Globals import InitializeClass
 from Globals import package_home
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 from Products.GenericSetup.utils import CONVERTER
 from Products.GenericSetup.utils import DEFAULT

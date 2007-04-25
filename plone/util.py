@@ -6,15 +6,11 @@ from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.MimetypesRegistry import MimeTypeItem
 from Products.kupu import kupu_globals
 
-from AccessControl import ModuleSecurityInfo
-security = ModuleSecurityInfo('Products.kupu.plone.util')
-
 kupu_package_dir = package_home(kupu_globals)
 
 # trying to get rid of some deprecation warnings in a
 # backwards compatible way
 from Products.CMFCore.utils import getToolByName
-
 
 def register_layer(self, relpath, name, out, add=True):
     """Register a file system directory as skin layer
