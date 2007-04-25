@@ -22,7 +22,7 @@ from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone.librarytool import KupuError
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 import html2captioned
 
 try:

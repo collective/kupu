@@ -29,7 +29,7 @@ from Products.PythonScripts.standard import Object
 
 from Products.kupu.plone.librarytool import KupuLibraryTool
 from Products.kupu.plone import permissions, scanner, plonedrawers, util, helpers
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 from Products.kupu import kupu_globals
 from Products.kupu.config import TOOLNAME, TOOLTITLE
 from StringIO import StringIO

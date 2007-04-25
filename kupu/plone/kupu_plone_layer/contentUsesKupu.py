@@ -6,7 +6,7 @@
 ##bind script=script
 ##bind subpath=traverse_subpath
 ##parameters=fieldname
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 from Products.CMFCore.utils import getToolByName
 tool = getToolByName(context, 'kupu_library_tool')

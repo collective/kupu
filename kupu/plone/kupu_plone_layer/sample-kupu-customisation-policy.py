@@ -11,7 +11,7 @@
 # Make a copy of this script called 'kupu-customisation-policy'
 # in any skin folder on your site and edit it to set up your own
 # preferred kupu configuration.
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 
 RESOURCES = dict(
     linkable = ('Document', 'Image', 'File', 'News Item', 'Event', 'Folder', 'Large Plone Folder'),

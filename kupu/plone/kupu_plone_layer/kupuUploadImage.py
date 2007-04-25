@@ -6,7 +6,7 @@
 ##bind subpath=traverse_subpath
 ##parameters=node_prop_title, node_prop_desc, node_prop_image
 
-from Products.kupu.plone.util import getToolByName
+from Products.CMFCore.utils import getToolByName
 from Products.PythonScripts.standard import html_quote, newline_to_br
 request = context.REQUEST
 RESPONSE =  request.RESPONSE
