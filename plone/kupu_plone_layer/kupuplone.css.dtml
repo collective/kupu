@@ -107,13 +107,6 @@ div.kupu-tb-buttongroup {
   margin-bottom:4px;
 }
 
-/* Since we define bullet styles in the CSS in Plone, the bullet selector has no meaning.
-   Bullet styles belong in the style sheet, not in the HTML. ;)
-   Remove this if you want it back. */
-#kupu-ulstyles {
-    display: none !important;
-}
-
 body.documentContent { padding: 1em !important; }
 
 html.kupu-html {
