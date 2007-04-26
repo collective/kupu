@@ -1,32 +1,22 @@
 <metal:page define-macro="master">
-<metal:master use-macro="here/main_template/macros/master"
+<metal:master use-macro="here/prefs_main_template/macros/master"
     i18n:domain="kupuconfig">
 
 <metal:block metal:fill-slot="top_slot" define-slot="top_slot"
              tal:define="dummy python:request.set('disable_border',1)" />
 
-<metal:fillbase fill-slot="base">
-  <metal:baseslot define-slot="base">
-    <base href="" tal:attributes="href template/absolute_url" />
-  </metal:baseslot>
-</metal:fillbase>
+    <metal:fillbase fill-slot="base">
+      <metal:baseslot define-slot="base">
+        <base href="" tal:attributes="href template/absolute_url" />
+      </metal:baseslot>
+    </metal:fillbase>
 
-    <metal:cssslot fill-slot="css_slot">
-      <!-- A slot where you can insert CSS in the header from a template -->
-      <metal:cssslot define-slot="css_slot" />
-    </metal:cssslot>
-
-    <metal:override fill-slot="portlets_one_slot">
-      <metal:prefs use-macro="here/portlet_prefs/macros/portlet" />
-    </metal:override>
 
     <metal:override fill-slot="column_two_slot" />
 
 <body>
-<div metal:fill-slot="main" metal:define-slot="prefs_configlet_main"
+<div metal:fill-slot="prefs_configlet_content" metal:define-slot="prefs_configlet_main"
     tal:define="errors python:request.get('errors', {});">
-
-<div class="configlet">
 
 <div class="documentEditable">
 
@@ -49,7 +39,8 @@
     </div>        
     <!-- End of tabs -->
     <div class="documentContent" metal:define-slot="kupu_content">
-<h3 i18n:translate="heading_configuration">Kupu Configuration</h3>
+<h1 class="documentFirstHeading"
+    i18n:translate="heading_configuration">Kupu Configuration</h1>
 <form action=""
     name="configure_kupu"
     method="post"
@@ -304,7 +295,6 @@ filtered HTML which will be sent to the server. Uncheck this box to see the raw 
 </form>
     </div>
 
-</div>
 
 </div>
 

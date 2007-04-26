@@ -6,7 +6,8 @@
 <body>
 
     <div class="documentContent" metal:fill-slot="kupu_content">
-<h3 i18n:translate="heading_kupu_configuration">Kupu Configuration</h3>
+<h1 class="documentFirstHeading"
+    i18n:translate="heading_kupu_resource_types">Kupu Resource Types</h1>
 <form action="" method="post" tal:attributes="action here/absolute_url">
 <p i18n:translate="text_resource_types">While libraries provide abstract locations for objects of any type,
 Kupu distinguishes objects by resource type. For example, a user might
