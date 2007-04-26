@@ -17,7 +17,8 @@ i18n:domain="plone">
   <body>
 
     <div class="documentContent" metal:fill-slot="kupu_content">
-      <h3 i18n:translate="heading_configuration">Kupu Toolbar Configuration</h3>
+      <h1 class="documentFirstHeading"
+          i18n:translate="heading_configuration">Kupu Toolbar Configuration</h1>
       <form action=""
             name="configure_kupu_toolbar"
             method="post"

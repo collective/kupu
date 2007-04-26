@@ -1,6 +1,6 @@
-=========================
-Installing Kupu in Plone2
-=========================
+========================
+Installing Kupu in Plone
+========================
 
 .. contents:: Table of Contents
    :depth: 2
