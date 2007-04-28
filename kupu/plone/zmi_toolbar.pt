@@ -88,12 +88,10 @@ i18n:domain="plone">
         </fieldset>
 
         <input class="context"
-               tabindex=""
                type="submit"
                name="set_toolbar_filters:method"
                value="Save"
                i18n:attributes="value"
-               tal:attributes="tabindex tabindex|nothing;"
                />
       </form>
     </div>

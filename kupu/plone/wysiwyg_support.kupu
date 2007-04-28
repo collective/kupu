@@ -38,14 +38,12 @@
     <textarea
         cols="80"
         rows="25"
-        tabindex=""
         name="fieldName"
         tal:content="inputvalue"
         tal:attributes="name fieldName|inputname;
                         id fieldName|inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
-                        tabindex tabindex|nothing;
                         rows rows|default;
                         cols cols|default;">
     </textarea>
@@ -85,10 +83,8 @@
             type="radio"
             name="text_format"
             value="structured-text"
-            tabindex=""
             id="cb_structuredtext"
-            tal:attributes="checked python:test(text_format=='structured-text', 1, None);
-                            tabindex tabindex;"
+            tal:attributes="checked python:test(text_format=='structured-text', 1, None);"
             />
      <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br />
 
@@ -96,10 +92,8 @@
             type="radio"
             name="text_format"
             value="html"
-            tabindex=""
             id="cb_html"
-            tal:attributes="checked python:test(text_format=='html', 1, None);
-                            tabindex tabindex;"
+            tal:attributes="checked python:test(text_format=='html', 1, None);"
             />
      <label for="cb_html" i18n:translate="html">HTML</label> <br />
 
@@ -107,10 +101,8 @@
             type="radio"
             name="text_format"
             value="plain"
-            tabindex=""
             id="cb_plain"
-            tal:attributes="checked python:test(text_format=='plain', 1, None);
-                            tabindex tabindex;"
+            tal:attributes="checked python:test(text_format=='plain', 1, None);"
             />
      <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
     </tal:nonat>

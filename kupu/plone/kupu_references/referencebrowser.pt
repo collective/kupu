@@ -180,7 +180,6 @@
                                 value="" 
                                 id="" 
                                 tal:attributes="value obj/title_or_id;
-                                                      tabindex tabindex/next;
                                                       size python:test(widget.size=='', 30, widget.size);
                                                       id string:${fieldName}_label" readonly="readonly" />
                   </tal:block>
@@ -204,11 +203,9 @@
                      tal:define="targets python:[(here.reference_catalog.lookupObject(u),u) for u in uids if u]">
                 <select
                   multiple="multiple"
-                  tabindex=""
                   tal:attributes="name string:${fieldName}:list;
                                         id string:${fieldName};
-                                        size python:test(widget.size=='', 8, widget.size);
-                                        tabindex tabindex/next;">
+                                        size python:test(widget.size=='', 8, widget.size);">
                     <tal:block tal:repeat="set targets">
                         <option value=""
                                      selected="selected"
