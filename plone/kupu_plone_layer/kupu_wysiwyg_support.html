@@ -436,18 +436,70 @@
     </table>
   <script type="text/javascript">var focuscount = 0;</script>
     <div>
-    <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);                     base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                         tabindex tabindex/next|nothing;    id string:kupu-editor-iframe-${fname};    name string:kupu-editor-iframe-${fname};">
+    <iframe class="kupu-editor-iframe" 
+            frameborder="0" 
+            src="emptypage" 
+            onfocus="this.contentWindow.focus();" 
+            tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
+                        base kupu_base_override|base;" 
+            tal:attributes="src string:${base}/emptypage;
+                            id string:kupu-editor-iframe-${fname};
+                            name string:kupu-editor-iframe-${fname};">
     </iframe>
-     <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
+     <input type="hidden" 
+            name="text_format:default" 
+            value="text/html" 
+            tal:define="fieldName fieldName|inputname|nothing;
+                        val python:fieldName and 'text/html' or 'html';
+                        fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" 
+            tal:attributes="name fieldName;value val;" 
+            />
 <tal:test condition="fieldName|nothing">
-    <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" tal:condition="fieldName|nothing" tal:define="global kupu_content python:here.convertContentForKupu(fieldName, inputvalue);" tal:content="kupu_content" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
+    <textarea cols="80" 
+              rows="25" 
+              class="kupu-editor-textarea" 
+              name="description" 
+              tal:condition="fieldName|nothing" 
+              tal:define="global kupu_content python:here.convertContentForKupu(fieldName, inputvalue);"
+              tal:content="kupu_content"
+              tal:attributes="name inputname;
+                              onfocus onfocus|nothing;
+                              onblur onblur|nothing;
+                              rows rows|default;
+                              cols cols|default;">
     </textarea>
 </tal:test>
-    <textarea cols="80" rows="25" tabindex="" class="kupu-editor-textarea" name="description" id="kupu-editor-textarea" tal:define="pss modules/Products/PythonScripts/standard;                 text_format text_format | python: getattr(here,'text_format','html');                 is_stx python:text_format=='structured-text';                 is_ptx python:text_format=='plain';" tal:condition="not:fieldName|nothing" tal:content="python:(is_stx and pss.structured_text(inputvalue))                                     or (is_ptx and pss.newline_to_br(inputvalue))                                     or inputvalue" tal:attributes="name inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
+    <textarea cols="80" 
+              rows="25" 
+              class="kupu-editor-textarea" 
+              name="description" 
+              id="kupu-editor-textarea" 
+              tal:define="pss modules/Products/PythonScripts/standard;
+                          text_format text_format | python: getattr(here,'text_format','html');
+                          is_stx python:text_format=='structured-text';
+                          is_ptx python:text_format=='plain';"
+              tal:condition="not:fieldName|nothing" 
+              tal:content="python:(is_stx and pss.structured_text(inputvalue))
+                                           or (is_ptx and pss.newline_to_br(inputvalue))
+                                           or inputvalue" 
+              tal:attributes="name inputname;
+                                   onfocus onfocus|nothing;
+                                   onblur onblur|nothing;
+                                   rows rows|default;
+                                   cols cols|default;">
     </textarea>
     </div>
   
-    <div class="kupuoverride" tal:condition="python:exists('kupu_content') and len(kupu_content)==0" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" title="reload current page without kupu">
+    <div class="kupuoverride" 
+         tal:condition="python:exists('kupu_content') and len(kupu_content)==0" 
+         tal:define="floated widget/allow_file_upload | python:1;" 
+         tal:attributes="style python:test(floated, 'float:left;;', '');">
+         <span class="discreet">
+             <a class="forcekupu" 
+                href="#" 
+                i18n:translate="suppress-kupu" 
+                tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};" 
+                title="Reload current page without visual editor">
          Edit without visual editor
       </a></span>
     </div>
@@ -466,7 +518,16 @@
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
    </tal:test>
   
-    <textarea cols="80" rows="25" tabindex="" name="fieldName" tal:content="inputvalue" tal:attributes="name fieldName|inputname;                         id fieldName|inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         tabindex tabindex|nothing;                         rows rows|default;                         cols cols|default;">
+    <textarea cols="80" 
+              rows="25" 
+              name="fieldName" 
+              tal:content="inputvalue" 
+              tal:attributes="name fieldName|inputname;
+                              id fieldName|inputname;
+                              onfocus onfocus|nothing;
+                              onblur onblur|nothing;
+                              rows rows|default;
+                              cols cols|default;">
     </textarea>
   
     <tal:archetypes tal:condition="fieldName|nothing">
@@ -501,13 +562,31 @@
        Text and type the document as you usually do.
      </div>
 
-     <input class="noborder" type="radio" name="text_format" value="structured-text" tabindex="" id="cb_structuredtext" tal:attributes="checked python:test(text_format=='structured-text', 1, None);                             tabindex tabindex;"/>
+     <input class="noborder" 
+            type="radio" 
+            name="text_format" 
+            value="structured-text" 
+            id="cb_structuredtext" 
+            tal:attributes="checked python:test(text_format=='structured-text', 1, None);"
+            />
      <label for="cb_structuredtext" i18n:translate="structured_text">Structured Text</label> <br/>
 
-     <input class="noborder" type="radio" name="text_format" value="html" tabindex="" id="cb_html" tal:attributes="checked python:test(text_format=='html', 1, None);                             tabindex tabindex;"/>
+     <input class="noborder" 
+            type="radio" 
+            name="text_format" 
+            value="html" 
+            id="cb_html" 
+            tal:attributes="checked python:test(text_format=='html', 1, None);"
+            />
      <label for="cb_html" i18n:translate="html">HTML</label> <br/>
 
-     <input class="noborder" type="radio" name="text_format" value="plain" tabindex="" id="cb_plain" tal:attributes="checked python:test(text_format=='plain', 1, None);                             tabindex tabindex;"/>
+     <input class="noborder" 
+            type="radio" 
+            name="text_format" 
+            value="plain" 
+            id="cb_plain" 
+            tal:attributes="checked python:test(text_format=='plain', 1, None);"
+            />
      <label for="cb_plain" i18n:translate="plain_text">Plain Text</label>
     </tal:nonat>
   </tal:noeditor>

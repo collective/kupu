@@ -72,6 +72,11 @@ textarea { width: 90%; } /* Override buggy Plone setting */
 
 /* plone customizations regarding color and borders etc */
 
+/* hide the Plone table of contents if it is visible (inline edit) */
+dl.toc {
+    display: none;
+}
+
 .kupu-tb {
   background-color:&dtml-contentViewBackgroundColor;;
   padding-bottom:0px; margin:0;

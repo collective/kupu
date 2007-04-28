@@ -15,9 +15,8 @@
         tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
-                        tabindex tabindex/next|nothing;
-			id string:kupu-editor-iframe-${fname};
-			name string:kupu-editor-iframe-${fname};"
+                        id string:kupu-editor-iframe-${fname};
+                        name string:kupu-editor-iframe-${fname};"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"
@@ -28,7 +27,6 @@
      />
 <tal:test condition="fieldName|nothing">
     <textarea cols="80" rows="25"
-        tabindex=""
         class="kupu-editor-textarea"
         name="description"
         tal:condition="fieldName|nothing"
@@ -37,13 +35,11 @@
         tal:attributes="name inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
-                        tabindex tabindex|nothing;
                         rows rows|default;
                         cols cols|default;">
     </textarea>
 </tal:test>
     <textarea cols="80" rows="25"
-        tabindex=""
         class="kupu-editor-textarea"
         name="description"
         id="kupu-editor-textarea"
@@ -59,7 +55,6 @@
         tal:attributes="name inputname;
                         onfocus onfocus|nothing;
                         onblur onblur|nothing;
-                        tabindex tabindex|nothing;
                         rows rows|default;
                         cols cols|default;">
     </textarea>

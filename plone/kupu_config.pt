@@ -285,12 +285,10 @@ filtered HTML which will be sent to the server. Uncheck this box to see the raw 
 </fieldset>
 
 <input class="context"
-        tabindex=""
         type="submit"
         name="configure_kupu:method"
         value="Save"
         i18n:attributes="value"
-        tal:attributes="tabindex tabindex|nothing;"
         />
 </form>
     </div>
