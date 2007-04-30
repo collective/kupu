@@ -19,7 +19,7 @@ obj = reference_tool.lookupObject(uuid)
 if not obj:
     hook = getattr(context, 'kupu_resolveuid_hook', None)
     if hook:
-        obj = hook(uid)
+        obj = hook(uuid)
     if not obj:
         return context.standard_error_message(error_type=404,
             error_message='''The link you followed appears to be broken''')
