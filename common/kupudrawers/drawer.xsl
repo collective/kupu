@@ -299,25 +299,28 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="resource|collection" mode="image-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
         <div>
-            <form onsubmit="return false;">
+           <!-- <form onsubmit="return false;"> -->
                 <div>
                     <label style="display: block;margin-top: 1em;">Image alignment</label>
                     <input type="radio" name="image-align" id="image-align-left" value="image-left">
+                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
                         <xsl:if test="$image-align='left'">
                             <xsl:attribute name="checked">checked</xsl:attribute>
                         </xsl:if>
                     </input>
                     <label for="image-align-left" i18n:translate="imagedrawer_left">Left</label>
                     <input type="radio" name="image-align" id="image-align-inline" value="image-inline">
-                        <xsl:if test="$image-align='inline'">
-                            <xsl:attribute name="checked">checked</xsl:attribute>
-                        </xsl:if>
+                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                       <xsl:if test="$image-align='inline'">
+                          <xsl:attribute name="checked">checked</xsl:attribute>
+                       </xsl:if>
                     </input>
                     <label for="image-align-inline" i18n:translate="imagedrawer_inline">Inline</label>
                     <input type="radio" name="image-align" id="image-align-right" value="image-right">
-                        <xsl:if test="$image-align='right'">
-                            <xsl:attribute name="checked">checked</xsl:attribute>
-                        </xsl:if>
+                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                       <xsl:if test="$image-align='right'">
+                          <xsl:attribute name="checked">checked</xsl:attribute>
+                       </xsl:if>
                     </input>
                     <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
                     <div class="discreet" i18n:translate="imagedrawer_image_align_explanation">
@@ -329,11 +332,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <xsl:if test="$usecaptions='yes'">
                     <div>
                         <input type="checkbox" name="image-caption" id="image-caption">
-                            <xsl:if test="$image-caption='true'">
-                                <xsl:attribute name="checked">checked</xsl:attribute>
-                            </xsl:if>
-                            <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
-                            this.checked?'none':'';</xsl:attribute>
+                           <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                           <xsl:if test="$image-caption='true'">
+                              <xsl:attribute name="checked">checked</xsl:attribute>
+                           </xsl:if>
+                           <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
+                              this.checked?'none':'';</xsl:attribute>
                         </input>
                         <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                     </div>
@@ -352,9 +356,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                      </xsl:if>   
                     <label for="image_alt" i18n:translate="imagedrawer_upload_alt_text">"alt" attribute text</label>
                     <input type="text" id="image_alt" size="20" value="{title}">
+                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
                     </input>
                 </div>
-            </form>
+                <!-- </form> -->
         </div>
     </xsl:template>
     <xsl:template match="size">
@@ -374,19 +379,25 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="resource|collection" mode="link-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
         
-        <form onsubmit="return false;">
+        <!-- <form onsubmit="return false;"> -->
             <div class="kupu-linkdrawer-name-row">
                 <div><label i18n:translate="linkdrawer_name_label">Name</label></div>
-                <input type="text" id="link_name" size="10"><xsl:attribute name="value"><xsl:value-of select="$link_name"/></xsl:attribute></input>
+                <input type="text" id="link_name" size="10">
+                   <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                   <xsl:attribute name="value"><xsl:value-of select="$link_name"/></xsl:attribute>
+                </input>
             </div>
             <div class="kupu-linkdrawer-target-row">
                 <div><label i18n:translate="linkdrawer_target_label">Target</label></div>
-                <input type="text" id="link_target" size="10"><xsl:attribute name="value"><xsl:value-of select="$link_target"/></xsl:attribute></input>
+                <input type="text" id="link_target" size="10">
+                   <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                   <xsl:attribute name="value"><xsl:value-of select="$link_target"/></xsl:attribute>
+                </input>
             </div>
             <xsl:if test="$showanchors='yes'">
                 <xsl:apply-templates select="anchor"></xsl:apply-templates>
             </xsl:if>
-        </form>
+        <!-- </form> -->
     </xsl:template>
     
     <xsl:template match="resource|collection" mode="properties">
