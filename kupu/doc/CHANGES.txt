@@ -2,6 +2,16 @@
 Kupu changes
 ============
 
+- 1.4 Beta 6
+
+  - Removed the getToolByName deprecation workround since
+    getToolByName is now officially undeprecated again.
+
+  - Removed most of the illegally nested forms produced by the xsl. 
+    I hope this will stop IE6 crashing. The image upload form is still
+    there as it is going to take more major surgery to get rid of that 
+    one.
+
 - 1.4 Beta 5
 
   - Adjusted some more Plone tests to work on Plone 3.0.
