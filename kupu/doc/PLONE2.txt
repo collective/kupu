@@ -668,11 +668,10 @@ Flash content types may also work but have not been tested.
      selection and save.
 
   4. In the action urls table at the bottom of the page, add a new
-     entry for the type Flash Movie. The preview may be left blank
-     (kupu does not currently support previewing Flash), or you could
-     select a generic 'Flash' image. For 'normal image' you should
-     enter ``string:${object_url}/download``. Leave fieldname blank
-     and in the 'type' field select 'Flash'.
+     entry for the type Flash Movie. The preview may be left blank or be
+     the same as the 'normal' image. For 'normal image' you should enter
+     ``string:${object_url}/download``. Leave fieldname blank and in the
+     'type' field select 'Flash'.
 
 Flash movies should now appear in the image drawer and be insertable
 into the document. Using IE the Flash movie will appear in the
