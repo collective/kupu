@@ -256,7 +256,10 @@ class KupuLibraryTool(Acquisition.Implicit):
             if normal:
                 normal = Expression(normal)
             scalefield = a.get('scalefield', 'image')
-            classes = a.get('classes', '').split('\n')
+            classes = a.get('classes', '')
+            if isinstance(classes, basestring):
+                classes = classes.split('\n')
+            classes = tuple(classes)
             mediatype = a.get('mediatype', 'image')
             if not portal_type:
                 continue

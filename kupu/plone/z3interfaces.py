@@ -83,15 +83,20 @@ class IPloneKupuLibraryTool(Interface):
     def getCookedLibraries(context):
         """Return a list of libraries with our own parameters included"""
 
-    def getPreviewForType(self, portal_type):
+    def getPreviewForType(portal_type):
         """Get the preview url for a specific type"""
 
-    def getNormalViewForType(self, portal_type):
+    def getNormalViewForType(portal_type):
         """Get the normal view url for a specific type"""
 
-    def getScaleFieldForType(self, portal_type):
+    def getScaleFieldForType(portal_type):
         """Get the name of the field containing a scalable image"""
 
+    def getClassesForType(portal_type):
+        """Get a sequence of classes that may be applied"""
+
+    def getMediaForType(portal_type):
+        """Gets the media type image/flash"""
 
     def configure_kupu(
         linkbyuid, table_classnames, html_exclusions, style_whitelist, class_blacklist,
