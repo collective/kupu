@@ -101,6 +101,8 @@ PREVIEW = [ { 'portal_type': type,
     'expression': PREVIEW_EXPR % image,
     'normal': None,
     'scalefield': image.split('_',1)[0],
+    'classes': '',
+    'mediatype': 'image',
     }
             for (type, image) in tool.getPreviewable() ]
 # e.g. PREVIEW=[{'portal_type': 'Image',

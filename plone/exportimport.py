@@ -171,10 +171,15 @@ class KupuToolExportConfigurator(ExportConfiguratorBase):
             previewaction = kupu.getPreviewForType(portal_type)
             normalaction = kupu.getNormalViewForType(portal_type)
             scalefield = kupu.getScaleFieldForType(portal_type)
+            classes = kupu.getClassesForType(portal_type)
+            mediatype = kupu.getMediaForType(portal_type)
             res.append(dict(portal_type=portal_type,
                 previewaction=previewaction,
                 normalaction=normalaction,
-                scalefield=scalefield))
+                scalefield=scalefield,
+                classes=classes,
+                mediatype=mediatype,
+            ))
         return res
 
     security.declarePrivate('_getExportTemplate')
@@ -247,7 +252,10 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                     'preview': { KEY:'expression', DEFAULT: ''},
                     'normal': { DEFAULT: ''},
                     'scalefield': { DEFAULT: 'image' },
+                    'previewclass': { KEY: 'classes', DEFAULT: ()},
+                    'mediatype': { DEFAULT: ''},
                 },
+            'previewclass': { '#text': {KEY:None}, },
             'generatepreviews': {},
             'globaltoolbar': { '#text': { KEY:None }, },
             'toolbar':
