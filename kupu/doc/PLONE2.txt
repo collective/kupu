@@ -339,6 +339,15 @@ image scales. The defaults are:
         Defaults to 'image'. N.B. This is a literal string, not a tal
         expression.
 
+    classes
+        An optional list of class names to be allowed for this media
+        type. The class names will be applied in addition to
+        left/inline/right and captioned class names.
+
+    type
+        This controls whether kupu inserts an img tag or an object
+        tag. Only images and flash objects are supported at this time.
+
 documentation tab
 =================
 
@@ -644,6 +653,45 @@ set classes for displaying images floated left, inline or right::
        float: right;
        clear: both;
     }
+
+Flash
+-----
+Kupu has some support for embedding Flash objects using the
+ATFlashMovie content type, but requires some configuration. Other
+Flash content types may also work but have not been tested.
+
+  1. Install ATFlashMovie.
+
+  2. Got to the resource types tab of the configlet.
+
+  3. Under the resource ``mediaobject`` add Flash Movie to the
+     selection and save.
+
+  4. In the action urls table at the bottom of the page, add a new
+     entry for the type Flash Movie. The preview may be left blank
+     (kupu does not currently support previewing Flash), or you could
+     select a generic 'Flash' image. For 'normal image' you should
+     enter ``string:${object_url}/download``. Leave fieldname blank
+     and in the 'type' field select 'Flash'.
+
+Flash movies should now appear in the image drawer and be insertable
+into the document. Using IE the Flash movie will appear in the
+document and may be edited or moved as desired. Firefox will not play
+the movie while you are editing, so a 'flash placeholder' image is
+displayed instead: you cannot select it in Firefox so if you need to
+delete a Flash movie you will need to include the image in a slightly
+larger selection (e.g. spaces before and after) and delete that.
+
+Known problems
+==============
+When selecting a flash object in IE you need to be sure to get a
+selection only with sizing handles (by clicking exactly on the edge).
+If the selection box also shows cross-hatched then you have clicked
+inside the Flash object and kupu will not be able to determine the
+current selection.
+
+In IE the Flash object sometimes appears over the top of the drawer.
+Workaround: close the drawer and try again.
 
 References from HTML text
 -------------------------

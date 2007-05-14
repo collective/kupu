@@ -682,6 +682,17 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         value = action_map.get(portal_type, {}).get('scalefield', 'image')
         return value
 
+    security.declareProtected(permissions.ManageLibraries, "getClassesForType")
+    def getClassesForType(self, portal_type):
+        action_map = getattr(self, '_preview_actions', {})
+        return action_map.get(portal_type, {}).get('classes', ())
+
+    security.declareProtected(permissions.ManageLibraries, "getMediaForType")
+    def getMediaForType(self, portal_type):
+        action_map = getattr(self, '_preview_actions', {})
+        value = action_map.get(portal_type, {}).get('mediatype', 'image')
+        return value
+
     security.declareProtected(permissions.ManageLibraries, "set_html_exclusions")
     def set_html_exclusions(self, exclusions):
         """Set the html_exclusions.

@@ -256,12 +256,17 @@ class KupuLibraryTool(Acquisition.Implicit):
             if normal:
                 normal = Expression(normal)
             scalefield = a.get('scalefield', 'image')
+            classes = a.get('classes', '').split('\n')
+            mediatype = a.get('mediatype', 'image')
             if not portal_type:
                 continue
             action_map[portal_type] = {
                 'expression': Expression(preview),
                 'normal': normal,
-                'scalefield': scalefield, }
+                'scalefield': scalefield,
+                'classes': classes,
+                'mediatype': mediatype,
+            }
         self._preview_actions = action_map
 
     def deleteResourceTypes(self, resource_types):

@@ -1265,17 +1265,20 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     }
 
     this.createContent = function() {
-        var currnode = this.editor.getSelectedNode();
-        var currimg = this.editor.getNearestParentOfType(currnode, 'IMG');
-        this.selectedSrc = currimg?currimg.src:null;
+        var ed = this.editor;
+        var currnode = ed.getSelectedNode();
+        var currimg = ed.getNearestParentOfType(currnode, 'OBJECT') || ed.getNearestParentOfType(currnode, 'IMG');
+        this.selectedSrc = currimg.data||currimg.src||null;
         this.options = {};
         if (currimg) {
+            ed.getSelection().selectNodeContents(currimg);
             var className = currimg.className;
             var align = /\bimage-(left|right|inline)\b/.exec(className);
             if (align && align.length > 1) {
                 this.options['image-align'] = align[1];
             };
             this.options['image-caption'] = /\bcaptioned\b/.test(className);
+            this.options['image-class'] = className.replace(/\b(image-(left|right|inline)|captioned)\b/g,'').strip();
         }
         ImageLibraryDrawer.prototype.createContent.call(this);
     };
@@ -1354,8 +1357,18 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
         if (caption && caption.length>0 && caption[0].checked) {
             imgclass += " captioned";
         };
-
-        this.tool.createImage(uri, alt, imgclass);
+        var classnames = document.getElementById('kupu-image-class');
+        if (classnames && classnames.selectedIndex >= 0) {
+            imgclass += " "+classnames.options[classnames.selectedIndex].value;
+        }
+        var media = document.getElementById('kupu-media').value;
+        var width = document.getElementById('kupu-width').value;
+        var height = document.getElementById('kupu-height').value;
+        if (this.tool['create_'+media]) {
+            this.tool['create_'+media](uri, alt, imgclass, width, height);
+        } else {
+            this.tool.createImage(uri, alt, imgclass);
+        }
         this.drawertool.closeDrawer();
     };
 };

@@ -291,5 +291,12 @@ div.kupuoverride {
 .kupu-progresstext {
     text-align:center;position:absolute;top:0;width:100%;
 }
+/* Firefox makes Flash objects completely invisible.
+We need to force it to display something otherwise you cannot edit existing Flash. */
+.kupu-html object.image-inline {
+   display: block;
+   background-image: url(plonekupuimages/flash-placeholder.png);
+   border: 2px green solid;
+}
 /* </dtml-let></dtml-with> */
 
