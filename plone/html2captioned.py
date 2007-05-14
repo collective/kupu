@@ -62,7 +62,7 @@ IMAGE_TEMPLATE = '''\
 </div>
 '''
 
-UID_PATTERN = re.compile('(?P<tag><(?:a|img)\\s[^>]*(?:src|href)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
+UID_PATTERN = re.compile('(?P<tag><(?:a|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
