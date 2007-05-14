@@ -120,7 +120,10 @@ to the following schema::
        & element label { text }?
        & 
          ## Icon to use in resource pane
-         element icon { xsd:anyURI }?)
+         element icon { xsd:anyURI }?
+       & 
+         ## Type of media to insert in document 
+         element media { text }?)
 
     ## A list of collections and resources with an optional upload button at the end.
     collectionItems =
@@ -405,12 +408,17 @@ version:
   - Go to the kupu configlet/resource types tab. Scroll to the bottom
     of the page.
 
-  - Under 'preview URLs' select the type 'Image' and under URL enter:
+  - Under 'preview URLs' select the type 'Image' and under preview enter:
 
     string:${object_url}/image_thumb
 
   - Hit the 'Save' button.
 
+
+Flash support
+-------------
+
+See PLONE2.txt
 
 Futures
 -------

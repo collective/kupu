@@ -207,7 +207,28 @@ class InfoAdaptor:
         if type is None:
             return None
         return "%s/%s" % (self.base, type.getIcon())
-            
+
+    def media(self, portal_type):
+        """Get the media type to be included in the xml.
+        Since 'image' is the default we can omit it."""
+        media = self.tool.getMediaForType(portal_type)
+        if media=='image':
+            return None
+        return media
+
+    def classes(self, portal_type):
+        stored = self.tool.getClassesForType(portal_type)
+        classes = []
+        for c in stored:
+            c = c.strip()
+            if not c:
+                continue
+            if '|' in c:
+                title, classname = c.split('|', 1)
+                classes.append({'title': title, 'classname': classname})
+            else:
+                classes.append({'title': c, 'classname': c})
+        return classes
 
     def sizes(self, obj):
         """Returns size, width, height"""
@@ -312,6 +333,8 @@ class InfoAdaptor:
                 normal = url
 
             sizes = self.get_image_sizes(obj, portal_type, url)
+            media = self.media(portal_type)
+            classes = self.classes(portal_type)
 
             icon = self.icon(portal_type)
             size, width, height = self.sizes(obj)
@@ -338,6 +361,8 @@ class InfoAdaptor:
                 'height': height,
                 'preview': preview,
                 'sizes': sizes,
+                'media': media,
+                'classes': classes,
                 'title': title,
                 'description': description,
                 'linkable': linkable,
@@ -389,6 +414,8 @@ class InfoAdaptor:
             normal = url
 
         sizes = self.get_image_sizes(brain, portal_type, url)
+        media = self.media(portal_type)
+        classes = self.classes(portal_type)
 
         icon = self.icon(portal_type)
         size, width, height = self.sizes(brain)
@@ -414,6 +441,8 @@ class InfoAdaptor:
             'height': height,
             'preview': preview,
             'sizes': sizes,
+            'media': media,
+            'classes': classes,
             'title': title,
             'description': description,
             'linkable': linkable,

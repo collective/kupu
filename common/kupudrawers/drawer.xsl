@@ -51,6 +51,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="showanchors">yes</xsl:param>
     <xsl:param name="image-align">inline</xsl:param>
     <xsl:param name="image-caption">true</xsl:param>
+    <xsl:param name="image-class"></xsl:param>
     <xsl:param name="link_target"></xsl:param>
     <xsl:param name="link_name"></xsl:param>
     <xsl:variable name="titlelength" select="60"/>
@@ -286,14 +287,18 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
      If a 'preview' tag is available then that one is used, otherwise 'uri'.
     -->
     <xsl:template match="resource|collection" mode="image-view">
-      <xsl:choose>
-        <xsl:when test="preview">
-          <img src="{preview}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <img onload="kupuFixImage(this);" width="1" height="1" src="{uri}" title="{title}"/>
-        </xsl:otherwise>
-      </xsl:choose>
+       <xsl:variable name="p" select="preview|uri"></xsl:variable>
+       <xsl:choose>
+          <xsl:when test="media='flash'">
+             <object src="{$p}" data="{$p}" type="application/x-shockwave-flash"
+                     width="100" height="100">
+                <param name="movie" value="{$p}" />
+             </object>
+          </xsl:when>
+          <xsl:otherwise>
+             <img src="{$p}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
+          </xsl:otherwise>
+       </xsl:choose>
     </xsl:template>
 
     <xsl:template match="resource|collection" mode="image-properties">
@@ -301,6 +306,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <div>
            <!-- <form onsubmit="return false;"> -->
                 <div>
+                   <input id="kupu-media" type="hidden" value="{media}" />
+                   <input id="kupu-width" type="hidden" value="{width}" />
+                   <input id="kupu-height" type="hidden" value="{height}" />
                     <label style="display: block;margin-top: 1em;">Image alignment</label>
                     <input type="radio" name="image-align" id="image-align-left" value="image-left">
                        <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -329,29 +337,46 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                         This is a browser-imposed limitation.
                     </div>
                 </div>
+                
                 <xsl:if test="$usecaptions='yes'">
-                    <div>
-                        <input type="checkbox" name="image-caption" id="image-caption">
-                           <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-                           <xsl:if test="$image-caption='true'">
-                              <xsl:attribute name="checked">checked</xsl:attribute>
-                           </xsl:if>
-                           <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
-                              this.checked?'none':'';</xsl:attribute>
-                        </input>
-                        <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
-                    </div>
+                   <xsl:choose>
+                      <xsl:when test="media='flash'" />
+                      <xsl:otherwise>
+                         <div>
+                            <input type="checkbox" name="image-caption" id="image-caption">
+                               <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                               <xsl:if test="$image-caption='true'">
+                                  <xsl:attribute name="checked">checked</xsl:attribute>
+                               </xsl:if>
+                               <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
+                                  this.checked?'none':'';</xsl:attribute>
+                            </input>
+                            <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
+                         </div>
+                      </xsl:otherwise>
+                   </xsl:choose>
                 </xsl:if>
                 <xsl:if test="sizes">
+                   <div>
                     <label for="image-size-selector"
-                            style="display: block;margin-top: 1em;">Image size</label>
+                            style="margin-top: 1em;">Image size:</label>&#xa0;
                     <select name="image-size-selector">
                         <option name="image-size-option" value="{uri}">Original</option>
                         <xsl:apply-templates select="sizes/size" />
                     </select>
+                   </div>
+                </xsl:if>
+                <xsl:if test="class">
+                   <div>
+                      <label for="kupu-image-class-selector">Image style</label>&#xa0;
+                      <select name="kupu-image-class-selector" id="kupu-image-class">
+                         <xsl:apply-templates select="class"/>
+                      </select>
+                   </div>
                 </xsl:if>
                 <div id="image_alt_div">
-                    <xsl:if test="$usecaptions='yes'">
+                    <xsl:if
+                           test="$usecaptions='yes' and $image-caption='true'">
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                      </xsl:if>   
                     <label for="image_alt" i18n:translate="imagedrawer_upload_alt_text">"alt" attribute text</label>
@@ -361,6 +386,13 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 </div>
                 <!-- </form> -->
         </div>
+    </xsl:template>
+    <xsl:template match="class">
+       <option value="{@name}">
+          <xsl:if test="$image-class=@name">
+             <xsl:attribute name="selected">selected</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="@title" /></option>
     </xsl:template>
     <xsl:template match="size">
       <xsl:choose>

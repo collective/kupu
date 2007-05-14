@@ -37,6 +37,9 @@
                tal:content="info/url">URI</uri>
           <icon metal:define-slot="icon"
                 tal:content="info/icon">icon</icon>
+          <media tal:condition="info/media|nothing" tal:content="info/media">mime type</media>
+          <class tal:condition="info/classes|nothing" tal:repeat="c info/classes"
+                   tal:attributes="title c/title; name c/classname" />
           <size metal:define-slot="size"
                 tal:condition="info/size"
                 tal:content="info/size">size</size>

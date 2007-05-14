@@ -1254,6 +1254,18 @@ function ImageTool() {
         imageWindow.focus();
     };
 
+    this.newNode = function(name, obj) {
+        var ed = this.editor;
+        var currobj = ed.getNearestParentOfType(ed.getSelectedNode(), name);
+        if (currobj) {
+            var p = currobj.parentNode;
+            p.insertBefore(obj, currobj);
+            p.removeChild(currobj);
+            return obj;
+        } else {
+            return ed.insertNodeAtSelection(obj, 1);
+        }
+    }
     this.createImage = function(url, alttext, imgclass) {
         /* create an image */
         var img = this.editor.getInnerDocument().createElement('img');
@@ -1266,10 +1278,20 @@ function ImageTool() {
         if (imgclass) {
             img.className = imgclass;
         };
-        img = this.editor.insertNodeAtSelection(img, 1);
+        this.newNode('IMG', img);
         this.editor.logMessage(_('Image inserted'));
         return img;
     };
+
+    this.create_flash = function(url, alttext, className, width, height) {
+        var ed = this.editor;
+        var obj = ed.newElement('object',
+            {src:url, alt:alttext, className:className, width:width, height:height, type:'application/x-shockwave-flash',
+            'data':url},
+            [ed.newElement('param', {name:'movie', value:url})]);
+        this.newNode('OBJECT', obj);
+        this.editor.logMessage(_('Flash inserted'));
+    }
 
     this.setImageClass = function(imgclass) {
         /* set the class of the selected image */
