@@ -252,7 +252,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </h1>
         <xsl:if test="description != ''">
             <div class="kupu-description-row documentDescription">
-                <xsl:copy-of select="description/*|description/text()"/>
+                <p><xsl:copy-of
+                select="description/*|description/text()"/></p>
             </div>
         </xsl:if>
         <div style="clear:both;line-height:1px;">&#xA0;</div>
@@ -276,7 +277,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </h1>
         <xsl:if test="description != ''">
             <div class="kupu-description-row documentDescription">
-                <xsl:copy-of select="description/*|description/text()"/>
+               <p><xsl:copy-of
+               select="description/*|description/text()"/></p>
             </div>
         </xsl:if>
         <div style="clear:both;"/>
