@@ -244,12 +244,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <!-- resource template with no mode can be used to generate a quick preview -->
     <xsl:template match="resource">
       <div>
-        <div class="kupu-preview-row">
-          <xsl:apply-templates select="." mode="image-view" />
-        </div>
         <h1 class="kupu-title-row">
             <xsl:value-of select="title"/>
         </h1>
+        <div class="kupu-preview-row">
+          <xsl:apply-templates select="." mode="image-view" />
+        </div>
         <xsl:if test="description != ''">
             <div class="kupu-description-row documentDescription">
                 <p><xsl:copy-of
@@ -260,6 +260,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
       </div>
     </xsl:template>
     <xsl:template match="resource|collection" mode="base-properties">
+        <h1 class="kupu-title-row">
+            <xsl:value-of select="title"/>
+        </h1>
         <div class="kupu-preview-row">
             <xsl:apply-templates select="status"/>
             <xsl:apply-templates select="." mode="image-view" />
@@ -272,9 +275,6 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     </span>)</xsl:if>
             </div>
         </div>
-        <h1 class="kupu-title-row">
-            <xsl:value-of select="title"/>
-        </h1>
         <xsl:if test="description != ''">
             <div class="kupu-description-row documentDescription">
                <p><xsl:copy-of
@@ -359,7 +359,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <xsl:if test="sizes">
                    <div>
                     <label class="kupu-detail-label"
-                           for="image-size-selector">Size:</label>&#xa0;
+                           for="image-size-selector">Size:</label>
                     <select class="kupu-detail" name="image-size-selector">
                         <option name="image-size-option" value="{uri}">Original</option>
                         <xsl:apply-templates select="sizes/size" />
@@ -369,7 +369,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <xsl:if test="class">
                    <div>
                       <label class="kupu-detail-label"
-                             for="kupu-image-class-selector">Style:</label>&#xa0;
+                             for="kupu-image-class-selector">Style:</label>
                       <select class="kupu-detail" name="kupu-image-class-selector" id="kupu-image-class">
                          <xsl:apply-templates select="class"/>
                       </select>

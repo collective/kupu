@@ -692,7 +692,10 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (!this.focussed) {
             this.focusElement();
         }
-
+        var el = targetnode.getElementsByTagName('img')[0];
+        if (el) {
+            kupuFixImage(el);
+        }
         // Mark drawer as having a selection or not
         var el = this.element;
         el.className = el.className.replace(' kupu-has-selection', '');

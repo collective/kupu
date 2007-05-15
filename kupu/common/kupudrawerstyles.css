@@ -97,6 +97,7 @@ h1.kupu-title-row, div.kupu-description-row {
    clear: none;
    height: auto; line-height: 1.1em;
 }
+.kupu-description-row p { height: auto !IMPORTANT; }
 
 h1.kupu-title-row { font-size: 136%; }
 
