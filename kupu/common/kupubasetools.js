@@ -1265,7 +1265,7 @@ function ImageTool() {
         } else {
             return ed.insertNodeAtSelection(obj, 1);
         }
-    }
+    };
     this.createImage = function(url, alttext, imgclass) {
         /* create an image */
         var img = this.editor.getInnerDocument().createElement('img');
@@ -1291,7 +1291,7 @@ function ImageTool() {
             [ed.newElement('param', {name:'movie', value:url})]);
         this.newNode('OBJECT', obj);
         this.editor.logMessage(_('Flash inserted'));
-    }
+    };
 
     this.setImageClass = function(imgclass) {
         /* set the class of the selected image */
@@ -2821,17 +2821,20 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
 
     var body = document.body;
     var html = document.getElementsByTagName('html')[0];
+    var doc = editor.getInnerDocument();
     if (zoom) {
         html.style.overflow = 'hidden';
         window.scrollTo(0, 0);
         editor.setClass(zoomClass);
         body.className += ' '+zoomClass;
+        doc.body.className += ' '+zoomClass;
         this.onresize();
     } else {
         html.style.overflow = '';
         var fulleditor = iframe.parentNode;
         fulleditor.style.width = '';
         body.className = body.className.replace(/ *kupu-fulleditor-zoomed/, '');
+        doc.body.className = doc.body.className.replace(/ *kupu-fulleditor-zoomed/, '');
         editor.clearClass(zoomClass);
 
         iframe.style.width = '';
@@ -2844,7 +2847,6 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
             sourceArea.style.height = '';
         };
     }
-    var doc = editor.getInnerDocument();
     // Mozilla needs this. Yes, really!
     doc.designMode=doc.designMode;
 
