@@ -6,6 +6,7 @@
 <libraries
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
 
@@ -13,12 +14,14 @@
     getToolByName nocall:modules/Products.CMFCore.utils/getToolByName;
     kupu_tool     python:getToolByName(context, 'kupu_library_tool');
     libraries     python:kupu_tool.getCookedLibraries(context);
-    ">
+    pss modules/Products/PythonScripts/standard;
+">
 
   <library tal:repeat="library libraries"
            tal:attributes="id library/id;selected library/selected;">
     <uri tal:content="library/uri">URI</uri>
-    <title i18n:translate="" tal:content="library/title">Title</title>
+    <title i18n:translate="" tal:define="title library/title"
+           tal:content="structure python:pss.html_quote(title).replace('\n','\x3cxhtml:br/\x3e')">Title</title>
     <src tal:content="library/src">Source</src>
     <icon tal:content="library/icon">Icon</icon>
   </library>

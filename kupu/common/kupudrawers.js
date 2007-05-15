@@ -722,7 +722,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var divs = librariespanel.getElementsByTagName('div');
         for (var i = 0; i < divs.length; i++) {
             var div = divs[i];
-            div.className = div.className.replace(/ *selected/,'');
+            div.className = div.className.replace(/[ -]*selected/,'');
         }
         /* Deselect the currently active collection or library */
         var selected;

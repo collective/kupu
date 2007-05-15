@@ -20,7 +20,7 @@
     <crumb tal:define="locator here/kupulocate.xml/absolute_url;
                        url python:kupu.kupuUrl(locator);"
       tal:attributes="href string:$url&src=$$src$$">
-      Breadcrumbs
+      Locate
     </crumb>
   </breadcrumbs>
   <items metal:use-macro="here/kupucollection.xml/macros/collectionItems">
