@@ -312,7 +312,7 @@ function XhtmlValidation(editor) {
         this.misc = ['noscript'].concat(this.misc_inline);
         this.inline = ['a'].concat(this.special, this.fontstyle, this.phrase, this.inline_forms);
 
-        this.Inline = ['#PCDATA'].concat(this.inline, this.misc_inline);
+        this.Inline = ['#text'].concat(this.inline, this.misc_inline);
 
         this.heading = ['h1','h2','h3','h4','h5','h6'];
         this.lists = ['ul','ol','dl','menu','dir'];
@@ -320,7 +320,7 @@ function XhtmlValidation(editor) {
         this.block = ['p','div','isindex','fieldset','table'].concat(
                      this.heading, this.lists, this.blocktext);
 
-        this.Flow = ['#PCDATA','form'].concat(this.block, this.inline, this.misc);
+        this.Flow = ['#text','form'].concat(this.block, this.inline, this.misc);
     }(this);
 
     this._commonsetting = function(self, names, value) {
@@ -415,7 +415,7 @@ function XhtmlValidation(editor) {
             'base', 'meta', 'link', 'hr', 'param', 'img', 'area', 'input',
             'br', 'basefont', 'isindex', 'col'], []);
 
-        setStates(['title','style','script','option','textarea'], ['#PCDATA']);
+        setStates(['title','style','script','option','textarea'], ['#text']);
         setStates([ 'noscript', 'iframe', 'noframes', 'body', 'div',
             'li', 'dd', 'blockquote', 'center', 'ins', 'del', 'td', 'th'], el.Flow);
 
@@ -430,12 +430,12 @@ function XhtmlValidation(editor) {
         setStates(['dl'], ['dt','dd']);
         setStates(['pre'], validation._exclude(el.Inline, "img|object|embed|applet|big|small|sub|sup|font|basefont"));
         setStates(['a'], validation._exclude(el.Inline, "a"));
-        setStates(['applet', 'object','embed'], ['#PCDATA', 'param','form'].concat(el.block, el.inline, el.misc));
+        setStates(['applet', 'object','embed'], ['#text', 'param','form'].concat(el.block, el.inline, el.misc));
         setStates(['map'], ['form', 'area'].concat(el.block, el.misc));
         setStates(['form'], validation._exclude(el.Flow, ['form']));
         setStates(['select'], ['optgroup','option']);
         setStates(['optgroup'], ['option']);
-        setStates(['fieldset'], ['#PCDATA','legend','form'].concat(el.block,el.inline,el.misc));
+        setStates(['fieldset'], ['#text','legend','form'].concat(el.block,el.inline,el.misc));
         setStates(['button'], validation._exclude(el.Flow, ['a','form','iframe'].concat(el.inline_forms)));
         setStates(['table'], ['caption','col','colgroup','thead','tfoot','tbody','tr']);
         setStates(['thead', 'tfoot', 'tbody'], ['tr']);
@@ -542,26 +542,6 @@ function XhtmlValidation(editor) {
         };
     }(this, editor);
 
-    // Node filtering. May modify html node or xhtml parentNode.
-    // Return true to continue processing html node, false to skip it.
-    this.nodefilters = new function(editor) {
-        // Strip <br> at end of paragraph.
-        // Top level <br>: enclose preceding text (if any) in <p> and
-        // drop the <br>
-        this['br'] = function(node, parentNode) {
-            if (parentNode.tagName=='body') {
-                var p = parentNode.ownerDocument.createElement('p');
-                if (parentNode.lastChild && parentNode.lastChild.nodeType==3) {
-                    p.appendChild(parentNode.lastChild);
-                }
-                parentNode.appendChild(p);
-                return false;
-            }
-            if (!node.nextSibling && /p|div/i.test(parentNode.nodeName)) return false;
-            return true;
-        };
-    }
-
     // Exclude unwanted tags.
     this.excludeTags(['center']);
 
@@ -610,9 +590,101 @@ function XhtmlValidation(editor) {
             if (filter) filter(name, htmlnode, xhtmlnode);
         }
     };
+    this._xmlCopyAttr = function(srcnode, target) {
+        var valid = this.tagAttributes[srcnode.nodeName];
+        for (var i = 0; i < valid.length; i++) {
+            var val = srcnode.getAttribute(valid[i]);
+            if (val) {
+                target.setAttribute(valid[i], val);
+            }
+        };
+    }
 
-    this._convertToSarissaNode = function(ownerdoc, htmlnode, xhtmlparent) {
-        return this._convertNodes(ownerdoc, htmlnode, xhtmlparent, new this.Set(['html']));
+    this._convertToSarissaNode = function(ownerdoc, htmlnode) {
+        var root = this._convertNodes(ownerdoc, htmlnode, null, new this.Set(['html']));
+        this._cleanupBr(ownerdoc, root);
+        this._cleanupParas(ownerdoc, root);
+        return root;
+    };
+
+    // Clean up a paragraph. Any direct child which is not allowed in
+    // the paragraph is moved to the parent. This may involved
+    // splitting the paragraph, or if it is at the beginning or end it
+    // may simply mean moving it out of the paragraph.
+    this._cleanupPara = function(ownerdoc, para) {
+        var permitted = this.States.p;
+        var nodes = [[]];
+        var idx = 0;
+        for (var child = para.firstChild; child; child = child.nextSibling) {
+            var nn = child.nodeName.toLowerCase();
+            if (permitted[nn] && (nn != 'img' || !(/\bcaptioned\b/i.test(child.getAttribute('class'))))) {
+                nodes[idx].push(child);
+            } else {
+                if (nodes[idx].length) {
+                    nodes.push(child);
+                } else {
+                    nodes[idx] = child;
+                }
+                nodes.push([]);
+                idx = nodes.length-1;
+            }
+        }
+        if (!nodes[idx].length) {
+            nodes.splice(idx,1);
+        };
+        if (nodes.length > 0 && nodes[0] instanceof Array && !nodes[0].length) {
+            nodes.splice(0,1);
+        }
+        if (nodes.length==0 || (nodes.length==1 && nodes[0] instanceof Array)) {
+            return; /* No change */
+        }
+        /* Need to cleanup this paragraph */
+        var parentnode = para.parentNode;
+        for (var idx = 0; idx < nodes.length; idx++) {
+            var n = nodes[idx];
+            if (n instanceof Array) {
+                var newp = ownerdoc.createElement('p');
+                this._xmlCopyAttr(para, newp);
+                var ln = n.length-1;
+                if (/br/i.test(n[ln].nodeName)) {
+                    n.splice(ln,1);
+                }
+                for (var j = 0; j < n.length; j++) {
+                    newp.appendChild(n[j]);
+                }
+                n = newp;
+            }
+            parentnode.insertBefore(n,para);
+        }
+        parentnode.removeChild(para);
+    };
+
+    this._cleanupParas = function(ownerdoc, root) {
+        var paras = root.getElementsByTagName('p');
+        for (var i = 0; i < paras.length; i++) {
+            this._cleanupPara(ownerdoc, paras[i]);
+        }
+    };
+    /* Cleanup br tags: br at top level is replaced by a paragraph,
+     * br at end of p|div is dropped.
+     */
+    this._cleanupBr = function(ownerdoc, root) {
+        var breaks = root.getElementsByTagName('br');
+        for (var i = 0; i < breaks.length; i++) {
+            var node = breaks[i];
+            var parentNode = node.parentNode;
+            if (parentNode.tagName=='body') {
+                var p = ownerdoc.createElement('p');
+                var prev = node.previousSibling;
+                if (prev && prev.nodeType==3) {
+                    p.appendChild(prev);
+                }
+                parentNode.insertBefore(p,node);
+                parentNode.removeChild(node);
+            } else if (!node.nextSibling && (/p|div/i.test(parentNode.nodeName))) {
+                parentNode.removeChild(node);
+            }
+        }
     };
 
     this._convertNodes = function(ownerdoc, htmlnode, xhtmlparent, permitted) {
@@ -620,12 +692,6 @@ function XhtmlValidation(editor) {
         var nodename = this._getTagName(htmlnode);
         var nostructure = !this.filterstructure;
 
-        var filter = this.nodefilters[nodename];
-        if (filter) {
-            if (!filter(htmlnode, xhtmlparent)) {
-                return;
-            }
-        }
         // TODO: This permits valid tags anywhere. it should use the state
         // table in xhtmlvalid to only permit tags where the XHTML DTD
         // says they are valid.
@@ -646,7 +712,7 @@ function XhtmlValidation(editor) {
 
         if (kids.length == 0) {
             if (htmlnode.text && htmlnode.text != "" &&
-                (nostructure || permittedChildren['#PCDATA'])) {
+                (nostructure || permittedChildren['#text'])) {
                 var text = htmlnode.text;
                 var tnode = ownerdoc.createTextNode(text);
                 parentnode.appendChild(tnode);
@@ -669,11 +735,11 @@ function XhtmlValidation(editor) {
                         parentnode.appendChild(newkid);
                     };
                 } else if (kid.nodeType == 3) {
-                    if (nostructure || permittedChildren['#PCDATA']) {
+                    if (nostructure || permittedChildren['#text']) {
                         parentnode.appendChild(ownerdoc.createTextNode(kid.nodeValue));
                     }
                 } else if (kid.nodeType == 4) {
-                    if (nostructure || permittedChildren['#PCDATA']) {
+                    if (nostructure || permittedChildren['#text']) {
                         parentnode.appendChild(ownerdoc.createCDATASection(kid.nodeValue));
                     }
                 }

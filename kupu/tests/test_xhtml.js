@@ -256,8 +256,45 @@ function KupuXhtmlTestCase() {
             '<basefont size="2"/>';
         this.editor.xhtmlvalid.filterstructure = true;
         this.conversionTest(data, data);
+    }
+
+    // Some tests to ensure that we don't put anything in a <p> tag
+    // which isn't allowed in a <p> tag.
+    // Can't test with <p><div>x</div></p> as Firefox DOM fixes that
+    // for us (but not as we want it fixed) so we use something FF doesn't already fix.
+    this.testPcleanup = function() {
+        var data = '<p><table><tbody><tr><td>oops</td></tr></tbody></table></p>';
+        var expected = '<table><tbody><tr><td>oops</td></tr></tbody></table>';
+        this.conversionTest(data, expected);
     };
 
+    this.testPcleanup2 = function() {
+        var data = '<p class="blue">some text<br/><table><tbody><tr><td>oops</td></tr></tbody></table>more text<br/></p>';
+        var expected = '<p class="blue">some text</p><table><tbody><tr><td>oops</td></tr></tbody></table><p class="blue">more text</p>';
+        this.conversionTest(data, expected);
+    };
+
+    this.testPWithCaptionedImg = function() {
+        // Captioned images are converted to block tags so they must
+        // not be inside a paragraph.
+        var data = '<p>some text<br/><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        var expected = '<p>some text</p><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/><p>blah</p>';
+        this.conversionTest(data, expected);
+        // If there is no surrounding text we don't want empty paras.
+        var data = '<p><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/></p>';
+        var expected = '<img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/>';
+        this.conversionTest(data, expected);
+        // But ordinary images are fine.
+        var data = '<p>some text<br/><img class="image-inline" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        var expected = '<p>some text<br/><img class="image-inline" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        this.conversionTest(data, expected);
+    };
+
+    // Firefox is broken wrt to <br> tags and newlines inside <pre>.
+    // It thinks that <br>\n is two newlines but in fact the HTML spec
+    // says it should ignore any whitespace following a <br>.
+    this.testBrInsidePre = function() {
+    }
     this.tearDown = function() {
         this.body.innerHTML = '';
     };
