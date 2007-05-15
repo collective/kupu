@@ -32,7 +32,7 @@
   </library>
   <library src="string:${folder_url}/kupucollection.xml"
            uri="string:${folder_url}" id="current"
-           icon="string:${portal_url}/folder_icon.gif"
+           icon="string:${folder/getIcon}"
            title="string:Current folder">
   </library>
   <library src="string:${portal_url}/kupumyitems.xml"
