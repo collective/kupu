@@ -181,7 +181,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
             <span class="drawer-item-title">
-                <xsl:value-of select="title"/>
+                <xsl:copy-of select="title//*|title/text()"/>
             </span>
         </div>
     </xsl:template>
@@ -309,33 +309,30 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                    <input id="kupu-media" type="hidden" value="{media}" />
                    <input id="kupu-width" type="hidden" value="{width}" />
                    <input id="kupu-height" type="hidden" value="{height}" />
-                    <label style="display: block;margin-top: 1em;">Image alignment</label>
-                    <input type="radio" name="image-align" id="image-align-left" value="image-left">
-                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-                        <xsl:if test="$image-align='left'">
+                   <label class="kupu-detail-label">Align:</label>
+                   <span class="kupu-detail">
+                      <input type="radio" name="image-align" id="image-align-left" value="image-left">
+                         <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                         <xsl:if test="$image-align='left'">
                             <xsl:attribute name="checked">checked</xsl:attribute>
-                        </xsl:if>
-                    </input>
-                    <label for="image-align-left" i18n:translate="imagedrawer_left">Left</label>
-                    <input type="radio" name="image-align" id="image-align-inline" value="image-inline">
-                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-                       <xsl:if test="$image-align='inline'">
-                          <xsl:attribute name="checked">checked</xsl:attribute>
-                       </xsl:if>
-                    </input>
-                    <label for="image-align-inline" i18n:translate="imagedrawer_inline">Inline</label>
-                    <input type="radio" name="image-align" id="image-align-right" value="image-right">
-                       <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-                       <xsl:if test="$image-align='right'">
-                          <xsl:attribute name="checked">checked</xsl:attribute>
-                       </xsl:if>
-                    </input>
-                    <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
-                    <div class="discreet" i18n:translate="imagedrawer_image_align_explanation">
-                        You have to select left/right alignment first, then
-                        move the image up or down in the document afterwards.
-                        This is a browser-imposed limitation.
-                    </div>
+                         </xsl:if>
+                      </input>
+                      <label for="image-align-left" i18n:translate="imagedrawer_left">Left</label>
+                      <input type="radio" name="image-align" id="image-align-inline" value="image-inline">
+                         <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                         <xsl:if test="$image-align='inline'">
+                            <xsl:attribute name="checked">checked</xsl:attribute>
+                         </xsl:if>
+                      </input>
+                      <label for="image-align-inline" i18n:translate="imagedrawer_inline">Inline</label>
+                      <input type="radio" name="image-align" id="image-align-right" value="image-right">
+                         <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                         <xsl:if test="$image-align='right'">
+                            <xsl:attribute name="checked">checked</xsl:attribute>
+                         </xsl:if>
+                      </input>
+                      <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
+                    </span>
                 </div>
                 
                 <xsl:if test="$usecaptions='yes'">
@@ -343,7 +340,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                       <xsl:when test="media='flash'" />
                       <xsl:otherwise>
                          <div>
-                            <input type="checkbox" name="image-caption" id="image-caption">
+                            <label class="kupu-detail-label"
+                                   for="image-caption" i18n:translate="imagedrawer_caption_label">Caption:</label>
+                            <input class="kupu-detail" type="checkbox" name="image-caption" id="image-caption">
                                <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
                                <xsl:if test="$image-caption='true'">
                                   <xsl:attribute name="checked">checked</xsl:attribute>
@@ -351,16 +350,15 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
                                   this.checked?'none':'';</xsl:attribute>
                             </input>
-                            <label for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                          </div>
                       </xsl:otherwise>
                    </xsl:choose>
                 </xsl:if>
                 <xsl:if test="sizes">
                    <div>
-                    <label for="image-size-selector"
-                            style="margin-top: 1em;">Image size:</label>&#xa0;
-                    <select name="image-size-selector">
+                    <label class="kupu-detail-label"
+                           for="image-size-selector">Size:</label>&#xa0;
+                    <select class="kupu-detail" name="image-size-selector">
                         <option name="image-size-option" value="{uri}">Original</option>
                         <xsl:apply-templates select="sizes/size" />
                     </select>
@@ -368,8 +366,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 </xsl:if>
                 <xsl:if test="class">
                    <div>
-                      <label for="kupu-image-class-selector">Image style</label>&#xa0;
-                      <select name="kupu-image-class-selector" id="kupu-image-class">
+                      <label class="kupu-detail-label"
+                             for="kupu-image-class-selector">Style:</label>&#xa0;
+                      <select class="kupu-detail" name="kupu-image-class-selector" id="kupu-image-class">
                          <xsl:apply-templates select="class"/>
                       </select>
                    </div>
@@ -379,8 +378,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                            test="$usecaptions='yes' and $image-caption='true'">
                         <xsl:attribute name="style">display:none;</xsl:attribute>
                      </xsl:if>   
-                    <label for="image_alt" i18n:translate="imagedrawer_upload_alt_text">"alt" attribute text</label>
-                    <input type="text" id="image_alt" size="20" value="{title}">
+                    <label class="kupu-detail-label"
+                           for="image_alt"
+                           i18n:translate="imagedrawer_upload_alt_text">"alt"&#xa0;text:</label>
+                    <input class="kupu-detail" type="text" id="image_alt" size="20" value="{title}">
                        <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
                     </input>
                 </div>

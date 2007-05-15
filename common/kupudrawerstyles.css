@@ -64,7 +64,7 @@ input#kupu-searchbox-input {
 .kupu-alt-row label {
    display: block;
 }
-
+#image_alt { width:17em; }
 div.kupu-linkdrawer-addlink td {
   border: 0;
 }
@@ -190,8 +190,23 @@ div.kupu-resource, div.kupu-collection, div.kupu-upload {
   vertical-align: text-bottom;
   white-space: nowrap;
 }
+.kupu-libsource, .kupu-libsource-selected { margin-left: 20px; }
+.library-icon-library {
+  margin-left: -20px;
+}
 div.kupu-upload {
    text-align: right; font-style: italic;
+}
+
+label.kupu-detail-label {
+  float:left;clear:left;
+  width:7em;
+  text-align:right;
+  margin: 0.2em;
+}
+.kupu-detail {
+  float:left;
+  margin: 0.2em;
 }
 
 /*div.kupu-libsource-selected {
@@ -273,6 +288,7 @@ td.kupu-bm-select {
 
 .kupu-drawer label {
    font-weight: bold;
+   vertical-align:middle;
 }
 #kupu-breadcrumbs {
   text-align: left; clear:left;
