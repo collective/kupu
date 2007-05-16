@@ -234,9 +234,9 @@ class InfoAdaptor:
         """Returns size, width, height"""
         if not self.showimagesize:
             return None, None, None
-        if not callable(obj.getId):
-            obj = obj.getObject() # Must be a brain
         try:
+            if not callable(obj.getId):
+                obj = obj.getObject() # Must be a brain
             size = self.tool.getObjSize(obj)
         except:
             size = None
