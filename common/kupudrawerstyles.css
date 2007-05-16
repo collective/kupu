@@ -156,7 +156,7 @@ div#kupu-resourceitems {
   white-space: nowrap;
   width: 200px;
 }
-div#kupu-resourceitems.overflow-with-button {
+.upload-allowed div#kupu-resourceitems {
   height:236px;
 }
 

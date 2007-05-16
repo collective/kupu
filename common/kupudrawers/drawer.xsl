@@ -114,10 +114,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                         </div>
                                     </td>
                                     <td id="kupu-resourcespanel" class="panel">
+                                       <xsl:if test="/libraries/*[@selected]//uploadbutton">
+                                          <xsl:attribute name="class">panel upload-allowed</xsl:attribute>
+                                       </xsl:if>
                                         <div id="kupu-resourceitems" class="overflow">
-                                           <xsl:if test="/libraries/*[@selected]//uploadbutton">
-                                              <xsl:attribute name="class">overflow overflow-with-button</xsl:attribute>
-                                           </xsl:if>
                                             <xsl:apply-templates
                                                 select="/libraries/*[@selected]/items"/>
                                         </div>
