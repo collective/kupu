@@ -185,7 +185,7 @@ div.response, div.collection {
 }
 
 div.kupu-libsource, div.kupu-libsource-selected,
-div.kupu-resource, div.kupu-collection, div.kupu-upload {
+div.kupu-resource, div.kupu-collection {
   cursor: pointer;
   margin-bottom: 2px;
   vertical-align: text-bottom;
@@ -195,8 +195,8 @@ div.kupu-resource, div.kupu-collection, div.kupu-upload {
 .library-icon-library {
   margin-left: -20px;
 }
-div.kupu-upload {
-   text-align: right; font-style: italic;
+.kupu-upload {
+  margin-top: 1em; float:right;
 }
 
 label.kupu-detail-label {

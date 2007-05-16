@@ -215,11 +215,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </div>
     </xsl:template>
     <xsl:template match="uploadbutton" mode="currentpanel">
-        <div class="kupu-upload">
+        <button class="kupu-dialog-button kupu-upload">
             <xsl:attribute name="onclick"> drawertool.current_drawer.selectUpload(); </xsl:attribute>
-            <span class="drawer-item-title" i18n:translate="imagedrawer_upload_link">Upload
-            ...</span>
-        </div>
+            <span class="drawer-item-title"
+                  i18n:translate="imagedrawer_upload_link">Upload&#xa0;image&#xa0;here...</span>
+        </button>
     </xsl:template>
     <xsl:template match="icon">
         <img src="{.}" alt="{../title}">
