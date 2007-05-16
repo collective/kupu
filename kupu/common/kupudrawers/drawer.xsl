@@ -119,6 +119,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                             <xsl:apply-templates
                                                 select="/libraries/*[@selected]/items"/>
                                         </div>
+                                        <xsl:apply-templates select="/libraries/*[@selected]//uploadbutton"
+                                                                mode="currentpanel"/>
                                     </td>
                                     <td id="kupu-propertiespanel" class="panel">
                                         <div id="kupu-properties" class="overflow">
@@ -186,10 +188,17 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </div>
     </xsl:template>
     <xsl:template match="items">
-        <xsl:apply-templates select="collection|resource|uploadbutton" mode="currentpanel"/>
+        <xsl:apply-templates select="collection|resource" mode="currentpanel"/>
     </xsl:template>
     <xsl:template match="resource|collection" mode="currentpanel">
-        <div id="{@id}" class="kupu-{local-name()} {@class}" title="{description}">
+        <div id="{@id}" title="{description}">
+           <xsl:attribute name="class">
+              <xsl:value-of select="@class"/>
+              kupu-<xsl:value-of select="local-name()"/>
+              <xsl:if test="@selected">
+                 selected-item
+              </xsl:if>
+           </xsl:attribute>
             <xsl:attribute name="onclick">
                 <xsl:choose>
                     <xsl:when test="local-name()='collection'">drawertool.current_drawer.selectCollection(this);</xsl:when>
@@ -229,9 +238,6 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     </xsl:template>
     <xsl:template match="label|title">
         <span class="drawer-item-title">
-            <xsl:if test="../@selected">
-                <xsl:attribute name="class">drawer-item-title selected-item</xsl:attribute>
-            </xsl:if>
             <xsl:choose>
                 <xsl:when test="string-length() &gt; $titlelength">
                     <xsl:value-of select="substring(., 0, $titlelength)"/>... </xsl:when>

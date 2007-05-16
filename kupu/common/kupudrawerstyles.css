@@ -195,9 +195,6 @@ div.kupu-resource, div.kupu-collection {
 .library-icon-library {
   margin-left: -20px;
 }
-.kupu-upload {
-  margin-top: 1em; float:right;
-}
 
 label.kupu-detail-label {
   float:left;clear:left;
@@ -240,7 +237,7 @@ span.drawer-item-title {
   padding-top: 2px;
 }
 
-span.drawer-item-title.selected-item {
+.selected-item span.drawer-item-title {
   background-color:#C0C0C0;
 }
 

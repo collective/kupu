@@ -1003,7 +1003,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             if (item) {
                 var spans = item.getElementsByTagName('span');
                 for (var j = 0; j < spans.length; j++) {
-                    spans[j].className = spans[j].className.replace(' selected-item', '');
+                    var p = spans[j].parentNode;
+                    p.className = p.className.replace(/(\s+|^)selected-item/, '');
                 }
             }
         }
@@ -1070,8 +1071,9 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var span = item.getElementsByTagName('span');
         if (span.length > 0) {
             span = span[0];
-            span.className += ' selected-item';
-            var inp = span.parentNode.getElementsByTagName('input');
+            var p = span.parentNode;
+            p.className += ' selected-item';
+            var inp = p.getElementsByTagName('input');
             if (inp) inp[0].checked = check;
         }
 
