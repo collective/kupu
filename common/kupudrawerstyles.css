@@ -109,10 +109,6 @@ div.kupu-dialogbuttons {
   width: 640px; /* Mozilla bug */
 }
 
-div.kupu-drawer button {
-  margin-right: 0.3em;
-}
-
 div.kupu-panels {
   width: 100%;
   background-color: ButtonFace;
@@ -137,7 +133,7 @@ div.kupu-panels table {
 }
 
 td.panel {
-  height: 260px;
+  height: 260px; padding:0; margin:0;
 }
 
 td#kupu-librariespanel {
@@ -148,7 +144,7 @@ td#kupu-librariespanel {
 div#kupu-librariesitems {
   width: 105px;
   white-space: nowrap;
-  height: 100%;
+  height: 260px;
 }
 
 td#kupu-resourcespanel {
@@ -159,11 +155,13 @@ td#kupu-resourcespanel {
 div#kupu-resourceitems {
   white-space: nowrap;
   width: 200px;
-  height: 100%;
+}
+div#kupu-resourceitems.overflow-with-button {
+  height:236px;
 }
 
 div#kupu-properties {
-  height: 100%;
+  height: 260px;
 }
 
 div#kupu-librariesitems, div#kupu-resourceitems, div#kupu-properties {
@@ -172,7 +170,7 @@ div#kupu-librariesitems, div#kupu-resourceitems, div#kupu-properties {
 
 .overflow {
   overflow: auto;
-  height: 100%;
+  height: 260px;
 }
 
 div.response, div.collection {

@@ -223,11 +223,6 @@ div.kupu-drawer table td td {
   font-size: 100%;
 }
 
-div.kupu-drawer table td button, 
-div.kupu-drawer table td td {
-  font-size: 100%;
-}
-
 div.kupuoverride {
     margin-left: 0.75em;
 }

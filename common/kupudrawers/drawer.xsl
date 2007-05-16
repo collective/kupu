@@ -85,8 +85,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                 <xsl:variable name="search_value" i18n:translate="kupudrawer_search"
                                     >Search</xsl:variable>
                                 <input id="kupu-searchbox-input"
-                                    class="kupu-searchbox-input nofocus"
-                                    style="color: #666;">
+                                    class="kupu-searchbox-input nofocus">
                                   <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
                                     <xsl:attribute name="onkeyup">if(event.keyCode == 13){drawertool.current_drawer.search();return false;}</xsl:attribute>
                                     <xsl:attribute name="value">
@@ -116,6 +115,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                                     </td>
                                     <td id="kupu-resourcespanel" class="panel">
                                         <div id="kupu-resourceitems" class="overflow">
+                                           <xsl:if test="/libraries/*[@selected]//uploadbutton">
+                                              <xsl:attribute name="class">overflow overflow-with-button</xsl:attribute>
+                                           </xsl:if>
                                             <xsl:apply-templates
                                                 select="/libraries/*[@selected]/items"/>
                                         </div>
@@ -226,8 +228,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="uploadbutton" mode="currentpanel">
         <button class="kupu-dialog-button kupu-upload">
             <xsl:attribute name="onclick"> drawertool.current_drawer.selectUpload(); </xsl:attribute>
-            <span class="drawer-item-title"
-                  i18n:translate="imagedrawer_upload_link">Upload&#xa0;image&#xa0;here...</span>
+            <span tal:omit-tag="" i18n:translate="imagedrawer_upload_link">Upload&#xa0;image&#xa0;here...</span>
         </button>
     </xsl:template>
     <xsl:template match="icon">
@@ -272,8 +273,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <div class="kupu-preview-row">
             <xsl:apply-templates select="status"/>
             <xsl:apply-templates select="." mode="image-view" />
-            <div>
-                <xsl:value-of select="size"/>
+            <div class="preview-size">
                 <xsl:if test="width" i18n:translate="imagedrawer_size"> (<span i18n:name="width">
                 <xsl:value-of select="width"/>
                     </span> by <span i18n:name="height">
