@@ -1508,3 +1508,12 @@ function kupuFixImage(image) {
     image.height = height;
     image.width = width;
 }
+function toggleAltFieldVisibility(me) {
+    var label = document.getElementById('image-alt-label');
+    var vis = me.checked?'none':'';
+    if (label) {
+        label.style.display = vis;
+        var fld = document.getElementById(label.htmlFor);
+        if(fld) { fld.style.display = vis; }
+    }
+}

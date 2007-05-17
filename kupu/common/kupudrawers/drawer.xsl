@@ -315,7 +315,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           <input id="kupu-media" type="hidden" value="{media}" />
           <input id="kupu-width" type="hidden" value="{width}" />
           <input id="kupu-height" type="hidden" value="{height}" />
-          <label class="kupu-detail-label">Align:</label>
+          <label class="kupu-detail">Align:</label>
           <span class="kupu-detail">
              <input type="radio" name="image-align" id="image-align-left" value="image-left">
                 <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -343,45 +343,53 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              <xsl:choose>
                 <xsl:when test="media='flash'" />
                 <xsl:otherwise>
-                   <label class="kupu-detail-label"
+                   <label class="kupu-detail"
                           for="image-caption" i18n:translate="imagedrawer_caption_label">Caption:</label>
-                   <input class="kupu-detail" type="checkbox" name="image-caption" id="image-caption">
-                      <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-                      <xsl:if test="$image-caption='true'">
-                         <xsl:attribute name="checked">checked</xsl:attribute>
-                      </xsl:if>
-                      <xsl:attribute name="onclick">document.getElementById('image_alt_div').style.display =
-                         this.checked?'none':'';</xsl:attribute>
-                   </input>
+                   <span class="kupu-detail">
+                      <input type="checkbox" name="image-caption" id="image-caption">
+                         <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+                         <xsl:if test="$image-caption='true'">
+                            <xsl:attribute name="checked">checked</xsl:attribute>
+                         </xsl:if>
+                         <xsl:attribute name="onclick">toggleAltFieldVisibility(this);</xsl:attribute>
+                      </input>
+                   </span>
                 </xsl:otherwise>
              </xsl:choose>
           </xsl:if>
           <xsl:if test="sizes">
-             <label class="kupu-detail-label"
+             <label class="kupu-detail"
                     for="image-size-selector">Size:</label>
-             <select class="kupu-detail" name="image-size-selector">
-                <option name="image-size-option" value="{uri}">Original</option>
-                <xsl:apply-templates select="sizes/size" />
-             </select>
+             <span class="kupu-detail">
+                <select name="image-size-selector">
+                   <option name="image-size-option" value="{uri}">Original</option>
+                   <xsl:apply-templates select="sizes/size" />
+                </select>
+             </span>
           </xsl:if>
           <xsl:if test="class">
-             <label class="kupu-detail-label"
+             <label class="kupu-detail"
                     for="kupu-image-class-selector">Style:</label>
-             <select class="kupu-detail" name="kupu-image-class-selector" id="kupu-image-class">
-                <xsl:apply-templates select="class"/>
-             </select>
+             <span class="kupu-detail">
+                <select name="kupu-image-class-selector" id="kupu-image-class">
+                   <xsl:apply-templates select="class"/>
+                </select>
+             </span>
           </xsl:if>
-          <div id="image_alt_div">
+          <label class="kupu-detail" id="image-alt-label"
+                 for="image_alt"
+                 i18n:translate="imagedrawer_upload_alt_text">
+             <xsl:if test="$usecaptions='yes' and $image-caption='true'">
+                <xsl:attribute name="style">display:none;</xsl:attribute>
+             </xsl:if>
+             "alt"&#xa0;text:
+          </label>
+          <input class="kupu-detail" type="text" id="image_alt" size="20" value="{title}">
              <xsl:if test="$usecaptions='yes' and $image-caption='true'">
                 <xsl:attribute name="style">display:none;</xsl:attribute>
              </xsl:if>   
-             <label class="kupu-detail-label"
-                    for="image_alt"
-                    i18n:translate="imagedrawer_upload_alt_text">"alt"&#xa0;text:</label>
-             <input class="kupu-detail" type="text" id="image_alt" size="20" value="{title}">
-                <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-             </input>
-          </div>
+             <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
+          </input>
        </div>
     </xsl:template>
     <xsl:template match="class">
