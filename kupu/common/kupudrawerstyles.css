@@ -206,6 +206,11 @@ label.kupu-detail {
   clear:left; width:75px; text-align:right;
   margin-right: 5px;
 }
+#image-caption, #image-align-left { margin-left: 0; }
+#image-align-left, #image-align-right, #image-align-inline, #image-caption {
+  border: none;
+}
+
 /*div.kupu-libsource-selected {
   background-repeat: no-repeat;
 }*/
@@ -284,8 +289,9 @@ td.kupu-bm-select {
 /* Anchor drawer */
 
 .kupu-drawer label {
-   font-weight: bold;
-   vertical-align:middle;
+  font-weight: normal;
+  vertical-align:middle;
+  margin-right: 5px;
 }
 #kupu-breadcrumbs {
   text-align: left; clear:left;

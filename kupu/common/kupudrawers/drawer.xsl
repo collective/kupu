@@ -185,7 +185,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </xsl:attribute>
             <xsl:apply-templates select="icon"/>
             <span class="drawer-item-title">
-                <xsl:copy-of select="title//*|title/text()"/>
+               <xsl:call-template name="lf2br">
+                  <xsl:with-param name="StringToTransform" select="title/text()"/>
+               </xsl:call-template>
             </span>
         </div>
     </xsl:template>
@@ -295,7 +297,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
      If a 'preview' tag is available then that one is used, otherwise 'uri'.
     -->
     <xsl:template match="resource|collection" mode="image-view">
-       <xsl:variable name="p" select="preview|uri"></xsl:variable>
+       <xsl:variable name="p" select="preview"></xsl:variable>
        <xsl:choose>
           <xsl:when test="media='flash'">
              <object src="{$p}" data="{$p}" type="application/x-shockwave-flash"
@@ -303,7 +305,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <param name="movie" value="{$p}" />
              </object>
           </xsl:when>
-          <xsl:otherwise>
+          <xsl:when test="$p!=''">
              <img src="{$p}" title="{title}" width="{width}" height="{height}" id="kupu-preview-image">
                 <xsl:choose>
                    <xsl:when test="height > width">
@@ -325,7 +327,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                    </xsl:otherwise>
                 </xsl:choose>
              </img>
-          </xsl:otherwise>
+          </xsl:when>
+          <xsl:otherwise/>
        </xsl:choose>
     </xsl:template>
 
@@ -335,7 +338,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           <input id="kupu-media" type="hidden" value="{media}" />
           <input id="kupu-width" type="hidden" value="{width}" />
           <input id="kupu-height" type="hidden" value="{height}" />
-          <label class="kupu-detail">Align:</label>
+          <label class="kupu-detail">Alignment</label>
           <span class="kupu-detail">
              <input type="radio" name="image-align" id="image-align-left" value="image-left">
                 <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -364,7 +367,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <xsl:when test="media='flash'" />
                 <xsl:otherwise>
                    <label class="kupu-detail"
-                          for="image-caption" i18n:translate="imagedrawer_caption_label">Caption:</label>
+                          for="image-caption" i18n:translate="imagedrawer_caption_label">Caption</label>
                    <span class="kupu-detail">
                       <input type="checkbox" name="image-caption" id="image-caption">
                          <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -379,7 +382,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           </xsl:if>
           <xsl:if test="sizes">
              <label class="kupu-detail"
-                    for="image-size-selector">Size:</label>
+                    for="image-size-selector">Size</label>
              <span class="kupu-detail">
                 <select name="image-size-selector">
                    <option name="image-size-option" value="{uri}">Original</option>
@@ -389,7 +392,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           </xsl:if>
           <xsl:if test="class">
              <label class="kupu-detail"
-                    for="kupu-image-class-selector">Style:</label>
+                    for="kupu-image-class-selector">Style</label>
              <span class="kupu-detail">
                 <select name="kupu-image-class-selector" id="kupu-image-class">
                    <xsl:apply-templates select="class"/>
@@ -397,19 +400,19 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </span>
           </xsl:if>
           <label class="kupu-detail" id="image-alt-label"
-                 for="image_alt"
+                 for="image-alt"
                  i18n:translate="imagedrawer_upload_alt_text">
              <xsl:if test="$usecaptions='yes' and $image-caption='true'">
                 <xsl:attribute name="style">display:none;</xsl:attribute>
              </xsl:if>
-             "alt"&#xa0;text:
+             Text equivalent
           </label>
-          <input class="kupu-detail" type="text" id="image_alt" size="20" value="{title}">
+          <textarea class="kupu-detail" type="text" id="image-alt" rows="4">
              <xsl:if test="$usecaptions='yes' and $image-caption='true'">
                 <xsl:attribute name="style">display:none;</xsl:attribute>
              </xsl:if>   
-             <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
-          </input>
+             <xsl:value-of select="title"/>
+          </textarea>
        </div>
     </xsl:template>
     <xsl:template match="class">
@@ -535,5 +538,22 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     </xsl:template>
     <xsl:template match="crumb">
         <xsl:value-of select="node()"/>
+    </xsl:template>
+    <xsl:template name="lf2br">
+       <xsl:param name="StringToTransform"/>
+       <xsl:choose>
+          <xsl:when test="contains($StringToTransform,'&lt;br&gt;')">
+             <xsl:value-of select="substring-before($StringToTransform,'&lt;br&gt;')"/>
+             <br/>
+             <xsl:call-template name="lf2br">
+                <xsl:with-param name="StringToTransform">
+                   <xsl:value-of select="substring-after($StringToTransform,'&lt;br&gt;')"/>
+                </xsl:with-param>
+             </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+             <xsl:value-of select="$StringToTransform"/>
+          </xsl:otherwise>
+       </xsl:choose>
     </xsl:template>
 </xsl:stylesheet>

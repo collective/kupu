@@ -21,7 +21,7 @@
            tal:attributes="id library/id;selected library/selected;">
     <uri tal:content="library/uri">URI</uri>
     <title i18n:translate="" tal:define="title library/title"
-           tal:content="structure python:pss.html_quote(title).replace('\n','\x3cxhtml:br/\x3e')">Title</title>
+           tal:content="structure python:pss.html_quote(title)">Title</title>
     <src tal:content="library/src">Source</src>
     <icon tal:content="library/icon">Icon</icon>
   </library>

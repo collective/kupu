@@ -8,11 +8,12 @@
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n_domain="plone"
-    tal:define="kupu context/kupu_library_tool;">
+    tal:define="kupu context/kupu_library_tool;searchlib python:kupu.getSingleLibrary(context,'_search')">
   <uri tal:content="template/absolute_url">URI</uri>
-  <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
+  <icon tal:content="searchlib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
   <title i18n_translate="heading_search_results"
-        tal:content="string:Search '${request/SearchableText}'">Search Results</title>
+         tal:define="tpl searchlib/title|string:Search '$$';txt request/SearchableText;"
+         tal:content="python:tpl.replace('$',txt,1)">Search Results</title>
   <description>Search results.</description>
 
   <breadcrumbs class="kupu-locate">

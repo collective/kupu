@@ -11,10 +11,13 @@ e.g. Call: kupuselection.xml?src=someurl
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n_domain="plone"
-    >
+    tal:define="kupu context/kupu_library_tool;
+        objects kupu/getCurrentObject;
+        object python:objects and objects[0] or context;
+        lib python:kupu.getSingleLibrary(object,'_selection')">
   <uri tal:content="template/absolute_url">URI</uri>
-  <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
-  <title i18n_translate="box_selected">Selected</title>
+  <icon tal:content="lib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
+  <title i18n_translate="box_selected" tal:content="lib/title|default">Selected</title>
   <description>Current selection.</description>
   <src tal:content="string:${request/URL0}?${context/kupu_library_tool/query_string}">Source</src>
 
