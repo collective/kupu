@@ -64,7 +64,7 @@ input#kupu-searchbox-input {
 .kupu-alt-row label {
    display: block;
 }
-#image_alt { width:17em; }
+
 div.kupu-linkdrawer-addlink td {
   border: 0;
 }
@@ -194,17 +194,18 @@ div.kupu-resource, div.kupu-collection {
   margin-left: -20px;
 }
 
-label.kupu-detail-label {
-  float:left;clear:left;
-  width:7em;
-  text-align:right;
-  margin: 0.2em;
+.kupu-image-fields {
+  width: 270px; margin:0; padding:0;
 }
 .kupu-detail {
   float:left;
-  margin: 0.2em;
+  width: 185px;
+  margin: 2px 0; padding: 0;
 }
-
+label.kupu-detail {
+  clear:left; width:75px; text-align:right;
+  margin-right: 5px;
+}
 /*div.kupu-libsource-selected {
   background-repeat: no-repeat;
 }*/
