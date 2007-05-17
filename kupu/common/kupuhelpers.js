@@ -1505,9 +1505,12 @@ function kupuFixImage(image) {
             width = 128;
         };
     };
-    image.height = height;
-    image.width = width;
+    if (width&&height) {
+        image.height = height;
+        image.width = width;
+    }
 }
+
 function toggleAltFieldVisibility(me) {
     var label = document.getElementById('image-alt-label');
     var vis = me.checked?'none':'';

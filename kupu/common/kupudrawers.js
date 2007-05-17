@@ -688,12 +688,16 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         var targetnode = document.getElementById(id);
         if (!sourcenode || !targetnode) return;
 
+        var cls = sourcenode.getAttribute('class');
+        if (cls) {
+            targetnode.className = cls;
+        }
         Sarissa.copyChildNodes(sourcenode, targetnode);
         if (!this.focussed) {
             this.focusElement();
         }
-        var el = targetnode.getElementsByTagName('img')[0];
-        if (el) {
+        var el = document.getElementById('kupu-preview-image');
+        if (el && el.width=='1') {
             kupuFixImage(el);
         }
         // Mark drawer as having a selection or not
