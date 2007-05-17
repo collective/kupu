@@ -72,9 +72,6 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 <title>
                     <xsl:value-of select="$i18n_drawertitle"/>
                 </title>
-                <link type="text/css" rel="stylesheet">
-                    <xsl:attribute name="href">kupudrawerstyles.css</xsl:attribute>
-                </link>
                 <xsl:call-template name="mystyle" />
             </head>
             <body>
