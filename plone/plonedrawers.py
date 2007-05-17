@@ -593,8 +593,9 @@ class PloneDrawers:
             crumbs.append({'Title':title, 'absolute_url':url})
 
         return crumbs
-    
-    def _getCurrentObject(self, portal=None):
+
+    security.declareProtected('View','getCurrentObject')
+    def getCurrentObject(self, portal=None):
         '''Returns object information for a selected object'''
         request = self.REQUEST
         if portal is None:
@@ -645,7 +646,7 @@ class PloneDrawers:
         """Find the parent of the object specified in the src string.
         If multiple objects and they don't have the same parent, or if no suitable object
         returns None, otherwise returns the parent."""
-        objects = self._getCurrentObject()
+        objects = self.getCurrentObject()
         parent = None
         for obj in objects:
             if parent is not None and parent is not obj.aq_parent:
@@ -656,7 +657,7 @@ class PloneDrawers:
     security.declarePublic("getCurrentSelection")
     def getCurrentSelection(self, portal=None):
         '''Returns object information for a selected object'''
-        objects = self._getCurrentObject(portal)
+        objects = self.getCurrentObject(portal)
         return self.infoForBrains(objects, self.getResourceType(), portal)
 
     security.declarePublic("getMyItems")

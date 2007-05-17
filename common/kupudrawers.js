@@ -1142,7 +1142,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         this.updateDisplay(this.drawerid);
         var newseldiv = getFromSelector(time);
-        newseldiv.className = 'selected';
+        newseldiv.className = 'kupu-libsource-selected';
     };
 
     this.selectCurrent = function() {
@@ -1352,7 +1352,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
             var uri = selnode.selectSingleNode('uri/text()').nodeValue;
         }
         uri = uri.strip();  // needs kupuhelpers.js
-        var alt = getFromSelector('image_alt');
+        var alt = getFromSelector('image-alt');
         alt = alt?alt.value:undefined;
 
         var radios = document.getElementsByName('image-align');

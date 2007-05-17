@@ -42,7 +42,7 @@ $Id$
           <div>
             <strong>ALT-text</strong><br />
             <form onsubmit="return false;">
-              <input type="text" id="image_alt" size="10" />
+              <input type="text" id="image-alt" size="10" />
             </form>
           </div>
         </td>

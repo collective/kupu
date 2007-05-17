@@ -451,14 +451,26 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         
     security.declareProtected('View', "getCookedLibraries")
     def getCookedLibraries(self, context):
-        """Return a list of libraries with our own parameters included"""
-        libraries = self.getLibraries(context)
+        """Return a list of libraries with our own parameters included.
+        The library with id 'search' is excluded from this list."""
+        libraries = [l for l in self.getLibraries(context) if not l['id'].startswith('_')]
         default_library = getattr(self, '_default_library', '')
 
         for l in libraries:
             l['src'] = self.kupuUrl(l['src'])
             l['selected'] = l['id']==default_library or None
         return libraries
+
+    security.declareProtected('View', "getSingleLibrary")
+    def getSingleLibrary(self, context, id):
+        """Return the library with id=search or None"""
+        libraries = [l for l in self.getLibraries(context) if l['id']==id]
+
+        for l in libraries:
+            l['src'] = self.kupuUrl(l['src'])
+        if libraries:
+            return libraries[0]
+        return None
 
     # ZMI views
     manage_options = (SimpleItem.manage_options[1:] + (

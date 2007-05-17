@@ -9,11 +9,18 @@
 <h1 class="documentFirstHeading"
     i18n:translate="heading_kupu_libraries">Kupu Libraries</h1>
 
-<p i18n:translate="text_kupu_drawers">In the below form, you may manage the list of drawer libraries for
+<p i18n:translate="text_kupu_drawers">In the form below, you may manage the list of drawer libraries for
 the Kupu editor. Each property of a library is dynamically expanded at
 execution time using TALES expressions. That way it is possible, to
 support libraries like <em>Current folder</em> or <em>My folder</em>
 very easily.</p>
+<p>Libraries with ids that begin with an underscore will not display in the initial library list.
+   <em>_search</em> will be used to set the icon and title for search results.
+   The first $ character in the title will be replaced by the search string.
+   <em>_selection</em> will be used to set the icon and title for the current selection.
+</p>
+<p>The title string may contain html &lt;br&gt; tags to put a line break in the title (not the xhtml &lt;br/&gt; form),
+   but otherwise tags are not interpreted.</p>
 
 <form action="" method="post" tal:attributes="action here/absolute_url">
 
