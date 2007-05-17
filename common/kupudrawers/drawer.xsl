@@ -304,7 +304,27 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </object>
           </xsl:when>
           <xsl:otherwise>
-             <img src="{$p}" title="{title}" onload="kupuFixImage(this);" width="1" height="1"/>
+             <img src="{$p}" title="{title}" width="{width}" height="{height}" id="kupu-preview-image">
+                <xsl:choose>
+                   <xsl:when test="height > width">
+                      <xsl:if test="height > 128">
+                         <xsl:attribute name="width"><xsl:value-of select="width*128 div height" /></xsl:attribute>
+                         <xsl:attribute name="height">128</xsl:attribute>
+                      </xsl:if>
+                   </xsl:when>
+                   <xsl:when test="width >= height">
+                      <xsl:if test="width > 128">
+                         <xsl:attribute name="height"><xsl:value-of select="height*128 div width" /></xsl:attribute>
+                         <xsl:attribute name="width">128</xsl:attribute>
+                      </xsl:if>
+                   </xsl:when>
+                   <xsl:otherwise>
+                      <xsl:attribute name="height">1</xsl:attribute>
+                      <xsl:attribute name="width">1</xsl:attribute>
+                      <xsl:attribute name="onload">kupuFixImage(this);</xsl:attribute>
+                   </xsl:otherwise>
+                </xsl:choose>
+             </img>
           </xsl:otherwise>
        </xsl:choose>
     </xsl:template>
