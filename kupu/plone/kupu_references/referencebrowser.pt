@@ -29,9 +29,9 @@
                 tal:define="kupu context/kupu_library_tool;
                 base python:kupu.getBaseUrl(here);
                 uid context/UID|nothing;
-                lib_prefix    string:${base}/kupulibraries.xml?instance=$uid&resource_type=;
-                            search_prefix string:${portal_url}/kupusearch.xml?instance=$uid&resource_type=;
-                            select_prefix string:${portal_url}/kupuselection.xml?instance=$uid&resource_type=;
+                lib_prefix    string:${base}/kupulibraries.xml?instance=$uid&amp;resource_type=;
+                            search_prefix string:${portal_url}/kupusearch.xml?instance=$uid&amp;resource_type=;
+                            select_prefix string:${portal_url}/kupuselection.xml?instance=$uid&amp;resource_type=;
                             xsl_uri string:${portal_url}/kupudrawers/drawer.xsl;"
                 tal:content="string:krb_initdrawer('$xsl_uri','$lib_prefix','$search_prefix','$select_prefix');">
         </script>
