@@ -9,11 +9,16 @@
 # (reference_url is supposed to do the same thing, but is broken)
 from Products.CMFCore.utils import getToolByName
 from Products.PythonScripts.standard import html_quote
+from AccessControl import Unauthorized
 
 request = context.REQUEST
 response = request.RESPONSE
 
-uuid = traverse_subpath.pop(0)
+try:
+    uuid = traverse_subpath.pop(0)
+except:
+    raise Unauthorized, context
+
 reference_tool = getToolByName(context, 'reference_catalog')
 obj = reference_tool.lookupObject(uuid)
 if not obj:
@@ -21,8 +26,7 @@ if not obj:
     if hook:
         obj = hook(uuid)
     if not obj:
-        return context.standard_error_message(error_type=404,
-            error_message='''The link you followed appears to be broken''')
+        return response.notFoundError('''The link you followed appears to be broken''')
 
 if traverse_subpath:
     traverse_subpath.insert(0, obj.absolute_url())
