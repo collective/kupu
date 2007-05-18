@@ -34,7 +34,6 @@ function initPloneKupu(editorId) {
 
     // now we can create the controller
     var kupu = (window.kupu = new KupuEditor(doc, conf, l));
-
     kupu.setHTMLBody(initialtext);
 
     // now we can create a UI object which we can use from the UI
@@ -283,6 +282,35 @@ function initPloneKupu(editorId) {
     };
     addEventHandler(textarea.form, 'submit', prepareForm, textarea);
 
+    function tabHandler(event) {
+        event = event||window.event;
+        if (event.keyCode!=9) { return; }
+        if (!/kupu-fulleditor-zoomed/.test(document.body.className)) {
+            var form = textarea.form;
+            var els = form.elements;
+            var target, targindex;
+            var mytabindex = iframe.tabIndex;
+            for (var i = 0; i < els.length; i++) {
+                var el = els[i];
+                if (el.tabIndex && el.tabIndex > mytabindex && !el.disabled && el.offsetWidth && el.offsetHeight) {
+                    if (!targindex || el.tabIndex < targindex) {
+                        target = el;
+                        targindex = el.tabIndex;
+                    }
+                }
+            }
+            if (target) {
+                window.focus();
+                target.focus();
+            }
+        }
+        if (event.preventDefault) { event.preventDefault(); event.stopPropagation();}
+        event.returnValue = false;
+        return false;
+    }
+    var inner = kupu.getInnerDocument();
+    kupu._addEventHandler(inner.documentElement, "keydown", tabHandler);
+
     kupu.initialize();
     return kupu;
 };
@@ -290,3 +318,8 @@ function initPloneKupu(editorId) {
 // modify LinkDrawer so links don't have a target
 LinkDrawer.prototype.target = '';
 LinkLibraryDrawer.prototype.target = '';
+if (!window.console) {
+    window.console = new function() {
+        this.log = function() {};
+    };
+}

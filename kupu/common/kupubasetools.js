@@ -76,12 +76,6 @@ function KupuTool() {
     this._selectSelectItem = function(select, item) {
         this.editor.logMessage(_('Deprecation warning: KupuTool._selectSelectItem'));
     };
-    this._fixTabIndex = function(element) {
-        var tabIndex = this.editor.getDocument().getEditable().tabIndex-1;
-        if (tabIndex && !element.tabIndex) {
-            element.tabIndex = tabIndex;
-        }
-    };
 }
 
 function KupuToolBox() {
@@ -146,7 +140,6 @@ KupuButton.prototype = new KupuTool;
 KupuButton.prototype.initialize = function(editor) {
     this.editor = editor;
     if (!this.button) return;
-    this._fixTabIndex(this.button);
     addEventHandler(this.button, 'click', this.execCommand, this);
 };
 
@@ -272,7 +265,6 @@ function KupuUI(textstyleselectid) {
         this.cleanStyles();
         this.enableOptions(false);
         if (this.tsselect) {
-            this._fixTabIndex(this.tsselect);
             this._selectevent = addEventHandler(this.tsselect, 'change', this.setTextStyleHandler, this);
         }
     };
@@ -2223,20 +2215,16 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
         /* attach event handlers */
         this.editor = editor;
         if (this.addulbutton) {
-            this._fixTabIndex(this.addulbutton);
             addEventHandler(this.addulbutton, "click", this.addUnorderedList, this);
         }
         if (this.addolbutton) {
-            this._fixTabIndex(this.addolbutton);
             addEventHandler(this.addolbutton, "click", this.addOrderedList, this);
         }
         if (this.ulselect) {
-            this._fixTabIndex(this.ulselect);
             addEventHandler(this.ulselect, "change", this.setUnorderedListStyle, this);
             this.ulselect.style.display = "none";
         }
         if (this.olselect) {
-            this._fixTabIndex(this.olselect);
             addEventHandler(this.olselect, "change", this.setOrderedListStyle, this);
             this.olselect.style.display = "none";
         }
@@ -2420,7 +2408,6 @@ function DefinitionListTool(dlbuttonid) {
         /* initialize the tool */
         this.editor = editor;
         if (!this.dlbutton) return;
-        this._fixTabIndex(this.dlbutton);
         addEventHandler(this.dlbutton, 'click', this.createDefinitionList, this);
         addEventHandler(editor.getInnerDocument(), 'keyup', this._keyDownHandler, this);
         addEventHandler(editor.getInnerDocument(), 'keypress', this._keyPressHandler, this);
@@ -2727,7 +2714,6 @@ function KupuZoomTool(buttonid, firsttab, lasttab) {
         this.pressed = false;
         if (!this.button) return;
         this.baseinitialize(editor);
-        this.button.tabIndex = this.editor.document.editable.tabIndex;
         addEventHandler(window, "resize", this.onresize, this);
         addEventHandler(window, "scroll", this.onscroll, this);
 
