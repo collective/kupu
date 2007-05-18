@@ -285,7 +285,7 @@ function initPloneKupu(editorId) {
     function tabHandler(event) {
         event = event||window.event;
         if (event.keyCode!=9) { return; }
-        if (!/kupu-fulleditor-zoomed/.test(document.body.className)) {
+        if (!(/kupu-fulleditor-zoomed/.test(document.body.className))) {
             var form = textarea.form;
             var els = form.elements;
             var target, targindex;

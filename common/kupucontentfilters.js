@@ -598,7 +598,7 @@ function XhtmlValidation(editor) {
                 target.setAttribute(valid[i], val);
             }
         };
-    }
+    };
 
     this._convertToSarissaNode = function(ownerdoc, htmlnode) {
         var root = this._convertNodes(ownerdoc, htmlnode, null, new this.Set(['html']));
@@ -661,7 +661,7 @@ function XhtmlValidation(editor) {
 
     this._cleanupParas = function(ownerdoc, root) {
         var paras = root.getElementsByTagName('p');
-        for (var i = 0; i < paras.length; i++) {
+        for (var i = paras.length-1; i >= 0; i--) {
             this._cleanupPara(ownerdoc, paras[i]);
         }
     };
@@ -670,7 +670,8 @@ function XhtmlValidation(editor) {
      */
     this._cleanupBr = function(ownerdoc, root) {
         var breaks = root.getElementsByTagName('br');
-        for (var i = 0; i < breaks.length; i++) {
+        // Iterate backwards: removeChild removes node from breaks.
+        for (var i = breaks.length-1; i >= 0; i--) {
             var node = breaks[i];
             var parentNode = node.parentNode;
             if (parentNode.tagName=='body') {
@@ -681,7 +682,7 @@ function XhtmlValidation(editor) {
                 }
                 parentNode.insertBefore(p,node);
                 parentNode.removeChild(node);
-            } else if (!node.nextSibling && (/p|div/i.test(parentNode.nodeName) && !(node.previousSibling&&node.previousSibling.nodeName=='br'))) {
+            } else if (!node.nextSibling && (/(p|div)\b/i.test(parentNode.nodeName) && !(node.previousSibling&&node.previousSibling.nodeName=='br'))) {
                 parentNode.removeChild(node);
             }
         }
@@ -748,5 +749,3 @@ function XhtmlValidation(editor) {
         return xhtmlnode;
     };
 }
-
-

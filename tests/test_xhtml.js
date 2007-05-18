@@ -147,7 +147,11 @@ function KupuXhtmlTestCase() {
         var expected = '<p>alpha</p><p/><p>gamma</p>';
         this.conversionTest(data, expected);
     };
-    
+    this.testMultipleNakedBr = function() {
+        var data = '<p>alpha</p><br><br><br><br><p>gamma</p>';
+        var expected = '<p>alpha</p><p/><p/><p/><p/><p>gamma</p>';
+        this.conversionTest(data, expected);
+    };
     this.testXmlAttrs = function() {
         var data = '<pre xml:space="preserve" xml:lang="fr">This is a test</pre>';
         var expected1 = '<pre xml:lang="fr" xml:space="preserve">This is a test</pre>';
