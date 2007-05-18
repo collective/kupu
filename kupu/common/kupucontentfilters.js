@@ -681,7 +681,7 @@ function XhtmlValidation(editor) {
                 }
                 parentNode.insertBefore(p,node);
                 parentNode.removeChild(node);
-            } else if (!node.nextSibling && (/p|div/i.test(parentNode.nodeName))) {
+            } else if (!node.nextSibling && (/p|div/i.test(parentNode.nodeName) && !(node.previousSibling&&node.previousSibling.nodeName=='br'))) {
                 parentNode.removeChild(node);
             }
         }

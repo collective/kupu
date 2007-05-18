@@ -8,6 +8,18 @@ Kupu changes
 
   - Media objects may now have a list of classes (specific to the portal type).
 
+  - Image drawer layout has been tidied up.
+
+  - Removed the tabindex from all the toolbar buttons and added it to
+    the iframe: this means you can tab into kupu from above without
+    dying of old age as you try to get past the toolbar. Added a
+    handler for the tab key so that pressing tab will take you to the
+    next tabstop in the form.
+
+  - Only single trailing <br> tags are stripped from p and div tags: multiple
+    <br> tags are left unchanged (so those people who insist on using
+    the to generate whitespace still can).
+
 - 1.4 Beta 6
 
   - Removed the getToolByName deprecation workround since

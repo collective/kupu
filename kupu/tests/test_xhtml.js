@@ -64,6 +64,7 @@ function KupuXhtmlTestCase() {
         }
         return false;
     }
+
     this.testExclude = function() {
         // Check that the exclude functions work as expected.
         var validator = new XhtmlValidation(this.editor);
@@ -127,6 +128,13 @@ function KupuXhtmlTestCase() {
     this.testRemoveTrailingBr2 = function() {
         var data = '<p class="blue">This is a test<br>with more text<br></p>';
         var expected = '<p class="blue">This is a test<br/>with more text</p>';
+        this.conversionTest(data, expected);
+    };
+    this.testRemoveTrailingBr3 = function() {
+        // If someone is trying to do spacing by inserting extra breaks
+        // we shouldn't remove any of them.
+        var data = '<p class="blue">This is a test<br><br>with more text<br><br></p>';
+        var expected = '<p class="blue">This is a test<br/><br/>with more text<br/><br/></p>';
         this.conversionTest(data, expected);
     };
     this.testFixTopLevelBr = function() {
@@ -277,16 +285,16 @@ function KupuXhtmlTestCase() {
     this.testPWithCaptionedImg = function() {
         // Captioned images are converted to block tags so they must
         // not be inside a paragraph.
-        var data = '<p>some text<br/><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
-        var expected = '<p>some text</p><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/><p>blah</p>';
+        var data = '<p>some text<br/><img class="image-inline captioned" src="data:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        var expected = '<p>some text</p><img class="image-inline captioned" src="data:" alt="xyzzy" height="1" width="1"/><p>blah</p>';
         this.conversionTest(data, expected);
         // If there is no surrounding text we don't want empty paras.
-        var data = '<p><img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/></p>';
-        var expected = '<img class="image-inline captioned" src="javascript:" alt="xyzzy" height="1" width="1"/>';
+        var data = '<p><img class="image-inline captioned" src="data:" alt="xyzzy" height="1" width="1"/></p>';
+        var expected = '<img class="image-inline captioned" src="data:" alt="xyzzy" height="1" width="1"/>';
         this.conversionTest(data, expected);
         // But ordinary images are fine.
-        var data = '<p>some text<br/><img class="image-inline" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
-        var expected = '<p>some text<br/><img class="image-inline" src="javascript:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        var data = '<p>some text<br/><img class="image-inline" src="data:" alt="xyzzy" height="1" width="1"/>blah</p>';
+        var expected = '<p>some text<br/><img class="image-inline" src="data:" alt="xyzzy" height="1" width="1"/>blah</p>';
         this.conversionTest(data, expected);
     };
 
