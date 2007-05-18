@@ -654,7 +654,7 @@ function KupuEditor(document, config, logger) {
                 return '<'+close+tag+'>';
             });
         };
-        text = text.replace(/<p>(<hr.*?>)<\/p>/,'$1');
+        text = text.replace(/<p>(<hr.*?>)<\/p>/g,'$1');
         bodies[bodies.length-1].innerHTML = text;
     };
 
@@ -769,6 +769,9 @@ function KupuEditor(document, config, logger) {
             /\s*(<(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td))\b/ig, '\n$1');
         data = data.replace(
             /\s*(<\/(p|div|h.|ul|ol|dl|menu|dir|pre|blockquote|address|center|table|thead|tbody|tfoot|tr|th|td)>)\s*/ig, '$1\n');
+        data = data.replace(/\<pre\>((?:.|\n)*?)\<\/pre\>/gm, function(s) {
+            return s.replace(/<br\b[^>]*>/gi,'\n');
+            });
         return data.strip();
     };
     this.escapeEntities = function(xml) {
