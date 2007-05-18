@@ -11,12 +11,13 @@
     <iframe class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
+        tabindex=""
         onfocus="this.contentWindow.focus();"
         tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
                         id string:kupu-editor-iframe-${fname};
-                        name string:kupu-editor-iframe-${fname};"
+                        name string:kupu-editor-iframe-${fname};tabindex tabindex|nothing;"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"
