@@ -69,7 +69,8 @@
         tal:attributes="style python:test(floated, 'float:left;;', '');"
       ><span class="discreet"><a class="forcekupu" href="#"
         i18n:translate="suppress-kupu"
-        tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName};"
+        tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,None);"
+        tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName}${fs};"
         title="reload current page without kupu">
          Edit without visual editor
       </a></span>
@@ -86,7 +87,8 @@
         <span class="discreet"><a class="forcekupu" href="#"
            i18n:translate="force-kupu"
            tal:condition="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=context.REQUEST, context=context, fieldName=fieldName)"
-           tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName};"
+           tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,None);"
+           tal:attributes="href string:${request/URL0}?kupu.convert=${fieldName}${fs};"
            title="reload current page using kupu to edit this field">
            Edit with visual editor
         </a></span>
