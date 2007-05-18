@@ -20,6 +20,8 @@ Kupu changes
     <br> tags are left unchanged (so those people who insist on using
     the to generate whitespace still can).
 
+  - Plone tickets: 5420
+
 - 1.4 Beta 6
 
   - Removed the getToolByName deprecation workround since
