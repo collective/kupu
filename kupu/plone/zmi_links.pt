@@ -7,6 +7,8 @@ i18n:domain="plone">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+      <tal:register define="getToolByName nocall:modules/Products.CMFCore.utils/getToolByName;
+       _ python:getToolByName(context, 'kupu_library_tool').ensureReferencesLayer()" />
       <tal:if condition="not:exists:portal/portal_javascripts"
         metal:use-macro="context/kupu_wysiwyg_support/macros/kupu_js_include">
       </tal:if>

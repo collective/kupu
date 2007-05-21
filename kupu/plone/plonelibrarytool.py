@@ -148,6 +148,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         """Returns True if kupu_references is in all skin layers"""
         return util.layer_installed(self, 'kupu_references')
 
+    security.declareProtected(permissions.ManageLibraries, 'ensureReferencesLayer')
+    def ensureReferencesLayer(self, add=False):
+        """Called from the link tab code: we must have the
+        kupu_references directory view at least present for
+        the link tab to work."""
+        out = StringIO()
+        util.register_layer(self, 'plone/kupu_references', 'kupu_references', out, add)
+
     security.declareProtected('View', "getCaptioning")
     def getCaptioning(self):
         """Returns True if captioning is enabled"""
@@ -814,7 +822,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if refbrowser is not None:
             out = StringIO()
             if refbrowser:
-                util.register_layer(self, 'plone/kupu_references', 'kupu_references', out)
+                self.ensureReferencesLayer(True);
             else:
                 util.unregister_layers(self, ['kupu_references'], out)
             # Force compressed javascript to be recomputed.

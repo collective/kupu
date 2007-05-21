@@ -20,7 +20,23 @@ Kupu changes
     <br> tags are left unchanged (so those people who insist on using
     the to generate whitespace still can).
 
-  - Plone tickets: 5420, 6056, 6103
+  - Plone tickets:
+
+    * 5189 patch to support embed tag
+
+    * 5420 "Edit with kupu" broken for fields on custom fieldset
+
+    * 6056 Extra line breaks added in pre tags
+
+    * 6103 resolveuid does not check input values and throws deep
+      "list index out of bound" error in ZopeGuards.py
+
+    * 6536 Formatting of captioned images is messed up
+
+    * 6548 Links tab on kupu control panel gives traceback, cannot
+      find kupu_references
+
+    * 6598 Default linkables in Kupu: folder is not, plone site is not, ATRelativePathCriterion is
 
 - 1.4 Beta 6
 
