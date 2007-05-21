@@ -141,7 +141,7 @@ class HTMLToCaptioned:
                             if hasattr(aq_base(subtarget), 'getWidth'):
                                 width = subtarget.getWidth()
                             elif hasattr(aq_base(subtarget), 'width'):
-                                width = subtarget.getWidth()
+                                width = subtarget.width
                         if not width:
                             try:
                                 width = target.getWidth()
