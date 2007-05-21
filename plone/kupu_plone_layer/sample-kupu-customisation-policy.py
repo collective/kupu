@@ -13,11 +13,38 @@
 # preferred kupu configuration.
 from Products.CMFCore.utils import getToolByName
 
+LINKABLE_BLACKLIST = (
+    'ATBooleanCriterion',
+    'ATCurrentAuthorCriterion',
+    'ATDateCriteria',
+    'ATDateRangeCriterion',
+    'ATListCriterion',
+    'ATPathCriterion',
+    'ATPortalTypeCriterion',
+    'ATReferenceCriterion',
+    'ATRelativePathCriterion',
+    'ATSelectionCriterion',
+    'ATSimpleIntCriterion',
+    'ATSimpleStringCriterion',
+    'ATSortCriterion',
+    'ChangeSet',
+    'CMF Document',
+    'CMF Event',
+    'CMF Favorite',
+    'CMF File',
+    'CMF Image',
+    'CMF Link',
+    'CMF News Item',
+    'Discussion Item',
+    'Favorite',
+    'Link',
+    'TempFolder',
+)
 RESOURCES = dict(
-    linkable = ('Document', 'Image', 'File', 'News Item', 'Event', 'Folder', 'Large Plone Folder'),
-    mediaobject = ('Image',),
-    collection = ('Plone Site', 'Folder', 'Large Plone Folder'),
-    containsanchors = ('Document', 'News Item', 'Event'),
+    linkable = ('blacklist', LINKABLE_BLACKLIST),
+    mediaobject = ('whitelist', ('Image',)),
+    collection = ('whitelist', ('Plone Site', 'Folder', 'Large Plone Folder')),
+    containsanchors = ('whitelist', ('Document', 'News Item', 'Event')),
     )
 
 EXCLUDED_HTML = [
@@ -126,8 +153,8 @@ types = tool.zmi_get_resourcetypes()
 tool.deleteResourceTypes([ t.name for t in types])
 
 print "add resources"
-for k,v in RESOURCES.items():
-    tool.addResourceType(k, typefilter(v))
+for k,(mode,types) in RESOURCES.items():
+    tool.addResourceType(k, typefilter(types), mode=mode)
 
 mappings = tool.zmi_get_resourcetypes()
 for t in mappings:
