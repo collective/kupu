@@ -13,7 +13,7 @@ function KJax() {};
 (function(p){
     p._loadXML = function(uri, callback, body, reload, extra) {
         function _sarissaCallback() {
-        /* callback for Sarissa
+            /* callback for Sarissa
             when the callback is called because the data's ready it
             will get the responseXML DOM and call user_callback
             with the DOM as the first argument and the uri loaded
@@ -21,9 +21,9 @@ function KJax() {};
 
             note that this method should be called in the context of an 
             xmlhttp object
-        */
+            */
             if (xmlhttp.readyState == 4) {
-                this.xmlhttp = null;
+                self.xmlhttp = null;
                 if (xmlhttp.status && xmlhttp.status != 200) {
                     var errmessage = 'Error '+xmlhttp.status+' loading '+(uri||'XML');
                     alert(errmessage);
