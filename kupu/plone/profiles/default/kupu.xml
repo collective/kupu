@@ -83,7 +83,6 @@
     <type>Image</type>
     <type>Large Plone Folder</type>
     <type>Link</type>
-    <type>Plone Site</type>
     <type>TempFolder</type>
     <type>Topic</type>
   </resource>
@@ -96,10 +95,12 @@
     <type>ATPathCriterion</type>
     <type>ATPortalTypeCriterion</type>
     <type>ATReferenceCriterion</type>
+    <type>ATRelativePathCriterion</type>
     <type>ATSelectionCriterion</type>
     <type>ATSimpleIntCriterion</type>
     <type>ATSimpleStringCriterion</type>
     <type>ATSortCriterion</type>
+    <type>ChangeSet</type>
     <type>CMF Document</type>
     <type>CMF Event</type>
     <type>CMF Favorite</type>
@@ -109,7 +110,6 @@
     <type>CMF News Item</type>
     <type>Discussion Item</type>
     <type>Favorite</type>
-    <type>Folder</type>
     <type>Link</type>
     <type>Plone Site</type>
     <type>TempFolder</type>
