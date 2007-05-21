@@ -3,7 +3,7 @@ lang="en"
 metal:use-macro="here/kupu_config/macros/master"
 i18n:domain="plone">
 
-  <metal:cssslot fill-slot="css_slot">
+  <metal:cssslot fill-slot="style_slot">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>

@@ -12,15 +12,17 @@
        xmlns:kj="http://kupu.oscom.org/namespaces/kjax"
 
        tal:define="pss modules/Products/PythonScripts/standard;
+       getToolByName nocall:modules/Products.CMFCore.utils/getToolByName;
+       kupu     python:getToolByName(context, 'kupu_library_tool');
        wantform not:request/form.submitted|request/button|nothing;
-       uri string:${context/absolute_url_path}/${template/getId}">
+       uri string:${kupu/absolute_url_path}/${template/getId}">
     <body>
       <div id="target" kj:mode="replace" tal:condition="wantform">
         <form action="kupu_migration.xml"
               method="post"
               name="options_form"
               onsubmit="return kj.submitForm(this);"
-              tal:define="infouri string:${context/absolute_url_path}/kupu_kjax_support.xml;
+              tal:define="infouri string:${kupu/absolute_url_path}/kupu_kjax_support.xml;
               uids request/SESSION/kupu_migrator/pathuids|python:[];"
               >
           <fieldset tal:define="state request/SESSION/kupu_migrator|nothing;
@@ -28,7 +30,7 @@
                     current_portal_type state/portal_type|string:;
                     current string:$current_portal_type.$current_fieldname;" >
             <legend>Type (Field name)</legend>
-          <div tal:repeat="f context/getKupuFields">
+          <div tal:repeat="f kupu/getKupuFields">
             <tal:var define="id string:type_radio_${repeat/f/index};
                      first repeat/f/start;
                      t string:${f/portal_type}.${f/name};
@@ -59,7 +61,7 @@
             <div class="formHelp">
               You may restrict the search to specific folders.
             </div>
-            <div metal:use-macro="context/kupu_kjax_support.xml/macros/edit" />
+            <div metal:use-macro="kupu/kupu_kjax_support.xml/macros/edit" />
           </fieldset>
           <fieldset>
             <legend>Info</legend>
@@ -82,11 +84,11 @@
       <div id="kupu-output" kj:mode="replace" tal:condition="wantform" />
 
       <div tal:condition="not:wantform">
-        <tal:var tal:define="m python:context.link_migration();">
+        <tal:var tal:define="m python:kupu.link_migration();">
           <div tal:condition="m/nexturi" tal:attributes="kj:next m/nexturi;kj:delay m/delay|nothing" />
           <div id="kupu-output" kj:mode="replace" tal:condition="m/firstoutput" />
           <div id="target" kj:mode="replace">
-            <!-- <pre tal:content="context/link_migration">current status</pre> -->
+            <!-- <pre tal:content="kupu/link_migration">current status</pre> -->
             <div tal:condition="m/position|nothing">
               <!-- progress bar -->
               <div class="kupu-progress"><div class="kupu-progressbar"
@@ -139,7 +141,7 @@
                 <a tal:attributes="href o/url" tal:content="o/title" /> [<span tal:content="o/url" />]</div>
               <ul tal:condition="o/info|nothing">
                 <li tal:repeat="link o/info"
-                    tal:define="portal_url context/portal_url">
+                    tal:define="portal_url python:getToolByName(context, 'portal_url')">
                   <code>
                   <span tal:content="link/before" /><a
                      target="badlink"
