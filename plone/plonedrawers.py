@@ -855,8 +855,9 @@ class PloneDrawers:
             brains = catalog.searchResults(portal_type=portal_type, limit=1)[:1]
             if brains:
                 info = adaptor.get_image_sizes(brains[0], portal_type, '')
-                for i in info:
-                    sizes[i['uri']] = 1
+                if info:
+                    for i in info:
+                        sizes[i['uri']] = 1
         return sizes
 
     security.declareProtected("View", "convertUidsToPaths")
