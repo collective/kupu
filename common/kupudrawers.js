@@ -39,8 +39,10 @@ function DrawerTool() {
         }
         this.current_drawer = drawer;
         if (args===undefined) args = [];
+        drawer.initMask(drawer.element);
         drawer.createContent.apply(drawer, args);
         drawer.editor.suspendEditing();
+        drawer.fixMask();
     };
 
     this.updateState = function(selNode) {
@@ -80,6 +82,9 @@ proto.createContent = function() {
 };
 
 proto.hide = function() {
+    if (this.maskframe) {
+        this.maskframe.style.display='none';
+    }
     this.element.style.display = 'none';
     this.focussed = false;
 };
@@ -105,6 +110,37 @@ proto.focusElement = function() {
         currnode = iterator.next();
     }
 };
+
+proto.initMask = function(el) {
+    var e = this.maskframe = document.getElementById('kupu-maskframe');
+    if (!this.maskframe) {
+        e = this.maskframe = newElement('iframe',
+            {'id':'kupu-maskframe','src':"javascript:false;", 'frameBorder':"0", 'scrolling':"no" });
+        var style = e.style;
+        style.display = 'none';
+    }
+    el.parentNode.insertBefore(e, el);
+};
+
+proto.fixMask = function() {
+    var mask = this.maskframe;
+    if (mask) {
+        if (mask.parentNode != this.element.parentNode) {
+            this.element.parentNode.insertBefore(mask, this.element);
+        }
+        // display the mask to hide SELECT boxes in IE
+        var el = this.element;
+        var st = mask.style;
+        var st1 = el.style;
+        st.top=st1.top;
+        st.left=st1.left;
+        st.width = el.offsetWidth+'px';
+        st.height = el.offsetHeight+'px';
+        st.left = (el.offsetLeft)+'px';
+        st.position = 'absolute';
+        st.display = '';
+    }
+}
 
 function DrawerWithAnchors(editor, drawertool, anchorui) {
     Drawer.call(this, editor, drawertool);
@@ -480,15 +516,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             this.baseelement = getBaseTagClass(document.body, 'div', 'kupu-librarydrawer-parent');
         }
         this.anchorframe = getBaseTagClass(this.baseelement, 'iframe', 'kupu-anchorframe');
-        this.maskframe = getBaseTagClass(this.baseelement, 'iframe', 'kupu-maskframe');
         var e;
-        if (!this.maskframe) {
-            e = this.maskframe = newElement('iframe',
-                {'className':'kupu-maskframe','src':"javascript:false;", 'frameBorder':"0", 'scrolling':"no" });
-            var style = e.style;
-            style.display = 'none';
-            this.baseelement.insertBefore(e, this.baseelement.firstChild);
-        }
         this.tool = tool;
         this.element = document.getElementById(this.drawerid);
         if (!this.element) {
@@ -532,7 +560,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
     this.hide = function() {
         var el = this.element;
         el.style.left = el.style.top = '';
-        this.maskframe.style.display='none';
         LibraryDrawer.prototype.hide.call(this);
     };
 
@@ -615,13 +642,6 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         // display the drawer div
         this.element.style.display = 'block';
-        // display the mask to hide SELECT boxes in IE
-        var st = this.maskframe.style;
-        var st1 = this.element.style;
-        st.top=st1.top;st.left=st1.left;
-        st.width = this.element.offsetWidth+'px';
-        st.height = this.element.offsetHeight+'px';
-        st.display = '';
     };
 
     this._singleLibsXslCallback = function(dom) {
@@ -710,6 +730,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (this.editor.getBrowserName() == 'IE' && id == this.resourcespanelid) {
             this.updateDisplay(this.drawerid);
         };
+        this.fixMask();
     };
 
     this.updateResources = function() {
