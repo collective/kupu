@@ -482,11 +482,12 @@ function XhtmlValidation(editor) {
             var bad = filter.badTagAttributes[nodeName];
             for (var i=0; i < htmlnode.attributes.length; i++) {
                 var attr = htmlnode.attributes[i];
-                if (bad && bad.contains(attr.name)) {
+                var name = attr.name;
+                if (bad && bad.contains(name)) {
                     continue;
                 };
-                if (attr.value !== null && attr.value !== undefined) {
-                    xhtmlnode.setAttribute(attr.name, attr.value);
+                if (attr.specified) {
+                    xhtmlnode.setAttribute(name, attr.value);
                 };
             };
         };

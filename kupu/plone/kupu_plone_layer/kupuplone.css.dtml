@@ -288,10 +288,10 @@ div.kupuoverride {
 }
 /* Firefox makes Flash objects completely invisible.
 We need to force it to display something otherwise you cannot edit existing Flash. */
-.kupu-html object.image-inline {
+.kupu-html object, .kupu-html embed {
    display: block;
    background-image: url(plonekupuimages/flash-placeholder.png);
-   border: 2px green solid;
+   border: 1px black solid;
 }
 /* </dtml-let></dtml-with> */
 
