@@ -39,7 +39,9 @@ function DrawerTool() {
         }
         this.current_drawer = drawer;
         if (args===undefined) args = [];
-        drawer.initMask(drawer.element);
+        if (this.isIE) {
+            drawer.initMask(drawer.element);
+        }
         drawer.createContent.apply(drawer, args);
         drawer.editor.suspendEditing();
         drawer.fixMask();
@@ -276,10 +278,25 @@ function LinkDrawer(elementid, tool) {
     DrawerWithAnchors.call(this, elementid, tool);
     
     var input = getBaseTagClass(this.element, 'input', 'kupu-linkdrawer-input');
+    var embed = getBaseTagClass(this.element, 'textarea', 'kupu-embed-input');
     var preview = getBaseTagClass(this.element, 'iframe', 'kupu-linkdrawer-preview');
     this.anchorframe = preview;
     this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-linkdrawer-anchors');
     this.target = '';
+    this.panel = getBaseTagClass(this.element, 'div', 'kupu-panels');
+    this.switchMode = function(event) {
+        event = event || window.event;
+        var target = event.currentTarget || event.srcElement;
+        this.panel.className = 'kupu-panels '+target.parentNode.className;
+        if (event.preventDefault) { event.preventDefault();}
+        event.returnValue = false;
+        return false;
+    };
+    var tabs = getBaseTagClass(this.element, 'ul', 'kupu-tabs').getElementsByTagName('a');
+    for (var i = 0; i < tabs.length; i++) {
+        addEventHandler(tabs[i], 'click', this.switchMode, this);
+    }
+    addEventHandler(embed, 'click', function() { if(embed.defaultValue==embed.value) {embed.select();} });
 
     this.selChange = function() {
         var anchor = this.getFragment();
@@ -293,8 +310,9 @@ function LinkDrawer(elementid, tool) {
 
     this.createContent = function() {
         /* display the drawer */
-        var currnode = this.editor.getSelectedNode();
-        var linkel = this.editor.getNearestParentOfType(currnode, 'a');
+        var ed = this.editor;
+        var currnode = ed.getSelectedNode();
+        var linkel = ed.getNearestParentOfType(currnode, 'a');
         input.value = "";
 
         this.preview();
@@ -303,6 +321,12 @@ function LinkDrawer(elementid, tool) {
         } else {
             input.value = 'http://';
         };
+        var obj = ed.getNearestParentOfType(currnode, 'object') || ed.getNearestParentOfType(currnode, 'embed');
+        if (obj) {
+            embed.value = getOuterHtml(obj);
+        } else {
+            embed.value = embed.defaultValue;
+        }
         this.element.style.display = 'block';
         this.hideAnchors();
         this.focusElement();
@@ -311,10 +335,22 @@ function LinkDrawer(elementid, tool) {
     this.save = function() {
         /* add or modify a link */
         this.editor.resumeEditing();
-        var url = input.value;
-        this.tool.createLink(url, null, null, this.target);
-        input.value = '';
-
+        if (this.getMode()) {
+            var url = input.value;
+            this.tool.createLink(url, null, null, this.target);
+            input.value = '';
+        } else {
+            // Import the html
+            var doc = this.editor.getInnerDocument();
+            var selection = this.editor.getSelection();
+            var dummy = doc.createElement("div");
+            dummy.innerHTML = embed.value;
+            try {
+                while (dummy.firstChild) {
+                    selection.replaceWithNode(dummy.firstChild, false);
+                };
+            } catch(e) {};
+        }
         // XXX when reediting a link, the drawer does not close for
         // some weird reason. BUG! Close the drawer manually until we
         // find a fix:
@@ -328,13 +364,18 @@ function LinkDrawer(elementid, tool) {
         return current;
     }
     
+    this.getMode = function() {
+        return !!(/addlink/.test(this.panel.className));
+    };
     this.preview = function() {
-        preview.src = input.value;
-        this.showAnchors(currentAnchor());
-        if (this.editor.getBrowserName() == 'IE') {
-            preview.width = "800";
-            preview.height = "365";
-            preview.style.zoom = "60%";
+        if (this.getMode()) {
+            preview.src = input.value;
+            this.showAnchors(currentAnchor());
+            if (this.editor.getBrowserName() == 'IE') {
+                preview.width = "800";
+                preview.height = "365";
+                preview.style.zoom = "60%";
+            };
         };
     };
 
@@ -1637,7 +1678,7 @@ function HandleDrawerEnter(event, clickid) {
         }
         event.cancelBubble = true;
         if (event.stopPropogation) event.stopPropogation();
-
+        event.returnValue = false;
         return false;
     }
     return true;

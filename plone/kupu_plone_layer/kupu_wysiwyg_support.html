@@ -16,7 +16,7 @@
     <!--$Id: toolboxes.kupu 37754 2007-02-01 17:24:29Z yuppie $-->
     <!--$Id: colorchooser.kupu 35491 2006-12-08 15:41:49Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: drawers.kupu 41836 2007-04-03 08:36:10Z duncan $-->
+    <!--$Id: drawers.kupu 43562 2007-05-22 13:03:41Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 25247 2006-04-03 11:23:02Z fschulze $-->
     <!--$Id: head.kupu 34332 2006-11-07 14:50:40Z duncan $-->
@@ -227,33 +227,59 @@
       <h1 class="kupu-drawer-title" i18n:translate="">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
-         <ul>
-            <li><a href="#">Link to url</a></li>
-            <li><a href="#">Embed external object</a></li>
+         <ul class="kupu-tabs">
+            <li class="kupu-linkdrawer-addlink"><a href="#">Link to url</a></li>
+            <li class="kupu-linkdrawer-embed"><a href="#">Embed external object</a></li>
          </ul>
-        <table cellspacing="0">
-        <tr><td><div class="kupu-toolbox-label">
-          
-          <span i18n:translate="">
-            Link the highlighted text to this URL:
-          </span>
-        </div>
-
-        <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" onkeypress="return HandleDrawerEnter(event, 'linkdrawer-preview');"/>
-        </td>
-        <td class="kupu-preview-button">
-          <button class="kupu-dialog-button" type="button" id="linkdrawer-preview" onclick="drawertool.current_drawer.preview()" i18n:translate="">Preview</button>
-        </td></tr>
-        <tr class="kupu-linkdrawer-anchors" style="display:none">
-          <td colspan="2">
-            <label i18n:translate="" for="anchorselect">Anchor</label>
-            <select id="anchorselect"><option i18n:translate="" value="">(none)</option></select>
-          </td>
-        </tr>
-        <tr><td colspan="2" align="center">
-        <iframe frameborder="1" scrolling="auto" width="440" height="198" class="kupu-linkdrawer-preview" src="javascript:''">
-        </iframe>
-        </td></tr>
+         <table class="kupu-tabbed">
+            <tbody class="kupu-addlink">
+               <tr>
+                  <td>
+                     <div class="kupu-toolbox-label">
+                        
+                        <span i18n:translate="">
+                           Link the highlighted text to this URL:
+                        </span>
+                     </div>
+                     <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" onkeypress="return HandleDrawerEnter(event, 'linkdrawer-preview');"/>
+                  </td>
+                  <td class="kupu-preview-button">
+                     <button class="kupu-dialog-button" type="button" id="linkdrawer-preview" onclick="drawertool.current_drawer.preview()" i18n:translate="">Preview</button>
+                  </td>
+               </tr>
+               <tr class="kupu-linkdrawer-anchors" style="display:none">
+                  <td colspan="2">
+                     <label i18n:translate="" for="anchorselect">Anchor</label>
+                     <select id="anchorselect"><option i18n:translate="" value="">(none)</option></select>
+                  </td>
+               </tr>
+               <tr><td colspan="2" align="center">
+                  <iframe frameborder="1" scrolling="auto" width="440" height="198" class="kupu-linkdrawer-preview" src="javascript:''">
+                  </iframe>
+                  </td>
+               </tr>
+            </tbody>
+            <tbody class="kupu-embed">
+               <tr>
+                  <td>
+                     <div class="kupu-toolbox-label">
+                        
+                        <span i18n:translate="">
+                           Paste &lt;object&gt; or &lt;embed&gt; tag here:
+                        </span>
+                     </div>
+                     <textarea class="kupu-toolbox-st kupu-embed-input">[insert arbitrary HTML code here]</textarea>
+                  </td>
+               </tr>
+               <tr>
+                  <td>
+                  You may use this box to insert custom snippets of
+                  HTML code. There is no guarantee that any code
+                  inserted in this way will be preserved when you save
+                  your edits.
+                  </td>
+               </tr>
+            </tbody>
         </table>
 
         <div class="kupu-dialogbuttons">
