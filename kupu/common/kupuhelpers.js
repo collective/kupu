@@ -1520,3 +1520,21 @@ function toggleAltFieldVisibility(me) {
         if(fld) { fld.style.display = vis; }
     }
 }
+
+function getOuterHtml(node) {
+    var html = '<';
+    html += node.nodeName.toLowerCase();
+    var attrs = node.attributes;
+    for (var a = 0; a < attrs.length; a++) {
+        var att = attrs[a];
+        if (att.specified) {
+            html += ' ' + att.nodeName.toLowerCase() + '="' + att.nodeValue + '"';
+        }
+    }
+    html += '>';
+    if (!(/hr|br|img|input/i.test(node.nodeName))) {
+        html += node.innerHTML;
+        html += '<\/' + node.nodeName.toLowerCase() + '>';
+    }
+    return html;
+}
