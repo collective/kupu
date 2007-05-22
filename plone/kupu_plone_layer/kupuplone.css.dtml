@@ -84,6 +84,14 @@ dl.toc {
   border:1px solid &dtml-contentViewBorderColor;;
 }
 
+ul.kupu-tabs li {
+  background-color:&dtml-contentViewBackgroundColor;;
+  border:1px solid &dtml-contentViewBorderColor;;
+}
+ul.kupu-tabs {
+  border-bottom: 1px solid &dtml-contentViewBorderColor;;
+}
+
 .kupu-tb-buttons button {
   width: 24px;
   height: 24px;

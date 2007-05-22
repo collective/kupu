@@ -47,6 +47,10 @@
       <h1 class="kupu-drawer-title" i18n:translate="">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
+         <ul>
+            <li><a href="#">Link to url</a></li>
+            <li><a href="#">Embed external object</a></li>
+         </ul>
         <table cellspacing="0">
         <tr><td><div class="kupu-toolbox-label">
           <!-- Link to items matching the keyword  -->
@@ -240,20 +244,12 @@
   <kupu:part name="anchordrawer">
     <div id="kupu-anchordrawer" class="kupu-drawer kupu-anchordrawer">
       <h1 class="kupu-drawer-title" i18n:translate="anchordrawer_title">Anchors</h1>
-      <div class="kupu-panels">
-        <table class="kupu-ins-bm">
-          <tr style="margin-bottom: 5px">
-            <td colspan="2">
-              <label i18n:translate="" for="kupu-ins-bm">
-                Link to anchor
-              </label>
-              <input type="radio" name="kupu-bm-mode" checked="checked" id="kupu-ins-bm"/>
-              <label for="kupu-toc" i18n:translate="">
-                Table of contents
-              </label>
-              <input type="radio" name="kupu-bm-mode" id="kupu-toc"/> 
-            </td>
-          </tr>
+      <div class="kupu-panels kupu-ins-bm">
+         <ul class="kupu-tabs">
+            <li class="kupu-ins-bm"><a href="#" i18n:translate="">Link to anchor</a></li>
+            <li class="kupu-toc"><a href="#" i18n:translate="">Table of contents</a></li>
+         </ul>
+        <table class="kupu-tabbed">
           <tr>
             <td class="kupu-bm-select">
               <select id="kupu-bm-sel1" size="10"> </select>

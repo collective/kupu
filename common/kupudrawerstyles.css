@@ -130,6 +130,7 @@ div.kupu-panels table {
  margin: 0; 
  padding: 0; 
  border: 0;
+ clear:left;
 }
 
 td.panel {
@@ -266,6 +267,14 @@ th.kupu-toolbox-label {
    width: 5%;
    white-space: nowrap;
 }
+
+.kupu-tabs { border-bottom: 1px solid; margin: 0; padding: 0.5em 0 0 1.5em; }
+.kupu-tabs li {
+  display: inline; padding: 2px; border: 1px solid; margin: 0 5px 0 0;
+}
+.kupu-tabs a { text-decoration: none; }
+.kupu-ins-bm li.kupu-ins-bm, .kupu-toc li.kupu-toc { background: white; border-bottom: none !IMPORTANT; padding-bottom: 3px;}
+table.kupu-tabbed { border-spacing: 0;}
 
 .kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading {
    display:none;

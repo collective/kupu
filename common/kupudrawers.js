@@ -1464,18 +1464,18 @@ function AnchorDrawer(elementid, tool) {
 
     this.initialize = function(editor, tool) {
         Drawer.prototype.initialize.apply(this, [editor, tool]);
-        this.table = this.element.getElementsByTagName('table')[0];
+        this.panel = getBaseTagClass(this.element, 'div', 'kupu-panels');
         this.style1 = getFromSelector('kupu-bm-sel1');
         this.style2 = getFromSelector('kupu-bm-sel2');
         this.ostyle = getFromSelector('kupu-bm-outcls');
         this.nstyle = getFromSelector('kupu-bm-number');
-        this.radio1 = getFromSelector('kupu-ins-bm');
-        this.radio2 = getFromSelector('kupu-toc');
+        var tabs = getBaseTagClass(this.element, 'ul', 'kupu-tabs').getElementsByTagName('a');
         this.paralist = getBaseTagClass(this.element, 'div', 'kupu-bm-paras');
         this.checkall = getFromSelector('kupu-bm-checkall');
-        
-        addEventHandler(this.radio1, 'click', this.switchMode, this);
-        addEventHandler(this.radio2, 'click', this.switchMode, this);
+
+        for (var i = 0; i < tabs.length; i++) {
+            addEventHandler(tabs[i], 'click', this.switchMode, this);
+        }
         addEventHandler(this.checkall, 'click', this.checkAll, this);
         addEventHandler(this.style1, 'change', this.fillList, this);
         addEventHandler(this.style2, 'change', this.fillList, this);
@@ -1484,7 +1484,7 @@ function AnchorDrawer(elementid, tool) {
         this.tool.fillStyleSelect(this.ostyle);
     };
     this.getMode = function() {
-        return this.radio1.checked;
+        return !!(/kupu-ins-bm/.test(this.panel.className));
     };
 
     this.checkAll = function() {
@@ -1497,8 +1497,11 @@ function AnchorDrawer(elementid, tool) {
     this.switchMode = function(event) {
         event = event || window.event;
         var target = event.currentTarget || event.srcElement;
-        this.table.className = target.id;
+        this.panel.className = 'kupu-panels '+target.parentNode.className;
         this.fillList();
+        if (event.preventDefault) { event.preventDefault();}
+        event.returnValue = false;
+        return false;
     };
     this.fillList = function() {
         var el = newElement;
@@ -1539,7 +1542,6 @@ function AnchorDrawer(elementid, tool) {
         };
     };
     this.createContent = function() {
-        if (this.radio2.checked) this.table.className=this.radio2.id;
         this.fillList(); 
         this.element.style.display = 'block';
         this.focusElement();
