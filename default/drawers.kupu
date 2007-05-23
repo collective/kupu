@@ -100,7 +100,8 @@
                   You may use this box to insert custom snippets of
                   HTML code. There is no guarantee that any code
                   inserted in this way will be preserved when you save
-                  your edits.
+                  your edits. To select an existing object from IE click on
+                  the border, from Firefox double click it.
                   </td>
                </tr>
             </tbody>
