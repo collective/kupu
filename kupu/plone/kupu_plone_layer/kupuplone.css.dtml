@@ -302,6 +302,9 @@ A wider border makes selection possible in IE. */
    background-image: url(plonekupuimages/flash-placeholder.png);
    border: 5px &dtml-contentViewBorderColor; dotted;
 }
-        
+.kupu-html object embed, .kupu-html object object,
+.kupu-html embed embed, .kupu-html embed object {
+   display:none;
+}
 /* </dtml-let></dtml-with> */
 
