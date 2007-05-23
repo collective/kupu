@@ -520,6 +520,9 @@ function KupuEditor(document, config, logger) {
         this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
         this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true;}, this);
         this._addEventHandler(this.getInnerDocument(), "mouseup", this.updateStateHandler, this);
+        if (this.getBrowserName() == "IE") {
+            this._addEventHandler(this.getInnerDocument(), "selectionchange", this.onSelectionChange, this);
+        }
     };
 
     this._setDesignModeWhenReady = function() {
@@ -561,27 +564,35 @@ function KupuEditor(document, config, logger) {
          selection in the iframe gets lost. We only save if the current 
          selection in the document */
         if (this._isDocumentSelected()) {
-            var currange = this.getInnerDocument().selection.createRange();
+            var cursel = this.getInnerDocument().selection;
+            var currange = cursel.createRange();
+            if (cursel.type=="Control" && currange.item(0).nodeName=="BODY") {
+                /* This happens when you try to active an embedded
+                 * object */
+                this._restoreSelection(true);
+                return;
+            }
             this._previous_range = currange;
         };
     };
 
-    this._restoreSelection = function() {
+    this._restoreSelection = function(force) {
         /* re-selects the previous selection in IE. We only restore if the
         current selection is not in the document.*/
-        if (this._previous_range && !this._isDocumentSelected()) {
+        if (this._previous_range && (force || !this._isDocumentSelected())) {
             try {
                 this._previous_range.select();
-            } catch (e) {
-                alert("Error placing back selection");
-                this.logMessage(_('Error placing back selection'));
-            };
+            } catch (e) { };
         };
     };
     
     if (this.getBrowserName() != "IE") {
         this._saveSelection = function() {};
         this._restoreSelection = function() {};
+    }
+
+    this.onSelectionChange = function(event) {
+        this._saveSelection();
     }
 
     this._isDocumentSelected = function() {
@@ -827,9 +838,9 @@ function KupuEditor(document, config, logger) {
             this.tools[id].enable();
         }
         if (this.getBrowserName() == "IE") {
-            this._restoreSelection();
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
             body.setAttribute('contentEditable', 'true');
+            this._restoreSelection();
         } else {
             var doc = this.getInnerDocument();
             this.getDocument().execCommand('contentReadOnly', 'false');

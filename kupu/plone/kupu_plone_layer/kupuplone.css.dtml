@@ -295,11 +295,13 @@ div.kupuoverride {
     text-align:center;position:absolute;top:0;width:100%;
 }
 /* Firefox makes Flash objects completely invisible.
-We need to force it to display something otherwise you cannot edit existing Flash. */
+We need to force it to display something otherwise you cannot edit existing Flash.
+A wider border makes selection possible in IE. */
 .kupu-html object, .kupu-html embed {
    display: block;
    background-image: url(plonekupuimages/flash-placeholder.png);
-   border: 1px black solid;
+   border: 5px &dtml-contentViewBorderColor; dotted;
 }
+        
 /* </dtml-let></dtml-with> */
 

@@ -288,6 +288,7 @@ function LinkDrawer(elementid, tool) {
         event = event || window.event;
         var target = event.currentTarget || event.srcElement;
         this.panel.className = 'kupu-panels '+target.parentNode.className;
+        this.fixMask();
         if (event.preventDefault) { event.preventDefault();}
         event.returnValue = false;
         return false;
@@ -346,8 +347,16 @@ function LinkDrawer(elementid, tool) {
             var dummy = doc.createElement("div");
             dummy.innerHTML = embed.value;
             try {
+                for (i=dummy.childNodes.length-1; i >= 0; i--) {
+                    var c = dummy.childNodes[i];
+                    if (/^\//.test(c.nodeName))
+                    {
+                        dummy.removeChild(c);
+                    }
+                }
                 while (dummy.firstChild) {
-                    selection.replaceWithNode(dummy.firstChild, false);
+                    var c= dummy.firstChild;
+                    selection.replaceWithNode(c, !c.nextSibling);
                 };
             } catch(e) {};
         }
@@ -1540,6 +1549,7 @@ function AnchorDrawer(elementid, tool) {
         var target = event.currentTarget || event.srcElement;
         this.panel.className = 'kupu-panels '+target.parentNode.className;
         this.fillList();
+        this.fixMask();
         if (event.preventDefault) { event.preventDefault();}
         event.returnValue = false;
         return false;
