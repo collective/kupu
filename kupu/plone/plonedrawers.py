@@ -23,7 +23,13 @@ from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone.librarytool import KupuError
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import getSiteEncoding
+try:
+    from Products.CMFPlone.utils import getSiteEncoding
+except ImportError:
+    def getSiteEncoding(context):
+        tool = getToolByName(context, 'plone_utils')
+        return tool.getSiteEncoding()
+    
 import html2captioned
 
 try:
