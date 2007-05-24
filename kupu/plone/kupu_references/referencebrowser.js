@@ -157,6 +157,8 @@ function fakeEditor() {
     this.suspendEditing = function() {};
     this.config = {};
     this._saveSelection = function() {};
+    this.busy = function() {};
+    this.notbusy = function() {};
 };
 
 var drawertool;

@@ -180,6 +180,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             <xsl:attribute name="id">
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
+            <xsl:if test="@selected=1">
+               <xsl:attribute name="class">kupu-libsource-selected</xsl:attribute>
+            </xsl:if>
             <xsl:apply-templates select="icon"/>
             <span class="drawer-item-title">
                <xsl:call-template name="lf2br">
@@ -206,22 +209,24 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                     <xsl:otherwise>drawertool.current_drawer.selectItem(this, event)</xsl:otherwise>
                 </xsl:choose>
             </xsl:attribute>
-            <input name="drawer-item-radio">
-                <xsl:attribute name="type">
-                    <xsl:choose>
+            <span>
+               <input name="drawer-item-radio">
+                  <xsl:attribute name="type">
+                     <xsl:choose>
                         <xsl:when test="$multiple='yes'">checkbox</xsl:when>
                         <xsl:otherwise>radio</xsl:otherwise>
-                    </xsl:choose>
-                </xsl:attribute>
-                <xsl:if test="@checked">
-                    <xsl:attribute name="checked">checked</xsl:attribute>
-                </xsl:if>
-                <xsl:if test="not(local-name()='resource')">
-                    <xsl:attribute name="style">visibility:hidden;</xsl:attribute>
-                </xsl:if>
-            </input>
-            <xsl:apply-templates select="icon"/>
-            <xsl:apply-templates select="(label|title)[1]"/>
+                     </xsl:choose>
+                  </xsl:attribute>
+                  <xsl:if test="@checked">
+                     <xsl:attribute name="checked">checked</xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="not(local-name()='resource')">
+                     <xsl:attribute name="style">visibility:hidden;</xsl:attribute>
+                  </xsl:if>
+               </input>
+               <xsl:apply-templates select="icon"/>
+               <xsl:apply-templates select="(label|title)[1]"/>
+            </span>
         </div>
     </xsl:template>
     <xsl:template match="uploadbutton" mode="currentpanel">

@@ -57,6 +57,7 @@ function DrawerTool() {
         this.current_drawer.hide();
         this.current_drawer.editor.resumeEditing();
         this.current_drawer = null;
+        this.editor.notbusy(true);
     };
 };
 
@@ -1245,7 +1246,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // library as selected
         this.deselectActiveCollection();
         resultlib.setAttribute("selected", "1");
-
+        
         // now hook the result library into our DOM
         if (this.editor.getBrowserName() == 'IE') {
             resultlib = resultlib.cloneNode(true);
@@ -1256,6 +1257,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         libraries.appendChild(resultlib);
         this.useCollection(resultlib);
         this.updateDisplay(this.librariespanelid);
+        this.flagSelectedLib(id);
         this.updateDisplay(this.breadcrumbsid);
     };
 
@@ -1286,6 +1288,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             if (xmlhttp.readyState == 4) {
                 if (xmlhttp.status && xmlhttp.status != 200) {
                     var errmessage = 'Error '+xmlhttp.status+' loading '+(uri||'XML');
+                    self.editor.notbusy(true);
                     alert(errmessage);
                     throw "Error loading XML";
                 };
@@ -1295,6 +1298,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                     dom.loadXML(xmlhttp.responseText);
                 }
                 callback.apply(self, [dom, uri, extra]);
+                self.editor.notbusy();
             };
         };
         var self = this;
@@ -1308,6 +1312,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // something
         body=body?body:null;
 
+        this.editor.busy();
         try {
             xmlhttp.open(method, uri, true);
             xmlhttp.onreadystatechange = _sarissaCallback;
@@ -1325,6 +1330,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             if (e && e.name && e.message) { // Microsoft
                 e = e.name + ': ' + e.message;
             }
+            this.editor.notbusy(true);
             alert(e);
         }
     };
