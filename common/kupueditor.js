@@ -813,6 +813,20 @@ function KupuEditor(document, config, logger) {
         fulleditor.className = fulleditor.className.replace(' '+name, '');
     };
 
+    var busycount = 0;
+    this.busy = function() {
+        if (busycount <= 0) {
+            this.setClass('kupu-busy');
+        }
+        busycount++;
+    }
+    this.notbusy = function(force) {
+        busycount = force?0:busycount?busycount-1:0;
+        if (busycount <= 0) {
+            this.clearClass('kupu-busy');
+        }
+    }
+
     this.suspendEditing = function() {
         this._previous_range = this.getSelection().getRange();
         this.setClass('kupu-modal');

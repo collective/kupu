@@ -135,6 +135,7 @@ div.kupu-panels table {
  padding: 0; 
  border: 0;
  clear:left;
+ border-spacing: 2px;
 }
 
 td.panel {
@@ -143,13 +144,14 @@ td.panel {
 
 td#kupu-librariespanel {
   overflow: auto;
-  width: 105px;
+  width: 130px;
 }
 
 div#kupu-librariesitems {
-  width: 105px;
+  width: 130px;
   white-space: nowrap;
   height: 260px;
+  padding: 0;
 }
 
 td#kupu-resourcespanel {
@@ -160,6 +162,7 @@ td#kupu-resourcespanel {
 div#kupu-resourceitems {
   white-space: nowrap;
   width: 200px;
+  padding: 0;
 }
 .upload-allowed div#kupu-resourceitems {
   height:236px;
@@ -167,10 +170,7 @@ div#kupu-resourceitems {
 
 div#kupu-properties {
   height: 260px;
-}
-
-div#kupu-librariesitems, div#kupu-resourceitems, div#kupu-properties {
-  padding: 6px;
+  padding: 0 6px;
 }
 
 .overflow {
@@ -190,13 +190,32 @@ div.response, div.collection {
 div.kupu-libsource, div.kupu-libsource-selected,
 div.kupu-resource, div.kupu-collection {
   cursor: pointer;
-  margin-bottom: 2px;
+  margin-bottom: 0;
+  padding: 2px 2px 2px 20px;
   vertical-align: text-bottom;
   white-space: nowrap;
 }
-.kupu-libsource, .kupu-libsource-selected { margin-left: 20px; }
+
+.kupu-busy, .kupu-busy div, .kupu-busy a:hover {
+  cursor: wait !IMPORTANT;
+}
+
+div.kupu-resource, div.kupu-collection { padding: 0; }
+div.kupu-resource span, div.kupu-collection span { padding: 4px 1ex 4px 0; }
+div.kupu-resource input, div.kupu-collection input {
+  margin-bottom: 5px;
+  background: transparent;
+  border: none;
+}
+
+.drawer-item-radio {
+  vertical-align: text-middle;
+  margin: 0;
+}
+
 .library-icon-library {
-  margin-left: -20px;
+  width:16px; height:16px;
+  margin: 0 2px 0 -18px;
 }
 
 .kupu-image-fields {
@@ -216,17 +235,7 @@ label.kupu-detail {
   border: none;
 }
 
-/*div.kupu-libsource-selected {
-  background-repeat: no-repeat;
-}*/
-
-/*div.kupu-libsource-selected span,
- div.kupu-libsource span{
-  margin-top: 3px;
-  display: inline;
-}*/
-
-div.kupu-libsource-selected span {
+div.kupu-libsource-selected {
   background-color: ButtonFace;  
 }
 
@@ -235,18 +244,12 @@ div.kupu-libsource-selected span {
 }
 
 img.library-icon-collection, img.library-icon-resource {
-  margin-right: 5px;
+  padding-right: 5px;
   height: 16px;
   width: 16px;
 }
 
-span.drawer-item-title {
-  padding-left: 2px;
-  padding-right: 2px;
-  padding-top: 2px;
-}
-
-.selected-item span.drawer-item-title {
+.selected-item span {
   background-color:#C0C0C0;
 }
 
@@ -314,6 +317,9 @@ td.kupu-bm-select {
 #kupu-breadcrumbs {
   text-align: left; clear:left;
   padding-left: 1em; padding-right: 1em;
+  height: 20px;
+  width: 600px;
+  overflow:hidden;
 }
 #kupu-breadcrumbs a {
  text-decoration: none;
