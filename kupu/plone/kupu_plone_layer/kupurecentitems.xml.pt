@@ -19,7 +19,7 @@
   <breadcrumbs class="kupu-locate">
     <crumb tal:define="locator here/kupulocate.xml/absolute_url;
                        url python:kupu.kupuUrl(locator);"
-      tal:attributes="href string:$url&src=$$src$$">
+      tal:attributes="href string:$url&src=$$src$$" i18n:translate="locate_content">
       Locate
     </crumb>
   </breadcrumbs>

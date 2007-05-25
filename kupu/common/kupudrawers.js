@@ -154,37 +154,47 @@ DrawerWithAnchors.prototype = new Drawer;
 proto = DrawerWithAnchors.prototype;
 
 proto.initAnchors = function() {
-    var limit = 200;
+    var limit = 40;
     var anchorframe = this.anchorframe;
+    var ed = this.editor;
     function onloadEvent() {
         var state = anchorframe.readyState;
-        if (state && state != 'complete') {
+        if (state && !(/complete/.test(state))) {
+            console.log("state="+state+", limit="+limit);
             if (limit-- && anchorframe.src==src) {
-                timer_instance.registerFunction(this, onloadEvent, 50);
+                timer_instance.registerFunction(this, onloadEvent, 500);
+            } else {
+                ed.notbusy(true);
             }
             return;
         };
         if(window.drawertool && window.drawertool.current_drawer) {
             window.drawertool.current_drawer.anchorframe_loaded();
         };
+        ed.notbusy();
     };
 
     var id = 'kupu-linkdrawer-anchors';
     var base = getBaseTagClass(this.element, 'div', id);
+    var self = this;
     if (base) {
         this.anchorui = getBaseTagClass(base, 'div', id);
 
         var inp = base.getElementsByTagName('input');
+        if (inp.length > 1) {
+            inp[1].disabled = true;
+        }
         var src = inp[0].value;
-        anchorframe.src = src;
-
+        inp[0].value = "";
+        if (!src) { return; }
+        ed.busy();
         if (this.anchorframe.readyState) { // IE
-            timer_instance.registerFunction(this, onloadEvent, 50);
+            anchorframe.src = src;
+            onloadEvent();
         } else { // FF
             this.anchorframe.onload = onloadEvent;
+            anchorframe.src = src;
         }
-
-        inp[1].style.display = 'none';
     }
 };
 proto.anchorSelect = function() {
@@ -260,6 +270,7 @@ proto.showAnchors = function(selected) {
             select.options.add(opt);
         }
     }
+    select.disabled = false;
     if (opts.length > 1) {
         this.anchorui.style.display = '';
     }
@@ -633,6 +644,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             var xsltproc =  new XSLTProcessor();
             this.shared.xsltproc = xsltproc;
             xsltproc.importStylesheet(dom);
+            xsltproc.setParameter("", "ie", this.editor.getBrowserName() == 'IE');
             xsltproc.setParameter("", "drawertype", this.drawertype);
             xsltproc.setParameter("", "drawertitle", this.drawertitle);
             xsltproc.setParameter("", "showupload", this.showupload);

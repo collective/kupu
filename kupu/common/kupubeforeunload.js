@@ -143,7 +143,7 @@ if (!window.beforeunload) (function() {
     };
 
     Class.isElementChanged = function(ele) {
-        var method = ele.id && this.chkId[ele.id];
+        var method = (ele.id && this.chkId.hasOwnProperty(ele.id))?this.chkId[ele.id]:null;
         if (!method && ele.type && ele.name) {
             method = this.chkType[ele.type];
         }
