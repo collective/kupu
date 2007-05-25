@@ -48,7 +48,7 @@
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
          <ul class="kupu-tabs">
-            <li class="kupu-linkdrawer-addlink"><a href="#" i18n:translate="">Link to url</a></li>
+            <li class="kupu-linkdrawer-addlink selected"><a href="#" i18n:translate="">Link to url</a></li>
             <li class="kupu-linkdrawer-embed"><a href="#" i18n:translate="">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
@@ -274,7 +274,7 @@
       <h1 class="kupu-drawer-title" i18n:translate="anchordrawer_title">Anchors</h1>
       <div class="kupu-panels kupu-ins-bm">
          <ul class="kupu-tabs">
-            <li class="kupu-ins-bm"><a href="#" i18n:translate="">Link to anchor</a></li>
+            <li class="kupu-ins-bm selected"><a href="#" i18n:translate="">Link to anchor</a></li>
             <li class="kupu-toc"><a href="#" i18n:translate="">Table of contents</a></li>
          </ul>
         <table class="kupu-tabbed">

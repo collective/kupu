@@ -473,24 +473,22 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     </xsl:template>
     
     <xsl:template match="anchor">
-        <div class="kupu-linkdrawer-anchors">
-            <input type="hidden" value="{../uri}"/>
-            <div class="kupu-linkdrawer-anchors">
-                <label for="kupu-anchor-select" i18n:translate="linkdrawer_anchor">Link to anchor</label>
-                <xsl:if test="$ie='true'">
-                   <input type="checkbox">
-                      <xsl:attribute name="onclick">drawertool.current_drawer.initAnchors();</xsl:attribute>
-                   </input>
-                </xsl:if>
-                <select onmousedown="drawertool.current_drawer.initAnchors();">
-                   <xsl:if test="$ie='true'">
-                      <xsl:attribute name="disabled">disabled</xsl:attribute>
-                   </xsl:if>
-                   <option i18n:translate="" value="">top of page (default)</option>
-                   <option i18n:translate="" value=""><em>...fetching anchors...</em></option>
-                </select>
-            </div>
-        </div>
+       <div class="kupu-linkdrawer-anchors">
+          <input type="hidden" value="{../uri}"/>
+          <label for="kupu-anchor-select" i18n:translate="linkdrawer_anchor">Link to anchor</label>
+          <xsl:if test="$ie='true'">
+             <input type="checkbox">
+                <xsl:attribute name="onclick">drawertool.current_drawer.initAnchors();</xsl:attribute>
+             </input>
+          </xsl:if>
+          <select onmousedown="drawertool.current_drawer.initAnchors();">
+             <xsl:if test="$ie='true'">
+                <xsl:attribute name="disabled">disabled</xsl:attribute>
+             </xsl:if>
+             <option i18n:translate="" value="">top of page (default)</option>
+             <option i18n:translate="" value=""><em>...fetching anchors...</em></option>
+          </select>
+       </div>
     </xsl:template>
 
     <xsl:template match="status">
