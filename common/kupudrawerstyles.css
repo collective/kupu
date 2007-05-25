@@ -288,10 +288,9 @@ table.kupu-tabbed { border-spacing: 0;}
 .kupu-linkdrawer-addlink .kupu-embed { display: none; }
 .kupu-linkdrawer-embed .kupu-addlink { display: none; }
 
-.kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading {
-   display:none;
-}
-.kupu-ins-bm .kupu-bm-helptoc,.kupu-toc .kupu-bm-helpanchor {
+.kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading,
+.kupu-ins-bm .kupu-bm-helptoc,.kupu-toc .kupu-bm-helpanchor,
+.image-dimensions {
   display: none;
 }
 

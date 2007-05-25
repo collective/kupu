@@ -16,7 +16,7 @@
     <!--$Id: toolboxes.kupu 37754 2007-02-01 17:24:29Z yuppie $-->
     <!--$Id: colorchooser.kupu 35491 2006-12-08 15:41:49Z duncan $-->
     <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: drawers.kupu 43571 2007-05-23 13:06:13Z duncan $-->
+    <!--$Id: drawers.kupu 43612 2007-05-25 09:16:10Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 25247 2006-04-03 11:23:02Z fschulze $-->
     <!--$Id: head.kupu 34332 2006-11-07 14:50:40Z duncan $-->
@@ -228,8 +228,8 @@
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
          <ul class="kupu-tabs">
-            <li class="kupu-linkdrawer-addlink"><a href="#">Link to url</a></li>
-            <li class="kupu-linkdrawer-embed"><a href="#">Embed external object</a></li>
+            <li class="kupu-linkdrawer-addlink"><a href="#" i18n:translate="">Link to url</a></li>
+            <li class="kupu-linkdrawer-embed"><a href="#" i18n:translate="">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
             <tbody class="kupu-addlink">
@@ -268,11 +268,11 @@
                            Paste &lt;object&gt; or &lt;embed&gt; tag here:
                         </span>
                      </div>
-                     <textarea class="kupu-toolbox-st kupu-embed-input">[insert arbitrary HTML code here]</textarea>
+                     <textarea class="kupu-toolbox-st kupu-embed-input" i18n:translate="">[insert arbitrary HTML code here]</textarea>
                   </td>
                </tr>
                <tr>
-                  <td>
+                  <td i18n:translate="custom_html_help">
                   You may use this box to insert custom snippets of
                   HTML code. There is no guarantee that any code
                   inserted in this way will be preserved when you save
@@ -429,10 +429,10 @@
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
               <div class="kupu-bm-paras">&#160;</div>
-              <div class="kupu-bm-helpanchor">
+              <div class="kupu-bm-helpanchor" i18n_translate="create_anchor_help">
                 Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
               </div>
-              <div class="kupu-bm-helptoc">
+              <div class="kupu-bm-helptoc" i18n_translate="create_toc_help">
                 Select one or two paragraph styles, then Ok to insert a table of contents.
               </div>
             </td>
