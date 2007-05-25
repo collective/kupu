@@ -280,12 +280,10 @@ th.kupu-toolbox-label {
   display: inline; padding: 2px; border: 1px solid; margin: 0 5px 0 0;
 }
 .kupu-tabs a { text-decoration: none; }
-.kupu-ins-bm li.kupu-ins-bm, .kupu-toc li.kupu-toc,
-.kupu-linkdrawer-addlink li.kupu-linkdrawer-addlink,
-.kupu-linkdrawer-embed li.kupu-linkdrawer-embed { background: white; border-bottom: none !IMPORTANT; padding-bottom: 3px;}
+.kupu-tabs li.selected { background: white; border-bottom: none !IMPORTANT; padding-bottom: 3px;}
 table.kupu-tabbed { border-spacing: 0;}
 
-.kupu-linkdrawer-addlink .kupu-embed { display: none; }
+.kupu-linkdrawer-addlink .kupu-embed,
 .kupu-linkdrawer-embed .kupu-addlink { display: none; }
 
 .kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading,

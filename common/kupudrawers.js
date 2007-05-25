@@ -145,6 +145,33 @@ proto.fixMask = function() {
     }
 }
 
+proto.switchMode = function(event) {
+    event = event || window.event;
+    var target = event.currentTarget || event.srcElement;
+    var el = target;
+    while (el.nodeName != 'LI') { el = el.parentNode; };
+    var thistab = el;
+    while (el.nodeName != 'UL') { el = el.parentNode; };
+    var tabs = el.getElementsByTagName('li');
+    for (var i = 0; i < tabs.length; i++) {
+        var el = tabs[i];
+        var cls = el.className.replace(/\s*selected/g, '');
+        if (el===thistab) {
+            this.panel.className = 'kupu-panels '+cls;
+            cls += ' selected';
+        }
+        if (el.className != cls) {
+            el.className = cls;
+        }
+    }
+    if (this.fillList) this.fillList();
+    this.fixMask();
+    if (event.preventDefault) { event.preventDefault();}
+    event.returnValue = false;
+    return false;
+};
+
+
 function DrawerWithAnchors(editor, drawertool, anchorui) {
     Drawer.call(this, editor, drawertool);
     this.anchorui = anchorui;
@@ -175,11 +202,9 @@ proto.initAnchors = function() {
     };
 
     var id = 'kupu-linkdrawer-anchors';
-    var base = getBaseTagClass(this.element, 'div', id);
+    var base = this.anchorui = getBaseTagClass(this.element, 'div', id);
     var self = this;
     if (base) {
-        this.anchorui = getBaseTagClass(base, 'div', id);
-
         var inp = base.getElementsByTagName('input');
         if (inp.length > 1) {
             inp[1].disabled = true;
@@ -296,15 +321,6 @@ function LinkDrawer(elementid, tool) {
     this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-linkdrawer-anchors');
     this.target = '';
     this.panel = getBaseTagClass(this.element, 'div', 'kupu-panels');
-    this.switchMode = function(event) {
-        event = event || window.event;
-        var target = event.currentTarget || event.srcElement;
-        this.panel.className = 'kupu-panels '+target.parentNode.className;
-        this.fixMask();
-        if (event.preventDefault) { event.preventDefault();}
-        event.returnValue = false;
-        return false;
-    };
     var tabs = getBaseTagClass(this.element, 'ul', 'kupu-tabs').getElementsByTagName('a');
     for (var i = 0; i < tabs.length; i++) {
         addEventHandler(tabs[i], 'click', this.switchMode, this);
@@ -1562,16 +1578,7 @@ function AnchorDrawer(elementid, tool) {
             nodes[i].checked = state;
         };
     };
-    this.switchMode = function(event) {
-        event = event || window.event;
-        var target = event.currentTarget || event.srcElement;
-        this.panel.className = 'kupu-panels '+target.parentNode.className;
-        this.fillList();
-        this.fixMask();
-        if (event.preventDefault) { event.preventDefault();}
-        event.returnValue = false;
-        return false;
-    };
+
     this.fillList = function() {
         var el = newElement;
         while (this.paralist.firstChild) {
