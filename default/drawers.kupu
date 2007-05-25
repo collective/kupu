@@ -48,8 +48,8 @@
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
          <ul class="kupu-tabs">
-            <li class="kupu-linkdrawer-addlink"><a href="#">Link to url</a></li>
-            <li class="kupu-linkdrawer-embed"><a href="#">Embed external object</a></li>
+            <li class="kupu-linkdrawer-addlink"><a href="#" i18n:translate="">Link to url</a></li>
+            <li class="kupu-linkdrawer-embed"><a href="#" i18n:translate="">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
             <tbody class="kupu-addlink">
@@ -73,7 +73,8 @@
                <tr class="kupu-linkdrawer-anchors" style="display:none">
                   <td colspan="2">
                      <label i18n:translate="" for="anchorselect">Anchor</label>
-                     <select id="anchorselect"><option i18n:translate="" value="">(none)</option></select>
+                     <select id="anchorselect"><option
+                     i18n:translate="" value="">top of page (default)</option></select>
                   </td>
                </tr>
                <tr><td colspan="2" align="center">
@@ -92,11 +93,11 @@
                            Paste &lt;object&gt; or &lt;embed&gt; tag here:
                         </span>
                      </div>
-                     <textarea class="kupu-toolbox-st kupu-embed-input">[insert arbitrary HTML code here]</textarea>
+                     <textarea class="kupu-toolbox-st kupu-embed-input" i18n:translate="">[insert arbitrary HTML code here]</textarea>
                   </td>
                </tr>
                <tr>
-                  <td>
+                  <td i18n:translate="custom_html_help">
                   You may use this box to insert custom snippets of
                   HTML code. There is no guarantee that any code
                   inserted in this way will be preserved when you save
@@ -303,10 +304,10 @@
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
               <div class="kupu-bm-paras">&#xa0;</div>
-              <div class="kupu-bm-helpanchor">
+              <div class="kupu-bm-helpanchor" i18n_translate="create_anchor_help">
                 Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
               </div>
-              <div class="kupu-bm-helptoc">
+              <div class="kupu-bm-helptoc" i18n_translate="create_toc_help">
                 Select one or two paragraph styles, then Ok to insert a table of contents.
               </div>
             </td>

@@ -54,6 +54,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="image-class"></xsl:param>
     <xsl:param name="link_target"></xsl:param>
     <xsl:param name="link_name"></xsl:param>
+    <xsl:param name="ie"></xsl:param>
     <xsl:variable name="titlelength" select="60"/>
     <xsl:variable name="i18n_drawertitle"> 
         <xsl:choose>
@@ -340,7 +341,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           <input id="kupu-media" type="hidden" value="{media}" />
           <input id="kupu-width" type="hidden" value="{width}" />
           <input id="kupu-height" type="hidden" value="{height}" />
-          <label class="kupu-detail">Alignment</label>
+          <label class="kupu-detail" i18n:translate="image_alignment">Alignment</label>
           <span class="kupu-detail">
              <input type="radio" name="image-align" id="image-align-left" value="image-left">
                 <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -383,8 +384,14 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </xsl:choose>
           </xsl:if>
           <xsl:if test="sizes">
-             <label class="kupu-detail"
-                    for="image-size-selector">Size</label>
+             <label class="kupu-detail" i18n:translate="imagedrawer_size"
+                    for="image-size-selector">Size
+                <span class="image-dimensions">
+                   (<span i18n:name="width"><xsl:value-of select="width"/></span>
+                   by
+                   <span i18n:name="height"><xsl:value-of select="height"/></span>)
+                </span>
+             </label>
              <span class="kupu-detail">
                 <select name="image-size-selector">
                    <option name="image-size-option" value="{uri}">Original</option>
@@ -393,7 +400,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </span>
           </xsl:if>
           <xsl:if test="class">
-             <label class="kupu-detail"
+             <label class="kupu-detail" i18n:translate="imagedrawer_style"
                     for="kupu-image-class-selector">Style</label>
              <span class="kupu-detail">
                 <select name="kupu-image-class-selector" id="kupu-image-class">
@@ -402,12 +409,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </span>
           </xsl:if>
           <label class="kupu-detail" id="image-alt-label"
-                 for="image-alt"
-                 i18n:translate="imagedrawer_upload_alt_text">
+                 for="image-alt">
              <xsl:if test="$usecaptions='yes' and $image-caption='true'">
                 <xsl:attribute name="style">display:none;</xsl:attribute>
              </xsl:if>
-             Text equivalent
+             <span tal:omit-tag="" i18n:translate="imagedrawer_upload_alt_text">Text equivalent</span>
           </label>
           <textarea class="kupu-detail" type="text" id="image-alt" rows="4">
              <xsl:if test="$usecaptions='yes' and $image-caption='true'">
@@ -469,13 +475,18 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:template match="anchor">
         <div class="kupu-linkdrawer-anchors">
             <input type="hidden" value="{../uri}"/>
-            <input type="button" class="kupu-dialog-button" value="Anchors..."
-                onclick="drawertool.current_drawer.initAnchors()"/>
-            <div style="display:none;" class="kupu-linkdrawer-anchors">
-                <label for="kupu-anchor-select">Anchor</label>
-                <br/>
-                <select>
-                    <option i18n:translate="" value="">(none)</option>
+            <div class="kupu-linkdrawer-anchors">
+                <label for="kupu-anchor-select" i18n:translate="linkdrawer_anchor">Link to anchor</label>
+                <xsl:if test="$ie='true'">
+                   <input type="checkbox">
+                      <xsl:attribute name="onclick">drawertool.current_drawer.initAnchors();</xsl:attribute>
+                   </input>
+                </xsl:if>
+                <select onmousedown="drawertool.current_drawer.initAnchors();">
+                   <xsl:if test="$ie='true'">
+                      <xsl:attribute name="disabled">disabled</xsl:attribute>
+                   </xsl:if>
+                   <option i18n:translate="" value="">top of page (default)</option>
                 </select>
             </div>
         </div>

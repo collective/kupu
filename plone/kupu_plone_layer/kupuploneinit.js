@@ -181,9 +181,9 @@ function initPloneKupu(editorId) {
     // Use the generic beforeUnload handler if we have it:
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {
-        var initialBody = ibody.innerHTML;
+        var initialBody = kupu.getHTMLBody();
         beforeunloadTool.addHandler(function() {
-            return ibody.innerHTML != initialBody;
+            return kupu.getHTMLBody() != initialBody;
         });
         beforeunloadTool.chkId[textarea.id] = function() { return false; };
         beforeunloadTool.addForm(form);

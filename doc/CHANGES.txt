@@ -10,6 +10,10 @@ Kupu changes
 
   - Image drawer layout has been tidied up.
 
+  - Anchors in the link drawer now have a slightly cleaner ui.
+
+  - Drawer actions which do server requests now display a wait cursor.
+
   - Removed the tabindex from all the toolbar buttons and added it to
     the iframe: this means you can tab into kupu from above without
     dying of old age as you try to get past the toolbar. Added a

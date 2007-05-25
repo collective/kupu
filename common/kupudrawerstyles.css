@@ -196,7 +196,7 @@ div.kupu-resource, div.kupu-collection {
   white-space: nowrap;
 }
 
-.kupu-busy, .kupu-busy div, .kupu-busy a:hover {
+.kupu-busy, .kupu-busy div, .kupu-busy a:hover, .kupu-busy input , .kupu-busy select {
   cursor: wait !IMPORTANT;
 }
 

@@ -25,7 +25,8 @@ e.g. Call: kupuselection.xml?src=someurl
     <crumb
       tal:define="url context/portal_url;
         resource_type request/resource_type | string:mediaobject;"
-      tal:attributes="href string:${context/portal_url}/kupulocate.xml?resource_type=${resource_type}&amp;src=$$src$$">
+      tal:attributes="href string:${context/portal_url}/kupulocate.xml?resource_type=${resource_type}&amp;src=$$src$$"
+      i18n:translate="locate_content">
       Locate
     </crumb>
   </breadcrumbs>
