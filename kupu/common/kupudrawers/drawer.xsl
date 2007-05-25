@@ -487,6 +487,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                       <xsl:attribute name="disabled">disabled</xsl:attribute>
                    </xsl:if>
                    <option i18n:translate="" value="">top of page (default)</option>
+                   <option i18n:translate="" value=""><em>...fetching anchors...</em></option>
                 </select>
             </div>
         </div>
