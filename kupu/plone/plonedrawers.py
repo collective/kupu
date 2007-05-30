@@ -41,6 +41,13 @@ else:
 
 UIDURL = re.compile(".*\\bresolveuid/([^/?#]+)")
 NOCC = nocc = string.maketrans(''.join([chr(c) for c in range(32) if c not in (9,10,13)]), "?"*29)
+uNOCC = dict([(c,ord('?')) for c in range(32) if c not in (9,10,13)])
+def filterControlChars(s):
+    """convert characters which are illegal in xml to '?'"""
+    if isinstance(s, unicode):
+        return s.translate(uNOCC)
+    else:
+        return s.translate(NOCC)
 
 # mapping (thread-id, portal-physicalPath, portal_type) ->
 # imagefield-getAvailableSizes (as tuple sorted by dimension) (width, height, key)
@@ -346,7 +353,7 @@ class InfoAdaptor:
             icon = self.icon(portal_type)
             size, width, height = self.sizes(obj)
 
-            title = (obj.Title() or obj.getId()).translate(NOCC)
+            title = filterControlChars(obj.Title() or obj.getId())
             description = newline_to_br(html_quote(obj.Description()))
 
             linkable = None
@@ -427,7 +434,7 @@ class InfoAdaptor:
         icon = self.icon(portal_type)
         size, width, height = self.sizes(brain)
 
-        title = (brain.Title or brain.getId).translate(NOCC)
+        title = filterControlChars(brain.Title or brain.getId)
         description = newline_to_br(html_quote(brain.Description))
         linkable = None
         if allowLink:
