@@ -285,7 +285,17 @@ table.kupu-tabbed { border-spacing: 0;}
 
 .kupu-linkdrawer-addlink .kupu-embed,
 .kupu-linkdrawer-embed .kupu-addlink { display: none; }
-
+.kupu-linkdrawer-addlink .watermark {
+  position: relative;
+  text-align:center;
+  top: 98px;
+  font-size: 20pt;
+}
+.kupu-linkdrawer-addlink .watermark span {
+  background-color: white;
+  opacity:0.5;
+  filter:alpha(opacity=50);
+}
 .kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading,
 .kupu-ins-bm .kupu-bm-helptoc,.kupu-toc .kupu-bm-helpanchor,
 .image-dimensions {

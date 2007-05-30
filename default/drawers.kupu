@@ -62,7 +62,7 @@
                         </span>
                      </div>
                      <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text"
-                            onkeypress="return HandleDrawerEnter(event, 'linkdrawer-preview');" />
+                            onkeypress="return HandleDrawerEnter(event, 'linkdrawer-preview');"/>
                   </td>
                   <td class="kupu-preview-button">
                      <button class="kupu-dialog-button"
@@ -78,6 +78,7 @@
                   </td>
                </tr>
                <tr><td colspan="2" align="center">
+                  <div class="watermark"><span i18n:translate="">Preview</span></div>
                   <iframe frameborder="1" scrolling="auto" width="440" height="198"
                           class="kupu-linkdrawer-preview" src="javascript:''">
                   </iframe>
