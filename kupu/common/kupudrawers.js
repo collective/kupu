@@ -115,7 +115,7 @@ proto.focusElement = function() {
 };
 
 proto.initMask = function(el) {
-    var e = this.maskframe = document.getElementById('kupu-maskframe');
+    var e = (this.maskframe = document.getElementById('kupu-maskframe'));
     if (!this.maskframe) {
         e = this.maskframe = newElement('iframe',
             {'id':'kupu-maskframe','src':"javascript:false;", 'frameBorder':"0", 'scrolling':"no" });
@@ -317,6 +317,7 @@ function LinkDrawer(elementid, tool) {
     var input = getBaseTagClass(this.element, 'input', 'kupu-linkdrawer-input');
     var embed = getBaseTagClass(this.element, 'textarea', 'kupu-embed-input');
     var preview = getBaseTagClass(this.element, 'iframe', 'kupu-linkdrawer-preview');
+    var watermark = getBaseTagClass(this.element, 'div', 'watermark');
     this.anchorframe = preview;
     this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-linkdrawer-anchors');
     this.target = '';
@@ -406,17 +407,32 @@ function LinkDrawer(elementid, tool) {
     };
     this.preview = function() {
         if (this.getMode()) {
-            preview.src = input.value;
-            this.showAnchors(currentAnchor());
-            if (this.editor.getBrowserName() == 'IE') {
-                preview.width = "800";
-                preview.height = "365";
-                preview.style.zoom = "60%";
-            };
+            var ok = false;
+            watermark.style.display='';
+            if (/^http(s?):\x2f\x2f./.test(input.value)) {
+                try {
+                    preview.src = input.value;
+                    ok = true;
+                } catch(e) { alert('Preview blew up"'+input.value+'"');};
+            } else {
+                preview.src = '';
+                if (input.value.strip()) {
+                    alert(_('Can only preview web urls'));
+                }
+            }
+            if (ok) {
+                this.showAnchors(currentAnchor());
+                if (this.editor.getBrowserName() == 'IE') {
+                    preview.width = "800";
+                    preview.height = "365";
+                    preview.style.zoom = "60%";
+                };
+            }
         };
     };
 
     this.preview_loaded = function() {
+        watermark.style.display = (/^http(s?):\x2f\x2f./.test(input.value))?'none':'';
         var here = input.value;
         try {
             var there = preview.contentWindow.location.href;
@@ -1700,14 +1716,14 @@ AnchorDrawer.prototype = new Drawer;
 
 /* Function to suppress enter key in drawers */
 function HandleDrawerEnter(event, clickid) {
-    var key;
     event = event || window.event;
-    key = event.which || event.keyCode;
-
+    var key = event.which || event.keyCode;
+    var target = event.currentTarget || event.srcElement;
+    var button;
     if (key==13) {
         if (clickid) {
-            var button = document.getElementById(clickid);
-            if (button) {
+            button = document.getElementById(clickid);
+            if (button && !button.disabled) {
                 button.click();
             }
         }
@@ -1718,3 +1734,5 @@ function HandleDrawerEnter(event, clickid) {
     }
     return true;
 }
+
+
