@@ -143,7 +143,7 @@ proto.fixMask = function() {
         st.position = 'absolute';
         st.display = '';
     }
-}
+};
 
 proto.switchMode = function(event) {
     event = event || window.event;
@@ -187,7 +187,6 @@ proto.initAnchors = function() {
     function onloadEvent() {
         var state = anchorframe.readyState;
         if (state && !(/complete/.test(state))) {
-            console.log("state="+state+", limit="+limit);
             if (limit-- && anchorframe.src==src) {
                 timer_instance.registerFunction(this, onloadEvent, 500);
             } else {
@@ -202,8 +201,7 @@ proto.initAnchors = function() {
     };
 
     var id = 'kupu-linkdrawer-anchors';
-    var base = this.anchorui = getBaseTagClass(this.element, 'div', id);
-    var self = this;
+    var base = (this.anchorui = getBaseTagClass(this.element, 'div', id));
     if (base) {
         var inp = base.getElementsByTagName('input');
         if (inp.length > 1) {
@@ -376,7 +374,7 @@ function LinkDrawer(elementid, tool) {
             var dummy = doc.createElement("div");
             dummy.innerHTML = embed.value;
             try {
-                for (i=dummy.childNodes.length-1; i >= 0; i--) {
+                for (var j=dummy.childNodes.length-1; j >= 0; j--) {
                     var c = dummy.childNodes[i];
                     if (/^\//.test(c.nodeName))
                     {

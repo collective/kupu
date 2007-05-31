@@ -2,7 +2,7 @@
 --extern _,_IE_VERSION,_SARISSA_IS_IE,_SARISSA_IS_MOZ,ActiveXObject
 --extern addEventHandler,AnchorDrawer,AnchorTool,CleanupExpressionsTool
 --extern ColorchooserTool,ContextFixer,ContextMenu,ContextMenuElement
---extern DefinitionListTool,DrawerTool,extern,getBaseTagClass,getFromSelector
+--extern DefinitionListTool,DrawerTool,extern,getBaseTagClass,getFromSelector, getOuterHtml
 --extern IESelection,ImageLibraryDrawer,ImageTool,ImageToolBox,initKupu,kupu
 --extern KupuButton,kupuButtonDisable,kupuButtonEnable,KupuDocument,KupuEditor,kupuFixImage
 --extern KupuInspector,KupuRemoveElementButton,KupuSpellChecker,KupuStateButton
