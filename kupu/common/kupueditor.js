@@ -593,7 +593,7 @@ function KupuEditor(document, config, logger) {
 
     this.onSelectionChange = function(event) {
         this._saveSelection();
-    }
+    };
 
     this._isDocumentSelected = function() {
         var editable_body = this.getInnerDocument().getElementsByTagName('body')[0];
@@ -819,13 +819,13 @@ function KupuEditor(document, config, logger) {
             this.setClass('kupu-busy');
         }
         busycount++;
-    }
+    };
     this.notbusy = function(force) {
         busycount = force?0:busycount?busycount-1:0;
         if (busycount <= 0) {
             this.clearClass('kupu-busy');
         }
-    }
+    };
 
     this.suspendEditing = function() {
         this._previous_range = this.getSelection().getRange();

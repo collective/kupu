@@ -19,7 +19,6 @@ function initPloneKupu(editorId) {
     };
     iframe._kupuIsInitialized = true;
     var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
-    var ibody = iframe.contentWindow.document.body;
     var form = textarea.form;
     var initialtext = textarea.value || (_SARISSA_IS_IE?'<p></p>':'<p><br></p>');
 

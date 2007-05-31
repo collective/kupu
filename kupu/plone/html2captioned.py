@@ -52,14 +52,14 @@ CLASS_PATTERN = re.compile('\s*class\s*=\s*("[^"]*captioned[^"]*"|[^" \/>]+)')
 ALT_PATTERN = re.compile('\\balt\s*=\s*("[^"]*"|[^" \/>]+)')
 END_TAG_PATTERN = re.compile('(<img[^>]*?)( */?>)')
 IMAGE_TEMPLATE = '''\
-<div class="%(class)s" style="width:%(width)spx;">
- <div style="width:%(width)spx;">
+<dl class="%(class)s" style="width:%(width)spx;">
+ <dt style="width:%(width)spx;">
   %(tag)s
- </div>
- <div class="image-caption">
+ </dt>
+ <dd class="image-caption">
   %(caption)s
- </div>
-</div>
+ </dd>
+</dl>
 '''
 
 UID_PATTERN = re.compile('(?P<tag><(?:a|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
