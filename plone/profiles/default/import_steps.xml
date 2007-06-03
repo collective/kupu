@@ -4,6 +4,7 @@
               handler="Products.kupu.plone.exportimport.importKupuSettings"
               title="Kupu Settings">
   <dependency step="toolset"/>
+  <dependency step="typeinfo"/>
   Import Kupu settings
  </import-step>
 </import-steps>
