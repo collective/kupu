@@ -3,9 +3,9 @@ if (!window.beforeunload) (function() {
     var BeforeUnloadHandler = function() {
         var self = this;
 
-        this.message = "Your form has not been saved. All changes you have made will be lost";
+        this.message = "Discard changes? If you click OK, any changes you have made will be lost.";
         if (window._) {
-            this.message = _("Your form has not been saved. All changes you have made will be lost");
+            this.message = _("Discard changes? If you click OK, any changes you have made will be lost.");
         };
         this.forms = [];
         this.chkId = [];
