@@ -1,6 +1,6 @@
 # Translation of kupuconfig-ja.po to Japanese
 # Suzuki Takanori <takanori@takanory.net> 2005
-# J <naotaka@we.care.jp> 2005
+# J <naotaka@we.care.jp> 2005-2007
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -427,3 +427,110 @@ msgstr "リソースタイプ"
 msgid "Documentation"
 msgstr "ドキュメント"
 
+msgid "Links"
+msgstr "リンク"
+
+msgid "Toolbar"
+msgstr "ツールバー"
+
+#. <legend i18n:translate="legend_caption">Captioning</legend>
+#. <div class="field">
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "legend_caption"
+msgstr "画像キャプション"
+
+#. <label i18n:translate="label_refbrowser"><input type="checkbox"
+#.       class="noborder" name="captioning:int"
+#.       value="1" tal:attributes="checked here/getCaptioning" />
+#. Allow captioned images</label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_refbrowser"
+msgstr "キャプション付きの画像を有効にする"
+
+#. <span i18n:translate="notice_help_captioning">
+#. Images which are linked using UID based links may be automatically  captioned.</span>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "notice_help_captioning"
+msgstr "UIDを利用してリンクした画像には自動的にキャプションが付きます。"
+
+#. <span i18n:translate="help_captioning">
+#. If you enable this option a transform to hide UIDs and support image
+#. captioning from client browsers will also be enabled (see <a
+#. href="zmi_docs#images">image captioning documentation</a>).  If the
+#. transform does not enable itself automatically you may need to update
+#. your PortalTransforms product.
+#. </span>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_captioning"
+msgstr "If you enable this option a transform to hide UIDs and support image captioning from client browsers will also be enabled (see <a href=\"zmi_docs#images\">image captioning documentation</a>).  If the  transform does not enable itself automatically you may need to update your PortalTransforms product."
+
+#. <span i18n:translate="fields_not_support_caption">Fields which could support image captioning:</span>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "fields_not_support_caption"
+msgstr "画像のキャプションをサポートしない項目"
+
+#. <span i18n:translate="fiels_not_support_caption_in_kupu">Fields which use kupu but do not support image captioning:</span>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "fiels_not_support_caption_in_kupu"
+msgstr "kupuを使用しているが、画像のキャプションをサポートしない項目"
+
+#. <div class="formHelp" i18n:translate="help_refbrowser">Replace
+#. ATReferenceBrowser widget with a widget which uses
+#. Kupu's drawers instead of a popup window.</div>
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_refbrowser"
+msgstr "Replace ATReferenceBrowser widget with a widget which uses Kupu's drawers instead of a popup window."
+
+#. <label for="kupu_refbrowser" i18n:translate="label_refbrowser_2">Use Kupu Reference Browser</label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_refbrowser_2"
+msgstr "KupuのReference Browserを使用する"
+
+#. <div tal:condition="here/have_plone_filtering|nothing" i18n:translate="momi">
+#.	Please use the <a href="#" tal:attributes="href string:${portal_url}/@@filter-controlpanel.html"> 	Plone HTML filter control panel</a> to set filtering options.
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "momi"
+msgstr "<a href=\"#\" tal:attributes=\"href string:${portal_url}/@@filter-controlpanel.html\"> 	Plone HTML フィルタ コントロールパネル</a> を使いフィルタリングのオプションを設定しください。"
+
+#. <h1 class="documentFirstHeading"          i18n:translate="heading_configuration">Kupu Toolbar Configuration</h1>
+#: c:\zopep21\Products\kupu\plone\zmi_toolbar.pt
+msgid "heading_configuration"
+msgstr "Kupuツールバー設定"
+
+#. <legend i18n:translate="legend_link_options">Global button visibility</legend>
+#: c:\zopep21\Products\kupu\plone\zmi_toolbar.pt
+msgid "legend_link_options"
+msgstr "ツールバー内ボタンの表示設定"
+
+#. <div class="formHelp" i18n:translate="help_link_uid">
+#. You may enter an expression to control the visibility of all buttons together.
+#. It should return a list of visible button ids, or None to leave all buttons visible.
+#. The visibility rules below are then applied to further filter out individual buttons.
+#. You might use this to restrict a particular class of users to a subset of kupu functions.
+#. <input type="text" style="width:90%" tal:attributes="value context/getGlobalButtonFilter" name="globalfilter" />
+#. </div>
+#: c:\zopep21\Products\kupu\plone\zmi_toolbar.pt
+msgid "help_link_uid"
+msgstr ""
+
+#. <legend i18n:translate="legend_link_options">Button visibility</legend>
+#: c:\zopep21\Products\kupu\plone\zmi_toolbar.pt
+msgid "legend_link_options"
+msgstr "ボタン表示"
+
+#. <div class="formHelp" i18n:translate="help_link_uid">Control the global visibility of toolbar buttons from this screen.  If no expression is entered, only checked buttons are visible. Enter an expression for finer control of visibility.  Individual fields may also whitelist or blacklist buttons: see the field schema.
+#. <div>Values available in expressions includes 'field' as well as the usual names</div>
+#. <!-- object_url folder_url portal_url object folder portal nothing request modules member -->  e.g. to restrict the drawer buttons to users with the appropriate permissions give imagelibdrawer-button and linklibdrawer-button the expression:<div>
+#. <code>python:member and member.has_permission('Kupu: Query libraries',portal)</code>
+#. </div>
+#. </div>
+#: c:\zopep21\Products\kupu\plone\zmi_toolbar.pt
+msgid "help_link_uid"
+msgstr ""
+
+#. <p i18n:translate="text_resource_types3">Also on this screen are urls for each type which can be previewed as an image. The expression may use <code>object_url</code> and <code>portal_type</code>, but should not attempt to access the object directly. The resulting URL should ideally return an image no larger than 128 pixels square.</p>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "text_resource_types3"
+msgstr ""
