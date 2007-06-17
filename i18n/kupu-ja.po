@@ -37,7 +37,7 @@ msgstr "行を削除"
 
 #: /common/kupu.pox:None
 msgid "Recursion detected when counting column position"
-msgstr "列位置をカウントする際に、Recursionが削除されました。"
+msgstr "列の位置の計算中に再帰呼び出しが起きました。"
 
 #: /common/kupu.pox:None
 msgid "List style changed"
@@ -49,11 +49,11 @@ msgstr "プロパティが変更されました。"
 
 #: /common/kupu.pox:None
 msgid "click to unfold"
-msgstr ""
+msgstr "閉じるにはクリックしてください"
 
 #: /common/kupu.pox:None
 msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "変更が保存されていません。別のページに移行する前に変更を保存しますか？"
+msgstr "変更が保存されていません。別のページに移動する前に変更を保存しますか？"
 
 #: /common/kupu.pox:None
 msgid "Table row removed"
@@ -65,7 +65,7 @@ msgstr "ドキュメントが保存されました。"
 
 #: /common/kupu.pox:None
 msgid "Color chosen"
-msgstr "選択色"
+msgstr "選択された色"
 
 #: /common/kupu.pox:None
 msgid "Table row added"
@@ -73,7 +73,7 @@ msgstr "行が追加されました。"
 
 #: /common/kupu.pox:None
 msgid "Error saving document"
-msgstr "ドキュメントの保存中にエラーがありました。"
+msgstr "ドキュメントの保存に失敗しました。"
 
 #: /common/kupu.pox:None
 msgid "No destination URL available!"
@@ -85,7 +85,7 @@ msgstr "リンクが削除されました。"
 
 #: /common/kupu.pox:None
 msgid "No row to delete"
-msgstr "行が削除されませんでした。"
+msgstr "行は削除されませんでした。"
 
 #: /common/kupu.pox:None
 msgid "Delete Table"
@@ -93,7 +93,7 @@ msgstr "表を削除"
 
 #: /common/kupu.pox:None
 msgid "Cleanup done, sending document to server"
-msgstr "整理が終わりました。ドキュメントをサーバに送ります。"
+msgstr "整理が終わりました。文書をサーバに送ります。"
 
 #: /common/kupu.pox:None
 msgid "Image tool initialized"
@@ -109,7 +109,7 @@ msgstr "tdインデックス: ${tdindex}"
 
 #: /common/kupu.pox:None
 msgid "Create link"
-msgstr "リンクする"
+msgstr "リンクを作成"
 
 #: /common/kupu.pox:None
 msgid "Starting HTML cleanup"
@@ -117,15 +117,15 @@ msgstr "HTML の整理を始めます。"
 
 #: /common/kupu.pox:None
 msgid "Not inside a definition list element!"
-msgstr "定義リストエレメントの中にありません！"
+msgstr "定義リストエレメントの範囲外です！"
 
 #: /common/kupu.pox:None
 msgid "Link modified"
-msgstr "リンク変更されました。"
+msgstr "リンクは変更されました。"
 
 #: /common/kupu.pox:None
 msgid "Illegal or missing width entry in column info!"
-msgstr ""
+msgstr "列幅が指定されていないか、不正な値が指定されています。"
 
 #: /common/kupu.pox:None
 msgid "Request sent to server"
@@ -140,25 +140,25 @@ msgid ""
 "exception ${message} while registering an event handler for element "
 "${element}, event ${event}, method ${method}"
 msgstr ""
-"エレメントのイベントのハンドラーの登録中に例外 ${message}${element}, event "
-"${event}, method ${method}"
+"エレメントのイベントハンドラー登録中に例外 ${message} が発生"
+"${element}, event ${event}, method ${method}"
 
 #: /common/kupu.pox:None
 msgid "Error loading translation (status ${status} ), falling back to english"
 msgstr ""
-"日本語化用 po ファイルの読み込みに失敗しました（status ${status}）。英語に戻"
-"ります。"
+"日本語用翻訳セットの読み込みに失敗しました（status ${status}）。"
+"英語メッセージを表示します。"
 
 #: /common/kupu.pox:None
 msgid "Start node offset detected in a node without children!"
-msgstr "Start node offset detected in a node without children!"
+msgstr "子ノードを持たないノードの開始オフセットを検出!"
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "非難警告: KupuTool._selectSelectItem"
+msgstr "非推奨ツールの警告: KupuTool._selectSelectItem"
 
 #: /common/kupu.pox:None
-msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
+msgid "Couldn¥¥'t set design mode. Kupu will not work on this browser."
 msgstr ""
 "デザインモードへ移行できません。Kupu はこのブラウザでは利用できません。"
 
@@ -176,9 +176,8 @@ msgid ""
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
 msgstr ""
-"Mozilla のセキュリティの設定のため、JavaScript からの貼り付けが無効化されてい"
-"ます。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくだ"
-"さい。"
+"Mozilla のセキュリティ設定によりJavaScript からの貼り付けが無効になっています。"
+"詳細については、 http://www.mozilla.org/editor/midasdemo/ をお読みください。"
 
 #: /common/kupu.pox:None
 msgid "Property tool initialized"
@@ -194,7 +193,7 @@ msgstr "上位の列が見つかりませんでした。"
 
 #: /common/kupu.pox:None
 msgid "items"
-msgstr ""
+msgstr "アイテム"
 
 #: /common/kupu.pox:None
 msgid "Row repeated"
@@ -202,7 +201,7 @@ msgstr "行が繰り返されました。"
 
 #: /common/kupu.pox:None
 msgid "Cut"
-msgstr "削除"
+msgstr "切り取り"
 
 #: /common/kupu.pox:None
 msgid "Table removed"
@@ -226,7 +225,7 @@ msgstr "要求をサーバに送ります。"
 
 #: /common/kupu.pox:None
 msgid "Invalid table size"
-msgstr "表サイズが異常です。"
+msgstr "表サイズが正しくありません。"
 
 #: /common/kupu.pox:None
 msgid "Error placing back selection"
@@ -246,7 +245,7 @@ msgid ""
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
 msgstr ""
-"Mizilla のセキュリティの設定のため、JavaScript からの切り取りが無効化されてい"
+"Mozilla のセキュリティの設定により、JavaScript からの切り取りが無効化されてい"
 "ます。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくだ"
 "さい。"
 
@@ -264,21 +263,21 @@ msgstr "リストスタイルツールが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "Row repeat turned off"
-msgstr "行の反復をしない"
+msgstr "行の繰り返しをしない"
 
 #: /common/kupu.pox:None
 msgid ""
 "There was a problem initializing the drawers. Most likely the XSLT or XML "
-"files aren\\'t available. If this is not the Kupu demo version, check your "
+"files aren¥¥'t available. If this is not the Kupu demo version, check your "
 "files or the service that provide them (error: ${error})."
 msgstr ""
 "ドローソフトの初期化に失敗しました。多くの場合 XSLT か XML ファイルが存在しな"
 "いことが原因です。もしも、この Kupu がデモバージョンでない場合、ファイルや"
-"（error: ${error}）で表示されてたサービスをチェックしてください。"
+"（error: ${error}）のエラーを表示したサービスを確認してください。"
 
 #: /common/kupu.pox:None
 msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "非難警告: KupuToolBox._selectSelectItem"
+msgstr "非推奨ツールの警告: KupuToolBox._selectSelectItem"
 
 #: /common/kupu.pox:None
 msgid ""
@@ -286,8 +285,8 @@ msgid ""
 "settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
 "securityprefs.html"
 msgstr ""
-"Mozilla のセキュリティの設定のため、JavaScript からのコピーが無効化されていま"
-"す。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくださ"
+"Mozilla のセキュリティの設定のため、JavaScript からのコピーが無効になっています。"
+"詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくださ"
 "い。"
 
 #: /common/kupu.pox:None
@@ -300,16 +299,16 @@ msgstr "列を削除"
 
 #: /common/kupu.pox:None
 msgid ""
-"Error saving your data.\\nResponse status: ${status}.\\nCheck your server "
+"Error saving your data.¥¥nResponse status: ${status}.¥¥nCheck your server "
 "log for more information."
 msgstr ""
-"データの保存に失敗しました。\\nResponse status: ${status}詳細に関しては、サー"
-"バのログを確認してください。"
+"データの保存に失敗しました。¥¥nResponse status: ${status}"
+"詳細に関しては、サーバのログを確認してください。"
 
 #: /common/kupu.pox:None
 msgid "This feature requires pop-ups to be enabled on your browser!"
 msgstr ""
-"この機能を利用するのには、ブラウザのポップアップ（pop-up）機能を有効にする必"
+"この機能を利用するには、ブラウザのポップアップ（pop-up）機能を有効にする必"
 "要があります！"
 
 #: /common/kupu.pox:None
@@ -318,7 +317,7 @@ msgstr "内部リンクではありません。"
 
 #: /common/kupu.pox:None
 msgid "View source"
-msgstr "ソース閲覧"
+msgstr "ソースの表示"
 
 #: /common/kupu.pox:None
 msgid "Table tool initialized"
@@ -338,7 +337,7 @@ msgstr "エディタが初期化されました。"
 
 #: /common/kupu.pox:None
 msgid "click to fold"
-msgstr ""
+msgstr "開くにはクリックしてください"
 
 #: /common/kupu.pox:None
 msgid "Create image"
@@ -366,23 +365,22 @@ msgstr "表を整理"
 
 #: /common/kupu.pox:None
 msgid "Error loading data, status ${status}"
-msgstr "データ読み込みエラー：status ${status"
+msgstr "データ読み込みエラー：status ${status}"
 
 #: /common/kupu.pox:None
 msgid ""
-"Could not set status bar message, check your browser\\'s security settings."
+"Could not set status bar message, check your browser¥¥'s security settings."
 msgstr ""
 "ステータスバーのメッセージを設定できませんでした。ブラウザのセキュリティ設定"
 "を確認してください。"
 
 #: /common/kupu.pox:None
 msgid "End node offset detected in a node without children!"
-msgstr "End node offset detected in a node without children!"
+msgstr "子ノードを持たないノードの終了オフセットを検出!"
 
 #: /common/kupu.pox:None
 msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr ""
-"フォームが保存されませんでした。変更した内容の情報はすべて失われました。"
+msgstr "フォームが保存されませんでした。変更した内容は失われます。"
 
 #: /common/kupu.pox:None
 msgid "Link added"
@@ -398,11 +396,11 @@ msgstr "行の中ではできません！"
 
 #: /common/kupu.pox:None
 msgid "Not inside a table!"
-msgstr "表の中ではできません！"
+msgstr "表の中ではありません！"
 
 #: /common/kupu.pox:None
 msgid "Selection not inside the node!"
-msgstr "セレクションがノードの中ではありません！"
+msgstr "選択範囲がノード内ではありません！"
 
 #: /common/kupu.pox:None
 msgid "Delete link"
@@ -466,12 +464,14 @@ msgid "imagedrawer_upload_preview_label"
 msgstr "プレビュー"
 
 # Default: ""
-# "Select an image from your computer and click ok to have it\n"
-# "            automatically uploaded to selected folder and inserted into the\n"
+# "Select an image from your computer and click ok to have it¥n"
+# "            automatically uploaded to selected folder and inserted into the¥n"
 # "            editor."
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_instructions"
 msgstr ""
+"パソコン内の画像を選択し、「了解」をクリックしてください。¥n"
+"自動的に画像ファイルがアップロードされ、編集領域に追加されます。"
 
 # Default: "Upload ..."
 #: /common/kupudrawers/drawer.xsl:None
@@ -491,7 +491,7 @@ msgstr "説明"
 # Default: "ALT-text"
 #: /common/kupudrawers/drawer.xsl:None
 msgid "imagedrawer_upload_alt_text"
-msgstr "ALT-text"
+msgstr "ALT（代替）テキスト"
 
 # Default: "search"
 #: /common/kupudrawers/drawer.xsl:None
@@ -519,11 +519,11 @@ msgstr "Kupu エディタテストページ"
 
 #: /default/colorchooser.kupu:None
 msgid "text color: alt-f"
-msgstr "テキスト色: alt-f"
+msgstr "文字色:alt-f"
 
 #: /default/colorchooser.kupu:None
 msgid "background color: alt-h"
-msgstr "背景色: alt-h"
+msgstr "背景色:alt-h"
 
 # Default: "Row"
 #: /default/drawers.kupu:None
@@ -542,7 +542,7 @@ msgstr "現在の列を整列"
 
 #: /default/drawers.kupu:None
 msgid "external link"
-msgstr "インターネットリンク"
+msgstr "外部リンク"
 
 # Default: "Columns"
 #: /default/drawers.kupu:None
@@ -561,7 +561,7 @@ msgstr "全ての表を調整"
 
 #: /default/drawers.kupu:None
 msgid "External Link"
-msgstr "インターネットリンク"
+msgstr "外部リンク"
 
 # Default: "Left"
 #: /default/drawers.kupu:None
@@ -570,7 +570,7 @@ msgstr "左"
 
 #: /default/drawers.kupu:None
 msgid "Preview"
-msgstr "プレビュ"
+msgstr "プレビュー"
 
 # Default: "Rows"
 #: /default/drawers.kupu:None
@@ -618,11 +618,11 @@ msgstr "表を調整"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "(none)"
-msgstr ""
+msgstr "(なし)"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Ok"
-msgstr "Ok"
+msgstr "了解"
 
 #: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
 msgid "Cancel"
@@ -630,7 +630,7 @@ msgstr "キャンセル"
 
 #: /default/drawers.kupu:None
 msgid "Listing"
-msgstr ""
+msgstr "リスト表示"
 
 # Default: "Add"
 #: /default/drawers.kupu:None
@@ -639,7 +639,7 @@ msgstr "追加"
 
 #: /default/drawers.kupu:None
 msgid "Grid"
-msgstr ""
+msgstr "グリッド表示"
 
 # Default: "Remove"
 #: /default/drawers.kupu:None
@@ -648,11 +648,11 @@ msgstr "削除"
 
 #: /default/drawers.kupu:None
 msgid "Data"
-msgstr ""
+msgstr "データ表示"
 
 #: /default/drawers.kupu:None
 msgid "Plain"
-msgstr ""
+msgstr "プレーン"
 
 # Default: "Table Class"
 #: /default/drawers.kupu:None
@@ -661,7 +661,7 @@ msgstr "表の枠線の種類"
 
 #: /default/drawers.kupu:None /default/toolboxes.kupu:None
 msgid "Link the highlighted text to this URL:"
-msgstr "選択反転テキストにリンクするURL:"
+msgstr "リンクするURL:"
 
 #: /default/drawers.kupu:None /silva/toolboxes.kupu:None
 msgid "image"
@@ -685,25 +685,25 @@ msgstr "スペルチェックを実施します"
 
 #: /default/toolbar.kupu:None
 msgid "zoom: alt-x"
-msgstr ""
+msgstr "ズーム: alt-x"
 
 # Default: "1"
 #: /default/toolbar.kupu:None
 msgid "list-decimal"
-msgstr "1"
+msgstr "1(整数)"
 
 # Default: "A"
 #: /default/toolbar.kupu:None
 msgid "list-upperalpha"
-msgstr "A"
+msgstr "A(大文字アルファベット)"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 1"
 msgstr "見出し1"
 
 #: /default/toolbar.kupu:None
-msgid "superscript: alt-+"
-msgstr "上付き: alt-+"
+msgid "Superscript: Access key (Alt or Ctrl) + +"
+msgstr "上付き文字:キー操作(AltまたはCtrl)+-"
 
 # Default: "&#9675;"
 #: /default/toolbar.kupu:None
@@ -711,8 +711,8 @@ msgid "list-circle"
 msgstr "&#9675;"
 
 #: /default/toolbar.kupu:None
-msgid "bold: alt-b"
-msgstr "太字: alt-b"
+msgid "Bold: Access key (Alt or Ctrl) + B"
+msgstr "太字:キー操作(AltまたはCtrl)+B"
 
 #: /default/toolbar.kupu:None
 msgid "Formatted"
@@ -721,12 +721,12 @@ msgstr "枠で囲む"
 # Default: "a"
 #: /default/toolbar.kupu:None
 msgid "list-loweralpha"
-msgstr "a"
+msgstr "a(小文字アルファベット)"
 
 # Default: "no bullet"
 #: /default/toolbar.kupu:None
 msgid "list-nobullet"
-msgstr "（点なし）"
+msgstr "（なし）"
 
 # Default: "i"
 #: /default/toolbar.kupu:None
@@ -742,8 +742,8 @@ msgid "Remove image"
 msgstr "画像を削除"
 
 #: /default/toolbar.kupu:None
-msgid "undo: alt-z"
-msgstr "戻す: alt-z"
+msgid "Undo: Access key (Alt or Ctrl) + Z"
+msgstr "取り消し:キー操作(AltまたはCtrl)+Z"
 
 # Default: "&#9679;"
 #: /default/toolbar.kupu:None
@@ -751,8 +751,8 @@ msgid "list-disc"
 msgstr "&#9679;"
 
 #: /default/toolbar.kupu:None
-msgid "definition list: alt-="
-msgstr "定義リスト: alt-="
+msgid "Definition list: Access key (Alt or Ctrl) + ="
+msgstr "定義リスト:キー操作(AltまたはCtrl)+="
 
 #: /default/toolbar.kupu:None
 msgid "indent: alt->"
@@ -767,12 +767,12 @@ msgid "Normal"
 msgstr "本文"
 
 #: /default/toolbar.kupu:None
-msgid "left justify: alt-l"
-msgstr "左寄せ: alt-l"
+msgid "Left justify: Access key (Alt or Ctrl) + L"
+msgstr "左寄せ:キー操作(AltまたはCtrl)+L"
 
 #: /default/toolbar.kupu:None
-msgid "right justify: alt-r"
-msgstr "右寄せ: alt-r"
+msgid "Right justify: Access key (Alt or Ctrl) + R"
+msgstr "右寄せ:キー操作(AltまたはCtrl)+R"
 
 #: /default/toolbar.kupu:None
 msgid "outdent: alt-<"
@@ -788,20 +788,20 @@ msgid "underline: alt-u"
 msgstr "下線: alt-u"
 
 #: /default/toolbar.kupu:None
-msgid "redo: alt-y"
-msgstr "再操作: alt-y"
+msgid "Redo: Access key (Alt or Ctrl) + Y"
+msgstr "やり直し:キー操作(AltまたはCtrl)+Y"
 
 #: /default/toolbar.kupu:None
-msgid "subscript: alt--"
-msgstr "下付き: alt--"
+msgid "Subscript: Access key (Alt or Ctrl) + -"
+msgstr "下付き文字:キー操作(AltまたはCtrl)+-"
 
 #: /default/toolbar.kupu:None
-msgid "center justify: alt-c"
-msgstr "中央揃え: alt-c"
+msgid "Center justify: Access key (Alt or Ctrl) + C"
+msgstr "中央揃え:キー操作(AltまたはCtrl)+C"
 
 #: /default/toolbar.kupu:None
-msgid "unordered list: alt-*"
-msgstr "箇条書き: alt-*"
+msgid "Unordered list: Access key (Alt or Ctrl) + *"
+msgstr "箇条書き:キー操作(AltまたはCtrl)+*"
 
 #: /default/toolbar.kupu:None
 msgid "Heading 3"
@@ -824,20 +824,21 @@ msgid "Heading 4"
 msgstr "見出し4"
 
 #: /default/toolbar.kupu:None
-msgid "numbered list: alt-#"
-msgstr "数字箇条書き: alt-#"
+msgid "Numbered list: Access key (Alt or Ctrl) + #"
+msgstr "数字箇条書き:キー操作(AltまたはCtrl)+#"
 
 #: /default/toolbar.kupu:None
-msgid "italic: alt-i"
-msgstr "斜体: alt-i"
+msgid "Italic: Access key (Alt or Ctrl) + I"
+msgstr "斜体:キー操作(AltまたはCtrl)+I"
 
 # Default: "I"
 #: /default/toolbar.kupu:None
 msgid "list-upperroman"
-msgstr "I（大文字ローマ数字）"
+msgstr "I(大文字ローマ数字)"
 
 #: /default/toolboxes.kupu:None
-msgid "Headings:"
+#msgid "Headings:"
+msgid "Heading:"
 msgstr "見出し"
 
 #: /default/toolboxes.kupu:None
@@ -958,83 +959,84 @@ msgstr "左"
 
 #: /silva/drawers.kupu:None
 msgid "Insert image"
-msgstr ""
+msgstr "画像を挿入"
 
 #: /silva/drawers.kupu:None
 msgid "Insert link"
-msgstr ""
+msgstr "リンクを挿入"
 
 #: /silva/toolboxes.kupu:None
 msgid "typographical characters"
-msgstr ""
+msgstr "絵文字"
 
 #: /silva/toolboxes.kupu:None
 msgid "external source"
-msgstr ""
+msgstr "外部ソース"
 
 #: /silva/toolboxes.kupu:None
 msgid "abbreviations and acronyms"
-msgstr ""
+msgstr "省略型及び略称"
 
 #: /silva/toolboxes.kupu:None
 msgid "save"
-msgstr ""
+msgstr "保存"
 
 #: /silva/toolboxes.kupu:None
 msgid "index item"
-msgstr ""
+msgstr "インデックスされたアイテム"
 
 #: /silva/toolboxes.kupu:None
 msgid "properties"
-msgstr ""
+msgstr "プロパティ"
 
 #: /silva/toolboxes.kupu:None
 msgid "non-standard characters"
-msgstr ""
+msgstr "標準から外れた文字"
 
 #: /silva/toolboxes.kupu:None
 msgid "link"
-msgstr ""
+msgstr "リンク"
 
 #: /silva/toolboxes.kupu:None
 msgid "citation"
-msgstr ""
+msgstr "参照"
 
 #: /silva/toolboxes.kupu:None
 msgid "cleanup"
-msgstr ""
+msgstr "クリーンアップ"
 
 #: /silva/toolboxes.kupu:None
-msgid "table of contents"
-msgstr ""
+#msgid "table of contents"
+msgid "Table of contents"
+msgstr "目次"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Convert single quotes to curly ones"
-msgstr ""
+msgstr "シングルクォーテーションの変換"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Reduce whitespace in source"
-msgstr ""
+msgstr "ソース内の不要なスペースを圧縮"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Convert double dashes to m-dashes"
-msgstr ""
+msgstr "ダッシュをm-ダッシュに変換"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Convert single dashes to n-dashes"
-msgstr ""
+msgstr "ダッシュをn-ダッシュに変換"
 
 #: /silva/xmlconfig.kupu:None
 msgid "Convert double quotes to curly ones"
-msgstr ""
+msgstr "ダブルクォーテーションの変換"
 
 #: /widgeteer/browser.kupu:None
 msgid "link: alt-a"
-msgstr ""
+msgstr "リンク：alt-a"
 
 #: /widgeteer/browser.kupu:None
 msgid "image: alt-m"
-msgstr ""
+msgstr "画像：alt-m"
 
 #~ msgid "Home"
 #~ msgstr "ホーム"
@@ -1059,3 +1061,89 @@ msgstr ""
 
 #~ msgid "data"
 #~ msgstr "データ"
+
+
+# 以下Sprintでの追加
+#: /default/toolbar.kupu:None
+msgid "Decrease quote level: Access key (Alt or Ctrl) + &lt;"
+msgstr "アンインデント:キー操作(AltまたはCtrl)+&lt;"
+
+#: /default/toolbar.kupu:None
+msgid "Increase quote level: Access key (Alt or Ctrl) + &gt;"
+msgstr "インデント:キー操作(AltまたはCtrl)+&gt;"
+
+#: /default/toolbar.kupu:None
+msgid "Insert internal link"
+msgstr "内部リンクを作成"
+
+#: /default/toolbar.kupu:None
+msgid "Insert external link"
+msgstr "外部リンクを作成"
+
+#: /default/toolbar.kupu:None
+msgid "Insert anchors"
+msgstr "ページ内リンクを作成"
+
+#: /default/toolbar.kupu:None
+msgid "Insert table"
+msgstr "表の作成"
+
+#: /default/toolbar.kupu:None
+msgid "Check spelling"
+msgstr "スペルチェック"
+
+#: /default/toolbar.kupu:None
+msgid "Switch between visual editor and HTML view"
+msgstr "リッチテキスト編集とHTML編集の切り替え"
+
+#: /default/toolbar.kupu:None
+msgid "Heading"
+msgstr "見出し"
+
+#: /default/toolbar.kupu:None
+msgid "Subheading"
+msgstr "小見出し"
+
+#: /default/toolbar.kupu:None
+msgid "Literal"
+msgstr "整形済み"
+
+#: /default/toolbar.kupu:None
+msgid "Discreet"
+msgstr "控えめ"
+
+#: /default/toolbar.kupu:None
+msgid "Pull-quote"
+msgstr "引用"
+
+#: /default/toolbar.kupu:None
+msgid "Call-out"
+msgstr "強調"
+
+##: /default/toolbar.kupu:None
+#msgid "(remove style)"
+#msgstr "スタイルなし"
+
+#: /default/toolbar.kupu:None
+msgid "Highlight"
+msgstr "ハイライト"
+
+##: /default/toolbar.kupu:None
+#msgid "Character styles"
+#msgstr "テキストスタイル"
+
+#: /common/kupudrawers/drawer.xsl:None
+msgid "anchordrawer_title"
+msgstr "ページ内リンク"
+
+#: /common/kupudrawers/drawer.xsl:None
+msgid "Link to anchor"
+msgstr "ページ内リンク"
+
+#: /common/kupudrawers/drawer.xsl:None
+msgid "toggle all"
+msgstr "全てを選択/非選択"
+
+#: /common/kupudrawers/drawer.xsl:None
+msgid "Numbering"
+msgstr "番号をつける"

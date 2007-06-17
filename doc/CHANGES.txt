@@ -4,6 +4,8 @@ Kupu changes
 
 - Recent
 
+  - Updated the Japanese translation files, thx to Tyam.
+
   - Added in some support for inserting Flash content.
 
   - Media objects may now have a list of classes (specific to the portal type).
