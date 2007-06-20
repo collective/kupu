@@ -375,7 +375,7 @@ function LinkDrawer(elementid, tool) {
             dummy.innerHTML = embed.value;
             try {
                 for (var j=dummy.childNodes.length-1; j >= 0; j--) {
-                    var c = dummy.childNodes[i];
+                    var c = dummy.childNodes[j];
                     if (/^\//.test(c.nodeName))
                     {
                         dummy.removeChild(c);
