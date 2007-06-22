@@ -2881,7 +2881,7 @@ proto.getAnchorsInUse = function() {
     for (var i = 0; i < anchors.length; i++) {
         var m = (/(.*)(#.*)$/.exec(anchors[i].href));
         /* TODO: filter out external links */
-        if (m) { inuse[m[2]] = 1; };
+        if (m) { inuse[decodeURIComponent(m[2])] = 1; };
     }
     return inuse;
 }
