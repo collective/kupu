@@ -1644,7 +1644,7 @@ function AnchorDrawer(elementid, tool) {
                 'type': (mode==0)?"radio":"checkbox",
                 checked: checked, title:'hello',
                 name: "kupu-bm-paralist"});
-            if (anchor && inuse && inuse[anchor]) {
+            if (anchor && inuse && inuse[decodeURIComponent(anchor)]) {
                 control.disabled = true;
             }
 
