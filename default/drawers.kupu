@@ -276,6 +276,7 @@
       <div class="kupu-panels kupu-ins-bm">
          <ul class="kupu-tabs">
             <li class="kupu-ins-bm selected"><a href="#" i18n:translate="">Link to anchor</a></li>
+            <li class="kupu-anchor"><a href="#" i18n:translate="">Manage Anchors</a></li>
             <li class="kupu-toc"><a href="#" i18n:translate="">Table of contents</a></li>
          </ul>
         <table class="kupu-tabbed">
@@ -284,8 +285,8 @@
               <select id="kupu-bm-sel1" size="10"> </select>
             </td>
             <td rowspan="2">
-              <div class="kupu-bm-heading">
-                <div style="float:right">
+              <div class="kupu-bm-heading hide-ins-bm">
+                <div style="float:right" class="hide-anchor">
                   <label i18n:translate="" for="kupu-bm-outcls">
                     Table style
                   </label>
@@ -293,7 +294,7 @@
                     <option value="" i18n:translate="">Normal</option>
                   </select>
                 </div>
-                <div style="float:right">
+                <div style="float:right" class="hide-anchor">
                   <label i18n:translate="" for="kupu-bm-number">
                     Numbering
                   </label>
@@ -305,17 +306,22 @@
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
               <div class="kupu-bm-paras">&#xa0;</div>
-              <div class="kupu-bm-helpanchor" i18n_translate="create_anchor_help">
+              <div class="kupu-bm-helpanchor hide-anchor hide-toc" i18n_translate="create_anchor_link_help">
                 Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
               </div>
-              <div class="kupu-bm-helptoc" i18n_translate="create_toc_help">
+              <div class="kupu-bm-helptoc hide-ins-bm hide-anchor" i18n_translate="create_toc_help">
                 Select one or two paragraph styles, then Ok to insert a table of contents.
+              </div>
+              <div class="hide-ins-bm hide-toc" i18n_translate="create_anchor_help">
+                Anchors are created for checked paragraphs and
+                removed for unchecked paragraphs when you press Ok.
+                Anchors in use on this page may not be deleted.
               </div>
             </td>
           </tr>
           <tr>
-            <td>
-              <select id="kupu-bm-sel2" size="1">
+            <td class="hide-ins-bm hide-anchor">
+              <select id="kupu-bm-sel2" size="1" class="hide-ins-bm hide-anchor">
                 <option value="" i18n:translate="">(optional 2nd style)</option>
               </select>
             </td>

@@ -2874,10 +2874,33 @@ proto.grubParas = function(style1, style2) {
     return paras;
 };
 
-proto.getAnchor = function(node) {
-    /* Returns the anchor for a node, creating one if reqd. */
+proto.getAnchorsInUse = function() {
+    var doc = this.editor.getInnerDocument();
+    var anchors = doc.getElementsByTagName('a');
+    var inuse = {};
+    for (var i = 0; i < anchors.length; i++) {
+        var m = (/(.*)(#.*)$/.exec(anchors[i].href));
+        /* TODO: filter out external links */
+        if (m) { inuse[m[2]] = 1; };
+    }
+    return inuse;
+}
+
+proto.removeAnchor = function(node) {
+    var anchors = node.getElementsByTagName('a');
+    if (anchors.length > 0) {
+        var anchor = anchors[0];
+        anchor.removeAttribute('name');
+        if (anchor.href) return;
+        anchor.parentNode.removeChild(anchor);
+    };
+}
+proto.getAnchor = function(node, ifexists) {
+    /* Returns the anchor for a node, creating one if reqd. unless
+     * ifexists is set*/
     var anchors = node.getElementsByTagName('a');
     if (anchors.length > 0) return anchors[0].name;
+    if (ifexists) return;
 
     var anchor = Sarissa.getText(node, true).strip().truncate(40).
         replace(/[^\w]+/g, '-').toLowerCase().replace(/-$/,'') || 'anchor';

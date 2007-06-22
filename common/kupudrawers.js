@@ -1581,7 +1581,10 @@ function AnchorDrawer(elementid, tool) {
         this.tool.fillStyleSelect(this.style2);
         this.tool.fillStyleSelect(this.ostyle);
     };
-    this.getMode = function() {
+    this.getMode = function() { /* tab 0, 1, or 2 */
+        if (/kupu-ins-bm/.test(this.panel.className)) return 0;
+        if (/kupu-anchor/.test(this.panel.className)) return 1;
+        return 2;
         return !!(/kupu-ins-bm/.test(this.panel.className));
     };
 
@@ -1589,7 +1592,10 @@ function AnchorDrawer(elementid, tool) {
         var nodes = this.paralist.getElementsByTagName('input');
         var state = this.checkall.checked;
         for (var i = 0; i < nodes.length; i++) {
-            nodes[i].checked = state;
+            var n = nodes[i];
+            if (n.type=="checkbox" && !n.disabled) {
+                nodes[i].checked = state;
+            };
         };
     };
 
@@ -1601,9 +1607,9 @@ function AnchorDrawer(elementid, tool) {
 
         this.styleNames = ['', ''];
 
-        var isSingle = this.getMode();
+        var mode = this.getMode();
         var s = ['', ''];
-        for (var idx=0; idx < (isSingle?1:2); idx++) {
+        for (var idx=0; idx < (mode==2?2:1); idx++) {
             var sel = this['style'+(idx+1)];
             var i = sel.selectedIndex;
             if (i >= 0) {
@@ -1612,21 +1618,43 @@ function AnchorDrawer(elementid, tool) {
             }
         }
 
+        if (mode==1) {
+            var inuse = this.tool.getAnchorsInUse();
+        }
         var paras = (this.nodelist = this.tool.grubParas(s[0], s[1]));
         for (var i = 0; i < paras.length; i++) {
             var node = paras[i][0];
             var text = Sarissa.getText(node, true).strip().truncate(60);
             if (!text) continue;
             var content = document.createTextNode(text);
-
+            var anchor = '';
+            if (mode==1) {
+                anchor = this.tool.getAnchor(node, true);
+                if (anchor) {
+                    anchor = '#'+anchor;
+                }
+            }
+            var checked;
+            switch (mode) {
+                case 0: checked = i==0; break;
+                case 1: checked = !!anchor; break;
+                case 2: checked = this.checkall.checked; break;
+            }
             var control = el('input', {
-                'type': isSingle?"radio":"checkbox",
-                'checked': isSingle?i==0:this.checkall.checked,
-                'name': "kupu-bm-paralist"});
+                'type': (mode==0)?"radio":"checkbox",
+                checked: checked, title:'hello',
+                name: "kupu-bm-paralist"});
+            if (anchor && inuse && inuse[anchor]) {
+                control.disabled = true;
+            }
 
-            var div = el('div',
-                { 'className': "kupu-bm-level" + paras[i][1] },
-                [el('label', [control, el('span', [content])])]);
+            var inner = [control, el('span', [content])];
+            if (anchor) {
+                inner.push(el('a', {href:anchor, className:'kupu-anchor-link',onclick:'return false;',
+                    title:_('Right click to copy link')}, [anchor]));
+            };
+            var div = el('div', {className: "kupu-bm-level" + paras[i][1] },
+                [el('label', inner)]);
             
             this.paralist.appendChild(div);
         };
@@ -1637,27 +1665,30 @@ function AnchorDrawer(elementid, tool) {
         this.focusElement();
     };
     this.save = function() {
-        var isSingle = this.getMode();
+        var mode = this.getMode();
         var selected = this.paralist.getElementsByTagName('input');
         var ed = this.editor;
         
         ed.resumeEditing();
 
-        if (!isSingle) {
+        if (mode==2) {
             var toc = ed.newElement('ul');
         };
         var lvl1=0, lvl2=0;
         for (var i = 0; i < selected.length; i++) {
+            var nodeinfo = this.nodelist[i];
+            var node = nodeinfo[0];
+            var level = nodeinfo[1];
             if (selected[i].checked) {
-                var nodeinfo = this.nodelist[i];
-                var node = nodeinfo[0];
-                var level = nodeinfo[1];
                 var a = this.tool.getAnchor(node);
                 var caption = Sarissa.getText(node, true).strip().truncate(140);
-                if (isSingle) {
+                switch (mode) {
+                case 0:
                     this.tool.createLink('#'+a, null, null, null, caption);
                     break;
-                } else {
+                case 1:
+                    break;
+                case 2:
                     /* Insert TOC entry here */
                     var number;
                     if (level==0) {
@@ -1678,10 +1709,15 @@ function AnchorDrawer(elementid, tool) {
                         }
                         toc.lastChild.appendChild(li);
                     };
+                    break;
                 };
+            } else {
+                if (mode==1) {
+                    this.tool.removeAnchor(node);
+                }
             };
         };
-        if (!isSingle && toc.firstChild) {
+        if (mode==2 && toc.firstChild) {
             var o = this.ostyle.selectedIndex;
             if (o > 0) {
                 var ostyle = this.ostyle.options[o].value.split('|');
