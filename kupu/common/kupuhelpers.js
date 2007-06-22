@@ -96,7 +96,11 @@ function newDocumentElement(doc, tagName, args) {
         if (arg.length===undefined) {
             if (!_SARISSA_IS_IE) {
                 for (var attr in arg) {
-                    node[attr] = arg[attr];
+                    if (/^on/.test(attr)) {
+                        node.setAttribute(attr, arg[attr]);
+                    } else {
+                        node[attr] = arg[attr];
+                    };
                 };
             };
         } else {

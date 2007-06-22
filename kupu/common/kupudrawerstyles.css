@@ -296,8 +296,10 @@ table.kupu-tabbed { border-spacing: 0;}
   opacity:0.5;
   filter:alpha(opacity=50);
 }
-.kupu-ins-bm #kupu-bm-sel2, .kupu-ins-bm .kupu-bm-heading,
-.kupu-ins-bm .kupu-bm-helptoc,.kupu-toc .kupu-bm-helpanchor,
+.kupu-ins-bm .hide-ins-bm, .kupu-anchor .hide-anchor, .kupu-toc .hide-toc {
+  display: none;
+}
+
 .image-dimensions {
   display: none;
 }
@@ -347,4 +349,7 @@ td.kupu-bm-select {
     background: transparent url(kupuimages/treeCollapsed.gif) 4px 6px no-repeat;
     padding: 1px 0px 1px 16px;
     font-style: italic;
+}
+a.kupu-anchor-link {
+    margin-left: 1em;
 }
