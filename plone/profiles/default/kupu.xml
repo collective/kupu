@@ -18,7 +18,7 @@
     <style>Heading cell|th|</style>
     <filter attributes=""
             tags="center tt big small basefont font"/>
-    <filter attributes="dir lang valign halign border frame rules cellspacing cellpadding bgcolor"
+    <filter attributes="lang valign halign border frame rules cellspacing cellpadding bgcolor"
             tags=""/>
     <filter attributes="width height" tags="table th td"/>
     <filterstyle>text-align</filterstyle>
