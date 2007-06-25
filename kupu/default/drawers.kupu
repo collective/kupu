@@ -306,13 +306,15 @@
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
               <div class="kupu-bm-paras">&#xa0;</div>
-              <div class="kupu-bm-helpanchor hide-anchor hide-toc" i18n_translate="create_anchor_link_help">
+              <div class="kupu-bm-helpanchor hide-anchor hide-toc"
+                   i18n:translate="create_anchor_link_help">
                 Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
               </div>
-              <div class="kupu-bm-helptoc hide-ins-bm hide-anchor" i18n_translate="create_toc_help">
+              <div class="kupu-bm-helptoc hide-ins-bm hide-anchor"
+                   i18n:translate="create_toc_help">
                 Select one or two paragraph styles, then Ok to insert a table of contents.
               </div>
-              <div class="hide-ins-bm hide-toc" i18n_translate="create_anchor_help">
+              <div class="hide-ins-bm hide-toc" i18n:translate="create_anchor_help">
                 Anchors are created for checked paragraphs and
                 removed for unchecked paragraphs when you press Ok.
                 Anchors in use on this page may not be deleted.
