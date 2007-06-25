@@ -53,7 +53,7 @@ EXCLUDED_HTML = [
    'keep': 1 },
   
   {'tags':(),
-  'attributes': ('dir','lang','valign','halign','border','frame',
+  'attributes': ('lang','valign','halign','border','frame',
       'rules','cellspacing','cellpadding','bgcolor'),
    'keep': 1},
 
