@@ -122,7 +122,6 @@ function KupuEditor(document, config, logger) {
         } else {
             this._setDesignModeWhenReady();
         };
-        this.logMessage(_('Editor initialized'));
     };
 
     this.setContextMenu = function(menu) {
@@ -188,8 +187,8 @@ function KupuEditor(document, config, logger) {
                     break;
                 } else {
                     this.logMessage(
-                        _('Exception while processing updateState on ' +
-                            '${id}: ${msg}', {'id': id, 'msg': e}), 2);
+                        'Exception while processing updateState on ' +
+                            '${id}: ${msg}', {'id': id, 'msg': e}, 2);
                 };
             };
         };
@@ -348,13 +347,7 @@ function KupuEditor(document, config, logger) {
             };
         };
         this.getDocument().execCommand(command, param);
-        var message = _('Command ${command} executed', {'command': command});
-        if (param) {
-            message = _('Command ${command} executed with parameter ${param}',
-                            {'command': command, 'param': param});
-        }
         this.updateState();
-        this.logMessage(message);
     };
 
     this.getSelection = function() {

@@ -36,7 +36,8 @@ i18n:domain="kupuconfig">
                <table summary="Resource definitions" class="listing nosort">
                   <thead>
                      <tr>
-                        <th colspan="3">Map resource types</th>
+                        <th colspan="3"
+                            i18n:translate="map_resource_types">Map resource types</th>
                      </tr>
                   </thead>
 
@@ -48,7 +49,9 @@ i18n:domain="kupuconfig">
                            style="margin-top: 1em !important;"
                            >
                         <tr><td colspan="3">&nbsp;</td></tr>
-                        <tr tal:condition="repeat/resource/end"><td style="border-right:none;"></td><td colspan="2"><em>use this entry to add a new resource</em>
+                        <tr tal:condition="repeat/resource/end">
+                           <td style="border-right:none;"></td>
+                           <td colspan="2"><em i18n:translate="">use this entry to add a new resource</em>
                            </td></tr>
                         <tr>
                            <td>
@@ -58,7 +61,7 @@ i18n:domain="kupuconfig">
                                      tal:condition="name"
                                      tal:attributes="value name" />
                            </td>
-                           <th>Resource</th>
+                           <th i18n:translate="resource_heading">Resource</th>
                            <td>
                               <input type="text" name="type_info.resource_type:records"
                                      tal:attributes="value name" />
@@ -66,9 +69,11 @@ i18n:domain="kupuconfig">
                         </tr>
                         <tr>
                            <td></td>
-                           <th>Portal Types</th>
+                           <th i18n:translate="portal_types_heading">Portal Types</th>
                            <td>
-                              <select name="type_info.portal_types:list:records" size="5" multiple
+                              <select
+                                     name="type_info.portal_types:list:records"
+                                     size="5" multiple="multiple"
                                       tal:attributes="size python:max(5,len(types));">
                                  <tal:block repeat="ti typeinfos">
                                     <option tal:define="title python:ti[0]; id python:ti[1];
@@ -76,7 +81,8 @@ i18n:domain="kupuconfig">
                                             selected python:id in types;"
                                             tal:content="fulltitle"
                                             tal:condition="selected"
-                                            tal:attributes="value id;" selected></option>
+                                            tal:attributes="value id;"
+                                            selected="selected"></option>
                                  </tal:block>
                                  <tal:block repeat="ti typeinfos">
                                     <option tal:define="title python:ti[0]; id python:ti[1];
@@ -89,26 +95,34 @@ i18n:domain="kupuconfig">
                               </select>
                            </td>
                         </tr>
-                        <tr><td></td><th>New types</th>
+                        <tr>
+                           <td></td>
+                           <th i18n:translate="new_types_heading">New types</th>
                            <td>
                               <select name="type_info.newtypes:int:records" size="1"
                                       tal:define="newtype python:context.getNewTypeHandler(name)">
-                                 <option value="0" tal:attributes="selected python:test(newtype==0,True,None)">are not added to selection</option>
-                                 <option value="1" tal:attributes="selected python:test(newtype==1,True,None)">are added to selection</option>
+                                 <option value="0"
+                                         tal:attributes="selected python:test(newtype==0,True,None)"
+                                         i18n:translate="">
+                                         >are not added to selection</option>
+                                 <option value="1"
+                                         tal:attributes="selected python:test(newtype==1,True,None)"
+                                         i18n:translate="">are added to selection</option>
                               </select>
                            </td>
-                           <tr><td colspan="3">&nbsp;</td></tr>
+                        </tr>
+                        <tr><td colspan="3">&nbsp;</td></tr>
                      </tbody>
                   </tal:loop>
                   <tbody>
                      <tr>
                         <td style="border-right:none;"></td>
-                        <td colspan="2"><em>specify a resource type to be used for reference fields with an empty list of allowed types</em>
+                        <td colspan="2"><em i18n:translate="">specify a resource type to be used for reference fields with an empty list of allowed types</em>
                         </td>
                      </tr>
                      <tr>
                         <td> </td>
-                        <th>Default resource</th>
+                        <th i18n:translate="default_resource_heading">Default resource</th>
                         <td>
                            <select name="default_resource" tal:define="current here/getDefaultResource">
                               <tal:block repeat="resource here/zmi_get_resourcetypes">
@@ -133,11 +147,12 @@ i18n:domain="kupuconfig">
                       tal:define="previewable python:[(title,id) for (title,id) in typeinfos if context.getPreviewForType(id)];">
                   <thead>
                      <tr>
-                        <th colspan="4">Action URLs</th>
+                        <th colspan="4"
+                            i18n:translate="action_url_heading">Action URLs</th>
                      </tr>
                      <tr><th width="1%"></th>
-                        <th width="1%">Type</th>
-                        <th colspan="2">URL</th>
+                        <th width="1%" i18n:translate="type_heading">Type</th>
+                        <th colspan="2" i18n:translate="url_heading">URL</th>
                      </tr>
                   </thead>
 
@@ -159,8 +174,9 @@ i18n:domain="kupuconfig">
                               <input type="checkbox" name="preview_types:list"
                                      tal:attributes="value id" />
                            </td>
-                           <td rowspan="5" tal:content="fulltitle">type</td>
-                           <td style="border-right: none;" width="1%">preview</td>
+                           <td rowspan="5" tal:content="fulltitle"></td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="preview_subheading">preview</td>
                            <td>
                               <input type="text" name="preview_action.expression:records"
                                      style="width:90%"
@@ -168,7 +184,8 @@ i18n:domain="kupuconfig">
                            </td>
                         </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">Normal&nbsp;image</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="normal_image">Normal&nbsp;image</td>
                            <td>
                               <input type="text" name="preview_action.normal:records"
                                      style="width:90%"
@@ -176,7 +193,8 @@ i18n:domain="kupuconfig">
                            </td>
                         </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">fieldname</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="fieldname_subheading">fieldname</td>
                            <td>
                               <input type="text" name="preview_action.scalefield:records"
                                      style="width:90%"
@@ -184,7 +202,8 @@ i18n:domain="kupuconfig">
                            </td>
                         </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">classes</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="classes_subheading">classes</td>
                            <td>
                               <textarea name="preview_action.classes:records"
                                      style="width:90%"
@@ -192,11 +211,16 @@ i18n:domain="kupuconfig">
                            </td>
                         </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">type</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="type_subheading">type</td>
                            <td>
                               <select name="preview_action.mediatype:records" size="1">
-                                 <option value="image" tal:attributes="selected python:mediatype=='image'">Image</option>
-                                 <option value="flash" tal:attributes="selected python:mediatype=='flash'">Flash</option>
+                                 <option value="image"
+                                         tal:attributes="selected python:mediatype=='image'"
+                                         i18n:translate="image_option">Image</option>
+                                 <option value="flash"
+                                         tal:attributes="selected python:mediatype=='flash'"
+                                         i18n:translate="flash_option">Flash</option>
                               </select>
                               <div style="height:1em;">&nbsp;</div>
                            </td>
@@ -211,7 +235,7 @@ i18n:domain="kupuconfig">
                         </td>
                         <td rowspan="5">
                            <select name="preview_action.portal_type:records" style="width:15em">
-                              <option i18n:translate="" value="">(select type)</option>
+                              <option i18n:translate="select_type" value="">(select type)</option>
                               <tal:block repeat="ti typeinfos">
                                     <option tal:define="title python:ti[0]; id python:ti[1];
                                             fulltitle python:title + test(title==id,'',' (%s)'%id);"
@@ -220,39 +244,48 @@ i18n:domain="kupuconfig">
                                             tal:attributes="value id;"></option>
                               </tal:block>
                            </select>
-                           <td style="border-right: none;" width="1%">preview</td>
-                           <td>
-                              <input type="text" name="preview_action.expression:records"
-                                     style="width:90%" value="" />
-                           </td>
+                        </td>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="preview_subheading">preview</td>
+                        <td>
+                           <input type="text" name="preview_action.expression:records"
+                                  style="width:90%" value="" />
+                        </td>
                      </tr>
                      <tr>
-                        <td style="border-right: none;" width="1%">Normal&nbsp;image</td>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="normal_image">Normal&nbsp;image</td>
                         <td>
                            <input type="text" name="preview_action.normal:records"
                                   style="width:90%" value="" />
                         </td>
                      </tr>
                      <tr>
-                        <td style="border-right: none;" width="1%">fieldname</td>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="fieldname_subheading">fieldname</td>
                         <td>
                            <input type="text" name="preview_action.scalefield:records"
                                   style="width:90%" value="image" />
                         </td>
                      </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">classes</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="classes_subheading">classes</td>
                            <td>
                               <textarea type="text" name="preview_action.classes:records"
                                      style="width:90%"></textarea>
                            </td>
                         </tr>
                         <tr>
-                           <td style="border-right: none;" width="1%">type</td>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="type_subheading">type</td>
                            <td>
                               <select name="preview_action.mediatype:records" size="1">
-                                 <option value="image" selected>Image</option>
-                                 <option value="flash">Flash</option>
+                                 <option value="image"
+                                         selected="selected"
+                                         i18n:translate="image_option">Image</option>
+                                 <option value="flash"
+                                         i18n:translate="flash_option">Flash</option>
                               </select>
                            </td>
                         </tr>
@@ -267,7 +300,7 @@ i18n:domain="kupuconfig">
                      </tr>
                      <tr>
                         <td colspan="4">
-                           <em><code>Preview</code> is an expression to use for the preview image in the drawer [default is no preview].
+                           <em i18n:translate="preview_action_help"><code>Preview</code> is an expression to use for the preview image in the drawer [default is no preview].
                            <code>Normal image</code> is an expression to use for the normal view of a mediaobject [string:$object_url].
                            <code>Fieldname</code> is the name of the field to use for scaled variants of the mediaobject [image].
                            <code>Classes</code> is a list of classnames which may be selected when inserting the object as media.

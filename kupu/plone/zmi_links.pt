@@ -23,7 +23,7 @@ i18n:domain="plone">
 
     <div class="documentContent" metal:fill-slot="kupu_content">
       <metal:call use-macro="portal/portal_skins/kupu_references/referencebrowser/macros/kupudrawer" />
-      <div id="target">
+      <div id="target" i18n:translate="">
         Loading kupu link maintenance...
       </div>
       <div id="start" kj:nexturi="kupu_migration.xml"></div>

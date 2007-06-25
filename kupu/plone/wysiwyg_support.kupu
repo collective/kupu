@@ -69,6 +69,7 @@
                 tal:define="global kupu_convert_message_generated python:True">
            <a href="#"
                 tal:attributes="href python:portal.kupu_library_tool.forcekupu_url(fieldName);"
+                i18n:translate=""
                 >Convert to HTML and edit with the visual editor</a></span>
     </tal:archetypes>
     <tal:nonat condition="not:fieldName|nothing">

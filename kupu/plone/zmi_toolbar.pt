@@ -55,18 +55,18 @@ i18n:domain="plone">
           <table class="listing nosort">
             <thead>
               <th></th>
-              <th>Id</th>
-              <th>Title</th>
-              <th>Visible<br/>
-                <input title="Select all items"
+              <th i18n:translate="id_heading">Id</th>
+              <th i18n:translate="title_heading">Title</th>
+              <th i18n:translate="visible_heading">Visible<br/>
+                <input title="Select all items" i18n:attributes="title"
                  onclick="toggleSelect(this, 'filters.visible:records:int', true);"
                  type="checkbox" checked="checked" />
               </th>
-              <th>Expression</th>
+              <th i18n:translate="expression_heading">Expression</th>
             </thead>
             <tbody class="kupu-tb-buttons">
               <tr tal:repeat="opt context/getFilterOptions" style="height:28px">
-                <td><button tal:condition="opt/classname" disabled
+                <td><button tal:condition="opt/classname" disabled="disabled"
                   tal:attributes="class opt/classname">&#160;</button>
                 </td>
                 <td>

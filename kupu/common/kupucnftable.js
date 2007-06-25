@@ -18,7 +18,6 @@ TableTool.prototype.setTableRowRepeat = function() {
     };
     row.setAttribute('repeatable', 'repeatable');
     row.className = 'repeatable';
-    this.editor.logMessage(_('Row repeated'));
     this.updateState(selNode);
 };
 
@@ -32,7 +31,6 @@ TableTool.prototype.delTableRowRepeat = function() {
     row.removeAttribute('repeatable');
     row.className = '';
     row.removeAttribute('class');
-    this.editor.logMessage(_('Row repeat turned off'));
     this.updateState(selNode);
 };
 
@@ -94,7 +92,6 @@ function CNFTableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.fixallbutton, "click", this.tool.fixAllTables, this.tool);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
-        this.editor.logMessage(_('Table tool initialized'));
     };
 
     this.updateState = function(selNode) {

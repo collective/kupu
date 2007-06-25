@@ -28,7 +28,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <xsl:variable name="v" select="/libraries/param[@name='drawertitle']"></xsl:variable>
         <xsl:choose>
           <xsl:when test="count($v)"><xsl:value-of select="$v"/></xsl:when>
-          <xsl:otherwise>Drawer</xsl:otherwise>
+          <xsl:otherwise i18n:translate="default_drawer_title">Drawer</xsl:otherwise>
         </xsl:choose>
     </xsl:param>
     <xsl:param name="showupload">
@@ -64,7 +64,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             <xsl:otherwise><xsl:value-of select="$drawertitle"/></xsl:otherwise>
         </xsl:choose>
     </xsl:variable>
-    <xsl:template name="drawer-title">Drawer</xsl:template>
+    <xsl:template name="drawer-title" i18n:translate="default_drawer_title">Drawer</xsl:template>
     <xsl:output indent="yes" method="xml" />
     <xsl:preserve-space elements="form div strong br input textarea"/>
     <xsl:template match="/"><!-- root is always 'libraries'? -->
@@ -394,7 +394,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </label>
              <span class="kupu-detail">
                 <select name="image-size-selector">
-                   <option name="image-size-option" value="{uri}">Original</option>
+                   <option name="image-size-option" value="{uri}"
+                           i18n:translate="option_original">Original</option>
                    <xsl:apply-templates select="sizes/size" />
                 </select>
              </span>
@@ -485,8 +486,8 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              <xsl:if test="$ie='true'">
                 <xsl:attribute name="disabled">disabled</xsl:attribute>
              </xsl:if>
-             <option i18n:translate="" value="">top of page (default)</option>
-             <option i18n:translate="" value=""><em>...fetching anchors...</em></option>
+             <option i18n:translate="top_of_page" value="">top of page (default)</option>
+             <option i18n:translate="fetching_anchors" value=""><em>...fetching anchors...</em></option>
           </select>
        </div>
     </xsl:template>
