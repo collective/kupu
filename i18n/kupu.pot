@@ -246,10 +246,6 @@ msgid "There was a problem initializing the drawers. Most likely the XSLT or XML
 msgstr ""
 
 #: /common/kupu.pox:None
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr ""
-
-#: /common/kupu.pox:None
 msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
 msgstr ""
 

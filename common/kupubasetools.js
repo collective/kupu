@@ -72,10 +72,6 @@ function KupuTool() {
     };
     // private methods
     addEventHandler = addEventHandler;
-    
-    this._selectSelectItem = function(select, item) {
-        this.editor.logMessage(_('Deprecation warning: KupuTool._selectSelectItem'));
-    };
 }
 
 function KupuToolBox() {
@@ -89,10 +85,6 @@ function KupuToolBox() {
 
     this.updateState = function(selNode, event) {
         /* update the toolbox according to the current iframe's situation */
-    };
-    
-    this._selectSelectItem = function(select, item) {
-        this.editor.logMessage(_('Deprecation warning: KupuToolBox._selectSelectItem'));
     };
 };
 
@@ -837,7 +829,6 @@ function ColorchooserTool(fgcolorbuttonid, hlcolorbuttonid, colorchooserid) {
         addEventHandler(this.hlcolorbutton, "click", this.openHlColorChooser, this);
         addEventHandler(this.ccwindow, "click", this.chooseColor, this);
         this.hide();
-        this.editor.logMessage(_('Colorchooser tool initialized'));
     };
 
     this.updateState = function(selNode) {
@@ -973,8 +964,6 @@ function PropertyTool(titlefieldid, descfieldid) {
                 }
             }
         }
-
-        this.editor.logMessage(_('Property tool initialized'));
     };
 
     this.updateProperties = function() {
@@ -1041,7 +1030,6 @@ function LinkTool() {
     
     this.initialize = function(editor) {
         this.editor = editor;
-        this.editor.logMessage(_('Link tool initialized'));
     };
     
     this.createLinkHandler = function(event) {
@@ -1134,7 +1122,6 @@ function LinkTool() {
                 this.updateLink(linkel, url, type, name, target, title);
             };
         }
-        this.editor.logMessage(_('Link added'));
     };
     
     this.deleteLink = function() {
@@ -1149,8 +1136,6 @@ function LinkTool() {
             linkel.parentNode.insertBefore(linkel.childNodes[0], linkel);
         };
         linkel.parentNode.removeChild(linkel);
-        
-        this.editor.logMessage(_('Link removed'));
     };
     
     this.createContextMenuElements = function(selNode, event) {
@@ -1223,7 +1208,6 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
         var url = this.input.value;
         linkel.setAttribute('href', url);
 
-        this.editor.logMessage(_('Link modified'));
         this.editor.updateState();
     };
 };
@@ -1236,7 +1220,6 @@ function ImageTool() {
     this.initialize = function(editor) {
         /* attach the event handlers */
         this.editor = editor;
-        this.editor.logMessage(_('Image tool initialized'));
     };
 
     this.createImageHandler = function(event) {
@@ -1271,7 +1254,6 @@ function ImageTool() {
             img.className = imgclass;
         };
         this.newNode('IMG', img);
-        this.editor.logMessage(_('Image inserted'));
         return img;
     };
 
@@ -1282,7 +1264,6 @@ function ImageTool() {
             'data':url},
             [ed.newElement('param', {name:'movie', value:url})]);
         this.newNode('OBJECT', obj);
-        this.editor.logMessage(_('Flash inserted'));
     };
 
     this.setImageClass = function(imgclass) {
@@ -1422,8 +1403,6 @@ function TableTool() {
         this.editor.insertNodeAtSelection(table);
 
         this._setTableCellHandlers(table);
-
-        this.editor.logMessage(_('Table added'));
         return table;
     };
 
@@ -1513,8 +1492,6 @@ function TableTool() {
         } else {
             currtbody.insertBefore(newrow, nextrow);
         }
-        
-        this.editor.logMessage(_('Table row added'));
     };
 
     this.delTableRow = function() {
@@ -1538,8 +1515,6 @@ function TableTool() {
 
         // remove the row
         parentrow.parentNode.removeChild(parentrow);
-
-        this.editor.logMessage(_('Table row removed'));
     };
 
     this.addTableColumn = function() {
@@ -1630,7 +1605,6 @@ function TableTool() {
                 }
             }
         }
-        this.editor.logMessage(_('Table column added'));
     };
 
     this.delTableColumn = function() {
@@ -1701,7 +1675,6 @@ function TableTool() {
                 }
             }
         }
-        this.editor.logMessage(_('Table column deleted'));
     };
 
     this.delTable = function() {
@@ -1713,7 +1686,6 @@ function TableTool() {
             return;
         };
         table.parentNode.removeChild(table);
-        this.editor.logMessage(_('Table removed'));
     };
 
     this.setColumnAlign = function(newalign) {
@@ -1790,7 +1762,7 @@ function TableTool() {
             }
             prevsib = prevsib.previousSibling;
             if (currcolindex > 30) {
-                alert(_("Recursion detected when counting column position"));
+                alert("Recursion detected when counting column position");
                 return;
             }
         }
@@ -2005,8 +1977,6 @@ function TableTool() {
         if (frows.length) {
             table.appendChild(tfoot);
         }
-
-        this.editor.logMessage(_('Table cleaned up'));
     };
 
     this.fixAllTables = function() {
@@ -2080,7 +2050,6 @@ function TableToolBox(addtabledivid, edittabledivid, newrowsinputid,
         addEventHandler(this.fixallbutton, "click", this.fixAllTables, this);
         this.addtablediv.style.display = "block";
         this.edittablediv.style.display = "none";
-        this.editor.logMessage(_('Table tool initialized'));
     };
 
     this.updateState = function(selNode) {
@@ -2228,8 +2197,6 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
             addEventHandler(this.olselect, "change", this.setOrderedListStyle, this);
             this.olselect.style.display = "none";
         }
-
-        this.editor.logMessage(_('List style tool initialized'));
     };
 
     this._handleStyles = function(currnode, onselect, offselect) {
@@ -2300,7 +2267,6 @@ function ListTool(addulbuttonid, addolbuttonid, ulstyleselectid, olstyleselectid
             l.setAttribute('type', this.style_to_type[style]);
         }
         this.editor.focusDocument();
-        this.editor.logMessage(_('List style changed'));
     };
 
     this.setUnorderedListStyle = function() {
@@ -2723,8 +2689,6 @@ function KupuZoomTool(buttonid, firsttab, lasttab) {
         var iframe = editor.getInnerDocument();
         this.setTabbing(iframe, firstbutton, lastbutton);
         this.setTabbing(firstbutton, null, editor.getDocument().getWindow());
-
-        this.editor.logMessage(_('Zoom tool initialized'));
     };
 };
 
