@@ -977,6 +977,20 @@ function MozillaSelection(document) {
         selection.addRange(range);
     };
 
+    //sample kindly snipped from Mozilla's wiki
+    if( !Range.prototype.intersectsNode ){
+        Range.prototype.intersectsNode = function(node) {
+            var nodeRange = node.ownerDocument.createRange();
+            try {
+                nodeRange.selectNode(node);
+            } catch (e) {
+                nodeRange.selectNodeContents(node);
+            };
+
+            return this.compareBoundaryPoints(Range.END_TO_START, nodeRange) == -1 &&
+                this.compareBoundaryPoints(Range.START_TO_END, nodeRange) == 1;
+        };
+    };
     this.intersectsNode = function(node) {
         for(var i = 0; i < this.selection.rangeCount; i++ ) {
            if( this.selection.getRangeAt(i).intersectsNode(node) ) {
