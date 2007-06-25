@@ -29,7 +29,7 @@
                     current_fieldname state/fieldname|string:;
                     current_portal_type state/portal_type|string:;
                     current string:$current_portal_type.$current_fieldname;" >
-            <legend>Type (Field name)</legend>
+            <legend i18n:translate="type_and_fieldname_heading">Type (Field name)</legend>
           <div tal:repeat="f kupu/getKupuFields">
             <tal:var define="id string:type_radio_${repeat/f/index};
                      first repeat/f/start;
@@ -57,27 +57,32 @@
           <fieldset tal:define="fieldName string:folderpaths; label string:Paths;
                     multiVal python:1; value request/SESSION/kupu_migrator/pathuids|python:[];
                     onchange string:kj.submitForm(this.form,'$infouri',{'qlen':1});">
-            <legend>Folders</legend>
-            <div class="formHelp">
+            <legend i18n:translate="folders_heading">Folders</legend>
+            <div class="formHelp"
+                 i18n:translate="help_you_may_restrict_the_seach">
               You may restrict the search to specific folders.
             </div>
             <div metal:use-macro="kupu/kupu_kjax_support.xml/macros/edit" />
           </fieldset>
           <fieldset>
-            <legend>Info</legend>
+            <legend i18n:translate="info_heading">Info</legend>
             <div id="query_length"></div>
           </fieldset>
           <input type="hidden" name="form.submitted" value="1" />
           <input type="hidden" name="button" value="" />
-          <div class="formHelp">
+          <div class="formHelp"
+               i18n:translate="help_show_proposed_changes">
             These commands will display proposed changes.
             You will be given an opportunity to review and filter any changes before committing them.
           </div>
           <input type="submit" value="check links" name="checklinks"
+                 i18n:attributes="value"
                 onclick="this.form.button.value='check'" />
-          <input type="submit" value="relative path -> uids" name="touids"
+          <input type="submit" value="relative path -> uids"
+                 name="touids" i18n:attributes="value"
                  onclick="this.form.button.value='touid'" />
-          <input type="submit" value="uids -> relative path" name="topath"
+          <input type="submit" value="uids -> relative path"
+                 name="topath" i18n:attributes="value"
                  onclick="this.form.button.value='topath'" />
         </form>
       </div>
@@ -100,6 +105,7 @@
 
             <input type="button"
                    value="&lt;&lt; back to form"
+                   i18n:attributes="value back_to_form"
                    tal:condition="not:m/nexturi"
                    tal:attributes="onclick string:kj.newRequest('${uri}')" />
 
@@ -146,7 +152,8 @@
                   <span tal:content="link/before" /><a
                      target="badlink"
                      tal:attributes="href link/url"
-                     tal:content="link/text|default">[no text in link]</a><span
+                     tal:content="link/text|default"
+                     i18n:translate="no_text_in_link">[no text in link]</a><span
                      tal:content="link/after" />
                   </code>
                 </li>
@@ -180,11 +187,13 @@
             <div id="kupu-output" kj:mode="prepend" tal:condition="m/found">
               <div tal:condition="m/checkboxes">
                 <input type="checkbox" checked="checked" onclick="toggleSelect(this, 'uids:list', true)" />
-                <span class="discreet">(toggle selection)</span>
+                <span class="discreet"
+                      i18n:translate="toggle_selection">(toggle selection)</span>
                 <input type="hidden" tal:attributes="value m/action" name="button" />
                 <input type="hidden" name="commit:int" value="1" />
                 <input type="button"
                        value="commit selected changes"
+                       i18n:attributes="value commit_changes"
                        onclick="kj.submitForm(this.form);"
                        tal:condition="not:m/nexturi" />
               </div>

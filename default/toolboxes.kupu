@@ -179,7 +179,8 @@
         </select>
         <div style="text-align: center">
           <button type="button" id="kupucleanupexpressionbutton"
-                  class="kupu-toolbox-action">Perform action</button>
+                  class="kupu-toolbox-action"
+                  i18n:translate="perform_action">Perform action</button>
         </div>
       </div>
     </div>
