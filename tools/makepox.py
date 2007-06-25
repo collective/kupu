@@ -211,6 +211,6 @@ if __name__ == '__main__':
     pres = pox.get_result()
     pres = pres.replace('<catalog>',
         ('<catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" '
-        'i18n:domain="kupu">'))
+        'i18n:domain="kupupox">'))
     print pres
     print >>stderr, 'Done'

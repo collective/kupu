@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupu">
+<catalog xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="kupupox">
 	<message filenames="kupubasetools.js">
 		<msgid>
 			Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html
