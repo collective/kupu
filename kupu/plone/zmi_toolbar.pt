@@ -18,28 +18,30 @@ i18n:domain="kupuconfig">
 
     <div class="documentContent" metal:fill-slot="kupu_content">
       <h1 class="documentFirstHeading"
-          i18n:translate="heading_configuration">Kupu Toolbar Configuration</h1>
+          i18n:translate="heading_toolbar_configuration">Kupu Toolbar Configuration</h1>
       <form action=""
             name="configure_kupu_toolbar"
             method="post"
             tal:attributes="action here/absolute_url">
 
         <fieldset>
-          <legend i18n:translate="legend_link_options">Global button visibility</legend>
-          <div class="formHelp" i18n:translate="help_link_uid">
-            You may enter an expression to control the visibility of all buttons together.
-            It should return a list of visible button ids, or None to leave all buttons visible.
-            The visibility rules below are then applied to further filter out individual buttons.
-            You might use this to restrict a particular class of users to a subset of kupu functions.
-
-            <input type="text" style="width:90%" tal:attributes="value context/getGlobalButtonFilter"
-                   name="globalfilter" />
+          <legend i18n:translate="global_button_visibility">Global button visibility</legend>
+          <div class="formHelp">
+             <span i18n:translate="help_button_visibility"> 
+                You may enter an expression to control the visibility of all buttons together.
+                It should return a list of visible button ids, or None to leave all buttons visible.
+                The visibility rules below are then applied to further filter out individual buttons.
+                You might use this to restrict a particular class of users to a subset of kupu functions.
+             </span>
+             <input type="text" style="width:90%" tal:attributes="value context/getGlobalButtonFilter"
+                    name="globalfilter" />
           </div>
         </fieldset>
 
         <fieldset>
-          <legend i18n:translate="legend_link_options">Button visibility</legend>
-          <div class="formHelp" i18n:translate="help_link_uid">Control the global visibility of toolbar buttons from this screen.
+          <legend i18n:translate="legend_button_visibility">Button visibility</legend>
+          <div class="formHelp" i18n:translate="help_global_visibility">
+            Control the global visibility of toolbar buttons from this screen.
             If no expression is entered, only checked buttons are visible. Enter an expression for finer control of visibility.
             Individual fields may also whitelist or blacklist buttons: see the field schema.
             <div>Values available in expressions includes 'field' as well as the usual names</div>

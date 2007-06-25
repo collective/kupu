@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
 lang="en"
 metal:use-macro="here/kupu_config/macros/master"
-i18n:domain="kupuconfig">
+i18n:domain="kupuconfig"
+xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
 
   <metal:cssslot fill-slot="style_slot">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
