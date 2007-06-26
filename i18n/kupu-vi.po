@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Kupu 1.3.1\n"
-"POT-Creation-Date: 2005-08-17 20:34+0000\n"
+"POT-Creation-Date: 2007-06-26 10:31+0000\n"
 "PO-Revision-Date: 2005-12-07 14:19+0700\n"
 "Last-Translator: Thanh Hai, Ha <thanhhai.ha@gmail.com>\n"
 "Language-Team: Vietnamese i18n Team\n"
@@ -19,924 +19,860 @@ msgstr ""
 "X-Poedit-Country: VIET NAM\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: /common/kupu.pox:None
-msgid "Properties modified"
-msgstr "Thuộc tính đã được thay đổi"
-
-#: /common/kupu.pox:None
-msgid "Command ${command} executed with parameter ${param}"
-msgstr "Lệnh ${command} đã được thực thi với tham số ${param}"
-
-#: /common/kupu.pox:None
-msgid "Not inside a definition list element!"
-msgstr "Không ở bên trong đề mục của danh sách xác định"
-
-#: /common/kupu.pox:None
-msgid "Add table"
-msgstr "Thêm bảng"
-
-#: /common/kupu.pox:None
-msgid "Table added"
-msgstr "Bảng đã được thêm"
-
-#: /common/kupu.pox:None
-msgid "Source edit tool initialized"
-msgstr "Công cụ biên tập mã đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Delete row"
-msgstr "Xóa dòng"
-
-#: /common/kupu.pox:None
-msgid "Recursion detected when counting column position"
-msgstr "Đệ quy khi tính toán vị trí của cột"
-
-#: /common/kupu.pox:None
-msgid "List style changed"
-msgstr "Kiểu danh sách đã được thay đổi"
-
-#: /common/kupu.pox:None
-msgid "Create image"
-msgstr "Tạo hình ảnh"
-
-#: /common/kupu.pox:None
-msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "Thay đổi chưa được lưu lại. Bạn có muốn lưu lại các thay đổi trước khi chuyển sang trang khác?"
-
-#: /common/kupu.pox:None
-msgid "Table row removed"
-msgstr "Hàng trong bảng đã được xóa."
-
-#: /common/kupu.pox:None
-msgid "Document saved"
-msgstr "Tài liệu đã được lưu lại"
-
-#: /common/kupu.pox:None
-msgid "Color chosen"
-msgstr "Màu đã được chọn"
-
-#: /common/kupu.pox:None
-msgid "Table row added"
-msgstr "Hàng trong bảng đã được thêm"
-
-#: /common/kupu.pox:None
-msgid "Error saving document"
-msgstr "Lỗi xảy ra khi lưu tài liệu"
-
-#: /common/kupu.pox:None
-msgid "No destination URL available!"
-msgstr "Không có URL đích!"
-
-#: /common/kupu.pox:None
-msgid "Link removed"
-msgstr "Liên kết đã được gỡ bỏ"
-
-#: /common/kupu.pox:None
-msgid "No row to delete"
-msgstr "Không có hàng nào để xóa."
-
-#: /common/kupu.pox:None
-msgid "Delete Table"
-msgstr "Xóa bảng"
-
-#: /common/kupu.pox:None
-msgid "Cleanup done, sending document to server"
-msgstr "Đã dọn mã HTML xong, đang gửi tài liệu đến máy chủ"
-
-#: /common/kupu.pox:None
-msgid "Image tool initialized"
-msgstr "Công cụ Hình ảnh đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "End offset out of range!"
-msgstr "End offset vượt quá giới hạn!"
-
-#: /common/kupu.pox:None
-msgid "tdindex: ${tdindex}"
-msgstr "tdindex: ${tdindex}"
-
-#: /common/kupu.pox:None
-msgid "Create link"
-msgstr "Tạo liên kết"
-
-#: /common/kupu.pox:None
-msgid "Starting HTML cleanup"
-msgstr "Bắt đầu dọn mã HTML."
-
-#: /common/kupu.pox:None
-msgid "Link modified"
-msgstr "Liên kết đã được thay đổi"
-
-#: /common/kupu.pox:None
-msgid "Request sent to server"
-msgstr "Yêu cầu đã được gửi đến máy chủ"
-
-#: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "Công cụ Bảng đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "There were no errors."
-msgstr "Không có lỗi nào."
-
-#: /common/kupu.pox:None
-msgid "exception ${message} while registering an event handler for element ${element}, event ${event}, method ${method}"
-msgstr "lỗi ${message} trong quá trình đăng ký ${element} với bộ quản lý sự kiện, sự kiện ${event}, phương thức ${method}"
-
-#: /common/kupu.pox:None
-msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr "Lỗi khi tải bản dịch (${status} ), sử dụng bản dịch tiếng Anh"
-
-#: /common/kupu.pox:None
-msgid "Start node offset detected in a node without children!"
-msgstr "Start node offset được tìm thấy trong một node không có node con!"
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "Cảnh báo Deprecation: KupuTool._selectSelectItem"
-
-#: /common/kupu.pox:None
-msgid "Couldn\\'t set design mode. Kupu will not work on this browser."
-msgstr "Không thể đặt chế độ design. Kupu sẽ không làm việc được trên trình duyệt này."
-
-#: /common/kupu.pox:None
-msgid "No element found in the config island!"
-msgstr "Không tìm thấy yếu tố cần thiết trong cấu hình"
-
-#: /common/kupu.pox:None
-msgid "Start offset out of range!"
-msgstr "Start offset vượt quá giới hạn"
-
-#: /common/kupu.pox:None
-msgid "Pasting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Thao tác dán từ JavaScript đã bị vô hiệu hóa ở trình duyệt Mozilla vì các thiết lập liên quan đến bảo mật. Để biết thêm thông tin, hãy xem thêm tại: http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Property tool initialized"
-msgstr "Công cụ Property đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Colorchooser tool initialized"
-msgstr "Công cụ Bảng màu đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "No parentcolumn found!"
-msgstr "Không tìm thấy cột ở cấp cao hơn"
-
-#: /common/kupu.pox:None
-msgid "Row repeated"
-msgstr "Dòng đã được lặp lại"
-
-#: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "Xóa bảng"
-
-#: /common/kupu.pox:None
-msgid "Cut"
-msgstr "Cắt"
-
-#: /common/kupu.pox:None
-msgid "Unsupported browser!"
-msgstr "Trình duyệt không được hỗ trợ!"
-
-#: /common/kupu.pox:None
-msgid "Add row"
-msgstr "Thêm dòng"
-
-#: /common/kupu.pox:None
-msgid "Link tool initialized"
-msgstr "Công cụ Liên kết đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Sending request to server"
-msgstr "Đang gửi yêu cầu đến máy chủ"
-
-#: /common/kupu.pox:None
-msgid "Invalid table size"
-msgstr "Kích thước của bảng không đúng"
-
-#: /common/kupu.pox:None
-msgid "Error placing back selection"
-msgstr "Lỗi khi đặt chọn lùi"
-
-#: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "Xóa liên kết"
-
-#: /common/kupu.pox:None
-msgid "Add column"
-msgstr "Thêm cột"
-
-#: /common/kupu.pox:None
-msgid "Cutting from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Thao tác cắt từ JavaScript đã bị vô hiệu hóa ở trình duyệt Mozilla vì các thiết lập liên quan đến bảo mật. Để biết thêm thông tin, hãy xem thêm tại: http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "Lỗi trong quá trình thực hiện lệnh updateState cho ${id}: ${msg}"
-
-#: /common/kupu.pox:None
-msgid "Cleaning up HTML..."
-msgstr "Đang dọn mã HTML..."
-
-#: /common/kupu.pox:None
-msgid "List style tool initialized"
-msgstr "Công cụ Danh sách đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Row repeat turned off"
-msgstr "Chức năng lặp lại dòng đã được tắt"
-
-#: /common/kupu.pox:None
-msgid "There was a problem initializing the drawers. Most likely the XSLT or XML files aren\\'t available. If this is not the Kupu demo version, check your files or the service that provide them (error: ${error})."
-msgstr "Lỗi khi khởi tạo drawers. Có khả năng tập tin XSLT hoặc XML không tồn tại. Nếu đây không phải là phiên bản demo của Kupu, hãy kiểm tra lại các tập tin hoặc các dịch vụ của chúng (lỗi: ${error})."
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "Cảnh báo Deprecation: KupuToolBox._selectSelectItem"
-
-#: /common/kupu.pox:None
-msgid "Copying from JavaScript is disabled on your Mozilla due to security settings. For more information, read http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-msgstr "Thao tác sao chép từ JavaScript đã bị vô hiệu hóa ở trình duyệt Mozilla vì các thiết lập liên quan đến bảo mật. Để biết thêm thông tin, hãy xem thêm tại: http://www.mozilla.org/editor/midasdemo/securityprefs.html"
-
-#: /common/kupu.pox:None
-msgid "Command ${command} executed"
-msgstr "Lệnh ${command}  đã được thực hiện"
-
-#: /common/kupu.pox:None
-msgid "Delete column"
-msgstr "Xóa cột"
-
-#: /common/kupu.pox:None
-msgid ""
-"Error saving your data.\\n"
-"Response status: ${status}.\\n"
-"Check your server log for more information."
+#. Default: "Data"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Data"
 msgstr ""
-"Lỗi khi lưu tài liệu.\\n"
-"Trạng thái: ${status}.\\n"
-"Hãy kiểm tra bản ghi (log) trên máy chủ để biết thêm thông tin."
 
-#: /common/kupu.pox:None
-msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr "Chức năng này yêu cầu trình duyệt phải cho phép mở cửa sổ pop-up"
-
-#: /common/kupu.pox:None
-msgid "Not inside link"
-msgstr "Không ở trong liên kết"
-
-#: /common/kupu.pox:None
-msgid "View source"
-msgstr "Xem mã"
-
-#: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "Hình ảnh đã được chèn vào"
-
-#: /common/kupu.pox:None
-msgid "Browser not supported!"
-msgstr "Trình duyệt không được hỗ trợ"
-
-#: /common/kupu.pox:None
-msgid "Please wait while saving document..."
-msgstr "Tài liệu đang được lưu lại. Vui lòng đợi trong giây lát..."
-
-#: /common/kupu.pox:None
-msgid "Editor initialized"
-msgstr "Trình biên tập đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Copy"
-msgstr "Sao chép"
-
-#: /common/kupu.pox:None
-msgid "Paste"
-msgstr "Dán"
-
-#: /common/kupu.pox:None
-msgid "Zoom tool initialized"
-msgstr "Công cụ Phóng đã được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Table column deleted"
-msgstr "Cột đã được xóa"
-
-#: /common/kupu.pox:None
-msgid "Offset out of document range"
-msgstr "Offset nằm ngoài giới hạn của tài liệu"
-
-#: /common/kupu.pox:None
-msgid "Table cleaned up"
-msgstr "Bảng dã được dọn mã"
-
-#: /common/kupu.pox:None
-msgid "Error loading data, status ${status}"
-msgstr "Lỗi khi tải dữ liệu, trạng thái ${status}"
-
-#: /common/kupu.pox:None
-msgid "Could not set status bar message, check your browser\\'s security settings."
-msgstr "Không thể đặt thông điệp cho thanh trạng thái, hãy kiểm tra các cài đặt bảo mật của trình duyệt"
-
-#: /common/kupu.pox:None
-msgid "End node offset detected in a node without children!"
-msgstr "End node offset được tìm thấy trong một node không có node con!"
-
-#: /common/kupu.pox:None
-msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr "Nội dung biên tập của bạn chưa được lưu lại. Các thay đổi sẽ bị mất"
-
-#: /common/kupu.pox:None
-msgid "Link added"
-msgstr "Liên kết đã được thêm"
-
-#: /common/kupu.pox:None
-msgid "No head in document!"
-msgstr "Văn bản không có phần đầu đề"
-
-#: /common/kupu.pox:None
-msgid "Not inside a row!"
-msgstr "Không ở bên trong dòng"
-
-#: /common/kupu.pox:None
-msgid "Not inside a table!"
-msgstr "Không ở bên trong bảng"
-
-#: /common/kupu.pox:None
-msgid "Selection not inside the node!"
-msgstr "Phần được chọn không ở bên trong node"
-
-#: /common/kupu.pox:None
-msgid "Editor not initialized yet!"
-msgstr "Trình biên tập chưa được khởi tạo"
-
-#: /common/kupu.pox:None
-msgid "Table column added"
-msgstr "Cột đã được thêm"
-
-# Default: "Caption"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_caption_label"
-msgstr "Đầu đề"
-
-# Default: "Insert Link"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_title"
-msgstr "Chèn liên kết"
-
-# Default: "Left"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_left"
-msgstr "Trái"
-
-# Default: "(${width} by ${height})"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_size"
-msgstr "(${width} - ${height})"
-
-# Default: "Insert Image"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_title"
-msgstr "Chèn hình ảnh"
-
-# Default: "Upload to: ${folder}"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_to_label"
-msgstr "Tải vào: ${folder}"
-
-# Default: "Name"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_name_label"
-msgstr "Tên"
-
-# Default: "Preview"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_preview_label"
-msgstr "Xem trước"
-
-# Default: ""
-# "Select an image from your computer and click ok to have it\n"
-# "            automatically uploaded to selected folder and inserted into the\n"
-# "            editor."
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_instructions"
-msgstr "Chọn hình ảnh từ máy của bạn để nó được tự động tải lên thư mục đã chọn và chèn vào trình biên tập."
-
-# Default: "Upload ..."
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_link"
-msgstr "Tải lên..."
-
-# Default: "Title:"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_title_label"
-msgstr "Tiêu đề:"
-
-# Default: "Title"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_title_label"
-msgstr "Tiêu đề"
-
-# Default: "Description"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_description_label"
-msgstr "Mô tả"
-
-# Default: "ALT-text"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_alt_text"
-msgstr "ALT-text"
-
-# Default: "search"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "kupudrawer_search"
-msgstr "tìm kiếm"
-
-# Default: "Inline"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_inline"
-msgstr "Bên trong"
-
-# Default: "Target"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_target_label"
-msgstr "Đích"
-
-# Default: "Right"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_right"
-msgstr "Phải"
-
-#: /default/body.kupu:None
-msgid "Kupu Editor Test Page"
-msgstr "Kupu Editor Test Page"
-
-#: /default/colorchooser.kupu:None
-msgid "text color: alt-f"
-msgstr "màu chữ: alt-f"
-
-#: /default/colorchooser.kupu:None
-msgid "background color: alt-h"
-msgstr "màu nền: alt-h"
-
-# Default: "Row"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_row_label"
-msgstr "Hàng"
-
-# Default: "Right"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_right_option"
-msgstr "Phải"
-
-# Default: "Current column alignment"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_alignment_label"
-msgstr "Canh lề cột"
-
-#: /default/drawers.kupu:None
-msgid "external link"
-msgstr "liên kết bên ngoài"
-
-# Default: "Center"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_center_option"
-msgstr "Giữa"
-
-# Default: "Fix All Tables"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_tables_button"
-msgstr "Sửa Tất cả các bảng"
-
-#: /default/drawers.kupu:None
-msgid "External Link"
-msgstr "Liên kết bên ngoài"
-
-# Default: "Columns"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_columns_label"
-msgstr "Cột"
-
-# Default: "Left"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_left_option"
-msgstr "Trái"
-
-#: /default/drawers.kupu:None
-msgid "image"
-msgstr "hình ảnh"
-
-#: /default/drawers.kupu:None
-msgid "table"
-msgstr "bảng"
-
-#: /default/drawers.kupu:None
-msgid "Preview"
-msgstr "Xem trước"
-
-# Default: "Rows"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_rows_label"
-msgstr "Dòng"
-
-#: /default/drawers.kupu:None
-msgid "internal link"
-msgstr "liên kết bên trong"
-
-# Default: "Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_title"
-msgstr "Bảng"
-
-# Default: "Add Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_add_table_button"
-msgstr "Thêm bảng"
-
-# Default: "Close"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_close_button"
-msgstr "Đóng"
-
-# Default: "Column"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_column_label"
-msgstr "Cột"
-
-# Default: "Create Headings"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_headings_label"
-msgstr "Tạo tiêu đề"
-
-# Default: "Fix"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_button"
-msgstr "Sửa"
-
-# Default: "Fix Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_table_label"
-msgstr "Sửa Bảng"
-
-#: /default/drawers.kupu:None
-#: /common/kupudrawers/drawer.xsl:None
-msgid "Ok"
-msgstr "Chấp nhận"
-
-#: /default/drawers.kupu:None
-#: /common/kupudrawers/drawer.xsl:None
-msgid "Cancel"
-msgstr "Hủy bỏ"
-
-# Default: "Add"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_add_button"
-msgstr "Thêm"
-
-# Default: "Remove"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_remove_button"
-msgstr "Xóa"
-
-# Default: "Table Class"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_class_label"
-msgstr "Lớp của Bảng"
-
-#: /default/drawers.kupu:None
-#: /default/toolboxes.kupu:None
-msgid "Link the highlighted text to this URL:"
-msgstr "Liên kết đoạn chữ được đánh dấu vào địa chỉ URL này"
-
-#: /default/save.kupu:None
-msgid "save: alt-s"
-msgstr "lưu: alt-s"
-
-#: /default/sourceedit.kupu:None
-msgid "edit HTML code"
-msgstr "biên tập mã HTML"
-
-#: /default/spellchecker.kupu:None
-msgid "check spelling"
-msgstr "kiểm tra chính tả"
-
-# Default: "1"
-#: /default/toolbar.kupu:None
-msgid "list-decimal"
-msgstr "1"
-
-# Default: "A"
-#: /default/toolbar.kupu:None
-msgid "list-upperalpha"
-msgstr "A"
-
-#: /default/toolbar.kupu:None
-msgid "bold: alt-b"
-msgstr "in đậm: alt-b"
-
-#: /default/toolbar.kupu:None
-msgid "superscript: alt-+"
-msgstr "chỉ số trên: alt-+"
-
-# Default: "&#9675;"
-#: /default/toolbar.kupu:None
-msgid "list-circle"
-msgstr "&#9675"
-
-#: /default/toolbar.kupu:None
+#. Default: "Formatted"
+#: default\toolbar.kupu
 msgid "Formatted"
 msgstr "Formatted"
 
-# Default: "a"
-#: /default/toolbar.kupu:None
-msgid "list-loweralpha"
-msgstr "a"
+#. Default: "Grid"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Grid"
+msgstr ""
 
-# Default: "no bullet"
-#: /default/toolbar.kupu:None
-msgid "list-nobullet"
-msgstr "không có chấm"
-
-# Default: "i"
-#: /default/toolbar.kupu:None
-msgid "list-lowerroman"
-msgstr "i"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu SVN/unreleased"
-msgstr "Kupu SVN/unreleased"
-
-#: /default/toolbar.kupu:None
-msgid "Remove image"
-msgstr "Xóa hình ảnh"
-
-#: /default/toolbar.kupu:None
-msgid "undo: alt-z"
-msgstr "khôi phục: alt-z"
-
-# Default: "&#9679;"
-#: /default/toolbar.kupu:None
-msgid "list-disc"
-msgstr "&#9679;"
-
-#: /default/toolbar.kupu:None
-msgid "definition list: alt-="
-msgstr "danh sách xác định: alt-="
-
-#: /default/toolbar.kupu:None
-msgid "indent: alt->"
-msgstr "dịch phải: alt->"
-
-#: /default/toolbar.kupu:None
-msgid "Remove link"
-msgstr "Xóa liên kết"
-
-#: /default/toolbar.kupu:None
-msgid "Normal"
-msgstr "Normal"
-
-#: /default/toolbar.kupu:None
-msgid "Heading"
-msgstr "Heading"
-
-#: /default/toolbar.kupu:None
-msgid "Subheading"
-msgstr "Subheading"
-
-#: /default/toolbar.kupu:None
-msgid "left justify: alt-l"
-msgstr "canh trái: alt-l"
-
-#: /default/toolbar.kupu:None
-msgid "right justify: alt-r"
-msgstr "canh phải: alt-r"
-
-#: /default/toolbar.kupu:None
-msgid "outdent: alt-<"
-msgstr "dịch trái: alt-<"
-
-# Default: "&#9632;"
-#: /default/toolbar.kupu:None
-msgid "list-square"
-msgstr "&#9632;"
-
-#: /default/toolbar.kupu:None
-msgid "underline: alt-u"
-msgstr "gạch chân: alt-u"
-
-#: /default/toolbar.kupu:None
-msgid "redo: alt-y"
-msgstr "làm lại: alt-y"
-
-#: /default/toolbar.kupu:None
-msgid "subscript: alt--"
-msgstr "chỉ số dưới: alt--"
-
-#: /default/toolbar.kupu:None
-msgid "center justify: alt-c"
-msgstr "canh giữa: alt-c"
-
-#: /default/toolbar.kupu:None
-msgid "unordered list: alt-*"
-msgstr "danh sách không thứ tự: alt-*"
-
-#: /default/toolbar.kupu:None
-msgid "Heading 3"
-msgstr "Heading 3"
-
-#: /default/toolbar.kupu:None
-msgid "Heading 2"
-msgstr "Heading 2"
-
-#: /default/toolbar.kupu:None
+#. Default: "Heading 1"
+#: default\toolbar.kupu
 msgid "Heading 1"
 msgstr "Heading 1"
 
-#: /default/toolbar.kupu:None
-msgid "Heading 6"
-msgstr "Heading 6"
+#. Default: "Heading 2"
+#: default\toolbar.kupu
+msgid "Heading 2"
+msgstr "Heading 2"
 
-#: /default/toolbar.kupu:None
-msgid "Heading 5"
-msgstr "Heading 5"
+#. Default: "Heading 3"
+#: default\toolbar.kupu
+msgid "Heading 3"
+msgstr "Heading 3"
 
-#: /default/toolbar.kupu:None
+#. Default: "Heading 4"
+#: default\toolbar.kupu
 msgid "Heading 4"
 msgstr "Heading 5"
 
-#: /default/toolbar.kupu:None
-msgid "numbered list: alt-#"
-msgstr "danh sách thứ tự: alt-#"
+#. Default: "Heading 5"
+#: default\toolbar.kupu
+msgid "Heading 5"
+msgstr "Heading 5"
 
-#: /default/toolbar.kupu:None
-msgid "italic: alt-i"
-msgstr "in nghiêng: alt-i"
+#. Default: "Heading 6"
+#: default\toolbar.kupu
+msgid "Heading 6"
+msgstr "Heading 6"
 
-# Default: "I"
-#: /default/toolbar.kupu:None
-msgid "list-upperroman"
-msgstr "I"
+#. Default: "Listing"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Listing"
+msgstr ""
 
-#: /default/toolbar.kupu
-msgid "zoom: alt-x"
-msgstr "phóng to / thu nhỏ: alt-x"
+#. Default: "Normal"
+#: default\drawers.kupu
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+msgid "Normal"
+msgstr "Normal"
 
-#: /default/toolboxes.kupu:None
-msgid "Headings:"
-msgstr "Tiêu đề:"
+#. Default: "Plain"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Plain"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Fix"
-msgstr "Sửa"
+#. Default: "Anchors"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "anchordrawer_title"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Remove Column"
-msgstr "Xóa cột"
+#. Default: "Add Column"
+#: default\toolboxes.kupu
+msgid "button_add_column"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Inline"
-msgstr "Bên trong"
+#. Default: "Add Row"
+#: default\toolboxes.kupu
+msgid "button_add_row"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Select a cleanup action:"
-msgstr "Chọn thao tác dọn mã"
+#. Default: "Add Table"
+#: default\toolboxes.kupu
+msgid "button_add_table"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Links"
-msgstr "Liên kết"
+#. Default: "Cancel"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_cancel"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Rows:"
-msgstr "Dòng:"
+#. Default: "Fix Table"
+#: default\toolboxes.kupu
+msgid "button_fix_table"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Remove Row"
-msgstr "Xóa dòng"
+#. Default: "Insert Image"
+#: default\toolboxes.kupu
+msgid "button_insert_image"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Tables"
-msgstr "Bảng"
+#. Default: "Make Link"
+#: default\toolboxes.kupu
+msgid "button_makelink"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Create"
-msgstr "Tạo"
+#. Default: "Ok"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_ok"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Insert image at the following URL:"
-msgstr "Chèn hình ảnh tại địa chỉ URL:"
+#. Default: "Preview"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_preview"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Title:"
-msgstr "Tiêu đề:"
+#. Default: "Remove Column"
+#: default\toolboxes.kupu
+msgid "button_remove_column"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Description:"
-msgstr "Mô tả:"
+#. Default: "Remove Row"
+#: default\toolboxes.kupu
+msgid "button_remove_row"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Image class:"
-msgstr "Lớp của Hình ảnh"
+#. Default: "Remove Table"
+#: default\toolboxes.kupu
+msgid "button_remove_table"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Add Column"
-msgstr "Thêm cột"
+#. Default: "Convert to HTML and edit with the visual editor"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "convert-to-kupu"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Fix Table"
-msgstr "Sửa Bảng"
+#. Default: "Anchors are created for checked paragraphs and removed for unchecked paragraphs when you press Ok. Anchors in use on this page may not be deleted."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_anchor_help"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Images"
-msgstr "Hình ảnh"
+#. Default: "Select a paragraph style then choose a paragraph and Ok to insert a link to that location."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_anchor_link_help"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Insert Image"
-msgstr "Chèn hình ảnh"
+#. Default: "Select one or two paragraph styles, then Ok to insert a table of contents."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_toc_help"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Add Table"
-msgstr "Thêm bảng"
+#. Default: "You may use this box to insert custom snippets of HTML code. There is no guarantee that any code inserted in this way will be preserved when you save your edits. To select an existing object from IE click on the border, from Firefox double click it."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "custom_html_help"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Add Row"
-msgstr "Thêm dòng"
+#. Default: "My recently edited items."
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+msgid "descr_myitems"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Properties"
-msgstr "Các thuộc tính"
+#. Default: "Recently published items."
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+msgid "descr_recentitems"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Col Align:"
-msgstr "Canh lề cột:"
+#. Default: "Search results."
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "descr_search_results"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Center"
-msgstr "Canh giữa"
+#. Default: "Current selection."
+#: plone\kupu_plone_layer\kupuselection.xml.pt
+msgid "descr_selected"
+msgstr ""
 
-#: /default/toolboxes.kupu:None
-msgid "Debug Log"
-msgstr "Bản ghi Gỡ lỗi"
-
-#: /default/toolboxes.kupu:None
-msgid "Make Link"
-msgstr "Tạo liên kết"
-
-#: /default/toolboxes.kupu:None
-msgid "Cleanup expressions"
-msgstr "Biểu thức dọn mã"
-
-#: /default/toolboxes.kupu:None
-msgid "Columns:"
-msgstr "Cột:"
-
-#: /default/toolboxes.kupu:None
-msgid "Table Class:"
-msgstr "Lớp của Bảng"
-
-#: /default/toolboxes.kupu:None
-msgid "Right"
-msgstr "Phải"
-
-#: /default/toolboxes.kupu:None
-msgid "Left"
-msgstr "Trái"
-
-#: /plone/body.kupu
+#. Default: "Edit with visual editor"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
 msgid "force-kupu"
 msgstr "force-kupu"
 
-#: /plone/body.kupu
+#. Default: "HTML"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "format_html"
+msgstr ""
+
+#. Default: "My Items"
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+msgid "heading_myitems"
+msgstr ""
+
+#. Default: "Recent Items"
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+msgid "heading_recentitems"
+msgstr ""
+
+#. Default: "Search Results"
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "heading_search_results"
+msgstr ""
+
+#. Default: "Selected"
+#: plone\kupu_plone_layer\kupuselection.xml.pt
+msgid "heading_selected"
+msgstr ""
+
+#. Default: "If you are unsure of which format to use, just select Plain Text and type the document as you usually do."
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "help_format"
+msgstr ""
+
+#. Default: "Paste &lt;object&gt; or &lt;embed&gt; tag here:"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "help_paste_here"
+msgstr ""
+
+#. Default: "Anchor"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_anchor"
+msgstr ""
+
+#. Default: "Col Align:"
+#: default\toolboxes.kupu
+msgid "label_col_align"
+msgstr ""
+
+#. Default: "Columns:"
+#: default\toolboxes.kupu
+msgid "label_columns"
+msgstr ""
+
+#. Default: "Create"
+#: default\toolboxes.kupu
+msgid "label_create"
+msgstr ""
+
+#. Default: "Description:"
+#: default\toolboxes.kupu
+msgid "label_description"
+msgstr ""
+
+#. Default: "Format"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_format"
+msgstr ""
+
+#. Default: "Headings:"
+#: default\toolboxes.kupu
+msgid "label_headings"
+msgstr ""
+
+#. Default: "Image class:"
+#: default\toolboxes.kupu
+msgid "label_image_class"
+msgstr ""
+
+#. Default: "Insert image at the following URL:"
+#: default\toolboxes.kupu
+msgid "label_insert_image_url"
+msgstr ""
+
+#. Default: "Link the highlighted text to this URL:"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_link_text"
+msgstr ""
+
+#. Default: "Links"
+#: default\toolboxes.kupu
+msgid "label_links"
+msgstr ""
+
+#. Default: "Numbering"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_numbering"
+msgstr ""
+
+#. Default: "Rows:"
+#: default\toolboxes.kupu
+msgid "label_rows"
+msgstr ""
+
+#. Default: "Select a cleanup action:"
+#: default\toolboxes.kupu
+msgid "label_select_cleanup"
+msgstr ""
+
+#. Default: "Table Class:"
+#: default\toolboxes.kupu
+msgid "label_table_class"
+msgstr ""
+
+#. Default: "Table style"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_table_style"
+msgstr ""
+
+#. Default: "Title:"
+#: default\toolboxes.kupu
+msgid "label_title"
+msgstr ""
+
+#. Default: "toggle all"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_toggle_all"
+msgstr ""
+
+#. Default: "○"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-circle"
+msgstr "&#9675"
+
+#. Default: "1"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-decimal"
+msgstr "1"
+
+#. Default: "●"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-disc"
+msgstr "&#9679;"
+
+#. Default: "a"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-loweralpha"
+msgstr "a"
+
+#. Default: "i"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-lowerroman"
+msgstr "i"
+
+#. Default: "no bullet"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-nobullet"
+msgstr "không có chấm"
+
+#. Default: "■"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-square"
+msgstr "&#9632;"
+
+#. Default: "A"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-upperalpha"
+msgstr "A"
+
+#. Default: "I"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-upperroman"
+msgstr "I"
+
+#. Default: "Locate"
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "locate_content"
+msgstr ""
+
+#. Default: "(optional 2nd style)"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "opt_2nd_style"
+msgstr ""
+
+#. Default: "Inline"
+#: default\toolboxes.kupu
+msgid "opt_inline"
+msgstr ""
+
+#. Default: "Left"
+#: default\toolboxes.kupu
+msgid "opt_left"
+msgstr ""
+
+#. Default: "Right"
+#: default\toolboxes.kupu
+msgid "opt_right"
+msgstr ""
+
+#. Default: "top of page (default)"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "opt_top_of_page"
+msgstr ""
+
+#. Default: "Perform action"
+#: default\toolboxes.kupu
+msgid "perform_action"
+msgstr ""
+
+#. Default: "[insert arbitrary HTML code here]"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "placeholder_html_code"
+msgstr ""
+
+#. Default: "Plain Text"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "plain_text"
+msgstr ""
+
+#. Default: "Structured Text"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "structured_text"
+msgstr ""
+
+#. Default: "Edit without visual editor"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
 msgid "suppress-kupu"
 msgstr "suppress-kupu"
 
-#: Libraries
-msgid "Home"
-msgstr "Trang chủ"
+#. Default: "Embed external object"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_embed"
+msgstr ""
 
-msgid "Current folder"
-msgstr "Thư mục hiện tại"
+#. Default: "Link to url"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_link"
+msgstr ""
 
-msgid "My recent items"
-msgstr "Các mục gần đây của tôi"
+#. Default: "Link to anchor"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_link_anchor"
+msgstr ""
 
-msgid "Recent items"
-msgstr "Các mục gần đây"
+#. Default: "Manage Anchors"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_manage_anchors"
+msgstr ""
 
-#: Default Table classes
-msgid "plain"
-msgstr "plain"
+#. Default: "Table of contents"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_toc"
+msgstr ""
 
-msgid "listing"
-msgstr "listing"
+#. Default: "Add"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_add_button"
+msgstr "Thêm"
 
-msgid "vertical listing"
-msgstr "vertical listing"
+#. Default: "Add Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_add_table_button"
+msgstr "Thêm bảng"
 
-msgid "unsorted listing"
-msgstr "unsorted listing"
+#. Default: "Current column alignment"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_alignment_label"
+msgstr "Canh lề cột"
 
-msgid "grid"
-msgstr "grid"
+#. Default: "Center"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_center_option"
+msgstr "Giữa"
 
-msgid "data"
-msgstr "data"
+#. Default: "Table Class"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_class_label"
+msgstr "Lớp của Bảng"
+
+#. Default: "Close"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_close_button"
+msgstr "Đóng"
+
+#. Default: "Column"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_column_label"
+msgstr "Cột"
+
+#. Default: "Columns"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_columns_label"
+msgstr "Cột"
+
+#. Default: "Fix"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_fix_button"
+msgstr "Sửa"
+
+#. Default: "Fix All Tables"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_fix_tables_button"
+msgstr "Sửa Tất cả các bảng"
+
+#. Default: "Create Headings"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_headings_label"
+msgstr "Tạo tiêu đề"
+
+#. Default: "Left"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_left_option"
+msgstr "Trái"
+
+#. Default: "Remove"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_remove_button"
+msgstr "Xóa"
+
+#. Default: "Right"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_right_option"
+msgstr "Phải"
+
+#. Default: "Row"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_row_label"
+msgstr "Hàng"
+
+#. Default: "Rows"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_rows_label"
+msgstr "Dòng"
+
+#. Default: "Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_table_label"
+msgstr ""
+
+#. Default: "Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_title"
+msgstr "Bảng"
+
+#. Default: "Kupu Editor Test Page"
+#: default\body.kupu
+msgid "testpage_title"
+msgstr ""
+
+#. Default: "background color: alt-h"
+#: default\colorchooser.kupu
+#: plone\colorchooser.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_back_color"
+msgstr ""
+
+#. Default: "Bold: Access key (Alt or Ctrl) + B"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_bold"
+msgstr ""
+
+#. Default: "Center justify: Access key (Alt or Ctrl) + C"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_center"
+msgstr ""
+
+#. Default: "Check spelling"
+#: default\spellchecker.kupu
+msgid "title_check_spelling"
+msgstr ""
+
+#. Default: "Cleanup expressions"
+#: default\toolboxes.kupu
+msgid "title_cleanup_expressions"
+msgstr ""
+
+#. Default: "Debug Log"
+#: default\toolboxes.kupu
+msgid "title_debug_log"
+msgstr ""
+
+#. Default: "Decrease quote level: Access key (Alt or Ctrl) + <"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_decrease_quote"
+msgstr ""
+
+#. Default: "Definition list: Access key (Alt or Ctrl) + ="
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_deflist"
+msgstr ""
+
+#. Default: "External Link"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_external_link"
+msgstr ""
+
+#. Default: "reload current page using kupu to edit this field"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_force_kupu"
+msgstr ""
+
+#. Default: "Images"
+#: default\toolboxes.kupu
+msgid "title_images"
+msgstr ""
+
+#. Default: "Increase quote level: Access key (Alt or Ctrl) + >"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_increase_quote"
+msgstr ""
+
+#. Default: "Insert anchors"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_anchors"
+msgstr ""
+
+#. Default: "Insert external link"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_external_link"
+msgstr ""
+
+#. Default: "Insert image"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_image"
+msgstr ""
+
+#. Default: "Insert internal link"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_internal_link"
+msgstr ""
+
+#. Default: "Insert table"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_table"
+msgstr ""
+
+#. Default: "Italic: Access key (Alt or Ctrl) + I"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_italic"
+msgstr ""
+
+#. Default: "Left justify: Access key (Alt or Ctrl) + L"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_ljust"
+msgstr ""
+
+#. Default: "Kupu 1.4"
+#: default\toolbar.kupu
+msgid "title_logo"
+msgstr ""
+
+#. Default: "Numbered list: Access key (Alt or Ctrl) + #"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_numlist"
+msgstr ""
+
+#. Default: "Properties"
+#: default\toolboxes.kupu
+msgid "title_properties"
+msgstr ""
+
+#. Default: "Redo: Access key (Alt or Ctrl) + Y"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_redo"
+msgstr ""
+
+#. Default: "Remove image"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_removeimage"
+msgstr ""
+
+#. Default: "Remove link"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_removelink"
+msgstr ""
+
+#. Default: "Right justify: Access key (Alt or Ctrl) + R"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_rjust"
+msgstr ""
+
+#. Default: "Save"
+#: plone\save.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_save"
+msgstr ""
+
+#. Default: "save: alt-s"
+#: default\save.kupu
+msgid "title_save_alts"
+msgstr ""
+
+#. Default: "Check spelling"
+#: plone\spellchecker.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_spelling"
+msgstr ""
+
+#. Default: "Subscript: Access key (Alt or Ctrl) + -"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_subscript"
+msgstr ""
+
+#. Default: "Superscript: Access key (Alt or Ctrl) + +"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_superscript"
+msgstr ""
+
+#. Default: "reload current page without kupu"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_suppress_kupu"
+msgstr ""
+
+#. Default: "Tables"
+#: default\toolboxes.kupu
+msgid "title_tables"
+msgstr ""
+
+#. Default: "text color: alt-f"
+#: default\colorchooser.kupu
+#: plone\colorchooser.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_text_color"
+msgstr ""
+
+#. Default: "Underline: Access key (Alt or Ctrl) + U"
+#: default\toolbar.kupu
+msgid "title_underline"
+msgstr ""
+
+#. Default: "Undo: Access key (Alt or Ctrl) + Z"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_undo"
+msgstr ""
+
+#. Default: "Unordered list: Access key (Alt or Ctrl) + *"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_unorderedlist"
+msgstr ""
+
+#. Default: "Zoom: Access key (Alt or Ctrl) + X"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_zoom"
+msgstr ""
+
+#. Default: "Switch between visual editor and HTML view"
+#: default\sourceedit.kupu
+#: plone\sourceedit.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "toggle_source_view"
+msgstr ""
+
+#. Default: "Preview"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "watermark_preview"
+msgstr ""
 

@@ -3,1147 +3,880 @@
 # Suzuki Takanori <takanori@takanory.net> 2005
 msgid ""
 msgstr ""
-"POT-Creation-Date: Mon Oct 31 17:09:34 2005\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2007-06-26 10:31+0000\n"
 "PO-Revision-Date: 2005-05-03 16:41+0200\n"
 "Last-Translator: J <Naotaka@we.care.jp>\n"
 "Language-Team: gocept i18n team <rj@gocept.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: kupu\n"
 "Generated-By: zope/app/translation_files/extract.py\n"
 "Language-code: Ja\n"
 "Language-name: Japanese\n"
-"Domain: kupu\n"
 
-#: /common/kupu.pox:None
-msgid "Command ${command} executed with parameter ${param}"
-msgstr "${command} コマンドが、パラメータ：${param} で実行されました。"
-
-#: /common/kupu.pox:None
-msgid "Add table"
-msgstr "表を追加"
-
-#: /common/kupu.pox:None
-msgid "Table added"
-msgstr "表が追加されました。"
-
-#: /common/kupu.pox:None
-msgid "Source edit tool initialized"
-msgstr "ソース編集ツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Delete row"
-msgstr "行を削除"
-
-#: /common/kupu.pox:None
-msgid "Recursion detected when counting column position"
-msgstr "列の位置の計算中に再帰呼び出しが起きました。"
-
-#: /common/kupu.pox:None
-msgid "List style changed"
-msgstr "リストスタイルが変更されました。"
-
-#: /common/kupu.pox:None
-msgid "Properties modified"
-msgstr "プロパティが変更されました。"
-
-#: /common/kupu.pox:None
-msgid "click to unfold"
-msgstr "閉じるにはクリックしてください"
-
-#: /common/kupu.pox:None
-msgid "You have unsaved changes. Do you want to save before leaving the page?"
-msgstr "変更が保存されていません。別のページに移動する前に変更を保存しますか？"
-
-#: /common/kupu.pox:None
-msgid "Table row removed"
-msgstr "行が削除されました。"
-
-#: /common/kupu.pox:None
-msgid "Document saved"
-msgstr "ドキュメントが保存されました。"
-
-#: /common/kupu.pox:None
-msgid "Color chosen"
-msgstr "選択された色"
-
-#: /common/kupu.pox:None
-msgid "Table row added"
-msgstr "行が追加されました。"
-
-#: /common/kupu.pox:None
-msgid "Error saving document"
-msgstr "ドキュメントの保存に失敗しました。"
-
-#: /common/kupu.pox:None
-msgid "No destination URL available!"
-msgstr "リンク先の URL がありません"
-
-#: /common/kupu.pox:None
-msgid "Link removed"
-msgstr "リンクが削除されました。"
-
-#: /common/kupu.pox:None
-msgid "No row to delete"
-msgstr "行は削除されませんでした。"
-
-#: /common/kupu.pox:None
-msgid "Delete Table"
-msgstr "表を削除"
-
-#: /common/kupu.pox:None
-msgid "Cleanup done, sending document to server"
-msgstr "整理が終わりました。文書をサーバに送ります。"
-
-#: /common/kupu.pox:None
-msgid "Image tool initialized"
-msgstr "画像ツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "End offset out of range!"
-msgstr "終了オフセットが範囲外です！"
-
-#: /common/kupu.pox:None
-msgid "tdindex: ${tdindex}"
-msgstr "tdインデックス: ${tdindex}"
-
-#: /common/kupu.pox:None
-msgid "Create link"
-msgstr "リンクを作成"
-
-#: /common/kupu.pox:None
-msgid "Starting HTML cleanup"
-msgstr "HTML の整理を始めます。"
-
-#: /common/kupu.pox:None
-msgid "Not inside a definition list element!"
-msgstr "定義リストエレメントの範囲外です！"
-
-#: /common/kupu.pox:None
-msgid "Link modified"
-msgstr "リンクは変更されました。"
-
-#: /common/kupu.pox:None
-msgid "Illegal or missing width entry in column info!"
-msgstr "列幅が指定されていないか、不正な値が指定されています。"
-
-#: /common/kupu.pox:None
-msgid "Request sent to server"
-msgstr "要求がサーバに送られました。"
-
-#: /common/kupu.pox:None
-msgid "There were no errors."
-msgstr "エラーはありません。"
-
-#: /common/kupu.pox:None
-msgid ""
-"exception ${message} while registering an event handler for element "
-"${element}, event ${event}, method ${method}"
-msgstr ""
-"エレメントのイベントハンドラー登録中に例外 ${message} が発生"
-"${element}, event ${event}, method ${method}"
-
-#: /common/kupu.pox:None
-msgid "Error loading translation (status ${status} ), falling back to english"
-msgstr ""
-"日本語用翻訳セットの読み込みに失敗しました（status ${status}）。"
-"英語メッセージを表示します。"
-
-#: /common/kupu.pox:None
-msgid "Start node offset detected in a node without children!"
-msgstr "子ノードを持たないノードの開始オフセットを検出!"
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuTool._selectSelectItem"
-msgstr "非推奨ツールの警告: KupuTool._selectSelectItem"
-
-#: /common/kupu.pox:None
-msgid "Couldn¥¥'t set design mode. Kupu will not work on this browser."
-msgstr ""
-"デザインモードへ移行できません。Kupu はこのブラウザでは利用できません。"
-
-#: /common/kupu.pox:None
-msgid "No element found in the config island!"
-msgstr "設定領域内でエレメントが発見できませんでした。"
-
-#: /common/kupu.pox:None
-msgid "Start offset out of range!"
-msgstr "開始オフセットが範囲外です！"
-
-#: /common/kupu.pox:None
-msgid ""
-"Pasting from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Mozilla のセキュリティ設定によりJavaScript からの貼り付けが無効になっています。"
-"詳細については、 http://www.mozilla.org/editor/midasdemo/ をお読みください。"
-
-#: /common/kupu.pox:None
-msgid "Property tool initialized"
-msgstr "プロパティツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Colorchooser tool initialized"
-msgstr "色選択ツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "No parentcolumn found!"
-msgstr "上位の列が見つかりませんでした。"
-
-#: /common/kupu.pox:None
-msgid "items"
-msgstr "アイテム"
-
-#: /common/kupu.pox:None
-msgid "Row repeated"
-msgstr "行が繰り返されました。"
-
-#: /common/kupu.pox:None
-msgid "Cut"
-msgstr "切り取り"
-
-#: /common/kupu.pox:None
-msgid "Table removed"
-msgstr "表が削除されました。"
-
-#: /common/kupu.pox:None
-msgid "Unsupported browser!"
-msgstr "非対応ブラウザです！"
-
-#: /common/kupu.pox:None
-msgid "Add row"
-msgstr "行を追加"
-
-#: /common/kupu.pox:None
-msgid "Link tool initialized"
-msgstr "リンクツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Sending request to server"
-msgstr "要求をサーバに送ります。"
-
-#: /common/kupu.pox:None
-msgid "Invalid table size"
-msgstr "表サイズが正しくありません。"
-
-#: /common/kupu.pox:None
-msgid "Error placing back selection"
-msgstr "セレクションを戻す際のエラー"
-
-#: /common/kupu.pox:None
-msgid "Image inserted"
-msgstr "画像を追加"
-
-#: /common/kupu.pox:None
-msgid "Add column"
-msgstr "列を追加"
-
-#: /common/kupu.pox:None
-msgid ""
-"Cutting from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Mozilla のセキュリティの設定により、JavaScript からの切り取りが無効化されてい"
-"ます。詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくだ"
-"さい。"
-
-#: /common/kupu.pox:None
-msgid "Exception while processing updateState on ${id}: ${msg}"
-msgstr "${id}: ${msg} について状態を更新する時に例外が発生しました。"
-
-#: /common/kupu.pox:None
-msgid "Cleaning up HTML..."
-msgstr "HTML の整理をします。"
-
-#: /common/kupu.pox:None
-msgid "List style tool initialized"
-msgstr "リストスタイルツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Row repeat turned off"
-msgstr "行の繰り返しをしない"
-
-#: /common/kupu.pox:None
-msgid ""
-"There was a problem initializing the drawers. Most likely the XSLT or XML "
-"files aren¥¥'t available. If this is not the Kupu demo version, check your "
-"files or the service that provide them (error: ${error})."
-msgstr ""
-"ドローソフトの初期化に失敗しました。多くの場合 XSLT か XML ファイルが存在しな"
-"いことが原因です。もしも、この Kupu がデモバージョンでない場合、ファイルや"
-"（error: ${error}）のエラーを表示したサービスを確認してください。"
-
-#: /common/kupu.pox:None
-msgid "Deprecation warning: KupuToolBox._selectSelectItem"
-msgstr "非推奨ツールの警告: KupuToolBox._selectSelectItem"
-
-#: /common/kupu.pox:None
-msgid ""
-"Copying from JavaScript is disabled on your Mozilla due to security "
-"settings. For more information, read http://www.mozilla.org/editor/midasdemo/"
-"securityprefs.html"
-msgstr ""
-"Mozilla のセキュリティの設定のため、JavaScript からのコピーが無効になっています。"
-"詳細については、 http://www.mozilla.org/editor/midasdemo/ を読んでくださ"
-"い。"
-
-#: /common/kupu.pox:None
-msgid "Command ${command} executed"
-msgstr "${command}コマンドを実行しました。"
-
-#: /common/kupu.pox:None
-msgid "Delete column"
-msgstr "列を削除"
-
-#: /common/kupu.pox:None
-msgid ""
-"Error saving your data.¥¥nResponse status: ${status}.¥¥nCheck your server "
-"log for more information."
-msgstr ""
-"データの保存に失敗しました。¥¥nResponse status: ${status}"
-"詳細に関しては、サーバのログを確認してください。"
-
-#: /common/kupu.pox:None
-msgid "This feature requires pop-ups to be enabled on your browser!"
-msgstr ""
-"この機能を利用するには、ブラウザのポップアップ（pop-up）機能を有効にする必"
-"要があります！"
-
-#: /common/kupu.pox:None
-msgid "Not inside link"
-msgstr "内部リンクではありません。"
-
-#: /common/kupu.pox:None
-msgid "View source"
-msgstr "ソースの表示"
-
-#: /common/kupu.pox:None
-msgid "Table tool initialized"
-msgstr "表ツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Browser not supported!"
-msgstr "非対応ブラウザ！"
-
-#: /common/kupu.pox:None
-msgid "Please wait while saving document..."
-msgstr "ドキュメントの保存中です。しばらくお待ちください・・・"
-
-#: /common/kupu.pox:None
-msgid "Editor initialized"
-msgstr "エディタが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "click to fold"
-msgstr "開くにはクリックしてください"
-
-#: /common/kupu.pox:None
-msgid "Create image"
-msgstr "画像を追加"
-
-#: /common/kupu.pox:None
-msgid "Copy"
-msgstr "コピー"
-
-#: /common/kupu.pox:None
-msgid "Zoom tool initialized"
-msgstr "ズームツールが初期化されました。"
-
-#: /common/kupu.pox:None
-msgid "Table column deleted"
-msgstr "表の列が削除されました。"
-
-#: /common/kupu.pox:None
-msgid "Offset out of document range"
-msgstr "オフセットがドキュメントの範囲を超えています"
-
-#: /common/kupu.pox:None
-msgid "Table cleaned up"
-msgstr "表を整理"
-
-#: /common/kupu.pox:None
-msgid "Error loading data, status ${status}"
-msgstr "データ読み込みエラー：status ${status}"
-
-#: /common/kupu.pox:None
-msgid ""
-"Could not set status bar message, check your browser¥¥'s security settings."
-msgstr ""
-"ステータスバーのメッセージを設定できませんでした。ブラウザのセキュリティ設定"
-"を確認してください。"
-
-#: /common/kupu.pox:None
-msgid "End node offset detected in a node without children!"
-msgstr "子ノードを持たないノードの終了オフセットを検出!"
-
-#: /common/kupu.pox:None
-msgid "Your form has not been saved. All changes you have made will be lost"
-msgstr "フォームが保存されませんでした。変更した内容は失われます。"
-
-#: /common/kupu.pox:None
-msgid "Link added"
-msgstr "リンクが追加されました。"
-
-#: /common/kupu.pox:None
-msgid "No head in document!"
-msgstr "ドキュメントに見出しがありません！"
-
-#: /common/kupu.pox:None
-msgid "Not inside a row!"
-msgstr "行の中ではできません！"
-
-#: /common/kupu.pox:None
-msgid "Not inside a table!"
-msgstr "表の中ではありません！"
-
-#: /common/kupu.pox:None
-msgid "Selection not inside the node!"
-msgstr "選択範囲がノード内ではありません！"
-
-#: /common/kupu.pox:None
-msgid "Delete link"
-msgstr "リンクを削除"
-
-#: /common/kupu.pox:None
-msgid "Editor not initialized yet!"
-msgstr "エディタが初期化されていません！"
-
-#: /common/kupu.pox:None
-msgid "Table column added"
-msgstr "表の列が追加されました。"
-
-#: /common/kupu.pox:None
-msgid "Paste"
-msgstr "貼り付け"
-
-# Default: "Caption"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_caption_label"
-msgstr "キャプション"
-
-# Default: "Insert Link"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_title"
-msgstr "リンクを追加"
-
-# Default: "Left"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_left"
-msgstr "左"
-
-# Default: "(${width} by ${height})"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_size"
-msgstr "（幅×高）"
-
-# Default: "Insert Image"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_title"
-msgstr "画像を追加"
-
-# Default: "Upload to: ${folder}"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_to_label"
-msgstr "${folder} へアップロード"
-
-# Default: "Name"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_name_label"
-msgstr "名前"
-
-# Default: "Title:"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_title_label"
-msgstr "タイトル"
-
-# Default: "Preview"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_preview_label"
-msgstr "プレビュー"
-
-# Default: ""
-# "Select an image from your computer and click ok to have it¥n"
-# "            automatically uploaded to selected folder and inserted into the¥n"
-# "            editor."
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_instructions"
-msgstr ""
-"パソコン内の画像を選択し、「了解」をクリックしてください。¥n"
-"自動的に画像ファイルがアップロードされ、編集領域に追加されます。"
-
-# Default: "Upload ..."
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_link"
-msgstr "アップロード..."
-
-# Default: "Title"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_title_label"
-msgstr "タイトル"
-
-# Default: "Description"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_description_label"
-msgstr "説明"
-
-# Default: "ALT-text"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_upload_alt_text"
-msgstr "ALT（代替）テキスト"
-
-# Default: "search"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "kupudrawer_search"
-msgstr "検索"
-
-# Default: "Inline"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_inline"
-msgstr "一列に並べる"
-
-# Default: "Target"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "linkdrawer_target_label"
-msgstr "設置先"
-
-# Default: "Right"
-#: /common/kupudrawers/drawer.xsl:None
-msgid "imagedrawer_right"
-msgstr "右"
-
-#: /default/body.kupu:None
-msgid "Kupu Editor Test Page"
-msgstr "Kupu エディタテストページ"
-
-#: /default/colorchooser.kupu:None
-msgid "text color: alt-f"
-msgstr "文字色:alt-f"
-
-#: /default/colorchooser.kupu:None
-msgid "background color: alt-h"
-msgstr "背景色:alt-h"
-
-# Default: "Row"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_row_label"
-msgstr "行"
-
-# Default: "Right"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_right_option"
-msgstr "右"
-
-# Default: "Current column alignment"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_alignment_label"
-msgstr "現在の列を整列"
-
-#: /default/drawers.kupu:None
-msgid "external link"
-msgstr "外部リンク"
-
-# Default: "Columns"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_columns_label"
-msgstr "列"
-
-# Default: "Center"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_center_option"
-msgstr "中央"
-
-# Default: "Fix All Tables"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_tables_button"
-msgstr "全ての表を調整"
-
-#: /default/drawers.kupu:None
-msgid "External Link"
-msgstr "外部リンク"
-
-# Default: "Left"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_left_option"
-msgstr "左"
-
-#: /default/drawers.kupu:None
-msgid "Preview"
-msgstr "プレビュー"
-
-# Default: "Rows"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_rows_label"
-msgstr "行"
-
-#: /default/drawers.kupu:None
-msgid "internal link"
-msgstr "サイト内リンク"
-
-# Default: "Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_title"
-msgstr "表"
-
-# Default: "Add Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_add_table_button"
-msgstr "表を追加"
-
-# Default: "Close"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_close_button"
-msgstr "閉じる"
-
-# Default: "Column"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_column_label"
-msgstr "列"
-
-# Default: "Create Headings"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_headings_label"
-msgstr "列見出しを付ける"
-
-# Default: "Fix"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_button"
-msgstr "調整"
-
-# Default: "Fix Table"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_fix_table_label"
-msgstr "表を調整"
-
-#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
-msgid "(none)"
-msgstr "(なし)"
-
-#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
-msgid "Ok"
-msgstr "了解"
-
-#: /default/drawers.kupu:None /common/kupudrawers/drawer.xsl:None
-msgid "Cancel"
-msgstr "キャンセル"
-
-#: /default/drawers.kupu:None
-msgid "Listing"
-msgstr "リスト表示"
-
-# Default: "Add"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_add_button"
-msgstr "追加"
-
-#: /default/drawers.kupu:None
-msgid "Grid"
-msgstr "グリッド表示"
-
-# Default: "Remove"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_remove_button"
-msgstr "削除"
-
-#: /default/drawers.kupu:None
+#. Default: "Data"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
 msgid "Data"
 msgstr "データ表示"
 
-#: /default/drawers.kupu:None
-msgid "Plain"
-msgstr "プレーン"
-
-# Default: "Table Class"
-#: /default/drawers.kupu:None
-msgid "tabledrawer_class_label"
-msgstr "表の枠線の種類"
-
-#: /default/drawers.kupu:None /default/toolboxes.kupu:None
-msgid "Link the highlighted text to this URL:"
-msgstr "リンクするURL:"
-
-#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
-msgid "image"
-msgstr "画像"
-
-#: /default/drawers.kupu:None /silva/toolboxes.kupu:None
-msgid "table"
-msgstr "表"
-
-#: /default/save.kupu:None
-msgid "save: alt-s"
-msgstr "保存: alt-s"
-
-#: /default/sourceedit.kupu:None
-msgid "toggle_source_view"
-msgstr "HTML コードを編集"
-
-#: /default/spellchecker.kupu:None
-msgid "check spelling"
-msgstr "スペルチェックを実施します"
-
-#: /default/toolbar.kupu:None
-msgid "zoom: alt-x"
-msgstr "ズーム: alt-x"
-
-# Default: "1"
-#: /default/toolbar.kupu:None
-msgid "list-decimal"
-msgstr "1(整数)"
-
-# Default: "A"
-#: /default/toolbar.kupu:None
-msgid "list-upperalpha"
-msgstr "A(大文字アルファベット)"
-
-#: /default/toolbar.kupu:None
-msgid "Heading 1"
-msgstr "見出し1"
-
-#: /default/toolbar.kupu:None
-msgid "Superscript: Access key (Alt or Ctrl) + +"
-msgstr "上付き文字:キー操作(AltまたはCtrl)+-"
-
-# Default: "&#9675;"
-#: /default/toolbar.kupu:None
-msgid "list-circle"
-msgstr "&#9675;"
-
-#: /default/toolbar.kupu:None
-msgid "Bold: Access key (Alt or Ctrl) + B"
-msgstr "太字:キー操作(AltまたはCtrl)+B"
-
-#: /default/toolbar.kupu:None
+#. Default: "Formatted"
+#: default\toolbar.kupu
 msgid "Formatted"
 msgstr "枠で囲む"
 
-# Default: "a"
-#: /default/toolbar.kupu:None
-msgid "list-loweralpha"
-msgstr "a(小文字アルファベット)"
+#. Default: "Grid"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Grid"
+msgstr "グリッド表示"
 
-# Default: "no bullet"
-#: /default/toolbar.kupu:None
-msgid "list-nobullet"
-msgstr "（なし）"
+#. Default: "Heading 1"
+#: default\toolbar.kupu
+msgid "Heading 1"
+msgstr "見出し1"
 
-# Default: "i"
-#: /default/toolbar.kupu:None
-msgid "list-lowerroman"
-msgstr "i(小文字ローマ数字)"
-
-#: /default/toolbar.kupu:None
-msgid "Kupu SVN/unreleased"
-msgstr "Kupu SVN/unreleased"
-
-#: /default/toolbar.kupu:None
-msgid "Remove image"
-msgstr "画像を削除"
-
-#: /default/toolbar.kupu:None
-msgid "Undo: Access key (Alt or Ctrl) + Z"
-msgstr "取り消し:キー操作(AltまたはCtrl)+Z"
-
-# Default: "&#9679;"
-#: /default/toolbar.kupu:None
-msgid "list-disc"
-msgstr "&#9679;"
-
-#: /default/toolbar.kupu:None
-msgid "Definition list: Access key (Alt or Ctrl) + ="
-msgstr "定義リスト:キー操作(AltまたはCtrl)+="
-
-#: /default/toolbar.kupu:None
-msgid "indent: alt->"
-msgstr "インデント: alt->"
-
-#: /default/toolbar.kupu:None
-msgid "Remove link"
-msgstr "リンクを削除"
-
-#: /default/toolbar.kupu:None
-msgid "Normal"
-msgstr "本文"
-
-#: /default/toolbar.kupu:None
-msgid "Left justify: Access key (Alt or Ctrl) + L"
-msgstr "左寄せ:キー操作(AltまたはCtrl)+L"
-
-#: /default/toolbar.kupu:None
-msgid "Right justify: Access key (Alt or Ctrl) + R"
-msgstr "右寄せ:キー操作(AltまたはCtrl)+R"
-
-#: /default/toolbar.kupu:None
-msgid "outdent: alt-<"
-msgstr "アウトデント: alt<"
-
-# Default: "&#9632;"
-#: /default/toolbar.kupu:None
-msgid "list-square"
-msgstr "&#9632;"
-
-#: /default/toolbar.kupu:None
-msgid "underline: alt-u"
-msgstr "下線: alt-u"
-
-#: /default/toolbar.kupu:None
-msgid "Redo: Access key (Alt or Ctrl) + Y"
-msgstr "やり直し:キー操作(AltまたはCtrl)+Y"
-
-#: /default/toolbar.kupu:None
-msgid "Subscript: Access key (Alt or Ctrl) + -"
-msgstr "下付き文字:キー操作(AltまたはCtrl)+-"
-
-#: /default/toolbar.kupu:None
-msgid "Center justify: Access key (Alt or Ctrl) + C"
-msgstr "中央揃え:キー操作(AltまたはCtrl)+C"
-
-#: /default/toolbar.kupu:None
-msgid "Unordered list: Access key (Alt or Ctrl) + *"
-msgstr "箇条書き:キー操作(AltまたはCtrl)+*"
-
-#: /default/toolbar.kupu:None
-msgid "Heading 3"
-msgstr "見出し3"
-
-#: /default/toolbar.kupu:None
+#. Default: "Heading 2"
+#: default\toolbar.kupu
 msgid "Heading 2"
 msgstr "見出し2"
 
-#: /default/toolbar.kupu:None
-msgid "Heading 6"
-msgstr "見出し6"
+#. Default: "Heading 3"
+#: default\toolbar.kupu
+msgid "Heading 3"
+msgstr "見出し3"
 
-#: /default/toolbar.kupu:None
-msgid "Heading 5"
-msgstr "見出し5"
-
-#: /default/toolbar.kupu:None
+#. Default: "Heading 4"
+#: default\toolbar.kupu
 msgid "Heading 4"
 msgstr "見出し4"
 
-#: /default/toolbar.kupu:None
-msgid "Numbered list: Access key (Alt or Ctrl) + #"
-msgstr "数字箇条書き:キー操作(AltまたはCtrl)+#"
-
-#: /default/toolbar.kupu:None
-msgid "Italic: Access key (Alt or Ctrl) + I"
-msgstr "斜体:キー操作(AltまたはCtrl)+I"
-
-# Default: "I"
-#: /default/toolbar.kupu:None
-msgid "list-upperroman"
-msgstr "I(大文字ローマ数字)"
-
-#: /default/toolboxes.kupu:None
-#msgid "Headings:"
-msgid "Heading:"
-msgstr "見出し"
-
-#: /default/toolboxes.kupu:None
-msgid "Fix"
-msgstr "修正"
-
-#: /default/toolboxes.kupu:None
-msgid "Remove Column"
-msgstr "列を削除"
-
-#: /default/toolboxes.kupu:None
-msgid "Select a cleanup action:"
-msgstr "整理の内容の選択:"
-
-#: /default/toolboxes.kupu:None
-msgid "Links"
-msgstr "リンク"
-
-#: /default/toolboxes.kupu:None
-msgid "Rows:"
-msgstr "行"
-
-#: /default/toolboxes.kupu:None
-msgid "Remove Row"
-msgstr "行を削除"
-
-#: /default/toolboxes.kupu:None
-msgid "Tables"
-msgstr "表"
-
-#: /default/toolboxes.kupu:None
-msgid "Create"
-msgstr "作成"
-
-#: /default/toolboxes.kupu:None
-msgid "Insert image at the following URL:"
-msgstr "後記のURLの画像を追加する:"
-
-#: /default/toolboxes.kupu:None
-msgid "Title:"
-msgstr "タイトル"
-
-#: /default/toolboxes.kupu:None
-msgid "Description:"
-msgstr "解説"
-
-#: /default/toolboxes.kupu:None
-msgid "Image class:"
-msgstr "画像クラス:"
-
-#: /default/toolboxes.kupu:None
-msgid "Add Column"
-msgstr "列を追加"
-
-#: /default/toolboxes.kupu:None
-msgid "Fix Table"
-msgstr "表を修正"
-
-#: /default/toolboxes.kupu:None
-msgid "Images"
-msgstr "画像"
-
-#: /default/toolboxes.kupu:None
-msgid "Insert Image"
-msgstr "画像を追加"
-
-#: /default/toolboxes.kupu:None
-msgid "Inline"
-msgstr "整列"
-
-#: /default/toolboxes.kupu:None
-msgid "Add Table"
-msgstr "表を追加"
-
-#: /default/toolboxes.kupu:None
-msgid "Add Row"
-msgstr "行を追加"
-
-#: /default/toolboxes.kupu:None
-msgid "Properties"
-msgstr "プロパティ"
-
-#: /default/toolboxes.kupu:None
-msgid "Col Align:"
-msgstr "列整列:"
-
-#: /default/toolboxes.kupu:None
-msgid "Center"
-msgstr "中央"
-
-#: /default/toolboxes.kupu:None
-msgid "Debug Log"
-msgstr "デバッグログ"
-
-#: /default/toolboxes.kupu:None
-msgid "Make Link"
-msgstr "リンクを作る"
-
-#: /default/toolboxes.kupu:None
-msgid "Cleanup expressions"
-msgstr "表現を掃除"
-
-#: /default/toolboxes.kupu:None
-msgid "Columns:"
-msgstr "列:"
-
-#: /default/toolboxes.kupu:None
-msgid "Table Class:"
-msgstr "表クラス:"
-
-#: /default/toolboxes.kupu:None
-msgid "Right"
-msgstr "右"
-
-#: /default/toolboxes.kupu:None
-msgid "Left"
-msgstr "左"
-
-#: /silva/drawers.kupu:None
-msgid "Insert image"
-msgstr "画像を挿入"
-
-#: /silva/drawers.kupu:None
-msgid "Insert link"
-msgstr "リンクを挿入"
-
-#: /silva/toolboxes.kupu:None
-msgid "typographical characters"
-msgstr "絵文字"
-
-#: /silva/toolboxes.kupu:None
-msgid "external source"
-msgstr "外部ソース"
-
-#: /silva/toolboxes.kupu:None
-msgid "abbreviations and acronyms"
-msgstr "省略型及び略称"
-
-#: /silva/toolboxes.kupu:None
-msgid "save"
-msgstr "保存"
-
-#: /silva/toolboxes.kupu:None
-msgid "index item"
-msgstr "インデックスされたアイテム"
-
-#: /silva/toolboxes.kupu:None
-msgid "properties"
-msgstr "プロパティ"
-
-#: /silva/toolboxes.kupu:None
-msgid "non-standard characters"
-msgstr "標準から外れた文字"
-
-#: /silva/toolboxes.kupu:None
-msgid "link"
-msgstr "リンク"
-
-#: /silva/toolboxes.kupu:None
-msgid "citation"
-msgstr "参照"
-
-#: /silva/toolboxes.kupu:None
-msgid "cleanup"
-msgstr "クリーンアップ"
-
-#: /silva/toolboxes.kupu:None
-#msgid "table of contents"
-msgid "Table of contents"
-msgstr "目次"
-
-#: /silva/xmlconfig.kupu:None
-msgid "Convert single quotes to curly ones"
-msgstr "シングルクォーテーションの変換"
-
-#: /silva/xmlconfig.kupu:None
-msgid "Reduce whitespace in source"
-msgstr "ソース内の不要なスペースを圧縮"
-
-#: /silva/xmlconfig.kupu:None
-msgid "Convert double dashes to m-dashes"
-msgstr "ダッシュをm-ダッシュに変換"
-
-#: /silva/xmlconfig.kupu:None
-msgid "Convert single dashes to n-dashes"
-msgstr "ダッシュをn-ダッシュに変換"
-
-#: /silva/xmlconfig.kupu:None
-msgid "Convert double quotes to curly ones"
-msgstr "ダブルクォーテーションの変換"
-
-#: /widgeteer/browser.kupu:None
-msgid "link: alt-a"
-msgstr "リンク：alt-a"
-
-#: /widgeteer/browser.kupu:None
-msgid "image: alt-m"
-msgstr "画像：alt-m"
-
-#~ msgid "Home"
-#~ msgstr "ホーム"
-
-#~ msgid "Current Folder"
-#~ msgstr "現在のフォルダ"
-
-#~ msgid "My Recent Items"
-#~ msgstr "私の最近のアイテム"
-
-#~ msgid "Recent Items"
-#~ msgstr "最近のアイテム"
-
-#~ msgid "plain"
-#~ msgstr "白枠線(データ部沈み込み）表"
-
-#~ msgid "listing"
-#~ msgstr "標準的な表"
-
-#~ msgid "grid"
-#~ msgstr "グリッド"
-
-#~ msgid "data"
-#~ msgstr "データ"
-
-
-# 以下Sprintでの追加
-#: /default/toolbar.kupu:None
-msgid "Decrease quote level: Access key (Alt or Ctrl) + &lt;"
-msgstr "アンインデント:キー操作(AltまたはCtrl)+&lt;"
-
-#: /default/toolbar.kupu:None
-msgid "Increase quote level: Access key (Alt or Ctrl) + &gt;"
-msgstr "インデント:キー操作(AltまたはCtrl)+&gt;"
-
-#: /default/toolbar.kupu:None
-msgid "Insert internal link"
-msgstr "内部リンクを作成"
-
-#: /default/toolbar.kupu:None
-msgid "Insert external link"
-msgstr "外部リンクを作成"
-
-#: /default/toolbar.kupu:None
-msgid "Insert anchors"
-msgstr "ページ内リンクを作成"
-
-#: /default/toolbar.kupu:None
-msgid "Insert table"
-msgstr "表の作成"
-
-#: /default/toolbar.kupu:None
-msgid "Check spelling"
-msgstr "スペルチェック"
-
-#: /default/toolbar.kupu:None
-msgid "Switch between visual editor and HTML view"
-msgstr "リッチテキスト編集とHTML編集の切り替え"
-
-#: /default/toolbar.kupu:None
-msgid "Heading"
-msgstr "見出し"
-
-#: /default/toolbar.kupu:None
-msgid "Subheading"
-msgstr "小見出し"
-
-#: /default/toolbar.kupu:None
-msgid "Literal"
-msgstr "整形済み"
-
-#: /default/toolbar.kupu:None
-msgid "Discreet"
-msgstr "控えめ"
-
-#: /default/toolbar.kupu:None
-msgid "Pull-quote"
-msgstr "引用"
-
-#: /default/toolbar.kupu:None
-msgid "Call-out"
-msgstr "強調"
+#. Default: "Heading 5"
+#: default\toolbar.kupu
+msgid "Heading 5"
+msgstr "見出し5"
+
+#. Default: "Heading 6"
+#: default\toolbar.kupu
+msgid "Heading 6"
+msgstr "見出し6"
+
+#. Default: "Listing"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Listing"
+msgstr "リスト表示"
+
+#. Default: "Normal"
+#: default\drawers.kupu
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+msgid "Normal"
+msgstr "本文"
+
+#. Default: "Plain"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "Plain"
+msgstr "プレーン"
 
 ##: /default/toolbar.kupu:None
-#msgid "(remove style)"
-#msgstr "スタイルなし"
-
-#: /default/toolbar.kupu:None
-msgid "Highlight"
-msgstr "ハイライト"
-
-##: /default/toolbar.kupu:None
-#msgid "Character styles"
-#msgstr "テキストスタイル"
-
-#: /common/kupudrawers/drawer.xsl:None
+# msgid "Character styles"
+# msgstr "テキストスタイル"
+#. Default: "Anchors"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
 msgid "anchordrawer_title"
 msgstr "ページ内リンク"
 
-#: /common/kupudrawers/drawer.xsl:None
-msgid "Link to anchor"
-msgstr "ページ内リンク"
+#. Default: "Add Column"
+#: default\toolboxes.kupu
+msgid "button_add_column"
+msgstr ""
 
-#: /common/kupudrawers/drawer.xsl:None
-msgid "toggle all"
-msgstr "全てを選択/非選択"
+#. Default: "Add Row"
+#: default\toolboxes.kupu
+msgid "button_add_row"
+msgstr ""
 
-#: /common/kupudrawers/drawer.xsl:None
-msgid "Numbering"
-msgstr "番号をつける"
+#. Default: "Add Table"
+#: default\toolboxes.kupu
+msgid "button_add_table"
+msgstr ""
+
+#. Default: "Cancel"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_cancel"
+msgstr ""
+
+#. Default: "Fix Table"
+#: default\toolboxes.kupu
+msgid "button_fix_table"
+msgstr ""
+
+#. Default: "Insert Image"
+#: default\toolboxes.kupu
+msgid "button_insert_image"
+msgstr ""
+
+#. Default: "Make Link"
+#: default\toolboxes.kupu
+msgid "button_makelink"
+msgstr ""
+
+#. Default: "Ok"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_ok"
+msgstr ""
+
+#. Default: "Preview"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "button_preview"
+msgstr ""
+
+#. Default: "Remove Column"
+#: default\toolboxes.kupu
+msgid "button_remove_column"
+msgstr ""
+
+#. Default: "Remove Row"
+#: default\toolboxes.kupu
+msgid "button_remove_row"
+msgstr ""
+
+#. Default: "Remove Table"
+#: default\toolboxes.kupu
+msgid "button_remove_table"
+msgstr ""
+
+#. Default: "Convert to HTML and edit with the visual editor"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "convert-to-kupu"
+msgstr ""
+
+#. Default: "Anchors are created for checked paragraphs and removed for unchecked paragraphs when you press Ok. Anchors in use on this page may not be deleted."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_anchor_help"
+msgstr ""
+
+#. Default: "Select a paragraph style then choose a paragraph and Ok to insert a link to that location."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_anchor_link_help"
+msgstr ""
+
+#. Default: "Select one or two paragraph styles, then Ok to insert a table of contents."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "create_toc_help"
+msgstr ""
+
+#. Default: "You may use this box to insert custom snippets of HTML code. There is no guarantee that any code inserted in this way will be preserved when you save your edits. To select an existing object from IE click on the border, from Firefox double click it."
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "custom_html_help"
+msgstr ""
+
+#. Default: "My recently edited items."
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+msgid "descr_myitems"
+msgstr ""
+
+#. Default: "Recently published items."
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+msgid "descr_recentitems"
+msgstr ""
+
+#. Default: "Search results."
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "descr_search_results"
+msgstr ""
+
+#. Default: "Current selection."
+#: plone\kupu_plone_layer\kupuselection.xml.pt
+msgid "descr_selected"
+msgstr ""
+
+#. Default: "Edit with visual editor"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "force-kupu"
+msgstr ""
+
+#. Default: "HTML"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "format_html"
+msgstr ""
+
+#. Default: "My Items"
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+msgid "heading_myitems"
+msgstr ""
+
+#. Default: "Recent Items"
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+msgid "heading_recentitems"
+msgstr ""
+
+#. Default: "Search Results"
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "heading_search_results"
+msgstr ""
+
+#. Default: "Selected"
+#: plone\kupu_plone_layer\kupuselection.xml.pt
+msgid "heading_selected"
+msgstr ""
+
+#. Default: "If you are unsure of which format to use, just select Plain Text and type the document as you usually do."
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "help_format"
+msgstr ""
+
+#. Default: "Paste &lt;object&gt; or &lt;embed&gt; tag here:"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "help_paste_here"
+msgstr ""
+
+#. Default: "Anchor"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_anchor"
+msgstr ""
+
+#. Default: "Col Align:"
+#: default\toolboxes.kupu
+msgid "label_col_align"
+msgstr ""
+
+#. Default: "Columns:"
+#: default\toolboxes.kupu
+msgid "label_columns"
+msgstr ""
+
+#. Default: "Create"
+#: default\toolboxes.kupu
+msgid "label_create"
+msgstr ""
+
+#. Default: "Description:"
+#: default\toolboxes.kupu
+msgid "label_description"
+msgstr ""
+
+#. Default: "Format"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_format"
+msgstr ""
+
+#. Default: "Headings:"
+#: default\toolboxes.kupu
+msgid "label_headings"
+msgstr ""
+
+#. Default: "Image class:"
+#: default\toolboxes.kupu
+msgid "label_image_class"
+msgstr ""
+
+#. Default: "Insert image at the following URL:"
+#: default\toolboxes.kupu
+msgid "label_insert_image_url"
+msgstr ""
+
+#. Default: "Link the highlighted text to this URL:"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_link_text"
+msgstr ""
+
+#. Default: "Links"
+#: default\toolboxes.kupu
+msgid "label_links"
+msgstr ""
+
+#. Default: "Numbering"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_numbering"
+msgstr ""
+
+#. Default: "Rows:"
+#: default\toolboxes.kupu
+msgid "label_rows"
+msgstr ""
+
+#. Default: "Select a cleanup action:"
+#: default\toolboxes.kupu
+msgid "label_select_cleanup"
+msgstr ""
+
+#. Default: "Table Class:"
+#: default\toolboxes.kupu
+msgid "label_table_class"
+msgstr ""
+
+#. Default: "Table style"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_table_style"
+msgstr ""
+
+#. Default: "Title:"
+#: default\toolboxes.kupu
+msgid "label_title"
+msgstr ""
+
+#. Default: "toggle all"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "label_toggle_all"
+msgstr ""
+
+#. Default: "○"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-circle"
+msgstr "&#9675;"
+
+#. Default: "1"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-decimal"
+msgstr "1(整数)"
+
+#. Default: "●"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-disc"
+msgstr "&#9679;"
+
+#. Default: "a"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-loweralpha"
+msgstr "a(小文字アルファベット)"
+
+#. Default: "i"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-lowerroman"
+msgstr "i(小文字ローマ数字)"
+
+#. Default: "no bullet"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-nobullet"
+msgstr "（なし）"
+
+#. Default: "■"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+#, fuzzy
+msgid "list-square"
+msgstr "&#9632;"
+
+#. Default: "A"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-upperalpha"
+msgstr "A(大文字アルファベット)"
+
+#. Default: "I"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "list-upperroman"
+msgstr "I(大文字ローマ数字)"
+
+#. Default: "Locate"
+#: plone\kupu_plone_layer\kupumyitems.xml.pt
+#: plone\kupu_plone_layer\kupurecentitems.xml.pt
+#: plone\kupu_plone_layer\kupusearch.xml.pt
+msgid "locate_content"
+msgstr ""
+
+#. Default: "(optional 2nd style)"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "opt_2nd_style"
+msgstr ""
+
+#. Default: "Inline"
+#: default\toolboxes.kupu
+msgid "opt_inline"
+msgstr ""
+
+#. Default: "Left"
+#: default\toolboxes.kupu
+msgid "opt_left"
+msgstr ""
+
+#. Default: "Right"
+#: default\toolboxes.kupu
+msgid "opt_right"
+msgstr ""
+
+#. Default: "top of page (default)"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "opt_top_of_page"
+msgstr ""
+
+#. Default: "Perform action"
+#: default\toolboxes.kupu
+msgid "perform_action"
+msgstr ""
+
+#. Default: "[insert arbitrary HTML code here]"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "placeholder_html_code"
+msgstr ""
+
+#. Default: "Plain Text"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "plain_text"
+msgstr ""
+
+#. Default: "Structured Text"
+#: plone\wysiwyg_support.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "structured_text"
+msgstr ""
+
+#. Default: "Edit without visual editor"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "suppress-kupu"
+msgstr ""
+
+#. Default: "Embed external object"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_embed"
+msgstr ""
+
+#. Default: "Link to url"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_link"
+msgstr ""
+
+#. Default: "Link to anchor"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_link_anchor"
+msgstr ""
+
+#. Default: "Manage Anchors"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_manage_anchors"
+msgstr ""
+
+#. Default: "Table of contents"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tab_toc"
+msgstr ""
+
+#. Default: "Add"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_add_button"
+msgstr "追加"
+
+#. Default: "Add Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_add_table_button"
+msgstr "表を追加"
+
+#. Default: "Current column alignment"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_alignment_label"
+msgstr "現在の列を整列"
+
+#. Default: "Center"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_center_option"
+msgstr "中央"
+
+#. Default: "Table Class"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_class_label"
+msgstr "表の枠線の種類"
+
+#. Default: "Close"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_close_button"
+msgstr "閉じる"
+
+#. Default: "Column"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_column_label"
+msgstr "列"
+
+#. Default: "Columns"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_columns_label"
+msgstr "列"
+
+#. Default: "Fix"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_fix_button"
+msgstr "調整"
+
+#. Default: "Fix All Tables"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_fix_tables_button"
+msgstr "全ての表を調整"
+
+#. Default: "Create Headings"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_headings_label"
+msgstr "列見出しを付ける"
+
+#. Default: "Left"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_left_option"
+msgstr "左"
+
+#. Default: "Remove"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_remove_button"
+msgstr "削除"
+
+#. Default: "Right"
+#: default\drawers.kupu
+#: default\toolboxes.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_right_option"
+msgstr "右"
+
+#. Default: "Row"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_row_label"
+msgstr "行"
+
+#. Default: "Rows"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_rows_label"
+msgstr "行"
+
+#. Default: "Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_table_label"
+msgstr ""
+
+#. Default: "Table"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "tabledrawer_title"
+msgstr "表"
+
+#. Default: "Kupu Editor Test Page"
+#: default\body.kupu
+msgid "testpage_title"
+msgstr ""
+
+#. Default: "background color: alt-h"
+#: default\colorchooser.kupu
+#: plone\colorchooser.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_back_color"
+msgstr ""
+
+#. Default: "Bold: Access key (Alt or Ctrl) + B"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_bold"
+msgstr ""
+
+#. Default: "Center justify: Access key (Alt or Ctrl) + C"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_center"
+msgstr ""
+
+#. Default: "Check spelling"
+#: default\spellchecker.kupu
+msgid "title_check_spelling"
+msgstr ""
+
+#. Default: "Cleanup expressions"
+#: default\toolboxes.kupu
+msgid "title_cleanup_expressions"
+msgstr ""
+
+#. Default: "Debug Log"
+#: default\toolboxes.kupu
+msgid "title_debug_log"
+msgstr ""
+
+#. Default: "Decrease quote level: Access key (Alt or Ctrl) + <"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_decrease_quote"
+msgstr ""
+
+#. Default: "Definition list: Access key (Alt or Ctrl) + ="
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_deflist"
+msgstr ""
+
+#. Default: "External Link"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_external_link"
+msgstr ""
+
+#. Default: "reload current page using kupu to edit this field"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_force_kupu"
+msgstr ""
+
+#. Default: "Images"
+#: default\toolboxes.kupu
+msgid "title_images"
+msgstr ""
+
+#. Default: "Increase quote level: Access key (Alt or Ctrl) + >"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_increase_quote"
+msgstr ""
+
+#. Default: "Insert anchors"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_anchors"
+msgstr ""
+
+#. Default: "Insert external link"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_external_link"
+msgstr ""
+
+#. Default: "Insert image"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_image"
+msgstr ""
+
+#. Default: "Insert internal link"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_internal_link"
+msgstr ""
+
+#. Default: "Insert table"
+#: default\drawers.kupu
+#: plone\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_insert_table"
+msgstr ""
+
+#. Default: "Italic: Access key (Alt or Ctrl) + I"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_italic"
+msgstr ""
+
+#. Default: "Left justify: Access key (Alt or Ctrl) + L"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_ljust"
+msgstr ""
+
+#. Default: "Kupu 1.4"
+#: default\toolbar.kupu
+msgid "title_logo"
+msgstr ""
+
+#. Default: "Numbered list: Access key (Alt or Ctrl) + #"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_numlist"
+msgstr ""
+
+#. Default: "Properties"
+#: default\toolboxes.kupu
+msgid "title_properties"
+msgstr ""
+
+#. Default: "Redo: Access key (Alt or Ctrl) + Y"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_redo"
+msgstr ""
+
+#. Default: "Remove image"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_removeimage"
+msgstr ""
+
+#. Default: "Remove link"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_removelink"
+msgstr ""
+
+#. Default: "Right justify: Access key (Alt or Ctrl) + R"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_rjust"
+msgstr ""
+
+#. Default: "Save"
+#: plone\save.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_save"
+msgstr ""
+
+#. Default: "save: alt-s"
+#: default\save.kupu
+msgid "title_save_alts"
+msgstr ""
+
+#. Default: "Check spelling"
+#: plone\spellchecker.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_spelling"
+msgstr ""
+
+#. Default: "Subscript: Access key (Alt or Ctrl) + -"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_subscript"
+msgstr ""
+
+#. Default: "Superscript: Access key (Alt or Ctrl) + +"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_superscript"
+msgstr ""
+
+#. Default: "reload current page without kupu"
+#: plone\body.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_suppress_kupu"
+msgstr ""
+
+#. Default: "Tables"
+#: default\toolboxes.kupu
+msgid "title_tables"
+msgstr ""
+
+#. Default: "text color: alt-f"
+#: default\colorchooser.kupu
+#: plone\colorchooser.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_text_color"
+msgstr ""
+
+#. Default: "Underline: Access key (Alt or Ctrl) + U"
+#: default\toolbar.kupu
+msgid "title_underline"
+msgstr ""
+
+#. Default: "Undo: Access key (Alt or Ctrl) + Z"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_undo"
+msgstr ""
+
+#. Default: "Unordered list: Access key (Alt or Ctrl) + *"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_unorderedlist"
+msgstr ""
+
+#. Default: "Zoom: Access key (Alt or Ctrl) + X"
+#: default\toolbar.kupu
+#: plone\toolbar.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "title_zoom"
+msgstr ""
+
+#. Default: "Switch between visual editor and HTML view"
+#: default\sourceedit.kupu
+#: plone\sourceedit.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "toggle_source_view"
+msgstr "HTML コードを編集"
+
+#. Default: "Preview"
+#: default\drawers.kupu
+#: plone\kupu_plone_layer\kupu_wysiwyg_support.html
+msgid "watermark_preview"
+msgstr ""
+
