@@ -7,19 +7,20 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n_domain="plone"
+    i18n:domain="kupu"
     tal:define="kupu context/kupu_library_tool;">
-  <uri tal:content="template/absolute_url">URI</uri>
-  <icon tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
-  <title i18n_translate="box_recentitems">Recent Items</title>
-  <description>Recently published items.</description>
+  <uri tal:content="template/absolute_url" />
+  <icon
+       tal:content="string:${here/portal_url}/kupuimages/kupusearch_icon.gif" />
+  <title i18n:translate="heading_recentitems">Recent Items</title>
+  <description i18n:translate="descr_recentitems">Recently published items.</description>
   <src tal:define="url string:${context/absolute_url}/${template/getId};"
-       tal:content="python:kupu.kupuUrl(url)">Source</src>
+       tal:content="python:kupu.kupuUrl(url)" />
 
   <breadcrumbs class="kupu-locate">
     <crumb tal:define="locator here/kupulocate.xml/absolute_url;
                        url python:kupu.kupuUrl(locator);"
-      tal:attributes="href string:$url&src=$$src$$" i18n:translate="locate_content">
+      tal:attributes="href string:$url&amp;src=$$src$$" i18n:translate="locate_content">
       Locate
     </crumb>
   </breadcrumbs>

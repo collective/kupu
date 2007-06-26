@@ -24,7 +24,7 @@ xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
 
     <div class="documentContent" metal:fill-slot="kupu_content">
       <metal:call use-macro="portal/portal_skins/kupu_references/referencebrowser/macros/kupudrawer" />
-      <div id="target" i18n:translate="">
+      <div id="target" i18n:translate="loading_links_tab">
         Loading kupu link maintenance...
       </div>
       <div id="start" kj:nexturi="kupu_migration.xml"></div>

@@ -131,11 +131,17 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                             </table>
                         </div>
                         <div class="kupu-dialogbuttons">
-                            <button type="button" class="kupu-dialog-button" i18n:translate=""
+                            <button type="button"
+                                    class="kupu-dialog-button"
+                                    i18n:translate="button_ok"
                                 onclick="drawertool.current_drawer.save();">Ok</button>
-                            <button type="button" class="kupu-dialog-button" i18n:translate=""
+                            <button type="button"
+                                    class="kupu-dialog-button"
+                                    i18n:translate="button_cancel"
                                 onclick="drawertool.closeDrawer();">Cancel</button>
-                            <button type="button" class="kupu-dialog-button" i18n:translate=""
+                            <button type="button"
+                                    class="kupu-dialog-button"
+                                    i18n:translate="button_reload"
                                 onclick="drawertool.current_drawer.reloadCurrent();">Reload</button>
                         </div>
                     </div>

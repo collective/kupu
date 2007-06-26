@@ -323,7 +323,7 @@
                             type="submit"
                             name="configure_kupu:method"
                             value="Save"
-                            i18n:attributes="value"
+                            i18n:attributes="value button_save;"
                             />
                   </form>
                </div>

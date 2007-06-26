@@ -11,7 +11,7 @@
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-exit" 
         id="kupu-exit-button" title="exit: alt-e" 
-        i18n:attributes="title" accesskey="e"> &#160;</button>
+        i18n:attributes="title title_exit;" accesskey="e"> &#160;</button>
     </span>
   </kupu:part>
 

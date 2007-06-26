@@ -57,14 +57,15 @@ i18n:domain="kupuconfig">
           <table class="listing nosort">
             <thead>
               <th></th>
-              <th i18n:translate="id_heading">Id</th>
-              <th i18n:translate="title_heading">Title</th>
-              <th i18n:translate="visible_heading">Visible<br/>
-                <input title="Select all items" i18n:attributes="title"
-                 onclick="toggleSelect(this, 'filters.visible:records:int', true);"
-                 type="checkbox" checked="checked" />
+              <th i18n:translate="heading_id">ID</th>
+              <th i18n:translate="heading_title">Title</th>
+              <th i18n:translate="heading_visible">Visible<br/>
+                <input title="Select all items"
+                       i18n:attributes="title check_select_all;"
+                       onclick="toggleSelect(this, 'filters.visible:records:int', true);"
+                       type="checkbox" checked="checked" />
               </th>
-              <th i18n:translate="expression_heading">Expression</th>
+              <th i18n:translate="heading_expression">Expression</th>
             </thead>
             <tbody class="kupu-tb-buttons">
               <tr tal:repeat="opt context/getFilterOptions" style="height:28px">
@@ -93,7 +94,7 @@ i18n:domain="kupuconfig">
                type="submit"
                name="set_toolbar_filters:method"
                value="Save"
-               i18n:attributes="value"
+               i18n:attributes="value button_save;"
                />
       </form>
     </div>

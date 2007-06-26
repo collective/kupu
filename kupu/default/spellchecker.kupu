@@ -18,7 +18,7 @@
               class="kupu-spellchecker"
               id="kupu-spellchecker-button"
               title="Check spelling"
-              i18n:attributes="title"
+              i18n:attributes="title title_check_spelling;"
               >&#160;</button>
     </span>
   </kupu:part>

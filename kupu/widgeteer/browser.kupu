@@ -13,10 +13,10 @@
     <span class="kupu-tb-buttongroup" id="kupu-bg-browser">
       <button type="button" class="kupu-image" id="kupu-image-button" 
                 title="image: alt-m"
-                i18n:attributes="title" accesskey="m">&#160;</button>
+                i18n:attributes="title title_image;" accesskey="m">&#160;</button>
       <button type="button" class="kupu-inthyperlink" id="kupu-intlink-button" 
                 title="link: alt-a"
-                i18n:attributes="title" accesskey="a">&#160;</button>
+                i18n:attributes="title title_link;" accesskey="a">&#160;</button>
     </span>
   </kupu:part>
 
