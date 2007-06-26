@@ -45,22 +45,17 @@
         <tal:block tal:condition="not:field/multiValued"
                tal:define="ref python:refs[0];
                            obj ref/getTargetObject">
-
             <a href="#"
                tal:attributes="href obj/absolute_url;
                                class python:obj.portal_type.replace(' ', '_')"
-               tal:content="python:obj.Title() or obj.absolute_url(relative=1)">
-              Sole target object's title
-            </a>
+               tal:content="python:obj.Title() or obj.absolute_url(relative=1)"
+               />
 
             <a href="#"
                tal:condition="python:portal.portal_interface.objectImplements(ref,'Products.Archetypes.interfaces.referenceengine.IContentReference')"
                tal:attributes="href python:ref.getContentObject().absolute_url();
                                class python:obj.portal_type.replace(' ', '_')"
-               tal:content="field/relationship">
-              reference object link
-            </a>
-
+               tal:content="field/relationship" />
         </tal:block>
 
         <ul tal:condition="field/multiValued">
@@ -69,17 +64,14 @@
                 <a href="#"
                    tal:attributes="href obj/absolute_url;
                                    class python:obj.portal_type.replace(' ', '_')"
-                   tal:content="python:obj.Title() or obj.absolute_url(relative=1)">
-                  Target Title
-                </a>
+                   tal:content="python:obj.Title() or obj.absolute_url(relative=1)"
+                   />
 
                 <a href="#"
                    tal:condition="python:portal.portal_interface.objectImplements(ref,'Products.Archetypes.interfaces.referenceengine.IContentReference')"
                    tal:attributes="href python:ref.getContentObject().absolute_url();
                                    class python:obj.portal_type.replace(' ', '_')"
-                   tal:content="field/relationship">
-                  reference object link
-                </a>
+                   tal:content="field/relationship" />
              </tal:block>
           </li>
         </ul>
@@ -133,7 +125,7 @@
            <img tal:attributes="src i/preview; title i/title;"
                         onload="kupuFixImage(this);" width="1" height="1"/>
          </div>
-         <h1 class="kupu-title-row" tal:content="i/title">Item heading</h1>
+         <h1 class="kupu-title-row" tal:content="i/title" />
          <div class="kupu-description-row" tal:content="structure i/description" tal:condition="i/description"></div>
          <div style="clear:both;line-height:1px;">&nbsp;</div>
        </a>
@@ -212,9 +204,8 @@
                         <option value=""
                                      selected="selected"
                                     tal:attributes="value python:set[1];"
-                                    tal:content="python:set[0].title_or_id()">
-                            option
-                        </option>
+                                    tal:content="python:set[0].title_or_id()"
+                                />
                   </tal:block>
                 </select>
           </tal:multi>

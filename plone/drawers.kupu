@@ -5,6 +5,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
+    i18n:domain="kupu"
     >
     <kupu:id>$Id$</kupu:id>
 
@@ -19,26 +20,26 @@
       <button type="button" class="kupu-image"
               tal:condition="filter/imagelibdrawer-button"
               id="kupu-imagelibdrawer-button"
-              title="Insert image" i18n:attributes="title"
+              title="Insert image" i18n:attributes="title title_insert_image;"
         >&#160;</button>
       <button type="button" class="kupu-inthyperlink"
               tal:condition="filter/linklibdrawer-button"
               id="kupu-linklibdrawer-button"
               title="Insert internal link"
-        i18n:attributes="title">&#160;</button>
+        i18n:attributes="title title_insert_internal_link;">&#160;</button>
       <button type="button" class="kupu-exthyperlink"
               tal:condition="filter/linkdrawer-button"
               id="kupu-linkdrawer-button"
               title="Insert external link"
-        i18n:attributes="title">&#160;</button>
+        i18n:attributes="title title_insert_external_link;">&#160;</button>
       <button type="button" class="kupu-anchors"
               tal:condition="filter/anchors-button"
               id="kupu-anchors"
-              title="Insert anchors" i18n:attributes="title">&#160;</button>
+              title="Insert anchors" i18n:attributes="title title_insert_anchors;">&#160;</button>
       <button type="button" class="kupu-table"
               tal:condition="filter/tabledrawer-button"
               id="kupu-tabledrawer-button"
-              title="Insert table" i18n:attributes="title"
+              title="Insert table" i18n:attributes="title title_insert_table;"
         >&#160;</button>
     </span>
   </kupu:part>

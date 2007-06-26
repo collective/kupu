@@ -6,6 +6,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="kupu"
     >
   <kupu:id>$Id$</kupu:id>
 
@@ -69,7 +70,7 @@
                 tal:define="global kupu_convert_message_generated python:True">
            <a href="#"
                 tal:attributes="href python:portal.kupu_library_tool.forcekupu_url(fieldName);"
-                i18n:translate=""
+                i18n:translate="convert-to-kupu"
                 >Convert to HTML and edit with the visual editor</a></span>
     </tal:archetypes>
     <tal:nonat condition="not:fieldName|nothing">
@@ -96,7 +97,7 @@
             id="cb_html"
             tal:attributes="checked python:test(text_format=='html', 1, None);"
             />
-     <label for="cb_html" i18n:translate="html">HTML</label> <br />
+     <label for="cb_html" i18n:translate="format_html">HTML</label> <br />
 
      <input class="noborder"
             type="radio"

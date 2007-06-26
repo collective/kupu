@@ -51,7 +51,8 @@ i18n:domain="kupuconfig">
                         <tr><td colspan="3">&nbsp;</td></tr>
                         <tr tal:condition="repeat/resource/end">
                            <td style="border-right:none;"></td>
-                           <td colspan="2"><em i18n:translate="">use this entry to add a new resource</em>
+                           <td colspan="2"><em
+                           i18n:translate="help_add_resource">use this entry to add a new resource</em>
                            </td></tr>
                         <tr>
                            <td>
@@ -103,11 +104,11 @@ i18n:domain="kupuconfig">
                                       tal:define="newtype python:context.getNewTypeHandler(name)">
                                  <option value="0"
                                          tal:attributes="selected python:test(newtype==0,True,None)"
-                                         i18n:translate="">
-                                         >are not added to selection</option>
+                                         i18n:translate="opt_exclusive">
+                                         are not added to selection</option>
                                  <option value="1"
                                          tal:attributes="selected python:test(newtype==1,True,None)"
-                                         i18n:translate="">are added to selection</option>
+                                         i18n:translate="opt_inclusive">are added to selection</option>
                               </select>
                            </td>
                         </tr>
@@ -117,7 +118,8 @@ i18n:domain="kupuconfig">
                   <tbody>
                      <tr>
                         <td style="border-right:none;"></td>
-                        <td colspan="2"><em i18n:translate="">specify a resource type to be used for reference fields with an empty list of allowed types</em>
+                        <td colspan="2"><em
+                        i18n:translate="default_reference_resource">specify a resource type to be used for reference fields with an empty list of allowed types</em>
                         </td>
                      </tr>
                      <tr>
@@ -136,8 +138,14 @@ i18n:domain="kupuconfig">
                      <tr>
                         <td  style="border-right: none;">&nbsp;</td>
                         <td colspan="2" style="padding-top:0.5em;">
-                           <input class="context" type="submit" name="zmi_update_resource_types:method" value="Save" i18n:attributes="value" />
-                           <input class="context" type="submit" name="zmi_delete_resource_types:method" value="Delete" i18n:attributes="value" />
+                           <input class="context" type="submit"
+                                  name="zmi_update_resource_types:method"
+                                  value="Save"
+                                  i18n:attributes="value button_save;" />
+                           <input class="context" type="submit"
+                                  name="zmi_delete_resource_types:method"
+                                  value="Delete"
+                                  i18n:attributes="value button_delete;" />
                         </td>
                      </tr>
                   </tbody>
@@ -294,8 +302,14 @@ i18n:domain="kupuconfig">
                      <tr>
                         <td style="border-right: none;">&nbsp;</td>
                         <td style="padding-top:0.5em;" colspan="3">
-                           <input class="context" type="submit" name="zmi_update_resource_types:method" value="Save" i18n:attributes="value" />
-                           <input class="context" type="submit" name="zmi_delete_resource_types:method" value="Delete" i18n:attributes="value" />
+                           <input class="context" type="submit"
+                                  name="zmi_update_resource_types:method"
+                                  value="Save"
+                                  i18n:attributes="value button_save;" />
+                           <input class="context" type="submit"
+                                  name="zmi_delete_resource_types:method"
+                                  value="Delete"
+                                  i18n:attributes="value button_delete;" />
                         </td>
                      </tr>
                      <tr>

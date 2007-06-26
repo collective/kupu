@@ -19,14 +19,20 @@
 
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-image" id="kupu-imagelibdrawer-button" title="Insert image" i18n:attributes="title"
+      <button type="button" class="kupu-image"
+              id="kupu-imagelibdrawer-button" title="Insert image"
+              i18n:attributes="title title_insert_image;"
         >&#160;</button>
       <button type="button" class="kupu-inthyperlink" id="kupu-linklibdrawer-button" title="Insert internal link"
-        i18n:attributes="title">&#160;</button>
+        i18n:attributes="title title_insert_internal_link;">&#160;</button>
       <button type="button" class="kupu-exthyperlink" id="kupu-linkdrawer-button" title="Insert external link"
-        i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-anchors" id="kupu-anchors" title="Insert anchors" i18n:attributes="title">&#160;</button>
-      <button type="button" class="kupu-table" id="kupu-tabledrawer-button" title="Insert table" i18n:attributes="title"
+        i18n:attributes="title title_insert_external_link;">&#160;</button>
+      <button type="button" class="kupu-anchors" id="kupu-anchors"
+              title="Insert anchors"
+              i18n:attributes="title title_insert_anchors;">&#160;</button>
+      <button type="button" class="kupu-table"
+              id="kupu-tabledrawer-button" title="Insert table"
+              i18n:attributes="title title_insert_table;"
         >&#160;</button>
     </span>
   </kupu:part>
@@ -44,12 +50,15 @@
 
   <kupu:part name="linkdrawer">
     <div id="kupu-linkdrawer" class="kupu-drawer kupu-linkdrawer">
-      <h1 class="kupu-drawer-title" i18n:translate="">External Link</h1>
+      <h1 class="kupu-drawer-title"
+          i18n:translate="title_external_link">External Link</h1>
 
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
          <ul class="kupu-tabs">
-            <li class="kupu-linkdrawer-addlink selected"><a href="#" i18n:translate="">Link to url</a></li>
-            <li class="kupu-linkdrawer-embed"><a href="#" i18n:translate="">Embed external object</a></li>
+            <li class="kupu-linkdrawer-addlink selected"><a href="#"
+            i18n:translate="tab_link">Link to url</a></li>
+            <li class="kupu-linkdrawer-embed"><a href="#"
+            i18n:translate="tab_embed">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
             <tbody class="kupu-addlink">
@@ -57,7 +66,7 @@
                   <td>
                      <div class="kupu-toolbox-label">
                         <!-- Link to items matching the keyword  -->
-                        <span i18n:translate="">
+                        <span i18n:translate="label_link_text">
                            Link the highlighted text to this URL:
                         </span>
                      </div>
@@ -67,18 +76,19 @@
                   <td class="kupu-preview-button">
                      <button class="kupu-dialog-button"
                              type="button" id="linkdrawer-preview" onclick="drawertool.current_drawer.preview()"
-                             i18n:translate="">Preview</button>
+                             i18n:translate="button_preview">Preview</button>
                   </td>
                </tr>
                <tr class="kupu-linkdrawer-anchors" style="display:none">
                   <td colspan="2">
-                     <label i18n:translate="" for="anchorselect">Anchor</label>
+                     <label i18n:translate="label_anchor" for="anchorselect">Anchor</label>
                      <select id="anchorselect"><option
-                     i18n:translate="" value="">top of page (default)</option></select>
+                     i18n:translate="opt_top_of_page" value="">top of page (default)</option></select>
                   </td>
                </tr>
                <tr><td colspan="2" align="center">
-                  <div class="watermark"><span i18n:translate="">Preview</span></div>
+                  <div class="watermark"><span
+                  i18n:translate="watermark_preview">Preview</span></div>
                   <iframe frameborder="1" scrolling="auto" width="440" height="198"
                           class="kupu-linkdrawer-preview" src="javascript:''">
                   </iframe>
@@ -90,11 +100,13 @@
                   <td>
                      <div class="kupu-toolbox-label">
                         <!-- Link to items matching the keyword  -->
-                        <span i18n:translate="">
+                        <span i18n:translate="help_paste_here">
                            Paste &lt;object&gt; or &lt;embed&gt; tag here:
                         </span>
                      </div>
-                     <textarea class="kupu-toolbox-st kupu-embed-input" i18n:translate="">[insert arbitrary HTML code here]</textarea>
+                     <textarea
+                              class="kupu-toolbox-st kupu-embed-input"
+                              i18n:translate="placeholder_html_code">[insert arbitrary HTML code here]</textarea>
                   </td>
                </tr>
                <tr>
@@ -112,10 +124,10 @@
         <div class="kupu-dialogbuttons">
           <button class="kupu-dialog-button"
                   type="button" onclick="drawertool.current_drawer.save()"
-                  i18n:translate="">Ok</button>
+                  i18n:translate="button_ok">Ok</button>
           <button class="kupu-dialog-button"
                   type="button" onclick="drawertool.closeDrawer()"
-                  i18n:translate="">Cancel</button>
+                  i18n:translate="button_cancel">Cancel</button>
         </div>
 
       </div>
@@ -136,10 +148,10 @@
                   <th i18n:translate="tabledrawer_class_label" class="kupu-toolbox-label">Table Class</th>
                   <td>
                     <select class="kupu-tabledrawer-addclasschooser">
-                      <option i18n:translate="" value="plain">Plain</option>
-                      <option i18n:translate="" value="listing">Listing</option>
-                      <option i18n:translate="" value="grid">Grid</option>
-                      <option i18n:translate="" value="data">Data</option>
+                      <option i18n:translate="Plain" value="plain">Plain</option>
+                      <option i18n:translate="Listing" value="listing">Listing</option>
+                      <option i18n:translate="Grid" value="grid">Grid</option>
+                      <option i18n:translate="Data" value="data">Data</option>
                     </select>
                   </td>
                 </tr>
@@ -190,10 +202,10 @@
                   <td>
                     <select class="kupu-tabledrawer-editclasschooser"
                             onchange="drawertool.current_drawer.setTableClass(this.options[this.selectedIndex].value)">
-                      <option i18n:translate="" value="plain">Plain</option>
-                      <option i18n:translate="" value="listing">Listing</option>
-                      <option i18n:translate="" value="grid">Grid</option>
-                      <option i18n:translate="" value="data">Data</option>
+                      <option i18n:translate="Plain" value="plain">Plain</option>
+                      <option i18n:translate="Listing" value="listing">Listing</option>
+                      <option i18n:translate="Grid" value="grid">Grid</option>
+                      <option i18n:translate="Data" value="data">Data</option>
                     </select>
                   </td>
                 </tr>
@@ -275,9 +287,11 @@
       <h1 class="kupu-drawer-title" i18n:translate="anchordrawer_title">Anchors</h1>
       <div class="kupu-panels kupu-ins-bm">
          <ul class="kupu-tabs">
-            <li class="kupu-ins-bm selected"><a href="#" i18n:translate="">Link to anchor</a></li>
-            <li class="kupu-anchor"><a href="#" i18n:translate="">Manage Anchors</a></li>
-            <li class="kupu-toc"><a href="#" i18n:translate="">Table of contents</a></li>
+            <li class="kupu-ins-bm selected"><a href="#"
+            i18n:translate="tab_link_anchor">Link to anchor</a></li>
+            <li class="kupu-anchor"><a href="#"
+            i18n:translate="tab_manage_anchors">Manage Anchors</a></li>
+            <li class="kupu-toc"><a href="#" i18n:translate="tab_toc">Table of contents</a></li>
          </ul>
         <table class="kupu-tabbed">
           <tr>
@@ -287,21 +301,21 @@
             <td rowspan="2">
               <div class="kupu-bm-heading hide-ins-bm">
                 <div style="float:right" class="hide-anchor">
-                  <label i18n:translate="" for="kupu-bm-outcls">
+                  <label i18n:translate="label_table_style" for="kupu-bm-outcls">
                     Table style
                   </label>
                   <select id="kupu-bm-outcls" size="1">
-                    <option value="" i18n:translate="">Normal</option>
+                    <option value="" i18n:translate="Normal">Normal</option>
                   </select>
                 </div>
                 <div style="float:right" class="hide-anchor">
-                  <label i18n:translate="" for="kupu-bm-number">
+                  <label i18n:translate="label_numbering" for="kupu-bm-number">
                     Numbering
                   </label>
                   <input type="checkbox" checked="checked" id="kupu-bm-number"/>
                 </div>
                 <label for="kupu-bm-checkall">
-                  <em i18n:translate="">toggle all</em>
+                  <em i18n:translate="label_toggle_all">toggle all</em>
                 </label>
                 <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
               </div>
@@ -324,15 +338,19 @@
           <tr>
             <td class="hide-ins-bm hide-anchor">
               <select id="kupu-bm-sel2" size="1" class="hide-ins-bm hide-anchor">
-                <option value="" i18n:translate="">(optional 2nd style)</option>
+                <option value="" i18n:translate="opt_2nd_style">(optional 2nd style)</option>
               </select>
             </td>
           </tr>
         </table>
         <div class="kupu-dialogbuttons">
-          <button class="kupu-dialog-button" type="button" onclick="drawertool.current_drawer.save()" i18n:translate=""
+          <button class="kupu-dialog-button" type="button"
+                  onclick="drawertool.current_drawer.save()"
+                  i18n:translate="button_ok"
             >Ok</button>
-          <button class="kupu-dialog-button" type="button" onclick="drawertool.closeDrawer()" i18n:translate=""
+          <button class="kupu-dialog-button" type="button"
+                  onclick="drawertool.closeDrawer()"
+                  i18n:translate="button_cancel"
           >Cancel</button>
         </div>
       </div>

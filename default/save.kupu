@@ -12,7 +12,8 @@
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
       <button type="button" class="kupu-save" id="kupu-save-button" 
-              title="save: alt-s" i18n:attributes="title" accesskey="s">&#160;</button>
+              title="save: alt-s"
+              i18n:attributes="title title_save_alts;" accesskey="s">&#160;</button>
     </span>
   </kupu:part>
 

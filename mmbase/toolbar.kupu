@@ -14,8 +14,12 @@
   <kupu:part name="buttongroup-basicmarkup">
     <fmt:bundle basename="org.mmbase.kupu.Messages">
       <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup">
-        <button type="button" class="kupu-bold"   id="kupu-bold-button"   title="strong: alt-b"   i18n:attributes="title" accesskey="b">&#160;</button>
-        <button type="button" class="kupu-italic" id="kupu-italic-button" title="emphasis: alt-i" i18n:attributes="title" accesskey="i">&#160;</button>
+        <button type="button" class="kupu-bold"
+                id="kupu-bold-button"   title="strong: alt-b"
+                i18n:attributes="title title_strong;" accesskey="b">&#160;</button>
+        <button type="button" class="kupu-italic"
+                id="kupu-italic-button" title="emphasis: alt-i"
+                i18n:attributes="title title_emphasis;" accesskey="i">&#160;</button>
       </span>
     </fmt:bundle>
   </kupu:part>
@@ -36,7 +40,7 @@
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
       <button type="button" class="kupu-logo" title="Kupu SVN/unreleased" 
-              id="kupu-logo-button" i18n:attributes="title"
+              id="kupu-logo-button" i18n:attributes="title title_logo;"
               onclick="window.open('http://kupu.oscom.org');"
               >&#160;</button>
       <button type="button" class="mmbase-logo" title="MMBase 1.8"  id="mmbase-logo-button"
@@ -49,13 +53,13 @@
     <span class="kupu-tb-buttongroup" id="kupu-bg-remove">
       <button type="button" class="kupu-removeimage invisible"
               id="kupu-removeimage-button" title="Remove image"
-              i18n:attributes="title">&#160;</button>
+              i18n:attributes="title title_removeimage;">&#160;</button>
       <button type="button" class="kupu-removelink invisible"
               id="kupu-removelink-button" title="Remove link"
-              i18n:attributes="title">&#160;</button>
+              i18n:attributes="title title_removelink;">&#160;</button>
       <button type="button" class="kupu-removediv invisible"
               id="kupu-removediv-button" title="Remove block"
-              i18n:attributes="title">&#160;</button>
+              i18n:attributes="title title_removediv;">&#160;</button>
     </span>
   </kupu:part>
 

@@ -31,19 +31,19 @@ i18n:domain="kupuconfig">
                   <tr>
                      <td><input type="checkbox" name="indices:int:list"
                      tal:attributes="value repeat/library/index"/></td>
-                     <th i18n:translate="">ID</th>
+                     <th i18n:translate="heading_id">ID</th>
                      <td><input type="text" name="libraries.id:records" size="60"
                      tal:attributes="value library/id" /></td>
                   </tr>
                   <tr>
                      <td></td>
-                     <th i18n:translate="">Title</th>
+                     <th i18n:translate="heading_title">Title</th>
                      <td><input type="text" name="libraries.title:records" size="60"
                      tal:attributes="value library/title" /></td>
                   </tr>
                   <tr>
                      <td></td>
-                     <th i18n:translate="">URI</th>
+                     <th i18n:translate="heading_uri">URI</th>
                      <td><input type="text" name="libraries.uri:records" size="60"
                      tal:attributes="value library/uri" /></td>
                   </tr>
@@ -68,39 +68,49 @@ i18n:domain="kupuconfig">
             </table>
 
             <p>
-               <input class="context" type="submit" name="zmi_update_libraries:method" value="Save" i18n:attributes="value" />
-               <input class="context" type="submit" name="zmi_delete_libraries:method" value="Delete" i18n:attributes="value" />
-               <input class="context" type="submit" name="zmi_move_up:method" value="Move Up" i18n:attributes="value" />
-               <input class="context" type="submit" name="zmi_move_down:method" value="Move Down" i18n:attributes="value" />
+               <input class="context" type="submit"
+                      name="zmi_update_libraries:method" value="Save"
+                      i18n:attributes="value button_save;" />
+               <input class="context" type="submit"
+                      name="zmi_delete_libraries:method"
+                      value="Delete"
+                      i18n:attributes="value button_delete;" />
+               <input class="context" type="submit"
+                      name="zmi_move_up:method" value="Move Up"
+                      i18n:attributes="value button_move_up;" />
+               <input class="context" type="submit"
+                      name="zmi_move_down:method" value="Move Down"
+                      i18n:attributes="value button_move_down;" />
             </p>
          </form>
 
          <form action="" tal:attributes="action string:${here/absolute_url}/zmi_add_library" method="post">
             <table>
                <tr>
-                  <th i18n:translate="">ID</th>
+                  <th i18n:translate="heading_id">ID</th>
                   <td><input type="text" name="id" size="60" /></td>
                </tr>
                <tr>
-                  <th i18n:translate="label_title">Title</th>
+                  <th i18n:translate="heading_title">Title</th>
                   <td><input type="text" name="title" size="60" /></td>
                </tr>
                <tr>
-                  <th i18n:translate="uri">URI</th>
+                  <th i18n:translate="heading_uri">URI</th>
                   <td><input type="text" name="uri" size="60" /></td>
                </tr>
                <tr>
-                  <th i18n:translate="source_uri">Source URI</th>
+                  <th i18n:translate="heading_source_uri">Source URI</th>
                   <td><input type="text" name="src" size="60" /></td>
                </tr>
                <tr>
-                  <th i18n:translate="icon_uri">Icon URI</th>
+                  <th i18n:translate="heading_icon_uri">Icon URI</th>
                   <td><input type="text" name="icon" size="60" /></td>
                </tr>
             </table>
 
             <p>
-               <input class="context" type="submit" value="Add" i18n:attributes="value"/>
+               <input class="context" type="submit" value="Add"
+                      i18n:attributes="value button_add;"/>
             </p>
          </form>
 
@@ -108,14 +118,15 @@ i18n:domain="kupuconfig">
             <table>
 
                <tr>
-                  <th i18n:translate="default">Default</th>
+                  <th i18n:translate="heading_default">Default</th>
                   <td><input type="text" name="defid" size="60" tal:attributes="value here/zmi_get_default_library;" /></td>
                </tr>
 
             </table>
 
             <p>
-               <input class="context" type="submit" value="Set" i18n:attributes="value" />
+               <input class="context" type="submit" value="Set"
+                      i18n:attributes="value button_set;" />
             </p>
          </form>
          <p>&nbsp;</p>

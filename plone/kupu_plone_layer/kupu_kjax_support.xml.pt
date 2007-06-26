@@ -3,8 +3,9 @@
           xmlns:tal="http://xml.zope.org/namespaces/tal"
           xmlns:metal="http://xml.zope.org/namespaces/metal"
           xmlns:html="http://www.w3.org/TR/REC-html40"
-          xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
-    define="charset here/portal_properties/site_properties/default_charset|here/portal_properties/default_charset|string:utf-8;
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="atreferencebrowserwidget"
+          define="charset here/portal_properties/site_properties/default_charset|here/portal_properties/default_charset|string:utf-8;
         content_type python:request.RESPONSE.setHeader('Content-Type', 'text/xml;;charset=%s' % charset);">
 <html
      xmlns:tal="http://xml.zope.org/namespaces/tal"
@@ -64,7 +65,7 @@
                       <img tal:attributes="src i/preview; title i/title;"
                            onload="kupuFixImage(this);" width="1" height="1"/>
                     </div>
-                    <h1 class="kupu-title-row" tal:content="i/title">Item heading</h1>
+                    <h1 class="kupu-title-row" tal:content="i/title" />
                     <div class="kupu-description-row" tal:content="structure i/description" tal:condition="i/description"></div>
                     <div style="clear:both;line-height:1px;">&#xa0;</div>
                   </a>

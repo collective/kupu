@@ -10,16 +10,18 @@ e.g. Call: kupuselection.xml?src=someurl
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-    i18n_domain="plone"
+    i18n:domain="kupu"
     tal:define="kupu context/kupu_library_tool;
         objects kupu/getCurrentObject;
         object python:objects and objects[0] or context;
         lib python:kupu.getSingleLibrary(object,'_selection')">
-  <uri tal:content="template/absolute_url">URI</uri>
-  <icon tal:content="lib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif">icon</icon>
-  <title i18n_translate="box_selected" tal:content="lib/title|default">Selected</title>
-  <description>Current selection.</description>
-  <src tal:content="string:${request/URL0}?${context/kupu_library_tool/query_string}">Source</src>
+  <uri tal:content="template/absolute_url"/>
+  <icon
+       tal:content="lib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif"/>
+  <title i18n:translate="heading_selected" tal:content="lib/title|default">Selected</title>
+  <description i18n:translate="descr_selected">Current selection.</description>
+  <src
+      tal:content="string:${request/URL0}?${context/kupu_library_tool/query_string}"/>
 
   <breadcrumbs class="kupu-locate">
     <crumb

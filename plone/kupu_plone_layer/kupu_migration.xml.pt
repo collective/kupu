@@ -76,13 +76,15 @@
             You will be given an opportunity to review and filter any changes before committing them.
           </div>
           <input type="submit" value="check links" name="checklinks"
-                 i18n:attributes="value"
+                 i18n:attributes="value button_check_links;"
                 onclick="this.form.button.value='check'" />
           <input type="submit" value="relative path -> uids"
-                 name="touids" i18n:attributes="value"
+                 name="touids"
+                 i18n:attributes="value button_rel_to_uid;"
                  onclick="this.form.button.value='touid'" />
           <input type="submit" value="uids -> relative path"
-                 name="topath" i18n:attributes="value"
+                 name="topath"
+                 i18n:attributes="value button_uid_to_rel;"
                  onclick="this.form.button.value='topath'" />
         </form>
       </div>
@@ -105,7 +107,7 @@
 
             <input type="button"
                    value="&lt;&lt; back to form"
-                   i18n:attributes="value back_to_form"
+                   i18n:attributes="value back_to_form;"
                    tal:condition="not:m/nexturi"
                    tal:attributes="onclick string:kj.newRequest('${uri}')" />
 
@@ -193,7 +195,7 @@
                 <input type="hidden" name="commit:int" value="1" />
                 <input type="button"
                        value="commit selected changes"
-                       i18n:attributes="value commit_changes"
+                       i18n:attributes="value commit_changes;"
                        onclick="kj.submitForm(this.form);"
                        tal:condition="not:m/nexturi" />
               </div>
