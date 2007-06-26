@@ -54,6 +54,16 @@ for %%f in (i18n\kupuconfig-*.po) do set KCPO=!KCPO! %%f
 %I18NDUDE% sync --pot i18n\kupuconfig.pot %KCPO%
 goto :eof
 
+:kupupox.pot
+%I18NDUDE% rebuild-pot --pot i18n\kupupox.pot --create kupupox common\kupu.pox
+goto :eof
+
+:kupupoxsync
+set KXPO=
+for %%f in (i18n\kupupox-*.po) do set KXPO=!KXPO! %%f
+%I18NDUDE% sync --pot i18n\kupupox.pot %KXPO%
+goto :eof
+
 :kupu.pot
 call :setKUPU
 %I18NDUDE% rebuild-pot --pot i18n\kupu.pot --create kupu %KUPU%
