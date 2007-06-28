@@ -18,7 +18,7 @@ e.g. Call: kupuselection.xml?src=someurl
   <uri tal:content="template/absolute_url"/>
   <icon
        tal:content="lib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif"/>
-  <title i18n:translate="heading_selected" tal:content="lib/title|default">Selected</title>
+  <title tal:content="lib/title|default"><tal:content i18n:translate="heading_selected">Selected</tal:content></title>
   <description i18n:translate="descr_selected">Current selection.</description>
   <src
       tal:content="string:${request/URL0}?${context/kupu_library_tool/query_string}"/>
