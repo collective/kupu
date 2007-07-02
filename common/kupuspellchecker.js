@@ -13,7 +13,9 @@ KupuSpellChecker.prototype = new KupuTool;
 
 KupuSpellChecker.prototype.initialize = function(editor) {
     this.editor = editor;
-    addEventHandler(this.button, 'click', this.check, this);
+    if (this.button) {
+        addEventHandler(this.button, 'click', this.check, this);
+    }
 };
 
 KupuSpellChecker.prototype.check = function() {
