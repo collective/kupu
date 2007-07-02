@@ -66,8 +66,18 @@
           <tal:sizes tal:condition="info/sizes|nothing">
             <sizes>
               <size tal:repeat="size info/sizes">
+                 <selected
+                     tal:define="src request/src|python:''; uri size/uri;"
+                      tal:condition="python:src.split('/')[-1]==uri.split('/')[-1]" />
                 <label tal:content="size/label" />
                 <uri tal:content="size/uri" />
+              </size>
+              <size tal:condition="kupu/getAllowOriginalImageSize|nothing">
+                 <selected
+                     tal:define="src request/src|python:''; uri info/url;"
+                      tal:condition="python:src.split('/')[-1]==uri.split('/')[-1]" />
+                <label i18n:translate="option_original">Original</label>
+                <uri tal:content="info/url" />
               </size>
             </sizes>
           </tal:sizes>
