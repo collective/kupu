@@ -360,3 +360,16 @@ class KupuLibraryTool(Acquisition.Implicit):
 
     def _getToolbarFilterOptions(self):
         return getattr(self, '_toolbar_filters', {})
+
+    def spellcheck(self, REQUEST):
+        from Products.kupu.python.spellcheck import SpellChecker, format_result
+        data = REQUEST["text"]
+        c = SpellChecker()
+        result = c.check(data)
+        if result == None:
+            result = ""
+        else:
+            result = format_result(result)
+        REQUEST.RESPONSE.setHeader("Content-Type","text/xml, charset=utf-8")
+        REQUEST.RESPONSE.setHeader("Content-Length",str(len(result)))
+        return result
