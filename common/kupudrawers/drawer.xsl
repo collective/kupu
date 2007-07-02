@@ -400,8 +400,6 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </label>
              <span class="kupu-detail">
                 <select name="image-size-selector">
-                   <option name="image-size-option" value="{uri}"
-                           i18n:translate="option_original">Original</option>
                    <xsl:apply-templates select="sizes/size" />
                 </select>
              </span>
@@ -438,18 +436,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           <xsl:value-of select="@title" /></option>
     </xsl:template>
     <xsl:template match="size">
-      <xsl:choose>
-        <xsl:when test="selected">
-            <option value="{uri}" selected="">
-                <xsl:value-of select="label" />
-            </option>
-        </xsl:when>
-        <xsl:otherwise>
-            <option value="{uri}">
-                <xsl:value-of select="label" />
-            </option>
-        </xsl:otherwise>
-      </xsl:choose>
+       <option value="{uri}">
+          <xsl:if test="selected">
+             <xsl:attribute name="selected">selected</xsl:attribute>
+          </xsl:if>
+          <xsl:value-of select="label" />
+       </option>
     </xsl:template>
     <xsl:template match="resource|collection" mode="link-properties">
         <xsl:apply-templates select="." mode="base-properties"/>

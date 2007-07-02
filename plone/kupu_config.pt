@@ -197,6 +197,29 @@
 
                      </fieldset>
                      <fieldset>
+                        <legend
+                               i18n:translate="legend_alloworiginalsize">Original Image Size</legend>
+                        <div class="field">
+                           <input type="hidden"
+                                  name="allowOriginalImageSize:int:default" value="0" />
+                           <input type="checkbox"
+                                  class="noborder"
+                                  name="allowOriginalImageSize:int"
+                                  id = "kupu_allowOriginalImageSize"
+                                  value="1"
+                                  tal:attributes="checked here/getAllowOriginalImageSize|python:0" />
+                           <label for="kupu_allowOriginalImageSize"
+                                  i18n:translate="label_allowOriginalImageSize">Allow original size images</label>
+
+                           <div class="formHelp"
+                                i18n:translate="help_allow_original_image">
+                              When checked, the image drawer will include
+                              Original as an available size.
+                           </div>
+                        </div>
+
+                     </fieldset>
+                     <fieldset>
                         <legend i18n:translate="legend_styles">Styles</legend>
                         <div class="field">
                            <label for="table_classnames" i18n:translate="label_tables">Tables</label>

@@ -286,6 +286,7 @@ class InfoAdaptor:
             image_sizes = image_field.getAvailableSizes(obj)
             sizes = [(v[0], v[1], k, '%s_%s' % (imagefield,k)) for k,v in image_sizes.items()]
             sizes.sort()
+            sizes.reverse()
             IMAGE_SIZES_CACHE[cache_key] = sizes
         else:
             sizes = IMAGE_SIZES_CACHE[cache_key]

@@ -292,6 +292,10 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     def getFiltersourceedit(self):
         return getattr(self, 'filtersourceedit', True)
 
+    security.declareProtected('View', "getAllowOriginalImageSize")
+    def getAllowOriginalImageSize(self):
+        return getattr(self, 'allowOriginalImageSize', False)
+
     security.declareProtected('View', 'isKupuEnabled')
     def isKupuEnabled(self, useragent='', allowAnonymous=False, REQUEST=None, context=None, fieldName=None):
         if not REQUEST:
@@ -787,6 +791,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         installBeforeUnload=None, parastyles=None, refbrowser=None,
         captioning=None,
         filterSourceEdit=None,
+        allowOriginalImageSize=None,
         REQUEST=None):
         """Delete resource types through the ZMI"""
         if linkbyuid is not None:
@@ -797,6 +802,8 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             self.install_beforeunload = bool(installBeforeUnload)
         if filterSourceEdit is not None:
             self.filtersourceedit = bool(filterSourceEdit)
+        if allowOriginalImageSize is not None:
+            self.allowOriginalImageSize = bool(allowOriginalImageSize)
 
         if parastyles is not None:
             self.paragraph_styles = [ line.strip() for line in parastyles if line.strip() ]
