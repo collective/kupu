@@ -1039,7 +1039,7 @@ function LinkTool() {
         linkWindow.focus();
     };
 
-    this.updateLink = function (linkel, url, type, name, target, title) {
+    this.updateLink = function (linkel, url, type, name, target, title, className) {
         if (type && type == 'anchor') {
             linkel.removeAttribute('href');
             linkel.setAttribute('name', name);
@@ -1060,17 +1060,22 @@ function LinkTool() {
             else {
                 linkel.removeAttribute('target');
             };
+            if (className===undefined) {
+                linkel.removeAttribute('className');
+            } else {
+                linkel.className = className;
+            }
             linkel.style.color = this.linkcolor;
         };
     };
 
-    this.formatSelectedLink = function(url, type, name, target, title) {
+    this.formatSelectedLink = function(url, type, name, target, title, className) {
         var currnode = this.editor.getSelectedNode();
 
         // selection inside link
         var linkel = this.editor.getNearestParentOfType(currnode, 'A');
         if (linkel) {
-            this.updateLink(linkel, url, type, name, target, title);
+            this.updateLink(linkel, url, type, name, target, title, className);
             return true;
         }
 
@@ -1083,7 +1088,7 @@ function LinkTool() {
         for (var i = 0; i < linkelements.length; i++) {
             linkel = linkelements[i];
             if (selection.containsNode(linkel)) {
-                this.updateLink(linkel, url, type, name, target, title);
+                this.updateLink(linkel, url, type, name, target, title, className);
                 containsLink = true;
             }
         };
@@ -1102,24 +1107,24 @@ function LinkTool() {
     //
     // the order of the arguments is a bit odd here because of backward
     // compatibility
-    this.createLink = function(url, type, name, target, title) {
+    this.createLink = function(url, type, name, target, title, className) {
         url = url.strip();
         if (!url) {
             this.deleteLink();
             return;
         };
-        if (!this.formatSelectedLink(url, type, name, target, title)) {
+        if (!this.formatSelectedLink(url, type, name, target, title, className)) {
             // No links inside or outside.
             this.editor.execCommand("CreateLink", url);
-            if (!this.formatSelectedLink(url, type, name, target, title)) {
+            if (!this.formatSelectedLink(url, type, name, target, title, className)) {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 var doc = this.editor.getInnerDocument();
                 var linkel = doc.createElement("a");
                 linkel.setAttribute('href', url);
-                linkel.setAttribute('class', 'generated');
+                linkel.setAttribute('class', className || 'generated');
                 this.editor.getSelection().replaceWithNode(linkel, true);
-                this.updateLink(linkel, url, type, name, target, title);
+                this.updateLink(linkel, url, type, name, target, title, className);
             };
         }
     };

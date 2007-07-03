@@ -365,7 +365,7 @@ function LinkDrawer(elementid, tool) {
         this.editor.resumeEditing();
         if (this.getMode()) {
             var url = input.value;
-            this.tool.createLink(url, null, null, this.target);
+            this.tool.createLink(url, null, null, this.target, 'external-link');
             input.value = '';
         } else {
             // Import the html
@@ -1549,7 +1549,7 @@ function LinkLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, select
         var node = getFromSelector('link_target');
         var target = node && node.value;
         
-        this.tool.createLink(uri, null, name, target, title);
+        this.tool.createLink(uri, null, name, target, title, 'internal-link');
         this.drawertool.closeDrawer();
     };
 };
