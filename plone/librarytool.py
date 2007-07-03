@@ -319,9 +319,9 @@ class KupuLibraryTool(Acquisition.Implicit):
         filter is a list of records with: id, visible, override"""
         clean = {}
         for f in filters:
-            id = f.id
-            visible = bool(getattr(f, 'visible', False))
-            expr = getattr(f, 'override', None)
+            id = f['id']
+            visible = bool(f.get('visible', False))
+            expr = f.get('override', None)
 
             if not id:
                 continue
