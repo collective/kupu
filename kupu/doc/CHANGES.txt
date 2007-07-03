@@ -32,6 +32,8 @@ Kupu changes
 
   - Plone tickets:
 
+    * 4887 editing defaults to kupu, even when javascript turned off
+
     * 5622 Add a class (even if empty) to internal LinkDrawer
 
     * 6283 Do not allow bigger images than Preview by default from Kupu
