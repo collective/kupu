@@ -21,38 +21,48 @@
   </kupu:part>
 
   <kupu:part name="jsincludes">
-   <tal:test condition="not:exists:portal/portal_javascripts" metal:define-macro="kupu_js_include">
-    <tal:test condition="not:kupu_js_loaded|nothing">
-      <tal:var define="global kupu_js_loaded string:yes" />
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupunoi18n.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/sarissa.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupubasetools.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
+     <tal:test condition="not:kupu_js_loaded|nothing">
+        <noscript>
+           <style>
+iframe.kupu-editor-iframe, .kupu-fulleditor .kupu-tb {
+  display: none !important;
+}
+textarea.kupu-editor-textarea {
+  display: block !important;
+}
+           </style>
+        </noscript>
+        <tal:test condition="not:exists:portal/portal_javascripts" metal:define-macro="kupu_js_include">
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupunoi18n.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/sarissa.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupubasetools.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
 
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
-    <script type="text/javascript"
-            tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
+           <script type="text/javascript"
+                   tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
 
-    <script type="text/javascript" src="kupusourceedit.js"
-        tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
+           <script type="text/javascript" src="kupusourceedit.js"
+                   tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
 
-    <script type="text/javascript" src="kupudrawers.js"
-            tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
-    </tal:test>
-   </tal:test>
+           <script type="text/javascript" src="kupudrawers.js"
+                   tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
+        </tal:test>
+     </tal:test>
+     <tal:var define="global kupu_js_loaded string:yes" />
   </kupu:part>
 
   <!-- XXX this could be a separate feature, maybe -->
