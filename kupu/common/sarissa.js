@@ -441,7 +441,7 @@ if(!document.importNode && _SARISSA_IS_IE){
             }else{
                 tmp.innerHTML = pNode.xml ? pNode.cloneNode(false).xml : pNode.cloneNode(false).outerHTML;
             };
-            return tmp.getElementsByTagName(oNode.nodeName)[0];
+            return tmp.getElementsByTagName(oNode.nodeName.replace(/^[^:]*:/,''))[0];
         };
     }catch(e){ };
 };
