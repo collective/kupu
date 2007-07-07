@@ -9,6 +9,12 @@
  *****************************************************************************/
 // $Id$
 
+function kupu_busy(ed) {
+    if (ed.busy) ed.busy();
+}
+function kupu_notbusy(ed, force) {
+    if (ed.notbusy) ed.notbusy(force);
+}
 function DrawerTool() {
     /* a tool to open and fill drawers
        this tool has to (and should!) only be instantiated once
@@ -57,7 +63,7 @@ function DrawerTool() {
         this.current_drawer.hide();
         this.current_drawer.editor.resumeEditing();
         this.current_drawer = null;
-        this.editor.notbusy(true);
+        kupu_notbusy(this.editor, true)
     };
 };
 
@@ -190,14 +196,14 @@ proto.initAnchors = function() {
             if (limit-- && anchorframe.src==src) {
                 timer_instance.registerFunction(this, onloadEvent, 500);
             } else {
-                ed.notbusy(true);
+                kupu_notbusy(ed, true);
             }
             return;
         };
         if(window.drawertool && window.drawertool.current_drawer) {
             window.drawertool.current_drawer.anchorframe_loaded();
         };
-        ed.notbusy();
+        kupu_notbusy(ed);
     };
 
     var id = 'kupu-linkdrawer-anchors';
@@ -210,7 +216,7 @@ proto.initAnchors = function() {
         var src = inp[0].value;
         inp[0].value = "";
         if (!src) { return; }
-        ed.busy();
+        kupu_busy(ed);
         if (this.anchorframe.readyState) { // IE
             anchorframe.src = src;
             onloadEvent();
@@ -1330,7 +1336,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             if (xmlhttp.readyState == 4) {
                 if (xmlhttp.status && xmlhttp.status != 200) {
                     var errmessage = 'Error '+xmlhttp.status+' loading '+(uri||'XML');
-                    self.editor.notbusy(true);
+                    kupu_notbusy(ed, true);
                     alert(errmessage);
                     throw "Error loading XML";
                 };
@@ -1340,10 +1346,11 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
                     dom.loadXML(xmlhttp.responseText);
                 }
                 callback.apply(self, [dom, uri, extra]);
-                self.editor.notbusy();
+                kupu_notbusy(ed);
             };
         };
         var self = this;
+        var ed = this.editor;
         /* load the XML from a uri
            calls callback with one arg (the XML DOM) when done
            the (optional) body arg should contain the body for the request
@@ -1354,7 +1361,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         // something
         body=body?body:null;
 
-        this.editor.busy();
+        kupu_busy(ed);
         try {
             xmlhttp.open(method, uri, true);
             xmlhttp.onreadystatechange = _sarissaCallback;
@@ -1372,7 +1379,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             if (e && e.name && e.message) { // Microsoft
                 e = e.name + ': ' + e.message;
             }
-            this.editor.notbusy(true);
+            kupu_notbusy(ed, true);
             alert(e);
         }
     };
