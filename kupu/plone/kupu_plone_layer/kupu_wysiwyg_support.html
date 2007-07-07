@@ -6,28 +6,28 @@
     <!--$Id: html.kupu 13336 2005-06-13 11:03:58Z gotcha $-->
     <!--$Id: head.kupu 20919 2005-12-09 10:14:44Z duncan $-->
     <!-- saved from url=(0013)about:internet -->
-    <!--$Id: body.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: body.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: xmlconfig.kupu 12162 2005-05-10 15:53:10Z guido $-->
     <!--$Id: saveonpart.kupu 9520 2005-02-26 16:30:23Z duncan $-->
     <!--$Id: sourceedit.kupu 25717 2006-04-12 10:33:01Z fschulze $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: toolboxes.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: colorchooser.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: save.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: drawers.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: toolbar.kupu 27597 2006-05-22 14:27:32Z guido $-->
+    <!--$Id: toolboxes.kupu 44515 2007-06-25 15:18:53Z duncan $-->
+    <!--$Id: colorchooser.kupu 35491 2006-12-08 15:41:49Z duncan $-->
+    <!--$Id: save.kupu 9520 2005-02-26 16:30:23Z duncan $-->
+    <!--$Id: drawers.kupu 44515 2007-06-25 15:18:53Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 25247 2006-04-03 11:23:02Z fschulze $-->
     <!--$Id: head.kupu 34332 2006-11-07 14:50:40Z duncan $-->
     <!--$Id: xmlconfig.kupu 35367 2006-12-06 09:06:21Z duncan $-->
-    <!--$Id: body.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: toolbar.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: body.kupu 44509 2007-06-25 14:15:02Z duncan $-->
+    <!--$Id: toolbar.kupu 35491 2006-12-08 15:41:49Z duncan $-->
     <!--$Id save.kupu (not yet in svn) $-->
-    <!--$Id: drawers.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: drawers.kupu 35477 2006-12-08 13:20:38Z duncan $-->
     <!--$Id: beforeunload.kupu 14546 2005-07-12 14:35:55Z duncan $-->
-    <!--$Id: sourceedit.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: wysiwyg_support.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: sourceedit.kupu 35477 2006-12-08 13:20:38Z duncan $-->
+    <!--$Id: wysiwyg_support.kupu 44509 2007-06-25 14:15:02Z duncan $-->
     
 
     <div xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="wysiwygEditorBox" id="kupu-editor" tal:define="name fieldName|inputname;                 editorid string:kupu-editor-${name}" tal:attributes="id editorid">
@@ -89,36 +89,26 @@
    </tal:test>
   
   
-     <tal:test condition="not:kupu_js_loaded|nothing">
-        <noscript>
-           <style>
-iframe.kupu-editor-iframe, .kupu-fulleditor .kupu-tb {
-  display: none !important;
-}
-textarea.kupu-editor-textarea {
-  display: block !important;
-}
-           </style>
-        </noscript>
-        <tal:test condition="not:exists:portal/portal_javascripts" metal:define-macro="kupu_js_include">
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupunoi18n.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupubasetools.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
+   <tal:test condition="not:exists:portal/portal_javascripts" metal:define-macro="kupu_js_include">
+    <tal:test condition="not:kupu_js_loaded|nothing">
+      <tal:var define="global kupu_js_loaded string:yes"/>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupunoi18n.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/sarissa_ieemu_xpath.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuhelpers.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupueditor.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupubasetools.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuloggers.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupucontentfilters.js"> </script>
 
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
-           <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneeditor.js"> </script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/kupuploneui.js"> </script>
 
-           <script type="text/javascript" src="kupusourceedit.js" tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
+    <script type="text/javascript" src="kupusourceedit.js" tal:attributes="src string:${portal_url}/kupusourceedit.js"> </script>
 
-           <script type="text/javascript" src="kupudrawers.js" tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
-        </tal:test>
-     </tal:test>
-     <tal:var define="global kupu_js_loaded string:yes"/>
+    <script type="text/javascript" src="kupudrawers.js" tal:attributes="src string:${portal_url}/kupudrawers.js"> </script>
+    </tal:test>
+   </tal:test>
   
 <tal:condition condition="python:here.kupu_library_tool.installBeforeUnload() and not path('haveBeforeUnload|nothing')">
     <script tal:condition="not:exists:portal/portal_javascripts" type="text/javascript" src="kupubeforeunload.js" tal:attributes="src string:${portal_url}/kupubeforeunload.js" tal:define="global haveBeforeUnload python:True;"> </script>
