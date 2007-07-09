@@ -2,7 +2,13 @@
 Kupu changes
 ============
 
-- Recent
+- Recent changes
+
+  - Fixed broken code for determining the width of captioned images.
+    Also removed the hardwired html for the transform and use a
+    template instead (so it can be customised).
+
+- 1.4rc1
 
   - Added a 'manage anchors' tab to the anchor drawer
 
