@@ -137,7 +137,11 @@ class HTMLToCaptioned:
                         tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)
                         d['tag'] = tag
                         if not width and srctail:
-                            subtarget = getattr(target, srctail, None)
+                            try:
+                                subtarget = target.restrictedTraverse(srctail)
+                            except:
+                                subtarget = getattr(target, srctail, None)
+
                             if hasattr(aq_base(subtarget), 'getWidth'):
                                 width = subtarget.getWidth()
                             elif hasattr(aq_base(subtarget), 'width'):
