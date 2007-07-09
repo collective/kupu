@@ -306,5 +306,12 @@ A wider border makes selection possible in IE. */
 .kupu-html embed embed, .kupu-html embed object {
    display:none;
 }
+dd.image-caption {
+   text-align:left;
+   padding: 0;
+}
+dl.captioned {
+   padding: 10px;
+}
 /* </dtml-let></dtml-with> */
 

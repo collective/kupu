@@ -37,15 +37,17 @@ IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 ATTR_VALUE = '=(?:"?)(?P<%s>(?<=")[^"]*|[^ \/>]*)'
 ATTR_CLASS = ATTR_VALUE % 'class'
 ATTR_WIDTH = ATTR_VALUE % 'width'
+ATTR_ALT = ATTR_VALUE % 'alt'
 
 ATTR_PATTERN = re.compile('''
     (?P<tag>\<
      ( class%s
      | src\s*=\s*"resolveuid/(?P<src>([^/"#? ]*))
      | width%s
+     | alt%s
      | .
      )*\>
-    )''' % (ATTR_CLASS, ATTR_WIDTH), re.VERBOSE | re.IGNORECASE | re.DOTALL)
+    )''' % (ATTR_CLASS, ATTR_WIDTH, ATTR_ALT), re.VERBOSE | re.IGNORECASE | re.DOTALL)
 SRC_TAIL = re.compile(r'/([^" \/>]+)')
 
 CLASS_PATTERN = re.compile('\s*class\s*=\s*("[^"]*captioned[^"]*"|[^" \/>]+)')
@@ -111,6 +113,7 @@ class HTMLToCaptioned:
         (default: None)
         """
         context = kwargs.get('context', None)
+        template = context.kupu_captioned_image
         if context:
             at_tool = context.archetype_tool
             rc = at_tool.reference_catalog
@@ -125,39 +128,23 @@ class HTMLToCaptioned:
                     srctail = m.group(1)
                 else:
                     srctail = None
-                klass = attrs.group('class')
-                width = attrs.group('width')
                 if src:
                     d = attrs.groupdict()
                     target = self.resolveuid(context, rc, src)
                     if target:
+                        d['class'] = attrs.group('class')
+                        d['originalwidth'] = attrs.group('width')
+                        d['originalalt'] = attrs.group('alt')
                         d['caption'] = newline_to_br(html_quote(target.Description()))
-                        tag = CLASS_PATTERN.sub('', d['tag'])
-                        tag = ALT_PATTERN.sub('', tag)
-                        tag = END_TAG_PATTERN.sub('\\1 alt="%s"\\2' % escape(target.Title(),1), tag)
-                        d['tag'] = tag
-                        if not width and srctail:
+                        d['image'] = d['fullimage'] = target
+                        if srctail:
                             try:
                                 subtarget = target.restrictedTraverse(srctail)
                             except:
                                 subtarget = getattr(target, srctail, None)
-
-                            if hasattr(aq_base(subtarget), 'getWidth'):
-                                width = subtarget.getWidth()
-                            elif hasattr(aq_base(subtarget), 'width'):
-                                width = subtarget.width
-                        if not width:
-                            try:
-                                width = target.getWidth()
-                            except AttributeError:
-                                pass
-                        if not width:
-                            try:
-                                width = target.getImage().getWidth()
-                            except:
-                                width = 150
-                        d['width'] = width
-                        return IMAGE_TEMPLATE % d
+                            if subtarget:
+                                d['image'] = subtarget
+                        return template(**d)
                 return match.group(0) # No change
 
             html = IMAGE_PATTERN.sub(replaceImage, data)
