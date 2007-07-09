@@ -32,8 +32,6 @@ Kupu changes
 
   - Plone tickets:
 
-    * 4887 editing defaults to kupu, even when javascript turned off
-
     * 5622 Add a class (even if empty) to internal LinkDrawer
 
     * 6283 Do not allow bigger images than Preview by default from Kupu
@@ -63,6 +61,8 @@ Kupu changes
       find kupu_references
 
     * 6598 Default linkables in Kupu: folder is not, plone site is not, ATRelativePathCriterion is
+
+    * 4887 Fix for "editing defaults to kupu, even when javascript turned off" reverted as it breaks inline editing.
 
 - 1.4 Beta 6
 
