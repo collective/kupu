@@ -73,7 +73,8 @@
                 i18n:translate="convert-to-kupu"
                 >Convert to HTML and edit with the visual editor</a></span>
     </tal:archetypes>
-    <tal:nonat condition="not:fieldName|nothing">
+    <tal:nonat condition="not:fieldName|nothing"
+               define="text_format text_format | python: getattr(here,'text_format','html');">
      <label for="text_format" i18n:translate="label_format">Format</label>
 
      <div class="formHelp" i18n:translate="help_format">
