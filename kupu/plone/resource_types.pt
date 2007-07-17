@@ -171,18 +171,19 @@ i18n:domain="kupuconfig">
                              previewaction python:context.getPreviewForType(portal_type);
                              normalaction python:context.getNormalViewForType(portal_type);
                              scalefield python:context.getScaleFieldForType(portal_type);
+                             defscale python:context.getDefaultScaleForType(portal_type);
                              classes python:context.getClassesForType(portal_type);
                              mediatype python:context.getMediaForType(portal_type);"
                              tal:condition="python:context.getPreviewForType(portal_type)"
                              tal:attributes="class python:test(oddrow, 'even', 'odd');">
                         <tr>
-                           <td rowspan="5">
+                           <td rowspan="6">
                               <input type="hidden" name="preview_action.marker:records" value="x" />
                               <input type="hidden" name="preview_action.portal_type:records" tal:attributes="value id" />
                               <input type="checkbox" name="preview_types:list"
                                      tal:attributes="value id" />
                            </td>
-                           <td rowspan="5" tal:content="fulltitle"></td>
+                           <td rowspan="6" tal:content="fulltitle"></td>
                            <td style="border-right: none;" width="1%"
                                i18n:translate="preview_subheading">preview</td>
                            <td>
@@ -207,6 +208,16 @@ i18n:domain="kupuconfig">
                               <input type="text" name="preview_action.scalefield:records"
                                      style="width:90%"
                                      tal:attributes="value scalefield" />
+                           </td>
+                        </tr>
+                        <tr>
+                           <td style="border-right: none;" width="1%"
+                               i18n:translate="defscale_subheading">default scale</td>
+                           <td>
+                              <input type="text"
+                                     name="preview_action.defscale:records"
+                                     style="width:90%"
+                                     tal:attributes="value defscale" />
                            </td>
                         </tr>
                         <tr>
@@ -238,18 +249,18 @@ i18n:domain="kupuconfig">
                   <tbody  tal:define="oddrow python:len(previewable)%2;"
                           tal:attributes="class python:test(oddrow, 'even', 'odd');">
                      <tr>
-                        <td rowspan="5">
+                        <td rowspan="6">
                            <input type="hidden" name="preview_action.marker:records" value="-"/>
                         </td>
-                        <td rowspan="5">
+                        <td rowspan="6">
                            <select name="preview_action.portal_type:records" style="width:15em">
                               <option i18n:translate="select_type" value="">(select type)</option>
                               <tal:block repeat="ti typeinfos">
-                                    <option tal:define="title python:ti[0]; id python:ti[1];
-                                            fulltitle python:title + test(title==id,'',' (%s)'%id);"
-                                            tal:content="fulltitle"
-                                            tal:condition="not:python:context.getPreviewForType(id)"
-                                            tal:attributes="value id;"></option>
+                                 <option tal:define="title python:ti[0]; id python:ti[1];
+                                         fulltitle python:title + test(title==id,'',' (%s)'%id);"
+                                         tal:content="fulltitle"
+                                         tal:condition="not:python:context.getPreviewForType(id)"
+                                         tal:attributes="value id;"></option>
                               </tal:block>
                            </select>
                         </td>
@@ -276,27 +287,36 @@ i18n:domain="kupuconfig">
                                   style="width:90%" value="image" />
                         </td>
                      </tr>
-                        <tr>
-                           <td style="border-right: none;" width="1%"
-                               i18n:translate="classes_subheading">classes</td>
-                           <td>
-                              <textarea type="text" name="preview_action.classes:records"
+                     <tr>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="defscale_subheading">default scale</td>
+                        <td>
+                           <input type="text"
+                                  name="preview_action.defscale:records"
+                                  style="width:90%" value="image_preview" />
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="classes_subheading">classes</td>
+                        <td>
+                           <textarea type="text" name="preview_action.classes:records"
                                      style="width:90%"></textarea>
-                           </td>
-                        </tr>
-                        <tr>
-                           <td style="border-right: none;" width="1%"
-                               i18n:translate="type_subheading">type</td>
-                           <td>
-                              <select name="preview_action.mediatype:records" size="1">
-                                 <option value="image"
-                                         selected="selected"
-                                         i18n:translate="image_option">Image</option>
-                                 <option value="flash"
-                                         i18n:translate="flash_option">Flash</option>
-                              </select>
-                           </td>
-                        </tr>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td style="border-right: none;" width="1%"
+                            i18n:translate="type_subheading">type</td>
+                        <td>
+                           <select name="preview_action.mediatype:records" size="1">
+                              <option value="image"
+                                      selected="selected"
+                                      i18n:translate="image_option">Image</option>
+                              <option value="flash"
+                                      i18n:translate="flash_option">Flash</option>
+                           </select>
+                        </td>
+                     </tr>
                   </tbody>
                   <tbody>
                      <tr>
