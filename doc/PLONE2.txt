@@ -339,6 +339,10 @@ image scales. The defaults are:
         Defaults to 'image'. N.B. This is a literal string, not a tal
         expression.
 
+    default scale
+        Defaults to 'image_preview'. Use either blank or 'original'
+        for full size images.
+
     classes
         An optional list of class names to be allowed for this media
         type. The class names will be applied in addition to

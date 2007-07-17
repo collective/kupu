@@ -293,7 +293,8 @@ class InfoAdaptor:
         results = []
         for width, height, key, action in sizes:
             results.append({'label':"%s (%s, %s)" % (key.capitalize(), width, height),
-                            'uri':"%s/%s" % (url, action)})
+                            'uri':"%s/%s" % (url, action),
+                            'action': action},)
         return results
     
     def getState(self, review_state):
@@ -348,6 +349,8 @@ class InfoAdaptor:
                 normal = url
 
             sizes = self.get_image_sizes(obj, portal_type, url)
+            defscale = self.tool.getDefaultScaleForType(portal_type)
+
             media = self.media(portal_type)
             classes = self.classes(portal_type)
 
@@ -376,6 +379,7 @@ class InfoAdaptor:
                 'height': height,
                 'preview': preview,
                 'sizes': sizes,
+                'defscale': defscale,
                 'media': media,
                 'classes': classes,
                 'title': title,
@@ -429,6 +433,7 @@ class InfoAdaptor:
             normal = url
 
         sizes = self.get_image_sizes(brain, portal_type, url)
+        defscale = self.tool.getDefaultScaleForType(portal_type)
         media = self.media(portal_type)
         classes = self.classes(portal_type)
 
@@ -456,6 +461,7 @@ class InfoAdaptor:
             'height': height,
             'preview': preview,
             'sizes': sizes,
+            'defscale': defscale,
             'media': media,
             'classes': classes,
             'title': title,

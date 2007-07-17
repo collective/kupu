@@ -8,6 +8,8 @@ Kupu changes
     Also removed the hardwired html for the transform and use a
     template instead (so it can be customised).
 
+  - Default image size is now configurable
+
 - 1.4rc1
 
   - Added a 'manage anchors' tab to the anchor drawer

@@ -256,6 +256,7 @@ class KupuLibraryTool(Acquisition.Implicit):
             if normal:
                 normal = Expression(normal)
             scalefield = a.get('scalefield', 'image')
+            defscale = a.get('defscale', 'image_preview')
             classes = a.get('classes', '')
             if isinstance(classes, basestring):
                 classes = classes.split('\n')
@@ -267,6 +268,7 @@ class KupuLibraryTool(Acquisition.Implicit):
                 'expression': Expression(preview),
                 'normal': normal,
                 'scalefield': scalefield,
+                'defscale': defscale,
                 'classes': classes,
                 'mediatype': mediatype,
             }
