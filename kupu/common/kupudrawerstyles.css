@@ -322,6 +322,7 @@ td.kupu-bm-select {
   font-weight: normal;
   vertical-align:middle;
   margin-right: 2px;
+  display: inline;
 }
 #kupu-breadcrumbs {
   text-align: left; clear:left;
