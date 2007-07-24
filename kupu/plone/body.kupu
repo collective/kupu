@@ -65,8 +65,8 @@
 
   <kupu:part name="suppress-kupu">
     <div class="kupuoverride"
-        tal:condition="python:exists('kupu_content') and len(kupu_content)==0"
-        tal:define="floated widget/allow_file_upload | python:1;"
+        tal:condition="python:exists('kupu_content') and len(kupu_content)==0 and gAC and len(gAC(here))!=1"
+        tal:define="floated widget/allow_file_upload | python:1;gAC nocall:field/getAllowedContentTypes|nothing"
         tal:attributes="style python:test(floated, 'float:left;;', '');"
       ><span class="discreet"><a class="forcekupu" href="#"
         i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;"
