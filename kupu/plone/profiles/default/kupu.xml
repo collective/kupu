@@ -10,7 +10,7 @@
     <style>Subheading|h3</style>
     <style>Literal|pre</style>
     <style>Discreet|p|discreet</style>
-    <style>Pull-quote|blockquote|pullquote</style>
+    <style>Pull-quote|div|pullquote</style>
     <style>Call-out|p|callout</style>
     <style>Highlight|span|visualHighlight</style>
     <style>Odd row|tr|odd</style>
