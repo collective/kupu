@@ -2,13 +2,25 @@
 Kupu changes
 ============
 
-- Recent changes
+- 1.4rc2
 
   - Fixed broken code for determining the width of captioned images.
     Also removed the hardwired html for the transform and use a
     template instead (so it can be customised).
 
   - Default image size is now configurable
+
+  - Plone tickets
+
+    * 6756: Kupu Pull-quote style not working in IE
+
+    * 6739 Hide the "edit without visual editor" link when there is only one format available
+
+    * 6535: Can't upload image via visual editor in inline edit
+
+    * 6801 'contentUsesKupu' shouldn't expect string type
+
+    * 6759: Kupu caption CSS needs some love.
 
 - 1.4rc1
 
