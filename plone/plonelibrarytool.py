@@ -94,7 +94,7 @@ _default_paragraph_styles = (
     "Subheading|h3",
     "Literal|pre",
     "Discreet|p|discreet",
-    "Pull-quote|blockquote|pullquote",
+    "Pull-quote|div|pullquote",
     "Call-out|p|callout",
     "Highlight|span|visualHighlight",
     "Odd row|tr|odd",
