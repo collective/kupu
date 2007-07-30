@@ -499,7 +499,6 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     
     <!-- image upload form -->
     <xsl:template match="uploadbutton" mode="image-upload">
-        <div class="overflow">
             <div id="kupu-upload-instructions" i18n:translate="imagedrawer_upload_instructions">
                 Select an image from your computer and click ok to have it automatically uploaded to
                 selected folder and inserted into the editor. </div>
@@ -509,23 +508,24 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 border: 0;">
               <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
                 <label i18n:translate="imagedrawer_upload_to_label">Upload
-                    to: <span i18n:name="folder">
+                    to: <span tal:omit-tag="" i18n:name="folder">
                         <xsl:value-of select="/libraries/*[@selected]/title"/>
-                    </span></label>
-                <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
-                <br/>
+                    </span>
+                    <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
+                </label>
                 <label>
-                   <span i18n:translate="imagedrawer_upload_title_label">Title</span>
+                   <span tal:omit-tag=""
+                         i18n:translate="imagedrawer_upload_title_label">Title</span>
                    <input id="kupu-upload-title" type="text" name="node_prop_title" size="23" value=""/>
                 </label>
                 <label>
-                   <span i18n:translate="imagedrawer_upload_desc_label">Description</span><br />
+                   <span tal:omit-tag=""
+                         i18n:translate="imagedrawer_upload_desc_label">Description</span>
                    <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
                 </label>
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None">&#160;</iframe>
-        </div>
     </xsl:template>
     <xsl:template match="breadcrumbs">
         <span>
