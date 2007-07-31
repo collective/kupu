@@ -154,8 +154,8 @@
                   <span tal:content="link/before" /><a
                      target="badlink"
                      tal:attributes="href link/url"
-                     tal:content="link/text|default"
-                     i18n:translate="no_text_in_link">[no text in link]</a><span
+                     tal:content="link/text|default">
+                     <span i18n:translate="no_text_in_link">[no text in link]</span></a><span
                      tal:content="link/after" />
                   </code>
                 </li>
