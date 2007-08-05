@@ -105,19 +105,6 @@
     </span>
   </kupu:part>
 
-  <kupu:part name="buttongroup-remove">
-    <span class="kupu-tb-buttongroup" id="kupu-bg-remove" tal:condition="filter/bg-remove">
-      <button type="button" class="kupu-removeimage invisible"
-              tal:condition="filter/removeimage-button"
-              id="kupu-removeimage-button" title="Remove image"
-              i18n:attributes="title title_removeimage;">&#160;</button>
-      <button type="button" class="kupu-removelink invisible"
-              tal:condition="filter/removelink-button"
-              id="kupu-removelink-button" title="Remove link"
-              i18n:attributes="title title_removelink;">&#160;</button>
-    </span>
-  </kupu:part>
-
   <kupu:part name="buttongroup-undo">
     <span class="kupu-tb-buttongroup" id="kupu-bg-undo" tal:condition="filter/bg-undo">
       <button type="button" class="kupu-undo" 
@@ -163,5 +150,18 @@
       <option value="lower-alpha" 
               i18n:translate="list-loweralpha">a</option>
     </select>
+  </kupu:part>
+
+  <kupu:part name="buttongroup-remove">
+    <span class="kupu-tb-buttongroup" id="kupu-bg-remove" tal:condition="filter/bg-remove">
+      <button type="button" class="kupu-removeimage invisible"
+              tal:condition="filter/removeimage-button"
+              id="kupu-removeimage-button" title="Remove image"
+              i18n:attributes="title title_removeimage;">&#160;</button>
+      <button type="button" class="kupu-removelink invisible"
+              tal:condition="filter/removelink-button"
+              id="kupu-removelink-button" title="Remove link"
+              i18n:attributes="title title_removelink;">&#160;</button>
+    </span>
   </kupu:part>
 </kupu:feature>
