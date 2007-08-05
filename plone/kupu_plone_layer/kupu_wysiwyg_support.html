@@ -195,7 +195,7 @@
     </span>
   
     <select class="kupu-tb-styles" tal:condition="filter/styles" tal:define="field field|nothing;styles python:tool.getStyleList(field);">
-      <option value="p" i18n:translate="Normal">Normal</option>
+      <option value="p" i18n:translate="Normal">Normal paragraph</option>
       <tal:block condition="styles" repeat="style styles">
         <option i18n:translate="" tal:attributes="value style/value" tal:content="style/content"/>
       </tal:block>
