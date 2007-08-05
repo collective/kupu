@@ -92,27 +92,8 @@ ul.kupu-tabs {
   border-bottom: 1px solid &dtml-contentViewBorderColor;;
 }
 
-.kupu-tb-buttons button {
-  width: 24px;
-  height: 24px;
-  border-color:&dtml-contentViewBackgroundColor;;
-  background-color: &dtml-contentViewBackgroundColor;;
-  background-position: center center;
-  margin-bottom:4px;
-  margin-right:-2px;
-}
-
 div div.kupu-panels {
   background-color: &dtml-contentViewBackgroundColor;;
-}
-
-span.kupu-tb-buttons button:hover {
-  border:1px solid;
-  border-color:  &dtml-buttonhighlight; &dtml-buttonshadow; &dtml-buttonshadow; &dtml-buttonhighlight;;
-}
-
-div.kupu-tb-buttongroup {
-  margin-right:1px;
 }
 
 .kupu-tb-styles, .kupu-ulstyles, .kupu-olstyles {
@@ -142,6 +123,29 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
   width:100%;
 }
 
+/*  Button definitions - these use one image as a CSS sprite, and refer to the
+ *  image they need with an offset instead of loading 24 image files.
+ */
+
+.kupu-tb-buttons button {
+  width: 24px;
+  height: 24px;
+  border-color:&dtml-contentViewBackgroundColor;;
+  background-color: &dtml-contentViewBackgroundColor;;
+  background-position: center center;
+  margin-bottom:4px;
+  margin-right:-2px;
+}
+
+span.kupu-tb-buttons button:hover {
+  border:1px solid;
+  border-color:  &dtml-buttonhighlight; &dtml-buttonshadow; &dtml-buttonshadow; &dtml-buttonhighlight;;
+}
+
+div.kupu-tb-buttongroup {
+  margin-right:1px;
+}
+
 
 span.kupu-tb-buttons .kupu-bold-pressed,
 span.kupu-tb-buttons .kupu-italic-pressed,
@@ -151,69 +155,67 @@ span.kupu-tb-buttons .kupu-underline-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
-.kupu-anchors {background-image:url("&dtml-portal_url;/plonekupuimages/anchor.gif");}
+button.kupu-anchors {background-image:url("&dtml-portal_url;/plonekupuimages/anchor.gif");}
 
-.kupu-bold,
-.kupu-bold-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/bold.gif");}
+button.kupu-bold,
+button.kupu-bold-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/bold.gif");}
 
-.kupu-forecolor {background-image: url("&dtml-portal_url;/kupuimages/text-color.png");}
-.kupu-hilitecolor {background-image: url("&dtml-portal_url;/kupuimages/background-color.png");}
-.kupu-inthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/hyperlink.gif");}
-.kupu-inthyperlink-pressed {
+button.kupu-forecolor {background-image: url("&dtml-portal_url;/kupuimages/text-color.png");}
+button.kupu-hilitecolor {background-image: url("&dtml-portal_url;/kupuimages/background-color.png");}
+button.kupu-inthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/hyperlink.gif");}
+button.kupu-inthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
-.kupu-exthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/link_icon.gif");}
-.kupu-exthyperlink-pressed {
+button.kupu-exthyperlink {background-image: url("&dtml-portal_url;/plonekupuimages/link_icon.gif");}
+button.kupu-exthyperlink-pressed {
   border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;;
 }
 
-.kupu-image {background-image: url("&dtml-portal_url;/plonekupuimages/image.gif");}
-.kupu-indent {background-image: url("&dtml-portal_url;/plonekupuimages/indent.gif");}
-.kupu-outdent {background-image: url("&dtml-portal_url;/plonekupuimages/outdent.gif");}
-.kupu-inserthorizontalrule {background-image: url("&dtml-portal_url;/plonekupuimages/hr.gif");}
+button.kupu-image {background-image: url("&dtml-portal_url;/plonekupuimages/image.gif");}
+button.kupu-indent {background-image: url("&dtml-portal_url;/plonekupuimages/indent.gif");}
+button.kupu-outdent {background-image: url("&dtml-portal_url;/plonekupuimages/outdent.gif");}
+button.kupu-inserthorizontalrule {background-image: url("&dtml-portal_url;/plonekupuimages/hr.gif");}
 
-.kupu-insertorderedlist,
-.kupu-insertorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/numbered_list.gif");}
+button.kupu-insertorderedlist,
+button.kupu-insertorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/numbered_list.gif");}
+button.kupu-insertunorderedlist,
+button.kupu-insertunorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/list.gif");}
+button.kupu-insertdefinitionlist {background-image: url("&dtml-portal_url;/plonekupuimages/definitionlist.gif");}
 
-.kupu-insertunorderedlist,
-.kupu-insertunorderedlist-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/list.gif");}
+button.kupu-italic, 
+button.kupu-italic-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/italic.gif");}
 
-.kupu-insertdefinitionlist {background-image: url("&dtml-portal_url;/plonekupuimages/definitionlist.gif");}
+button.kupu-justifycenter,
+button.kupu-justifycenter-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/center.gif");}
 
-.kupu-italic, 
-.kupu-italic-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/italic.gif");}
+button.kupu-justifyleft,
+button.kupu-justifyleft-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/left_just.gif");}
 
-.kupu-justifycenter,
-.kupu-justifycenter-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/center.gif");}
+button.kupu-justifyright,
+button.kupu-justifyright-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/right_just.gif");}
 
-.kupu-justifyleft,
-.kupu-justifyleft-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/left_just.gif");}
+button.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.gif");}
+button.kupu-redo {background-image: url("&dtml-portal_url;/plonekupuimages/redo.gif");}
+button.kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
+button.kupu-removeimage {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
+button.kupu-save {background-image: url("&dtml-portal_url;/kupuimages/save.png");display:none;}
+button.kupu-save-and-exit {background-image: url("&dtml-portal_url;/kupuimages/exit.gif");}
+button.kupu-space {background-image: url("&dtml-portal_url;/plonekupuimages/space.gif");}
+button.kupu-source {background-image: url("&dtml-portal_url;/plonekupuimages/view-source.gif");}
+button.kupu-spellchecker {background-image: url("&dtml-portal_url;/kupuimages/text-check.png");}
+button.kupu-subscript,
+button.kupu-subscript-pressed  {background-image: url("&dtml-portal_url;/plonekupuimages/subscript.gif");}
+button.kupu-superscript,
+button.kupu-superscript-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/superscript.gif");}
 
-.kupu-justifyright,
-.kupu-justifyright-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/right_just.gif");}
+button.kupu-table {background-image: url("&dtml-portal_url;/plonekupuimages/table.gif");}
+button.kupu-underline, 
+button.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
 
-.kupu-logo {background-image: url("&dtml-portal_url;/kupuimages/kupu_icon.gif");}
-.kupu-redo {background-image: url("&dtml-portal_url;/plonekupuimages/redo.gif");}
-.kupu-removelink {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
-.kupu-removeimage {background-image: url("&dtml-portal_url;/plonekupuimages/delete_icon.gif");}
-.kupu-save {background-image: url("&dtml-portal_url;/kupuimages/save.png");display:none;}
-.kupu-save-and-exit {background-image: url("&dtml-portal_url;/kupuimages/exit.gif");}
-.kupu-space {background-image: url("&dtml-portal_url;/plonekupuimages/space.gif");}
-.kupu-source {background-image: url("&dtml-portal_url;/plonekupuimages/view-source.gif");}
-.kupu-spellchecker {background-image: url("&dtml-portal_url;/kupuimages/text-check.png");}
-.kupu-subscript,
-.kupu-subscript-pressed  {background-image: url("&dtml-portal_url;/plonekupuimages/subscript.gif");}
-.kupu-superscript,
-.kupu-superscript-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/superscript.gif");}
+button.kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
 
-.kupu-table {background-image: url("&dtml-portal_url;/plonekupuimages/table.gif");}
-.kupu-underline, 
-.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
-
-.kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
-
-.kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
-.kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}
+button.kupu-zoom {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreenexpand_icon.gif");}
+button.kupu-zoom-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/fullscreencollapse_icon.gif");}
 
 
 div.kupu-drawer {
