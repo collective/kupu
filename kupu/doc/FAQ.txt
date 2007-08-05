@@ -2,15 +2,11 @@
 Kupu Frequently Asked Questions
 ===============================
 
-* Will this work with Safari or Opera or ...?
+* Will this work with Safari?
 
   No, Kupu will only run on browsers with the IE engine (IE 5.5+) or those
-  with a Gecko engine (Mozilla 1.3.1+ and Netscape 7.1+), not on the 
-  Konqueror one (which Safari uses) or on Opera or any other browser. 
-  Actually Mozilla copied a feature unique to Internet Explorer, which is 
-  not part of any standard, which Kupu uses. Because it's not part of a
-  standard, it is not very likely any other browsers will implement it,
-  although we keep hoping some day they will.
+  with a Gecko engine (Mozilla 1.3.1+ and Netscape 7.1+), on Opera 9 or later.
+  It will not run on KHTML (which Safari/Konqueror uses) or any other browser. 
 
 * Kupu allows users to do all kinds of things - like coloring text -
   that I don't want in my system.
@@ -84,8 +80,8 @@ Kupu Frequently Asked Questions
 
   The authors of these editors have done great work. They are superb
   applications, but the major drawback is they work in only one browser (as of 
-  this writing). Kupu was created to work in both Mozilla/Netscape and Internet 
-  Explorer.
+  this writing). Kupu was created to work in both Mozilla/Netscape and
+  Internet Explorer.
 
 * What's with the xsltproc error when 'make'ing kupu?
 
