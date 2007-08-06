@@ -181,8 +181,10 @@ function initPloneKupu(editorId) {
     var beforeunloadTool = window.onbeforeunload && window.onbeforeunload.tool;
     if (beforeunloadTool) {
         var initialBody = kupu.getHTMLBody();
+        var check_id = textarea.id;
         beforeunloadTool.addHandler(function() {
-            return kupu.getHTMLBody() != initialBody;
+            var txt = document.getElementById(check_id);
+            return !!txt && kupu.getHTMLBody() != initialBody;
         });
         beforeunloadTool.chkId[textarea.id] = function() { return false; };
         beforeunloadTool.addForm(form);
