@@ -14,6 +14,8 @@ requirements are one of:
   - Internet Explorer 5.5 or higher
 
   - Netscape Navigator 7.1 or higher
+  
+  - Opera 9 or higher
 
 Server-side there are hardly any requirements, except for some way of
 processing data (CGI or something more fancy like PHP, ASP or Python
@@ -23,7 +25,7 @@ Kupu is particularly suited for content migration as well as editing.
 Content copied from an existing web page is pasted with all formatting
 intact. This includes structure such as headings and lists, plus links,
 image references, text styling, and other aspects. Copying text from a
-word processor with an HTML clipboard - such as MSWord - works exactly
+word processor with an HTML clipboard - such as MS Word - works exactly
 the same.
 
 Kupu will clean up the content before it is sent to the server, and can
