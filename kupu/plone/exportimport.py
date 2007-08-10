@@ -260,7 +260,7 @@ class KupuToolImportConfigurator(ImportConfiguratorBase):
                 },
             'previewclass': { '#text': {KEY:None}, },
             'generatepreviews': {},
-            'globaltoolbar': { '#text': { KEY:None }, },
+            'globaltoolbar': { '#text': { KEY:None, DEFAULT: '' }, },
             'toolbar':
                 {
                     'element': { KEY: 'elements' },
