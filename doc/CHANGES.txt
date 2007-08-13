@@ -2,6 +2,8 @@
 Kupu changes
 ============
 
+- 1.4
+
   - The icons in the toolbar for Plone now use CSS sprites. This means that
     instead of having 30 files each being 16x16, we put all the icons  
     in one file, and reference the file once. Then we use CSS positioning to  
@@ -9,6 +11,16 @@ Kupu changes
     performs its initial load — as HTTP roundtripping is very time-consuming.
     Before, Kupu did 17 HTTP requests for its initial image loading, now it
     only does one.
+
+  - Fixed a KeyError exception when importing a GenericSetup profile.
+
+  - Minor styling changes to the image upload form.
+
+  - Plone tickets
+
+    * 6486: formUnload protection invoked for inline kupu editor even after Save
+
+    * 6833: Error 500 loading kupu_migration.xml
 
 - 1.4rc2
 
