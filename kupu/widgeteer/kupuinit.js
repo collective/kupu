@@ -186,108 +186,207 @@ function initKupu(iframe) {
         };
     };
 
-    var boldchecker = parentWithStyleChecker(['b', 'strong'],
-                                             'font-weight', 'bold');
-    var boldbutton = new KupuStateButton('kupu-bold-button',
-                                         execCommand('bold'),
-                                         boldchecker,
-                                         'kupu-bold',
-                                         'kupu-bold-pressed');
-    kupu.registerTool('boldbutton', boldbutton);
+    var tools = parentiframe.textarea.getAttribute('widget:tools');
+    if (tools) {
+        tools = tools.split(',');
+        for (var i=0; i < tools.length; i++) {
+            tools[i] = tools[i].strip();
+        };
+    };
 
-    var italicschecker = parentWithStyleChecker(['i', 'em'],
-                                                'font-style', 'italic');
-    var italicsbutton = new KupuStateButton('kupu-italic-button',
-                                            execCommand('italic'),
-                                            italicschecker,
-                                            'kupu-italic',
-                                            'kupu-italic-pressed');
-    kupu.registerTool('italicsbutton', italicsbutton);
+    if (!tools || !tools.length || tools.contains('basicmarkup')) {
+        var boldchecker = parentWithStyleChecker(['b', 'strong'],
+                                                 'font-weight', 'bold');
+        var boldbutton = new KupuStateButton('kupu-bold-button',
+                                             execCommand('bold'),
+                                             boldchecker,
+                                             'kupu-bold',
+                                             'kupu-bold-pressed');
+        kupu.registerTool('boldbutton', boldbutton);
 
-    var underlinechecker = parentWithStyleChecker(['u']);
-    var underlinebutton = new KupuStateButton('kupu-underline-button',
-                                              execCommand('underline'),
-                                              underlinechecker,
-                                              'kupu-underline',
-                                              'kupu-underline-pressed');
-    kupu.registerTool('underlinebutton', underlinebutton);
+        var italicschecker = parentWithStyleChecker(['i', 'em'],
+                                                    'font-style', 'italic');
+        var italicsbutton = new KupuStateButton('kupu-italic-button',
+                                                execCommand('italic'),
+                                                italicschecker,
+                                                'kupu-italic',
+                                                'kupu-italic-pressed');
+        kupu.registerTool('italicsbutton', italicsbutton);
 
-    var subscriptchecker = parentWithStyleChecker(['sub']);
-    var subscriptbutton = new KupuStateButton('kupu-subscript-button',
-                                              execCommand('subscript'),
-                                              subscriptchecker,
-                                              'kupu-subscript',
-                                              'kupu-subscript-pressed');
-    kupu.registerTool('subscriptbutton', subscriptbutton);
+        var underlinechecker = parentWithStyleChecker(['u']);
+        var underlinebutton = new KupuStateButton('kupu-underline-button',
+                                                  execCommand('underline'),
+                                                  underlinechecker,
+                                                  'kupu-underline',
+                                                  'kupu-underline-pressed');
+        kupu.registerTool('underlinebutton', underlinebutton);
+    } else {
+        var b = document.getElementById('kupu-bg-basicmarkup');
+        b.parentNode.removeChild(b);
+    };
 
-    var superscriptchecker = parentWithStyleChecker(['super', 'sup']);
-    var superscriptbutton = new KupuStateButton('kupu-superscript-button',
+    if (!tools || !tools.length || tools.contains('subsuper')) {
+        var subscriptchecker = parentWithStyleChecker(['sub']);
+        var subscriptbutton = new KupuStateButton('kupu-subscript-button',
+                                                  execCommand('subscript'),
+                                                  subscriptchecker,
+                                                  'kupu-subscript',
+                                                  'kupu-subscript-pressed');
+        kupu.registerTool('subscriptbutton', subscriptbutton);
+
+        var superscriptchecker = parentWithStyleChecker(['super', 'sup']);
+        var superscriptbutton = new KupuStateButton('kupu-superscript-button',
                                                 execCommand('superscript'),
                                                 superscriptchecker,
                                                 'kupu-superscript',
                                                 'kupu-superscript-pressed');
-    kupu.registerTool('superscriptbutton', superscriptbutton);
-
-    var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'))
-    kupu.registerTool('undobutton', undobutton);
-
-    var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
-    kupu.registerTool('redobutton', redobutton);
-
-    var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
-                                                'kupu-hilitecolor-button',
-                                                'kupu-colorchooser');
-    kupu.registerTool('colorchooser', colorchoosertool);
-
-    var listtool = new ListTool('kupu-list-ul-addbutton',
-                                'kupu-list-ol-addbutton',
-                                'kupu-ulstyles',
-                                'kupu-olstyles');
-    kupu.registerTool('listtool', listtool);
-
-    var definitionlisttool = new DefinitionListTool('kupu-list-dl-addbutton');
-    kupu.registerTool('definitionlisttool', definitionlisttool);
-
-    var linktool = new LinkTool();
-    kupu.registerTool('linktool', linktool);
-    var handler = function() {
-        var create_handler = new ContextFixer(linktool.createLink, 
-                                                    linktool).execute;
-        parent.browser_manager.startBrowser(create_handler,
-                parentiframe.textarea.getAttribute('widget:linkpath'));
+        kupu.registerTool('superscriptbutton', superscriptbutton);
+    } else {
+        var b = document.getElementById('kupu-bg-subsuper');
+        b.parentNode.removeChild(b);
     };
-    addEventHandler(document.getElementById('kupu-intlink-button'), 'click',
-                    handler);
 
-    var imagetool = new ImageTool();
-    kupu.registerTool('imagetool', imagetool);
-    var handler = function() {
-        var create_handler = new ContextFixer(imagetool.createImage, 
-                                                imagetool).execute;
-        parent.browser_manager.startBrowser(create_handler,
-                parentiframe.textarea.getAttribute('widget:imagepath'),
-                                                ['image/jpeg', 'image/png',
-                                                    'image/gif']);
+    if (!tools || !tools.length || tools.contains('color')) {
+        var colorchoosertool = new ColorchooserTool('kupu-forecolor-button',
+                                                    'kupu-hilitecolor-button',
+                                                    'kupu-colorchooser');
+        kupu.registerTool('colorchooser', colorchoosertool);
+    } else {
+        var b = document.getElementById('kupu-bg-color');
+        b.parentNode.removeChild(b);
     };
-    addEventHandler(document.getElementById('kupu-image-button'), 'click',
-                    handler);
 
-    var tabletool = new TableTool();
-    kupu.registerTool('tabletool', tabletool);
+    if (!tools || !tools.length || tools.contains('browser')) {
+        var linktool = new LinkTool();
+        kupu.registerTool('linktool', linktool);
+        var handler = function() {
+            var create_handler = new ContextFixer(linktool.createLink, 
+                                                        linktool).execute;
+            parent.browser_manager.startBrowser(create_handler,
+                    parentiframe.textarea.getAttribute('widget:linkpath'));
+        };
+        addEventHandler(document.getElementById('kupu-intlink-button'),
+                        'click', handler);
 
-    var showpathtool = new ShowPathTool();
-    kupu.registerTool('showpathtool', showpathtool);
+        var imagetool = new ImageTool();
+        kupu.registerTool('imagetool', imagetool);
+        var handler = function() {
+            var create_handler = new ContextFixer(imagetool.createImage, 
+                                                    imagetool).execute;
+            parent.browser_manager.startBrowser(create_handler,
+                    parentiframe.textarea.getAttribute('widget:imagepath'),
+                                                    ['image/jpeg', 'image/png',
+                                                        'image/gif']);
+        };
+        addEventHandler(document.getElementById('kupu-image-button'), 'click',
+                        handler);
+    } else {
+        var b = document.getElementById('kupu-bg-browser');
+        b.parentNode.removeChild(b);
+    };
 
-    var sourceedittool = new SourceEditTool('kupu-source-button',
-                                            'kupu-editor-textarea');
-    kupu.registerTool('sourceedittool', sourceedittool);
+    if (!tools || !tools.length || tools.contains('justify')) {
+        var justifyleftbutton = new KupuButton('kupu-justifyleft-button',
+                                               execCommand('justifyleft'));
+        kupu.registerTool('justifyleftbutton', justifyleftbutton);
 
-    var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
-                                            'kupu_spellcheck');
-    kupu.registerTool('spellchecker', spellchecker);
+        var justifycenterbutton = new KupuButton('kupu-justifycenter-button',
+                                                 execCommand('justifycenter'));
+        kupu.registerTool('justifycenterbutton', justifycenterbutton);
+        var justifyrightbutton = new KupuButton('kupu-justifyright-button',
+                                                execCommand('justifyright'));
+        kupu.registerTool('justifyrightbutton', justifyrightbutton);
+    } else {
+        var b = document.getElementById('kupu-bg-justify');
+        b.parentNode.removeChild(b);
+    };
 
-    var viewsourcetool = new ViewSourceTool();
-    kupu.registerTool('viewsourcetool', viewsourcetool);
+    if (!tools || !tools.length || tools.contains('list')) {
+        var listtool = new ListTool('kupu-list-ul-addbutton',
+                                    'kupu-list-ol-addbutton',
+                                    'kupu-ulstyles',
+                                    'kupu-olstyles');
+        kupu.registerTool('listtool', listtool);
+    } else {
+        var b = document.getElementById('kupu-bg-list');
+        b.parentNode.removeChild(b);
+        var b = document.getElementById('kupu-ulstyles');
+        b.parentNode.removeChild(b);
+        var b = document.getElementById('kupu-olstyles');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('definitionlist')) {
+        var definitionlisttool = new DefinitionListTool(
+                                            'kupu-list-dl-addbutton');
+        kupu.registerTool('definitionlisttool', definitionlisttool);
+    } else {
+        var b = document.getElementById('kupu-bg-definitionlist');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('indent')) {
+        var outdentbutton = new KupuButton('kupu-outdent-button',
+                                           execCommand('outdent'));
+        kupu.registerTool('outdentbutton', outdentbutton);
+
+        var indentbutton = new KupuButton('kupu-indent-button',
+                                          execCommand('indent'));
+        kupu.registerTool('indentbutton', indentbutton);
+    } else {
+        var b = document.getElementById('kupu-bg-indent');
+        b.parentNode.removeChild(b);
+    };
+
+    // XXX fix remove buttons later...
+    var b = document.getElementById('kupu-bg-remove');
+    b.parentNode.removeChild(b);
+
+    if (!tools || !tools.length || tools.contains('undo')) {
+        var undobutton = new KupuButton('kupu-undo-button',
+                                        execCommand('undo'))
+        kupu.registerTool('undobutton', undobutton);
+
+        var redobutton = new KupuButton('kupu-redo-button',
+                                        execCommand('redo'));
+        kupu.registerTool('redobutton', redobutton);
+    } else {
+        var b = document.getElementById('kupu-bg-undo');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('spellchecker')) {
+        var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
+                                                'spellcheck.cgi');
+        kupu.registerTool('spellchecker', spellchecker);
+    } else {
+        var b = document.getElementById('kupu-spellchecker');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('source')) {
+        var sourceedittool = new SourceEditTool('kupu-source-button',
+                                                'kupu-editor-textarea');
+        kupu.registerTool('sourceedittool', sourceedittool);
+    } else {
+        var b = document.getElementById('kupu-source');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('table')) {
+        var tabletool = new TableTool();
+        kupu.registerTool('tabletool', tabletool);
+    };
+
+    if (!tools || !tools.length || tools.contains('path')) {
+        var showpathtool = new ShowPathTool();
+        kupu.registerTool('showpathtool', showpathtool);
+    };
+
+    if (!tools || !tools.length || tools.contains('source')) {
+        var viewsourcetool = new ViewSourceTool();
+        kupu.registerTool('viewsourcetool', viewsourcetool);
+    };
 
     /*
     // Function that returns function to open a drawer
