@@ -47,7 +47,7 @@
            icon="string:${portal_url}/kupuimages/kupusearch_icon.gif"
            title="string:Recent items">
   </library>
-  <defaultlibrary>myitems</defaultlibrary>
+  <defaultlibrary>current</defaultlibrary>
   <resource id="collection" mode="whitelist">
     <type>Plone Site</type>
     <type>Large Plone Folder</type>
