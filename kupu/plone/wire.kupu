@@ -56,11 +56,11 @@
     <kupu:insert-part feature="toolbar" part="buttongroup-definitionlist" />
     <kupu:insert-part feature="toolbar" part="buttongroup-indent" />
     <kupu:insert-part feature="drawers" part="buttons" />
-    <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
     <kupu:insert-part feature="toolbar" part="buttongroup-undo" />
     <kupu:insert-part feature="spellchecker" part="buttons" />
     <kupu:insert-part feature="sourceedit" part="buttons" />
     <kupu:insert-part feature="toolbar" part="select-styles" />
+    <kupu:insert-part feature="toolbar" part="buttongroup-remove" />
   </kupu:fill-slot>
 
 

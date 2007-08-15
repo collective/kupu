@@ -5,6 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="kupu"
     >
   <kupu:id>$Id$</kupu:id>
@@ -57,7 +58,8 @@
          <ul class="kupu-tabs">
             <li class="kupu-linkdrawer-addlink selected"><a href="#"
             i18n:translate="tab_link">Link to url</a></li>
-            <li class="kupu-linkdrawer-embed"><a href="#"
+            <li class="kupu-linkdrawer-embed"
+                tal:condition="filter/embed-tab|nothing"><a href="#"
             i18n:translate="tab_embed">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
@@ -289,9 +291,11 @@
          <ul class="kupu-tabs">
             <li class="kupu-ins-bm selected"><a href="#"
             i18n:translate="tab_link_anchor">Link to anchor</a></li>
-            <li class="kupu-anchor"><a href="#"
+            <li class="kupu-anchor"
+                tal:condition="filter/manage-anchors-tab"><a href="#"
             i18n:translate="tab_manage_anchors">Manage Anchors</a></li>
-            <li class="kupu-toc"><a href="#" i18n:translate="tab_toc">Table of contents</a></li>
+            <li class="kupu-toc"
+                tal:condition="filter/toc-tab|nothing"><a href="#" i18n:translate="tab_toc">Table of contents</a></li>
          </ul>
         <table class="kupu-tabbed">
           <tr>
