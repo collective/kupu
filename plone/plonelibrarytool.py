@@ -182,7 +182,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
 
     security.declareProtected('View', "getStyleList")
     def getStyleList(self, field=None):
-        """Return the paragraph styles for a field."""
+        """Return the styles for a field."""
         gstyles = self.getParagraphStyles()
         if field:
             widget = field.widget

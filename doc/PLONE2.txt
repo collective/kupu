@@ -225,8 +225,8 @@ The default list of table styles is ``plain``, ``listing``, ``grid``,
 ``data``. Only ``listing`` is defined in the default Plone css, you
 should add suitable rules for the other styles to ``ploneCustom.css``.
 
-Paragraph Styles
-::::::::::::::::
+Styles
+::::::
 Enter a list of styles to be added to the style pulldown. See `Custom
 Styles`_.
 
@@ -519,7 +519,7 @@ Styles come from 3 sources:
    c) For Archetypes content types additional styles may be defined for
       individual fields.
 
-Styles defined under `Paragraph Styles`_ in the control panel are in the format ``title|tag``
+Styles defined under `Styles`_ in the control panel are in the format ``title|tag``
 or ``title|tag|class``. e.g.::
 
     Heading|h2
@@ -529,7 +529,7 @@ or ``title|tag|class``. e.g.::
     Highlight|span|highlight
     Table Head|th
 
-Each rich text field can define its own set of paragraph styles to be
+Each rich text field can define its own set of styles to be
 made available in kupu. These are defined on the ``parastyles`` attribute
 of the ``RichWidget``. For example, a typical field definition might be::
 

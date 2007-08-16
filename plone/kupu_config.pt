@@ -233,8 +233,8 @@
                         </div>
 
                         <div class="field">
-                           <label for="parastyles" i18n:translate="label_paragraph_styles">Paragraph Styles</label>
-                           <div class="formHelp" i18n:translate="help_paragraph_styles">Enter a list of paragraph styles to appear in the style pulldown. Format is title|tag or title|tag|className, one per line.</div>
+                           <label for="parastyles" i18n:translate="label_paragraph_styles">Styles</label>
+                           <div class="formHelp" i18n:translate="help_paragraph_styles">Enter a list of styles to appear in the style pulldown. Format is title|tag or title|tag|className, one per line.</div>
                            <input type="hidden" name="parastyles:list:default" value=" " />
                            <textarea name="parastyles:lines" id="parastyles"
                                      rows="5" cols="30" style="width:90%"

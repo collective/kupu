@@ -20,6 +20,12 @@ Kupu changes
   - Place the delete link/image button after the pulldown (so it doesn't
     push around the toolbar elements)
 
+  - Default table styles now include "grid listing" and "invisible".
+
+  - Paragraph styles now labelled just styles and include: highlight, page break, clear floats
+
+  - Create headings now on by default.
+
 - 1.4
 
   - The icons in the toolbar for Plone now use CSS sprites. This means that

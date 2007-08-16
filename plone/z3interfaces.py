@@ -26,7 +26,7 @@ class IPloneKupuLibraryTool(Interface):
         """Return a list of classnames supported by paragraphs"""
 
     def getStyleList(field=None):
-        """Return the paragraph styles for a field."""
+        """Return the styles for a field."""
 
     def filterToolbar(context, field=None):
         """Return a filter helper for toolbar elements.
