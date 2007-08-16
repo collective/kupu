@@ -169,7 +169,7 @@
                   <th class="kupu-toolbox-label"> </th>
                   <td>
                     <input class="kupu-tabledrawer-makeheader"
-                           type="checkbox"
+                           type="checkbox" checked="checked"
                            onkeypress="return HandleDrawerEnter(event);"
                            id="tabledrawer_makeheader"
                            />
