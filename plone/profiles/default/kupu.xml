@@ -17,7 +17,6 @@
     <style>Odd row|tr|odd</style>
     <style>Even row|tr|even</style>
     <style>Heading cell|th|</style>
-    <style>Highlight|span|visualHighlight</style>
     <style>Page break (print only)|div|pageBreak</style>
     <style>Clear floats|div|visualClear</style>
     <filter attributes=""
