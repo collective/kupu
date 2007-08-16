@@ -327,5 +327,30 @@ dd.image-caption {
 dl.captioned {
    padding: 10px;
 }
+
+/* Styling for documentation tab */
+.template-zmi_docs .contents {
+    float: right;
+    width: 30%;
+    font-size: 90%;
+    margin: 0 0 0.5em 0.5em; padding-top:0;
+    border: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+.template-zmi_docs ul.auto-toc, .template-zmi_docs ul.simple {
+  list-style: none;
+}
+.template-zmi_docs .topic-title {
+    background-color: &dtml-globalBackgroundColor;;
+    margin-top: 0;
+    padding: 0em 1em;
+    text-transform: &dtml-textTransform;;
+    font-weight: normal;
+    line-height: 1.6em;
+    border-bottom: &dtml-borderWidth; &dtml-borderStyle; &dtml-globalBorderColor;;
+}
+.template-zmi_docs .topic-title a {
+    color: &dtml-fontColor;;
+    border-bottom: none;
+}
 /* </dtml-let></dtml-with> */
 
