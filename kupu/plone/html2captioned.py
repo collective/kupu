@@ -223,9 +223,9 @@ class Migration:
         if fields:
             f = fields[0]
             self.portal_type = f.portal_type
-            self.typename = f.type
-            self.fieldname = f.name
-            self.fieldlabel = f.label
+            self.typename = f.type.decode('utf-8')
+            self.fieldname = f.name.decode('utf-8')
+            self.fieldlabel = f.label.decode('utf-8')
         else:
             self.portal_type = rfg('portal_type', None)
             self.fieldname = None
