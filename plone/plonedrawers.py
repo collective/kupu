@@ -784,11 +784,10 @@ class PloneDrawers:
     def getKupuFields(self, filter=1):
         """Returns a list of all kupu editable fields"""
         inuse = getToolByName(self, 'portal_catalog').uniqueValuesFor('portal_type')
-        site_encoding = getSiteEncoding(self)
         for t,f,pt in self._getKupuFields():
             if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
                 yield dict(type=t, name=f.getName(), portal_type=pt,
-                           label=f.widget.Label(self).decode(site_encoding))
+                           label=f.widget.Label(self))
 
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
