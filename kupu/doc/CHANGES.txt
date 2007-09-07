@@ -2,6 +2,12 @@
 Kupu changes
 ============
 
+- 1.4.2
+
+  - Plone tickets
+
+    * 7074: Search for image errors in Kupu
+
 - 1.4.1
 
   Limi asked for some last minute changes for Plone 3:
