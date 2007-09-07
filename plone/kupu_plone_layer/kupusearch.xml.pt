@@ -12,8 +12,7 @@
   <uri tal:content="template/absolute_url"/>
   <icon
        tal:content="searchlib/icon|string:${here/portal_url}/kupuimages/kupusearch_icon.gif"/>
-  <title i18n:translate="heading_search_results"
-         tal:define="tpl searchlib/title|string:Search '$$';txt request/SearchableText;"
+  <title tal:define="tpl searchlib/title|string:Search '$$';txt request/SearchableText;"
          tal:content="python:tpl.replace('$',txt,1)">Search Results</title>
   <description i18n:translate="descr_search_results">Search results.</description>
 
