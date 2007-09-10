@@ -37,6 +37,7 @@ IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 ATTR_VALUE = '=(?:"?)(?P<%s>(?<=")[^"]*|[^ \/>]*)'
 ATTR_CLASS = ATTR_VALUE % 'class'
 ATTR_WIDTH = ATTR_VALUE % 'width'
+ATTR_HEIGHT = ATTR_VALUE % 'height'
 ATTR_ALT = ATTR_VALUE % 'alt'
 
 ATTR_PATTERN = re.compile('''
@@ -45,9 +46,10 @@ ATTR_PATTERN = re.compile('''
      | src\s*=\s*"resolveuid/(?P<src>([^/"#? ]*))
      | width%s
      | alt%s
+     | height%s
      | .
      )*\>
-    )''' % (ATTR_CLASS, ATTR_WIDTH, ATTR_ALT), re.VERBOSE | re.IGNORECASE | re.DOTALL)
+    )''' % (ATTR_CLASS, ATTR_WIDTH, ATTR_ALT, ATTR_HEIGHT), re.VERBOSE | re.IGNORECASE | re.DOTALL)
 SRC_TAIL = re.compile(r'/([^" \/>]+)')
 
 CLASS_PATTERN = re.compile('\s*class\s*=\s*("[^"]*captioned[^"]*"|[^" \/>]+)')
