@@ -4,6 +4,8 @@ Kupu changes
 
 - 1.4.2
 
+  - Florian fixed some encoding errors
+
   - Plone tickets
 
     * 7074: Search for image errors in Kupu
