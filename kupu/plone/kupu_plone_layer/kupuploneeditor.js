@@ -100,7 +100,7 @@ KupuEditor.prototype.saveDataToField = function(form, field) {
     // We need to get the contents of the body node as xml, but we don't
     // want the body node itself, so we use a regex to remove it
     var contents = this.getXMLBody(transform);
-    if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;)*<\/body>$/.test(contents)) {
+    if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;|\s)*<\/body>$/.test(contents)) {
         contents = ''; /* Ignore nearly empty contents */
     }
     var base = this._getBase(transform);
