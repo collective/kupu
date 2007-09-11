@@ -2,6 +2,12 @@
 Kupu changes
 ============
 
+- SVN
+
+  - Plone tickets
+
+    * 6975: Cannot save HTML field as NULL
+
 - 1.4.2
 
   - Florian fixed some encoding errors
