@@ -559,7 +559,7 @@ function KupuEditor(document, config, logger) {
         if (this._isDocumentSelected()) {
             var cursel = this.getInnerDocument().selection;
             var currange = cursel.createRange();
-            if (cursel.type=="Control" && currange.item(0).nodeName=="BODY") {
+            if (cursel.type=="Control" && currange.item(0).nodeName.toLowerCase()=="body") {
                 /* This happens when you try to active an embedded
                  * object */
                 this._restoreSelection(true);

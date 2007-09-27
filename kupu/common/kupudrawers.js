@@ -155,9 +155,9 @@ proto.switchMode = function(event) {
     event = event || window.event;
     var target = event.currentTarget || event.srcElement;
     var el = target;
-    while (el.nodeName != 'LI') { el = el.parentNode; };
+    while (!/^li$/i.test(el.nodeName)) { el = el.parentNode; };
     var thistab = el;
-    while (el.nodeName != 'UL') { el = el.parentNode; };
+    while (!/^ul$/i.test(el.nodeName)) { el = el.parentNode; };
     var tabs = el.getElementsByTagName('li');
     for (var i = 0; i < tabs.length; i++) {
         var el = tabs[i];
@@ -243,7 +243,7 @@ proto.hideAnchors = function() {
 
 proto.anchorText = function(a) {
     // Text inside anchor, or immediate sibling block tag, or parent block. 
-    var blocktag = /^DIV|P|BODY|TD|H.$/;
+    var blocktag = /^div|p|body|td|h.$/i;
     var txt = '';
     var prefix = '#' + a.name;
 
@@ -254,7 +254,7 @@ proto.anchorText = function(a) {
         }
 
         for (var sibling = node.nextSibling; sibling && !txt; sibling = sibling.nextSibling) {
-            if (sibling.nodeName=='#text') {
+            if (sibling.nodeName.toLowerCase()=='#text') {
                 txt = sibling.data.strip();
             } else {
                 txt += sibling.textContent || sibling.innerText ||'';
@@ -1709,7 +1709,7 @@ function AnchorDrawer(elementid, tool) {
                     if (level==0) {
                         toc.appendChild(li);
                     } else {
-                        if (!toc.lastChild || toc.lastChild.nodeName != 'ul') {
+                        if (!toc.lastChild || toc.lastChild.nodeName.toLowerCase() != 'ul') {
                             toc.appendChild(ed.newElement('ul'));
                         }
                         toc.lastChild.appendChild(li);
@@ -1733,10 +1733,10 @@ function AnchorDrawer(elementid, tool) {
                 };
             }
             var node = ed.getSelection().parentElement();
-            if (node.nodeName == 'BODY') {
+            if (node.nodeName.toLowerCase() == 'body') {
                 node.insertBefore(toc, node.firstChild);
             } else {
-                while (node.parentNode.nodeName != 'BODY') {
+                while (node.parentNode.nodeName.toLowerCase() != 'body') {
                     node = node.parentNode;
                 }
                 node.parentNode.insertBefore(toc, node);
