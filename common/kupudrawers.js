@@ -246,18 +246,16 @@ proto.anchorText = function(a) {
     var blocktag = /^DIV|P|BODY|TD|H.$/;
     var txt = '';
     var prefix = '#' + a.name;
-findlabel:
+
     for (var node = a; node && !txt; node=node.parentNode) {
         var txt = node.textContent || node.innerText || '';
         if (txt || blocktag.test(node.nodeName)) {
             break;
         }
 
-        for (var sibling = node.nextSibling; sibling; sibling = sibling.nextSibling) {
+        for (var sibling = node.nextSibling; sibling && !txt; sibling = sibling.nextSibling) {
             if (sibling.nodeName=='#text') {
                 txt = sibling.data.strip();
-            } else if (blocktag.test(sibling.nodeName)) {
-                break findlabel;
             } else {
                 txt += sibling.textContent || sibling.innerText ||'';
             };
