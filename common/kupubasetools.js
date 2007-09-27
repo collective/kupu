@@ -677,7 +677,7 @@ function KupuUI(textstyleselectid) {
     this._removeStyle = function() {
         function needbreak(e) {
             if (isblock && e) {
-                if (blocktagre.test(e.nodeName) || e.nodeName=='BR') return;
+                if (blocktagre.test(e.nodeName) || /^br$/i.test(e.nodeName)) return;
                 parent.insertBefore(ed.newElement('br'), n);
             }
         }
@@ -1711,8 +1711,7 @@ function TableTool() {
         for (var i=0; i < currtable.childNodes.length; i++) {
             var currtbody = currtable.childNodes[i];
             if (currtbody.nodeType != 1 || 
-                    (currtbody.nodeName.toUpperCase() != "THEAD" &&
-                        currtbody.nodeName.toUpperCase() != "TBODY")) {
+                    (/^thead|tbody$/i.test(currtbody.nodeName))) {
                 continue;
             }
             for (var j=0; j < currtbody.childNodes.length; j++) {
@@ -1808,7 +1807,7 @@ function TableTool() {
 
     this._isBodyRow = function(row) {
         for (var node = row.firstChild; node; node=node.nextSibling) {
-            if (/TD/.test(node.nodeName)) {
+            if (/^td$/i.test(node.nodeName)) {
                 return true;
             }
         }
@@ -1819,7 +1818,7 @@ function TableTool() {
         // Remove formatted div or p from a cell
         var nxt, n;
         for (var node = el.firstChild; node;) {
-            if (/^DIV|P$/i.test(node.nodeName)) {
+            if (/^div|p$/i.test(node.nodeName)) {
                 for (var n = node.firstChild; n;) {
                     var nxt = n.nextSibling;
                     el.insertBefore(n, node); // Move nodes out of div
@@ -1857,7 +1856,7 @@ function TableTool() {
             var row = rows[i];
             var currnumcols = 0;
             for (var node = row.firstChild; node; node=node.nextSibling) {
-                if (/td|th/i.test(node.nodeName)) {
+                if (/^(td|th)$/i.test(node.nodeName)) {
                     currnumcols += parseInt(node.getAttribute('colSpan') || '1');
                 };
             };
@@ -1879,7 +1878,7 @@ function TableTool() {
             }
             for (var node = row.firstChild; node;) {
                 var nxt = node.nextSibling;
-                if (/TD|TH/.test(node.nodeName)) {
+                if (/^(td|th)$/i.test(node.nodeName)) {
                     this._cleanCell(node);
                     newrow.appendChild(node);
                 };
@@ -1936,13 +1935,13 @@ function TableTool() {
 
         var hrows = [], brows = [], frows = [];
         for (var node = table.firstChild; node; node = node.nextSibling) {
-            var nodeName = node.nodeName;
-            if (/TR/.test(node.nodeName)) {
+            var nodeName = node.nodeName.toLowerCase();
+            if (/tr/i.test(node.nodeName)) {
                 brows.push(node);
-            } else if (/THEAD|TBODY|TFOOT/.test(node.nodeName)) {
-                var rows = nodeName=='THEAD' ? hrows : nodeName=='TFOOT' ? frows : brows;
+            } else if (/thead|tbody|tfoot/i.test(node.nodeName)) {
+                var rows = nodeName=='thead' ? hrows : nodeName=='tfoot' ? frows : brows;
                 for (var inode = node.firstChild; inode; inode = inode.nextSibling) {
-                    if (/TR/.test(inode.nodeName)) {
+                    if (/tr/i.test(inode.nodeName)) {
                         rows.push(inode);
                     };
                 };
@@ -2308,11 +2307,12 @@ function ShowPathTool() {
         var path = '';
         var url = null; // for links we want to display the url too
         var currnode = selNode;
-        while (currnode != null && currnode.nodeName != '#document') {
-            if (currnode.nodeName.toLowerCase() == 'a') {
+        var nn;
+        while (currnode != null && (nn=currnode.nodeName.toLowerCase()) != '#document') {
+            if (nn=='a') {
                 url = currnode.getAttribute('href');
             };
-            path = '/' + currnode.nodeName.toLowerCase() + path;
+            path = '/' + nn + path;
             currnode = currnode.parentNode;
         }
         
