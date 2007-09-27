@@ -122,3 +122,15 @@ def remove_transform(self):
         transform_tool.manage_delPolicies([MT_SAFE])
         if required:
             transform_tool.manage_addPolicy(MT_SAFE, required)
+
+try:
+    import zope.i18nmessageid
+    import zope.i18n
+    def translate(label, context):
+        if isinstance(label, zope.i18nmessageid.Message):
+            return zope.i18n.translate(label, context=context)
+        return label
+except ImportError:
+    def translate(label, context):
+        return label
+
