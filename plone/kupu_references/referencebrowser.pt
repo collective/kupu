@@ -85,15 +85,15 @@
         <div metal:fill-slot="widget_body"
              tal:define="multiVal python:test(field.multiValued, 1, 0);
                          fieldName fieldName;
-                         rFieldName python:repr(repr((isinstance(fieldName,unicode) or unicode(fieldName, 'utf8', 'replace')) and fieldName))[1:];
+                         rFieldName python:repr(unicode(fieldName))[1:];
                          fieldRealName field/getName;
                          portal_type context/portal_type;
                          kupu here/kupu_library_tool;
                          lookupObject nocall:here/reference_catalog/lookupObject;
                          resource_type string:$portal_type.$fieldName;
                          rt python:kupu.getResourceType(resource_type);
-                         label widget/Label|widget/label;
-                         rLabel python:repr(repr((isinstance(label,unicode) or unicode(label, 'utf8', 'replace')) and label))[1:];
+                         label python:kupu.getLabelFromWidget(widget);
+                         rLabel python:repr(label)[1:];
                          uids python:same_type(value, []) and value or [value];
                          uids python:[u for u in uids if u];
                          types_param python:','.join(field.allowed_types);
