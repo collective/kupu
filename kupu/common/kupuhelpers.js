@@ -969,12 +969,16 @@ function MozillaSelection(document) {
     };
 
     this.getRange = function() {
-        return this.selection.getRangeAt(0);
+        if (this.selection) {
+            return this.selection.getRangeAt(0);
+        }
     };
     this.restoreRange = function(range) {
         var selection = this.selection;
-        selection.removeAllRanges();
-        selection.addRange(range);
+        if (selection) {
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
     };
 
     //sample kindly snipped from Mozilla's wiki
