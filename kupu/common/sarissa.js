@@ -5,7 +5,7 @@
  * Sarissa is an ECMAScript library acting as a cross-browser wrapper for native XML APIs.
  * The library supports Gecko based browsers like Mozilla and Firefox,
  * Internet Explorer (5.5+ with MSXML3.0+), Konqueror, Safari and a little of Opera
- * @version @sarissa.version@
+ * @version ${project.version}
  * @author: Manos Batsis, mailto: mbatsis at users full stop sourceforge full stop net
  * ====================================================================
  * Licence
@@ -32,22 +32,37 @@
  * @constructor
  */
 function Sarissa(){};
+Sarissa.VERSION = "${project.version}";
 Sarissa.PARSED_OK = "Document contains no parsing errors";
 Sarissa.PARSED_EMPTY = "Document is empty";
 Sarissa.PARSED_UNKNOWN_ERROR = "Not well-formed or other error";
+Sarissa.IS_ENABLED_TRANSFORM_NODE = false;
 var _sarissa_iNsCounter = 0;
 var _SARISSA_IEPREFIX4XSLPARAM = "";
 var _SARISSA_HAS_DOM_IMPLEMENTATION = document.implementation && true;
 var _SARISSA_HAS_DOM_CREATE_DOCUMENT = _SARISSA_HAS_DOM_IMPLEMENTATION && document.implementation.createDocument;
 var _SARISSA_HAS_DOM_FEATURE = _SARISSA_HAS_DOM_IMPLEMENTATION && document.implementation.hasFeature;
 var _SARISSA_IS_MOZ = _SARISSA_HAS_DOM_CREATE_DOCUMENT && _SARISSA_HAS_DOM_FEATURE;
-var _SARISSA_IS_SAFARI = (navigator.userAgent && navigator.vendor && (navigator.userAgent.toLowerCase().indexOf("applewebkit") != -1 || navigator.vendor.indexOf("Apple") != -1));
+var _SARISSA_IS_SAFARI = navigator.userAgent.toLowerCase().indexOf("safari") != -1 || navigator.userAgent.toLowerCase().indexOf("konqueror") != -1;
+var _SARISSA_IS_SAFARI_OLD = _SARISSA_IS_SAFARI && parseInt((navigator.userAgent.match(/AppleWebKit\/(\d+)/)||{})[1]) < 420;
 var _SARISSA_IS_IE = document.all && window.ActiveXObject && navigator.userAgent.toLowerCase().indexOf("msie") > -1  && navigator.userAgent.toLowerCase().indexOf("opera") == -1;
+var _SARISSA_IS_OPERA = navigator.userAgent.toLowerCase().indexOf("opera") != -1;
 if(!window.Node || !Node.ELEMENT_NODE){
     Node = {ELEMENT_NODE: 1, ATTRIBUTE_NODE: 2, TEXT_NODE: 3, CDATA_SECTION_NODE: 4, ENTITY_REFERENCE_NODE: 5,  ENTITY_NODE: 6, PROCESSING_INSTRUCTION_NODE: 7, COMMENT_NODE: 8, DOCUMENT_NODE: 9, DOCUMENT_TYPE_NODE: 10, DOCUMENT_FRAGMENT_NODE: 11, NOTATION_NODE: 12};
 };
 
-if( typeof XMLDocument == "undefined" && typeof Document != "undefined"){ XMLDocument = Document; }
+//This breaks for(x in o) loops in the old Safari
+if(_SARISSA_IS_SAFARI_OLD){
+    HTMLHtmlElement = document.createElement("html").constructor;
+    Node = HTMLElement = {};
+    HTMLElement.prototype = HTMLHtmlElement.__proto__.__proto__;
+    HTMLDocument = Document = document.constructor;
+    var x = new DOMParser();
+    XMLDocument = x.constructor;
+    Element = x.parseFromString("<Single />", "text/xml").documentElement.constructor;
+    x = null;
+}
+if(typeof XMLDocument == "undefined" && typeof Document !="undefined"){ XMLDocument = Document; } 
 
 // IE initialization
 if(_SARISSA_IS_IE){
@@ -69,8 +84,7 @@ if(_SARISSA_IS_IE){
         var bFound = false, e;
         for(var i=0; i < idList.length && !bFound; i++){
             try{
-                var _ = new ActiveXObject(idList[i]);
-                _ = _;
+                var oDoc = new ActiveXObject(idList[i]);
                 var o2Store = idList[i];
                 bFound = true;
             }catch (objException){
@@ -96,7 +110,7 @@ if(_SARISSA_IS_IE){
          */
         XMLHttpRequest = function() {
             if(!_SARISSA_XMLHTTP_PROGID){
-                _SARISSA_XMLHTTP_PROGID = Sarissa.pickRecentProgID(["Msxml2.XMLHTTP.4.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
+                _SARISSA_XMLHTTP_PROGID = Sarissa.pickRecentProgID(["Msxml2.XMLHTTP.6.0", "MSXML2.XMLHTTP.3.0", "MSXML2.XMLHTTP", "Microsoft.XMLHTTP"]);
             };
             return new ActiveXObject(_SARISSA_XMLHTTP_PROGID);
         };
@@ -108,7 +122,7 @@ if(_SARISSA_IS_IE){
     // see non-IE version
     Sarissa.getDomDocument = function(sUri, sName){
         if(!_SARISSA_DOM_PROGID){
-            _SARISSA_DOM_PROGID = Sarissa.pickRecentProgID(["Msxml2.DOMDocument.4.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"]);
+            _SARISSA_DOM_PROGID = Sarissa.pickRecentProgID(["Msxml2.DOMDocument.6.0", "Msxml2.DOMDocument.3.0", "MSXML2.DOMDocument", "MSXML.DOMDocument", "Microsoft.XMLDOM"]);
         };
         var oDoc = new ActiveXObject(_SARISSA_DOM_PROGID);
         // if a root tag name was provided, we need to load it in the DOM object
@@ -136,7 +150,7 @@ if(_SARISSA_IS_IE){
     // see non-IE version   
     Sarissa.getParseErrorText = function (oDoc) {
         var parseErrorText = Sarissa.PARSED_OK;
-        if(oDoc.parseError.errorCode != 0){
+        if(oDoc && oDoc.parseError && oDoc.parseError.errorCode && oDoc.parseError.errorCode != 0){
             parseErrorText = "XML Parsing Error: " + oDoc.parseError.reason + 
                 "\nLocation: " + oDoc.parseError.url + 
                 "\nLine Number " + oDoc.parseError.line + ", Column " + 
@@ -165,7 +179,7 @@ if(_SARISSA_IS_IE){
      */
     XSLTProcessor = function(){
         if(!_SARISSA_XSLTEMPLATE_PROGID){
-            _SARISSA_XSLTEMPLATE_PROGID = Sarissa.pickRecentProgID(["Msxml2.XSLTemplate.4.0", "MSXML2.XSLTemplate.3.0"]);
+            _SARISSA_XSLTEMPLATE_PROGID = Sarissa.pickRecentProgID(["Msxml2.XSLTemplate.6.0", "MSXML2.XSLTemplate.3.0"]);
         };
         this.template = new ActiveXObject(_SARISSA_XSLTEMPLATE_PROGID);
         this.processor = null;
@@ -177,14 +191,17 @@ if(_SARISSA_IS_IE){
      */
     XSLTProcessor.prototype.importStylesheet = function(xslDoc){
         if(!_SARISSA_THREADEDDOM_PROGID){
-            _SARISSA_THREADEDDOM_PROGID = Sarissa.pickRecentProgID(["MSXML2.FreeThreadedDOMDocument.4.0", "MSXML2.FreeThreadedDOMDocument.3.0"]);
-            _SARISSA_DOM_XMLWRITER = Sarissa.pickRecentProgID(["Msxml2.MXXMLWriter.4.0", "Msxml2.MXXMLWriter.3.0", "MSXML2.MXXMLWriter", "MSXML.MXXMLWriter", "Microsoft.XMLDOM"]);
+            _SARISSA_THREADEDDOM_PROGID = Sarissa.pickRecentProgID(["MSXML2.FreeThreadedDOMDocument.6.0", "MSXML2.FreeThreadedDOMDocument.3.0"]);
         };
         xslDoc.setProperty("SelectionLanguage", "XPath");
         xslDoc.setProperty("SelectionNamespaces", "xmlns:xsl='http://www.w3.org/1999/XSL/Transform'");
         // convert stylesheet to free threaded
         var converted = new ActiveXObject(_SARISSA_THREADEDDOM_PROGID);
         // make included/imported stylesheets work if exist and xsl was originally loaded from url
+        if (_SARISSA_THREADEDDOM_PROGID == "MSXML2.FreeThreadedDOMDocument.6.0") { 
+            converted.setProperty("AllowDocumentFunction", true); 
+            converted.resolveExternals = true; 
+        };
         if(xslDoc.url && xslDoc.selectSingleNode("//xsl:*[local-name() = 'import' or local-name() = 'include']") != null){
             converted.async = false;
             converted.load(xslDoc.url);
@@ -196,7 +213,7 @@ if(_SARISSA_IS_IE){
         this.outputMethod = output ? output.getAttribute("method") : "html";
         this.template.stylesheet = converted;
         this.processor = this.template.createProcessor();
-        // (re)set default param values
+        // for getParameter and clearParameters
         this.paramsSet = [];
     };
 
@@ -207,30 +224,23 @@ if(_SARISSA_IS_IE){
      */
     XSLTProcessor.prototype.transformToDocument = function(sourceDoc){
         // fix for bug 1549749
-        if(_SARISSA_THREADEDDOM_PROGID == "MSXML2.FreeThreadedDOMDocument.3.0"){
+        if(_SARISSA_THREADEDDOM_PROGID){
             this.processor.input=sourceDoc;
-
             var outDoc=new ActiveXObject(_SARISSA_DOM_PROGID);
-
             this.processor.output=outDoc;
-
             this.processor.transform();
-
             return outDoc;
         }
         else{
+            if(!_SARISSA_DOM_XMLWRITER){
+                _SARISSA_DOM_XMLWRITER = Sarissa.pickRecentProgID(["Msxml2.MXXMLWriter.6.0", "Msxml2.MXXMLWriter.3.0", "MSXML2.MXXMLWriter", "MSXML.MXXMLWriter", "Microsoft.XMLDOM"]);
+            };
             this.processor.input = sourceDoc;
-
             var outDoc = new ActiveXObject(_SARISSA_DOM_XMLWRITER);
-
             this.processor.output = outDoc; 
-
             this.processor.transform();
-
             var oDoc = new ActiveXObject(_SARISSA_DOM_PROGID);
-
             oDoc.loadXML(outDoc.output+"");
-
             return oDoc;
         };
     };
@@ -277,19 +287,22 @@ if(_SARISSA_IS_IE){
      * @argument name The parameter base name
      * @argument value The new parameter value
      */
-    XSLTProcessor.prototype.setParameter = function(nsURI, name, value){
-        /* nsURI is optional but cannot be null */
-        if(nsURI){
-            this.processor.addParameter(name, value, nsURI);
-        }else{
-            this.processor.addParameter(name, value);
-        };
-        /* update updated params for getParameter */
-        if(!this.paramsSet[""+nsURI]){
-            this.paramsSet[""+nsURI] = [];
-        };
-        this.paramsSet[""+nsURI][name] = value;
-    };
+     XSLTProcessor.prototype.setParameter = function(nsURI, name, value){
+         // make value a zero length string if null to allow clearing
+         value = value ? value : "";
+         // nsURI is optional but cannot be null
+         if(nsURI){
+             this.processor.addParameter(name, value, nsURI);
+         }else{
+             this.processor.addParameter(name, value);
+         };
+         // update updated params for getParameter
+         nsURI = "" + (nsURI || "");
+         if(!this.paramsSet[nsURI]){
+             this.paramsSet[nsURI] = new Array();
+         };
+         this.paramsSet[nsURI][name] = value;
+     };
     /**
      * Gets a parameter if previously set by setParameter. Returns null
      * otherwise
@@ -298,12 +311,27 @@ if(_SARISSA_IS_IE){
      * @return The parameter value if reviously set by setParameter, null otherwise
      */
     XSLTProcessor.prototype.getParameter = function(nsURI, name){
-        nsURI = nsURI || "";
+        nsURI = "" + (nsURI || "");
         if(this.paramsSet[nsURI] && this.paramsSet[nsURI][name]){
             return this.paramsSet[nsURI][name];
         }else{
             return null;
         };
+    };
+    /**
+     * Clear parameters (set them to default values as defined in the stylesheet itself)
+     */
+    XSLTProcessor.prototype.clearParameters = function(){
+        for(var nsURI in this.paramsSet){
+            for(var name in this.paramsSet[nsURI]){
+                if(nsURI!=""){
+                    this.processor.addParameter(name, "", nsURI);
+                }else{
+                    this.processor.addParameter(name, "");
+                };
+            };
+        };
+        this.paramsSet = new Array();
     };
 }else{ /* end IE initialization, try to deal with real browsers now ;-) */
     if(_SARISSA_HAS_DOM_CREATE_DOCUMENT){
@@ -333,8 +361,7 @@ if(_SARISSA_IS_IE){
         Sarissa.__setReadyState__ = function(oDoc, iReadyState){
             oDoc.readyState = iReadyState;
             oDoc.readystate = iReadyState;
-            if (oDoc.onreadystatechange != null &&
-                typeof oDoc.onreadystatechange == "function") {
+            if (oDoc.onreadystatechange != null && typeof oDoc.onreadystatechange == "function") {
                 oDoc.onreadystatechange();
             }
         };
@@ -361,11 +388,10 @@ if(_SARISSA_IS_IE){
             return oDoc;
         };
         if(window.XMLDocument){
-        
-        //if(window.XMLDocument) , now mainly for opera  
+            // do nothing
         }// TODO: check if the new document has content before trying to copynodes, check  for error handling in DOM 3 LS
-        else if(_SARISSA_HAS_DOM_FEATURE && (typeof Document != 'undefined') && !Document.prototype.load && document.implementation.hasFeature('LS', '3.0')){
-    		//Opera 9 may get the XPath branch which gives creates XMLDocument, therefore it doesn't reach here which is good
+        else if(_SARISSA_HAS_DOM_FEATURE && window.Document && !Document.prototype.load && document.implementation.hasFeature('LS', '3.0')){
+            //Opera 9 may get the XPath branch which gives creates XMLDocument, therefore it doesn't reach here which is good
             /**
             * <p>Factory method to obtain a new DOM Document object</p>
             * @argument sUri the namespace of the root node (if any)
@@ -421,27 +447,41 @@ if(!window.DOMParser){
     };
 };
 
-if(!document.importNode && _SARISSA_IS_IE){
+if((typeof(document.importNode) == "undefined") && _SARISSA_IS_IE){
     try{
         /**
-        * Implementation of importNode for the context window document in IE
+        * Implementation of importNode for the context window document in IE.
+        * If <code>oNode</code> is a TextNode, <code>bChildren</code> is ignored.
         * @param oNode the Node to import
         * @param bChildren whether to include the children of oNode
         * @returns the imported node for further use
         */
         document.importNode = function(oNode, bChildren){
+            var tmp;
             if (oNode.nodeName=='#text') {
-		return document.createTextNode(oNode.data);
-	    }
-	    var tmp = document.createElement("div");
-
-	    var pNode = (oNode.nodeName.toLowerCase()=='tbody')? oNode.parentNode: oNode;
-            if(bChildren){
-                tmp.innerHTML = pNode.xml ? pNode.xml : pNode.outerHTML;
-            }else{
-                tmp.innerHTML = pNode.xml ? pNode.cloneNode(false).xml : pNode.cloneNode(false).outerHTML;
+                return document.createTextElement(oNode.data);
+            }
+            else {
+                if(oNode.nodeName == "tbody" || oNode.nodeName == "tr"){
+                    tmp = document.createElement("table");
+                }
+                else if(oNode.nodeName == "td"){
+                    tmp = document.createElement("tr");
+                }
+                else if(oNode.nodeName == "option"){
+                    tmp = document.createElement("select");
+                }
+                else{
+                    tmp = document.createElement("div");
+                };
+                if(bChildren){
+                    tmp.innerHTML = oNode.xml ? oNode.xml : oNode.outerHTML;
+                }else{
+                    tmp.innerHTML = oNode.xml ? oNode.cloneNode(false).xml : oNode.cloneNode(false).outerHTML;
+                };
+                return tmp.getElementsByTagName("*")[0];
             };
-            return tmp.getElementsByTagName(oNode.nodeName.replace(/^[^:]*:/,''))[0];
+            
         };
     }catch(e){ };
 };
@@ -479,18 +519,18 @@ Sarissa.getText = function(oNode, deep){
         var nodeType = node.nodeType;
         if(nodeType == Node.TEXT_NODE || nodeType == Node.CDATA_SECTION_NODE){
             s += node.data;
-        } else if(deep == true &&
-            (nodeType == Node.ELEMENT_NODE ||
-            nodeType == Node.DOCUMENT_NODE ||
-            nodeType == Node.DOCUMENT_FRAGMENT_NODE)){
+        } else if(deep == true
+                    && (nodeType == Node.ELEMENT_NODE
+                        || nodeType == Node.DOCUMENT_NODE
+                        || nodeType == Node.DOCUMENT_FRAGMENT_NODE)){
             s += Sarissa.getText(node, true);
         };
     };
     return s;
 };
-if(!window.XMLSerializer &&
-   Sarissa.getDomDocument &&
-   Sarissa.getDomDocument("","foo", null).xml){
+if(!window.XMLSerializer 
+    && Sarissa.getDomDocument 
+    && Sarissa.getDomDocument("","foo", null).xml){
     /**
      * Utility class to serialize DOM Node objects to XML strings
      * @constructor
@@ -530,6 +570,10 @@ Sarissa.clearChildNodes = function(oNode) {
  * @argument bPreserveExisting whether to preserve the original content of nodeTo, default is false
  */
 Sarissa.copyChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
+    if(_SARISSA_IS_SAFARI && nodeTo.nodeType == Node.DOCUMENT_NODE){ // SAFARI_OLD ??
+        nodeTo = nodeTo.documentElement; //Appearantly there's a bug in safari where you can't appendChild to a document node
+    }
+    
     if((!nodeFrom) || (!nodeTo)){
         throw "Both source and destination nodes must be provided";
     };
@@ -572,7 +616,7 @@ Sarissa.moveChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
         };
     } else {
         var ownerDoc = nodeTo.nodeType == Node.DOCUMENT_NODE ? nodeTo : nodeTo.ownerDocument;
-        if(ownerDoc.importNode) {
+        if(typeof(ownerDoc.importNode) != "undefined") {
            for(var i=0;i < nodes.length;i++) {
                nodeTo.appendChild(ownerDoc.importNode(nodes[i], true));
            };
@@ -597,9 +641,8 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
     indentSpace = indentSpace?indentSpace:'';
     var s = indentSpace  + '<' + objectName + '>';
     var isLeaf = false;
-    if(!(anyObject instanceof Object) || anyObject instanceof Number ||
-        anyObject instanceof String || anyObject instanceof Boolean ||
-        anyObject instanceof Date){
+    if(!(anyObject instanceof Object) || anyObject instanceof Number || anyObject instanceof String 
+        || anyObject instanceof Boolean || anyObject instanceof Date){
         s += Sarissa.escape(""+anyObject);
         isLeaf = true;
     }else{
@@ -618,11 +661,11 @@ Sarissa.xmlize = function(anyObject, objectName, indentSpace){
  * @param sXml the string to escape
  */
 Sarissa.escape = function(sXml){
-    return sXml.replace(/&/g, "&amp;").
-        replace(/</g, "&lt;").
-        replace(/>/g, "&gt;").
-        replace(/"/g, "&quot;").
-        replace(/'/g, "&apos;");
+    return sXml.replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
 };
 
 /** 
@@ -631,10 +674,10 @@ Sarissa.escape = function(sXml){
  * @param sXml the string to unescape
  */
 Sarissa.unescape = function(sXml){
-    return sXml.replace(/&apos;/g,"'").
-        replace(/&quot;/g,"\"").
-        replace(/&gt;/g,">").
-        replace(/&lt;/g,"<").
-        replace(/&amp;/g,"&");
+    return sXml.replace(/&apos;/g,"'")
+        .replace(/&quot;/g,"\"")
+        .replace(/&gt;/g,">")
+        .replace(/&lt;/g,"<")
+        .replace(/&amp;/g,"&");
 };
 //   EOF
