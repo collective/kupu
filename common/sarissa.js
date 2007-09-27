@@ -6,7 +6,8 @@
  * The library supports Gecko based browsers like Mozilla and Firefox,
  * Internet Explorer (5.5+ with MSXML3.0+), Konqueror, Safari and a little of Opera
  * @version ${project.version}
- * @author: Manos Batsis, mailto: mbatsis at users full stop sourceforge full stop net
+ * @author: @author: Copyright 2004-2007 Emmanouil Batsis, mailto: mbatsis at users full stop sourceforge full stop net
+ *
  * ====================================================================
  * Licence
  * ====================================================================
@@ -17,6 +18,7 @@
  * In case your copy of Sarissa does not include the license texts, you may find
  * them online in various formats at <a href="http://www.gnu.org">http://www.gnu.org</a> and 
  * <a href="http://www.apache.org">http://www.apache.org</a>.
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY 
  * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE 
  * WARRANTIES OF MERCHANTABILITY,FITNESS FOR A PARTICULAR PURPOSE 
@@ -198,10 +200,13 @@ if(_SARISSA_IS_IE){
         // convert stylesheet to free threaded
         var converted = new ActiveXObject(_SARISSA_THREADEDDOM_PROGID);
         // make included/imported stylesheets work if exist and xsl was originally loaded from url
-        if (_SARISSA_THREADEDDOM_PROGID == "MSXML2.FreeThreadedDOMDocument.6.0") { 
-            converted.setProperty("AllowDocumentFunction", true); 
+        try{
             converted.resolveExternals = true; 
-        };
+            converted.setProperty("AllowDocumentFunction", true); 
+        }
+        catch(e){
+            // Ignore. "AllowDocumentFunction" is only supported in MSXML 3.0 SP4 and later.
+        }; 
         if(xslDoc.url && xslDoc.selectSingleNode("//xsl:*[local-name() = 'import' or local-name() = 'include']") != null){
             converted.async = false;
             converted.load(xslDoc.url);
@@ -630,12 +635,12 @@ Sarissa.moveChildNodes = function(nodeFrom, nodeTo, bPreserveExisting) {
 };
 
 /** 
- * <p>Serialize any object to an XML string. All properties are serialized using the property name
+ * <p>Serialize any <strong>non</strong> DOM object to an XML string. All properties are serialized using the property name
  * as the XML element name. Array elements are rendered as <code>array-item</code> elements, 
  * using their index/key as the value of the <code>key</code> attribute.</p>
  * @argument anyObject the object to serialize
  * @argument objectName a name for that object
- * @return the XML serializationj of the given object as a string
+ * @return the XML serialization of the given object as a string
  */
 Sarissa.xmlize = function(anyObject, objectName, indentSpace){
     indentSpace = indentSpace?indentSpace:'';
