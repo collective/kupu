@@ -21,6 +21,7 @@ from Globals import InitializeClass
 from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.PythonScripts.standard import html_quote, newline_to_br
+from Products.kupu.plone import util
 from Products.kupu.plone.librarytool import KupuError
 from Products.CMFCore.utils import getToolByName
 try:
@@ -787,7 +788,7 @@ class PloneDrawers:
         for t,f,pt in self._getKupuFields():
             if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
                 yield dict(type=t, name=f.getName(), portal_type=pt,
-                           label=f.widget.Label(self))
+                           label=util.translate(f.widget.Label(self), self.REQUEST))
 
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
@@ -805,13 +806,13 @@ class PloneDrawers:
     security.declareProtected("View", "supportedCaptioning")
     def supportedCaptioning(self):
         """Returns a list of document/fields which have support for captioning"""
-        supported = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
+        supported = [t+'/'+util.translate(f.widget.Label(self), self.REQUEST) for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
         return str.join(', ', supported)
 
     security.declareProtected("View", "unsupportedCaptioning")
     def unsupportedCaptioning(self):
         """Returns a list of document/fields which do not have support for captioning"""
-        unsupp = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
+        unsupp = [t+'/'+util.translate(f.widget.Label(self), self.REQUEST) for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
         return str.join(', ', unsupp)
 
     security.declareProtected("View", "transformIsEnabled")
