@@ -781,6 +781,14 @@ class PloneDrawers:
         return (getattr(field, 'default_output_type', None) in
             ('text/x-html-safe', 'text/x-html-captioned'))
 
+    security.declarePublic("getLabelFromWidget")
+    def getLabelFromWidget(self, widget):
+        """Get the label for a widget converting from i18n message if needed"""
+        label = util.translate(widget.Label(self), self.REQUEST)
+        if isinstance(label, str):
+            label = label.decode('utf8', 'replace')
+        return label
+
     security.declareProtected("View", "getKupuFields")
     def getKupuFields(self, filter=1):
         """Returns a list of all kupu editable fields"""
@@ -788,7 +796,7 @@ class PloneDrawers:
         for t,f,pt in self._getKupuFields():
             if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
                 yield dict(type=t, name=f.getName(), portal_type=pt,
-                           label=util.translate(f.widget.Label(self), self.REQUEST))
+                           label=self.getLabelFromWidget(f.widget))
 
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
@@ -806,13 +814,13 @@ class PloneDrawers:
     security.declareProtected("View", "supportedCaptioning")
     def supportedCaptioning(self):
         """Returns a list of document/fields which have support for captioning"""
-        supported = [t+'/'+util.translate(f.widget.Label(self), self.REQUEST) for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
+        supported = [t+'/'+self.getLabelFromWidget(f.widget) for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
         return str.join(', ', supported)
 
     security.declareProtected("View", "unsupportedCaptioning")
     def unsupportedCaptioning(self):
         """Returns a list of document/fields which do not have support for captioning"""
-        unsupp = [t+'/'+util.translate(f.widget.Label(self), self.REQUEST) for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
+        unsupp = [t+'/'+self.getLabelFromWidget(f.widget) for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
         return str.join(', ', unsupp)
 
     security.declareProtected("View", "transformIsEnabled")
