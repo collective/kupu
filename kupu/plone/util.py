@@ -92,7 +92,15 @@ def install_transform(self):
 
     if not hasattr(transform_tool, INVERSE_TRANSFORM):
         transform_tool.manage_addTransform(INVERSE_TRANSFORM, 'Products.PortalTransforms.transforms.identity')
-    
+        # Need to commit a subtransaction here, otherwise setting the
+        # parameters will cause an exception when the transaction is
+        # finally comitted.
+        try:
+            import transaction
+            transaction.savepoint(optimistic=True)
+        except ImportError:
+            get_transaction().commit(1)
+
     inverse = transform_tool[INVERSE_TRANSFORM]
     if inverse.get_parameter_value('inputs') != [MT_CAPTIONED] or inverse.get_parameter_value('output') != 'text/html':
         inverse.set_parameters(inputs=[MT_CAPTIONED], output='text/html')
