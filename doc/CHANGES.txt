@@ -4,9 +4,17 @@ Kupu changes
 
 - SVN
 
+  - Kupu now uses sarissa 0.9.8.1 (still a differences in
+    sarissa_ieemu_xpath.js, but these are purely cosmetic so that jslint
+    runs cleanly).
+
   - Plone tickets
 
+    * 6970: can't upgrade to Kupu 1.4.1
     * 6975: Cannot save HTML field as NULL
+    * 7119: 'Edit without visual editor' link doesn't show up in Plone 2.5.3
+    * 7140: kupu fails with danish letters in title.
+    * 7139: Kupu Manage Anchors not working in inline edit
 
 - 1.4.2
 
