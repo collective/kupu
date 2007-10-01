@@ -16,7 +16,7 @@
     <!--$Id: toolboxes.kupu 44538 2007-06-26 10:46:28Z duncan $-->
     <!--$Id: colorchooser.kupu 45650 2007-08-14 10:04:42Z guido $-->
     <!--$Id: save.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: drawers.kupu 45669 2007-08-15 10:47:27Z duncan $-->
+    <!--$Id: drawers.kupu 45701 2007-08-16 10:31:59Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 45669 2007-08-15 10:47:27Z duncan $-->
     <!--$Id: head.kupu 44831 2007-07-07 19:01:27Z duncan $-->
@@ -477,7 +477,7 @@
     </textarea>
     </div>
   
-    <div class="kupuoverride" tal:condition="python:exists('kupu_content') and len(kupu_content)==0 and gAC and len(gAC(here))!=1" tal:define="floated widget/allow_file_upload | python:1;gAC nocall:field/getAllowedContentTypes|nothing" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;" tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,None);" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName}${fs};" title="reload current page without kupu">
+    <div class="kupuoverride" tal:condition="python:exists('kupu_content') and len(kupu_content)==0 and allowed and len(allowed)!=1" tal:define="floated widget/allow_file_upload | python:1;                 gAC nocall:field/getAllowedContentTypes|nothing;                 allowed python:gAC and gAC(context) or path('field/allowable_content_types|nothing');" tal:attributes="style python:test(floated, 'float:left;;', '');"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;" tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,None);" tal:attributes="href string:${request/URL0}?kupu.suppress=${fieldName}${fs};" title="reload current page without kupu">
          Edit without visual editor
       </a></span>
     </div>
