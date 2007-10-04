@@ -16,6 +16,7 @@ Kupu changes
     * 7139: Kupu Manage Anchors not working in inline edit
     * 7140: kupu fails with danish letters in title.
     * 7143: UnicodeError inserting image
+    * 7158: Kupu Edit already inserted image: Preview and sizes get wrong urls
 
 - 1.4.2
 
