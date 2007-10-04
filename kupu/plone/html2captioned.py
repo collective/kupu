@@ -137,18 +137,39 @@ class HTMLToCaptioned:
                         d['class'] = attrs.group('class')
                         d['originalwidth'] = attrs.group('width')
                         d['originalalt'] = attrs.group('alt')
+                        d['url_path'] = target.absolute_url_path()
                         d['caption'] = newline_to_br(html_quote(target.Description()))
                         d['image'] = d['fullimage'] = target
+                        d['tag'] = None
+                        d['isfullsize'] = False
+                        d['width'] = target.width
                         if srctail:
+                            if isinstance(srctail, unicode):
+                                srctail =srctail.encode('utf8') # restrictedTraverse doesn't accept unicode
                             try:
                                 subtarget = target.restrictedTraverse(srctail)
                             except:
                                 subtarget = getattr(target, srctail, None)
                             if subtarget:
                                 d['image'] = subtarget
+
+                            if srctail.startswith('image_'):
+                                d['tag'] = target.getField('image').tag(target, scale=srctail[6:])
+                            elif subtarget:
+                                d['tag'] = subtarget.tag()
+
+                        if d['tag'] is None:
+                            d['tag'] = target.tag()
+
+                        if subtarget:
+                            d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
+                            d['width'] = subtarget.width
+
                         return template(**d)
                 return match.group(0) # No change
 
+            if isinstance(data, str):
+                data = data.decode('utf8')
             html = IMAGE_PATTERN.sub(replaceImage, data)
 
             # Replace urls that use UIDs with human friendly urls.

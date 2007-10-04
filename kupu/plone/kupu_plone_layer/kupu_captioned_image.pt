@@ -1,15 +1,9 @@
-<dl tal:define="image nocall:options/image;
-    width image/width|image/getWidth|python:150;
-    height image/height|image/getHeight|python:150;
-    oimage nocall:options/fullimage|nocall:options/image;
-    owidth oimage/width|oimage/getWidth|python:150;
-    oheight oimage/height|oimage/getHeight|python:150;"
-    tal:attributes="class options/class">
-<dt><a tal:omit-tag="python:height==oheight and width==owidth"
- rel="lightbox" tal:attributes="href oimage/absolute_url_path;"><img
- tal:replace="structure image/tag" /></a></dt>
+<dl tal:attributes="class options/class">
+<dt><a tal:omit-tag="options/isfullsize" rel="lightbox"
+   tal:attributes="href options/url_path;"
+   tal:content="structure options/tag">[image goes here]</a></dt>
  <dd class="image-caption"
-     tal:attributes="style string:width:${width}px;"
+     tal:attributes="style string:width:${options/width}px;"
      tal:content="options/caption|nothing">
  </dd>
 </dl>
