@@ -13,8 +13,9 @@ Kupu changes
     * 6970: can't upgrade to Kupu 1.4.1
     * 6975: Cannot save HTML field as NULL
     * 7119: 'Edit without visual editor' link doesn't show up in Plone 2.5.3
-    * 7140: kupu fails with danish letters in title.
     * 7139: Kupu Manage Anchors not working in inline edit
+    * 7140: kupu fails with danish letters in title.
+    * 7143: UnicodeError inserting image
 
 - 1.4.2
 
