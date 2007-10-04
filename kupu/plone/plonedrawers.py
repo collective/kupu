@@ -20,6 +20,7 @@ from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
 from Globals import InitializeClass
 from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
+from Products.Archetypes.utils import shasattr
 from Products.PythonScripts.standard import html_quote, newline_to_br
 from Products.kupu.plone import util
 from Products.kupu.plone.librarytool import KupuError
@@ -648,6 +649,8 @@ class PloneDrawers:
             except AttributeError:
                 return []
             if portal_types:
+                while not shasattr(obj.aq_base, 'portal_type'):
+                    obj = obj.aq_parent
                 while obj.portal_type not in portal_types:
                     obj = obj.aq_parent
                     if obj is portal:
