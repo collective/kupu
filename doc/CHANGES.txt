@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- SVN
+- 1.4.3
 
   - Kupu now uses sarissa 0.9.8.1 (still a differences in
     sarissa_ieemu_xpath.js, but these are purely cosmetic so that jslint
