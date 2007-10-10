@@ -460,13 +460,27 @@ function BaseSelection() {
 function MozillaSelection(document) {
     this.document = document;
     this.selection = document.getWindow().getSelection();
-    
+
+    this._createRange = function() {
+        return this.document.getDocument().createRange();
+    }
     this.selectNodeContents = function(node) {
         if (node && node.parentNode) {
             /* select the contents of a node */
-            this.selection.removeAllRanges();
-            this.selection.selectAllChildren(node);
-        }
+            var sel = this.selection;
+            sel.removeAllRanges();
+            if (sel.selectAllChildren) {
+                sel.selectAllChildren(node);
+            } else {
+                var range = this._createRange();
+                try {
+                    range.selectNode(node);
+                } catch (e) {
+                    range.selectNodeContents(node);
+                };
+                sel.addRange(range);
+            };
+        };
     };
 
     this.collapse = function(collapseToEnd) {
@@ -504,7 +518,7 @@ function MozillaSelection(document) {
         var pos = range.startOffset;
 
         // make a new range for the new selection
-        var range = this.document.getDocument().createRange();
+        var range = this._createRange();
 
         if (container.nodeType == 3 && node.nodeType == 3) {
             // if we insert text in a textnode, do optimized insertion
@@ -616,9 +630,9 @@ function MozillaSelection(document) {
         var aoffset = this.selection.anchorOffset;
         var onode = this.selection.focusNode;
         var ooffset = this.selection.focusOffset;
-        var arange = this.document.getDocument().createRange();
+        var arange = this._createRange();
         arange.setStart(anode, aoffset);
-        var orange = this.document.getDocument().createRange();
+        var orange = this._createRange();
         orange.setStart(onode, ooffset);
         return arange.compareBoundaryPoints('START_TO_START', orange) <= 0 ? anode : onode;
     };
@@ -672,9 +686,9 @@ function MozillaSelection(document) {
         var aoffset = this.selection.anchorOffset;
         var onode = this.selection.focusNode;
         var ooffset = this.selection.focusOffset;
-        var arange = this.document.getDocument().createRange();
+        var arange = this._createRange();
         arange.setStart(anode, aoffset);
-        var orange = this.document.getDocument().createRange();
+        var orange = this._createRange();
         orange.setStart(onode, ooffset);
         return arange.compareBoundaryPoints('START_TO_START', orange) > 0 ? anode : onode;
     };
@@ -774,8 +788,8 @@ function MozillaSelection(document) {
                 {
                     var parent1 = parent;
                     var parent2 = null;
-                    var range1 = this.document.getDocument().createRange();
-                    var range2 = this.document.getDocument().createRange();
+                    var range1 = this._createRange();
+                    var range2 = this._createRange();
                 
                     var parent2 = this.parentElementOfRange(this.selection.getRangeAt(i));
 
@@ -796,7 +810,7 @@ function MozillaSelection(document) {
                         //just one node, which we don't want; but since parent1
                         //and parent2 are different, their range is not just
                         //one node
-                        var coverRange = this.document.getDocument().createRange();
+                        var coverRange = this._createRange();
                         coverRange.setStartBefore(parent1);
                         coverRange.setEndAfter(parent2);
                         parent = coverRange.commonAncestorContainer;
@@ -806,7 +820,7 @@ function MozillaSelection(document) {
                         //just one node, which we don't want; but since parent1
                         //and parent2 are different, their range is not just
                         //one node
-                        var coverRange = this.document.getDocument().createRange();
+                        var coverRange = this._createRange();
                         coverRange.setStartBefore(parent2);
                         coverRange.setEndAfter(parent1);
                         parent = coverRange.commonAncestorContainer;                    
@@ -961,7 +975,18 @@ function MozillaSelection(document) {
     };
 
     this.containsNode = function(node) {
-        return this.selection.containsNode(node, true);
+        var sel = this.selection;
+        if (sel.containsNode) {
+            return sel.containsNode(node, true);
+        } else {
+            // kludge it for safari
+            for(var i = 0; i < sel.rangeCount; i++ ) {
+                if( sel.getRangeAt(i).containsNode(node) ) {
+                    return true;
+                }
+            };
+            return false;
+        }
     };
 
     this.toString = function() {
@@ -991,6 +1016,8 @@ function MozillaSelection(document) {
                 nodeRange.selectNodeContents(node);
             };
 
+            // selection end after node start and selection start
+            // before node end
             return this.compareBoundaryPoints(Range.END_TO_START, nodeRange) == -1 &&
                 this.compareBoundaryPoints(Range.START_TO_END, nodeRange) == 1;
         };
@@ -1002,6 +1029,21 @@ function MozillaSelection(document) {
            }
         };
         return false;
+    };
+    if( !Range.prototype.containsNode ){
+        Range.prototype.containsNode = function(node) {
+            var nodeRange = node.ownerDocument.createRange();
+            try {
+                nodeRange.selectNode(node);
+            } catch (e) {
+                nodeRange.selectNodeContents(node);
+            };
+
+            // selection start not after node start and selection end
+            // not before node end.
+            return this.compareBoundaryPoints(Range.START_TO_START, nodeRange) != -1 &&
+                    this.compareBoundaryPoints(Range.END_TO_END, nodeRange) != 1;
+        };
     };
 };
 

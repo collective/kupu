@@ -360,9 +360,12 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                 verno = getver(' rv:')
                 if verno:
                     return verno >= (1,3,1)
-#                 verno = getver(' AppleWebKit/')
-#                 if verno:
-#                     return verno >= (420,)
+                verno = getver(' AppleWebKit/')
+                if verno:
+                    return verno >= (523,6)
+                    verno = getver(' Safari/')
+                    if verno:
+                        return verno >= (522,12)
 
             verno = getver('MSIE')
             if verno:
