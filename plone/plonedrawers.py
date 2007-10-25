@@ -646,7 +646,7 @@ class PloneDrawers:
                 src = src[len(base):].lstrip('/')
             try:
                 obj = portal.restrictedTraverse(src)
-            except AttributeError:
+            except (KeyError, AttributeError):
                 return []
             if portal_types:
                 while not shasattr(obj.aq_base, 'portal_type'):
