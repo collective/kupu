@@ -80,12 +80,12 @@ set KUPUCONFIG=
 for %%f in (default\*) do (find /C "i18n:domain=""kupuconfig""" %%f && set KUPUCONFIG=!KUPUCONFIG! %%f) >nul
 for %%f in (plone\*) do (find /C "i18n:domain=""kupuconfig""" %%f && set KUPUCONFIG=!KUPUCONFIG! %%f) >nul
 for %%f in (plone\kupu_plone_layer\*) do (find /C "i18n:domain=""kupuconfig""" %%f && set KUPUCONFIG=!KUPUCONFIG! %%f) >nul
-for %%f in (common\drawers\*) do (find /C "i18n:domain=""kupuconfig""" %%f && set KUPUCONFIG=!KUPUCONFIG! %%f) >nul
+for %%f in (common\kupudrawers\*) do (find /C "i18n:domain=""kupuconfig""" %%f && set KUPUCONFIG=!KUPUCONFIG! %%f) >nul
 goto :eof
 :setKUPU
 set KUPU=
 for %%f in (default\*) do (find /C "i18n:domain=""kupu""" %%f && set KUPU=!KUPU! %%f) >nul
 for %%f in (plone\*) do (find /C "i18n:domain=""kupu""" %%f && set KUPU=!KUPU! %%f) >nul
 for %%f in (plone\kupu_plone_layer\*) do (find /C "i18n:domain=""kupu""" %%f && set KUPU=!KUPU! %%f) >nul
-for %%f in (common\drawers\*) do (find /C "i18n:domain=""kupu""" %%f && set KUPU=!KUPU! %%f) >nul
+for %%f in (common\kupudrawers\*) do (find /C "i18n:domain=""kupu""" %%f && set KUPU=!KUPU! %%f) >nul
 goto :eof

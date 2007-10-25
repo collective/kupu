@@ -309,7 +309,7 @@
                     Table style
                   </label>
                   <select id="kupu-bm-outcls" size="1">
-                    <option value="" i18n:translate="Normal">Normal</option>
+                    <option value="" i18n:translate="Normal">Normal paragraph</option>
                   </select>
                 </div>
                 <div style="float:right" class="hide-anchor">
