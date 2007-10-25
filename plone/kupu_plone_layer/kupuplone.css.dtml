@@ -197,8 +197,6 @@ button.kupu-justifyright,
 button.kupu-justifyright-pressed 
                          { background-position: 0 -300px; }
 
-button.kupu-logo {}
-button.kupu-redo {}
 button.kupu-removelink,
 button.kupu-removeimage  { background-position: 0 -320px; }
 
@@ -228,7 +226,8 @@ button.kupu-underline,
 button.kupu-underline-pressed {background-image: url("&dtml-portal_url;/plonekupuimages/underline.gif");}
 
 button.kupu-undo {background-image: url("&dtml-portal_url;/plonekupuimages/undo.gif");}
-
+button.kupu-redo {background-image: url("&dtml-portal_url;/plonekupuimages/redo.gif");}
+button.kupu-logo {background-image: url("kupuimages/kupu_icon.gif");}
 
 
 div.kupu-drawer {
