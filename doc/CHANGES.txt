@@ -8,6 +8,7 @@ Kupu changes
 
   - Plone tickets
 
+    * 7224 Kupu: error in iframe tabindex attribute
     * 7305 Page creation and kupu upload image returns an error if Kupu link uid's is turned on.
     * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
     * 7099 Kupu error on multi-schemata archetypes content
