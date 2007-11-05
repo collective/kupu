@@ -12,16 +12,16 @@
     <!--$Id: sourceedit.kupu 25717 2006-04-12 10:33:01Z fschulze $-->
     <!--$Id: sourceedit.kupu 9779 2005-03-15 11:34:47Z duncan $-->
     <!--$Id: contextmenu.kupu 9520 2005-02-26 16:30:23Z duncan $-->
-    <!--$Id: toolbar.kupu 44538 2007-06-26 10:46:28Z duncan $-->
+    <!--$Id: toolbar.kupu 47952 2007-10-25 15:40:31Z duncan $-->
     <!--$Id: toolboxes.kupu 44538 2007-06-26 10:46:28Z duncan $-->
     <!--$Id: colorchooser.kupu 45650 2007-08-14 10:04:42Z guido $-->
     <!--$Id: save.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: drawers.kupu 45701 2007-08-16 10:31:59Z duncan $-->
+    <!--$Id: drawers.kupu 47952 2007-10-25 15:40:31Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 45669 2007-08-15 10:47:27Z duncan $-->
     <!--$Id: head.kupu 44831 2007-07-07 19:01:27Z duncan $-->
     <!--$Id: xmlconfig.kupu 35367 2006-12-06 09:06:21Z duncan $-->
-    <!--$Id: body.kupu 47069 2007-10-01 10:49:09Z duncan $-->
+    <!--$Id: body.kupu 47952 2007-10-25 15:40:31Z duncan $-->
     <!--$Id: toolbar.kupu 45621 2007-08-13 12:26:50Z duncan $-->
     <!--$Id save.kupu (not yet in svn) $-->
     <!--$Id: drawers.kupu 44538 2007-06-26 10:46:28Z duncan $-->
@@ -128,7 +128,7 @@
     </span>
   
     <span class="kupu-tb-buttongroup" tal:condition="not:context/checkCreationFlag|python:True">
-      <button type="button" class="kupu-save" id="kupu-save-button" title="Save" i18n:attributes="title title_save;" accesskey="s" tal:condition="filter/save-button">&#160;</button>
+      <button type="button" class="kupu-save" id="kupu-save-button" title="Save" i18n:attributes="title title_save;" tal:condition="filter/save-button">&#160;</button>
     </span>
   
     <span class="kupu-tb-buttongroup" id="kupu-bg-basicmarkup" tal:condition="filter/bg-basicmarkup">

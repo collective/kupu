@@ -2,6 +2,17 @@
 Kupu changes
 ============
 
+- 1.4.4 SVN/unreleased
+
+  - Enabled Safari support (needs webkit nightly build and Safari 3)
+
+  - Plone tickets
+
+    * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
+    * 7099 Kupu error on multi-schemata archetypes content
+    * 7258 Missing translation msgids for kupu
+    * 7229 kupu 1.4.3 css correction to display redo button icon in editing interface
+
 - 1.4.3
 
   - Kupu now uses sarissa 0.9.8.1 (still a differences in
