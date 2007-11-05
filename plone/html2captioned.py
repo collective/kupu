@@ -125,6 +125,7 @@ class HTMLToCaptioned:
                 tag = match.group(1) or match.group(2)
                 attrs = ATTR_PATTERN.match(tag)
                 src = attrs.group('src')
+                subtarget = None
                 m = SRC_TAIL.match(tag, attrs.end('src'))
                 if m:
                     srctail = m.group(1)

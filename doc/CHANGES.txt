@@ -8,6 +8,7 @@ Kupu changes
 
   - Plone tickets
 
+    * 7305 Page creation and kupu upload image returns an error if Kupu link uid's is turned on.
     * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
     * 7099 Kupu error on multi-schemata archetypes content
     * 7258 Missing translation msgids for kupu
