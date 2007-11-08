@@ -1039,14 +1039,15 @@ function LinkTool() {
         linkWindow.focus();
     };
 
-    this.updateLink = function (linkel, url, type, name, target, title, className) {
+    this.updateLink = function (linkel, url, type, name, target, title, className, bForce) {
         if (type && type == 'anchor') {
             linkel.removeAttribute('href');
             linkel.setAttribute('name', name);
         } else {
             linkel.href = url;
-            if (linkel.innerHTML == "") {
+            if (linkel.innerHTML == "" || (bForce && linkel.innerHTML==url)) {
                 var doc = this.editor.getInnerDocument();
+                while (linkel.firstChild) { linkel.removeChild(linkel.firstChild); };
                 linkel.appendChild(doc.createTextNode(title || url));
             }
             if (title) {
@@ -1069,13 +1070,13 @@ function LinkTool() {
         };
     };
 
-    this.formatSelectedLink = function(url, type, name, target, title, className) {
+    this.formatSelectedLink = function(url, type, name, target, title, className, bForce) {
         var currnode = this.editor.getSelectedNode();
 
         // selection inside link
         var linkel = this.editor.getNearestParentOfType(currnode, 'A');
         if (linkel) {
-            this.updateLink(linkel, url, type, name, target, title, className);
+            this.updateLink(linkel, url, type, name, target, title, className, bForce);
             return true;
         }
 
@@ -1088,7 +1089,7 @@ function LinkTool() {
         for (var i = 0; i < linkelements.length; i++) {
             linkel = linkelements[i];
             if (selection.containsNode(linkel)) {
-                this.updateLink(linkel, url, type, name, target, title, className);
+                this.updateLink(linkel, url, type, name, target, title, className, bForce);
                 containsLink = true;
             }
         };
@@ -1116,7 +1117,7 @@ function LinkTool() {
         if (!this.formatSelectedLink(url, type, name, target, title, className)) {
             // No links inside or outside.
             this.editor.execCommand("CreateLink", url);
-            if (!this.formatSelectedLink(url, type, name, target, title, className)) {
+            if (!this.formatSelectedLink(url, type, name, target, title, className, true)) {
                 // Insert link with no text selected, insert the title
                 // or URI instead.
                 var doc = this.editor.getInnerDocument();
