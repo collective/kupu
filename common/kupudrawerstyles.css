@@ -275,13 +275,13 @@ th.kupu-toolbox-label {
    white-space: nowrap;
 }
 
-.kupu-tabs { border-bottom: 1px solid; margin: 0; padding: 0.5em 0 0 1.5em; }
+ul.kupu-tabs { border-bottom: 1px solid; margin: 0; padding: 0.5em 0.5em 1px 1.5em; }
 .kupu-tabs li {
   display: inline; padding: 2px; border: 1px solid; margin: 0 5px 0 0;
 }
 .kupu-tabs a { text-decoration: none; }
 .kupu-tabs li.selected { background: white; border-bottom: none !IMPORTANT; padding-bottom: 3px;}
-table.kupu-tabbed { border-spacing: 0;}
+.kupu-panels table.kupu-tabbed { border:none; border-spacing: 0;}
 
 .kupu-linkdrawer-addlink .kupu-embed,
 .kupu-linkdrawer-embed .kupu-addlink { display: none; }
@@ -298,6 +298,9 @@ table.kupu-tabbed { border-spacing: 0;}
 }
 .kupu-ins-bm .hide-ins-bm, .kupu-anchor .hide-anchor, .kupu-toc .hide-toc {
   display: none;
+}
+.kupu-ins-bm .invis-ins-bm, .kupu-anchor .invis-anchor, .kupu-toc .invis-toc {
+        visibility: hidden; /* Hide controls without changing surrounding layout */
 }
 
 .image-dimensions {
@@ -317,6 +320,10 @@ td.kupu-bm-select {
 }
 .kupu-bm-level1 SPAN { padding-left: 2em; }
 /* Anchor drawer */
+
+.kupu-bm-help { min-height: 2.5em; }
+.kupu-bm-heading { line-height: 2em; border-bottom: 1px solid; }
+.kupu-bm-tablestyle, .kupu-bm-numbering { float:right; padding-left: 0.5em; }
 
 .kupu-drawer label {
   font-weight: normal;
