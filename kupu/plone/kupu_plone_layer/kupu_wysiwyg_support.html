@@ -404,14 +404,14 @@
             <li class="kupu-anchor" tal:condition="filter/manage-anchors-tab"><a href="#" i18n:translate="tab_manage_anchors">Manage Anchors</a></li>
             <li class="kupu-toc" tal:condition="filter/toc-tab|nothing"><a href="#" i18n:translate="tab_toc">Table of contents</a></li>
          </ul>
-        <table class="kupu-tabbed">
+        <table class="kupu-tabbed" cellspacing="0">
           <tr>
             <td class="kupu-bm-select">
               <select id="kupu-bm-sel1" size="10"> </select>
             </td>
-            <td rowspan="2">
-              <div class="kupu-bm-heading hide-ins-bm">
-                <div style="float:right" class="hide-anchor">
+            <td>
+              <div class="kupu-bm-heading">
+                <div class="kupu-bm-tablestyle invis-ins-bm invis-anchor">
                   <label i18n:translate="label_table_style" for="kupu-bm-outcls">
                     Table style
                   </label>
@@ -419,36 +419,42 @@
                     <option value="" i18n:translate="Normal">Normal paragraph</option>
                   </select>
                 </div>
-                <div style="float:right" class="hide-anchor">
+                <div class="kupu-bm-numbering invis-ins-bm invis-anchor">
                   <label i18n:translate="label_numbering" for="kupu-bm-number">
                     Numbering
                   </label>
-                  <input type="checkbox" checked="checked" id="kupu-bm-number"/>
+                  <input type="checkbox" class="hide-ins-bm hide-anchor" checked="checked" id="kupu-bm-number"/>
                 </div>
-                <label for="kupu-bm-checkall">
-                  <em i18n:translate="label_toggle_all">toggle all</em>
-                </label>
-                <input type="checkbox" checked="checked" id="kupu-bm-checkall"/>
+                <div class="invis-ins-bm">
+                   <label for="kupu-bm-checkall">
+                      <em i18n:translate="label_toggle_all">toggle all</em>
+                   </label>
+                   <input type="checkbox" class="hide-ins-bm" checked="checked" id="kupu-bm-checkall"/>
+                </div>
               </div>
               <div class="kupu-bm-paras">&#160;</div>
-              <div class="kupu-bm-helpanchor hide-anchor hide-toc" i18n:translate="create_anchor_link_help">
-                Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
-              </div>
-              <div class="kupu-bm-helptoc hide-ins-bm hide-anchor" i18n:translate="create_toc_help">
-                Select one or two paragraph styles, then Ok to insert a table of contents.
-              </div>
-              <div class="hide-ins-bm hide-toc" i18n:translate="create_anchor_help">
-                Anchors are created for checked paragraphs and
-                removed for unchecked paragraphs when you press Ok.
-                Anchors in use on this page may not be deleted.
-              </div>
             </td>
           </tr>
           <tr>
-            <td class="hide-ins-bm hide-anchor">
+            <td>
               <select id="kupu-bm-sel2" size="1" class="hide-ins-bm hide-anchor">
                 <option value="" i18n:translate="opt_2nd_style">(optional 2nd style)</option>
               </select>
+            </td>
+            <td>
+               <div class="kupu-bm-help">
+                  <span class="hide-anchor hide-toc discreet" i18n:translate="create_anchor_link_help">
+                     Select a paragraph style then choose a paragraph and Ok to insert a link to that location.
+                  </span>
+                  <span class="hide-ins-bm hide-anchor discreet" i18n:translate="create_toc_help">
+                     Select one or two paragraph styles, then Ok to insert a table of contents.
+                  </span>
+                  <span class="hide-ins-bm hide-toc discreet" i18n:translate="create_anchor_help">
+                     Anchors are created for checked paragraphs and
+                     removed for unchecked paragraphs when you press Ok.
+                     Anchors in use on this page may not be deleted.
+                  </span>
+              </div>
             </td>
           </tr>
         </table>
