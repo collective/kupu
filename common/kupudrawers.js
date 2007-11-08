@@ -369,7 +369,7 @@ function LinkDrawer(elementid, tool) {
         this.editor.resumeEditing();
         if (this.getMode()) {
             var url = input.value;
-            this.tool.createLink(url, null, null, this.target, 'external-link');
+            this.tool.createLink(url, null, null, this.target, null, 'external-link');
             input.value = '';
         } else {
             // Import the html
