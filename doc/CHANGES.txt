@@ -2,18 +2,19 @@
 Kupu changes
 ============
 
-- 1.4.4 SVN/unreleased
+- 1.4.4
 
   - Enabled Safari support (needs webkit nightly build and Safari 3)
 
   - Plone tickets
 
-    * 7224 Kupu: error in iframe tabindex attribute
-    * 7305 Page creation and kupu upload image returns an error if Kupu link uid's is turned on.
-    * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
     * 7099 Kupu error on multi-schemata archetypes content
     * 7258 Missing translation msgids for kupu
+    * 7224 Kupu: error in iframe tabindex attribute
     * 7229 kupu 1.4.3 css correction to display redo button icon in editing interface
+    * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
+    * 7305 Page creation and kupu upload image returns an error if Kupu link uid's is turned on.
+    * 7315 Kupu table of contents generator doesn't allow multiple paragraph styles to be selected in IE7
 
 - 1.4.3
 
