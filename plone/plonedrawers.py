@@ -20,7 +20,9 @@ from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
 from Globals import InitializeClass
 from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
+from Products.Archetypes.utils import shasattr
 from Products.PythonScripts.standard import html_quote, newline_to_br
+from Products.kupu.plone import util
 from Products.kupu.plone.librarytool import KupuError
 from Products.CMFCore.utils import getToolByName
 try:
@@ -644,9 +646,11 @@ class PloneDrawers:
                 src = src[len(base):].lstrip('/')
             try:
                 obj = portal.restrictedTraverse(src)
-            except AttributeError:
+            except (KeyError, AttributeError):
                 return []
             if portal_types:
+                while not shasattr(obj.aq_base, 'portal_type'):
+                    obj = obj.aq_parent
                 while obj.portal_type not in portal_types:
                     obj = obj.aq_parent
                     if obj is portal:
@@ -780,15 +784,22 @@ class PloneDrawers:
         return (getattr(field, 'default_output_type', None) in
             ('text/x-html-safe', 'text/x-html-captioned'))
 
+    security.declarePublic("getLabelFromWidget")
+    def getLabelFromWidget(self, widget):
+        """Get the label for a widget converting from i18n message if needed"""
+        label = util.translate(widget.Label(self), self.REQUEST)
+        if isinstance(label, str):
+            label = label.decode('utf8', 'replace')
+        return label
+
     security.declareProtected("View", "getKupuFields")
     def getKupuFields(self, filter=1):
         """Returns a list of all kupu editable fields"""
         inuse = getToolByName(self, 'portal_catalog').uniqueValuesFor('portal_type')
-        site_encoding = getSiteEncoding(self)
         for t,f,pt in self._getKupuFields():
             if html2captioned.sanitize_portal_type(pt) in inuse or not filter:
                 yield dict(type=t, name=f.getName(), portal_type=pt,
-                           label=f.widget.Label(self).decode(site_encoding))
+                           label=self.getLabelFromWidget(f.widget))
 
     def _getKupuFields(self):
         """Yield all fields which are editable using kupu"""
@@ -806,13 +817,13 @@ class PloneDrawers:
     security.declareProtected("View", "supportedCaptioning")
     def supportedCaptioning(self):
         """Returns a list of document/fields which have support for captioning"""
-        supported = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
+        supported = [t+'/'+self.getLabelFromWidget(f.widget) for (t,f,pt) in self._getKupuFields() if self.canCaption(f) ]
         return str.join(', ', supported)
 
     security.declareProtected("View", "unsupportedCaptioning")
     def unsupportedCaptioning(self):
         """Returns a list of document/fields which do not have support for captioning"""
-        unsupp = [t+'/'+f.widget.label for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
+        unsupp = [t+'/'+self.getLabelFromWidget(f.widget) for (t,f,pt) in self._getKupuFields() if not self.canCaption(f) ]
         return str.join(', ', unsupp)
 
     security.declareProtected("View", "transformIsEnabled")

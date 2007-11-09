@@ -2,10 +2,11 @@
 <kupu-settings>
   <config captioning="False" userefbrowser="False"
           linkbyuid="False" filtersourceedit="True">
-    <table>plain</table>
-    <table>listing</table>
-    <table>vertical listing</table>
-    <table>listing nosort|unsorted listing</table>
+    <table>plain|Subdued grid</table>
+    <table>invisible|Invisible grid</table>
+    <table>listing|Fancy listing</table>
+    <table>grid listing|Fancy grid listing</table>
+    <table>vertical listing|Fancy vertical listing</table>
     <style>Heading|h2</style>
     <style>Subheading|h3</style>
     <style>Literal|pre</style>
@@ -16,6 +17,8 @@
     <style>Odd row|tr|odd</style>
     <style>Even row|tr|even</style>
     <style>Heading cell|th|</style>
+    <style>Page break (print only)|div|pageBreak</style>
+    <style>Clear floats|div|visualClear</style>
     <filter attributes=""
             tags="center tt big small basefont font"/>
     <filter attributes="lang valign halign border frame rules cellspacing cellpadding bgcolor"
@@ -47,7 +50,7 @@
            icon="string:${portal_url}/kupuimages/kupusearch_icon.gif"
            title="string:Recent items">
   </library>
-  <defaultlibrary>myitems</defaultlibrary>
+  <defaultlibrary>current</defaultlibrary>
   <resource id="collection" mode="whitelist">
     <type>Plone Site</type>
     <type>Large Plone Folder</type>

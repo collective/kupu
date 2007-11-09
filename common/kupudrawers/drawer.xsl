@@ -390,9 +390,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              </xsl:choose>
           </xsl:if>
           <xsl:if test="sizes">
-             <label class="kupu-detail" i18n:translate="imagedrawer_size"
-                    for="image-size-selector">Size
-                <span class="image-dimensions">
+             <label class="kupu-detail"
+                    for="image-size-selector"><span
+                    i18n:translate="imagedrawer_size_2">Size</span>
+                <span class="image-dimensions" i18n:translate="imagedrawer_size">
                    (<span i18n:name="width"><xsl:value-of select="width"/></span>
                    by
                    <span i18n:name="height"><xsl:value-of select="height"/></span>)

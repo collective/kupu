@@ -8,6 +8,7 @@ from os.path import join, abspath, dirname
 
 from Products.PortalTransforms.tests.test_transforms import *
 from Products.PortalTransforms.tests.utils import normalize_html
+from Products.kupu import kupu_globals
 
 PREFIX = abspath(dirname(__file__))
 
@@ -26,14 +27,11 @@ tests =(
 ('Products.kupu.plone.html2captioned', "linked.in", "linked.out", normalize_html, 0),
     )
 
-class MockSubImage:
-    def getWidth(self):
-        return 20
-
 class MockImage:
     def __init__(self, uid, description):
         self.uid, self.description = uid, description
-        self.image_thumb = MockSubImage()
+        if not uid.startswith('SUB:'):
+            self.image_thumb = MockSubImage(self)
 
     def Title(self):
         return 'image '+self.uid
@@ -45,6 +43,22 @@ class MockImage:
         return '[url for %s]' % self.uid
     def getWidth(self):
         return 600
+    def tag(self, height="", width="", **kw):
+        src = self.absolute_url_path()
+        alt = self.Title()
+        if not width:
+            width = self.getWidth()
+        return '<img height="%s" src="%s" width="%s" alt="%s"/>' % (height, src, width, alt)
+
+class MockSubImage(MockImage):
+    def __init__(self, parent):
+        self.uid = parent.uid
+        self.description = parent.description
+
+    def getWidth(self):
+        return 20
+    def absolute_url_path(self):
+        return '[url for %s]' % self.uid+'/image_thumb'
 
 class MockCatalogTool:
     def lookupObject(self, uid):
@@ -59,10 +73,42 @@ class MockCatalogTool:
 class MockArchetypeTool:
     reference_catalog = MockCatalogTool()
 
+def mockPageTemplate(self, **kw):
+    """Acquisition isn't set up correctly for us to use a real PageTemplateFile,
+    so for the test we just use string formatting.
+    """
+    caption = kw.get('caption', '!caption!')
+    image = kw.get('image', None)
+    fullimage = kw.get('fullimage', None)
+    Class=kw['class']
+    width = kw['width']
+    owidth = fullimage.getWidth()
+    if width is None:
+        kw['width'] = width = image.getWidth()
+    href = fullimage.absolute_url_path()
+    tag = image.tag(**kw)
+
+    #if width==owidth:
+    TEMPLATE = '''<dl class="%(Class)s">
+    <dt>%(tag)s</dt>
+    <dd class="image-caption" style="width:%(width)spx">%(caption)s</dd>
+    </dl>'''
+    #else:
+    #    TEMPLATE = '''<dl class="%(Class)s">
+    #    <dt><a rel="lightbox" href="%(href)s">%(tag)s</a></dt>
+    #    <dd class="image-caption" style="width:%(width)spx">%(caption)s</dd>
+    #    </dl>'''
+        
+    return TEMPLATE % dict(
+        caption=caption, Class=Class, href=href, width=width, tag=tag)
+
 class MockPortal:
     # Mock portal class: just enough to let me think I can lookup a
     # Description for an image from its UID.
     archetype_tool = MockArchetypeTool()
+
+    # Also now needs access to the captioning template
+    kupu_captioned_image = mockPageTemplate
 
 class TransformTest(TestCase):
     portal = MockPortal()

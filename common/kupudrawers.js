@@ -155,9 +155,9 @@ proto.switchMode = function(event) {
     event = event || window.event;
     var target = event.currentTarget || event.srcElement;
     var el = target;
-    while (el.nodeName != 'LI') { el = el.parentNode; };
+    while (!/^li$/i.test(el.nodeName)) { el = el.parentNode; };
     var thistab = el;
-    while (el.nodeName != 'UL') { el = el.parentNode; };
+    while (!/^ul$/i.test(el.nodeName)) { el = el.parentNode; };
     var tabs = el.getElementsByTagName('li');
     for (var i = 0; i < tabs.length; i++) {
         var el = tabs[i];
@@ -243,21 +243,19 @@ proto.hideAnchors = function() {
 
 proto.anchorText = function(a) {
     // Text inside anchor, or immediate sibling block tag, or parent block. 
-    var blocktag = /^DIV|P|BODY|TD|H.$/;
+    var blocktag = /^div|p|body|td|h.$/i;
     var txt = '';
     var prefix = '#' + a.name;
-findlabel:
+
     for (var node = a; node && !txt; node=node.parentNode) {
         var txt = node.textContent || node.innerText || '';
         if (txt || blocktag.test(node.nodeName)) {
             break;
         }
 
-        for (var sibling = node.nextSibling; sibling; sibling = sibling.nextSibling) {
-            if (sibling.nodeName=='#text') {
+        for (var sibling = node.nextSibling; sibling && !txt; sibling = sibling.nextSibling) {
+            if (sibling.nodeName.toLowerCase()=='#text') {
                 txt = sibling.data.strip();
-            } else if (blocktag.test(sibling.nodeName)) {
-                break findlabel;
             } else {
                 txt += sibling.textContent || sibling.innerText ||'';
             };
@@ -371,7 +369,7 @@ function LinkDrawer(elementid, tool) {
         this.editor.resumeEditing();
         if (this.getMode()) {
             var url = input.value;
-            this.tool.createLink(url, null, null, this.target, 'external-link');
+            this.tool.createLink(url, null, null, this.target, null, 'external-link');
             input.value = '';
         } else {
             // Import the html
@@ -442,7 +440,7 @@ function LinkDrawer(elementid, tool) {
             var there = preview.contentWindow.location.href;
         } catch(e) { return; }
 
-        if (here != there && !(/^about:/.test(there))) {
+        if (there && here != there && !(/^about:/.test(there))) {
             input.value = there;
         }
         this.showAnchors(currentAnchor());
@@ -928,8 +926,10 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
 
         if (this.editor.getBrowserName() == 'IE') {
             newitemsnode = newitemsnode.cloneNode(true);
+            if (newbc) newbc = newbc.cloneNode(true);
         } else {
             newitemsnode = this.xmldata.importNode(newitemsnode, true);
+            if (newbc) newbc = this.xmldata.importNode(newbc, true);
         }
         if (newbc) {
             if (bcnode) {
@@ -1299,7 +1299,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (this.editor.getBrowserName() == 'IE') {
             resultlib = resultlib.cloneNode(true);
         } else {
-            this.xmldata.importNode(resultlib, true);
+            resultlib = this.xmldata.importNode(resultlib, true);
         }
         var libraries = this.xmldata.selectSingleNode("/libraries");
         libraries.appendChild(resultlib);
@@ -1400,10 +1400,20 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     }
 
     this.createContent = function() {
+        function getSel(sel, p, t) {
+            var nodes = p.getElementsByTagName(t);
+            for (var i = 0; i < nodes.length; i++) {
+                if (sel.containsNode(nodes[i])) {
+                    return nodes[i];
+                };
+            };
+        }
         var ed = this.editor;
+        var sel = ed.getSelection();
         var currnode = ed.getSelectedNode();
-        var currimg = ed.getNearestParentOfType(currnode, 'OBJECT') || ed.getNearestParentOfType(currnode, 'IMG');
-        this.selectedSrc = currimg.data||currimg.src||null;
+        var currimg = ed.getNearestParentOfType(currnode, 'OBJECT') || ed.getNearestParentOfType(currnode, 'IMG') ||
+                      getSel(sel, currnode, 'object') || getSel(sel, currnode, 'img');
+        this.selectedSrc = currimg?(currimg.data||currimg.src||null):null;
         this.options = {};
         if (currimg) {
             ed.getSelection().selectNodeContents(currimg);
@@ -1711,7 +1721,7 @@ function AnchorDrawer(elementid, tool) {
                     if (level==0) {
                         toc.appendChild(li);
                     } else {
-                        if (!toc.lastChild || toc.lastChild.nodeName != 'ul') {
+                        if (!toc.lastChild || toc.lastChild.nodeName.toLowerCase() != 'ul') {
                             toc.appendChild(ed.newElement('ul'));
                         }
                         toc.lastChild.appendChild(li);
@@ -1735,10 +1745,10 @@ function AnchorDrawer(elementid, tool) {
                 };
             }
             var node = ed.getSelection().parentElement();
-            if (node.nodeName == 'BODY') {
+            if (node.nodeName.toLowerCase() == 'body') {
                 node.insertBefore(toc, node.firstChild);
             } else {
-                while (node.parentNode.nodeName != 'BODY') {
+                while (node.parentNode.nodeName.toLowerCase() != 'body') {
                     node = node.parentNode;
                 }
                 node.parentNode.insertBefore(toc, node);

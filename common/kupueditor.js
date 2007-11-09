@@ -95,6 +95,7 @@ function KupuEditor(document, config, logger) {
     
     this._designModeSetAttempts = 0;
     this._initialized = false;
+    this._wantDesignMode = false;
 
     // some properties to save the selection, required for IE to remember 
     // where in the iframe the selection was
@@ -506,43 +507,48 @@ function KupuEditor(document, config, logger) {
 
     this._initializeEventHandlers = function() {
         /* attache the event handlers to the iframe */
+        var win = this.getDocument().getWindow();
+        var idoc = this.getInnerDocument();
+        // Set design mode on resize event:
+        this._addEventHandler(win, 'resize', this._resizeHandler, this);
         // Initialize DOM2Event compatibility
         // XXX should come back and change to passing in an element
-        this._addEventHandler(this.getInnerDocument(), "click", this.updateStateHandler, this);
-        this._addEventHandler(this.getInnerDocument(), "dblclick", this.updateStateHandler, this);
-        this._addEventHandler(this.getInnerDocument(), "keyup", this.updateStateHandler, this);
-        this._addEventHandler(this.getInnerDocument(), "keyup", function() {this.content_changed = true;}, this);
-        this._addEventHandler(this.getInnerDocument(), "mouseup", this.updateStateHandler, this);
+        this._addEventHandler(idoc, "click", this.updateStateHandler, this);
+        this._addEventHandler(idoc, "dblclick", this.updateStateHandler, this);
+        this._addEventHandler(idoc, "keyup", this.updateStateHandler, this);
+        this._addEventHandler(idoc, "keyup", function() {this.content_changed = true;}, this);
+        this._addEventHandler(idoc, "mouseup", this.updateStateHandler, this);
         if (this.getBrowserName() == "IE") {
-            this._addEventHandler(this.getInnerDocument(), "selectionchange", this.onSelectionChange, this);
+            this._addEventHandler(idoc, "selectionchange", this.onSelectionChange, this);
         }
     };
 
+    this._resizeHandler = function() {
+        // Use the resize event to trigger setting design mode
+        if (this._wantDesignMode) {
+            this._setDesignModeWhenReady();
+        }
+    }
     this._setDesignModeWhenReady = function() {
-        /* Rather dirty polling loop to see if Mozilla is done doing it's
-            initialization thing so design mode can be set.
-        */
-        this._designModeSetAttempts++;
-        if (this._designModeSetAttempts > 25) {
-            alert(_('Couldn\'t set design mode. Kupu will not work on this browser.'));
-            return;
-        };
+        /* Try to set design mode, but if we fail then just wait for a
+         * resize event.
+         */
         var success = false;
         try {
             this._setDesignMode();
             success = true;
         } catch (e) {
-            // register a function to the timer_instance because 
-            // window.setTimeout can't refer to 'this'...
-            timer_instance.registerFunction(this, this._setDesignModeWhenReady, 100);
         };
         if (success) {
+            this._wantDesignMode = false;
             // provide an 'afterInit' method on KupuEditor.prototype
             // for additional bootstrapping (after editor init)
             if (this.afterInit) {
                 this.afterInit();
             };
-        };
+        } else {
+            this._wantDesignMode = true; // Enable the resize trigger
+        }
     };
 
     this._setDesignMode = function() {
@@ -559,7 +565,7 @@ function KupuEditor(document, config, logger) {
         if (this._isDocumentSelected()) {
             var cursel = this.getInnerDocument().selection;
             var currange = cursel.createRange();
-            if (cursel.type=="Control" && currange.item(0).nodeName=="BODY") {
+            if (cursel.type=="Control" && currange.item(0).nodeName.toLowerCase()=="body") {
                 /* This happens when you try to active an embedded
                  * object */
                 this._restoreSelection(true);

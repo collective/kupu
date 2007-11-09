@@ -92,8 +92,8 @@
                          lookupObject nocall:here/reference_catalog/lookupObject;
                          resource_type string:$portal_type.$fieldName;
                          rt python:kupu.getResourceType(resource_type);
-                         label widget/label;
-                         rLabel python:repr(unicode(label))[1:];
+                         label python:kupu.getLabelFromWidget(widget);
+                         rLabel python:repr(label)[1:];
                          uids python:same_type(value, []) and value or [value];
                          uids python:[u for u in uids if u];
                          types_param python:','.join(field.allowed_types);

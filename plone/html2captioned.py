@@ -37,6 +37,7 @@ IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 ATTR_VALUE = '=(?:"?)(?P<%s>(?<=")[^"]*|[^ \/>]*)'
 ATTR_CLASS = ATTR_VALUE % 'class'
 ATTR_WIDTH = ATTR_VALUE % 'width'
+ATTR_HEIGHT = ATTR_VALUE % 'height'
 ATTR_ALT = ATTR_VALUE % 'alt'
 
 ATTR_PATTERN = re.compile('''
@@ -45,9 +46,10 @@ ATTR_PATTERN = re.compile('''
      | src\s*=\s*"resolveuid/(?P<src>([^/"#? ]*))
      | width%s
      | alt%s
+     | height%s
      | .
      )*\>
-    )''' % (ATTR_CLASS, ATTR_WIDTH, ATTR_ALT), re.VERBOSE | re.IGNORECASE | re.DOTALL)
+    )''' % (ATTR_CLASS, ATTR_WIDTH, ATTR_ALT, ATTR_HEIGHT), re.VERBOSE | re.IGNORECASE | re.DOTALL)
 SRC_TAIL = re.compile(r'/([^" \/>]+)')
 
 CLASS_PATTERN = re.compile('\s*class\s*=\s*("[^"]*captioned[^"]*"|[^" \/>]+)')
@@ -123,6 +125,7 @@ class HTMLToCaptioned:
                 tag = match.group(1) or match.group(2)
                 attrs = ATTR_PATTERN.match(tag)
                 src = attrs.group('src')
+                subtarget = None
                 m = SRC_TAIL.match(tag, attrs.end('src'))
                 if m:
                     srctail = m.group(1)
@@ -135,18 +138,39 @@ class HTMLToCaptioned:
                         d['class'] = attrs.group('class')
                         d['originalwidth'] = attrs.group('width')
                         d['originalalt'] = attrs.group('alt')
+                        d['url_path'] = target.absolute_url_path()
                         d['caption'] = newline_to_br(html_quote(target.Description()))
                         d['image'] = d['fullimage'] = target
+                        d['tag'] = None
+                        d['isfullsize'] = False
+                        d['width'] = target.width
                         if srctail:
+                            if isinstance(srctail, unicode):
+                                srctail =srctail.encode('utf8') # restrictedTraverse doesn't accept unicode
                             try:
                                 subtarget = target.restrictedTraverse(srctail)
                             except:
                                 subtarget = getattr(target, srctail, None)
                             if subtarget:
                                 d['image'] = subtarget
+
+                            if srctail.startswith('image_'):
+                                d['tag'] = target.getField('image').tag(target, scale=srctail[6:])
+                            elif subtarget:
+                                d['tag'] = subtarget.tag()
+
+                        if d['tag'] is None:
+                            d['tag'] = target.tag()
+
+                        if subtarget:
+                            d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
+                            d['width'] = subtarget.width
+
                         return template(**d)
                 return match.group(0) # No change
 
+            if isinstance(data, str):
+                data = data.decode('utf8')
             html = IMAGE_PATTERN.sub(replaceImage, data)
 
             # Replace urls that use UIDs with human friendly urls.
@@ -223,9 +247,9 @@ class Migration:
         if fields:
             f = fields[0]
             self.portal_type = f.portal_type
-            self.typename = f.type
-            self.fieldname = f.name
-            self.fieldlabel = f.label
+            self.typename = f.type.decode('utf-8')
+            self.fieldname = f.name.decode('utf-8')
+            self.fieldlabel = f.label.decode('utf-8')
         else:
             self.portal_type = rfg('portal_type', None)
             self.fieldname = None

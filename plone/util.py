@@ -92,7 +92,15 @@ def install_transform(self):
 
     if not hasattr(transform_tool, INVERSE_TRANSFORM):
         transform_tool.manage_addTransform(INVERSE_TRANSFORM, 'Products.PortalTransforms.transforms.identity')
-    
+        # Need to commit a subtransaction here, otherwise setting the
+        # parameters will cause an exception when the transaction is
+        # finally comitted.
+        try:
+            import transaction
+            transaction.savepoint(optimistic=True)
+        except ImportError:
+            get_transaction().commit(1)
+
     inverse = transform_tool[INVERSE_TRANSFORM]
     if inverse.get_parameter_value('inputs') != [MT_CAPTIONED] or inverse.get_parameter_value('output') != 'text/html':
         inverse.set_parameters(inputs=[MT_CAPTIONED], output='text/html')
@@ -122,3 +130,15 @@ def remove_transform(self):
         transform_tool.manage_delPolicies([MT_SAFE])
         if required:
             transform_tool.manage_addPolicy(MT_SAFE, required)
+
+try:
+    from zope.i18nmessageid import Message
+    from zope.i18n import translate as i18n_translate
+    def translate(label, context):
+        if isinstance(label, Message):
+            return i18n_translate(label, context=context)
+        return label
+except ImportError:
+    def translate(label, context):
+        return label
+

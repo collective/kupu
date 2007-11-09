@@ -107,7 +107,7 @@ LIBRARIES = (
          src="string:${portal_url}/kupurecentitems.xml",
          icon="string:${portal_url}/kupuimages/kupusearch_icon.gif")
     )
-DEFAULT_LIBRARY = 'myitems'
+DEFAULT_LIBRARY = 'current'
 
 INSTALL_BEFOREUNLOAD = False
 LINKBYUID = False

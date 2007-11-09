@@ -18,7 +18,7 @@
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
                         id string:kupu-editor-iframe-${fname};
-                        name string:kupu-editor-iframe-${fname};tabindex tabindex|nothing;"
+                        name string:kupu-editor-iframe-${fname};tabindex tabindex/next|tabindex|nothing;"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"
@@ -65,8 +65,10 @@
 
   <kupu:part name="suppress-kupu">
     <div class="kupuoverride"
-        tal:condition="python:exists('kupu_content') and len(kupu_content)==0 and gAC and len(gAC(here))!=1"
-        tal:define="floated widget/allow_file_upload | python:1;gAC nocall:field/getAllowedContentTypes|nothing"
+        tal:condition="python:exists('kupu_content') and len(kupu_content)==0 and allowed and len(allowed)!=1"
+        tal:define="floated widget/allow_file_upload | python:1;
+                gAC nocall:field/getAllowedContentTypes|nothing;
+                allowed python:gAC and gAC(context) or path('field/allowable_content_types|nothing');"
         tal:attributes="style python:test(floated, 'float:left;;', '');"
       ><span class="discreet"><a class="forcekupu" href="#"
         i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;"

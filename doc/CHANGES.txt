@@ -2,6 +2,68 @@
 Kupu changes
 ============
 
+- 1.4.4
+
+  - Enabled Safari support (needs webkit nightly build and Safari 3)
+
+  - Plone tickets
+
+    * 7099 Kupu error on multi-schemata archetypes content
+    * 7258 Missing translation msgids for kupu
+    * 7224 Kupu: error in iframe tabindex attribute
+    * 7229 kupu 1.4.3 css correction to display redo button icon in editing interface
+    * 7285 Kupu Accesskey for Save conflict with Firefox History Menu
+    * 7305 Page creation and kupu upload image returns an error if Kupu link uid's is turned on.
+    * 7315 Kupu table of contents generator doesn't allow multiple paragraph styles to be selected in IE7
+
+- 1.4.3
+
+  - Kupu now uses sarissa 0.9.8.1 (still a differences in
+    sarissa_ieemu_xpath.js, but these are purely cosmetic so that jslint
+    runs cleanly).
+
+  - Plone tickets
+
+    * 6970: can't upgrade to Kupu 1.4.1
+    * 6975: Cannot save HTML field as NULL
+    * 7119: 'Edit without visual editor' link doesn't show up in Plone 2.5.3
+    * 7139: Kupu Manage Anchors not working in inline edit
+    * 7140: kupu fails with danish letters in title.
+    * 7143: UnicodeError inserting image
+    * 7158: Kupu Edit already inserted image: Preview and sizes get wrong urls
+
+- 1.4.2
+
+  - Florian fixed some encoding errors
+
+  - Plone tickets
+
+    * 7074: Search for image errors in Kupu
+
+- 1.4.1
+
+  Limi asked for some last minute changes for Plone 3:
+
+  - Embed doesn't work out of the box in Plone 3, so shouldn't be shown
+    by default (it will only lead to a lot of user frustration).
+
+  - The anchor/table of contents generation is done differently in Plone
+    3, so should be off by default (turning on buttons is easy in Kupu
+    now).
+
+  - Insert image/link should default to current folder instead of
+    Recent, since the Upload button isn't visible if not (which is the
+    most common use case)
+
+  - Place the delete link/image button after the pulldown (so it doesn't
+    push around the toolbar elements)
+
+  - Default table styles now include "grid listing" and "invisible".
+
+  - Paragraph styles now labelled just styles and include: highlight, page break, clear floats
+
+  - Create headings now on by default.
+
 - 1.4
 
   - The icons in the toolbar for Plone now use CSS sprites. This means that
