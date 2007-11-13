@@ -312,7 +312,7 @@ function XhtmlValidation(editor) {
         this.misc = ['noscript'].concat(this.misc_inline);
         this.inline = ['a'].concat(this.special, this.fontstyle, this.phrase, this.inline_forms);
 
-        this.Inline = ['#text'].concat(this.inline, this.misc_inline);
+        this.Inline = ['#text', '#comment'].concat(this.inline, this.misc_inline);
 
         this.heading = ['h1','h2','h3','h4','h5','h6'];
         this.lists = ['ul','ol','dl','menu','dir'];
@@ -744,6 +744,8 @@ function XhtmlValidation(editor) {
                     if (nostructure || permittedChildren['#text']) {
                         parentnode.appendChild(ownerdoc.createCDATASection(kid.nodeValue));
                     }
+                } else if (kid.nodeType == 8) {
+                    parentnode.appendChild(ownerdoc.createComment(kid.nodeValue));
                 }
             }
         } 
