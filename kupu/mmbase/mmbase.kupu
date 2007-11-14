@@ -58,7 +58,7 @@
               <mm:compare referid="rich_language" value="client" inverse="true">
                 <option value="client"><fmt:message key="default" /></option>
               </mm:compare>
-              <mm:import id="languages" vartype="list">en,zh,ja,de,fr,pt,nl,da,cs,fi,el,sr,eo</mm:import>
+              <mm:import id="languages" vartype="list">en,zh,ja,de,fr,pt,nl,da,cs,fi,el,sr,eo,hi</mm:import>
               <mm:stringlist referid="languages">
                 <mm:locale language="${_}" jspvar="locale">
                   <mm:compare referid2="rich_language">
