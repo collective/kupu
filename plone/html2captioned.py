@@ -26,9 +26,9 @@ __revision__ = '$Id$'
 # enclosed in a simple <p> or <div>. In the latter case we strip out
 # the enclosing tag since we are going to insert our own.
 PATIMG = '\\<img[^>]+class\s*=[^=>]*captioned[^>]+\\>'
-PATA = '(?:\\<a[^>]*\\>'+PATIMG+'\\</a\\>)' + '|' + PATIMG
-PAT0 = '('+PATA+')'
-PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0
+PATA = '(?:(?P<atag0>\\<a[^>]*\\>)'+PATIMG+'\\</a\\>)' + '|' + PATIMG
+PAT0 = '(?P<pat0>'+PATA+')'
+PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0.replace('0>','1>')
 IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 
 # Regex to match stupid IE attributes. In IE generated HTML an
@@ -122,8 +122,9 @@ class HTMLToCaptioned:
 
         if context and at_tool:        
             def replaceImage(match):
-                tag = match.group(1) or match.group(2)
+                tag = match.group('pat0') or match.group('pat1')
                 attrs = ATTR_PATTERN.match(tag)
+                atag = match.group('atag0') or match.group('atag1')
                 src = attrs.group('src')
                 subtarget = None
                 m = SRC_TAIL.match(tag, attrs.end('src'))
@@ -142,7 +143,7 @@ class HTMLToCaptioned:
                         d['caption'] = newline_to_br(html_quote(target.Description()))
                         d['image'] = d['fullimage'] = target
                         d['tag'] = None
-                        d['isfullsize'] = False
+                        d['isfullsize'] = True
                         d['width'] = target.width
                         if srctail:
                             if isinstance(srctail, unicode):
@@ -165,6 +166,10 @@ class HTMLToCaptioned:
                         if subtarget:
                             d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
                             d['width'] = subtarget.width
+
+                        if atag: # Must preserve original link, don't overwrite with a link to the image
+                            d['isfullsize'] = True
+                            d['tag'] = "%s%s</a>" % (atag, d['tag'])
 
                         return template(**d)
                 return match.group(0) # No change
