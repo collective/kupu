@@ -852,8 +852,8 @@ function KupuEditor(document, config, logger) {
         }
         if (this.getBrowserName() == "IE") {
             var body = this.getInnerDocument().getElementsByTagName('body')[0];
-            this._restoreSelection();
             body.setAttribute('contentEditable', 'true');
+            this._restoreSelection();
         } else {
             var doc = this.getInnerDocument();
             this.getDocument().execCommand('contentReadOnly', 'false');
