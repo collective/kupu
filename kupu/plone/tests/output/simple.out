@@ -10,7 +10,7 @@
 <dl class="image-left captioned">
   <dt>
     <a rel="lightbox" href="/plone/folder/gamma">
-      <img src="http://nohost/plone/folder/gamma/image/image_thumb"
+      <img src="http://nohost/plone/folder/gamma/image_thumb"
            alt="Kupu Test Image" title="Kupu Test Image" height="84"
            width="128" />
     </a>

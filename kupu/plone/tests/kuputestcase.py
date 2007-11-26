@@ -101,7 +101,7 @@ class KupuTestCase(PloneTestCase.PloneTestCase):
             self.create(id, 'Document', f, subject=['aspidistra'])
         self.create('gamma', 'Image', f)
         gamma = f.gamma
-        gamma.setImage(open('image.jpg','rb').read())
+        gamma.setImage(open(join(PREFIX,'image.jpg'),'rb').read())
         gamma.setTitle('Kupu Test Image')
         gamma.setDescription('Test image caption')
         # The image needs a fixed uid for the transform tests.
