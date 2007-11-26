@@ -34,7 +34,7 @@ xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
       <form action="kupu_migration.xml"
             method="post"
             name="changes_form"
-            onsubmit="alert('submitting'); return false;return kj.submitForm(this);"
+            onsubmit="return kj.submitForm(this);"
             tal:define="infouri string:${context/absolute_url_path}/kupu_kjax_support.xml"
             >
         <div id="kupu-output"></div>
