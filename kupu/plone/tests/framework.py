@@ -105,4 +105,12 @@ print 'SOFTWARE_HOME: %s' % os.environ.get('SOFTWARE_HOME', 'Not set')
 print 'INSTANCE_HOME: %s' % os.environ.get('INSTANCE_HOME', 'Not set')
 sys.stdout.flush()
 from Testing import ZopeTestCase
-ZopeTestCase.installProduct('kupu')
+from Testing import ZopeTestCase
+DEPS = ('MimetypesRegistry', 'PortalTransforms', 'Archetypes', 'ATContentTypes', 'kupu')
+try:
+    import Products.TextIndexNG2
+    DEPS = DEPS + ('TextIndexNG2',)
+except ImportError:
+    pass
+for product in DEPS:
+    ZopeTestCase.installProduct(product, 1)
