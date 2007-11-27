@@ -2,6 +2,17 @@
 Kupu changes
 ============
 
+- SVN unreleased
+
+  - Fixed unit tests for the transform (they now use a real image instead of a mockup)
+
+  - Fixed the transform to preserve links around images.
+
+  - Plone tickets
+
+    * 7377 Making an Image a Link within Kupu renders the link tag at the top of the content page
+    * 7387 Kupu-Commit Selected Changes button missing when converting UID=>Relative Link
+
 - 1.4.4
 
   - Enabled Safari support (needs webkit nightly build and Safari 3)
