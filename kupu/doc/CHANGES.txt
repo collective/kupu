@@ -13,6 +13,7 @@ Kupu changes
     * 7293 kupu import step has the wrong dependencies in a portal setup export
     * 7377 Making an Image a Link within Kupu renders the link tag at the top of the content page
     * 7387 Kupu-Commit Selected Changes button missing when converting UID=>Relative Link
+    * 7428 Searching for non-ascii character in kupu Insert Link dialog causes Error 500
 
 - 1.4.4
 
