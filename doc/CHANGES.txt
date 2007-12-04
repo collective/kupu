@@ -8,13 +8,28 @@ Kupu changes
 
   - Fixed the transform to preserve links around images.
 
+  - Images may only be resized if 'height' and 'width' are permitted
+    image attributes. Resizing images in Firefox sets those
+    attributes rather than the style attribute.
+
   - Plone tickets
 
-    * 7293 kupu import step has the wrong dependencies in a portal setup export
-    * 7377 Making an Image a Link within Kupu renders the link tag at the top of the content page
-    * 7387 Kupu-Commit Selected Changes button missing when converting UID=>Relative Link
-    * 7426 Kupu 1.4.4 installed with Plone 3.0.3 for PowerPC presents itself in Safari 3.0.4, but content in Kupu window can't be edited
-    * 7428 Searching for non-ascii character in kupu Insert Link dialog causes Error 500
+    * 5765 Kupu in IE unable to make a link from selected image
+    * 6430 Kupu: changes to images resized by handle-dragging are
+      lost (not saved)
+    * 6835 Drag image breaks in Kupu
+    * 7293 kupu import step has the wrong dependencies in a portal
+      setup export
+    * 7377 Making an Image a Link within Kupu renders the link tag at
+      the top of the content page
+    * 7387 Kupu-Commit Selected Changes button missing when
+      converting UID=>Relative Link
+    * 7426 Kupu 1.4.4 installed with Plone 3.0.3 for PowerPC presents
+      itself in Safari 3.0.4, but content in Kupu window can't be edited 
+    * 7428 Searching for non-ascii character in kupu Insert Link
+      dialog causes Error 500 
+    * 7419 Plone and/or Kupu should at least WARN an editor of an
+      image that changes may be lost at Save time
 
 - 1.4.4
 

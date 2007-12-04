@@ -1,5 +1,6 @@
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.public import *
+from Products.Archetypes.BaseUnit import BaseUnit
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.Archetypes.Field import TextField
 from Products.Archetypes.ReferenceEngine import Reference
@@ -38,6 +39,9 @@ class ReftextField(TextField):
 
         TextField.set(self, instance, value, **kwargs)
 
+        if isinstance(value, BaseUnit):
+            # Baseunit: can occur when overriding atct text fields.
+            value = value()
         if not isinstance(value, basestring):
             value.seek(0);
             value = value.read()
