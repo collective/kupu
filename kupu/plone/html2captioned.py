@@ -17,6 +17,8 @@ from urlparse import urlsplit, urljoin, urlunsplit
 from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
+from Products.kupu.plone.config import UID_PATTERN
+
 name2codepoint = name2codepoint.copy()
 name2codepoint['apos']=ord("'")
 
@@ -65,8 +67,6 @@ IMAGE_TEMPLATE = '''\
  </dd>
 </dl>
 '''
-
-UID_PATTERN = re.compile('(?P<tag><(?:a|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
