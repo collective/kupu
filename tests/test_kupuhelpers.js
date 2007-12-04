@@ -103,6 +103,7 @@ function SelectionTestCase() {
         s = s.replace(/\/>/g, ">");
         s = s.replace(' style=""', "");
         s = s.replace(" style=''", "");
+        s = s.replace(/ kupu-src="[^"]*"/, "");
         return s;
     };
 
