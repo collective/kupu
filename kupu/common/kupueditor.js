@@ -505,21 +505,64 @@ function KupuEditor(document, config, logger) {
         */
     };
 
+    // Fixup Mozilla breaking image src url when dragging images
+    this.imageInserted = function(event) {
+        var node = event.target;
+        if (node && node.nodeType==1) {
+            var nodes = (/^img$/i.test(node.nodeName))?[node]:node.getElementsByTagName('img');
+            for (var i = 0; i < nodes.length; i++) {
+                node = nodes[i];
+                var src = node.getAttribute('kupu-src');
+                if (src) { node.src = src; };
+            };
+        };
+    };
+    // Prevent Mozilla resizing of images
+    this.imageModified = function(event) {
+        var node = event.target;
+        if (node && /^img$/i.test(node.nodeName)) {
+            if (event.attrName=="style" && event.attrChange==1 && /height|width/.test(event.newValue)) {
+                timer_instance.registerFunction(this, this._clearStyle, 1, node);
+            }
+        };
+    };
+    // Make sure image size is set on width/height attributes not style.
+    this._clearStyle = function(node) {
+        var w = node.width;
+        var h = node.height;
+        node.style.width = "";
+        node.style.height = "";
+        if (this.okresize) {
+            if (w) {node.width = w;};
+            if (h) {node.height = h;};
+        };
+    };
+    this._cancelResize = function(evt) {
+        return false;
+    };
+
     this._initializeEventHandlers = function() {
         /* attache the event handlers to the iframe */
         var win = this.getDocument().getWindow();
         var idoc = this.getInnerDocument();
+        var e = this._addEventHandler;
+        var validattrs =  this.xhtmlvalid.tagAttributes['img'];
+        this.okresize = validattrs.contains('width') && validattrs.contains('height');
         // Set design mode on resize event:
-        this._addEventHandler(win, 'resize', this._resizeHandler, this);
+        e(win, 'resize', this._resizeHandler, this);
         // Initialize DOM2Event compatibility
         // XXX should come back and change to passing in an element
-        this._addEventHandler(idoc, "click", this.updateStateHandler, this);
-        this._addEventHandler(idoc, "dblclick", this.updateStateHandler, this);
-        this._addEventHandler(idoc, "keyup", this.updateStateHandler, this);
-        this._addEventHandler(idoc, "keyup", function() {this.content_changed = true;}, this);
-        this._addEventHandler(idoc, "mouseup", this.updateStateHandler, this);
+        e(idoc, "click", this.updateStateHandler, this);
+        e(idoc, "dblclick", this.updateStateHandler, this);
+        e(idoc, "keyup", this.updateStateHandler, this);
+        e(idoc, "keyup", function() {this.content_changed = true;}, this);
+        e(idoc, "mouseup", this.updateStateHandler, this);
         if (this.getBrowserName() == "IE") {
-            this._addEventHandler(idoc, "selectionchange", this.onSelectionChange, this);
+            e(idoc, "selectionchange", this.onSelectionChange, this);
+            if (!this.okresize) { e(idoc.documentElement, "resizestart", this._cancelResize, this);};
+        } else {
+            e(idoc, "DOMNodeInserted", this.imageInserted, this);
+            e(idoc, "DOMAttrModified", this.imageModified, this);
         }
     };
 
@@ -652,7 +695,8 @@ function KupuEditor(document, config, logger) {
 
     // If we have multiple bodies this needs to remove the extras.
     this.setHTMLBody = function(text) {
-        var bodies = this.getInnerDocument().documentElement.getElementsByTagName('body');
+        var doc = this.getInnerDocument().documentElement;
+        var bodies = doc.getElementsByTagName('body');
         for (var i = 0; i < bodies.length-1; i++) {
             bodies[i].parentNode.removeChild(bodies[i]);
         }
@@ -666,6 +710,12 @@ function KupuEditor(document, config, logger) {
         };
         text = text.replace(/<p>(<hr.*?>)<\/p>/g,'$1');
         bodies[bodies.length-1].innerHTML = text;
+        /* Mozilla corrupts dragged images, so save the src attribute */
+        var nodes = doc.getElementsByTagName('img');
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            node.setAttribute('kupu-src', node.src);
+        };
     };
 
     this._fixXML = function(doc, document) {
