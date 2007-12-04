@@ -1251,6 +1251,7 @@ function ImageTool() {
         /* create an image */
         var img = this.editor.getInnerDocument().createElement('img');
         img.src = url;
+        img.setAttribute('kupu-src') = url;
         img.removeAttribute('height');
         img.removeAttribute('width');
         if (alttext) {
