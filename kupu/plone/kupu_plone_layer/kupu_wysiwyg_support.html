@@ -16,7 +16,7 @@
     <!--$Id: toolboxes.kupu 44538 2007-06-26 10:46:28Z duncan $-->
     <!--$Id: colorchooser.kupu 45650 2007-08-14 10:04:42Z guido $-->
     <!--$Id: save.kupu 44538 2007-06-26 10:46:28Z duncan $-->
-    <!--$Id: drawers.kupu 47952 2007-10-25 15:40:31Z duncan $-->
+    <!--$Id: drawers.kupu 48419 2007-11-08 15:14:05Z duncan $-->
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 45669 2007-08-15 10:47:27Z duncan $-->
     <!--$Id: head.kupu 44831 2007-07-07 19:01:27Z duncan $-->
@@ -504,6 +504,7 @@
   
     <textarea cols="80" rows="25" name="fieldName" tal:content="inputvalue" tal:attributes="name fieldName|inputname;                         id fieldName|inputname;                         onfocus onfocus|nothing;                         onblur onblur|nothing;                         rows rows|default;                         cols cols|default;">
     </textarea>
+     <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
   
     <tal:archetypes tal:condition="fieldName|nothing">
       <div class="kupuoverride" tal:condition="python:path('widget/allow_format_edit|python:True') and not path('kupu_convert_message_generated|nothing')" tal:define="floated widget/allow_file_upload | python:1;" tal:attributes="style python:test(floated, 'float:left;;', '');">
