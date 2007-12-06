@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- SVN unreleased
+- 1.4.5
 
   - Fixed unit tests for the transform (they now use a real image instead of a mockup)
 
