@@ -45,7 +45,7 @@ class ReftextField(TextField):
             value = value.read()
 
         # build list of uids from the value here
-        uids = [ m.group('uid') for m in UID_PATTERN.finditer(page) ]
+        uids = [ m.group('uid') for m in UID_PATTERN.finditer(value) ]
         uids = dict.fromkeys(uids).keys() # Remove duplicate uids.
 
         tool = getToolByName(instance, REFERENCE_CATALOG)
