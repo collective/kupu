@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4.6
+
+  - Fixed ReftextField error introduced in 1.4.5
+
 - 1.4.5
 
   - Fixed unit tests for the transform (they now use a real image instead of a mockup)
