@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4.7
+
+  - Added metadata.xml file to the Plone GenericSetup profile.
+
 - 1.4.6
 
   - Fixed ReftextField error introduced in 1.4.5
