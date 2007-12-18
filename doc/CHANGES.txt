@@ -6,6 +6,11 @@ Kupu changes
 
   - Added metadata.xml file to the Plone GenericSetup profile.
 
+  - Style whitelist and class blacklist now work when there is only
+    one entry in the list.
+
+  - Span tags with no attributes after filtering are removed.
+
 - 1.4.6
 
   - Fixed ReftextField error introduced in 1.4.5

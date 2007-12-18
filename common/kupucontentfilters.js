@@ -162,6 +162,11 @@ function NonXHTMLTagFilter() {
 //
 function XhtmlValidation(editor) {
     // Support functions
+    function asList(s) {
+        if (typeof(s)==typeof('') || !s.length) s = [s];
+        return s;
+    }
+
     this.Set = function(ary) {
         if (typeof(ary)==typeof('')) ary = [ary];
         if (ary instanceof Array) {
@@ -175,7 +180,7 @@ function XhtmlValidation(editor) {
             }
         }
     };
-
+    
     this._exclude = function(array, exceptions) {
         var ex;
         if (exceptions.split) {
@@ -446,7 +451,7 @@ function XhtmlValidation(editor) {
     // Permitted elements for style.
     this.styleWhitelist = new this.Set(['text-align', 'list-style-type', 'float']);
     this.classBlacklist = new this.Set(['MsoNormal', 'MsoTitle', 'MsoHeader', 'MsoFootnoteText',
-        'Bullet1', 'Bullet2']);
+        'Bullet1', 'Bullet2', 'Apple-span-style']);
 
     this.classFilter = function(value) {
         var classes = value.split(' ');
@@ -462,8 +467,11 @@ function XhtmlValidation(editor) {
     this._defaultCopyAttribute = function(name, htmlnode, xhtmlnode) {
         var val = htmlnode.getAttribute(name);
         if (val) xhtmlnode.setAttribute(name, val);
+        return !!val;
     };
     // Set up filters for attributes.
+    // Filters may return false if nothing was copied, true or
+    // undefined if an attribute was copied.
     var filter = this;
     this.attrFilters = new function(validation, editor) {
         var attrs = validation.elements.attributes;
@@ -474,10 +482,12 @@ function XhtmlValidation(editor) {
             var val = htmlnode.getAttribute('class');
             if (val) val = validation.classFilter(val);
             if (val) xhtmlnode.setAttribute('class', val);
+            return !!val;
         };
         // allow a * wildcard to make all attributes valid in the filter
         // note that this is pretty slow on IE
         this['*'] = function(name, htmlnode, xhtmlnode) {
+            var res = false;
             var nodeName = filter._getTagName(htmlnode);
             var bad = filter.badTagAttributes[nodeName];
             for (var i=0; i < htmlnode.attributes.length; i++) {
@@ -488,8 +498,10 @@ function XhtmlValidation(editor) {
                 };
                 if (attr.specified) {
                     xhtmlnode.setAttribute(name, attr.value);
+                    res = true;
                 };
             };
+            return res;
         };
         if (editor.getBrowserName()=="IE") {
             this['class'] = function(name, htmlnode, xhtmlnode) {
@@ -502,26 +514,33 @@ function XhtmlValidation(editor) {
                     if (val) val = validation.classFilter(val);                        
                     if (val) xhtmlnode.setAttribute('class', val);
                 }
+                return !!val;
             };
             this['http-equiv'] = function(name, htmlnode, xhtmlnode) {
                 var val = htmlnode.httpEquiv;
                 if (val) xhtmlnode.setAttribute('http-equiv', val);
+                return !!val;
             };
             this['xml:lang'] = this['xml:space'] = function(name, htmlnode, xhtmlnode) {
                 try {
                     var val = htmlnode.getAttribute(name);
                     if (val) xhtmlnode.setAttribute(name, val);
+                    return !!val;
                 } catch(e) {
                 }
             };
         }
         this.alt = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
-            if (val || xhtmlnode.tagName=='img') xhtmlnode.setAttribute(name, val);
+            var ok = val || xhtmlnode.tagName=='img';
+            if (ok) xhtmlnode.setAttribute(name, val);
+            return ok;
         };
         this.rowspan = this.colspan = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
-            if (val && val != '1') xhtmlnode.setAttribute(name, val);
+            var ok = val && val != '1';
+            if (ok) xhtmlnode.setAttribute(name, val);
+            return ok;
         };
         this.style = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.style.cssText;
@@ -538,8 +557,9 @@ function XhtmlValidation(editor) {
                 }
                 if (styles[styles.length-1]) styles.push('');
                 val = styles.join('; ').strip();
-            }
+            };
             if (val) xhtmlnode.setAttribute('style', val);
+            return !!val;
         };
     }(this, editor);
 
@@ -557,20 +577,19 @@ function XhtmlValidation(editor) {
             this.excludeTags(exclude.t);
         }
         if (exclude.c) {
-            var c = exclude.c;
-            if (!c.length) c = [c];
+            var c = asList(exclude.c);
             for (var i = 0; i < c.length; i++) {
                 this.excludeTagAttributes(c[i].t, c[i].a);
             }
         }
         if (exclude.xstyle) {
-            var s = exclude.xstyle;
+            var s = asList(exclude.xstyle);
             for (var i = 0; i < s.length; i++) {
                 this.styleWhitelist[s[i]] = 1;
             }
         }
         if (exclude['class']) {
-            var c = exclude['class'];
+            var c = asList(exclude['class']);
             for (var i = 0; i < c.length; i++) {
                 this.classBlacklist[c[i]] = 1;
             }
@@ -578,18 +597,25 @@ function XhtmlValidation(editor) {
     };
 
     // Copy all valid attributes from htmlnode to xhtmlnode.
+    // Returns true if at least one attribute was copied.
     this._copyAttributes = function(htmlnode, xhtmlnode, valid) {
         var name;
+        var res = false;
         if (valid.contains('*')) {
             // allow all attributes on this tag
-            this.attrFilters['*'](name, htmlnode, xhtmlnode);
-            return;
-        };        
-        for (var i = 0; i < valid.length; i++) {
-            name = valid[i];
-            var filter = this.attrFilters[name];
-            if (filter) filter(name, htmlnode, xhtmlnode);
+            res = this.attrFilters['*'](name, htmlnode, xhtmlnode);
+            if (res===undefined) res = true;
+        } else {
+            for (var i = 0; i < valid.length; i++) {
+                name = valid[i];
+                var filter = this.attrFilters[name];
+                if (filter) {
+                    var f = filter(name, htmlnode, xhtmlnode);
+                    res|=(f||f===undefined);
+                }
+            };
         }
+        return res;
     };
     this._xmlCopyAttr = function(srcnode, target) {
         var valid = this.tagAttributes[srcnode.nodeName];
@@ -705,7 +731,10 @@ function XhtmlValidation(editor) {
             } catch (e) { };
             
             if (validattrs && xhtmlnode) {
-                this._copyAttributes(htmlnode, xhtmlnode, validattrs);
+                if (!this._copyAttributes(htmlnode, xhtmlnode, validattrs) && nodename=='span') {
+                    parentnode = xhtmlparent;
+                    xhtmlnode = null;
+                }
             }
         }
 
