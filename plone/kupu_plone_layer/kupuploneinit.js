@@ -289,7 +289,6 @@ function initPloneKupu(editorId) {
     function tabHandler(event) {
         event = event||window.event;
         if (event.keyCode!=9) { return; }
-        console.log("tab!");
         if (!(/kupu-fulleditor-zoomed/.test(document.body.className))) {
             var form = textarea.form;
             var els = form.elements;
