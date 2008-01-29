@@ -192,7 +192,8 @@ class HTMLToCaptioned:
                 return match.group(0)
 
             html = UID_PATTERN.sub(replaceUids, html)
-            
+            if isinstance(html, unicode):
+                html = html.encode('utf8') # Indexing requires a string result.
             idata.setData(html)
             return idata
 
