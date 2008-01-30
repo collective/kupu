@@ -52,9 +52,9 @@ from z3interfaces import IPloneKupuLibraryTool
 _default_libraries = (
     dict(id="root",
          title="string:Home",
-         uri="string:${portal_url}",
-         src="string:${portal_url}/kupucollection.xml",
-         icon="string:${portal_url}/misc_/CMFPlone/plone_icon"),
+         uri="string:${globals_view/navigationRootUrl|portal_url}",
+         src="string:${globals_view/navigationRootUrl|portal_url}/kupucollection.xml",
+         icon="string:${globals_view/navigationRootUrl|portal_url}/misc_/CMFPlone/plone_icon"),
     dict(id="current",
          title="string:Current folder",
          uri="string:${folder_url}",

@@ -28,9 +28,9 @@
     <filterstyle>list-style-type</filterstyle>
     <filterstyle>float</filterstyle>
   </config>
-  <library src="string:${portal_url}/kupucollection.xml"
-           uri="string:${portal_url}" id="root"
-           icon="string:${portal_url}/misc_/CMFPlone/plone_icon"
+  <library src="string:${globals_view/navigationRootUrl|portal_url}/kupucollection.xml"
+           uri="string:${globals_view/navigationRootUrl|portal_url}" id="root"
+           icon="string:${globals_view/navigationRootUrl|portal_url}/misc_/CMFPlone/plone_icon"
            title="string:Home">
   </library>
   <library src="string:${folder_url}/kupucollection.xml"
