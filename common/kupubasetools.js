@@ -2741,8 +2741,6 @@ KupuZoomTool.prototype.onresize = function() {
     if (window.innerWidth) {
         var width = window.innerWidth;
         var height = window.innerHeight;
-        var tbheight = fulleditor.parentNode.getElementsByClassName('kupu-tb')[0].getHeight();
-        var nheight = height - tbheight + 'px'
     } else if (document.documentElement) {
         if (!window._IE_VERSION) {
             _IE_VERSION = /MSIE\s*([0-9.]*)/.exec(navigator.appVersion);
@@ -2750,22 +2748,20 @@ KupuZoomTool.prototype.onresize = function() {
         var kludge = (_IE_VERSION[1]<7)?5:0;
         var width = document.documentElement.offsetWidth-kludge;
         var height = document.documentElement.offsetHeight-kludge;
-        var offset = fulleditor.offsetTop;
-        var nheight = Math.max(height - offset -1/*top border*/, 10) + 'px';
     } else {
-            var width = document.body.offsetWidth-5;
-            var height = document.body.offsetHeight-5;
-            var offset = fulleditor.offsetTop;
-            var nheight = Math.max(height - offset -1/*top border*/, 10) + 'px';
-        }
-        width = width + 'px';
-        fulleditor.style.width = width; /*IE needs this*/
-        iframe.style.width = width;
-        iframe.style.height = nheight;
-        if (sourceArea) {
-            sourceArea.style.width = width;
-            sourceArea.style.height = nheight;
-        }
+        var width = document.body.offsetWidth-5;
+        var height = document.body.offsetHeight-5;
+    }
+    var offset = fulleditor.offsetTop;
+    var nheight = Math.max(height - offset -1/*top border*/, 10) + 'px';
+    width = width + 'px';
+    fulleditor.style.width = width; /*IE needs this*/
+    iframe.style.width = width;
+    iframe.style.height = nheight;
+    if (sourceArea) {
+        sourceArea.style.width = width;
+        sourceArea.style.height = nheight;
+    }
 };
 
 KupuZoomTool.prototype.checkfunc = function(selNode, button, editor, event) {
