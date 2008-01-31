@@ -646,15 +646,15 @@ class PloneDrawers:
                 src = src[len(base):].lstrip('/')
             try:
                 obj = portal.restrictedTraverse(src)
+                if portal_types:
+                    while not shasattr(obj.aq_base, 'portal_type'):
+                        obj = obj.aq_parent
+                    while obj.portal_type not in portal_types:
+                        obj = obj.aq_parent
+                        if obj is portal:
+                            return []
             except (KeyError, AttributeError):
                 return []
-            if portal_types:
-                while not shasattr(obj.aq_base, 'portal_type'):
-                    obj = obj.aq_parent
-                while obj.portal_type not in portal_types:
-                    obj = obj.aq_parent
-                    if obj is portal:
-                        return []
         else:
             # src=<uid1> <uid2> ... <uidn>
             src = src.split(' ') # src is a list of uids.

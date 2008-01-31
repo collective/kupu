@@ -66,7 +66,7 @@ KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
                 path[i++] = '#';
             }
             str = path.join('/');
-            if (anchor) {
+            if (anchor || str=="") {
                 str = [str,anchor].join('#');
             }
             str = tag + str+'"';
