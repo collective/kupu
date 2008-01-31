@@ -9,6 +9,7 @@ Kupu changes
 
   - Plone tickets
 
+    * 7473 Kupu full screen mode looks broken
     * 7680 Kupu stripping out anchor to top of current page
     * 7713 Kupu browser "Home" link goes to Plone root and not content
       root.
