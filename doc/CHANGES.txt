@@ -2,6 +2,19 @@
 Kupu changes
 ============
 
+- 1.4.8
+
+  - Tabbing key now takes you to next/previous field. However, plone
+    ticket #7727 might result in tab behaviour changing again.
+
+  - Plone tickets
+
+    * 7680 Kupu stripping out anchor to top of current page
+    * 7713 Kupu browser "Home" link goes to Plone root and not content
+      root.
+    * 7728 turning on "Link using UIDs" breaks indexing of rich text
+      fields that contain unicode characters out of the 128 range
+
 - 1.4.7
 
   - Added metadata.xml file to the Plone GenericSetup profile.
