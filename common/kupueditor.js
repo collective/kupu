@@ -638,6 +638,8 @@ function KupuEditor(document, config, logger) {
     };
 
     this._isDocumentSelected = function() {
+        if (this.suspended) return false;
+
         var editable_body = this.getInnerDocument().getElementsByTagName('body')[0];
         try {
             var selrange = this.getInnerDocument().selection.createRange();
@@ -895,7 +897,6 @@ function KupuEditor(document, config, logger) {
         if (!this.suspended) {
             return;
         }
-        this.suspended = false;
         this.clearClass('kupu-modal');
         for (var id in this.tools) {
             this.tools[id].enable();
@@ -911,6 +912,7 @@ function KupuEditor(document, config, logger) {
             this.focusDocument();
             this.getSelection().restoreRange(this._previous_range);
         }
+        this.suspended = false;
     };
     this.newElement = function(tagName) {
         return newDocumentElement(this.getInnerDocument(), tagName, arguments);
