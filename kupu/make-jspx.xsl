@@ -17,7 +17,7 @@ The main difference from make.xsl itself, is that this creates fmt:message tags 
 This means that also the fmt-tags must be available, so your html.kupu must specificy something like:
   <kupu:part name="html">
     <html xmlns="http://www.w3.org/1999/xhtml"
-          xmlns:jsp="http://java.sun.com/JSP/Page" 
+          xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
       <jsp:output doctype-root-element="html"
                   doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -33,14 +33,14 @@ See also: common/kupu.pox.jspx (which can be used by i18n.js)
 <xsl:stylesheet
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n" 
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
    xmlns:html="http://www.w3.org/1999/xhtml"
    xmlns:jsp="http://java.sun.com/JSP/Page"
    exclude-result-prefixes="kupu"
    version="1.0"
    >
-  <xsl:import href="make.xsl" />  
+  <xsl:import href="make.xsl" />
   <xsl:output
     method="xml"
     indent="no"
@@ -70,14 +70,14 @@ See also: common/kupu.pox.jspx (which can be used by i18n.js)
       </xsl:when>
       <xsl:when test="@i18n:attributes">
         <xsl:variable name="attributes"><xsl:value-of select="@i18n:attributes" /></xsl:variable>
-        <fmt:message var="_">
+        <fmt:message var="translation">
           <xsl:attribute name="key">
             <xsl:value-of select="@title" /><!-- should be @$attributes, but that doesn't work -->
           </xsl:attribute>
         </fmt:message>
         <xsl:element name="{name()}">
           <xsl:copy-of select="@html:*" />
-          <xsl:attribute name="{$attributes}">${_}</xsl:attribute>
+          <xsl:attribute name="title">${translation}</xsl:attribute>
           <xsl:apply-templates  mode="expand" />
         </xsl:element>
       </xsl:when>
@@ -105,7 +105,7 @@ See also: common/kupu.pox.jspx (which can be used by i18n.js)
       <xsl:apply-templates mode="expand" />
     </xsl:copy>
   </xsl:template>
-  
+
   <xsl:template match="text()" mode="expand-i18n">
     <!-- this should probably be trim() rather then normalize-space (but that functions does not natively exist) -->
     <xsl:value-of select="normalize-space(.)" />
