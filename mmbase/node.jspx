@@ -22,7 +22,8 @@
 
           <mm:param name="org.mmbase.xml-mode" value="kupu" />
           <mm:node id="node" referid="node">
-            <div class="node" title="${node.number} ${node.title}">
+            <mm:import id="gui" escape="tagstripper(NONE)"><mm:nodeinfo type="gui" /></mm:import>
+            <div class="node" title="${node.number} ${gui}">
               <mm:notpresent referid="loadonly">
                 <table>
                   <tr>
