@@ -162,5 +162,9 @@ div.caption {
 }
 ul, ol {
   list-style-position: outside;
-  margin-left: 1ex;
+  margin-left: 0ex;
+  padding-left: 0ex;
+}
+ul li, ol li {
+  margin-left: 3ex;
 }
