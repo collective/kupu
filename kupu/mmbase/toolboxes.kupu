@@ -17,7 +17,7 @@
       <h1 class="kupu-toolbox-heading" i18n:translate="title_images">Images</h1>
       <div>
         <div class="kupu-toolbox-label">
-          <span i18n:translate="">Image class:</span>
+          <span i18n:translate="label_image_class">Image class:</span>
         </div>
         <select class="wide" id="kupu-image-float-select">
           <option value="image-inline" i18n:translate="opt_inline">Inline</option>
