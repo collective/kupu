@@ -60,14 +60,8 @@
               </mm:compare>
               <mm:import id="languages" vartype="list">en,zh,ja,de,fr,pt,nl,da,cs,fi,el,sr,eo,hi</mm:import>
               <mm:stringlist referid="languages">
-                <mm:locale language="${_}" jspvar="locale">
-                  <mm:compare referid2="rich_language">
-                    <option value="${_}" selected="selected"><jsp:expression>locale.getDisplayName(locale)</jsp:expression></option>
-                  </mm:compare>
-                  <mm:compare referid2="rich_language" inverse="true">
-                    <option value="${_}"><jsp:expression>locale.getDisplayName(locale)</jsp:expression></option>
-                  </mm:compare>
-                </mm:locale>
+                <mm:import id="gui"><mm:locale language="${_}" jspvar="locale"><jsp:expression>locale.getDisplayName(locale)</jsp:expression></mm:locale></mm:import>
+                <mm:option value="${_}" compare="${rich_language}">${gui}</mm:option>
               </mm:stringlist>
             </select>
           </form>
