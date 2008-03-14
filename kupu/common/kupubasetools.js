@@ -2833,13 +2833,21 @@ proto.grubParas = function(style1, style2) {
     var doc = this.editor.getInnerDocument();
     var body = doc.body;
     var paras = [];
-    for (var node = body.firstChild; node; node = node.nextSibling) {
-        var name = node.nodeName.toLowerCase();
-        var style = name + "|" + node.className;
-        if (style==style1) {
-            paras.push([node,0]);
-        } else if (style==style2) {
-            paras.push([node,1]);
+    var pat = /(.*?)(\|.*|$)/;
+    var tag1 = style1.replace(pat, '$1');
+    var tag2 = style2.replace(pat, '$1');
+    if (tag2 && tag2 != tag1) { tag1 = "*"; }
+    if (tag1) {
+        var nodes = body.getElementsByTagName(tag1);
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            var style = node.nodeName.toLowerCase() + "|" + node.className;
+            if (style==style1) {
+                paras.push([node,0]);
+            }
+            if (style==style2) {
+                paras.push([node,1]);
+            }
         }
     }
     return paras;

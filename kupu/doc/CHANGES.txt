@@ -9,6 +9,7 @@ Kupu changes
 
   - Plone tickets
 
+    * 6915 Kupu can't find anchors inside table cells
     * 7893 Workaround for bad KSS form submissions
     * 7939 Kupu breaks on Firefox 3.0b4 in OSX
 
