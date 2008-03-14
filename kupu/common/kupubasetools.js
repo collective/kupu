@@ -2870,7 +2870,10 @@ proto.getAnchor = function(node, ifexists) {
     /* Returns the anchor for a node, creating one if reqd. unless
      * ifexists is set*/
     var anchors = node.getElementsByTagName('a');
-    if (anchors.length > 0) return anchors[0].name;
+    for (var i = 0; i < anchors.length; i++) {
+        if (anchors[i].name) { return anchors[i].name; }
+    }
+
     if (ifexists) return;
 
     var anchor = Sarissa.getText(node, true).strip().truncate(40).
