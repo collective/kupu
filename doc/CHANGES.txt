@@ -10,6 +10,7 @@ Kupu changes
   - Plone tickets
 
     * 7893 Workaround for bad KSS form submissions
+    * 7939 Kupu breaks on Firefox 3.0b4 in OSX
 
 - 1.4.8
 
