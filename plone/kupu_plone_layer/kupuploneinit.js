@@ -201,6 +201,7 @@ function initPloneKupu(editorId) {
             opt.selected = opt.defaultSelected = (opt.value=='text/html');
         }
         pulldown.disabled = true;
+        pulldown.removeAttribute('name');
         var hidden = document.createElement('input');
         hidden.type = 'hidden';
         hidden.name = fmtname;

@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4.9
+
+  - Workaround for bad KSS form submissions (Plone ticket 7893)
+
 - 1.4.8
 
   - Tabbing key now takes you to next/previous field. However, plone
