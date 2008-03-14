@@ -705,9 +705,9 @@ function KupuEditor(document, config, logger) {
         if (!_SARISSA_IS_IE) { /* Mozilla doesn't understand strong/em */
             var fixups = { 'strong':'b', 'em':'i' };
 
-            text = text.replace(/<(\/?)(strong|em)>/gi, function(all,close,tag) {
+            text = text.replace(/<(\/?)(strong|em)\b([^>]*)>/gi, function(all,close,tag,attrs) {
                 tag = fixups[tag.toLowerCase()];
-                return '<'+close+tag+'>';
+                return '<'+close+tag+attrs+'>';
             });
         };
         text = text.replace(/<p>(<hr.*?>)<\/p>/g,'$1');
