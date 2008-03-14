@@ -4,7 +4,12 @@ Kupu changes
 
 - 1.4.9
 
-  - Workaround for bad KSS form submissions (Plone ticket 7893)
+  - Manage anchors didn't add an anchor correctly if there was an
+    anchor used for a link inside the element.
+
+  - Plone tickets
+
+    * 7893 Workaround for bad KSS form submissions
 
 - 1.4.8
 
