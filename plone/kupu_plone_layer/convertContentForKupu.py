@@ -13,6 +13,13 @@ field = context.getField(fieldname)
 text_format = context.REQUEST.get('%s_text_format' % fieldname, context.getContentType(fieldname))
 
 if len(content)==0 or 'html' in text_format.lower():
+    if isinstance(content, unicode):
+        try:
+            encoding = context.getCharset()
+        except AttributeError:
+            encoding = 'utf8'
+        content = content.encode(encoding)
+
     return str(content)
 
 transforms = getToolByName(context, 'portal_transforms')
