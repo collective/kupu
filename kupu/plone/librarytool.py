@@ -364,6 +364,9 @@ class KupuLibraryTool(Acquisition.Implicit):
         return getattr(self, '_toolbar_filters', {})
 
     def spellcheck(self, REQUEST):
+        """Call spellchecker: WARNING this functionality may not work,
+        it is not part of the standard Plone+kupu implementation.
+        Some user assembly required."""
         from Products.kupu.python.spellcheck import SpellChecker, format_result
         data = REQUEST["text"]
         c = SpellChecker()

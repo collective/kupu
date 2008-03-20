@@ -10,6 +10,7 @@ Kupu changes
   - Plone tickets
 
     * 6915 Kupu can't find anchors inside table cells
+    * 7804 KupuLibraryTool spellcheck method is missing a docstring
     * 7893 Workaround for bad KSS form submissions
     * 7916 Kupu breaks strong/em tags with class names, on firefox
     * 7939 Kupu breaks on Firefox 3.0b4 in OSX
