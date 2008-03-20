@@ -501,6 +501,11 @@ This example would hide only the zoom button::
             ),
         ),
 
+N.B. Toolbar buttons which are disabled in Plone's default
+configuration may represent tools which are not fully integrated into
+Plone. If you wish to use these tools and find problems with them you
+should submit a patch.
+
 Custom styles
 -------------
 Kupu allows you to specify styles for paragraphs (P or DIV tags),
