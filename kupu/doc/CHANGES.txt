@@ -7,9 +7,12 @@ Kupu changes
   - Manage anchors didn't add an anchor correctly if there was an
     anchor used for a link inside the element.
 
+  - timte fixed a possible unicode decode error
+
   - Plone tickets
 
     * 6915 Kupu can't find anchors inside table cells
+    * 7409 "edit without kupu" does not appear on edit form (the fix for this make the link appear but only in source mode).
     * 7804 KupuLibraryTool spellcheck method is missing a docstring
     * 7893 Workaround for bad KSS form submissions
     * 7916 Kupu breaks strong/em tags with class names, on firefox
