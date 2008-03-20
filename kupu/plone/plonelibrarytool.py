@@ -709,8 +709,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         value = action_map.get(portal_type, {}).get('scalefield', 'image')
         return value
 
+    security.declareProtected(permissions.ManageLibraries, "getDefaultImageType")
+    def getDefaultImageType(self):
+        return 'Image'
+
     security.declareProtected(permissions.ManageLibraries, "getDefaultScaleForType")
-    def getDefaultScaleForType(self, portal_type):
+    def getDefaultScaleForType(self, portal_type = None):
+        if not portal_type:
+            portal_type = self.getDefaultImageType()
         action_map = getattr(self, '_preview_actions', {})
         value = action_map.get(portal_type, {}).get('defscale', 'image_preview')
         return value
