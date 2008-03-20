@@ -9,6 +9,8 @@ Kupu changes
 
   - timte fixed a possible unicode decode error
 
+  - Image upload now has same style options as image insertion.
+
   - Plone tickets
 
     * 6915 Kupu can't find anchors inside table cells

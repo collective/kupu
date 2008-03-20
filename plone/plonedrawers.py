@@ -877,6 +877,40 @@ class PloneDrawers:
                 base = base[:posfactory]
         return base
 
+    security.declareProtected("View", "getUploadImageSizes")
+    def getUploadImageSizes(self, portal_type=None):
+        resource_type = self.getResourceType()
+        portal = getToolByName(self, 'portal_url').getPortalObject()
+        mediatypes = resource_type.get_portal_types()
+        catalog = getToolByName(self, 'portal_catalog')
+        adaptor = InfoAdaptor(self, resource_type, portal)
+        if portal_type is None:
+            portal_type = self.getDefaultImageType()
+
+        brains = catalog.searchResults(portal_type=portal_type, limit=1)[:1]
+        if brains:
+            info = adaptor.get_image_sizes(brains[0], portal_type, '')
+            return info
+        return []
+
+    security.declareProtected("View", "getUploadImageClasses")
+    def getUploadImageClasses(self, portal_type=None):
+        if portal_type is None:
+            portal_type = self.getDefaultImageType()
+        stored = self.getClassesForType(portal_type)
+        classes = []
+        for c in stored:
+            c = c.strip()
+            if not c:
+                continue
+            if '|' in c:
+                title, classname = c.split('|', 1)
+                classes.append({'title': title, 'classname': classname})
+            else:
+                classes.append({'title': c, 'classname': c})
+        return classes
+
+
     def _getImageSizes(self):
         resource_type = self.getResourceType()
         portal = getToolByName(self, 'portal_url').getPortalObject()

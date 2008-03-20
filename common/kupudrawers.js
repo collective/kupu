@@ -1442,6 +1442,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
             alert("Please enter a title for the image you are uploading");
             return;
         };
+        this.upload_title = form.node_prop_title.value;
         form.node_prop_desc.value = form.node_prop_desc.value.replace(/^\xa0|\xa0$/g,'');
         form.submit();
     };
@@ -1457,13 +1458,33 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     };
 
     // called by onLoad within document sent by server
-    this.finishUpload = function(url) {
+    this.finishUpload = function(uri) {
         this.editor.resumeEditing();
-        var imgclass = 'image-inline';
-        if (this.editor.config && !!this.editor.config.captions) {
+        var sizeselector = document.getElementsByName('image-size-selector');
+        if (sizeselector && sizeselector.length > 0) {
+            sizeselector = sizeselector[0];
+            uri += sizeselector.options[sizeselector.selectedIndex].value;
+        }
+        var radios = document.getElementsByName('image-align');
+        var imgclass = "";
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                imgclass = radios[i].value;
+            };
+        };
+        var caption = document.getElementsByName('image-caption');
+        if (caption && caption.length>0 && caption[0].checked) {
             imgclass += " captioned";
         };
-        this.tool.createImage(url, null, imgclass);
+        var classnames = document.getElementById('kupu-image-class');
+        if (classnames && classnames.selectedIndex >= 0) {
+            imgclass += " "+classnames.options[classnames.selectedIndex].value;
+        } else {
+            imgclass += ' image-inline';
+        }
+        imgclass = imgclass.strip();
+
+        this.tool.createImage(uri, this.upload_title, imgclass);
         this.shared.newimages = 1;
         this.drawertool.closeDrawer();
     };
