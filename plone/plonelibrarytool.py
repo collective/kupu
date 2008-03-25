@@ -52,9 +52,9 @@ from z3interfaces import IPloneKupuLibraryTool
 _default_libraries = (
     dict(id="root",
          title="string:Home",
-         uri="string:${portal_url}",
-         src="string:${portal_url}/kupucollection.xml",
-         icon="string:${portal_url}/misc_/CMFPlone/plone_icon"),
+         uri="string:${globals_view/navigationRootUrl|portal_url}",
+         src="string:${globals_view/navigationRootUrl|portal_url}/kupucollection.xml",
+         icon="string:${globals_view/navigationRootUrl|portal_url}/misc_/CMFPlone/plone_icon"),
     dict(id="current",
          title="string:Current folder",
          uri="string:${folder_url}",
@@ -362,7 +362,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                     return verno >= (1,3,1)
                 verno = getver(' AppleWebKit/')
                 if verno:
-                    return verno >= (523,11)
+                    return verno >= (525,1)
                     verno = getver(' Safari/')
                     if verno:
                         return verno >= (522,12)
@@ -709,8 +709,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         value = action_map.get(portal_type, {}).get('scalefield', 'image')
         return value
 
+    security.declareProtected(permissions.ManageLibraries, "getDefaultImageType")
+    def getDefaultImageType(self):
+        return 'Image'
+
     security.declareProtected(permissions.ManageLibraries, "getDefaultScaleForType")
-    def getDefaultScaleForType(self, portal_type):
+    def getDefaultScaleForType(self, portal_type = None):
+        if not portal_type:
+            portal_type = self.getDefaultImageType()
         action_map = getattr(self, '_preview_actions', {})
         value = action_map.get(portal_type, {}).get('defscale', 'image_preview')
         return value

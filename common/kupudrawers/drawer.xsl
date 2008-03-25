@@ -341,8 +341,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
        </xsl:choose>
     </xsl:template>
 
-    <xsl:template match="resource|collection" mode="image-properties">
-       <xsl:apply-templates select="." mode="base-properties"/>
+    <xsl:template match="resource|collection|uploadbutton" mode="image-extra-properties">
        <div class="kupu-image-fields">
           <input id="kupu-media" type="hidden" value="{media}" />
           <input id="kupu-width" type="hidden" value="{width}" />
@@ -428,6 +427,10 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
              <xsl:value-of select="title"/>
           </textarea>
        </div>
+    </xsl:template>
+    <xsl:template match="resource|collection" mode="image-properties">
+       <xsl:apply-templates select="." mode="base-properties"/>
+       <xsl:apply-templates select="." mode="image-extra-properties"/>
     </xsl:template>
     <xsl:template match="class">
        <option value="{@name}">
@@ -527,6 +530,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None">&#160;</iframe>
+            <xsl:apply-templates select="." mode="image-extra-properties"/>
     </xsl:template>
     <xsl:template match="breadcrumbs">
         <span>

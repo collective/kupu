@@ -17,6 +17,8 @@ from urlparse import urlsplit, urljoin, urlunsplit
 from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
+from Products.kupu.plone.config import UID_PATTERN
+
 name2codepoint = name2codepoint.copy()
 name2codepoint['apos']=ord("'")
 
@@ -26,9 +28,9 @@ __revision__ = '$Id$'
 # enclosed in a simple <p> or <div>. In the latter case we strip out
 # the enclosing tag since we are going to insert our own.
 PATIMG = '\\<img[^>]+class\s*=[^=>]*captioned[^>]+\\>'
-PATA = '(?:\\<a[^>]*\\>'+PATIMG+'\\</a\\>)' + '|' + PATIMG
-PAT0 = '('+PATA+')'
-PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0
+PATA = '(?:(?P<atag0>\\<a[^>]*\\>)'+PATIMG+'\\</a\\>)' + '|' + PATIMG
+PAT0 = '(?P<pat0>'+PATA+')'
+PAT1 = '<(?:p|div)[^>]*>'+PAT0 + '</(?:p|div)>' + '|' + PAT0.replace('0>','1>')
 IMAGE_PATTERN = re.compile(PAT1, re.IGNORECASE)
 
 # Regex to match stupid IE attributes. In IE generated HTML an
@@ -65,8 +67,6 @@ IMAGE_TEMPLATE = '''\
  </dd>
 </dl>
 '''
-
-UID_PATTERN = re.compile('(?P<tag><(?:a|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
@@ -122,8 +122,9 @@ class HTMLToCaptioned:
 
         if context and at_tool:        
             def replaceImage(match):
-                tag = match.group(1) or match.group(2)
+                tag = match.group('pat0') or match.group('pat1')
                 attrs = ATTR_PATTERN.match(tag)
+                atag = match.group('atag0') or match.group('atag1')
                 src = attrs.group('src')
                 subtarget = None
                 m = SRC_TAIL.match(tag, attrs.end('src'))
@@ -142,7 +143,7 @@ class HTMLToCaptioned:
                         d['caption'] = newline_to_br(html_quote(target.Description()))
                         d['image'] = d['fullimage'] = target
                         d['tag'] = None
-                        d['isfullsize'] = False
+                        d['isfullsize'] = True
                         d['width'] = target.width
                         if srctail:
                             if isinstance(srctail, unicode):
@@ -166,6 +167,10 @@ class HTMLToCaptioned:
                             d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
                             d['width'] = subtarget.width
 
+                        if atag: # Must preserve original link, don't overwrite with a link to the image
+                            d['isfullsize'] = True
+                            d['tag'] = "%s%s</a>" % (atag, d['tag'])
+
                         return template(**d)
                 return match.group(0) # No change
 
@@ -187,7 +192,8 @@ class HTMLToCaptioned:
                 return match.group(0)
 
             html = UID_PATTERN.sub(replaceUids, html)
-            
+            if isinstance(html, unicode):
+                html = html.encode('utf8') # Indexing requires a string result.
             idata.setData(html)
             return idata
 
@@ -664,6 +670,9 @@ def decodeEntities(s, encoding='utf-8'):
             if code:
                 return unichr(int(code, 16))
             else:
-                return unichr(name2codepoint[match.group(3)])
+                code = match.group(3)
+                if code in name2codepoint:
+                    return unichr(name2codepoint[code])
+        return match.group(0)
 
-    return EntityPattern.sub(unescape, s)
+    return EntityPattern.sub(unescape, s.decode(encoding))

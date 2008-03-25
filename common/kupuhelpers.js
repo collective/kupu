@@ -458,8 +458,9 @@ function BaseSelection() {
 };
 
 function MozillaSelection(document) {
+    var win = document.getWindow();
     this.document = document;
-    this.selection = document.getWindow().getSelection();
+    this.selection = win.getSelection();
 
     this._createRange = function() {
         return this.document.getDocument().createRange();
@@ -573,7 +574,7 @@ function MozillaSelection(document) {
             // JavaScript isn't as nice as Python in that respect (kwargs)
             // if selectAfterPlace is a DOM node, select all of that node's
             // contents, else select the newly added node's
-            this.selection = this.document.getWindow().getSelection();
+            this.selection = win.getSelection();
             this.selection.addRange(range);
             if (selectAfterPlace.nodeType == 1) {
                 this.selection.selectAllChildren(selectAfterPlace);
@@ -587,7 +588,7 @@ function MozillaSelection(document) {
                     this.selection.addRange(range);
                 };
             };
-            this.document.getWindow().focus();
+            win.focus();
         };
         return node;
     };
@@ -965,7 +966,7 @@ function MozillaSelection(document) {
     };
 
     this.reset = function() {
-        this.selection = this.document.getWindow().getSelection();
+        this.selection = win.getSelection();
     };
 
     this.cloneContents = function() {
@@ -1007,8 +1008,8 @@ function MozillaSelection(document) {
     };
 
     //sample kindly snipped from Mozilla's wiki
-    if( !Range.prototype.intersectsNode ){
-        Range.prototype.intersectsNode = function(node) {
+    if( !win.Range.prototype.intersectsNode ){
+        win.Range.prototype.intersectsNode = function(node) {
             var nodeRange = node.ownerDocument.createRange();
             try {
                 nodeRange.selectNode(node);
@@ -1030,8 +1031,8 @@ function MozillaSelection(document) {
         };
         return false;
     };
-    if( !Range.prototype.containsNode ){
-        Range.prototype.containsNode = function(node) {
+    if( !win.Range.prototype.containsNode ){
+        win.Range.prototype.containsNode = function(node) {
             var nodeRange = node.ownerDocument.createRange();
             try {
                 nodeRange.selectNode(node);

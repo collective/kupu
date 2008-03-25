@@ -48,6 +48,12 @@
                         rows rows|default;
                         cols cols|default;">
     </textarea>
+     <input type="hidden" name="text_format:default" value="text/html"
+        tal:define="fieldName fieldName|inputname|nothing;
+                val python:fieldName and 'text/html' or 'html';
+                fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';"
+        tal:attributes="name fieldName;value val;"
+     />
   </kupu:part>
 
   <kupu:part name="textformatselector">

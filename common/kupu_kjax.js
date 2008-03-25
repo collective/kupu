@@ -57,9 +57,7 @@ function KJax() {};
                 // a web server expects from a POST.
                 xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
             };
-            if (reload) {
-                xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
-            }
+            xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
             this.xmlhttp = xmlhttp;
             xmlhttp.send(body);
         } catch(e) {

@@ -17,16 +17,6 @@ import time
 if __name__ == '__main__':
     execfile(os.path.join(sys.path[0], 'framework.py'))
 
-from Testing import ZopeTestCase
-DEPS = ('MimetypesRegistry', 'PortalTransforms', 'Archetypes', 'ATContentTypes')
-try:
-    import Products.TextIndexNG2
-    DEPS = DEPS + ('TextIndexNG2',)
-except ImportError:
-    pass
-
-for product in DEPS:
-    ZopeTestCase.installProduct(product, 1)
 from Products.PloneTestCase import PloneTestCase
 
 PloneTestCase.setupPloneSite(products=['ATContentTypes', 'kupu'])
@@ -62,7 +52,7 @@ SUPPORTED = {
     MOZILLA: (1,3,1),
     INTERNET_EXPLORER: (5,5),
     OPERA: (9,0),
-    SAFARI: (999,9), #(420,0), # Safari not yet supported
+    SAFARI: (525,1), #(420,0), # Safari not yet supported
 }
 
 # BROWSERS records contain:
@@ -399,6 +389,8 @@ BROWSERS = (
     ('Mozilla/4.0 (compatible; MSIE 6.0; X11; Linux i686; en) Opera 9.00', 'Linux', '9.00', OPERA),
     ('Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/420+ (KHTML, like Gecko) Safari/419.3', 'Mac', '420.0', SAFARI),
     ('Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en) AppleWebKit/418.9.1 (KHTML, like Gecko) Safari/419.3', 'Mac', '418.9.1', SAFARI),
+    ("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/523.12.9 (KHTML, like Gecko) Version/3.0 Safari/523.12.9", 'Windows', '523.12.9', SAFARI),
+    ("Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.1+ (KHTML, like Gecko) Version/3.0 Safari/523.12.9", 'Mac', '525.1', SAFARI),
 )
 
 def createTest(sig, isSupported, index, os, browser, version):

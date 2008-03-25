@@ -1,15 +1,14 @@
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.public import *
+from Products.Archetypes.BaseUnit import BaseUnit
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.Archetypes.Field import TextField
 from Products.Archetypes.ReferenceEngine import Reference
 from Products.Archetypes.exceptions import ReferenceException
 from ZPublisher.HTTPRequest import FileUpload
 from Products.CMFCore.utils import getToolByName
+from Products.kupu.plone.config import UID_PATTERN
 import re
-
-# UID_PATTERN matches a UID in an anchor or image tag.
-UID_PATTERN = re.compile(r'''<(?:a\b[^>]+href|img\b[^>]+src)="resolveuid/(?P<uid>[^?#">/]+)''', re.I)
 
 class ReftextField(TextField):
     __implements__ = TextField.__implements__
@@ -38,11 +37,15 @@ class ReftextField(TextField):
 
         TextField.set(self, instance, value, **kwargs)
 
+        if isinstance(value, BaseUnit):
+            # Baseunit: can occur when overriding atct text fields.
+            value = value()
         if not isinstance(value, basestring):
             value.seek(0);
             value = value.read()
 
-        uids = UID_PATTERN.findall(value) # XXX: build list of uids from the value here
+        # build list of uids from the value here
+        uids = [ m.group('uid') for m in UID_PATTERN.finditer(value) ]
         uids = dict.fromkeys(uids).keys() # Remove duplicate uids.
 
         tool = getToolByName(instance, REFERENCE_CATALOG)

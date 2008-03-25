@@ -91,8 +91,26 @@
       </collection>
 
     </tal:loop>
-    <uploadbutton tal:condition="python:exists('upload') and kupu.isUploadSupported(context)">
+    <uploadbutton tal:condition="python:exists('upload') and kupu.isUploadSupported(context)"
+                  tal:define="classes kupu/getUploadImageClasses;
+                  sizes kupu/getUploadImageSizes;
+                  defscale kupu/getDefaultScaleForType; origok kupu/getAllowOriginalImageSize;">
        <uri tal:content="string:${here/absolute_url}/kupuUploadImage" />
+       <class tal:condition="classes" tal:repeat="c classes"
+             tal:attributes="title c/title; name c/classname" />
+       <sizes>
+          <size tal:repeat="size sizes">
+             <selected tal:define="action size/action;"
+                    tal:condition="python:action==defscale" />
+             <label tal:content="size/label" />
+             <uri tal:content="size/uri" />
+          </size>
+          <size tal:condition="origok">
+             <selected tal:condition="python:defscale in ('original', '')" />
+             <label i18n:translate="option_original">Original</label>
+             <uri tal:content="info/url" />
+          </size>
+       </sizes>
     </uploadbutton>
   </items>
 

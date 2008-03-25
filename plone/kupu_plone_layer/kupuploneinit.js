@@ -201,6 +201,7 @@ function initPloneKupu(editorId) {
             opt.selected = opt.defaultSelected = (opt.value=='text/html');
         }
         pulldown.disabled = true;
+        pulldown.removeAttribute('name');
         var hidden = document.createElement('input');
         hidden.type = 'hidden';
         hidden.name = fmtname;
@@ -292,21 +293,31 @@ function initPloneKupu(editorId) {
         if (!(/kupu-fulleditor-zoomed/.test(document.body.className))) {
             var form = textarea.form;
             var els = form.elements;
-            var target, targindex;
-            var mytabindex = iframe.tabIndex;
-            for (var i = 0; i < els.length; i++) {
-                var el = els[i];
-                if (el.tabIndex && el.tabIndex > mytabindex && !el.disabled && el.offsetWidth && el.offsetHeight) {
-                    if (!targindex || el.tabIndex < targindex) {
+            var target;
+            if (event.shiftKey) { // shift-tab goes backwards.
+                for (var i = 0; i < els.length; i++) {
+                    var el = els[i];
+                    if (!el.disabled && el.offsetWidth && el.offsetHeight) {
                         target = el;
-                        targindex = el.tabIndex;
+                    }
+                    if (els[i]===textarea) break;
+                }
+            } else { // tab forwards
+                for (var i = 0; i < els.length; i++) {
+                    if (els[i]===textarea) break;
+                }
+                for (;i < els.length; i++) {
+                    var el = els[i];
+                    if (!el.disabled && el.offsetWidth && el.offsetHeight) {
+                        target = el;
+                        break;
                     }
                 }
             }
             if (target) {
                 window.focus();
                 target.focus();
-            }
+            } else { return; };
         }
         if (event.preventDefault) { event.preventDefault(); event.stopPropagation();}
         event.returnValue = false;

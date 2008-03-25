@@ -16,7 +16,8 @@
 
       <body>
          <div metal:fill-slot="prefs_configlet_content" metal:define-slot="prefs_configlet_main"
-              tal:define="errors python:request.get('errors', {});">
+              tal:define="errors python:request.get('errors', {});"
+              id="content">
 
             <metal:styleslot define-slot="style_slot" />
 

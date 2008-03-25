@@ -1251,6 +1251,7 @@ function ImageTool() {
         /* create an image */
         var img = this.editor.getInnerDocument().createElement('img');
         img.src = url;
+        img.setAttribute('kupu-src', url);
         img.removeAttribute('height');
         img.removeAttribute('width');
         if (alttext) {
@@ -2751,9 +2752,9 @@ KupuZoomTool.prototype.onresize = function() {
         var width = document.body.offsetWidth-5;
         var height = document.body.offsetHeight-5;
     }
-    width = width + 'px';
-    var offset = iframe.parentNode.offsetTop;
+    var offset = fulleditor.offsetTop;
     var nheight = Math.max(height - offset -1/*top border*/, 10) + 'px';
+    width = width + 'px';
     fulleditor.style.width = width; /*IE needs this*/
     iframe.style.width = width;
     iframe.style.height = nheight;
@@ -2832,13 +2833,21 @@ proto.grubParas = function(style1, style2) {
     var doc = this.editor.getInnerDocument();
     var body = doc.body;
     var paras = [];
-    for (var node = body.firstChild; node; node = node.nextSibling) {
-        var name = node.nodeName.toLowerCase();
-        var style = name + "|" + node.className;
-        if (style==style1) {
-            paras.push([node,0]);
-        } else if (style==style2) {
-            paras.push([node,1]);
+    var pat = /(.*?)(\|.*|$)/;
+    var tag1 = style1.replace(pat, '$1');
+    var tag2 = style2.replace(pat, '$1');
+    if (tag2 && tag2 != tag1) { tag1 = "*"; }
+    if (tag1) {
+        var nodes = body.getElementsByTagName(tag1);
+        for (var i = 0; i < nodes.length; i++) {
+            var node = nodes[i];
+            var style = node.nodeName.toLowerCase() + "|" + node.className;
+            if (style==style1) {
+                paras.push([node,0]);
+            }
+            if (style==style2) {
+                paras.push([node,1]);
+            }
         }
     }
     return paras;
@@ -2869,7 +2878,10 @@ proto.getAnchor = function(node, ifexists) {
     /* Returns the anchor for a node, creating one if reqd. unless
      * ifexists is set*/
     var anchors = node.getElementsByTagName('a');
-    if (anchors.length > 0) return anchors[0].name;
+    for (var i = 0; i < anchors.length; i++) {
+        if (anchors[i].name) { return anchors[i].name; }
+    }
+
     if (ifexists) return;
 
     var anchor = Sarissa.getText(node, true).strip().truncate(40).

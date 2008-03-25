@@ -14,16 +14,16 @@
 
   <kupu:part name="images">
     <div class="kupu-toolbox" id="kupu-toolbox-images">
-      <h1  class="kupu-toolbox-heading" i18n:translate="">Images</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="title_images">Images</h1>
       <div>
         <div class="kupu-toolbox-label">
-          <span i18n:translate="">Image class:</span>
+          <span i18n:translate="label_image_class">Image class:</span>
         </div>
         <select class="wide" id="kupu-image-float-select">
-          <option value="image-inline" i18n:translate="">Inline</option>
-          <option value="image-left"   i18n:translate="">Left</option>
-          <option value="image-right"  i18n:translate="">Right</option>
-          <fmt:bundle basename="org.mmbase.kupu.Messages">             
+          <option value="image-inline" i18n:translate="opt_inline">Inline</option>
+          <option value="image-left" i18n:translate="opt_left">Left</option>
+          <option value="image-right" i18n:translate="opt_right">Right</option>
+          <fmt:bundle basename="org.mmbase.kupu.Messages">
             <option value="image-left big" ><fmt:message key="Left (Big)" /></option>
             <option value="image-right big"><fmt:message key="Right (Big)" /></option>
             <option value="image-center big"><fmt:message key="Big" /></option>
@@ -41,7 +41,7 @@
                  value="kupuimages/kupu_icon.gif"
                  class="wide"
                  type="text" />
-          
+
           <div class="kupu-toolbox-buttons">
             <button type="button" id="kupu-image-addbutton"
                     class="kupu-toolbox-action" i18n:translate="">Insert Image</button>
@@ -54,7 +54,7 @@
   <kupu:part name="divs">
     <div class="kupu-toolbox" id="kupu-toolbox-divs">
       <fmt:bundle basename="org.mmbase.kupu.Messages">
-        <h1  class="kupu-toolbox-heading"><fmt:message key="Block" /></h1>        
+        <h1  class="kupu-toolbox-heading"><fmt:message key="Block" /></h1>
         <div>
           <div class="kupu-toolbox-label">
             <span><fmt:message key="Block class" /></span>
@@ -80,12 +80,12 @@
   <!-- Overridden just for the jsp:text (to avoid that it collapses, which doesn't work in browers -->
   <kupu:part name="debug">
     <div class="kupu-toolbox" id="kupu-toolbox-debug">
-      <h1 class="kupu-toolbox-heading" i18n:translate="">Debug Log</h1>
+      <h1 class="kupu-toolbox-heading" i18n:translate="title_debug_log">Debug Log</h1>
       <div id="kupu-toolbox-debuglog"
            class="kupu-toolbox-label">
         <jsp:text> </jsp:text>
       </div>
     </div>
   </kupu:part>
-  
+
 </kupu:feature>

@@ -1,24 +1,24 @@
 @import url("../../style/css/mmxf.css");
-body { 
+body {
   background-color: white;
   font-size: 12pt;
 }
-h1,h2,h3,h4,h5,h6,h7,h8,th { 
+h1,h2,h3,h4,h5,h6,h7,h8,th {
   font-weight: bold;
   color: #006;
 }
-h1 { 
+h1 {
   font-size: 15pt;
 }
-h2 { 
+h2 {
   padding-left: 1em;
   font-size: 14pt;
 }
-h3 { 
+h3 {
   padding-left: 2em;
   font-size: 13pt;
 }
-h4 { 
+h4 {
   padding-left: 3em;
   font-size: 12pt;
   margin-top: 0px;
@@ -27,7 +27,7 @@ h4 {
   padding-bottom: 0px;
 }
 
-h5, h6, h7, h8 { 
+h5, h6, h7, h8 {
   font-style: italic;
   font-size: 12pt;
   margin-top: 0px;
@@ -35,27 +35,27 @@ h5, h6, h7, h8 {
   padding-top: 0px;
   padding-bottom: 0px;
 }
-h5 { 
+h5 {
   padding-left: 4em;
 }
-h6 { 
+h6 {
   padding-left: 5em;
 }
-h7 { 
+h7 {
   padding-left: 6em;
 }
-h8 { 
+h8 {
   padding-left: 7em;
 }
 
-h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child, h7:first-child, h8:first-child { 
+h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child, h7:first-child, h8:first-child {
   margin-top: 0px;
 }
 
 p {
 }
 
-table { 
+table {
   border: 1px black solid;
   border-spacing: 0px;
   empty-cells: show;
@@ -63,58 +63,58 @@ table {
   background-color: #fafafa;
 }
 
-.mmxf table.plain td, .mmxf table.data td { 
+.mmxf table.plain td, .mmxf table.data td {
   border: 1px gray solid;
 }
 
-th { 
+th {
   border: 1px black solid;
 }
 
-img.image-right { 
+img.image-right {
   width: 100px;
   float: right;
   margin-right: 0px;
   margin-left: 1ex;
 }
 
-img.image-left { 
+img.image-left {
   width: 100px;
   float: left;
   margin-left: 0px;
   margin-right: 1ex;
 }
 
-img.section-inline { 
+img.section-inline {
 }
 
-img.node { 
+img.node {
   float: left;
   border: solid 5px green;
 }
-img.paragraph { 
+img.paragraph {
   border: solid 1px green;
 }
-img.section { 
+img.section {
   float: left;
   border: solid 1px green;
 }
-img.big { 
+img.big {
   width: 200px;
   height: auto;
 }
 
-strong, b  { 
+strong, b  {
   color: green;
   font-weight: bold;
 }
 
-em, i { 
+em, i {
   font-style: italic;
 }
 
 
-div.float { 
+div.float {
   display: block;
   float: left;
   width: 200px;
@@ -123,28 +123,28 @@ div.float {
   border: solid black 1px;
 }
 
-div.note { 
+div.note {
   background-color: #ffc;
   font-style: italic;
 }
-div.note i { 
+div.note i {
   font-style: normal;
 }
-div.note em { 
+div.note em {
   font-style: normal;
 }
 
-div.right { 
+div.right {
   margin-right: 0px;
   float: right;
 
 }
-div.left { 
+div.left {
   margin-left: 0px;
   float: left;
-} 
+}
 
-div.intermezzo  { 
+div.intermezzo  {
   float: left;
   margin-left: 0px;
   margin-right: 2ex;
@@ -152,18 +152,19 @@ div.intermezzo  {
   background-color: #cfc;
   font-style: normal;
 }
-div.quote { 
+div.quote {
   background-color: #fcc !important;
   font-style: italic;
 }
 
-div.caption { 
+div.caption {
   background-color: #ddd;
 }
-ul, ol { 
+ul, ol {
   list-style-position: outside;
+  margin-left: 0ex;
+  padding-left: 0ex;
 }
-
-li { 
-  margin-left: 20px;
+ul li, ol li {
+  margin-left: 3ex;
 }
