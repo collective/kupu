@@ -13,7 +13,7 @@
 XSL transformation from Kupu Library XML to HTML for the image library
 drawer.
 
-$Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
+$Id$
 -->
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
@@ -24,11 +24,11 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
   <mm:link absolute="true" page="../../common/kupudrawers/drawer.xsl">
     <!-- Must be absolute, or otherwise IE chokes -->
     <xsl:import href="${_}" />
-  </mm:link>    
-  
+  </mm:link>
 
-  <!-- 
-       Overridden to use the 'showupload' parameter always, if an 'uploadbutton' tab is present 
+
+  <!--
+       Overridden to use the 'showupload' parameter always, if an 'uploadbutton' tab is present
   -->
   <xsl:template match="*" mode="panel">
     <xsl:choose>
@@ -58,10 +58,11 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
   </xsl:template>
 
   <!--
-      Just overridden to rename it, because we use upload also for attachments, not only for images 
+      Just overridden to rename it, because we use upload also for attachments, not only for images
       (Called in 'panel' mode)
   -->
   <xsl:template match="uploadbutton" mode="upload">
+    bla bla bla
     <xsl:apply-templates select="." mode="image-upload" />
   </xsl:template>
 
@@ -73,8 +74,8 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
     <xsl:apply-templates select="." mode="base-properties"/>
   </xsl:template>
 
-  <!-- 
-       We know height and width beforehand, so we don't use the 'kupuFixImage' function.         
+  <!--
+       We know height and width beforehand, so we don't use the 'kupuFixImage' function.
        That works faster and more reliable.
        They are added as attributes on all tags (icon, preview and uri).
   -->
@@ -88,7 +89,7 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
       </xsl:if>
     </img>
   </xsl:template>
-  
+
   <xsl:template match="resource|collection" mode="image-view">
     <xsl:choose>
       <xsl:when test="preview">
@@ -99,7 +100,7 @@ $Id: drawer.xsl,v 1.12 2005/09/16 19:47:56 michiel Exp $
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template name="mystyle">
     <link type="text/css" rel="stylesheet" media="all">
       <xsl:attribute name="href">mydrawerstyle.css</xsl:attribute>

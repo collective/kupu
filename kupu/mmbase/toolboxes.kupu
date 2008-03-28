@@ -9,7 +9,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id: toolboxes.kupu,v 1.9 2005/09/08 08:30:31 michiel Exp $</kupu:id>
+  <kupu:id>$Id$</kupu:id>
 
 
   <kupu:part name="images">

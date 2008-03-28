@@ -195,6 +195,9 @@ div#kupu-toolbox-addtable{
 div#kupu-librariesitems {
   width: 200px;
 }
+div#kupu-resourceitems {
+  width: 250px;
+}
 
 img.icon {
   margin-right: 0.5ex;
