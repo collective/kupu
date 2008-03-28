@@ -2,6 +2,12 @@
 Kupu changes
 ============
 
+- SVN (unreleased)
+
+  - Plone tickets
+
+    * 7958 Kupu: Insert image: KeyError: 'info' (Error 503 loading kupucollection.xml?resource_type=mediaobject)
+
 - 1.4.9
 
   - Manage anchors didn't add an anchor correctly if there was an

@@ -108,7 +108,7 @@
           <size tal:condition="origok">
              <selected tal:condition="python:defscale in ('original', '')" />
              <label i18n:translate="option_original">Original</label>
-             <uri tal:content="info/url" />
+             <uri/>
           </size>
        </sizes>
     </uploadbutton>
