@@ -32,6 +32,11 @@
       <kupu:insert-part feature="body" part="fulleditor" />
     </div>
   </kupu:part>
+
+  <kupu:part name="styles">
+    <link href="mmbase.css" rel="stylesheet" type="text/css" />
+  </kupu:part>
+
   <kupu:part name="header">
     <div id="header">
       <fmt:bundle basename="org.mmbase.kupu.Messages">
