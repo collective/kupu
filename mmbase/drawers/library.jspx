@@ -4,7 +4,7 @@
     type="text/xml"
     expires="-1">
   <!--
-       $Id: library.jspx,v 1.13 2005/10/19 14:18:50 michiel Exp $
+       $Id$
   -->
   <jsp:output omit-xml-declaration="yes" />
 
