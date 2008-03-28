@@ -1,4 +1,4 @@
-<!-- 
+<!--
      This xml can be jsp:directive.include-d inside a node-container.
      It need two variables to exist:
      search:    string to search on
@@ -6,12 +6,11 @@
      $Id: search.constraints.jspx,v 1.2 2005/06/28 12:33:20 michiel Exp $
 -->
 <jsp:root
-    xmlns:jsp="http://java.sun.com/JSP/Page" 
+    xmlns:jsp="http://java.sun.com/JSP/Page"
     version="1.2"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     >
   <mm:isnotempty  xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" referid="search">
-    <mm:log>bla</mm:log>
     <mm:composite operator="OR">
       <mm:fieldlist type="search" nodetype="$nodetype">
         <mm:fieldinfo type="typedescription">

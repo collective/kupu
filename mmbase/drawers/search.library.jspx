@@ -17,7 +17,6 @@
     <mm:import vartype="list" externid="link_nodetypes">images</mm:import>
     <mm:import externid="source" />
 
-    <mm:log>${nodetypes}</mm:log>
     <library id="${nodetypes}_${search}">
       <uri><mm:url referids="search,librarysize@max,link_nodetypes@nodetypes" page="drawers/collection.jspx" /></uri>
       <title>"<mm:write referid="search" />"</title>
@@ -36,7 +35,7 @@
                 <mm:constraint field="number" inverse="true" value="${source}" />
               </mm:present>
               <mm:sortorder field="number" direction="down" />
-              <mm:size id="size" write="false" />
+              <mm:import id="size" reset="true"><mm:size  /></mm:import>
               <mm:maxnumber value="$librarysize" />
               <mm:offset    value="${librarysize * page}" />
               <mm:haspage page="${nodetype}.items.jspx">
