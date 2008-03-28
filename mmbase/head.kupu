@@ -8,7 +8,7 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0">
   <kupu:id>$Id: head.kupu,v 1.15 2005/09/14 17:24:31 michiel Exp $</kupu:id>
-  
+
   <kupu:part name="meta">
     <fmt:bundle basename="org.mmbase.kupu.Messages">
       <title>
@@ -44,9 +44,8 @@
   </kupu:part>
 
   <kupu:part name="styles">
-    <link href="${kupu_common}/kupustyles.css" rel="stylesheet" type="text/css"><jsp:text> </jsp:text></link> 
+    <link href="${kupu_common}/kupustyles.css" rel="stylesheet" type="text/css"><jsp:text> </jsp:text></link>
     <!-- fills image buttons and so on -->
-    <link href="mmbase.css" rel="stylesheet" type="text/css" />    
   </kupu:part>
 
 
