@@ -241,7 +241,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if REQUEST:
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_toolbar')
 
-    security.declareProtected(permissions.ManageLibraries, "getGlobalButtonFilter")
+    security.declareProtected("View", "getGlobalButtonFilter")
     def getGlobalButtonFilter(self):
         gfilter = getattr(self, '_global_toolbar_filter', None)
         if gfilter is not None:
@@ -644,7 +644,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
                 t.mode = 'whitelist'
         return types
 
-    security.declareProtected(permissions.ManageLibraries, "get_resourcetypes")
+    security.declareProtected("View", "get_resourcetypes")
     def get_resourcetypes(self):
         """Return the type mapping, but without the ZMI dummy entry"""
         keys = self._res_types.keys()
@@ -656,7 +656,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
             real.append(wrapped)
         return real
 
-    security.declareProtected(permissions.ManageLibraries, "zmi_get_resourcetypes")
+    security.declareProtected("View", "zmi_get_resourcetypes")
     def zmi_get_resourcetypes(self):
         """Return the type mapping for the ZMI view"""
         real = self.get_resourcetypes()
@@ -691,29 +691,29 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if (REQUEST):
             REQUEST.RESPONSE.redirect(self.absolute_url() + '/zmi_resource_types')
 
-    security.declareProtected(permissions.ManageLibraries, "getPreviewForType")
+    security.declareProtected("View", "getPreviewForType")
     def getPreviewForType(self, portal_type):
         action_map = getattr(self, '_preview_actions', {})
         expr = action_map.get(portal_type, {}).get('expression', '')
         return getattr(expr, 'text', expr)
 
-    security.declareProtected(permissions.ManageLibraries, "getNormalViewForType")
+    security.declareProtected("View", "getNormalViewForType")
     def getNormalViewForType(self, portal_type):
         action_map = getattr(self, '_preview_actions', {})
         expr = action_map.get(portal_type, {}).get('normal', '')
         return getattr(expr, 'text', expr)
 
-    security.declareProtected(permissions.ManageLibraries, "getScaleFieldForType")
+    security.declareProtected("View", "getScaleFieldForType")
     def getScaleFieldForType(self, portal_type):
         action_map = getattr(self, '_preview_actions', {})
         value = action_map.get(portal_type, {}).get('scalefield', 'image')
         return value
 
-    security.declareProtected(permissions.ManageLibraries, "getDefaultImageType")
+    security.declareProtected("View", "getDefaultImageType")
     def getDefaultImageType(self):
         return 'Image'
 
-    security.declareProtected(permissions.ManageLibraries, "getDefaultScaleForType")
+    security.declareProtected("View", "getDefaultScaleForType")
     def getDefaultScaleForType(self, portal_type = None):
         if not portal_type:
             portal_type = self.getDefaultImageType()
@@ -721,12 +721,12 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         value = action_map.get(portal_type, {}).get('defscale', 'image_preview')
         return value
 
-    security.declareProtected(permissions.ManageLibraries, "getClassesForType")
+    security.declareProtected("View", "getClassesForType")
     def getClassesForType(self, portal_type):
         action_map = getattr(self, '_preview_actions', {})
         return action_map.get(portal_type, {}).get('classes', ())
 
-    security.declareProtected(permissions.ManageLibraries, "getMediaForType")
+    security.declareProtected("View", "getMediaForType")
     def getMediaForType(self, portal_type):
         action_map = getattr(self, '_preview_actions', {})
         value = action_map.get(portal_type, {}).get('mediatype', 'image')
