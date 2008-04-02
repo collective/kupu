@@ -1,6 +1,7 @@
 <html class="kupu-html">
   <head>
     <title i18n:translate="emptypage_title">Kupu contentarea</title>
+    <meta http-equiv="x-deliverance-no-theme" content="1" />
     <link rel="stylesheet" type="text/css" href="#" tal:attributes="href string:${here/portal_url}/kupuplone.css" />
     <tal:plone21 condition="exists:here/portal_css">
        <tal:plone25 condition="exists:here/renderAllTheStylesheets">
