@@ -18,7 +18,7 @@
          length python:len(context.portal_catalog.searchResults(**query));"
          id="query_length"
          kj:mode="replace">
-         <div tal:content="string: $length objects in catalog" />
+         <div tal:content="string:$length objects in catalog" />
     </div>
     <div tal:condition="nothing">
       <metal:edit_macro define-macro="edit">
