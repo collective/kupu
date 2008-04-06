@@ -59,7 +59,8 @@ i18n:domain="kupuconfig">
               <th></th>
               <th i18n:translate="heading_id">ID</th>
               <th i18n:translate="heading_title">Title</th>
-              <th i18n:translate="heading_visible">Visible<br/>
+              <th>
+                <span i18n:translate="heading_visible">Visible</span><br/>
                 <input title="Select all items"
                        i18n:attributes="title check_select_all;"
                        onclick="toggleSelect(this, 'filters.visible:records:int', true);"

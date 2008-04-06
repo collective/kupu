@@ -8,6 +8,7 @@ Kupu changes
 
     * 7958 Kupu: Insert image: KeyError: 'info' (Error 503 loading kupucollection.xml?resource_type=mediaobject)
     * 7990 Internal link drawer broken for editors
+    * 8003 Fixed Kupu translation msgids containing html.
 
 - 1.4.9
 
