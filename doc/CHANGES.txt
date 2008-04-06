@@ -7,6 +7,10 @@ Kupu changes
   - Update emptypage.pt to include a hint for deliverance that edited
     pages should not be themed.
 
+  - Plone tickets
+
+    * 8003 Fixed Kupu translation msgids containing html.
+
 - 1.4.9
 
   - Manage anchors didn't add an anchor correctly if there was an

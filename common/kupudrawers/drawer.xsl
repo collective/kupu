@@ -511,10 +511,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 target="kupu_upload_form_target" enctype="multipart/form-data" style="margin: 0;
                 border: 0;">
               <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
-                <label i18n:translate="imagedrawer_upload_to_label">Upload
+                <label>
+                  <tal:block i18n:translate="imagedrawer_upload_to_label">Upload
                     to: <span tal:omit-tag="" i18n:name="folder">
                         <xsl:value-of select="/libraries/*[@selected]/title"/>
                     </span>
+                  </tal:block>
                     <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
                 </label>
                 <label>
