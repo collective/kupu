@@ -99,6 +99,11 @@ function KJax() {};
         this.nextRequest();
     };
     p.nextRequest = function() {
+        var onload = this.xmldata.selectSingleNode('//*[@kj:load]');
+        if (onload) {
+            var js = onload.getAttribute('kj:load');
+            if (js) { eval(js); };
+        };
         var next = this.xmldata.selectSingleNode('//*[@kj:next]');
         if (next) {
             var xmluri = next.getAttribute('kj:next');
