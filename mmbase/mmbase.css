@@ -239,3 +239,18 @@ div.kupu-toolbox.left-box h1 {
 }
 
 
+.mm_related table.create {
+  width: 260px;
+  overflow: auto;
+}
+.mm_related table.create th {
+  width: 50px;
+  text-align: left;
+  font-size: 0.6em;
+}
+.mm_related table.create input.mm_validate {
+  width: 200px;
+}
+.mm_related table.create input[type='file'].mm_validate {
+  width: 50px;
+}
