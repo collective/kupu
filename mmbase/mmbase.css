@@ -206,4 +206,36 @@ img.icon {
 
 button.mmbase-logo {background-image: url("mmbase.png");}
 
-.kupu-removediv {background-image: url("../common/kupuimages/remove.png");}
+.kupu-removediv {
+  background-image: url("../common/kupuimages/remove.png");
+}
+
+
+div.kupu-toolbox.left-box {
+  width: 260px;
+  left: 0px;
+}
+
+div.kupu-toolbox.left-box h1 {
+  color: black;
+}
+
+.mm_related h2 {
+  background-color: white;
+  color: black;
+  font-size: 1em;
+  margin: 0;
+
+}
+
+.mm_related div.searchresult table {
+  width: 260px;
+}
+.mm_related div.searchresult table thead {
+  display: none;
+}
+.mm_related td.fields {
+ display: none;
+}
+
+
