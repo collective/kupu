@@ -491,9 +491,12 @@ class PloneDrawers:
                 preview = None
                 previewsize = (0,0)
                 for k in sizes:
-                    if previewsize < sizes[k] <= (128,128):
-                        preview = k
-                        previewsize = sizes[k]
+                    try:
+                        if previewsize < sizes[k] <= (128,128):
+                            preview = k
+                            previewsize = sizes[k]
+                    except TypeError: # Fails on Plone 2.1
+                        return field.getName()
                 if not preview:
                     smallest = min(sizes.values())
                     for k in sizes:
