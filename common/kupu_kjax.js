@@ -9,7 +9,7 @@
  *****************************************************************************/
 /* Javascript to aid migration page. */
 
-function KJax() {};
+function KJax() { this.request_queue = [];};
 (function(p){
     p._loadXML = function(uri, callback, body, reload, extra) {
         function _sarissaCallback() {
@@ -34,15 +34,26 @@ function KJax() {};
                     dom = Sarissa.getDomDocument();
                     dom.loadXML(xmlhttp.responseText);
                 }
+                if (this.request_queue) {
+                    /* Kick off the next chained request before trying
+                     * to handle the result of the last one.
+                     */
+                    this._loadXML.apply(this, this.request_queue.splice(0,1));
+                }
                 callback.apply(self, [dom, uri, extra]);
             };
         };
         var self = this;
+        /* Make sure our requests are single-threaded. */
+        if (this.xmlhttp) {
+            this.request_queue.push([uri, callback, body, reload, extra]);
+        }
         /* load the XML from a uri
            calls callback with one arg (the XML DOM) when done
            the (optional) body arg should contain the body for the request
          */
         var xmlhttp = new XMLHttpRequest();
+        this.xmlhttp = xmlhttp;
         var method = body?'POST':'GET';
         // be sure that body is null and not an empty string or
         // something
@@ -58,9 +69,9 @@ function KJax() {};
                 xmlhttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
             };
             xmlhttp.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
-            this.xmlhttp = xmlhttp;
             xmlhttp.send(body);
         } catch(e) {
+            this.xmlhttp = null;
             if (e && e.name && e.message) { // Microsoft
                 e = e.name + ': ' + e.message;
             }
@@ -118,7 +129,6 @@ function KJax() {};
         };
     };
     p.newRequest = function(uri) {
-        if (this.xmlhttp) this.xmlhttp.abort();
         this._loadXML(uri, this._xmlcallback);
     };
     p.clearLog = function() {
