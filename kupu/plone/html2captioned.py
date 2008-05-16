@@ -551,6 +551,13 @@ class Migration:
             if obj is not None:
                 newurl = obj.absolute_url()
                 return uid, newurl, tail
+            # If the uid doesn't exist then we can try the fallback
+            # script. Even if the fallback works though we'll assume
+            # an external link for simplicity.
+            hook = getattr(self.tool, 'kupu_resolveuid_hook', None)
+            if hook:
+                target = hook(uid)
+                return None, target, ''
         return None, None, None
 
     def classifyLink(self, url, base, first=True):
@@ -577,6 +584,8 @@ class Migration:
         if 'resolveuid/' in absurl:
             UID, newurl, ntail = self.resolveToPath(absurl)
             if UID is None:
+                if newurl:
+                    return 'external', None, newurl, ntail
                 return 'bad', None, url, ''
             absurl = newurl
             tail = ntail + tail
