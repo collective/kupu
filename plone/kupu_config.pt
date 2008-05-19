@@ -103,14 +103,15 @@
                               </span>
                               <span tal:condition="not:isTransformEnabled">
                                  <tal:block i18n:translate="help_enable_transform">
-                                   If you enable this option a transform to hide UIDs and support image
-                                   captioning from client browsers will also be enabled
+                                    If you enable this option a transform to hide UIDs and support image
+                                    captioning from client browsers will also be enabled
                                  </tal:block>
                                  (<a i18n:translate="help_image_captioning_url"
-                                 href="zmi_docs#images">see image captioning documentation</a>).
+                                     tal:attributes="href string:${context/absolute_url}/zmi_docs#images"
+                                     href="zmi_docs#images">see image captioning documentation</a>).
                                  <tal:block i18n:translate="help_update_portal_transforms">
-                                   If the transform does not enable itself automatically you may
-                                   need to update your PortalTransforms product.
+                                    If the transform does not enable itself automatically you may
+                                    need to update your PortalTransforms product.
                                  </tal:block>
                               </span>
                            </div>
@@ -138,7 +139,8 @@
                                     captioning from client browsers will also be enabled
                                   </tal:block>
                                   (<a i18n:translate="help_image_captioning_url"
-                                  href="zmi_docs#images">see image captioning documentation</a>).
+                                      tal:attributes="href string:${context/absolute_url}/zmi_docs#images"
+                                      href="zmi_docs#images">see image captioning documentation</a>).
                                   <tal:block i18n:translate="help_update_portal_transforms">
                                     If the transform does not enable itself automatically you may
                                     need to update your PortalTransforms product.
