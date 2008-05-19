@@ -1463,7 +1463,10 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
         var sizeselector = document.getElementsByName('image-size-selector');
         if (sizeselector && sizeselector.length > 0) {
             sizeselector = sizeselector[0];
-            uri += sizeselector.options[sizeselector.selectedIndex].value;
+            var index = sizeselector.selectedIndex;
+            if (sizeselector.length > 0 && index >= 0) {
+                uri += sizeselector.options[index].value;
+            }
         }
         var radios = document.getElementsByName('image-align');
         var imgclass = "";
