@@ -684,4 +684,6 @@ def decodeEntities(s, encoding='utf-8'):
                     return unichr(name2codepoint[code])
         return match.group(0)
 
-    return EntityPattern.sub(unescape, s.decode(encoding))
+    if isinstance(s, str):
+        s = s.decode(encoding)
+    return EntityPattern.sub(unescape, s)
