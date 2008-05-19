@@ -133,35 +133,35 @@ i18n:domain="kupuconfig">
          <p i18n:translate="available_tales">The following variables are available in the TALES expressions:</p>
          <table>
             <tr>
-               <td><code i18n:translate="object_variable">object</code></td>
+               <td><code>object</code></td>
                <td i18n:translate="current_context">The current context object</td>
             </tr>
             <tr>
-               <td><code i18n:translate="object_url_variable">object_url</code></td>
+               <td><code>object_url</code></td>
                <td i18n:translate="current_context_url">The URL of the current context object</td>
             </tr>
             <tr>
-               <td><code i18n:translate="folder_variable">folder</code></td>
+               <td><code>folder</code></td>
                <td i18n:translate="context_folder">The folder the context object is located in</td>
             </tr>
             <tr>
-               <td><code i18n:translate="folder_url_variable">folder_url</code></td>
+               <td><code>folder_url</code></td>
                <td i18n:translate="context_folder_uri">The URL of the folder the context object is located in</td>
             </tr>
             <tr>
-               <td><code i18n:translate="portal_variable">portal</code></td>
+               <td><code>portal</code></td>
                <td i18n:translate="portal_object">The portal object</td>
             </tr>
             <tr>
-               <td><code i18n:translate="portal_url_variable">portal_url</code></td>
+               <td><code>portal_url</code></td>
                <td i18n:translate="portal_object_url">URL of the portal</td>
             </tr>
             <tr>
-               <td><code i18n:translate="member_variable">member</code></td>
+               <td><code>member</code></td>
                <td i18n:translate="authenticated_member">Authenticated member</td>
             </tr>
             <tr>
-               <td><code i18n:translate="request_variable">request</code></td>
+               <td><code>request</code></td>
                <td i18n:translate="request">Request</td>
             </tr>
          </table>
