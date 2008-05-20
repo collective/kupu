@@ -11,7 +11,7 @@
 
 $Id$
 """
-from Interface import Interface
+from zope.interface import Interface
 
 class ILibraryManager(Interface):
     """Provide an interface for managing and retrieving libraries for

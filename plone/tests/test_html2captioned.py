@@ -8,6 +8,7 @@ from unittest  import TestCase, TestSuite, main, makeSuite
 from os.path import join, abspath, dirname
 
 from Products.PortalTransforms.tests.test_transforms import *
+from Products.PortalTransforms.z3.interfaces import IDataStream
 from Products.PortalTransforms.tests.utils import normalize_html
 from Products.kupu import kupu_globals
 
@@ -39,7 +40,7 @@ class TransformTest(KupuTestCase):
         input.close()
         data = datastream(self.transform.name())
         res_data = self.transform.convert(orig, data, filename=filename, context=self.portal)
-        self.assert_(idatastream.isImplementedBy(res_data))
+        self.assert_(IDataStream.providedBy(res_data))
         got = res_data.getData()
         try:
             output = open(output)
