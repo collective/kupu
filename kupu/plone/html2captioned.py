@@ -8,6 +8,7 @@
 # an appropriate chunk of HTML to include the caption.
 #
 from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.z3.interfaces import ITransform
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 from Products.CMFCore.utils import getToolByName
@@ -18,6 +19,7 @@ from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
 from Products.kupu.plone.config import UID_PATTERN
+from zope.interface import implements
 
 name2codepoint = name2codepoint.copy()
 name2codepoint['apos']=ord("'")
@@ -70,6 +72,7 @@ IMAGE_TEMPLATE = '''\
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
+    implements(ITransform)
     __implements__ = itransform
     __name__ = "html_to_captioned"
     inputs = ('text/html',)

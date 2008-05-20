@@ -4,6 +4,10 @@ Kupu changes
 
 - SVN (unreleased)
 
+  - Purged old Zope2 Interface interfaces for compatibility with Zope 2.12 and Plone 4, while maintaining compatibility
+    with pre Plone 4 versions of Products.PortalTransforms.
+    [elro]
+
   - Plone tickets
 
     * 7958 Kupu: Insert image: KeyError: 'info' (Error 503 loading kupucollection.xml?resource_type=mediaobject)

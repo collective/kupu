@@ -8,11 +8,14 @@
 # this version expects to work on text/x-html-raw
 
 from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.z3.interfaces import ITransform
 from Products.kupu.plone import html2captioned
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
 class KupuOutputTransform(html2captioned.HTMLToCaptioned):
     """Transform which adds captions to images embedded in HTML"""
+    implements(ITransform)
     __implements__ = itransform
     __name__ = "kupu_raw_to_html"
     inputs = ('text/x-html-raw',)
