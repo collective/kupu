@@ -7,8 +7,12 @@
 # The transform finds all the embedded images, and replaces them with
 # an appropriate chunk of HTML to include the caption.
 #
-from Products.PortalTransforms.interfaces import itransform
-from Products.PortalTransforms.z3.interfaces import ITransform
+try:
+    from Products.PortalTransforms.z3.interfaces import ITransform
+except ImportError:
+    ITransform = None
+    from Products.PortalTransforms.interfaces import itransform
+
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 from Products.CMFCore.utils import getToolByName
@@ -72,7 +76,8 @@ IMAGE_TEMPLATE = '''\
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
-    implements(ITransform)
+    if ITransform is not None:
+        implements(ITransform)
     __implements__ = itransform
     __name__ = "html_to_captioned"
     inputs = ('text/html',)
