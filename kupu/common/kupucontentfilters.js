@@ -400,6 +400,11 @@ function XhtmlValidation(editor) {
 
     this.badTagAttributes = new this.Set({});
 
+    // Nasty tags should be initialised from Plone's HTML control panel
+    // but we have a few tags we know for sure aren't going to work
+    // so we can put them in whatever.
+    this.nastyTags = new this.Set({'script':1, 'style':1, 'meta':1, 'title':1}); 
+
     // State array. For each tag identifies what it can contain.
     // I'm not attempting to check the order or number of contained
     // tags (yet).
@@ -564,7 +569,7 @@ function XhtmlValidation(editor) {
     }(this, editor);
 
     // Exclude unwanted tags.
-    this.excludeTags(['center']);
+    this.excludeTags(['center', 'meta', 'title']);
 
     if (editor.config && editor.config.htmlfilter) {
         this.filterStructure = editor.config.htmlfilter.filterstructure;
@@ -672,9 +677,14 @@ function XhtmlValidation(editor) {
             if (n instanceof Array) {
                 var newp = ownerdoc.createElement('p');
                 this._xmlCopyAttr(para, newp);
-                var ln = n.length-1;
-                if (/br/i.test(n[ln].nodeName)) {
-                    n.splice(ln,1);
+                for (var ln = n.length-1; ln >= 0; ln--) {
+                    var nn = n[ln].nodeName.toLowerCase();
+                    if (nn=='br' || (nn=='#text' && /^\s*$/.test(n[ln].nodeValue))) {
+                        n.splice(ln,1);
+                    } else { break; }
+                }
+                if (n.length==0) {
+                    continue;
                 }
                 for (var j = 0; j < n.length; j++) {
                     newp.appendChild(n[j]);
@@ -736,6 +746,10 @@ function XhtmlValidation(editor) {
                     xhtmlnode = null;
                 }
             }
+        } else {
+            // Stripping this tag, maybe we also want to strip the
+            // content of the tag.
+            if (this.nastyTags[nodename]) { return null; }
         }
 
         var kids = htmlnode.childNodes;
