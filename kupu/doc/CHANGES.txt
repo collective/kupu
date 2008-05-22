@@ -4,6 +4,9 @@ Kupu changes
 
 - 1.4.10
 
+  - Update emptypage.pt to include a hint for deliverance that edited
+    pages should not be themed. [wiggy]
+
   - Purged old Zope2 Interface interfaces for compatibility with Zope 2.12 and Plone 4, while maintaining compatibility
     with pre Plone 4 versions of Products.PortalTransforms.
     [elro]
