@@ -11,7 +11,7 @@ try:
     from Products.PortalTransforms.z3.interfaces import ITransform
 except ImportError:
     ITransform = None
-    from Products.PortalTransforms.interfaces import itransform
+from Products.PortalTransforms.interfaces import itransform
 
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
