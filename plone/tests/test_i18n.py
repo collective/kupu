@@ -11,6 +11,7 @@ try:
 except ImportError:
     HAS_I18NDUDE = False
 
+tests=[]
 if HAS_I18NDUDE:
     GLOBALS = globals()
     PACKAGE_HOME = os.path.normpath(os.path.join(package_home(GLOBALS), '..', '..'))
@@ -21,7 +22,6 @@ if HAS_I18NDUDE:
 
     i18ndir = os.path.normpath(PACKAGE_HOME)
 
-    tests=[]
     products=[]
     pots={}
     pot_catalogs={}
@@ -52,9 +52,9 @@ if HAS_I18NDUDE:
                 pot_len = pot_lens[product]
             tests.append(TestOnePoFile)
 
-        import unittest
-        def test_suite():
-            suite = unittest.TestSuite()
-            for test in tests:
-                suite.addTest(unittest.makeSuite(test))
-            return suite
+import unittest
+def test_suite():
+    suite = unittest.TestSuite()
+    for test in tests:
+        suite.addTest(unittest.makeSuite(test))
+    return suite
