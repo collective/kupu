@@ -437,20 +437,8 @@ function initKupu(iframe) {
     drawertool.registerDrawer('tabledrawer', tabledrawer);
     */
 
-//    var nonxhtmltagfilter = new NonXHTMLTagFilter();
-//    kupu.registerFilter(nonxhtmltagfilter);
-
-    kupu.xhtmlvalid.setAttrFilter(['is_toc', 'toc_depth', 'is_citation', 
-                                    'source', 'author', 'source_id', 
-                                    'silva_type', 'alignment', 
-                                    'link_to_hires', 'link']);
-    // allow all attributes on div, since ExternalSources require that
-    kupu.xhtmlvalid.includeTagAttributes(['div'], ['*']);
-    kupu.xhtmlvalid.includeTagAttributes(['p'], ['silva_type']);
-    kupu.xhtmlvalid.includeTagAttributes(['h6'], ['silva_type']);
-    kupu.xhtmlvalid.includeTagAttributes(['img'], ['alignment', 
-                                            'link_to_hires', 
-                                            'target', 'link']);
+    var nonxhtmltagfilter = new NonXHTMLTagFilter();
+    kupu.registerFilter(nonxhtmltagfilter);
 
     return kupu;
 }
