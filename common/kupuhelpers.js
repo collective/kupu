@@ -774,7 +774,7 @@ function MozillaSelection(document) {
             while (child) {
                 // XXX the additional conditions catch some invisible
                 // intersections, but still not all of them
-                if (range.intersectsNode(child) &&
+                if (rangeIntersectsNode(range, child) &&
                     !(child == startNode && startOffset == child.length) &&
                     !(child == endNode && endOffset == 0)) {
                     if (selectedChild) {
@@ -1409,3 +1409,21 @@ function kupuFixImage(image) {
     image.height = height;
     image.width = width;
 };
+
+// Following function is to replace the deprecated range.intersectsNode
+// see http://developer.mozilla.org/en/docs/DOM:range.intersectsNode
+// for more info
+
+function rangeIntersectsNode(range, node) {
+  var nodeRange = node.ownerDocument.createRange();
+  try {
+    nodeRange.selectNode(node);
+  }
+  catch (e) {
+    nodeRange.selectNodeContents(node);
+  }
+
+  return range.compareBoundaryPoints(Range.END_TO_START, nodeRange) == -1 &&
+         range.compareBoundaryPoints(Range.START_TO_END, nodeRange) == 1;
+}
+
