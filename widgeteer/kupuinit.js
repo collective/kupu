@@ -259,7 +259,36 @@ function initKupu(iframe) {
         b.parentNode.removeChild(b);
     };
 
+    if (!tools || !tools.length || tools.contains('link')) {
+        var linktool = new LinkTool();
+        kupu.registerTool('link', linktool);
+        var handler = function(e) {
+            linktool.createLinkHandler(e);
+        };
+        addEventHandler(document.getElementById('kupu-popup-intlink-button'),
+                        'click', handler);
+    } else {
+        var b = document.getElementById('kupu-popup-intlink-button');
+        b.parentNode.removeChild(b);
+    };
+
+    if (!tools || !tools.length || tools.contains('image')) {
+        var imagetool = new ImageTool();
+        kupu.registerTool('image', imagetool);
+        var handler = function(e) {
+            imagetool.createImageHandler(e);
+        };
+        addEventHandler(document.getElementById('kupu-popup-image-button'),
+                        'click', handler);
+    } else {
+        var b = document.getElementById('kupu-popup-image-button');
+        b.parentNode.removeChild(b);
+    };
+
     if (!tools || !tools.length || tools.contains('browser')) {
+        parent.browser_manager.widgeteerpath =
+            parentiframe.textarea.getAttribute('widget:widgeteerpath') ||
+            '../../';
         var linktool = new LinkTool();
         kupu.registerTool('linktool', linktool);
         var handler = function() {

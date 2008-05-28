@@ -10,5 +10,6 @@
   <xi:include href="body.kupu" />
   <xi:include href="xmlconfig.kupu" />
   <xi:include href="browser.kupu" />
+  <xi:include href="popups.kupu" />
 
 </kupu:include>
