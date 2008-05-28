@@ -182,6 +182,7 @@ div.kupu-editorframe {
 iframe.kupu-editor-iframe {
   width: 100%;
   height: 100%;
+  margin-bottom: -3em;
 }
 
 textarea.kupu-editor-textarea {

@@ -46,6 +46,9 @@ KupuEditor.prototype.afterInit = function() {
     // if we don't first focus the outer window, Mozilla won't show a cursor
     window.focus();
     this.getDocument().getWindow().focus();
+    if (this.afterWidgeteerInit) {
+        this.afterWidgeteerInit(this);
+    };
 };
 
 function WidgeteerDrawerTool() {

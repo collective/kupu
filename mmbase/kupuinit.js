@@ -36,6 +36,7 @@ function initKupu(iframe) {
 
     // now we can create a UI object which we can use from the UI
     var ui = new KupuUI('kupu-tb-styles');
+    //console.log(ui.tsselect.childNodes.item(7));
 
     // the ui must be registered to the editor like a tool so it can be notified
     // of state changes

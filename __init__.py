@@ -39,7 +39,7 @@ try:
 except ImportError:
     have_cmf = 0
 
-# test for Plone, removed because Plone isn't supported yet
+# test for Plone
 try:
     import Products.CMFPlone
     have_plone = 1

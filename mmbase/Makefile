@@ -27,7 +27,7 @@ head.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) head-mmbase.kupu
 
 $(I18N):
-	@$(MAKE) -C $(KUPU_HOME) kupu-i18n.jar	
+	@$(MAKE) -C $(KUPU_HOME) kupu-i18n.jar
 
 .PHONY:
 messages: *.js clean
@@ -48,6 +48,7 @@ mmbase-kupu-i18n.jar: i18n/*.po
 
 clean:
 	rm -f index.jspx
+	rm -f body.jspx	head.jspx
 	rm -f mmbase-kupu-i18n.jar
 	rm -rf resourcebundle
 	@$(MAKE) -C $(KUPU_HOME) clean

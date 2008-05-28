@@ -19,6 +19,7 @@ from Products.CMFCore.Expression import Expression, createExprContext
 from Products.PageTemplates.Expressions import getEngine, SecureModuleImporter
 from Products.kupu.plone.interfaces import IKupuLibraryTool
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
 class KupuError(Exception): pass
 NEWTYPE_IGNORE, NEWTYPE_ADD = 0, 1
@@ -29,7 +30,7 @@ class Resource:
 class KupuLibraryTool(Acquisition.Implicit):
     """A tool to aid Kupu libraries"""
 
-    __implements__ = IKupuLibraryTool
+    implements(IKupuLibraryTool)
 
     def __init__(self):
         self._libraries = []

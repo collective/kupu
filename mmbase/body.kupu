@@ -10,7 +10,7 @@
     xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id: body.kupu,v 1.10 2005/09/27 18:26:52 michiel Exp $</kupu:id>
+  <kupu:id>$Id$</kupu:id>
 
 
   <kupu:part name="body">

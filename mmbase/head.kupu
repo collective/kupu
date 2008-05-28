@@ -7,8 +7,8 @@
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0">
-  <kupu:id>$Id: head.kupu,v 1.15 2005/09/14 17:24:31 michiel Exp $</kupu:id>
-  
+  <kupu:id>$Id$</kupu:id>
+
   <kupu:part name="meta">
     <fmt:bundle basename="org.mmbase.kupu.Messages">
       <title>
@@ -39,14 +39,17 @@
     <script type="text/javascript" src="${kupu_common}/kuputoolcollapser.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="cross-browser.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="layout.js"><jsp:text> </jsp:text></script>
+    <jsp:directive.include file="/mmbase/validation/javascript.jspxf" />
     <script type="text/javascript" src="mmbasetools.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="mmbase.js"><jsp:text> </jsp:text></script>
   </kupu:part>
 
   <kupu:part name="styles">
-    <link href="${kupu_common}/kupustyles.css" rel="stylesheet" type="text/css"><jsp:text> </jsp:text></link> 
+    <link href="${kupu_common}/kupustyles.css" rel="stylesheet" type="text/css"><jsp:text> </jsp:text></link>
+    <mm:haspage page="/mmbase/searchrelate/page.css.jsp">
+      <link href="${mm:link('/mmbase/searchrelate/page.css.jsp')}" rel="stylesheet" type="text/css"><jsp:text> </jsp:text></link>
+    </mm:haspage>
     <!-- fills image buttons and so on -->
-    <link href="mmbase.css" rel="stylesheet" type="text/css" />    
   </kupu:part>
 
 

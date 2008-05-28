@@ -1,6 +1,6 @@
 <!--
 
-   @version $Id: wire.kupu,v 1.12 2005/07/11 16:33:48 michiel Exp $
+   @version $Id$
    @author Michiel Meeuwissen <michiel.meeuwissen@gmail.com>
 -->
 <kupu:wire
@@ -12,6 +12,7 @@
     <kupu:insert-part feature="head"        part="meta" />
     <kupu:insert-part feature="head"        part="styles" />
     <kupu:insert-part feature="drawers"     part="styles" />
+    <kupu:insert-part feature="mmbase"      part="styles" />
     <kupu:insert-part feature="head"        part="jsincludes" />
     <kupu:insert-part feature="contextmenu" part="jsincludes" />
     <kupu:insert-part feature="head"        part="bootstrap-editor" />

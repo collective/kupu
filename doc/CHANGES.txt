@@ -2,14 +2,26 @@
 Kupu changes
 ============
 
-- x.y.z
+- 1.4.10
 
   - Update emptypage.pt to include a hint for deliverance that edited
-    pages should not be themed.
+    pages should not be themed. [wiggy]
+
+  - Purged old Zope2 Interface interfaces for compatibility with Zope 2.12 and Plone 4, while maintaining compatibility
+    with pre Plone 4 versions of Products.PortalTransforms.
+    [elro]
 
   - Plone tickets
 
+    * 7779 imageuploader doesn t show the input for file if not in english
+    * 7958 Kupu: Insert image: KeyError: 'info' (Error 503 loading kupucollection.xml?resource_type=mediaobject)
+    * 7990 Internal link drawer broken for editors
     * 8003 Fixed Kupu translation msgids containing html.
+    * 8009 Pasting from OpenOffice broken / mishandled comments
+    * 8014 kupu zmi_docs#images link broken
+    * 8039 Kupu locks up on adding images when user does not have manager privileges
+    * 8080 After uploading image, the "Insert Image" dialog remains open
+    * 8129 "TypeError: string indices must be integers" error on plonedrawers.py when installing
 
 - 1.4.9
 

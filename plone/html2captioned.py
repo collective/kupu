@@ -7,7 +7,12 @@
 # The transform finds all the embedded images, and replaces them with
 # an appropriate chunk of HTML to include the caption.
 #
+try:
+    from Products.PortalTransforms.z3.interfaces import ITransform
+except ImportError:
+    ITransform = None
 from Products.PortalTransforms.interfaces import itransform
+
 from DocumentTemplate.DT_Util import html_quote
 from DocumentTemplate.DT_Var import newline_to_br
 from Products.CMFCore.utils import getToolByName
@@ -18,6 +23,7 @@ from urllib import unquote_plus, quote_plus
 from Acquisition import aq_base
 from htmlentitydefs import name2codepoint
 from Products.kupu.plone.config import UID_PATTERN
+from zope.interface import implements
 
 name2codepoint = name2codepoint.copy()
 name2codepoint['apos']=ord("'")
@@ -70,6 +76,8 @@ IMAGE_TEMPLATE = '''\
 
 class HTMLToCaptioned:
     """Transform which adds captions to images embedded in HTML"""
+    if ITransform is not None:
+        implements(ITransform)
     __implements__ = itransform
     __name__ = "html_to_captioned"
     inputs = ('text/html',)
@@ -551,6 +559,13 @@ class Migration:
             if obj is not None:
                 newurl = obj.absolute_url()
                 return uid, newurl, tail
+            # If the uid doesn't exist then we can try the fallback
+            # script. Even if the fallback works though we'll assume
+            # an external link for simplicity.
+            hook = getattr(self.tool, 'kupu_resolveuid_hook', None)
+            if hook:
+                target = hook(uid)
+                return None, target, ''
         return None, None, None
 
     def classifyLink(self, url, base, first=True):
@@ -577,6 +592,8 @@ class Migration:
         if 'resolveuid/' in absurl:
             UID, newurl, ntail = self.resolveToPath(absurl)
             if UID is None:
+                if newurl:
+                    return 'external', None, newurl, ntail
                 return 'bad', None, url, ''
             absurl = newurl
             tail = ntail + tail
@@ -675,4 +692,6 @@ def decodeEntities(s, encoding='utf-8'):
                     return unichr(name2codepoint[code])
         return match.group(0)
 
-    return EntityPattern.sub(unescape, s.decode(encoding))
+    if isinstance(s, str):
+        s = s.decode(encoding)
+    return EntityPattern.sub(unescape, s)

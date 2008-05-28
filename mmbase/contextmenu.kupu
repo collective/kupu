@@ -8,7 +8,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id: contextmenu.kupu,v 1.2 2005/04/19 21:23:58 michiel Exp $</kupu:id>
+  <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="jsincludes">
     <script type="text/javascript" src="${kupu_common}/kupucontextmenu.js"><jsp:text> </jsp:text></script>
