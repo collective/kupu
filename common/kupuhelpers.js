@@ -327,10 +327,10 @@ function NodeIterator(node, continueatnextsibling) {
             this.current = current.firstChild;
         } else {
             // walk up parents until we finish or find one with a nextSibling
-            while (current != this.terminator && !current.nextSibling) {
+            while (current !== this.terminator && !current.nextSibling) {
                 current = current.parentNode;
             };
-            if (current == this.terminator) {
+            if (current === this.terminator) {
                 this.current = false;
             } else {
                 this.current = current.nextSibling;
@@ -619,6 +619,9 @@ function MozillaSelection(document) {
         while (currnode != startnode) {
             if (currnode.nodeType == 3) {
                 offset += currnode.nodeValue.length;
+            };
+            while (!currnode.nextSibling) {
+                currnode = currnode.parentNode;
             };
             currnode = currnode.nextSibling;
         };

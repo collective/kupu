@@ -20,7 +20,7 @@ this.kuputoolcollapser = new function() {
         };
         for (var i=0; i < this.parent.childNodes.length; i++) {
             var child = this.parent.childNodes[i];
-            if (child.className.match(/\bkupu-toolbox\b/)) {
+            if (child.className && child.className.match(/\bkupu-toolbox\b/)) {
                 var heading = child.getElementsByTagName('h1')[0];
                 if (!heading) {
                     throw('heading not found by collapser for toolbox ' +
