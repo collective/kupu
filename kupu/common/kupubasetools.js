@@ -1038,11 +1038,12 @@ PropertyTool.prototype.updateProperties = function() {
     this.editor.logMessage(_('Properties modified'));
 };
 
-function LinkTool(popupurl, popupwidth, popupheight) {
+function LinkTool(popupurl, popupwidth, popupheight, popupprops) {
     /* Add and update hyperlinks */
     this.popupurl = popupurl || 'kupupopups/link.html';
     this.popupwidth = popupwidth || 300;
     this.popupheight = popupheight || 200;
+    this.popupprops = popupprops || '';
 }
 
 LinkTool.prototype = new KupuTool;
@@ -1054,7 +1055,7 @@ LinkTool.prototype.initialize = function(editor) {
 LinkTool.prototype.createLinkHandler = function(event) {
     /* create a link according to a url entered in a popup */
     var linkWindow = openPopup(this.popupurl, this.popupwidth,
-                               this.popupheight);
+                               this.popupheight, this.popupprops);
     linkWindow.linktool = this;
     linkWindow.focus();
 };
@@ -1237,11 +1238,12 @@ LinkToolBox.prototype.updateLink = function() {
     this.editor.updateState();
 };
 
-function ImageTool(popupurl, popupwidth, popupheight) {
+function ImageTool(popupurl, popupwidth, popupheight, popupprops) {
     /* Image tool to add images */
     this.popupurl = popupurl || 'kupupopups/image.html';
     this.popupwidth = popupwidth || 300;
     this.popupheight = popupheight || 200;
+    this.popupprops = popupprops || '';
 };
 
 ImageTool.prototype = new KupuTool;
@@ -1254,7 +1256,7 @@ ImageTool.prototype.initialize = function(editor) {
 ImageTool.prototype.createImageHandler = function(event) {
     /* create an image according to a url entered in a popup */
     var imageWindow = openPopup(this.popupurl, this.popupwidth,
-                                this.popupheight);
+                                this.popupheight, this.popupprops);
     imageWindow.imagetool = this;
     imageWindow.focus();
 };
