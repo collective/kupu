@@ -184,14 +184,17 @@ function getBaseTagClass(base, tag, className) {
     return null;
 }
 
-function openPopup(url, width, height) {
+function openPopup(url, width, height, properties) {
     /* open and center a popup window */
     var sw = screen.width;
     var sh = screen.height;
     var left = sw / 2 - width / 2;
     var top = sh / 2 - height / 2;
-    var win = window.open(url, 'someWindow', 
-                'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+    var allprops = 'width=' + width + ',height=' + height;
+    if (properties) {
+        allprops += ',' + properties;
+    };
+    var win = window.open(url, 'someWindow', allprops);
     return win;
 };
 
