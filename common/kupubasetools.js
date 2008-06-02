@@ -1025,8 +1025,12 @@ function PropertyTool(titlefieldid, descfieldid) {
 
 PropertyTool.prototype = new KupuTool;
 
-function LinkTool() {
+function LinkTool(popupurl, popupheight, popupwidth) {
     /* Add and update hyperlinks */
+
+    this.popupurl = popupurl || 'kupupopups/link.html';
+    this.popupheight = popupheight || 300;
+    this.popupwidth = popupwidth || 200;
     
     this.initialize = function(editor) {
         this.editor = editor;
@@ -1220,8 +1224,12 @@ function LinkToolBox(inputid, buttonid, toolboxid, plainclass, activeclass) {
 
 LinkToolBox.prototype = new LinkToolBox;
 
-function ImageTool() {
+function ImageTool(popupurl, popupwidth, popupheight) {
     /* Image tool to add images */
+
+    this.popupurl = popupurl || 'kupupopups/image.html';
+    this.popupwidth = popupwidth || 300;
+    this.popupheight = popupheight || 200;
     
     this.initialize = function(editor) {
         /* attach the event handlers */
@@ -1230,7 +1238,8 @@ function ImageTool() {
 
     this.createImageHandler = function(event) {
         /* create an image according to a url entered in a popup */
-        var imageWindow = openPopup('kupupopups/image.html', 300, 200);
+        var imageWindow = openPopup(this.popupurl, this.popupwidth,
+                                    this.popupheight);
         imageWindow.imagetool = this;
         imageWindow.focus();
     };
