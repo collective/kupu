@@ -1,0 +1,113 @@
+# Italian translations for mmbase package.
+# Copyright (C) 2005 THE mmbase'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the mmbase package.
+# Michiel Meeuwissen <EMAIL@ADDRESS>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mmbase 18\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-11-28 18:04+0100\n"
+"PO-Revision-Date: 2005-06-09 00:45+0200\n"
+"Last-Translator: Michiel Meeuwissen <EMAIL@ADDRESS>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: mmbase.js:141
+msgid "Saving body (kupu)"
+msgstr ""
+
+#: mmbase.js:144
+msgid "Saving fields (form)"
+msgstr ""
+
+#: mmbase.js:173
+msgid "saved"
+msgstr ""
+
+#: mmbase.js:202
+msgid "RELOAD"
+msgstr ""
+
+#: mmbase.js:223
+msgid "Getting node fields for "
+msgstr ""
+
+#: mmbase.js:231
+msgid "Loading node fields for "
+msgstr ""
+
+#: mmbase.js:243
+msgid "Getting node body "
+msgstr ""
+
+#: mmbase.js:250
+msgid "Loading node body "
+msgstr ""
+
+#: mmbasetools.js:13
+msgid "Div tool initialized"
+msgstr ""
+
+#: mmbasetools.js:39
+msgid "Found paragraph"
+msgstr ""
+
+#: mmbasetools.js:43
+msgid "Didn't find paragraph"
+msgstr ""
+
+#: mmbasetools.js:48
+msgid "Div inserted"
+msgstr ""
+
+#: phony.js:1
+msgid "No node"
+msgstr ""
+
+#: phony.js:2
+msgid "Normal"
+msgstr ""
+
+#: phony.js:3 phony.js:5
+msgid "Richtext editor"
+msgstr ""
+
+#: phony.js:4
+msgid "Heading 1"
+msgstr ""
+
+#: phony.js:6
+msgid "default"
+msgstr ""
+
+#: phony.js:7
+msgid "Block"
+msgstr ""
+
+#: phony.js:8
+msgid "Block class"
+msgstr ""
+
+#: phony.js:9
+msgid "Note left"
+msgstr ""
+
+#: phony.js:10
+msgid "Note right"
+msgstr ""
+
+#: phony.js:11
+msgid "Insert block"
+msgstr ""
+
+#: override.js:2
+msgid "strong: alt-b"
+msgstr ""
+
+#: override.js:3
+msgid "emphasis: alt-i"
+msgstr ""

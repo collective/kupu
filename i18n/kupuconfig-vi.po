@@ -1,0 +1,429 @@
+# Translation of kupuconfig.pot to Vietnamese
+# Thanh Hai, Ha <thanhhai.ha@gmail.com>, 2005
+msgid ""
+msgstr ""
+"Project-Id-Version: Kupu 1.3.1\n"
+"POT-Creation-Date: 2005-08-17 20:34+0000\n"
+"PO-Revision-Date: 2005-11-07 15:17+0700\n"
+"Last-Translator: Thanh Hai, Ha <thanhhai.ha@gmail.com>\n"
+"Language-Team: Vietnamese i18n Team\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: vi\n"
+"Language-Name: Vietnamese\n"
+"Preferred-Encodings: utf-8\n"
+"Domain: kupuconfig\n"
+"X-Poedit-Language: Vietnamese\n"
+"X-Poedit-Country: VIET NAM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#. <input class="context" i18n:attributes="value" type="submit" value="Add"/>
+#. <input class="context" i18n:attributes="value" name="zmi_add_resource_type:method" type="submit" value="Add"/>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "Add"
+msgstr "Thêm"
+
+#. <input class="context" i18n:attributes="value" name="zmi_delete_libraries:method" type="submit" value="Delete"/>
+#. <input class="context" i18n:attributes="value" name="zmi_delete_resource_types:method" type="submit" value="Delete"/>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "Delete"
+msgstr "Xóa"
+
+#. <input class="context" i18n:attributes="value" name="zmi_move_down:method" type="submit" value="Move Down"/>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "Move Down"
+msgstr "Chuyển xuống"
+
+#. <input class="context" i18n:attributes="value" name="zmi_move_up:method" type="submit" value="Move Up"/>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "Move Up"
+msgstr "Chuyển lên"
+
+#. <input class="context" i18n:attributes="value" name="configure_kupu:method" tabindex="" tal:attributes="tabindex tabindex|nothing;" type="submit" value="Save"/>
+#. <input class="context" i18n:attributes="value" name="zmi_update_libraries:method" type="submit" value="Save"/>
+#. <input class="context" i18n:attributes="value" name="zmi_update_resource_types:method" type="submit" value="Save"/>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "Save"
+msgstr "Lưu"
+
+#. <input class="context" i18n:attributes="value" type="submit" value="Set"/>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "Set"
+msgstr "Thiết lập"
+
+#. <em i18n:translate="any_tag" tal:condition="not:tags">
+#.  Any tag
+#. </em>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "any_tag"
+msgstr "Bất kỳ thẻ nào"
+
+#. <td i18n:translate="authenticated_member">
+#.  Authenticated member
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "authenticated_member"
+msgstr "Thành viên đã được xác thực"
+
+#. <p i18n:translate="available_tales">
+#.  The following variables are available in the TALES expressions:
+#. </p>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "available_tales"
+msgstr "Các biến sau được phép dùng trong biểu thức TALES:"
+
+#. <td i18n:translate="context_folder">
+#.  The folder the context object is located in
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "context_folder"
+msgstr "Thư mục chứa đối tượng được đề cập"
+
+#. <td i18n:translate="context_folder_uri">
+#.  The URL of the folder the context object is located in
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "context_folder_uri"
+msgstr "Địa chỉ URL của thư mục chứa đối tượng được đề cập"
+
+#. <td i18n:translate="current_context">
+#.  The current context object
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "current_context"
+msgstr "Đối tượng đề cập hiện tại"
+
+#. <td i18n:translate="current_context_url">
+#.  The URL of the current context object
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "current_context_url"
+msgstr "Địa chỉ URL của đốii tượng đề cập hiện tại"
+
+#. <th i18n:translate="default">
+#.  Default
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "default"
+msgstr "Mặc định"
+
+#. <h3 i18n:translate="heading_configuration">
+#.  Kupu Configuration
+#. </h3>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "heading_configuration"
+msgstr "Cấu hình Kupu"
+
+## 1 more: c:\zopep21\Products\kupu\plone\resource_types.pt
+#. <h3 i18n:translate="heading_kupu_configuration">
+#.  Kupu Configuration
+#. </h3>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "heading_kupu_configuration"
+msgstr "Cấu hình Kupu"
+
+#. <div class="formHelp" i18n:translate="help_class_blacklist">
+#.  Enter a list of classnames to be excluded (one per line)
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_class_blacklist"
+msgstr "Nhập danh sách các tên lớp được ngoại trừ (mỗi lớp trên một dòng)"
+
+#. <div class="formHelp" i18n:translate="help_link_uid">
+#.  Links to objects on this site created by Kupu can use unique
+#. object ids so that the links remain valid even if the target object is
+#. renamed or moved elsewhere on the site.
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_link_uid"
+msgstr "Liên kết đến các đối tượng trong hệ thống được tạo bởi Kupu có thể dùng chỉ mục (id) độc nhất vì vậy liên kết luôn đúng cho dù đối tượng đích bị đổi tên hoặc di chuyển đến vị trí khác trên hệ thống."
+
+#. <div class="formHelp" i18n:translate="help_navigate_away">
+#.  Kupu can install a handler to warn before navigating
+#. away from a page where a form (even the non-Kupu fields) has been edited.
+#. Turn this off to prevent Kupu loading its own handler.
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_navigate_away"
+msgstr "Kupu có thể cài đặt bộ điều khiển để cảnh báo trước khi chuyển sang một trang khác khi biên tập nội dung. Bạn có thể tắt chức năng này để Kupu không bộ chạy điều khiển này."
+
+#. <div class="formHelp" i18n:translate="help_paragraph_styles">
+#.  Enter a list of paragraph styles to appear in the style pulldown. Format is title|tag or title|tag|className, one per line.
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_paragraph_styles"
+msgstr "Nhập danh sách các kiểu (style) đoạn văn (paragraph) cho phép chọn theo định dạng TiêuĐề|thẻ hoặc TiêuĐề|thẻ|tênLớp , mỗi định dạng trên một dòng"
+
+#. <div class="formHelp" i18n:translate="help_remove_entities">
+#.  Enter HTML tags and attributes to be removed when saving documents. (Uncheck to remove entries)
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_remove_entities"
+msgstr "Nhập thẻ HTML và thuộc tính sẽ được lược bỏ khi lưu tài liệu. (Bỏ chọn để xóa bớt)"
+
+#. <div class="formHelp" i18n:translate="help_style_whitelist">
+#.  Enter a list of style elements to be permitted (one per line)
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_style_whitelist"
+msgstr "Nhập danh sách các kiểu (style) cho phép (mỗi kiểu trên một dòng)"
+
+#. <div class="formHelp" i18n:translate="help_table_classes">
+#.  Enter a list of class names to be made available in the table drawer
+#. </div>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "help_table_classes"
+msgstr "Nhập danh sách các tên lớp cho phép khi thao tác trong Bảng"
+
+#. <th i18n:translate="icon_uri">
+#.  Icon URI
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "icon_uri"
+msgstr "Biểu tượng URI"
+
+#. <th i18n:translate="label_attributes">
+#.  Attributes
+#. </th>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_attributes"
+msgstr "Thuộc tính"
+
+#. <th colspan="2" i18n:translate="label_class_blacklist">
+#.  Class Blacklist
+#. </th>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_class_blacklist"
+msgstr "Lớp loại trừ"
+
+#. <th i18n:translate="label_icon_uri">
+#.  Icon URI
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "label_icon_uri"
+msgstr "Biểu tượng URI"
+
+#. <label for="kupu_installBeforeUnload" i18n:translate="label_install_kupu">
+#.  Install Kupu code to detect form changes
+#. </label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_install_kupu"
+msgstr "Cài đặt mã Kupu để phát hiện sự thay đổi khi biên tập"
+
+#. <label for="kupu_linkbyuid" i18n:translate="label_link_uid">
+#.  Link using UIDs
+#. </label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_link_uid"
+msgstr "Liên kết sử dụng UIDs"
+
+#. <h4 i18n:translate="label_manage_libraries">
+#.  Manage libraries
+#. </h4>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "label_manage_libraries"
+msgstr "Quản lý thư viện"
+
+#. <label for="parastyles" i18n:translate="label_paragraph_styles">
+#.  Paragraph Styles
+#. </label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_paragraph_styles"
+msgstr "Kiểu đoạn văn (Paragraph Styles)"
+
+#. <th i18n:translate="label_source_uri">
+#.  Source URI
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "label_source_uri"
+msgstr "URI nguồn"
+
+#. <th colspan="2" i18n:translate="label_style_whitelist">
+#.  Style Whitelist
+#. </th>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_style_whitelist"
+msgstr "Danh sách các Style cho phép"
+
+#. <label for="table_classnames" i18n:translate="label_tables">
+#.  Tables
+#. </label>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_tables"
+msgstr "Bảng"
+
+#. <th i18n:translate="label_tags">
+#.  Tags
+#. </th>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "label_tags"
+msgstr "Thẻ"
+
+#. <th i18n:translate="label_title">
+#.  Title
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "label_title"
+msgstr "Tiêu đề"
+
+#. <legend i18n:translate="legend_add_resource_type">
+#.  Add new resource type
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "legend_add_resource_type"
+msgstr "Thêm kiểu tài nguyên"
+
+#. <legend i18n:translate="legend_html_filter">
+#.  HTML Filter
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "legend_html_filter"
+msgstr "Bộ lọc HTML"
+
+#. <legend i18n:translate="legend_link_options">
+#.  Link options
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "legend_link_options"
+msgstr "Tùy chọn về Liên kết"
+
+#. <legend i18n:translate="legend_map_resource_types">
+#.  Map resource types
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "legend_map_resource_types"
+msgstr "Cài đặt các kiểu tài nguyên"
+
+#. <legend i18n:translate="legend_styles">
+#.  Styles
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "legend_styles"
+msgstr "Kiểu (Styles)"
+
+#. <legend i18n:translate="legend_warning">
+#.  Warn before losing changes
+#. </legend>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "legend_warning"
+msgstr "Cảnh báo khi thay đổi chưa được lưu lại"
+
+#. <td i18n:translate="portal_object">
+#.  The portal object
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "portal_object"
+msgstr "Đối tượng cổng"
+
+#. <td i18n:translate="portal_object_url">
+#.  URL of the portal
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "portal_object_url"
+msgstr "URL của cổng"
+
+## 1 more: c:\zopep21\Products\kupu\plone\resource_types.pt
+#. <th i18n:translate="portal_types">
+#.  Portal types
+#. </th>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "portal_types"
+msgstr "Portal types"
+
+#. <td i18n:translate="request">
+#.  Request
+#. </td>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "request"
+msgstr "Yêu cầu"
+
+## 1 more: c:\zopep21\Products\kupu\plone\resource_types.pt
+#. <th i18n:translate="resource_type">
+#.  Resource type
+#. </th>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "resource_type"
+msgstr "Kiểu tài nguyên"
+
+#. <th i18n:translate="source_uri">
+#.  Source URI
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "source_uri"
+msgstr "URI nguồn"
+
+#. <p i18n:translate="text_kupu_drawers">
+#.  In the below form, you may manage the list of drawer libraries for
+#. the kupu editor. Each property of a library is dynamically expanded at
+#. execution time using TALES expressions. That way it is possible, to
+#. support libraries like
+#.  <em>
+#.   Current folder
+#.  </em>
+#.   or
+#.  <em>
+#.   My folder
+#.  </em>
+#. very easily.
+#. </p>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "text_kupu_drawers"
+msgstr "Ở mẫu biểu phía dưới, bạn có thể quản lý danh sách các thư viện cho trình biên tập Kupu. Mỗi một thuộc tính của thư viện sẽ được mở rộng khi thực hiện sử dụng biểu thức TALES. Bằng cách đó có thể hỗ trợ các thư viện như là <em>Thư mục hiện tại</em> hoặc <em>Thư mục của tôi</em> rất dễ dàng."
+
+#. <p i18n:translate="text_resource_types">
+#.  While libraries provide abstract locations for objects of any type,
+#. Kupu distinguishes objects by resource type. For example, a user might
+#. request a library showing objects to link to or a library showing
+#. objects to be inserted into a document. The abstract location
+#. (library) might be the same, but the former library would contain
+#. documents, the latter images.
+#. </p>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "text_resource_types"
+msgstr "Nhờ thư viện cung cấp vị trí lý thuyết của các đối tượng thuộc bất kỳ kiểu nào, Kupu phân biệt các đối tượng bằng kiểu tài nguyên. Ví dụ, người dùng có thể yêu cầu thư viện hiển thị đối tượng để liên kết đến hoặc đối tượng để chèn vào tài liệu. Vị trí lý thuyết (thư viện) có thể giống, nhưng thư viện trước có thể chứa tài liệu hoặc hình ảnh sau này."
+
+#. <p i18n:translate="text_resource_types2">
+#.  This management screen allows you to define resource types using a
+#. list of portal types. A special resource type,
+#.  <code>
+#.   collection
+#.  </code>
+#.  ,
+#. identifies portal types that are to be treated as collections.
+#. </p>
+#: c:\zopep21\Products\kupu\plone\resource_types.pt
+msgid "text_resource_types2"
+msgstr "Màn hình quản lý này cho phép bạn định kiểu tài nguyên bằng cách sử dụng danh sách các portal types. Một kiểu tài nguyên đặc biệt <code>collection</code> , xác định portal types được xem như là tập hợp (collection)."
+
+#. <th i18n:translate="uri">
+#.  URI
+#. </th>
+#: c:\zopep21\Products\kupu\plone\libraries.pt
+msgid "uri"
+msgstr "URI"
+
+#. <em i18n:translate="whole_tag_removed" tal:condition="not:attributes">
+#.  Whole tag removed
+#. </em>
+#: c:\zopep21\Products\kupu\plone\kupu_config.pt
+msgid "whole_tag_removed"
+msgstr "Bỏ toàn bộ thẻ"
+
+msgid "Config"
+msgstr "Cấu hình"
+
+msgid "Libraries"
+msgstr "Thư viện"
+
+msgid "Resource Types"
+msgstr "Kiểu tài nguyên"
+
+msgid "Documentation"
+msgstr "Tài liệu"
+
