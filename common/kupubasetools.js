@@ -213,6 +213,7 @@ function KupuRemoveElementButton(buttonid, element_name, cssclass) {
     /* A button specialized in removing elements in the current node
        context. Typical usages include removing links, images, etc. */
     this.button = getFromSelector(buttonid);
+    this.element_name = element_name;
     this.onclass = 'invisible';
     this.offclass = cssclass;
     this.pressed = false;
@@ -222,13 +223,13 @@ KupuRemoveElementButton.prototype = new KupuStateButton;
 
 KupuRemoveElementButton.prototype.commandfunc = function(button, editor) {
     editor.focusDocument();
-    editor.removeNearestParentOfType(editor.getSelectedNode(), element_name);
+    editor.removeNearestParentOfType(editor.getSelectedNode(), this.element_name);
     editor.updateState();
 };
 
 KupuRemoveElementButton.prototype.checkfunc = function(currnode, button,
         editor, event) {
-    var element = editor.getNearestParentOfType(currnode, element_name);
+    var element = editor.getNearestParentOfType(currnode, this.element_name);
     return (element ? false : true);
 };
 
