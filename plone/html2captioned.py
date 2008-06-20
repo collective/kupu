@@ -87,7 +87,7 @@ class HTMLToCaptioned:
         self.config_metadata = {
             'inputs' : ('list', 'Inputs', 'Input(s) MIME type. Change with care.'),
             }
-        if name:
+        if name is not None:
             self.__name__ = name
 
     def name(self):
@@ -109,7 +109,7 @@ class HTMLToCaptioned:
         if target is not None:
             return target
         hook = getattr(context, 'kupu_resolveuid_hook', None)
-        if hook:
+        if hook is not None:
             target = hook(uid)
         return target
 
@@ -123,12 +123,13 @@ class HTMLToCaptioned:
         (default: None)
         """
         context = kwargs.get('context', None)
+        at_tool = None
         template = context.kupu_captioned_image
-        if context:
+        if context is not None:
             at_tool = context.archetype_tool
             rc = at_tool.reference_catalog
 
-        if context and at_tool:        
+        if context is not None and at_tool is not None:
             def replaceImage(match):
                 tag = match.group('pat0') or match.group('pat1')
                 attrs = ATTR_PATTERN.match(tag)
@@ -136,14 +137,14 @@ class HTMLToCaptioned:
                 src = attrs.group('src')
                 subtarget = None
                 m = SRC_TAIL.match(tag, attrs.end('src'))
-                if m:
+                if m is not None:
                     srctail = m.group(1)
                 else:
                     srctail = None
-                if src:
+                if src is not None:
                     d = attrs.groupdict()
                     target = self.resolveuid(context, rc, src)
-                    if target:
+                    if target is not None:
                         d['class'] = attrs.group('class')
                         d['originalwidth'] = attrs.group('width')
                         d['originalalt'] = attrs.group('alt')
@@ -160,7 +161,7 @@ class HTMLToCaptioned:
                                 subtarget = target.restrictedTraverse(srctail)
                             except:
                                 subtarget = getattr(target, srctail, None)
-                            if subtarget:
+                            if subtarget is not None:
                                 d['image'] = subtarget
 
                             if srctail.startswith('image_'):
@@ -171,11 +172,11 @@ class HTMLToCaptioned:
                         if d['tag'] is None:
                             d['tag'] = target.tag()
 
-                        if subtarget:
+                        if subtarget is not None:
                             d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
                             d['width'] = subtarget.width
 
-                        if atag: # Must preserve original link, don't overwrite with a link to the image
+                        if atag is not None: # Must preserve original link, don't overwrite with a link to the image
                             d['isfullsize'] = True
                             d['tag'] = "%s%s</a>" % (atag, d['tag'])
 
@@ -191,7 +192,7 @@ class HTMLToCaptioned:
                 tag = match.group('tag')
                 uid = match.group('uid')
                 target = self.resolveuid(context, rc, uid)
-                if target:
+                if target is not None:
                     try:
                         url = target.getRemoteUrl()
                     except AttributeError:
@@ -563,7 +564,7 @@ class Migration:
             # script. Even if the fallback works though we'll assume
             # an external link for simplicity.
             hook = getattr(self.tool, 'kupu_resolveuid_hook', None)
-            if hook:
+            if hook is not None:
                 target = hook(uid)
                 return None, target, ''
         return None, None, None

@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- SVN
+
+  - French translations broke drawers
+
 - 1.4.10
 
   - Update emptypage.pt to include a hint for deliverance that edited
