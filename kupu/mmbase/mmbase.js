@@ -194,6 +194,7 @@ function saveNode(button, editor) {
                 loadedNodes.remove(node);
                 loadedNodeBodies.remove(node);
                 loadNode(node);
+		$("#kupu-save-button").trigger("kupu-saved");
             } else {
                 alert(_("Not saved") + " " + node);
                 reloadAfterError();
