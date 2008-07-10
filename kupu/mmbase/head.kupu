@@ -32,8 +32,11 @@
     <script type="text/javascript" src="${kupu_common}/kupubasetools.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kupuloggers.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kupuspellchecker.js"><jsp:text> </jsp:text></script>
-    <script type="text/javascript" src="${kupu_common}/kupunoi18n.js"><jsp:text> </jsp:text></script>
+    <script type="text/javascript" src="${kupu_common}/kupunoi18n.js"><jsp:text>
+    </jsp:text></script>
+    <!--
     <script type="text/javascript" src="../i18n.js"><jsp:text> </jsp:text></script>
+    -->
     <script type="text/javascript" src="${kupu_common}/kupucleanupexpressions.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kupucontentfilters.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="${kupu_common}/kuputoolcollapser.js"><jsp:text> </jsp:text></script>
