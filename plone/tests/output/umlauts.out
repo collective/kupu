@@ -1,0 +1,27 @@
+<div>Simple text containing an embedded image</div>
+<dl class="image-left captioned">
+  <dt>
+     <img src="http://nohost/plone/folder/umlauts/image"
+          alt="Kupu Test Image åäö" title="Kupu Test Image åäö"
+          height="331" width="500" />
+  </dt>
+  <dd class="image-caption" style="width:500px">Test image caption åäö</dd>
+</dl>
+<dl class="image-left captioned">
+  <dt>
+    <a rel="lightbox" href="/plone/folder/umlauts">
+      <img src="http://nohost/plone/folder/umlauts/image_thumb"
+           alt="Kupu Test Image åäö" title="Kupu Test Image åäö" height="84"
+           width="128" />
+    </a>
+  </dt>
+  <dd class="image-caption" style="width:128px">Test image caption åäö</dd>
+</dl>
+<dl class="image-left captioned">
+  <dt>
+     <img src="http://nohost/plone/folder/umlauts/image"
+          alt="Kupu Test Image åäö" title="Kupu Test Image åäö" height="331"
+          width="500" />
+  </dt>
+  <dd class="image-caption" style="width:500px">Test image caption åäö</dd>
+</dl>

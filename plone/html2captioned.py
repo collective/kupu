@@ -176,11 +176,21 @@ class HTMLToCaptioned:
                             d['isfullsize'] = subtarget.width == target.width and subtarget.height == target.height
                             d['width'] = subtarget.width
 
+                        # strings that may contain non-ascii characters need to be decoded to unicode
+                        for key in ('caption', 'tag'):
+                            if isinstance(d[key], str):
+                                d[key] = d[key].decode('utf8')
+
                         if atag is not None: # Must preserve original link, don't overwrite with a link to the image
                             d['isfullsize'] = True
                             d['tag'] = "%s%s</a>" % (atag, d['tag'])
 
-                        return template(**d)
+                        result = template(**d)
+                        if isinstance(result, str):
+                            result = result.decode('utf8')
+
+                        return result
+
                 return match.group(0) # No change
 
             if isinstance(data, str):
