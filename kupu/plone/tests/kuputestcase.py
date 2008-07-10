@@ -106,6 +106,16 @@ class KupuTestCase(PloneTestCase.PloneTestCase):
         gamma.setDescription('Test image caption')
         # The image needs a fixed uid for the transform tests.
         f.gamma._setUID('104ede98d4c7c8eaeaa3b984f7395979')
+
+        self.create('umlauts', 'Image', f)
+        umlauts = f.umlauts
+        umlauts.setImage(open(join(PREFIX,'image.jpg'),'rb').read())
+        title, description = open(join(PREFIX, 'umlauts-testdata.txt')).read().strip().split(';')
+        umlauts.setTitle(title)
+        umlauts.setDescription(description)
+        # The image needs a fixed uid for the transform tests.
+        f.umlauts._setUID('215fef98e5d7c9ebebb4c984f7395979')
+
         f.reindexObject()
 
         sub1 = self.create('sub1', 'Folder', f)
