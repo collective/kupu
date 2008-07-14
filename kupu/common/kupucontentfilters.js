@@ -679,7 +679,7 @@ function XhtmlValidation(editor) {
                 this._xmlCopyAttr(para, newp);
                 for (var ln = n.length-1; ln >= 0; ln--) {
                     var nn = n[ln].nodeName.toLowerCase();
-                    if (nn=='br' || (nn=='#text' && /^\s*$/.test(n[ln].nodeValue))) {
+                    if (nn=='br' || (nn=='#text' && (/^\s*$/.test(n[ln].nodeValue)))) {
                         n.splice(ln,1);
                     } else { break; }
                 }

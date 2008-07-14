@@ -35,14 +35,17 @@ LINT = scriptrelative('jslint.js')
 OPTIONS = scriptrelative('jslint.opts')
 STATUSFILE = scriptrelative('lint.record')
 
-def filelist(*patterns):
+def filelist(*patterns, **kw):
     for p in patterns:
         names = glob.glob(scriptrelative(p))
+        exclude = kw.get('exclude', [])
         for n in names:
+            if os.path.basename(n) in exclude:
+                continue
             yield os.path.normpath(n)
 
-def newfiles(status, *patterns):
-    for n in filelist(*patterns):
+def newfiles(status, *patterns, **kw):
+    for n in filelist(*patterns, **kw):
         mtime = os.stat(n).st_mtime
         if n in status and status[n] == mtime:
             continue
@@ -106,6 +109,7 @@ class Pool:
     def process(self, items):
         items = list(items)
         for item in items:
+            
              self.requestQueue.put(item)
         for dummy in items:
             item, (data, rc) = self.responseQueue.get()
@@ -122,7 +126,8 @@ if __name__=='__main__':
     status = loadstatus(STATUSFILE)
     exitcode = None
     threads = Pool(4)
-    work = newfiles(status, 'common/*.js', 'plone/kupu_plone_layer/*.js')
+    work = newfiles(status, 'common/*.js', 'plone/kupu_plone_layer/*.js',
+        exclude=['diff_match_patch.js'])
     threads.process(work)
     threads.shutdown()
     savestatus(STATUSFILE, status)

@@ -692,7 +692,7 @@ KupuUI.prototype._removeStyle = function() {
     var self = this;
     function needbreak(e) {
         if (isblock && e) {
-            if (self.blocktagre.test(e.nodeName) || /^br$/i.test(e.nodeName)) return;
+            if (self.blocktagre.test(e.nodeName) || (/^br$/i.test(e.nodeName))) return;
             parent.insertBefore(ed.newElement('br'), n);
         }
     }
@@ -2942,11 +2942,11 @@ proto.getAnchor = function(node, ifexists) {
     return anchor;
 };
 
-proto.createContextMenuElements = function() {
-    return [];
-};
-
 /* IE doesn't have a dump function */
 if (window.dump===undefined) {
     var dump = function(msg) { };
 };
+proto.createContextMenuElements = function() {
+    return [];
+};
+
