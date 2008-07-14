@@ -6,6 +6,8 @@ Kupu changes
 
   - French translations broke drawers
 
+  - Added full undo/redo support using 'diff_match_patch.js'.
+
 - 1.4.10
 
   - Update emptypage.pt to include a hint for deliverance that edited
