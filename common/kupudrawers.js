@@ -63,7 +63,7 @@ function DrawerTool() {
         this.current_drawer.hide();
         this.current_drawer.editor.resumeEditing();
         this.current_drawer = null;
-        kupu_notbusy(this.editor, true)
+        kupu_notbusy(this.editor, true);
     };
 };
 
@@ -155,9 +155,9 @@ proto.switchMode = function(event) {
     event = event || window.event;
     var target = event.currentTarget || event.srcElement;
     var el = target;
-    while (!/^li$/i.test(el.nodeName)) { el = el.parentNode; };
+    while (!(/^li$/i.test(el.nodeName))) { el = el.parentNode; };
     var thistab = el;
-    while (!/^ul$/i.test(el.nodeName)) { el = el.parentNode; };
+    while (!(/^ul$/i.test(el.nodeName))) { el = el.parentNode; };
     var tabs = el.getElementsByTagName('li');
     for (var i = 0; i < tabs.length; i++) {
         var el = tabs[i];
@@ -1631,7 +1631,6 @@ function AnchorDrawer(elementid, tool) {
         if (/kupu-ins-bm/.test(this.panel.className)) return 0;
         if (/kupu-anchor/.test(this.panel.className)) return 1;
         return 2;
-        return !!(/kupu-ins-bm/.test(this.panel.className));
     };
 
     this.checkAll = function() {
@@ -1798,7 +1797,6 @@ AnchorDrawer.prototype = new Drawer;
 function HandleDrawerEnter(event, clickid) {
     event = event || window.event;
     var key = event.which || event.keyCode;
-    var target = event.currentTarget || event.srcElement;
     var button;
     if (key==13) {
         if (clickid) {

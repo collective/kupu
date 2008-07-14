@@ -520,8 +520,8 @@ function KupuEditor(document, config, logger) {
     // Prevent Mozilla resizing of images
     this.imageModified = function(event) {
         var node = event.target;
-        if (node && /^img$/i.test(node.nodeName)) {
-            if (event.attrName=="style" && event.attrChange==1 && /height|width/.test(event.newValue)) {
+        if (node && (/^img$/i.test(node.nodeName))) {
+            if (event.attrName=="style" && event.attrChange==1 && (/height|width/.test(event.newValue))) {
                 timer_instance.registerFunction(this, this._clearStyle, 1, node);
             }
         };
@@ -546,7 +546,7 @@ function KupuEditor(document, config, logger) {
         var win = this.getDocument().getWindow();
         var idoc = this.getInnerDocument();
         var e = this._addEventHandler;
-        var validattrs =  this.xhtmlvalid.tagAttributes['img'];
+        var validattrs =  this.xhtmlvalid.tagAttributes.img;
         this.okresize = validattrs.contains('width') && validattrs.contains('height');
         // Set design mode on resize event:
         e(win, 'resize', this._resizeHandler, this);
@@ -571,7 +571,8 @@ function KupuEditor(document, config, logger) {
         if (this._wantDesignMode) {
             this._setDesignModeWhenReady();
         }
-    }
+    };
+    
     this._setDesignModeWhenReady = function() {
         /* Try to set design mode, but if we fail then just wait for a
          * resize event.

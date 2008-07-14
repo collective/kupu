@@ -143,7 +143,7 @@ function addEventHandler(element, event, method, context) {
             'for element ${element}, event ${event}, method ${method}, ',
             {'message': e.message, 'element': element,
                 'event': event,
-                'method': method,
+                'method': method
             });
         if (e.stack) {
             msg += _('\r\ntraceback:\r\n${traceback}', {'traceback': e.stack});
@@ -192,10 +192,6 @@ function getBaseTagClass(base, tag, className) {
 
 function openPopup(url, width, height, properties) {
     /* open and center a popup window */
-    var sw = screen.width;
-    var sh = screen.height;
-    var left = sw / 2 - width / 2;
-    var top = sh / 2 - height / 2;
     var allprops = 'width=' + width + ',height=' + height;
     if (properties) {
         allprops += ',' + properties;
@@ -473,7 +469,7 @@ function MozillaSelection(document) {
 
     this._createRange = function() {
         return this.document.getDocument().createRange();
-    }
+    };
     this.selectNodeContents = function(node) {
         if (node && node.parentNode) {
             /* select the contents of a node */

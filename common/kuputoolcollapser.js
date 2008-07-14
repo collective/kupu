@@ -24,7 +24,7 @@ this.kuputoolcollapser = new function() {
                 var heading = child.getElementsByTagName('h1')[0];
                 if (!heading) {
                     throw('heading not found by collapser for toolbox ' +
-                            child.id);henadle
+                            child.id);
                 };
                 heading.setAttribute('title', _('click to unfold'));
                 // find the toolbox's body
