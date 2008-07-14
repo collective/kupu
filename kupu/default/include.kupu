@@ -20,5 +20,6 @@
   <xi:include href="colorchooser.kupu" />
   <xi:include href="save.kupu" />
   <xi:include href="drawers.kupu" />
+  <xi:include href="undo.kupu" />
 
 </kupu:include>
