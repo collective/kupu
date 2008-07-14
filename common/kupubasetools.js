@@ -120,12 +120,14 @@ function kupuButtonEnable(button) {
 
 function KupuButton(buttonid, commandfunc, tool) {
     /* Base prototype for kupu button tools */
-    this.buttonid = buttonid;
-    this.button = getFromSelector(buttonid);
-    this.commandfunc = commandfunc;
-    this.tool = tool;
-    this.disable = kupuButtonDisable;
-    this.enable = kupuButtonEnable;
+    if (arguments.length) {
+        this.buttonid = buttonid;
+        this.button = getFromSelector(buttonid);
+        this.commandfunc = commandfunc;
+        this.tool = tool;
+        this.disable = kupuButtonDisable;
+        this.enable = kupuButtonEnable;
+    };
 };
 
 KupuButton.prototype = new KupuTool;

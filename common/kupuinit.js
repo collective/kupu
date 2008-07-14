@@ -120,12 +120,6 @@ function initKupu(iframe) {
     var indentbutton = new KupuButton('kupu-indent-button', execCommand('indent'));
     kupu.registerTool('indentbutton', indentbutton);
 
-    var undobutton = new KupuButton('kupu-undo-button', execCommand('undo'));
-    kupu.registerTool('undobutton', undobutton);
-
-    var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
-    kupu.registerTool('redobutton', redobutton);
-
     var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
                                                         'img',
                                                         'kupu-removeimage');
@@ -265,6 +259,9 @@ function initKupu(iframe) {
 
     var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
     drawertool.registerDrawer('tabledrawer', tabledrawer);
+
+    var undotool = new KupuUndoTool('kupu-undo-button', 'kupu-redo-button');
+    kupu.registerTool('undotool', undotool);
 
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD

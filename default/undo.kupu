@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<kupu:feature
+    name="undo"
+    implementation="default"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="kupu"
+    >
+  <kupu:id>$Id: sourceedit.kupu 25717 2006-04-12 10:33:01Z fschulze $</kupu:id>
+
+  <kupu:part name="jsincludes">
+    <script type="text/javascript" src="kupuundo.js"> </script>
+    <script type="text/javascript" src="diff_match_patch.js"> </script>
+  </kupu:part>
+
+</kupu:feature>

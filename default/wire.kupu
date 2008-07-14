@@ -38,6 +38,7 @@
     <kupu:insert-part feature="sourceedit" part="jsincludes" />
     <kupu:insert-part feature="spellchecker" part="jsincludes" />
     <kupu:insert-part feature="drawers" part="jsincludes" />
+    <kupu:insert-part feature="undo" part="jsincludes" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="body">
