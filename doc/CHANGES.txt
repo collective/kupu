@@ -2,7 +2,7 @@
 Kupu changes
 ============
 
-- SVN
+- 1.4.11
 
   - French translations broke drawers
 
