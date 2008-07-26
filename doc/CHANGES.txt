@@ -8,6 +8,10 @@ Kupu changes
 
   - Added full undo/redo support using 'diff_match_patch.js'.
 
+  - Plone tickets
+
+    * 8327 Kupu CSS inserted below ploneCustom.css in the CSS registry
+
 - 1.4.10
 
   - Update emptypage.pt to include a hint for deliverance that edited
