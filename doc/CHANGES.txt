@@ -2,6 +2,12 @@
 Kupu changes
 ============
 
+- 1.4.11
+
+  - Plone tickets
+
+    * 8327 Kupu CSS inserted below ploneCustom.css in the CSS registry
+
 - 1.4.10
 
   - Update emptypage.pt to include a hint for deliverance that edited
