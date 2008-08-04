@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 import os
 
 version = open(os.path.join("Products", "kupu", "version.txt")).read()
-version = version.replace('kupu', '').strip()
+version = version.replace('kupu', '').strip() + 'dev'
 
 setup(name='Products.kupu',
       version=version,
@@ -27,7 +27,19 @@ setup(name='Products.kupu',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'zope.interface',
+          'zope.schema',
+          'zope.i18n',
+          'zope.i18nmessageid',
+          'Products.Archetypes',
+          'Products.GenericSetup',
+          'Products.CMFCore',
+          'Products.CMFPlone',
+          'Products.MimetypesRegistry',
+          'Products.PortalTransforms',
+          'Products.ATContentTypes',
+          'Products.i18ntestcase',
+          'plone.app.controlpanel',
       ],
       entry_points="""
       # -*- Entry points: -*-
