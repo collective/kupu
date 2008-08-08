@@ -42,7 +42,11 @@ Quick installation
 
 Basic install on a 'plain' webserver (Apache, IIS, etc.):
 
-Unpack the kupu tarball. XXX xsl transformation, copy default dir XXX
+o Unpack the kupu tarball. 
+
+o Run all xsl transformation by running ``make``
+
+o copy default dir XXX
 
 
 Configuration and customization
@@ -106,3 +110,4 @@ If problems occur...
 If you have installation problems, see http://kupu.oscom.org for a
 list of possible places to ask questions (mailinglist, IRC channel) or
 send an email to kupu-dev@codespeak.net.
+
