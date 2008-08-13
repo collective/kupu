@@ -254,3 +254,11 @@ div.kupu-toolbox.left-box h1 {
 .mm_related table.create input[type='file'].mm_validate {
   width: 50px;
 }
+
+#save-message {
+  color: white;
+  font-weight: bold;
+}
+#save-message img {
+  background-color: white;
+}

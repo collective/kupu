@@ -1,7 +1,7 @@
 /**
  * Specialized drawer for mmbase-resources.
  * Like LinkLibraryDrawer, but with upload-functionality.
- * $Id: $
+ * $Id $
  */
 
 function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
@@ -42,7 +42,7 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
         var target = null;
         if (getFromSelector('link_target') && getFromSelector('link_target').value != '')
             target = getFromSelector('link_target').value;
-        
+
         this.tool.createLink(uri, type, name, target, title);
         this.drawertool.closeDrawer();
     };
@@ -56,27 +56,27 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
         if (form.node_prop_title.value == "") {
             alert("Please enter a title for the image you are uploading");
-            return;        
+            return;
         };
-        
+
         form.submit();
     };
-    
+
     // called for example when no permission to upload for some reason
     this.cancelUpload = function(msg) {
-        var s = this.xmldata.selectSingleNode('/libraries/*[@selected]');     
+        var s = this.xmldata.selectSingleNode('/libraries/*[@selected]');
         s.removeAttribute("selected");
         this.updateDisplay();
         if (msg != '') {
             alert(msg);
         };
     };
-    
+
     // called by onLoad within document sent by server
     this.finishUpload = function(url, mimetype) {
         this.editor.resumeEditing();
         var form = document.getElementById('kupu_upload_form');
-        var title = "[" + mimetype + ":" + form.node_prop_title.value + "]";        
+        var title = "[" + mimetype + ":" + form.node_prop_title.value + "]";
         this.tool.createLink(url, null, null, null, title);
         this.shared.newimages = 1;
         this.drawertool.closeDrawer();

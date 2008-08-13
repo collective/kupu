@@ -1,9 +1,9 @@
-body { 
+body {
   overflow: hidden;
 }
 
 body, #footer, #header, #centerColumn, #leftColumn, #kupu-editor, #kupu div.kupu-editorframe,  #kupu, #kupu div.kupu-toolboxes, div.kupu-fulleditor, div.kupu-fulleditor-zoomed, #toolbar, form, input, textarea, iframe#kupu-editor, iframe,
-div.kupu-toolbox, div.kupu-toolbox-active { 
+div.kupu-toolbox, div.kupu-toolbox-active {
   padding-right: 0px;
   padding-left: 0px;
   padding-bottom: 0px;
@@ -18,21 +18,21 @@ div.kupu-toolbox, div.kupu-toolbox-active {
   border-bottom: 0px;
 
 }
-body.kupu-fulleditor-zoomed  { 
+body.kupu-fulleditor-zoomed  {
   position: absolute;
   background-color: white;
 }
 
-form { 
+form {
 
 }
 
 /* Height and width of these are reset in layout.js */
-iframe.kupu-editor-iframe { 
+iframe.kupu-editor-iframe {
   height: 100px;
   width: 100px;
 }
-iframe#kupu-editor { 
+iframe#kupu-editor {
   width: 100px;
   height: 100px;
 }
@@ -62,7 +62,7 @@ iframe#kupu-editor {
 #leftColumn {
   left: 0;
 }
-#nodefields {  
+#nodefields {
   padding-right: 0px;
   padding-left: 0px;
   padding-bottom: 0px;
@@ -71,27 +71,27 @@ iframe#kupu-editor {
   margin-left: 0px;
   margin-bottom: 0px;
   overflow: auto;
-} 
+}
 
 
 #nodefields td {
   vertical-align: top;
 }
-#nodefields p { 
+#nodefields p {
   margin: 0px;
 }
 
 #footer {
-  display: none;          
+  display: none;
   height: 40px;
   padding: 16px 0 0 0;
 }
 
-#toolbar { 
+#toolbar {
   height: 30px;
 }
 
-div.kupu .toolbar { 
+div.kupu .toolbar {
   background-color: green;
  }
 div.kupu-toolboxes {
@@ -107,23 +107,23 @@ textarea.kupu-editor-textarea {
 }
 
 
-#leftColumn form { 
+#leftColumn form {
   display: block;
   margin-right: 2px;
   margin-left: 2px;
 }
 
-#languageSelector { 
+#languageSelector {
   position: absolute;
   top: 0px;
   right: 0px;
   display: inline;
   height: 18px;
   overflow: hidden;
-   
+
 }
 
-#back { 
+#back {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -131,9 +131,17 @@ textarea.kupu-editor-textarea {
   height: 18px;
   overflow: hidden;
   background-color: white;
-   
+
 }
 
-.tree { 
+#save-message {
+  display: inline;
+  height: 18px;
+  position: absolute;
+  left: 18px;
+  top: 0px;
+}
+
+.tree {
   white-space: nowrap;
 }
