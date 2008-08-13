@@ -47,6 +47,12 @@
             </mm:link>
           </a>
         </div>
+        <div id="save-message">
+          <mm:link page="/mmbase/style/ajax-loader.gif">
+            <img id="ajax-loader" style="display: none;" height="20" src="${_}" alt="&amp;lt;" />
+          </mm:link>
+          <span> </span>
+        </div>
         <fmt:message key="Richtext editor" />
         <mm:node number="${node}" notfound="skip">
           <jsp:text> (<mm:nodeinfo type="guitype" />)</jsp:text>

@@ -156,6 +156,7 @@ function addMultiPart(content, a) {
  */
 function saveNode(button, editor) {
     // hmm, i think editor == kupu
+    $("#ajax-loader").css("display", "inline");
     kupu.logMessage(_("Saving body (kupu)") + " " + currentNode);
     editor.saveDocument(undefined, true); // kupu-part of save
     var content = "";
@@ -189,16 +190,27 @@ function saveNode(button, editor) {
             //alert("Posted \n" + content);
             if (request.status == 200) {
                 currentNode = undefined;
-                alert(_("saved") + " " + node);
+		$("#save-message span").each(function() {
+		    $(this).empty();
+		    $(this).append(_("saved") + " " + node);
+		    $(this).fadeIn(400);
+		    var p = this;
+		    $(this).fadeOut(4000, function() {$(p).empty()} );
+		});
                 kupu.logMessage("Reloading " + node);
                 loadedNodes.remove(node);
                 loadedNodeBodies.remove(node);
                 loadNode(node);
-		$("#kupu-save-button").trigger("kupu-saved");
+		try {
+		    $("#kupu-save-button").trigger("kupu-saved");
+		} catch (ex) {
+                    kupu.logMessage(ex);
+		}
             } else {
                 alert(_("Not saved") + " " + node);
                 reloadAfterError();
             }
+	    $("#ajax-loader").css("display", "none");
         }
     }
 
