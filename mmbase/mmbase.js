@@ -160,7 +160,7 @@ function addMultiPart(content, a) {
 /**
  * Called by the save button.
  */
-function saveNode(button, editor) {
+function saveNode(button, editor, async) {
     // hmm, i think editor == kupu
     $("#ajax-loader").css("display", "block");
     kupu.logMessage(_("Saving body (kupu)") + " " + currentNode);
@@ -185,8 +185,7 @@ function saveNode(button, editor) {
     content += "--" + boundary + "\x2D\x2D";
 
     var request = getRequest();
-
-    request.open("POST", "receive.jspx?fields=true", true);
+    request.open("POST", "receive.jspx?fields=true", async || async == null);
     request.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
     request.send(content);
     request.onreadystatechange = function() {
@@ -446,6 +445,6 @@ function saveOnPart() {
     if (kupu.content_changed &&
         confirm(_('You have unsaved changes. Do you want to save before leaving the page?'))) {
         kupu.config.reload_src = 0;
-        saveNode(null, kupu);
+        saveNode(null, kupu, false);
     };
 };
