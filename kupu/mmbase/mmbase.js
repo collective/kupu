@@ -31,6 +31,8 @@ var unloadedTrees    = new Map();
 var uncollapsedNodes = [];
 var loadedNodeBodies = new Map();
 
+var layout = new Layouter();
+
 function startKupu(language) {
     // first let's load the message catalog
     // if there's no global 'i18n_message_catalog' variable available, don't
@@ -86,7 +88,9 @@ function startKupu(language) {
             var child = toolboxes.childNodes[i];
             if (child.className == 'kupu-toolbox') {
                 var heading = child.getElementsByTagName('h1')[0];
-                addEventHandler(heading, 'click', adjustToolBoxesLayout);
+		if (typeof(layout.adjustToolBoxesLayout) != "undefined") {
+                    addEventHandler(heading, 'click', layout.adjustToolBoxesLayout);
+		}
             };
         };
         if (kupu.getBrowserName() == 'IE') {
@@ -102,15 +106,18 @@ function mmbaseInit(node, abs) {
     KupuZoomTool.prototype.origcommandfunc  = KupuZoomTool.prototype.commandfunc;
     KupuZoomTool.prototype.commandfunc = function(button, editor) {
         this.origcommandfunc(button, editor);
+	var mmb = document.getElementById("mmbase-extra");
+	if (mmb.originalDisplay == null) mmb.originalDisplay = mmb.style.display;
         if (this.zoomed == true) {
-            document.getElementById("mmbase-extra").style.display = "none";
+            mmb.style.display = "none";
             //document.getElementById("header").style.display = "none";
         } else {
-            document.getElementById("mmbase-extra").style.display = "block";
-            adjustLayout();
+            mmb.style.display = mmb.originalDisplay;
+            layout.adjust();
         }
     }
-    winOnLoad();
+    layout.winOnLoad();
+
     trunkNumber = node;
     loadNode(node);
 
@@ -325,7 +332,9 @@ function loadNode(nodeNumber) {
 
     currentA = document.getElementById('a_' + currentNode);
     if (currentA != undefined) currentA.className = "current";
-    adjustLayout();
+    if (typeof(adjustLayout) != "undefined") {
+	adjustLayout();
+    }
 
 }
 
