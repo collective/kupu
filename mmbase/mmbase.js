@@ -88,9 +88,7 @@ function startKupu(language) {
             var child = toolboxes.childNodes[i];
             if (child.className == 'kupu-toolbox') {
                 var heading = child.getElementsByTagName('h1')[0];
-		if (typeof(layout.adjustToolBoxesLayout) != "undefined") {
-                    addEventHandler(heading, 'click', layout.adjustToolBoxesLayout);
-		}
+                addEventHandler(heading, 'click', function() { layout.adjustToolBoxes() });
             };
         };
         if (kupu.getBrowserName() == 'IE') {
@@ -332,9 +330,7 @@ function loadNode(nodeNumber) {
 
     currentA = document.getElementById('a_' + currentNode);
     if (currentA != undefined) currentA.className = "current";
-    if (typeof(adjustLayout) != "undefined") {
-	adjustLayout();
-    }
+    layout.adjust();
 
 }
 
