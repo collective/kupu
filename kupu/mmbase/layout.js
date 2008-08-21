@@ -5,7 +5,7 @@ if (document.getElementById || document.all) { // minimum dhtml support required
   window.onload = winOnLoad;
 }
 function winOnLoad() {
-  var ele = document.getElementById('leftColumn');
+  var ele = document.getElementById('mmbase-extra');
   if (ele && xDef(ele.style, ele.offsetHeight)) { // another compatibility check
     adjustLayout();
     addEventHandler(window, 'resize', winOnResize, window);
@@ -49,20 +49,20 @@ function adjustLayout() {
     var leftColumnWidth = 270;
     var maxHeight = xClientHeight() - 20;
     var maxWidth  = xClientWidth() - leftColumnWidth - 4;
-  
+
     // Assign maximum height to all columns
-    xHeight('leftColumn', maxHeight - 3);
+    xHeight('mmbase-extra', maxHeight - 3);
     xHeight('centerColumn', maxHeight);
     xWidth('centerColumn', maxWidth);
     var pattern = new RegExp("\\bmm_validate\\b");
-    var a = document.getElementById('leftColumn').getElementsByTagName('input');    
+    var a = document.getElementById('mmbase-extra').getElementsByTagName('input');
     for (i = 0; i < a.length; i++) {
         if (pattern.test(a[i].className)) {
             xWidth(a[i], leftColumnWidth - 6);
         }
     }
 
-    a = document.getElementById('leftColumn').getElementsByTagName('textarea');
+    a = document.getElementById('mmbase-extra').getElementsByTagName('textarea');
     for (i=0; i < a.length; i++) {
         if (pattern.test(a[i].className)) {
             xWidth(a[i], leftColumnWidth - 6);
@@ -93,6 +93,6 @@ function adjustLayout() {
 
     xHeight("mmbase-tools", toolsHeight);
 
-    
+
 }
 

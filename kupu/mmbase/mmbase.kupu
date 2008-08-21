@@ -1,8 +1,9 @@
-<kupu:feature name="mmbase" implementation="mmbase"
-              xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
-              xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
-              xmlns:jsp="http://java.sun.com/JSP/Page"
-              xmlns:kupu="http://kupu.oscom.org/namespaces/dist" >
+<kupu:feature
+    name="mmbase" implementation="mmbase"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:kupu="http://kupu.oscom.org/namespaces/dist" >
 
   <kupu:part name="tools-div">
     <div id="mmbase-tools">
@@ -33,9 +34,36 @@
     </div>
   </kupu:part>
 
+  <kupu:part name="import-variables">
+    <mm:import externid="objectnumber"  />
+    <mm:import externid="tools"  />
+    <mm:import externid="origin"  />
+    <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
+    <mm:import externid="templates">${mm:directory(header.referer)}</mm:import>
+    <mm:import externid="javascript">${mm:directory(header.referer)}</mm:import>
+  </kupu:part>
+
   <kupu:part name="styles">
     <link href="mmbase.css" rel="stylesheet" type="text/css" />
+    <!-- custom style -->
+    <mm:haspage page="${templates}/kupu.css">
+      <mm:link page="${templates}/kupu.cc">
+        <link href="${_}" rel="stylesheet" type="text/css" />
+      </mm:link>
+    </mm:haspage>
   </kupu:part>
+
+  <kupu:part name="jsincludes">
+    <!-- custom java script -->
+    <mm:haspage page="${javascript}/kupu.js">
+      <mm:link page="${javascript}/kupu.js">
+        <script type="text/javascript" src="${_}">
+          <jsp:text> </jsp:text>
+        </script>
+      </mm:link>
+    </mm:haspage>
+  </kupu:part>
+
 
   <kupu:part name="header">
     <div id="header">
@@ -47,10 +75,12 @@
             </mm:link>
           </a>
         </div>
-        <div id="save-message">
+        <div id="ajax-loader" style="display: none;">
           <mm:link page="/mmbase/style/ajax-loader.gif">
-            <img id="ajax-loader" style="display: none;" height="20" src="${_}" alt="&amp;lt;" />
+            <img  src="${_}" alt="*" />
           </mm:link>
+        </div>
+        <div id="save-message">
           <span> </span>
         </div>
         <fmt:message key="Richtext editor" />
@@ -82,8 +112,8 @@
   </kupu:part>
 
   <kupu:part name="navigate">
-    <div id="leftColumn">
-      <div id="leftColumnContent">
+    <div id="mmbase-extra">
+      <div>
         <kupu:insert-part feature="mmbase"     part="tools-div" />
         <kupu:insert-part feature="mmbase"     part="node-div" />
         <kupu:insert-part feature="mmbase"     part="preview-div" />

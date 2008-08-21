@@ -2,7 +2,12 @@ body {
   overflow: hidden;
 }
 
-body, #footer, #header, #centerColumn, #leftColumn, #kupu-editor, #kupu div.kupu-editorframe,  #kupu, #kupu div.kupu-toolboxes, div.kupu-fulleditor, div.kupu-fulleditor-zoomed, #toolbar, form, input, textarea, iframe#kupu-editor, iframe,
+body, #footer, #header, #centerColumn, #mmbase-extra,
+#kupu-editor, #kupu div.kupu-editorframe,
+#kupu,
+#kupu div.kupu-toolboxes,
+div.kupu-fulleditor, div.kupu-fulleditor-zoomed, #toolbar,
+form, input, textarea, iframe#kupu-editor, iframe,
 div.kupu-toolbox, div.kupu-toolbox-active {
   padding-right: 0px;
   padding-left: 0px;
@@ -51,15 +56,13 @@ iframe#kupu-editor {
   margin-left: 270px;
   margin-right: 0px;
 }
-#leftColumn {
+#mmbase-extra {
   position: absolute;
   width: 270px;
   margin: 0;
   padding: 0;
   font-size: small;
   overflow: hidden;
-}
-#leftColumn {
   left: 0;
 }
 #nodefields {
@@ -107,7 +110,7 @@ textarea.kupu-editor-textarea {
 }
 
 
-#leftColumn form {
+#mmbase-tools form {
   display: block;
   margin-right: 2px;
   margin-left: 2px;
@@ -123,23 +126,30 @@ textarea.kupu-editor-textarea {
 
 }
 
-#back {
+#back, #ajax-loader {
   position: absolute;
+  display: block;
   top: 0px;
   left: 0px;
-  display: inline;
   height: 18px;
   overflow: hidden;
   background-color: white;
-
+  z-index: 0;
 }
 
 #save-message {
-  display: inline;
-  height: 18px;
   position: absolute;
+  display: block;
+  height: 18px;
   left: 18px;
   top: 0px;
+}
+
+#ajax-loader {
+  z-index: 100;
+}
+#ajax-loader img {
+  height: 18px;
 }
 
 .tree {

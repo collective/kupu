@@ -103,10 +103,10 @@ function mmbaseInit(node, abs) {
     KupuZoomTool.prototype.commandfunc = function(button, editor) {
         this.origcommandfunc(button, editor);
         if (this.zoomed == true) {
-            document.getElementById("leftColumn").style.display = "none";
+            document.getElementById("mmbase-extra").style.display = "none";
             //document.getElementById("header").style.display = "none";
         } else {
-            document.getElementById("leftColumn").style.display = "block";
+            document.getElementById("mmbase-extra").style.display = "block";
             adjustLayout();
         }
     }
@@ -151,12 +151,13 @@ function addMultiPart(content, a) {
     return content;
 }
 
+
 /**
  * Called by the save button.
  */
 function saveNode(button, editor) {
     // hmm, i think editor == kupu
-    $("#ajax-loader").css("display", "inline");
+    $("#ajax-loader").css("display", "block");
     kupu.logMessage(_("Saving body (kupu)") + " " + currentNode);
     editor.saveDocument(undefined, true); // kupu-part of save
     var content = "";
