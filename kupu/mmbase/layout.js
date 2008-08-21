@@ -6,7 +6,8 @@ Layouter.prototype.winOnLoad = function() {
     var ele = document.getElementById('mmbase-extra');
     if (ele && xDef(ele.style, ele.offsetHeight)) { // another compatibility check
 	this.adjust();
-	addEventHandler(window, 'resize', this.winOnResize, window);
+	var self = this;
+	addEventHandler(window, 'resize', function() {self.winOnResize()}, window);
     }
 }
 Layouter.prototype.winOnResize = function() {
@@ -19,9 +20,12 @@ Layouter.prototype.maxHeight = function() {
 Layouter.prototype.leftWidth = function () {
     return 270;
 }
+Layouter.prototype.rightWidth = function () {
+    return 201;
+}
 
 Layouter.prototype.maxWidth = function () {
-    return xClientWidth() - this.leftWidth() - 4;
+    return xClientWidth() - this.leftWidth() -  this.rightWidth() - 4;
 }
 
 Layouter.prototype.rePosition = function(id) {
@@ -53,22 +57,30 @@ Layouter.prototype.adjustToolBoxes = function() {
 }
 Layouter.prototype.adjustMMBaseExtra = function() {
     var maxHeight = this.maxHeight();
-    var leftWidth = this.leftWidth();
     xHeight('mmbase-extra', maxHeight - 3);
+    this.adjustMMBaseExtraElements();
+}
+
+Layouter.prototype.mmbaseExtraWidth = function() {
+    return this.leftWidth() - 6;
+}
+Layouter.prototype.adjustMMBaseExtraElements = function() {
+    var width = this.mmbaseExtraWidth();
     var pattern = new RegExp("\\bmm_validate\\b");
     var a = document.getElementById('mmbase-extra').getElementsByTagName('input');
     for (i = 0; i < a.length; i++) {
         if (pattern.test(a[i].className)) {
-            xWidth(a[i], leftWidth - 6);
+            xWidth(a[i], width);
         }
     }
     a = document.getElementById('mmbase-extra').getElementsByTagName('textarea');
     for (i=0; i < a.length; i++) {
         if (pattern.test(a[i].className)) {
-            xWidth(a[i], leftWidth - 6);
+            xWidth(a[i], width);
         }
     }
 }
+
 Layouter.prototype.adjustMMBaseTools = function() {
     var maxHeight = this.maxHeight();
     var nodeHeight = xHeight('nodefields');
@@ -92,7 +104,7 @@ Layouter.prototype.adjustKupu = function () {
     }
     xHeight("toolboxes", maxHeight);
     xHeight("kupu-editor", maxHeightArea - 3);
-    xWidth("kupu-editor", maxWidth - 201);
+    xWidth("kupu-editor", maxWidth);
 }
 
 Layouter.prototype.adjust = function() {
