@@ -41,14 +41,15 @@
     <mm:import externid="origin"  />
     <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:import externid="templates">${mm:directory(header.referer)}</mm:import>
-    <mm:import externid="javascript">${templates}</mm:import>
+    <mm:import externid="style">${templates}</mm:import>
+    <mm:import externid="javascript">${style}</mm:import>
   </kupu:part>
 
   <kupu:part name="styles">
     <link href="mmbase.css" rel="stylesheet" type="text/css" />
     <!-- custom style -->
-    <mm:haspage page="${templates}/kupu.css">
-      <mm:link page="${templates}/kupu.css">
+    <mm:haspage page="${style}/kupu.css">
+      <mm:link page="${style}/kupu.css">
         <link href="${_}" rel="stylesheet" type="text/css" />
       </mm:link>
     </mm:haspage>
