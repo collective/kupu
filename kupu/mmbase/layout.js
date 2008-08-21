@@ -107,10 +107,18 @@ Layouter.prototype.adjustKupu = function () {
     xWidth("kupu-editor", maxWidth);
 }
 
-Layouter.prototype.adjust = function() {
-    var zoomTool = kupu.getTool("zoomtool");
-    if (zoomTool && zoomTool.zoomed) return;
+Layouter.prototype.adjustZoomed = function() {
+}
+Layouter.prototype.adjustUnzoomed = function() {
+}
 
+Layouter.prototype.adjust = function(zoom) {
+    if (zoom) {
+	Layouter.prototype.adjustZoomed();
+	return;
+    }
+
+    Layouter.prototype.adjustUnzoomed();
     var maxHeight = this.maxHeight();
     var maxWidth  = this.maxWidth();
 

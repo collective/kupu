@@ -108,6 +108,7 @@ function mmbaseInit(node, abs) {
 	if (mmb.originalDisplay == null) mmb.originalDisplay = mmb.style.display;
         if (this.zoomed == true) {
             mmb.style.display = "none";
+	    layout.adjust(true);
             //document.getElementById("header").style.display = "none";
         } else {
             mmb.style.display = mmb.originalDisplay;
