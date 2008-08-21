@@ -10,15 +10,21 @@
 
   <kupu:fill-slot name="head">
     <kupu:insert-part feature="head"        part="meta" />
+    <kupu:insert-part feature="mmbase"      part="import-variables" />
+
     <kupu:insert-part feature="head"        part="styles" />
     <kupu:insert-part feature="drawers"     part="styles" />
     <kupu:insert-part feature="mmbase"      part="styles" />
+
     <kupu:insert-part feature="head"        part="jsincludes" />
     <kupu:insert-part feature="contextmenu" part="jsincludes" />
+    <kupu:insert-part feature="mmbase"      part="jsincludes" />
+
     <kupu:insert-part feature="head"        part="bootstrap-editor" />
+
     <kupu:insert-part feature="saveonpart"  part="jsincludes" />
     <!-- kupu:insert-part feature="sourceedit"  part="jsincludes" /-->
-    <!-- kupu:insert-part feature="spellchecker" part="jsincludes" /-->
+    <!--kupu:insert-part feature="spellchecker" part="jsincludes" /-->
     <kupu:insert-part feature="drawers"     part="jsincludes" />
   </kupu:fill-slot>
 

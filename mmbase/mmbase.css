@@ -15,7 +15,7 @@ ul, ol {
 li {
   margin-left: 0px;
  }
-#leftColumnContent a:hover {
+#mmbase-extra div a:hover {
   background-color: #76a2b6;
 }
 
@@ -23,7 +23,7 @@ img {
   border: 0;
 }
 
-#header, #leftColumn {
+#header, #mmbase-extra {
   background-color: #527d94;
   color: #fff;
 }
