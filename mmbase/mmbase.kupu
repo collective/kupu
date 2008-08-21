@@ -1,6 +1,7 @@
 <kupu:feature
     name="mmbase" implementation="mmbase"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:jsp="http://java.sun.com/JSP/Page"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist" >
@@ -40,14 +41,14 @@
     <mm:import externid="origin"  />
     <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:import externid="templates">${mm:directory(header.referer)}</mm:import>
-    <mm:import externid="javascript">${mm:directory(header.referer)}</mm:import>
+    <mm:import externid="javascript">${templates}</mm:import>
   </kupu:part>
 
   <kupu:part name="styles">
     <link href="mmbase.css" rel="stylesheet" type="text/css" />
     <!-- custom style -->
     <mm:haspage page="${templates}/kupu.css">
-      <mm:link page="${templates}/kupu.cc">
+      <mm:link page="${templates}/kupu.css">
         <link href="${_}" rel="stylesheet" type="text/css" />
       </mm:link>
     </mm:haspage>
@@ -92,6 +93,8 @@
             <input type="hidden" name="objectnumber" value="${node}" />
             <input type="hidden" name="tools" value="${tools}" />
             <input type="hidden" name="kupu_back" value="${back}" />
+            <input type="hidden" name="templates" value="${templates}" />
+            <input type="hidden" name="javascript" value="${javascript}" />
             <select onChange="document.forms['languageform'].submit();" name="language">
               <mm:compare referid="rich_language" value="client">
                 <option value="client" selected="selected"><fmt:message key="default" /></option>
@@ -100,8 +103,8 @@
                 <option value="client"><fmt:message key="default" /></option>
               </mm:compare>
               <mm:import id="languages" vartype="list">en,zh,ja,de,fr,pt,nl,da,cs,fi,el,sr,eo,hi</mm:import>
-              <mm:stringlist referid="languages">
-                <mm:import id="gui"><mm:locale language="${_}" jspvar="locale"><jsp:expression>locale.getDisplayName(locale)</jsp:expression></mm:locale></mm:import>
+              <mm:stringlist referid="languages" jspvar="l">
+                <c:set var="gui"><jsp:expression>new java.util.Locale(l).getDisplayName(new java.util.Locale(l))</jsp:expression></c:set>
                 <mm:option value="${_}" compare="${rich_language}">${gui}</mm:option>
               </mm:stringlist>
             </select>
