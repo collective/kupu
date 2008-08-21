@@ -3,6 +3,7 @@
     name="toolbar"
     implementation="mmbase"
     xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
@@ -39,13 +40,16 @@
 
   <kupu:part name="logo">
     <span class="kupu-tb-buttongroup kupu-logo" style="float: right">
-      <button type="button" class="kupu-logo" title="Kupu SVN/unreleased" 
+      <button type="button" class="kupu-logo" title="Kupu SVN/unreleased"
               id="kupu-logo-button" i18n:attributes="title title_logo;"
               onclick="window.open('http://kupu.oscom.org');"
               >&#160;</button>
-      <button type="button" class="mmbase-logo" title="MMBase 1.8"  id="mmbase-logo-button"
-              onclick="window.open('http://www.mmbase.org');"
-              >&#160;</button>
+      <mm:cloudinfo type="mmbaseversion">
+
+        <button type="button" class="mmbase-logo" title="${_}"  id="mmbase-logo-button"
+                onclick="window.open('http://www.mmbase.org');"
+                >&#160;</button>
+      </mm:cloudinfo>
     </span>
   </kupu:part>
 
