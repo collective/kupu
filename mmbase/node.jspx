@@ -39,7 +39,7 @@
                   <mm:fieldlist id="field" type="edit" varStatus="status">
                     <mm:fieldinfo type="name">
                       <mm:compare value="body" inverse="true">
-                        <p class="${status.current.name}">
+                        <p class="mm_f_${status.current.name} ${status.current.readOnly ? 'readonly' : ''} mm_state_${status.current.state} ${status.current.virtual ? 'virtual' : ''} ${status.current.required ? 'required' : ''}">
                           <span class="name"><mm:fieldinfo type="guiname" /></span>
                           <jsp:text> </jsp:text>
                           <span class="value">
