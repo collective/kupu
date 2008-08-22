@@ -25,7 +25,7 @@
         <mm:import id="repository" from="session" externid="${prefix}repository"  required="true"/>
         <mm:import id="current"    from="session" externid="${prefix}current"    required="true"/>
 
-        <div class="kupu-toolbox left-box" >
+        <div class="kupu-toolbox extra-box" >
           <h1 class="kupu-toolbox-heading-closed" title="click to fold">${currentTitle}</h1>
           <div>
             <mm-sr:relate repository="${repository}"
