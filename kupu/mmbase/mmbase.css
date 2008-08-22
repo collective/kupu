@@ -211,12 +211,12 @@ button.mmbase-logo {background-image: url("mmbase.png");}
 }
 
 
-div.kupu-toolbox.left-box {
+div.kupu-toolbox.extra-box {
   width: 260px;
   left: 0px;
 }
 
-div.kupu-toolbox.left-box h1 {
+div.kupu-toolbox.extra-box h1 {
   color: black;
 }
 
