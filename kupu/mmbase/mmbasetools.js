@@ -110,8 +110,8 @@ function DivsToolBox(insertbuttonid, classselectid, toolboxid, plainclass, activ
 DivsToolBox.prototype.initialize = function(tool, editor) {
     this.tool = tool;
     this.editor = editor;
-    //addEventHandler(this.classselect, "change", this.setDivClass, this);
-    //addEventHandler(this.insertbutton, "click", this.addDiv, this);
+    addEventHandler(this.classselect, "change", this.setDivClass, this);
+    addEventHandler(this.insertbutton, "click", this.addDiv, this);
 };
 
 DivsToolBox.prototype.updateState = function(selNode, event) {
