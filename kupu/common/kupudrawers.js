@@ -276,6 +276,7 @@ proto.anchorframe_loaded = function() {
 
 proto.showAnchors = function(selected) {
     var select = this.anchorSelect();
+    if (select == undefined) return;
     var opts = select.options;
 
     while (opts.length > 1) opts[1] = null;
