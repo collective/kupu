@@ -300,6 +300,7 @@ function loadNode(nodeNumber) {
     // request to node.jspx, should have put the node in the session
     if (success) {
         nodeDiv.innerHTML = nodeXml;
+	kupu.logMessage($(nodeDiv).find("div").attr("class"));
     }
 
 
