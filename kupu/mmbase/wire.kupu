@@ -8,6 +8,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
 
+
   <kupu:fill-slot name="head">
     <kupu:insert-part feature="head"        part="meta" />
     <kupu:insert-part feature="mmbase"      part="import-variables" />
@@ -38,6 +39,11 @@
     <!--
     <kupu:insert-part feature="body"       part="fulleditor" />
     -->
+  </kupu:fill-slot>
+
+  <kupu:fill-slot name="blockdiv">
+    <kupu:insert-part feature="head" part="head" />
+    <kupu:insert-part feature="body" part="body" />
   </kupu:fill-slot>
 
   <kupu:fill-slot name="fulleditor">
