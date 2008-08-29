@@ -40,7 +40,7 @@
     <mm:import externid="librarysize">50</mm:import>
     <image_xsl_uri>drawers/drawer.xsl.jspx</image_xsl_uri>
     <link_xsl_uri>drawers/drawer.xsl.jspx</link_xsl_uri>
-    
+
     <image_libraries_uri>drawers/libraries.jspx?nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</image_libraries_uri>
     <link_libraries_uri>drawers/libraries.jspx?nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</link_libraries_uri>
 
@@ -64,31 +64,58 @@
     <div id="kupu-linkdrawer" class="kupu-drawer kupu-linkdrawer">
       <h1 i18n:translate="title_ext_link">External Link</h1>
       <div id="kupu-linkdrawer-addlink" class="kupu-panels kupu-linkdrawer-addlink">
-        <table>
-        <tr><td><div class="kupu-toolbox-label">
+        <table class="kupu-tabbed">
+          <tbody class="kupu-addlink">
+            <tr><td><div class="kupu-toolbox-label">
 
-          <span i18n:translate="label_link_text">Link the highlighted text to this URL:</span>
-        </div>
+              <span i18n:translate="label_link_text">Link the highlighted text to this URL:</span>
+            </div>
 
-        <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" />
-        </td><td class="kupu-preview-button">
-        <button type="button"
-                onclick="drawertool.current_drawer.preview()"
-                i18n:translate="button_preview">Preview</button>
-        </td></tr>
-        <tr class="kupu-linkdrawer-anchors" style="display:none">
-          <td colspan="2">
-            <label
-                  i18n:translate="label_anchor">Anchor<select><option
-                  i18n:translate="opt_top_of_page" value="">top of page (default)</option></select></label> 
-          </td>
-        </tr>
-        <tr><td colspan="2" align="center">
-        <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                class="kupu-linkdrawer-preview" src="${abs}/../../common/kupublank.html"><jsp:text>
-        </jsp:text>
-        </iframe>
-        </td></tr>
+            <input class="kupu-toolbox-st kupu-linkdrawer-input" type="text" />
+            </td><td class="kupu-preview-button">
+            <button type="button"
+                    onclick="drawertool.current_drawer.preview()"
+                    i18n:translate="button_preview">Preview</button>
+            </td></tr>
+            <tr class="kupu-linkdrawer-anchors" style="display:none">
+              <td colspan="2">
+                <label
+                    i18n:translate="label_anchor">Anchor<select><option
+                    i18n:translate="opt_top_of_page" value="">top of page (default)</option></select></label>
+              </td>
+            </tr>
+            <tr><td colspan="2" align="center">
+              <div class="watermark"><span i18n:translate="">Preview</span></div>
+              <iframe frameborder="1" scrolling="auto" width="440" height="198"
+                      class="kupu-linkdrawer-preview" src="${abs}/../../common/kupublank.html"><jsp:text>
+              </jsp:text>
+              </iframe>
+            </td></tr>
+          </tbody>
+          <tbody class="kupu-embed">
+            <tr>
+              <td>
+                <div class="kupu-toolbox-label">
+                  <!-- Link to items matching the keyword  -->
+                  <span i18n:translate="help_paste_here">
+                    Paste &lt;object&gt; or &lt;embed&gt; tag here:
+                  </span>
+                </div>
+                <textarea
+                    class="kupu-toolbox-st kupu-embed-input"
+                    i18n:translate="placeholder_html_code">[insert arbitrary HTML code here]</textarea>
+              </td>
+            </tr>
+            <tr>
+              <td i18n:translate="custom_html_help">
+                You may use this box to insert custom snippets of
+                HTML code. There is no guarantee that any code
+                inserted in this way will be preserved when you save
+                your edits. To select an existing object from IE click on
+                the border, from Firefox double click it.
+              </td>
+            </tr>
+          </tbody>
         </table>
         <div class="kupu-dialogbuttons">
           <button type="button"
