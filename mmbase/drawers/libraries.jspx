@@ -25,6 +25,7 @@
           </mm:hasrelationmanager>
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel" inverse="true">
             Cannot make relations beteeen ${s} and ${_}.
+            <mm:log> Cannot make relations beteeen ${s} and ${_}.</mm:log>
           </mm:hasrelationmanager>
         </mm:hasnodemanager>
       </mm:stringlist>
