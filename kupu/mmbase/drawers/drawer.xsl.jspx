@@ -62,7 +62,6 @@ $Id$
       (Called in 'panel' mode)
   -->
   <xsl:template match="uploadbutton" mode="upload">
-    bla bla bla
     <xsl:apply-templates select="." mode="image-upload" />
   </xsl:template>
 
