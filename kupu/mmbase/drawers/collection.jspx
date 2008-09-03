@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<mm:content 
-    xmlns:jsp="http://java.sun.com/JSP/Page" 
-    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
-    type="text/xml" 
+<mm:content
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    type="text/xml"
     expires="-1">
   <jsp:directive.page session="true" errorPage="../error.jspx" />
   <mm:import externid="search" />
@@ -18,7 +18,8 @@
       <mm:import externid="source" />
 
       <mm:context scope="request" id="drawer">
-        <mm:listnodescontainer id="query" type="$nodetype">          
+
+        <mm:listnodescontainer id="query" type="$nodetype">
           <mm:present referid="source">
             <mm:constraint field="number" inverse="true" value="${source}" />
           </mm:present>
@@ -31,7 +32,7 @@
           </mm:haspage>
           <mm:haspage page="${nodetype}.items.jspx" inverse="true">
             <mm:include referids="kupubasedir,max" page="texts.items.jspx" />
-          </mm:haspage>         
+          </mm:haspage>
         </mm:listnodescontainer>
       </mm:context>
     </mm:cloud>
