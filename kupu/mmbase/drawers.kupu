@@ -4,6 +4,7 @@
     implementation="mmbase"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:jsp="http://java.sun.com/JSP/Page"
@@ -36,13 +37,30 @@
   </kupu:part>
 
   <kupu:part name="xmlconfig">
-    <mm:import externid="link_nodetypes">urls,segments,attachments</mm:import>
+    <mm:import externid="link_nodetypes" vartype="list">images,urls,segments,attachments</mm:import>
     <mm:import externid="librarysize">50</mm:import>
     <image_xsl_uri>drawers/drawer.xsl.jspx</image_xsl_uri>
     <link_xsl_uri>drawers/drawer.xsl.jspx</link_xsl_uri>
 
-    <image_libraries_uri>drawers/libraries.jspx?nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</image_libraries_uri>
-    <link_libraries_uri>drawers/libraries.jspx?nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</link_libraries_uri>
+    <mm:import id="inline_nodetypes" vartype="list">
+      <c:forEach items="${link_nodetypes}" var="nm">
+        <mm:property nodemanager="${nm}" name="Content-Disposition">
+          <mm:compare value="inline">${nm},</mm:compare>
+        </mm:property>
+      </c:forEach>
+    </mm:import>
+
+    <mm:import id="attachment_nodetypes" vartype="list">
+      <c:forEach items="${link_nodetypes}" var="nm">
+        <mm:property nodemanager="${nm}" name="Content-Disposition">
+          <mm:compare value="inline" inverse="true">${nm},</mm:compare>
+        </mm:property>
+      </c:forEach>
+    </mm:import>
+
+    <image_libraries_uri>drawers/libraries.jspx?nodetypes=${inline_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</image_libraries_uri>
+
+    <link_libraries_uri>drawers/libraries.jspx?nodetypes=${attachment_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</link_libraries_uri>
 
     <search_images_uri>drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</search_images_uri>
     <search_links_uri> drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=${link_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</search_links_uri>
