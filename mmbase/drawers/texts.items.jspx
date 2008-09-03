@@ -3,8 +3,8 @@
     Needs: a request context 'drawer', containing a listcontainer 'query'.
 -->
 <mm:context
-    xmlns:jsp="http://java.sun.com/JSP/Page" 
-    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0" 
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
   <mm:import externid="kupubasedir" reset="true" />
@@ -14,10 +14,13 @@
         <mm:context>
           <mm:listnodes id="text">
             <mm:nodeinfo type="nodemanager" id="nm" write="false" />
-            <resource id="${text.number}">          
+            <resource id="${text.number}">
               <uri>mmbase://${nm}/${text.number}</uri>
-              <title><mm:hasfunction name="icon" inverse="true"><mm:nodeinfo type="guinodemanager" />: </mm:hasfunction><mm:function name="gui" write="true"><mm:isempty><mm:field name="number" /></mm:isempty></mm:function></title>
-              <description><mm:nodeinfo type="guitype" />: <mm:function name="gui" /></description>
+              <title>
+                <mm:hasfunction name="icon" inverse="true"><mm:nodeinfo type="guinodemanager" />: </mm:hasfunction>
+                <mm:function name="gui" write="true" escape="none"><mm:isempty><mm:field name="number" /></mm:isempty></mm:function>
+              </title>
+              <description><mm:nodeinfo type="guitype" />: <mm:function name="gui" escape="none" /></description>
               <mm:hasfunction name="icon">
                 <icon><mm:function name="icon" /></icon>
               </mm:hasfunction>
