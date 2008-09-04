@@ -39,6 +39,7 @@
     <mm:import externid="objectnumber"  />
     <mm:import externid="tools"  />
     <mm:import externid="origin"  />
+    <mm:import externid="prefix"  />
     <mm:import id="back" externid="kupu_back">${header.referer}</mm:import>
     <mm:import externid="templates">${mm:directory(header.referer)}</mm:import>
     <mm:import externid="style">${templates}</mm:import>
