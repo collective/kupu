@@ -44,17 +44,21 @@
 
     <mm:import id="inline_nodetypes" vartype="list">
       <c:forEach items="${link_nodetypes}" var="nm">
-        <mm:property nodemanager="${nm}" name="Content-Disposition">
-          <mm:compare value="inline">${nm},</mm:compare>
-        </mm:property>
+        <mm:hasnodemanager name="${nm}">
+          <mm:property nodemanager="${nm}" name="Content-Disposition">
+            <mm:compare value="inline">${nm},</mm:compare>
+          </mm:property>
+        </mm:hasnodemanager>
       </c:forEach>
     </mm:import>
 
     <mm:import id="attachment_nodetypes" vartype="list">
       <c:forEach items="${link_nodetypes}" var="nm">
-        <mm:property nodemanager="${nm}" name="Content-Disposition">
-          <mm:compare value="inline" inverse="true">${nm},</mm:compare>
-        </mm:property>
+        <mm:hasnodemanager name="${nm}">
+          <mm:property nodemanager="${nm}" name="Content-Disposition">
+            <mm:compare value="inline" inverse="true">${nm},</mm:compare>
+          </mm:property>
+        </mm:hasnodemanager>
       </c:forEach>
     </mm:import>
 
