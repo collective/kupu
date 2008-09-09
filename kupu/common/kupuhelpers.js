@@ -491,6 +491,7 @@ function MozillaSelection(document) {
 
     this.collapse = function(collapseToEnd) {
         try {
+            if (!this.selection) this.reset();
             if (!collapseToEnd) {
                 this.selection.collapseToStart();
             } else {
@@ -783,6 +784,9 @@ function MozillaSelection(document) {
     this.parentElement = function(allowmulti) {
         /* return the selected node (or the node containing the selection) */
         // XXX this should be on a range object
+        if (!this.selection) {
+            return null;
+        }
         if (this.selection.rangeCount == 0) {
             var parent = this.document.getDocument().body;
             while (parent.firstChild) {
@@ -1003,7 +1007,7 @@ function MozillaSelection(document) {
     };
 
     this.getRange = function() {
-        if (this.selection) {
+        if (this.selection && this.selection.rangeCount > 0) {
             return this.selection.getRangeAt(0);
         }
     };
