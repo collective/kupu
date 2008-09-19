@@ -35,9 +35,10 @@ See also: common/kupu.pox.jspx (which can be used by i18n.js)
    xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
    xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+   xmlns="http://www.w3.org/1999/xhtml"
    xmlns:html="http://www.w3.org/1999/xhtml"
    xmlns:jsp="http://java.sun.com/JSP/Page"
-   exclude-result-prefixes="kupu"
+   exclude-result-prefixes="kupu html"
    version="1.0"
    >
   <xsl:import href="make.xsl" />
