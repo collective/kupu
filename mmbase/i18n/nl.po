@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mmbase 19\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-06 14:05+0100\n"
-"PO-Revision-Date: 2007-02-06 14:06+0100\n"
+"POT-Creation-Date: 2008-09-19 17:41+0200\n"
+"PO-Revision-Date: 2008-09-19 17:49+0200\n"
 "Last-Translator: Michiel Meeuwissen <mihxil@xs4all.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,51 +16,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: mmbase.js:141 mmbase.js:158 mmbase.js:159
+#: mmbase.js:141 mmbase.js:158 mmbase.js:159 mmbase.js:167
 msgid "Saving body (kupu)"
 msgstr "Schrijft tekst weg (kupu)"
 
-#: mmbase.js:144 mmbase.js:161 mmbase.js:162
+#: mmbase.js:144 mmbase.js:161 mmbase.js:162 mmbase.js:170
 msgid "Saving fields (form)"
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:173 mmbase.js:191 mmbase.js:192
+#: mmbase.js:173 mmbase.js:191 mmbase.js:192 mmbase.js:201
 msgid "saved"
 msgstr "opgeslagen"
 
-#: mmbase.js:202 mmbase.js:242 mmbase.js:243
+#: mmbase.js:202 mmbase.js:242 mmbase.js:243 mmbase.js:262
 msgid "RELOAD"
 msgstr "Herladen"
 
-#: mmbase.js:223 mmbase.js:264
+#: mmbase.js:223 mmbase.js:264 mmbase.js:283
 msgid "Getting node fields for "
 msgstr "Haalt velden (formulier) voor"
 
-#: mmbase.js:231 mmbase.js:275
+#: mmbase.js:231 mmbase.js:275 mmbase.js:294
 msgid "Loading node fields for "
 msgstr "Schrijft velden weg (formulier)"
 
-#: mmbase.js:243 mmbase.js:289
+#: mmbase.js:243 mmbase.js:289 mmbase.js:309
 msgid "Getting node body "
 msgstr "Haalt node text"
 
-#: mmbase.js:250 mmbase.js:300 mmbase.js:299
+#: mmbase.js:250 mmbase.js:300 mmbase.js:299 mmbase.js:319
 msgid "Loading node body "
 msgstr "Haalt node op"
 
-#: mmbasetools.js:13 mmbasetools.js:14
+#: mmbasetools.js:13 mmbasetools.js:14 divstool.js:17
 msgid "Div tool initialized"
 msgstr "Blok-tool geinitialiseerd"
 
-#: mmbasetools.js:39 mmbasetools.js:40 mmbasetools.js:48
+#: mmbasetools.js:39 mmbasetools.js:40 mmbasetools.js:48 divstool.js:50
 msgid "Found paragraph"
 msgstr "Alinea gevonden"
 
-#: mmbasetools.js:43 mmbasetools.js:44 mmbasetools.js:52
+#: mmbasetools.js:43 mmbasetools.js:44 mmbasetools.js:52 divstool.js:54
 msgid "Didn't find paragraph"
 msgstr "Geen alinea gevonden"
 
-#: mmbasetools.js:48 mmbasetools.js:50 mmbasetools.js:57
+#: mmbasetools.js:48 mmbasetools.js:50 mmbasetools.js:57 divstool.js:59
 msgid "Div inserted"
 msgstr "Blok ingevoegd"
 
@@ -73,6 +73,7 @@ msgid "Normal"
 msgstr "Normaal"
 
 #: phony.js:3 phony.js:5 phony.js:2 phony.js:1 phony.js:116 phony.js:118
+#: phony.js:4
 msgid "Richtext editor"
 msgstr "Richtext editor"
 
@@ -84,23 +85,23 @@ msgstr ""
 msgid "default"
 msgstr "default"
 
-#: phony.js:7 phony.js:4 phony.js:6 phony.js:110 phony.js:123
+#: phony.js:7 phony.js:4 phony.js:6 phony.js:110 phony.js:123 phony.js:8
 msgid "Block"
 msgstr "Blok"
 
-#: phony.js:8 phony.js:5 phony.js:7 phony.js:111 phony.js:124
+#: phony.js:8 phony.js:5 phony.js:7 phony.js:111 phony.js:124 phony.js:9
 msgid "Block class"
 msgstr "Blok-soort"
 
-#: phony.js:9 phony.js:6 phony.js:8 phony.js:112 phony.js:125
+#: phony.js:9 phony.js:6 phony.js:8 phony.js:112 phony.js:125 phony.js:10
 msgid "Note left"
 msgstr "Noot (links)"
 
-#: phony.js:10 phony.js:7 phony.js:9 phony.js:113 phony.js:126
+#: phony.js:10 phony.js:7 phony.js:9 phony.js:113 phony.js:126 phony.js:11
 msgid "Note right"
 msgstr "Noot (rechts)"
 
-#: phony.js:11 phony.js:8 phony.js:10 phony.js:114 phony.js:127
+#: phony.js:11 phony.js:8 phony.js:10 phony.js:114 phony.js:127 phony.js:12
 msgid "Insert block"
 msgstr "Voeg blok in"
 
@@ -112,19 +113,19 @@ msgstr "sterker: alt-b"
 msgid "emphasis: alt-i"
 msgstr "benadrukt: alt-i"
 
-#: mmbase.js:197 mmbase.js:198
+#: mmbase.js:197 mmbase.js:198 mmbase.js:216
 msgid "Not saved"
 msgstr "Niet opgeslagen"
 
-#: mmbase.js:215 mmbase.js:216
+#: mmbase.js:215 mmbase.js:216 mmbase.js:235
 msgid "Reinited "
 msgstr "Herladen "
 
-#: phony.js:4 phony.js:88 phony.js:120
+#: phony.js:4 phony.js:88 phony.js:120 phony.js:5
 msgid "Left (Big)"
 msgstr "Links (Groot)"
 
-#: phony.js:5 phony.js:89 phony.js:121
+#: phony.js:5 phony.js:89 phony.js:121 phony.js:6
 msgid "Right (Big)"
 msgstr "Rechts (Groot)"
 
@@ -158,7 +159,7 @@ msgstr ""
 #: phony.js:3 phony.js:18 phony.js:19 phony.js:20 phony.js:21 phony.js:22
 #: phony.js:23 phony.js:26
 msgid "title"
-msgstr ""
+msgstr "Titel"
 
 #: phony.js:3
 msgid "window.open('http://kupu.oscom.org');"
@@ -214,7 +215,7 @@ msgstr ""
 
 #: phony.js:18
 msgid "image"
-msgstr ""
+msgstr "plaatjes"
 
 #: phony.js:18
 msgid "kupu-image"
@@ -501,11 +502,10 @@ msgid "Left"
 msgstr ""
 
 #: phony.js:87 phony.js:104
-#, fuzzy
 msgid "Right"
 msgstr "Rechts (Groot)"
 
-#: phony.js:90 phony.js:122
+#: phony.js:90 phony.js:122 phony.js:7
 msgid "Big"
 msgstr "Groot"
 
@@ -580,3 +580,27 @@ msgstr ""
 #: phony.js:115
 msgid "Debug Log"
 msgstr ""
+
+#: flashtool.js:16
+msgid "Flash tool initialized"
+msgstr "Blok-tool geinitialiseerd"
+
+#: phony.js:13
+msgid "Flash"
+msgstr ""
+
+#: phony.js:14
+msgid "Flash class"
+msgstr "Blok-soort"
+
+#: phony.js:15
+msgid "Flash inline"
+msgstr "Flash inline"
+
+#: phony.js:16
+msgid "Flash left"
+msgstr "Links"
+
+#: phony.js:17
+msgid "Flash right"
+msgstr "Rechts"

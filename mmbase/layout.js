@@ -51,6 +51,9 @@ Layouter.prototype.adjustToolBoxes = function() {
     xTop("kupu-toolbox-divs", toolbox);
     this.rePosition("kupu-toolbox-divs");
     toolbox += xHeight("kupu-toolbox-divs") + spacing;
+    xTop("kupu-toolbox-flash", toolbox);
+    this.rePosition("kupu-toolbox-flash");
+    toolbox += xHeight("kupu-toolbox-flash") + spacing;
     xTop("kupu-toolbox-debug", toolbox);
     this.rePosition("kupu-toolbox-debug");
 
