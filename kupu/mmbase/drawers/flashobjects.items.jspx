@@ -1,0 +1,42 @@
+<!--
+    Produces: 'items' for images
+    Needs: a request context 'drawer', containing a listcontainer 'query'.
+-->
+<mm:context
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    id="drawer" scope="request">
+  <jsp:output omit-xml-declaration="yes" />
+  <mm:import externid="surpressupload" />
+  <mm:content type="text/xml">
+    <mm:notpresent referid="query">
+      <mm:cloud method="asis">
+        <mm:listnodescontainer id="query" type="flashobjects" />
+      </mm:cloud>
+    </mm:notpresent>
+    <mm:import externid="max">100</mm:import>
+    <mm:listnodescontainer referid="query">
+      <mm:sortorder field="number" direction="down" />
+      <media>flash</media>
+      <items>
+        <mm:context>
+          <mm:notpresent referid="surpressupload">
+            <uploadbutton>yes</uploadbutton>
+          </mm:notpresent>
+          <mm:listnodes id="o">
+            <resource id="${o.number}">
+              <media>flash</media>
+              <uri><mm:url page="/mmbase/kupu/mmbase/icons/flash.png" referids="_node@o" /></uri>
+              <title><mm:field name="title" /> <mm:nodeinfo type="gui" /></title>
+              <size><mm:field name="filesize" />b</size>
+              <height>100</height>
+              <width>100</width>
+              <icon><mm:nodeinfo type="gui" /></icon>
+              <preview><mm:function name="url" /></preview>
+            </resource>
+          </mm:listnodes>
+        </mm:context>
+      </items>
+    </mm:listnodescontainer>
+  </mm:content>
+</mm:context>

@@ -78,13 +78,13 @@ function initKupu(iframe) {
     kupu.registerTool('redobutton', redobutton);
 
     var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
-                                                        'img',
-                                                        'kupu-removeimage');
+        'img',
+        'kupu-removeimage');
     kupu.registerTool('removeimagebutton', removeimagebutton);
 
     var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
-                                                       'a',
-                                                       'kupu-removelink');
+        'a',
+        'kupu-removelink');
     kupu.registerTool('removelinkbutton', removelinkbutton);
 
     var removedivbutton = new KupuRemoveElementButton('kupu-removediv-button', 'div', 'kupu-removediv');
@@ -115,7 +115,7 @@ function initKupu(iframe) {
     };
     kupu.registerTool('imagetool', imagetool);
     var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton',
-                                        'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
+        'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
     imagetool.registerToolBox('imagetoolbox', imagetoolbox);
 
     var tabletool = new TableTool();
@@ -135,13 +135,20 @@ function initKupu(iframe) {
     kupu.registerTool('divstool', divstool);
 
     var divstoolbox = new DivsToolBox('kupu-div-addbutton',
-                                       'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
+        'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
     divstool.registerToolBox('divstoolbox', divstoolbox);
+
+    var flashtool = new FlashTool();
+    kupu.registerTool('flashtool', flashtool);
+
+    var flashtoolbox = new FlashToolBox('kupu-div-addbutton',
+        'kupu-divs-float-select', 'kupu-toolbox-flash',  'kupu-toolbox', 'kupu-toolbox-active');
+    flashtool.registerToolBox('flashtoolbox', flashtoolbox);
 
 
 
     var spellchecker = new KupuSpellChecker('kupu-spellchecker-button',
-                                            'spellcheck.jspx');
+        'spellcheck.jspx');
     kupu.registerTool('spellchecker', spellchecker);
 
     // like the zoom tool, but it doens' realy work.
@@ -154,142 +161,143 @@ function initKupu(iframe) {
     var drawertool = new DrawerTool();
     kupu.registerTool('drawertool', drawertool);
 
-   /*
+    /*
    var sourceedittool = new SourceEditTool('kupu-source-button', 'kupu-editor-textarea');
    kupu.registerTool('sourceedittool', sourceedittool);
    */
 
-   // Drawers...
+    // Drawers...
 
-   // Function that returns function to open a drawer
-   var opendrawer = function(drawerid) {
-       return function(button, editor) {
-           drawertool.openDrawer(drawerid);
-       };
-   };
+    // Function that returns function to open a drawer
+    var opendrawer = function(drawerid) {
+	return function(button, editor) {
+            drawertool.openDrawer(drawerid);
+	};
+    };
 
-   var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button', opendrawer('imagelibdrawer'));
-   kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
+    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button', opendrawer('imagelibdrawer'));
+    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
 
-   var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
-                                            opendrawer('linklibdrawer'));
-   kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
+    var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
+        opendrawer('linklibdrawer'));
+    kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
 
-   var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
-                                         opendrawer('linkdrawer'));
-   kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
+    var linkdrawerbutton = new KupuButton('kupu-linkdrawer-button',
+        opendrawer('linkdrawer'));
+    kupu.registerTool('linkdrawerbutton', linkdrawerbutton);
 
 
-   // create some drawers, drawers are some sort of popups that appear when a
-   // toolbar button is clicked
-   var drawertool = new DrawerTool();
-   kupu.registerTool('drawertool', drawertool);
+    // create some drawers, drawers are some sort of popups that appear when a
+    // toolbar button is clicked
+    var drawertool = new DrawerTool();
+    kupu.registerTool('drawertool', drawertool);
 
-   drawertool.search = function() {
-       alert('haaai');
-   }
+    drawertool.search = function() {
+	alert('haaai');
+    }
 
-   try {
-       var linklibdrawer = new ResourceLibraryDrawer(linktool,
-                                                 conf['link_xsl_uri'],
-                                                 conf['link_libraries_uri'],
-                                                 conf['search_links_uri']);
-       drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+    try {
+	var linklibdrawer = new ResourceLibraryDrawer(linktool,
+            conf['link_xsl_uri'],
+            conf['link_libraries_uri'],
+            conf['search_links_uri']);
+	drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-       var imagelibdrawer = new ImageLibraryDrawer(imagetool,
-                                                   conf['image_xsl_uri'],
-                                                   conf['image_libraries_uri'],
-                                                   conf['search_images_uri']);
-       drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+	var imagelibdrawer = new ImageLibraryDrawer(imagetool,
+            conf['image_xsl_uri'],
+            conf['image_libraries_uri'],
+            conf['search_images_uri']);
+	drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
 
-       /*
+	/*
        var imagelibdrawer2 = new ImageLibraryDrawer(null,
                                                     conf['image_xsl_uri'],
                                                     conf['image_libraries_uri'],
                                                     conf['search_images_uri']);
        drawertool.registerDrawer('nodeimagedrawer', imagelibdrawer2);
        */
-   } catch(e) {
-       var msg = _('There was a problem initializing the drawers. Most ' +
-               'likely the XSLT or XML files aren\'t available. If this ' +
-               'is not the Kupu demo version, check your files or the ' +
-               'service that provide them (error: ${error}).',
-               {'error': (e.message || e.toString())});
-       alert(msg);
-   };
-   var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
-   drawertool.registerDrawer('linkdrawer', linkdrawer);
+    } catch(e) {
+	var msg = _('There was a problem initializing the drawers. Most ' +
+		    'likely the XSLT or XML files aren\'t available. If this ' +
+		    'is not the Kupu demo version, check your files or the ' +
+		    'service that provide them (error: ${error}).',
+		    {'error': (e.message || e.toString())});
+	alert(msg);
+    };
+    var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
+    drawertool.registerDrawer('linkdrawer', linkdrawer);
 
     /*
    var tabledrawerbutton = new KupuButton('kupu-tabledrawer-button',
                                            opendrawer('tabledrawer'));
    kupu.registerTool('tabledrawerbutton', tabledrawerbutton);
     */
-   //var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
-   // drawertool.registerDrawer('tabledrawer', tabledrawer);
+    //var tabledrawer = new TableDrawer('kupu-tabledrawer', tabletool);
+    // drawertool.registerDrawer('tabledrawer', tabledrawer);
 
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
-   var nonxhtmltagfilter = new NonXHTMLTagFilter(
-   {'html': 1,
-        'body': 1,
-        'head': 1,
-        'title': 1,
-        'a': 1,
-        'abbr': 0,
-        'acronym': 0,
-        'address': 0,
-        'b': 1,
-        'base': 0,
-        'blockquote': 0,
-        'br': 1,
-        'caption': 1,
-        'cite': 0,
-        'code': 0,
-        'col': 0,
-        'colgroup': 0,
-        'dd': 0,
-        'dfn': 0,
-        'div': 1,
-        'dl': 0,
-        'dt': 0,
-        'em': 1,
-        'h1': 1,
-        'h2': 1,
-        'h3': 1,
-        'h4': 1,
-        'h5': 1,
-        'h6': 1,
-        'h7': 1,
-        'i': 1,
-        'img': 1,
-        'kbd': 1,
-        'li': 1,
-        'link': 0,
-        'meta': 1,
-        'ol': 1,
-        'p': 1,
-        'pre': 0,
-        'q': 0,
-        'samp': 0,
-        'script': 0,
-        'span': 0,
-        'strong': 1,
-        'style': 0,
-        'sub': 1,
-        'sup': 1,
-        'table': 1,
-        'tbody': 1,
-        'td': 1,
-        'tfoot': 0,
-        'th': 1,
-        'thead': 0,
-        'tr': 1,
-        'ul': 1,
-        'u': 0,
-        'var': 0,
-        'font': 0,
-        'center': 0
+    var nonxhtmltagfilter = new NonXHTMLTagFilter(
+	{'html': 1,
+         'body': 1,
+         'head': 1,
+         'title': 1,
+         'a': 1,
+         'abbr': 0,
+         'acronym': 0,
+         'address': 0,
+         'b': 1,
+         'base': 0,
+         'blockquote': 0,
+         'br': 1,
+         'caption': 1,
+         'cite': 0,
+         'code': 0,
+         'col': 0,
+         'colgroup': 0,
+         'dd': 0,
+         'dfn': 0,
+         'div': 1,
+         'dl': 0,
+         'dt': 0,
+         'em': 1,
+         'h1': 1,
+         'h2': 1,
+         'h3': 1,
+         'h4': 1,
+         'h5': 1,
+         'h6': 1,
+         'h7': 1,
+         'i': 1,
+         'img': 1,
+         'kbd': 1,
+         'li': 1,
+         'link': 0,
+         'meta': 1,
+	 'object': 1,
+         'ol': 1,
+         'p': 1,
+         'pre': 0,
+         'q': 0,
+         'samp': 0,
+         'script': 0,
+         'span': 0,
+         'strong': 1,
+         'style': 0,
+         'sub': 1,
+         'sup': 1,
+         'table': 1,
+         'tbody': 1,
+         'td': 1,
+         'tfoot': 0,
+         'th': 1,
+         'thead': 0,
+         'tr': 1,
+         'ul': 1,
+         'u': 0,
+         'var': 0,
+         'font': 0,
+         'center': 0
         });
     kupu.registerFilter(nonxhtmltagfilter);
 

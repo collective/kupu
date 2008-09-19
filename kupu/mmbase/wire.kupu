@@ -59,6 +59,7 @@
     <kupu:insert-part feature="toolboxes" part="images" />
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="divs" />
+    <kupu:insert-part feature="toolboxes" part="flash" />
     <kupu:insert-part feature="toolboxes" part="debug" />
   </kupu:fill-slot>
 

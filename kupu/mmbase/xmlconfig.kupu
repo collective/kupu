@@ -16,8 +16,8 @@
       </xml>
     </div>
   </kupu:part>
-  
-  
+
+
   <kupu:part name="defaultconfig">
     <dst>receive.jspx</dst>
     <use_css>0</use_css>
@@ -36,5 +36,5 @@
       <class>data wide</class>
     </table_classes>
   </kupu:part>
- 
+
 </kupu:feature>

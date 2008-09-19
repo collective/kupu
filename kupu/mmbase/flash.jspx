@@ -1,0 +1,22 @@
+<mm:content
+    type="text/html"
+    xmlns="http://www.w3.org/1999/xhtml"
+    language="client" expires="0" postprocessor="none" jspvar="locale"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0">
+  <mm:import externid="o" required="true" />
+  <mm:cloud>
+    <mm:node referid="o">
+      <mm:function name="url">
+        <object
+            height="100" width="100"
+            type="application/x-shockwave-flash"
+            data="${_}">
+          <param name="movie" value="${_}"/>
+        </object>
+      </mm:function>
+    </mm:node>
+  </mm:cloud>
+</mm:content>

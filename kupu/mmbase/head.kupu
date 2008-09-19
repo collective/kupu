@@ -43,7 +43,8 @@
     <script type="text/javascript" src="cross-browser.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="layout.js"><jsp:text> </jsp:text></script>
     <jsp:directive.include file="/mmbase/validation/javascript.jspxf" />
-    <script type="text/javascript" src="mmbasetools.js"><jsp:text> </jsp:text></script>
+    <script type="text/javascript" src="divstool.js"><jsp:text> </jsp:text></script>
+    <script type="text/javascript" src="flashtool.js"><jsp:text> </jsp:text></script>
     <script type="text/javascript" src="mmbase.js"><jsp:text> </jsp:text></script>
   </kupu:part>
 

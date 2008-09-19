@@ -28,10 +28,10 @@
           <mm:maxnumber value="${max}" />
           <mm:offset    value="${page * max}" />
           <mm:haspage page="${nodetype}.items.jspx">
-            <mm:include referids="kupubasedir,max" page="${nodetype}.items.jspx" />
+            <mm:include debug="xml" referids="kupubasedir,max" page="${nodetype}.items.jspx" />
           </mm:haspage>
           <mm:haspage page="${nodetype}.items.jspx" inverse="true">
-            <mm:include referids="kupubasedir,max" page="texts.items.jspx" />
+            <mm:include debug="xml" referids="kupubasedir,max" page="texts.items.jspx" />
           </mm:haspage>
         </mm:listnodescontainer>
       </mm:context>

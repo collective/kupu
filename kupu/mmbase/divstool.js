@@ -2,7 +2,7 @@ var divids = 0;
 
 /**
  * This tool is to create 'blocks'
- * $Id: $
+ * $Id$
  */
 
 function DivsTool() {
@@ -144,7 +144,5 @@ DivsToolBox.prototype.setDivClass = function() {
     this.tool.setDivClass(sel_class);
     this.editor.focusDocument();
 };
-
-
 
 

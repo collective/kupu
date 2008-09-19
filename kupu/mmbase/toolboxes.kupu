@@ -77,6 +77,26 @@
     </div>
   </kupu:part>
 
+  <kupu:part name="flash">
+    <div class="kupu-toolbox" id="kupu-toolbox-flash">
+      <fmt:bundle basename="org.mmbase.kupu.Messages">
+        <h1  class="kupu-toolbox-heading"><fmt:message key="Flash" /></h1>
+        <div>
+          <div class="kupu-toolbox-label">
+            <span><fmt:message key="Flash class" /></span>
+          </div>
+          <select class="wide" id="kupu-flash-float-select">
+            <option value="image-inline"><fmt:message key="Flash inline" /></option>
+            <option value="image-left"><fmt:message key="Flash left" /></option>
+            <option value="image-right"><fmt:message key="Flash right" /></option>
+          </select>
+          <div class="flashobject">
+          </div>
+        </div>
+      </fmt:bundle>
+    </div>
+  </kupu:part>
+
   <!-- Overridden just for the jsp:text (to avoid that it collapses, which doesn't work in browers -->
   <kupu:part name="debug">
     <div class="kupu-toolbox" id="kupu-toolbox-debug">
