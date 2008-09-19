@@ -17,13 +17,13 @@ LANGS=nl de fr it eo
 all: index.jspx body.jspx head.jspx
 
 
-index.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile
+index.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) dist-mmbase.kupu
 
-body.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile
+body.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) body-mmbase.kupu
 
-head.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile
+head.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) head-mmbase.kupu
 
 $(I18N):
