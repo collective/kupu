@@ -11,7 +11,8 @@
     <mm:node referid="o">
       <mm:function name="url">
         <object
-            height="100" width="100"
+            width="200"
+            height="200"
             type="application/x-shockwave-flash"
             data="${_}">
           <param name="movie" value="${_}"/>
