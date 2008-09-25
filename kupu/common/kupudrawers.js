@@ -666,18 +666,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
     };
 
 
-    /**
-     * In this file empty values are used which are supposed to mean 'not explicitely set'.
-     * In that case the XSL parameter should not explicitely set as parameter on the transformation, otherwise, the implicit default value
-     * as defined in the XSL will not be used.
-     *
-     * Certainly true for 'showupload', which has a default //libraries/showupload, should probably also used for other parameters.
-    */
-    this.setXslParameter = function(xsltproc, ns, name, value) {
-        if (value && ! "" == value) {
-            xsltproc.setParameter(ns, name, value);
-        }
-    }
+
 
     /*** bootstrapping ***/
 
@@ -701,7 +690,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             xsltproc.setParameter("", "ie", this.editor.getBrowserName() == 'IE');
             xsltproc.setParameter("", "drawertype", this.drawertype);
             xsltproc.setParameter("", "drawertitle", this.drawertitle);
-            this.setXslParameter(xsltproc, "", "showupload", this.showupload);
+            xsltproc.setParameter("", "showupload", this.showupload);
             xsltproc.setParameter("", "showanchors", this.showanchors);
             if (this.target !== undefined) {
                 xsltproc.setParameter("", "link_target", this.target);
@@ -817,7 +806,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
             xsltproc.setParameter("", k, this.options[k]);
         }
         xsltproc.setParameter("", "multiple", this.multiple ? "yes" : "");
-        this.setXslParameter(xsltproc, "", "showupload", this.showupload)
+        xsltproc.setParameter("", "showupload", this.showupload ? "yes" : "");
         xsltproc.setParameter("", "showanchors", this.showanchors);
 
         var doc = this._transformXml();
