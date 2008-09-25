@@ -32,10 +32,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         </xsl:choose>
     </xsl:param>
     <xsl:param name="showupload">
-        <xsl:variable name="v" select="/libraries/param[@name='showupload']"></xsl:variable>
-        <xsl:choose>
-            <xsl:when test="count($v)"><xsl:value-of select="$v"/></xsl:when>
-        </xsl:choose>
+      <!-- does this default value actually make any sense? -->
+      <xsl:variable name="v" select="/libraries/param[@name='showupload']"></xsl:variable>
+      <xsl:choose>
+        <xsl:when test="count($v)"><xsl:value-of select="$v"/></xsl:when>
+      </xsl:choose>
     </xsl:param>
     <xsl:param name="usecaptions">
         <xsl:variable name="v" select="/libraries/param[@name='usecaptions']"></xsl:variable>
@@ -56,7 +57,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="link_name"></xsl:param>
     <xsl:param name="ie"></xsl:param>
     <xsl:variable name="titlelength" select="60"/>
-    <xsl:variable name="i18n_drawertitle"> 
+    <xsl:variable name="i18n_drawertitle">
         <xsl:choose>
             <xsl:when i18n:translate="imagedrawer_title" test="$drawertype='image'">Insert Image</xsl:when>
             <xsl:when i18n:translate="linkdrawer_title"
@@ -236,12 +237,14 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </span>
         </div>
     </xsl:template>
+
     <xsl:template match="uploadbutton" mode="currentpanel">
         <button class="kupu-dialog-button kupu-upload">
             <xsl:attribute name="onclick"> drawertool.current_drawer.selectUpload(); </xsl:attribute>
             <span tal:omit-tag="" i18n:translate="imagedrawer_upload_link">Upload&#xa0;image&#xa0;here...</span>
         </button>
     </xsl:template>
+
     <xsl:template match="icon">
         <img src="{.}" alt="{../title}">
             <xsl:attribute name="class">library-icon-<xsl:value-of select="local-name(..)"/>
@@ -301,7 +304,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
         <div style="clear:both;"/>
     </xsl:template>
 
-    <!-- 
+    <!--
      This template shows one image.
      If a 'preview' tag is available then that one is used, otherwise 'uri'.
     -->
@@ -341,6 +344,9 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
        </xsl:choose>
     </xsl:template>
 
+    <!--
+        Used in image-upload template.
+    -->
     <xsl:template match="resource|collection|uploadbutton" mode="image-extra-properties">
        <div class="kupu-image-fields">
           <input id="kupu-media" type="hidden" value="{media}" />
@@ -413,25 +419,35 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 </select>
              </span>
           </xsl:if>
-          <label class="kupu-detail" id="image-alt-label"
-                 for="image-alt">
-             <xsl:if test="$usecaptions='yes' and $image-caption='true'">
-                <xsl:attribute name="style">display:none;</xsl:attribute>
-             </xsl:if>
-             <span tal:omit-tag="" i18n:translate="imagedrawer_upload_alt_text">Text equivalent</span>
-          </label>
-          <textarea class="kupu-detail" type="text" id="image-alt" rows="4">
-             <xsl:if test="$usecaptions='yes' and $image-caption='true'">
-                <xsl:attribute name="style">display:none;</xsl:attribute>
-             </xsl:if>   
-             <xsl:value-of select="title"/>
-          </textarea>
+          <xsl:apply-templates select="." mode="image-extra-properties-alt" />
        </div>
     </xsl:template>
+
+    <!--
+        Used in image-extra-properties. Produces a form entry for the 'alt' attribute.
+    -->
+    <xsl:template match="resource|collection|uploadbutton" mode="image-extra-properties-alt">
+      <label class="kupu-detail" id="image-alt-label"
+             for="image-alt">
+        <xsl:if test="$usecaptions='yes' and $image-caption='true'">
+          <xsl:attribute name="style">display:none;</xsl:attribute>
+        </xsl:if>
+        <span tal:omit-tag="" i18n:translate="imagedrawer_upload_alt_text">Text equivalent</span>
+      </label>
+      <textarea class="kupu-detail" type="text" id="image-alt" rows="4">
+        <xsl:if test="$usecaptions='yes' and $image-caption='true'">
+          <xsl:attribute name="style">display:none;</xsl:attribute>
+        </xsl:if>
+        <xsl:value-of select="title"/>
+      </textarea>
+    </xsl:template>
+
+
     <xsl:template match="resource|collection" mode="image-properties">
        <xsl:apply-templates select="." mode="base-properties"/>
        <xsl:apply-templates select="." mode="image-extra-properties"/>
     </xsl:template>
+
     <xsl:template match="class">
        <option value="{@name}">
           <xsl:if test="$image-class=@name">
@@ -439,6 +455,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           </xsl:if>
           <xsl:value-of select="@title" /></option>
     </xsl:template>
+
     <xsl:template match="size">
        <option value="{uri}">
           <xsl:if test="selected">
@@ -447,11 +464,12 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
           <xsl:value-of select="label" />
        </option>
     </xsl:template>
+
     <xsl:template match="resource|collection" mode="link-properties">
         <xsl:apply-templates select="." mode="base-properties"/>
-        
+
         <!-- <form onsubmit="return false;"> -->
-            <div class="kupu-linkdrawer-name-row">
+        <div class="kupu-linkdrawer-name-row">
                 <div><label i18n:translate="linkdrawer_name_label">Name</label></div>
                 <input type="text" id="link_name" size="10">
                    <xsl:attribute name="onkeypress">if(event.keyCode==13)return false;</xsl:attribute>
@@ -470,11 +488,11 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             </xsl:if>
         <!-- </form> -->
     </xsl:template>
-    
+
     <xsl:template match="resource|collection" mode="properties">
         <xsl:apply-templates select="." mode="base-properties"/>
     </xsl:template>
-    
+
     <xsl:template match="anchor">
        <div class="kupu-linkdrawer-anchors">
           <input type="hidden" value="{../uri}"/>
@@ -500,8 +518,55 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
             <xsl:value-of select="text()"/>
         </div>
     </xsl:template>
-    
-    <!-- image upload form -->
+
+    <xsl:template match="uploadfield">
+      <label>
+        <span><xsl:value-of select="name" /></span>
+        <xsl:copy-of select="input/*" />
+      </label>
+    </xsl:template>
+
+
+    <!--
+        Used in the 'image-upload' template.
+        Produces all non-file input entries (i.e. in this default version 'title' and 'description').
+
+        Can be overriden if you need other fields.
+    -->
+    <xsl:template match="uploadbutton" mode="upload-fields">
+      <xsl:choose>
+        <xsl:when test="../uploadfield">
+          <xsl:apply-templates select="../uploadfield" />
+        </xsl:when>
+        <xsl:otherwise>
+          <label>
+            <span tal:omit-tag="" i18n:translate="imagedrawer_upload_title_label">Title</span>
+            <input id="kupu-upload-title" type="text" name="node_prop_title" size="23" value=""/>
+          </label>
+          <label>
+            <span tal:omit-tag=""
+                  i18n:translate="imagedrawer_upload_desc_label">Description</span>
+            <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
+          </label>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:template>
+
+    <!--
+        Used in the 'image-upload' template.
+        Shows a message about where the image is uploaded to, and creates a file input entry.
+    -->
+    <xsl:template match="uploadbutton" mode="upload-to">
+      <label>
+        <tal:block i18n:translate="imagedrawer_upload_to_label">Upload to: <span tal:omit-tag="" i18n:name="folder"> <xsl:value-of select="/libraries/*[@selected]/title"/> </span> </tal:block>
+        <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
+      </label>
+    </xsl:template>
+
+
+    <!--
+         Image upload form
+    -->
     <xsl:template match="uploadbutton" mode="image-upload">
             <div id="kupu-upload-instructions" i18n:translate="imagedrawer_upload_instructions">
                 Select an image from your computer and click ok to have it automatically uploaded to
@@ -511,29 +576,14 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
                 target="kupu_upload_form_target" enctype="multipart/form-data" style="margin: 0;
                 border: 0;">
               <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
-                <label>
-                  <tal:block i18n:translate="imagedrawer_upload_to_label">Upload
-                    to: <span tal:omit-tag="" i18n:name="folder">
-                        <xsl:value-of select="/libraries/*[@selected]/title"/>
-                    </span>
-                  </tal:block>
-                    <input id="kupu-upload-file" type="file" name="node_prop_image" size="20"/>
-                </label>
-                <label>
-                   <span tal:omit-tag=""
-                         i18n:translate="imagedrawer_upload_title_label">Title</span>
-                   <input id="kupu-upload-title" type="text" name="node_prop_title" size="23" value=""/>
-                </label>
-                <label>
-                   <span tal:omit-tag=""
-                         i18n:translate="imagedrawer_upload_desc_label">Description</span>
-                   <textarea rows="5" cols="40" name="node_prop_desc">&#160;</textarea>
-                </label>
+              <xsl:apply-templates select="." mode="upload-to" />
+              <xsl:apply-templates select="." mode="upload-fields" />
             </form>
             <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
                 scrolling="off" frameborder="0" width="0px" height="0px" display="None">&#160;</iframe>
             <xsl:apply-templates select="." mode="image-extra-properties"/>
     </xsl:template>
+
     <xsl:template match="breadcrumbs">
         <span>
           <xsl:attribute name="class">
