@@ -816,8 +816,8 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         for (var k in this.options) {
             xsltproc.setParameter("", k, this.options[k]);
         }
-        xsltproc.setParameter("", "multiple", this.multiple?"yes":"");
-        this.setXslParameter(xsltproc, "", "showupload", this.showupload);
+        xsltproc.setParameter("", "multiple", this.multiple ? "yes" : "");
+        this.setXslParameter(xsltproc, "", "showupload", this.showupload)
         xsltproc.setParameter("", "showanchors", this.showanchors);
 
         var doc = this._transformXml();
@@ -1451,14 +1451,18 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     // upload, on submit/insert press
     this.uploadImage = function() {
         var form = document.getElementById('kupu_upload_form');
-        if (!form || form.node_prop_image.value=='') return;
+        if (!form || (form.node_prop_image && form.node_prop_image.value == '')) {
+            return;
+        }
 
-        if (form.node_prop_title.value == "") {
+        if (form.node_prop_title && form.node_prop_title.value == "") {
             alert("Please enter a title for the image you are uploading");
             return;
         };
-        this.upload_title = form.node_prop_title.value;
-        form.node_prop_desc.value = form.node_prop_desc.value.replace(/^\xa0|\xa0$/g,'');
+        this.upload_title = form.node_prop_title ? form.node_prop_title.value : '';
+        if (form.node_prop_desc) {
+            form.node_prop_desc.value = form.node_prop_desc.value.replace(/^\xa0|\xa0$/g,'');
+        }
         form.submit();
     };
 
