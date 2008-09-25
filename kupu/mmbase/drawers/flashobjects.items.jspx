@@ -28,11 +28,11 @@
             <resource id="${o.number}">
               <media>flash</media>
               <uri><mm:url page="/mmbase/kupu/mmbase/icons/flash.png" referids="_node@o" /></uri>
-              <title><span xmlns="http://www.w3.org/1999/xhtml"><mm:field name="title" /> <mm:nodeinfo type="gui" /></span></title>
+              <title><mm:field name="title" /></title>
               <size><mm:field name="filesize" />b</size>
               <height>100</height>
               <width>100</width>
-              <icon><mm:nodeinfo type="gui" /></icon>
+              <icon><mm:url page="/mmbase/style/icons/application/x-shockwave-flash.gif" /></icon>
               <preview><mm:function name="url" /></preview>
             </resource>
           </mm:listnodes>
