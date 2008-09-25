@@ -75,6 +75,8 @@
         <input type="hidden" name="kupu_back" value="${back}" />
         <input type="hidden" name="templates" value="${templates}" />
         <input type="hidden" name="javascript" value="${javascript}" />
+        <input type="hidden" name="prefix" value="${prefix}" />
+        <input type="hidden" name="style" value="${style}" />
         <select onChange="document.forms['languageform'].submit();" name="language">
           <mm:compare referid="rich_language" value="client">
             <option value="client" selected="selected"><fmt:message key="default" /></option>
