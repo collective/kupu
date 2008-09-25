@@ -113,8 +113,9 @@ textarea#kupu-editor-textarea {
   border: 1px solid;
   background-color: #eee;
 }
-#kupu div.kupu-drawer textarea {
-  width: 95%;
+#kupu div.kupu-drawer textarea.mm_validate,
+#kupu div.kupu-drawer input.mm_validate {
+  width: 300px !important;
 }
 div.kupu-panels td.panel {
   height: 300px;

@@ -7,7 +7,7 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
-  <mm:import externid="surpressupload" />
+
   <mm:content type="text/xml">
     <mm:notpresent referid="query">
       <mm:cloud method="asis">
@@ -20,14 +20,15 @@
       <media>flash</media>
       <items>
         <mm:context>
-          <mm:notpresent referid="surpressupload">
-            <uploadbutton>yes</uploadbutton>
-          </mm:notpresent>
+          <mm:include page="uploadfields.jspx">
+            <mm:param name="media">flash</mm:param>
+            <mm:param name="nodetype">flashobjects</mm:param>
+          </mm:include>
           <mm:listnodes id="o">
             <resource id="${o.number}">
               <media>flash</media>
               <uri><mm:url page="/mmbase/kupu/mmbase/icons/flash.png" referids="_node@o" /></uri>
-              <title><mm:field name="title" /> <mm:nodeinfo type="gui" /></title>
+              <title><span xmlns="http://www.w3.org/1999/xhtml"><mm:field name="title" /> <mm:nodeinfo type="gui" /></span></title>
               <size><mm:field name="filesize" />b</size>
               <height>100</height>
               <width>100</width>

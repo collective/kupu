@@ -31,11 +31,6 @@
           <mm:sortorder field="number" direction="down" />
           <src><mm:url referids="nodetype,kupubasedir,source?,librarysize@max" page="drawers/collection.jspx" /></src>
         </mm:listnodescontainer>
-        <mm:compare referid="nodetype" valueset="images,attachments">
-          <uploadbutton type="${nodetype}">
-            <uri>drawers/upload.jspx?nodetype=${nodetype}</uri>
-          </uploadbutton>
-        </mm:compare>
       </library>
     </mm:context>
   </mm:cloud>
