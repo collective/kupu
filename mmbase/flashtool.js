@@ -16,15 +16,29 @@ FlashTool.prototype.initialize = function(editor) {
     this.editor.logMessage(_("Flash tool initialized"));
 };
 
+FlashTool.prototype.setObjectClass = function(divclass) {
+    var currnode = this.editor.getSelectedNode();
+    var currdiv = this.editor.getNearestParentOfType(currnode, 'img');
+    if (currdiv) {
+        currdiv.className = divclass;
+    };
+};
 
 
-function FlashToolBox(insertbuttonid, classselectid, toolboxid, plainclass, activeclass) {
-    this.insertbutton = getFromSelector(insertbuttonid);
+
+function FlashToolBox(classselectid, toolboxid, plainclass, activeclass) {
     this.classselect  = getFromSelector(classselectid);
     this.toolboxel    = getFromSelector(toolboxid);
     this.plainclass   = plainclass;
     this.activeclass  = activeclass;
 }
+
+/**
+ * This regular expression recognized the URL as flash. Which is only a place holder showing the flash icon.
+ * Inline editing of the actual flash movie does not work very well, at least not in FF:
+ * - height/width not workin
+ * - not working at all in designMode (does work in contentEditable)
+ */
 
 FlashToolBox.srcRe = new RegExp('.*/mmbase/kupu/mmbase/icons/flash\\.png\\?o=([0-9]+)', 'i');
 
@@ -33,8 +47,7 @@ FlashToolBox.srcRe = new RegExp('.*/mmbase/kupu/mmbase/icons/flash\\.png\\?o=([0
 FlashToolBox.prototype.initialize = function(tool, editor) {
     this.tool = tool;
     this.editor = editor;
-    addEventHandler(this.classselect, "change", this.setDivClass, this);
-    addEventHandler(this.insertbutton, "click", this.addDiv, this);
+    addEventHandler(this.classselect, "change", this.setObjectClass, this);
 };
 
 FlashToolBox.prototype.updateState = function(selNode, event) {
@@ -53,13 +66,14 @@ FlashToolBox.prototype.updateState = function(selNode, event) {
 };
 
 
-FlashToolBox.prototype.setDivClass = function() {
+FlashToolBox.prototype.setObjectClass = function() {
     var sel_class = this.classselect.options[this.classselect.selectedIndex].value;
-    this.tool.setDivClass(sel_class);
+    this.tool.setObjectClass(sel_class);
     this.editor.focusDocument();
 };
 
 
+// Switch  of support for flash in image tool, since we have a flash tool now.
 
 ImageToolBox.prototype.originalUpdateState = ImageToolBox.prototype.updateState;
 

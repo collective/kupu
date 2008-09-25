@@ -141,8 +141,7 @@ function initKupu(iframe) {
     var flashtool = new FlashTool();
     kupu.registerTool('flashtool', flashtool);
 
-    var flashtoolbox = new FlashToolBox('kupu-div-addbutton',
-        'kupu-divs-float-select', 'kupu-toolbox-flash',  'kupu-toolbox', 'kupu-toolbox-active');
+    var flashtoolbox = new FlashToolBox('kupu-flash-float-select', 'kupu-toolbox-flash',  'kupu-toolbox', 'kupu-toolbox-active');
     flashtool.registerToolBox('flashtoolbox', flashtoolbox);
 
 
