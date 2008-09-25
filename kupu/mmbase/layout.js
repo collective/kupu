@@ -42,18 +42,23 @@ Layouter.prototype.adjustToolBoxes = function() {
     xTop("kupu-toolbox-links", toolbox);
     this.rePosition("kupu-toolbox-links");
     toolbox += xHeight("kupu-toolbox-links") + spacing;
+
     xTop("kupu-toolbox-images", toolbox);
     this.rePosition("kupu-toolbox-images");
     toolbox += xHeight("kupu-toolbox-images") + spacing;
+
     xTop("kupu-toolbox-tables", toolbox);
     this.rePosition("kupu-toolbox-tables");
     toolbox += xHeight("kupu-toolbox-tables") + spacing;
+
     xTop("kupu-toolbox-divs", toolbox);
     this.rePosition("kupu-toolbox-divs");
     toolbox += xHeight("kupu-toolbox-divs") + spacing;
+
     xTop("kupu-toolbox-flash", toolbox);
     this.rePosition("kupu-toolbox-flash");
     toolbox += xHeight("kupu-toolbox-flash") + spacing;
+
     xTop("kupu-toolbox-debug", toolbox);
     this.rePosition("kupu-toolbox-debug");
 

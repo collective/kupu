@@ -91,6 +91,7 @@
             <option value="image-right"><fmt:message key="Flash right" /></option>
           </select>
           <div class="flashobject">
+            <jsp:text> </jsp:text>
           </div>
         </div>
       </fmt:bundle>
