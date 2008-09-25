@@ -7,7 +7,6 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
-  <mm:import externid="surpressupload" />
   <mm:content type="text/xml">
     <mm:notpresent referid="query">
       <mm:cloud method="asis">
@@ -19,9 +18,10 @@
       <mm:sortorder field="number" direction="down" />
       <items>
         <mm:context>
-          <mm:notpresent referid="surpressupload">
-            <uploadbutton>yes</uploadbutton>
-          </mm:notpresent>
+          <mm:include page="uploadfields.jspx">
+            <mm:param name="media">image</mm:param>
+            <mm:param name="nodetype">images</mm:param>
+          </mm:include>
           <mm:listnodes id="image">
             <resource id="${image.number}">
               <mm:image template="s(100x100&gt;)">

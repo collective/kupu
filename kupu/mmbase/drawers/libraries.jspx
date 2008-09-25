@@ -11,7 +11,6 @@
       <mm:node referid="s" id="s" />
     </mm:present>
     <libraries>
-      <param name="showupload">yes</param>
       <param name="drawertype">image</param>
       <mm:import id="kupubasedir"><mm:url absolute="server" page="../.." /></mm:import>
       <mm:import externid="librarysize">50</mm:import>

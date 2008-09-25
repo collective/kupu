@@ -63,7 +63,6 @@
     </mm:import>
 
     <image_libraries_uri>drawers/libraries.jspx?nodetypes=${inline_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</image_libraries_uri>
-
     <link_libraries_uri>drawers/libraries.jspx?nodetypes=${attachment_nodetypes}&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</link_libraries_uri>
 
     <search_images_uri>drawers/search.library.jspx?kupubasedir=${kupubasedir}&amp;amp;link_nodetypes=images&amp;amp;source=${objectnumber}&amp;amp;librarysize=${librarysize}</search_images_uri>

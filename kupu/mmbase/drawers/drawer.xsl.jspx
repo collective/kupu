@@ -23,6 +23,7 @@ $Id$
   >
   <mm:content type="application/xml"
               expires="0">
+
     <mm:link absolute="true" page="../../common/kupudrawers/drawer.xsl">
       <!-- Must be absolute, or otherwise IE chokes -->
       <xsl:import href="${_}" />
@@ -34,40 +35,78 @@ $Id$
     -->
     <xsl:template match="*" mode="panel">
       <xsl:choose>
-        <xsl:when test="$drawertype='image'">
-          <xsl:if test="//resource[@selected]">
-            <xsl:apply-templates
-                select="/libraries/*[@selected]//resource[@selected]"
-                mode="image-properties"/>
-          </xsl:if>
-        </xsl:when>
-        <xsl:when test="$drawertype='link'">
+        <xsl:when test="$showupload='yes'">
           <xsl:apply-templates
-              select="/libraries/*[@selected]//resource[@selected]"
-              mode="link-properties"/>
+              select="/libraries/*[@selected]//uploadbutton"
+              mode="upload"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates
-              select="//resource[@selected]"
-              mode="properties"/>
+          <xsl:if test="//resource[@selected]">
+            <xsl:choose>
+              <xsl:when test="$drawertype='image'">
+                <xsl:apply-templates
+                    select="/libraries/*[@selected]//resource[@selected]"
+                    mode="image-properties"/>
+              </xsl:when>
+              <xsl:when test="$drawertype='link'">
+                <xsl:apply-templates
+                    select="/libraries/*[@selected]//resource[@selected]"
+                    mode="link-properties"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:apply-templates
+                    select="/libraries/*[@selected]//resource[@selected]"
+                    mode="properties"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
-      <xsl:if test="$showupload='yes'">
-        <xsl:apply-templates
-            select="/libraries/*[@selected]/uploadbutton"
-            mode="upload"/>
-      </xsl:if>
     </xsl:template>
-
 
     <!--
         Just overridden to rename it, because we use upload also for attachments, not only for images
         (Called in 'panel' mode)
     -->
     <xsl:template match="uploadbutton" mode="upload">
-      <xsl:apply-templates select="." mode="image-upload" />
+
+      <xsl:choose>
+        <xsl:when test="@media = 'image'">
+          <xsl:apply-templates select="." mode="image-upload" />
+        </xsl:when>
+        <xsl:when test="@media = 'attachment'">
+          <xsl:apply-templates select="." mode="attachment-upload" />
+        </xsl:when>
+        <xsl:when test="@media = 'flash'">
+          <xsl:apply-templates select="." mode="attachment-upload" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:apply-templates select="." mode="attachment-upload" />
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:template>
 
+    <xsl:template match="uploadbutton" mode="currentpanel">
+        <button class="kupu-dialog-button kupu-upload">
+            <xsl:attribute name="onclick"> drawertool.current_drawer.selectUpload(); </xsl:attribute>
+            <span>Upload <xsl:value-of select="gui" /></span>
+        </button>
+    </xsl:template>
+
+    <xsl:template match="uploadbutton" mode="attachment-upload">
+      <div id="kupu-upload-instructions" i18n:translate="attachment_upload_instructions">
+        Select a file from your computer and click ok to have it automatically uploaded to
+      selected folder and inserted into the editor. </div>
+      <form name="kupu_upload_form" id="kupu_upload_form" method="POST"
+            scrolling="off"
+            target="kupu_upload_form_target" enctype="multipart/form-data" style="margin: 0;
+                                                                                  border: 0;">
+        <xsl:attribute name="action"><xsl:value-of select="uri"/></xsl:attribute>
+        <xsl:apply-templates select="." mode="upload-fields" />
+      </form>
+      <iframe id="kupu_upload_form_target" name="kupu_upload_form_target" src="javascript:''"
+              scrolling="off" frameborder="0" width="0px" height="0px" display="None">&#160;</iframe>
+    </xsl:template>
 
 
     <xsl:template match="label|title">
@@ -117,6 +156,10 @@ $Id$
         </xsl:otherwise>
       </xsl:choose>
     </xsl:template>
+
+    <xsl:template match="resource|collection|uploadbutton" mode="image-extra-properties-alt" />
+    <xsl:template match="uploadbutton" mode="upload-to" />
+
 
     <xsl:template name="mystyle">
       <!--

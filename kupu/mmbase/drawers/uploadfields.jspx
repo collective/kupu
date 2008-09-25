@@ -1,0 +1,27 @@
+<jsp:root
+    version="2.0"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
+    >
+  <mm:import externid="surpressupload" />
+  <mm:import externid="media">image</mm:import>
+  <mm:import externid="nodetype">images</mm:import>
+  <mm:cloud>
+    <mm:notpresent referid="surpressupload">
+      <uploadbutton media="${media}">
+        <uri><mm:url absolute="server" page="upload.jspx" /></uri>
+        <gui><mm:nodeinfo nodetype="${nodetype}" type="guinodemanager" /></gui>
+      </uploadbutton>
+      <mm:fieldlist nodetype="${nodetype}" type="edit" varStatus="status">
+        <c:if test="${status.current.state eq 2}">
+          <uploadfield>
+            <name><mm:fieldinfo type="guiname" /></name>
+            <input><div xmlns="http://www.w3.org/1999/xhtml"><mm:fieldinfo type="input" /></div></input>
+          </uploadfield>
+        </c:if>
+      </mm:fieldlist>
+    </mm:notpresent>
+  </mm:cloud>
+</jsp:root>
+
