@@ -20,13 +20,13 @@
           <span i18n:translate="label_image_class">Image class:</span>
         </div>
         <select class="wide" id="kupu-image-float-select">
-          <option value="image-inline" i18n:translate="opt_inline">Inline</option>
-          <option value="image-left" i18n:translate="opt_left">Left</option>
-          <option value="image-right" i18n:translate="opt_right">Right</option>
+          <option value="image image-inline" i18n:translate="opt_inline">Inline</option>
+          <option value="image image-left" i18n:translate="opt_left">Left</option>
+          <option value="image image-right" i18n:translate="opt_right">Right</option>
           <fmt:bundle basename="org.mmbase.kupu.Messages">
-            <option value="image-left big" ><fmt:message key="Left (Big)" /></option>
-            <option value="image-right big"><fmt:message key="Right (Big)" /></option>
-            <option value="image-center big"><fmt:message key="Big" /></option>
+            <option value="image image-left big" ><fmt:message key="Left (Big)" /></option>
+            <option value="image image-right big"><fmt:message key="Right (Big)" /></option>
+            <option value="image image-center big"><fmt:message key="Big" /></option>
           </fmt:bundle>
           <!--
           <option value="paragraph" i18n:translate="">Paragraph</option>

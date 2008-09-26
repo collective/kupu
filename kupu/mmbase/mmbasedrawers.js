@@ -87,3 +87,9 @@ function ResourceLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement) {
 
 ResourceLibraryDrawer.prototype = new LibraryDrawer;
 ResourceLibraryDrawer.prototype.shared = {}; // Shared data
+
+
+ImageLibraryDrawer.prototype.originalCreateContent = ImageLibraryDrawer.prototype.createContent;
+
+ImageLibraryDrawer.prototype.createContent = function() {
+}

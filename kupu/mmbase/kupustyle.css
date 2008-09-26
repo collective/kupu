@@ -71,21 +71,28 @@ th {
   border: 1px black solid;
 }
 
-img.image-right {
+img.image {
   width: 100px;
+  height: auto;
+}
+img.image-right {
   float: right;
   margin-right: 0px;
   margin-left: 1ex;
 }
 
 img.image-left {
-  width: 100px;
   float: left;
   margin-left: 0px;
   margin-right: 1ex;
 }
 
 img.section-inline {
+}
+
+img.flash {
+
+
 }
 
 img.node {

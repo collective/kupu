@@ -86,6 +86,7 @@ $Id$
       </xsl:choose>
     </xsl:template>
 
+
     <xsl:template match="uploadbutton" mode="currentpanel">
         <button class="kupu-dialog-button kupu-upload">
             <xsl:attribute name="onclick"> drawertool.current_drawer.selectUpload(); </xsl:attribute>
