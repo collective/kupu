@@ -2,6 +2,14 @@
 Kupu changes
 ============
 
+- 1.4 Beta 3
+
+  - Make documentation as ReST to release as egg.
+
+- 1.4 Beta 2
+
+  - Fix FireFox 3 issues.
+
 - 1.4 Beta 1
 
   - Fixed some problems with handling of multi-valued form fields in the
