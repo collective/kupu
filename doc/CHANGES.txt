@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4 Final
+
+  - ...
+
 - 1.4 Beta 3
 
   - Make documentation as ReST to release as egg.
