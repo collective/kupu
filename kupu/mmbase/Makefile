@@ -14,16 +14,16 @@ LANGS=nl de fr it eo
 #type in i18n: msginit -l <locale> -i messages.po
 
 
-all: index.jspx body.jspx head.jspx
+all: index.jspx body.jspx head.jspx mmbase-kupu-i18n.jar
 
 
-index.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
+index.jspx: *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) dist-mmbase.kupu
 
-body.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
+body.jspx: *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) body-mmbase.kupu
 
-head.jspx: mmbase-kupu-i18n.jar *.kupu  Makefile $(XSLJSPX_FILE)
+head.jspx: *.kupu  Makefile $(XSLJSPX_FILE)
 	$(XSLTPROC) $(XSLTPROC_PARAMS) -o $@  $(XSLJSPX_FILE) head-mmbase.kupu
 
 $(I18N):
