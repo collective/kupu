@@ -138,11 +138,13 @@ function initKupu(iframe) {
         'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
     divstool.registerToolBox('divstoolbox', divstoolbox);
 
-    var flashtool = new FlashTool();
-    kupu.registerTool('flashtool', flashtool);
+    if (document.getElementById('kupu-toolbox-flash')) {
+        var flashtool = new FlashTool();
+        kupu.registerTool('flashtool', flashtool);
 
-    var flashtoolbox = new FlashToolBox('kupu-flash-float-select', 'kupu-toolbox-flash',  'kupu-toolbox', 'kupu-toolbox-active');
-    flashtool.registerToolBox('flashtoolbox', flashtoolbox);
+        var flashtoolbox = new FlashToolBox('kupu-flash-float-select', 'kupu-toolbox-flash',  'kupu-toolbox', 'kupu-toolbox-active');
+        flashtool.registerToolBox('flashtoolbox', flashtoolbox);
+    }
 
 
 
@@ -169,9 +171,9 @@ function initKupu(iframe) {
 
     // Function that returns function to open a drawer
     var opendrawer = function(drawerid) {
-	return function(button, editor) {
+        return function(button, editor) {
             drawertool.openDrawer(drawerid);
-	};
+        };
     };
 
     var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button', opendrawer('imagelibdrawer'));
@@ -192,23 +194,23 @@ function initKupu(iframe) {
     kupu.registerTool('drawertool', drawertool);
 
     drawertool.search = function() {
-	alert('haaai');
+        alert('haaai');
     }
 
     try {
-	var linklibdrawer = new ResourceLibraryDrawer(linktool,
+        var linklibdrawer = new ResourceLibraryDrawer(linktool,
             conf['link_xsl_uri'],
             conf['link_libraries_uri'],
             conf['search_links_uri']);
-	drawertool.registerDrawer('linklibdrawer', linklibdrawer);
+        drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-	var imagelibdrawer = new ImageLibraryDrawer(imagetool,
+        var imagelibdrawer = new ImageLibraryDrawer(imagetool,
             conf['image_xsl_uri'],
             conf['image_libraries_uri'],
             conf['search_images_uri']);
-	drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
 
-	/*
+        /*
        var imagelibdrawer2 = new ImageLibraryDrawer(null,
                                                     conf['image_xsl_uri'],
                                                     conf['image_libraries_uri'],
@@ -216,12 +218,12 @@ function initKupu(iframe) {
        drawertool.registerDrawer('nodeimagedrawer', imagelibdrawer2);
        */
     } catch(e) {
-	var msg = _('There was a problem initializing the drawers. Most ' +
-		    'likely the XSLT or XML files aren\'t available. If this ' +
-		    'is not the Kupu demo version, check your files or the ' +
-		    'service that provide them (error: ${error}).',
-		    {'error': (e.message || e.toString())});
-	alert(msg);
+        var msg = _('There was a problem initializing the drawers. Most ' +
+                    'likely the XSLT or XML files aren\'t available. If this ' +
+                    'is not the Kupu demo version, check your files or the ' +
+                    'service that provide them (error: ${error}).',
+                    {'error': (e.message || e.toString())});
+        alert(msg);
     };
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
@@ -237,7 +239,7 @@ function initKupu(iframe) {
     // register some cleanup filter
     // remove tags that aren't in the XHTML DTD
     var nonxhtmltagfilter = new NonXHTMLTagFilter(
-	{'html': 1,
+        {'html': 1,
          'body': 1,
          'head': 1,
          'title': 1,
@@ -273,7 +275,7 @@ function initKupu(iframe) {
          'li': 1,
          'link': 0,
          'meta': 1,
-	 'object': 1,
+         'object': 1,
          'ol': 1,
          'p': 1,
          'pre': 0,

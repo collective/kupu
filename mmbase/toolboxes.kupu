@@ -5,7 +5,9 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     xmlns="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
@@ -13,89 +15,105 @@
 
 
   <kupu:part name="images">
-    <div class="kupu-toolbox" id="kupu-toolbox-images">
-      <h1 class="kupu-toolbox-heading" i18n:translate="title_images">Images</h1>
-      <div>
-        <div class="kupu-toolbox-label">
-          <span i18n:translate="label_image_class">Image class:</span>
-        </div>
-        <select class="wide" id="kupu-image-float-select">
-          <option value="image image-inline" i18n:translate="opt_inline">Inline</option>
-          <option value="image image-left" i18n:translate="opt_left">Left</option>
-          <option value="image image-right" i18n:translate="opt_right">Right</option>
-          <fmt:bundle basename="org.mmbase.kupu.Messages">
-            <option value="image image-left big" ><fmt:message key="Left (Big)" /></option>
-            <option value="image image-right big"><fmt:message key="Right (Big)" /></option>
-            <option value="image image-center big"><fmt:message key="Big" /></option>
-          </fmt:bundle>
-          <!--
-          <option value="paragraph" i18n:translate="">Paragraph</option>
-          <option value="section"   i18n:translate="">Section</option>
-          -->
-        </select>
-        <div style="display: none;">
-          <div class="kupu-toolbox-label">
-            <span i18n:translate="">Insert image at the following URL:</span>
-          </div>
-          <input id="kupu-image-input"
-                 value="kupuimages/kupu_icon.gif"
-                 class="wide"
-                 type="text" />
+    <c:if test="${mm:contains(inline_nodetype, 'flashobjects')}">
+      <mm:node referid="objectnumber">
+        <mm:hasrelationmanager sourcemanager="$_node" destinationmanager="images" role="idrel">
+          <div class="kupu-toolbox" id="kupu-toolbox-images">
+            <h1 class="kupu-toolbox-heading" i18n:translate="title_images">Images</h1>
+            <div>
+              <div class="kupu-toolbox-label">
+                <span i18n:translate="label_image_class">Image class:</span>
+              </div>
+              <select class="wide" id="kupu-image-float-select">
+                <option value="image image-inline" i18n:translate="opt_inline">Inline</option>
+                <option value="image image-left" i18n:translate="opt_left">Left</option>
+                <option value="image image-right" i18n:translate="opt_right">Right</option>
+                <fmt:bundle basename="org.mmbase.kupu.Messages">
+                  <option value="image image-left big" ><fmt:message key="Left (Big)" /></option>
+                  <option value="image image-right big"><fmt:message key="Right (Big)" /></option>
+                  <option value="image image-center big"><fmt:message key="Big" /></option>
+                </fmt:bundle>
+                <!--
+                    <option value="paragraph" i18n:translate="">Paragraph</option>
+                    <option value="section"   i18n:translate="">Section</option>
+                -->
+              </select>
+              <div style="display: none;">
+                <div class="kupu-toolbox-label">
+                  <span i18n:translate="">Insert image at the following URL:</span>
+                </div>
+                <input id="kupu-image-input"
+                       value="kupuimages/kupu_icon.gif"
+                       class="wide"
+                       type="text" />
 
-          <div class="kupu-toolbox-buttons">
-            <button type="button" id="kupu-image-addbutton"
-                    class="kupu-toolbox-action" i18n:translate="">Insert Image</button>
+                <div class="kupu-toolbox-buttons">
+                  <button type="button" id="kupu-image-addbutton"
+                          class="kupu-toolbox-action" i18n:translate="">Insert Image</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </mm:hasrelationmanager>
+      </mm:node>
+    </c:if>
   </kupu:part>
 
   <kupu:part name="divs">
-    <div class="kupu-toolbox" id="kupu-toolbox-divs">
-      <fmt:bundle basename="org.mmbase.kupu.Messages">
-        <h1  class="kupu-toolbox-heading"><fmt:message key="Block" /></h1>
-        <div>
-          <div class="kupu-toolbox-label">
-            <span><fmt:message key="Block class" /></span>
-          </div>
-          <select  id="kupu-divs-float-select">
-            <option value="float note left"><fmt:message key="Note left" /></option>
-            <option value="float note right"><fmt:message key="Note right" /></option>
-            <option value="float intermezzo">Intermezzo</option>
-            <option value="float caption left">captioned left</option>
-            <option value="float caption right">captioned right</option>
-            <option value="float quote right">quote right</option>
-            <option value="float quote left">quote left</option>
-          </select>
-          <div class="kupu-toolbox-buttons">
-            <button type="button" id="kupu-div-addbutton"
-                    class="kupu-toolbox-action"><fmt:message key="Insert block" /></button>
-          </div>
+    <mm:node referid="objectnumber">
+      <mm:hasrelationmanager sourcemanager="$_node" destinationmanager="blocks" role="idrel">
+        <div class="kupu-toolbox" id="kupu-toolbox-divs">
+          <fmt:bundle basename="org.mmbase.kupu.Messages">
+            <h1  class="kupu-toolbox-heading"><fmt:message key="Block" /></h1>
+            <div>
+              <div class="kupu-toolbox-label">
+                <span><fmt:message key="Block class" /></span>
+              </div>
+              <select  id="kupu-divs-float-select">
+                <option value="float note left"><fmt:message key="Note left" /></option>
+                <option value="float note right"><fmt:message key="Note right" /></option>
+                <option value="float intermezzo">Intermezzo</option>
+                <option value="float caption left">captioned left</option>
+                <option value="float caption right">captioned right</option>
+                <option value="float quote right">quote right</option>
+                <option value="float quote left">quote left</option>
+              </select>
+              <div class="kupu-toolbox-buttons">
+                <button type="button" id="kupu-div-addbutton"
+                        class="kupu-toolbox-action"><fmt:message key="Insert block" /></button>
+              </div>
+            </div>
+          </fmt:bundle>
         </div>
-      </fmt:bundle>
-    </div>
+      </mm:hasrelationmanager>
+    </mm:node>
   </kupu:part>
 
   <kupu:part name="flash">
-    <div class="kupu-toolbox" id="kupu-toolbox-flash">
-      <fmt:bundle basename="org.mmbase.kupu.Messages">
-        <h1  class="kupu-toolbox-heading"><fmt:message key="Flash" /></h1>
-        <div>
-          <div class="kupu-toolbox-label">
-            <span><fmt:message key="Flash class" /></span>
+    <c:if test="${mm:contains(inline_nodetype, 'flashobjects')}">
+      <mm:node referid="objectnumber">
+        <mm:hasrelationmanager sourcemanager="$_node" destinationmanager="flashobjects" role="idrel">
+          <div class="kupu-toolbox" id="kupu-toolbox-flash">
+            <fmt:bundle basename="org.mmbase.kupu.Messages">
+              <h1  class="kupu-toolbox-heading"><fmt:message key="Flash" /></h1>
+              <div>
+                <div class="kupu-toolbox-label">
+                  <span><fmt:message key="Flash class" /></span>
+                </div>
+                <select class="wide" id="kupu-flash-float-select">
+                  <option value="flash image-inline"><fmt:message key="Flash inline" /></option>
+                <option value="flash image-left"><fmt:message key="Flash left" /></option>
+                <option value="flash image-right"><fmt:message key="Flash right" /></option>
+                </select>
+                <div class="flashobject">
+                  <jsp:text> </jsp:text>
+                </div>
+              </div>
+          </fmt:bundle>
           </div>
-          <select class="wide" id="kupu-flash-float-select">
-            <option value="flash image-inline"><fmt:message key="Flash inline" /></option>
-            <option value="flash image-left"><fmt:message key="Flash left" /></option>
-            <option value="flash image-right"><fmt:message key="Flash right" /></option>
-          </select>
-          <div class="flashobject">
-            <jsp:text> </jsp:text>
-          </div>
-        </div>
-      </fmt:bundle>
-    </div>
+        </mm:hasrelationmanager>
+      </mm:node>
+    </c:if>
   </kupu:part>
 
   <!-- Overridden just for the jsp:text (to avoid that it collapses, which doesn't work in browers -->
