@@ -856,7 +856,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         if captioning is not None:
             self.captioning = bool(captioning)
 
-        if self.linkbyuid or self.captioning:
+        if self.linkbyuid or self.getCaptioning():
             util.install_transform(self)
         else:
             util.remove_transform(self)
