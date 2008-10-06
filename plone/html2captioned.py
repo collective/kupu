@@ -179,7 +179,7 @@ class HTMLToCaptioned:
                         # strings that may contain non-ascii characters need to be decoded to unicode
                         for key in ('caption', 'tag'):
                             if isinstance(d[key], str):
-                                d[key] = d[key].decode('utf8')
+                                d[key] = d[key].decode('utf8', 'replace')
 
                         if atag is not None: # Must preserve original link, don't overwrite with a link to the image
                             d['isfullsize'] = True
@@ -194,7 +194,9 @@ class HTMLToCaptioned:
                 return match.group(0) # No change
 
             if isinstance(data, str):
-                data = data.decode('utf8')
+                # Transform for end user output should avoid erroring
+                # if it can, so use 'replace' on decode.
+                data = data.decode('utf8', 'replace')
             html = IMAGE_PATTERN.sub(replaceImage, data)
 
             # Replace urls that use UIDs with human friendly urls.
