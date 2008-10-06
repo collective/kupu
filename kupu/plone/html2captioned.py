@@ -203,9 +203,9 @@ class HTMLToCaptioned:
                 uid = match.group('uid')
                 target = self.resolveuid(context, rc, uid)
                 if target is not None:
-                    try:
+                    if getattr(aq_base(target), 'getRemoteUrl', None) is not None:
                         url = target.getRemoteUrl()
-                    except AttributeError:
+                    else:
                         url = target.absolute_url_path()
                     return tag + url
                 return match.group(0)
