@@ -80,6 +80,10 @@ var proto = Drawer.prototype;
 proto.initialize = function(editor, drawertool) {
     this.editor = editor;
     this.drawertool = drawertool;
+    // on a small screen, the appearance of the drawer could scroll the screen.
+    // Here we stored the position, so that we can restore it for the user.
+    this.scrollPosition = document.documentElement.scrollTop;
+
 };
 
 proto.createContent = function() {
@@ -96,6 +100,7 @@ proto.hide = function() {
     }
     this.element.style.display = 'none';
     this.focussed = false;
+    document.documentElement.scrollTop = this.scrollPosition; // see initialize
 };
 
 proto.focusElement = function() {
