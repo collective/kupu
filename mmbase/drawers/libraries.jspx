@@ -18,8 +18,7 @@
         <mm:hasnodemanager name="$_">
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel">
             <mm:context scope="request" id="drawer">
-              <mm:import from="parent" externid="nodetype" reset="true" />
-              <mm:include referids="kupubasedir,librarysize" page="library.jspx" />
+              <mm:include referids="kupubasedir,librarysize,nodetype" page="library.jspx" />
             </mm:context>
           </mm:hasrelationmanager>
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel" inverse="true">
