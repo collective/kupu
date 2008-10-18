@@ -6,6 +6,9 @@ Kupu changes
 
   - Correct dependency for the Plone egg.
 
+  - Plone tickets
+
+    * 8612 strangely numbered column headings (Col 01 | Col 11 | Col 21 | Col 31 etc.)
 
 - 1.4.12
 

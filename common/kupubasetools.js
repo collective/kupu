@@ -1419,9 +1419,9 @@ TableTool.prototype.createTable = function(rows, cols, makeHeader, tableclass) {
     if (makeHeader) {
         var tr = doc.createElement("tr");
         var thead = doc.createElement("thead");
-        for (var i=0; i < cols; i++) {
+        for (var i=1; i <= cols; i++) {
             var th = doc.createElement("th");
-            th.appendChild(doc.createTextNode("Col " + i+1));
+            th.appendChild(doc.createTextNode("Col " + i));
             tr.appendChild(th);
         }
         thead.appendChild(tr);
