@@ -102,8 +102,8 @@
                 </div>
                 <select class="wide" id="kupu-flash-float-select">
                   <option value="flash image-inline"><fmt:message key="Flash inline" /></option>
-                <option value="flash image-left"><fmt:message key="Flash left" /></option>
-                <option value="flash image-right"><fmt:message key="Flash right" /></option>
+                  <option value="flash image-left"><fmt:message key="Flash left" /></option>
+                  <option value="flash image-right"><fmt:message key="Flash right" /></option>
                 </select>
                 <div class="flashobject">
                   <jsp:text> </jsp:text>
