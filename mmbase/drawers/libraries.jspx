@@ -5,7 +5,7 @@
     type="text/xml"
     expires="-1">
   <mm:cloud method="asis">
-    <mm:import externid="nodetypes" vartype="list">images,attachments,segments,urls</mm:import>
+    <mm:import externid="nodetypes" vartype="list">images,flashobjects,attachments,segments,urls</mm:import>
     <mm:import id="s" externid="source" />
     <mm:present referid="s">
       <mm:node referid="s" id="s" />
@@ -22,7 +22,7 @@
             </mm:context>
           </mm:hasrelationmanager>
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel" inverse="true">
-            Cannot make relations beteeen ${s} and ${_}.
+            <jsp:text>Cannot make relations beteeen ${s} and ${_}.</jsp:text>
             <mm:log> Cannot make relations beteeen ${s} and ${_}.</mm:log>
           </mm:hasrelationmanager>
         </mm:hasnodemanager>
