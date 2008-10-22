@@ -101,7 +101,7 @@
       </mm:link>
     </div>
     <div id="save-message">
-      <span> </span>
+      <span>...</span>
     </div>
   </kupu:part>
 
