@@ -68,7 +68,7 @@ function startKupu(language) {
         // some versions of Mozilla support onbeforeunload (starting with 1.7)
         // so let's try to register and if it fails fall back on onunload
         var re = /rv:([0-9\.]+)/
-        var match = re.exec(navigator.userAgent)
+            var match = re.exec(navigator.userAgent)
         if (match[1] && parseFloat(match[1]) > 1.6) {
             addEventHandler(window, 'beforeunload', saveOnPart);
         } else {
@@ -104,11 +104,11 @@ function mmbaseInit(node, abs) {
     KupuZoomTool.prototype.origcommandfunc  = KupuZoomTool.prototype.commandfunc;
     KupuZoomTool.prototype.commandfunc = function(button, editor) {
         this.origcommandfunc(button, editor);
-	var mmb = document.getElementById("mmbase-extra");
-	if (mmb.originalDisplay == null) mmb.originalDisplay = mmb.style.display;
+        var mmb = document.getElementById("mmbase-extra");
+        if (mmb.originalDisplay == null) mmb.originalDisplay = mmb.style.display;
         if (this.zoomed == true) {
             mmb.style.display = "none";
-	    layout.adjust(true);
+            layout.adjust(true);
             //document.getElementById("header").style.display = "none";
         } else {
             mmb.style.display = mmb.originalDisplay;
@@ -196,27 +196,28 @@ function saveNode(button, editor, async) {
             //alert("Posted \n" + content);
             if (request.status == 200) {
                 currentNode = undefined;
-		$("#save-message span").each(function() {
-		    $(this).empty();
-		    $(this).append(_("saved") + " " + node);
-		    $(this).fadeIn(400);
-		    var p = this;
-		    $(this).fadeOut(4000, function() {$(p).empty()} );
-		});
+                $("#save-message span").each(function() {
+                    if (this.originalTextContext == null) this.originalTextContext = this.textContent;
+                    $(this).empty();
+                    $(this).append(_("saved") + " " + node);
+                    $(this).fadeIn(400);
+                    var p = this;
+                    $(this).fadeOut(4000, function() {$(p).empty(); $(p).append(p.originalTextContent); } );
+                });
                 kupu.logMessage("Reloading " + node);
                 loadedNodes.remove(node);
                 loadedNodeBodies.remove(node);
                 loadNode(node);
-		try {
-		    $("#kupu-save-button").trigger("kupu-saved");
-		} catch (ex) {
+                try {
+                    $("#kupu-save-button").trigger("kupu-saved");
+                } catch (ex) {
                     kupu.logMessage(ex);
-		}
+                }
             } else {
                 alert(_("Not saved") + " " + node);
                 reloadAfterError();
             }
-	    $("#ajax-loader").css("display", "none");
+            $("#ajax-loader").css("display", "none");
         }
     }
 
@@ -300,7 +301,7 @@ function loadNode(nodeNumber) {
     // request to node.jspx, should have put the node in the session
     if (success) {
         nodeDiv.innerHTML = nodeXml;
-	kupu.logMessage($(nodeDiv).find("div").attr("class"));
+        kupu.logMessage($(nodeDiv).find("div").attr("class"));
     }
 
 
