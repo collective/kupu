@@ -22,8 +22,8 @@
             </mm:context>
           </mm:hasrelationmanager>
           <mm:hasrelationmanager sourcemanager="$s" destinationmanager="$_" role="idrel" inverse="true">
-            <jsp:text>Cannot make relations beteeen ${s} and ${_}.</jsp:text>
-            <mm:log> Cannot make relations beteeen ${s} and ${_}.</mm:log>
+            <jsp:text>Cannot make relations beteeen ${s} and ${_}. </jsp:text>
+            <mm:log level="debug"> Cannot make relations beteeen ${s} and ${_}.</mm:log>
           </mm:hasrelationmanager>
         </mm:hasnodemanager>
       </mm:stringlist>
