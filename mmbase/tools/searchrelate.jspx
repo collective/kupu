@@ -25,7 +25,7 @@
         <mm:import id="repository" from="session" externid="${prefix}repository"  required="true"/>
         <mm:import id="current"    from="session" externid="${prefix}current"    required="true"/>
 
-        <div class="kupu-toolbox extra-box" >
+        <div class="kupu-toolbox extra-box">
           <h1 class="kupu-toolbox-heading-closed" title="click to fold">${currentTitle}</h1>
           <div>
             <mm-sr:relate repository="${repository}"
@@ -56,8 +56,23 @@
         </div>
         <script type="text/javascript">
           $(document).ready(function() {
-             var collapser = new window.kuputoolcollapser.Collapser('mm_searchrelate');
-             collapser.initialize();
+          $('#mm_searchrelate h1').each(function() {
+            $(this).find("+ div").css("display", "none");
+          });
+          $('#mm_searchrelate h1').click(function() {
+              var h1 = this;
+              $(this).find("+ div").each(function() {
+                 var c = $(this).css("display");
+                 $(this).css("display", c == 'none' ? 'block' : 'none');
+                 if (c == 'none') {
+                   $(h1).addClass("kupu-toolbox-heading-opened");
+                   $(h1).removeClass("kupu-toolbox-heading-closed");
+                   } else {
+                   $(h1).addClass("kupu-toolbox-heading-closed");
+                   $(h1).removeClass("kupu-toolbox-heading-opened");
+                   }
+                 });
+          });
           });
         </script>
       </mm:cloud>
