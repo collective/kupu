@@ -475,7 +475,7 @@ function MozillaSelection(document) {
             /* select the contents of a node */
             var sel = this.selection;
             sel.removeAllRanges();
-            if (sel.selectAllChildren) {
+            if (sel.selectAllChildren && node.nodeType == 1) {
                 sel.selectAllChildren(node);
             } else {
                 var range = this._createRange();
