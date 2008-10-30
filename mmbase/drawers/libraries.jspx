@@ -13,6 +13,7 @@
     <libraries>
       <param name="drawertype">image</param>
       <mm:import id="kupubasedir"><mm:url absolute="server" page="../.." /></mm:import>
+
       <mm:import externid="librarysize">50</mm:import>
       <mm:stringlist referid="nodetypes" id="nodetype">
         <mm:hasnodemanager name="$_">

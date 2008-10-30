@@ -7,7 +7,6 @@
     xmlns:mm="http://www.mmbase.org/mmbase-taglib-2.0"
     id="drawer" scope="request">
   <jsp:output omit-xml-declaration="yes" />
-
   <mm:content type="text/xml">
     <mm:notpresent referid="query">
       <mm:cloud method="asis">

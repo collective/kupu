@@ -10,7 +10,7 @@
   <mm:cloud>
     <mm:notpresent referid="surpressupload">
       <uploadbutton media="${media}">
-        <uri><mm:url absolute="server" page="upload.jspx" /></uri>
+        <uri><mm:url absolute="server" referids="nodetype" page="upload.jspx" /></uri>
         <gui><mm:nodeinfo nodetype="${nodetype}" type="guinodemanager" /></gui>
       </uploadbutton>
       <mm:fieldlist nodetype="${nodetype}" type="edit" varStatus="status">
