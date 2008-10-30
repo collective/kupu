@@ -13,7 +13,7 @@
 
     <mm:cloud rank="basic user">
       <mm:import externid="nodetype">images</mm:import>
-      <mm:log>Uploading</mm:log>
+      <mm:log>Uploading ${nodetype}</mm:log>
       <mm:createnode type="$nodetype" id="node">
         <mm:import id="file" externid="node_prop_image" from="multipart" vartype="fileitem"  />
         <c:choose>
