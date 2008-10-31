@@ -38,6 +38,7 @@ function startKupu(language) {
     // if there's no global 'i18n_message_catalog' variable available, don't
     // try to load any translations
 
+    console.log(window.i18n_message_catalog);
     if (window.i18n_message_catalog) {
         var request = getRequest();
         // sync request, scary...
