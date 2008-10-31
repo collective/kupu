@@ -446,7 +446,7 @@ function createRelation(type, nodeNumber, relatedNode) {
 function saveOnPart() {
     /* ask the user if (s)he wants to save the document before leaving */
     if (kupu.content_changed &&
-        confirm(_('You have unsaved changes. Do you want to save before leaving the page?'))) {
+        confirm(_("You have unsaved changes. Do you want to save before leaving the page?"))) {
         kupu.config.reload_src = 0;
         saveNode(null, kupu, false);
     };
