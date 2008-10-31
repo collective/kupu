@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mmbase 18\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-19 17:41+0200\n"
+"POT-Creation-Date: 2008-10-31 14:25+0100\n"
 "PO-Revision-Date: 2006-12-13 14:37+0100\n"
 "Last-Translator: Michiel Meeuwissen <EMAIL@ADDRESS>\n"
 "Language-Team: French <traduc@traduc.org>\n"
@@ -24,27 +24,27 @@ msgstr ""
 msgid "Saving fields (form)"
 msgstr ""
 
-#: mmbase.js:173 mmbase.js:191 mmbase.js:192 mmbase.js:201
+#: mmbase.js:173 mmbase.js:191 mmbase.js:192 mmbase.js:201 mmbase.js:202
 msgid "saved"
 msgstr ""
 
-#: mmbase.js:202 mmbase.js:242 mmbase.js:243 mmbase.js:262
+#: mmbase.js:202 mmbase.js:242 mmbase.js:243 mmbase.js:262 mmbase.js:263
 msgid "RELOAD"
 msgstr ""
 
-#: mmbase.js:223 mmbase.js:264 mmbase.js:283
+#: mmbase.js:223 mmbase.js:264 mmbase.js:283 mmbase.js:284
 msgid "Getting node fields for "
 msgstr ""
 
-#: mmbase.js:231 mmbase.js:275 mmbase.js:294
+#: mmbase.js:231 mmbase.js:275 mmbase.js:294 mmbase.js:295
 msgid "Loading node fields for "
 msgstr ""
 
-#: mmbase.js:243 mmbase.js:289 mmbase.js:309
+#: mmbase.js:243 mmbase.js:289 mmbase.js:309 mmbase.js:310
 msgid "Getting node body "
 msgstr ""
 
-#: mmbase.js:250 mmbase.js:300 mmbase.js:299 mmbase.js:319
+#: mmbase.js:250 mmbase.js:300 mmbase.js:299 mmbase.js:319 mmbase.js:320
 msgid "Loading node body "
 msgstr ""
 
@@ -113,11 +113,11 @@ msgstr ""
 msgid "emphasis: alt-i"
 msgstr ""
 
-#: mmbase.js:197 mmbase.js:198 mmbase.js:216
+#: mmbase.js:197 mmbase.js:198 mmbase.js:216 mmbase.js:217
 msgid "Not saved"
 msgstr ""
 
-#: mmbase.js:215 mmbase.js:216 mmbase.js:235
+#: mmbase.js:215 mmbase.js:216 mmbase.js:235 mmbase.js:236
 msgid "Reinited "
 msgstr ""
 
@@ -604,4 +604,8 @@ msgstr ""
 
 #: phony.js:17
 msgid "Flash right"
+msgstr ""
+
+#: mmbase.js:449
+msgid "You have unsaved changes. Do you want to save before leaving the page?"
 msgstr ""
