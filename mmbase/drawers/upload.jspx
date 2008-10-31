@@ -54,14 +54,24 @@
         <mm:function name="mimetype" id="mimetype" write="false" />
         <mm:hasfunction name="cache">
           <mm:image template="s(100x100&gt;)">
-            <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('${_}', '${mimetype}');">
+            <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('${_}', 'image');">
             </body>
           </mm:image>
         </mm:hasfunction>
         <mm:hasfunction name="cache" inverse="true">
           <mm:field name="number" write="false" id="number" />
-          <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('mmbase://${nodetype}/${number}', '${mimetype}');">
-          </body>
+          <c:choose>
+            <c:when test="${nodetype eq 'flashobjects'}">
+              <mm:link page="/mmbase/kupu/mmbase/icons/flash.png" referids="number@o">
+                <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('${_}', 'flash', ${_node.width}, ${_node.height});">
+                </body>
+              </mm:link>
+            </c:when>
+            <c:otherwise>
+              <body onLoad="window.parent.kupu.getTool('drawertool').current_drawer.finishUpload('mmbase://${nodetype}/${number}', '${mimetype}', '${_node.title}');">
+              </body>
+            </c:otherwise>
+          </c:choose>
         </mm:hasfunction>
       </mm:node>
     </mm:cloud>
