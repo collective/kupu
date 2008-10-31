@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- * Copyright (c) 2003-2005 Kupu Contributors. All rights reserved.
+ * Copyright (c) 2003-2008 Kupu Contributors. All rights reserved.
  *
  * This software is distributed under the terms of the Kupu
  * License. See LICENSE.txt for license text. For a list of Kupu
@@ -1471,7 +1471,7 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
     };
 
     // called by onLoad within document sent by server
-    this.finishUpload = function(uri) {
+    this.finishUpload = function(uri, media, width, height) {
         this.editor.resumeEditing();
         var sizeselector = document.getElementsByName('image-size-selector');
         if (sizeselector && sizeselector.length > 0) {
@@ -1500,7 +1500,12 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
         }
         imgclass = imgclass.strip();
 
-        this.tool.createImage(uri, this.upload_title, imgclass);
+        if (media !== undefined && this.tool['create_' + media]) {
+            this.tool['create_' + media](uri, this.upload_title, imgclass, width, height);
+        } else {
+            this.tool.createImage(uri, this.upload_title, imgclass);
+        }
+
         this.shared.newimages = 1;
         this.drawertool.closeDrawer();
     };
@@ -1551,11 +1556,12 @@ function ImageLibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selec
         var media = document.getElementById('kupu-media').value;
         var width = document.getElementById('kupu-width').value;
         var height = document.getElementById('kupu-height').value;
-        if (this.tool['create_'+media]) {
-            this.tool['create_'+media](uri, alt, imgclass, width, height);
+        if (this.tool['create_' + media]) {
+            this.tool['create_' + media](uri, alt, imgclass, width, height);
         } else {
             this.tool.createImage(uri, alt, imgclass);
         }
+        kupu.content_changed = true;
         this.drawertool.closeDrawer();
     };
 };
@@ -1819,7 +1825,9 @@ function HandleDrawerEnter(event, clickid) {
             }
         }
         event.cancelBubble = true;
-        if (event.stopPropogation) event.stopPropogation();
+        if (event.stopPropagation) {
+            event.stopPropagation();
+        }
         event.returnValue = false;
         return false;
     }
