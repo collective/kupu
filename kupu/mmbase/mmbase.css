@@ -109,13 +109,17 @@ textarea#kupu-editor-textarea {
 #kupu div.kupu-resourceitems {
   width: 400px;
 }
-#kupu div.kupu-drawer textarea, #kupu div.kupu-drawer input {
+#kupu div.kupu-drawer textarea,
+#kupu div.kupu-drawer input {
   border: 1px solid;
   background-color: #eee;
 }
 #kupu div.kupu-drawer textarea.mm_validate,
 #kupu div.kupu-drawer input.mm_validate {
   width: 300px !important;
+}
+#kupu div.kupu-drawer textarea.mm_validate {
+  height: 4em;
 }
 div.kupu-panels td.panel {
   height: 300px;
