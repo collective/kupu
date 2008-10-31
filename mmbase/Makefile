@@ -14,7 +14,7 @@ LANGS=nl de fr it eo
 #type in i18n: msginit -l <locale> -i messages.po
 
 
-all: index.jspx body.jspx head.jspx mmbase-kupu-i18n.jar
+all: index.jspx body.jspx head.jspx mmbase-kupu-i18n.jar i18n.js/i18n.js
 
 
 index.jspx: *.kupu  Makefile $(XSLJSPX_FILE)
@@ -28,6 +28,10 @@ head.jspx: *.kupu  Makefile $(XSLJSPX_FILE)
 
 $(I18N):
 	@$(MAKE) -C $(KUPU_HOME) kupu-i18n.jar
+
+i18n.js/i18n.js:
+	wget http://johnnydebris.net/javascript/.files/i18n.js-0.1.tar.gz
+	tar zxf i18n.js-0.1.tar.gz
 
 .PHONY:
 messages: *.js clean
