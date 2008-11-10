@@ -75,6 +75,11 @@ Layouter.prototype.adjustToolBoxes = function() {
     }
 
 }
+
+Layouter.prototype.topHeight = function() {
+    return 27;
+}
+
 Layouter.prototype.adjustMMBaseExtra = function() {
     var maxHeight = this.maxHeight();
     xHeight('mmbase-extra', maxHeight - 3);
@@ -114,7 +119,7 @@ Layouter.prototype.adjustMMBaseTools = function() {
 }
 Layouter.prototype.adjustKupu = function () {
     var maxHeight     = this.maxHeight();
-    var maxHeightArea = maxHeight - 27;
+    var maxHeightArea = maxHeight - this.topHeight();
     var maxWidth      = this.maxWidth();
 
     a = xGetElementsByClassName('kupu-editorframe');
@@ -134,11 +139,11 @@ Layouter.prototype.adjustUnzoomed = function() {
 
 Layouter.prototype.adjust = function(zoom) {
     if (zoom) {
-	Layouter.prototype.adjustZoomed();
-	return;
+	    this.adjustZoomed();
+	    return;
     }
 
-    Layouter.prototype.adjustUnzoomed();
+    this.adjustUnzoomed();
     var maxHeight = this.maxHeight();
     var maxWidth  = this.maxWidth();
 
