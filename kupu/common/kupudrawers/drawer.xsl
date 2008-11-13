@@ -56,7 +56,7 @@ XSL transformation from Kupu Library XML to HTML for the library drawers.
     <xsl:param name="link_target"></xsl:param>
     <xsl:param name="link_name"></xsl:param>
     <xsl:param name="ie"></xsl:param>
-    <xsl:variable name="titlelength" select="60"/>
+    <xsl:variable name="titlelength" select="255"/>
     <xsl:variable name="i18n_drawertitle">
         <xsl:choose>
             <xsl:when i18n:translate="imagedrawer_title" test="$drawertype='image'">Insert Image</xsl:when>
