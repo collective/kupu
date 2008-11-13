@@ -4,6 +4,9 @@ Kupu changes
 
 - ?
 
+  - Changed the default titlelength for cropping titles in the link drawer to
+    255 instead of 60.
+
   - Correct dependency for the Plone egg.
 
   - Plone tickets
