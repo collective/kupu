@@ -1,3 +1,7 @@
+/**
+ * @author Michiel Meeuwissen
+ * @version $Id$
+ */
 
 function Layouter() {
 }
