@@ -70,7 +70,7 @@ function KupuRefDrawer(tool, xsluri, libsuri, searchuri, selecturi) {
                 link.innerHTML = result;
             } else {
                 var result = this.shared.xsltproc.transformToDocument(node);
-                var imp = window.document.importNode(result, true);
+                var imp = window.document.importNode(result.documentElement, true);
                 Sarissa.copyChildNodes(imp, link, true);
             };
 
