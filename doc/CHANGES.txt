@@ -4,6 +4,10 @@ Kupu changes
 
 - ?
 
+  - Added a `kupu_enabled` browser view, which can be used instead of the
+    isKupuEnabled method of the plonelibrarytool.
+    [hannosch]
+
   - Changed the default titlelength for cropping titles in the link drawer to
     255 instead of 60.
 
