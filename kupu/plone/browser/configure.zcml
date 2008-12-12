@@ -1,0 +1,13 @@
+<configure
+  xmlns:zope="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+    for="*"
+    name="kupu_enabled"
+    class=".enable.KupuEnabled"
+    permission="zope.Public"
+    allowed_attributes="enabled"
+    />
+
+</configure>
