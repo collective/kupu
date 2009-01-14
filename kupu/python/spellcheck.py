@@ -6,13 +6,8 @@ COMMAND = 'aspell -a'
 
 import popen2, re
 
-try:
-    from Globals import ClassSecurityInfo
-except ImportError:
-    pass
-else:
-    # hmmm... Zope 2...
-    __allow_access_to_unprotected_subobjects__ = 1
+# hmmm... Zope 2...
+__allow_access_to_unprotected_subobjects__ = 1
 
 class SpellChecker:
     """Simple spell checker, uses ispell (or aspell) with pipes"""

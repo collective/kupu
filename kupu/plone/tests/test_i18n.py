@@ -1,7 +1,7 @@
 import os
 
 from Testing import ZopeTestCase
-from Globals import package_home
+from App.Common import package_home
 
 HAS_I18NDUDE = True
 try:
