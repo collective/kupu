@@ -25,6 +25,15 @@ setup(name='Products.kupu',
       namespace_packages=['Products'],
       include_package_data=True,
       zip_safe=False,
+      extras_require=dict(
+        test=[
+            'i18ndude',
+            'Plone',
+            'Products.ATContentTypes',
+            'Products.i18ntestcase',
+            'Products.PloneTestCase',
+        ]
+      ),
       install_requires=[
           'setuptools',
           'zope.interface',
@@ -34,14 +43,10 @@ setup(name='Products.kupu',
           'Products.Archetypes',
           'Products.GenericSetup',
           'Products.CMFCore',
-          'Plone',
           'Products.MimetypesRegistry',
           'Products.PortalTransforms',
-          'Products.ATContentTypes',
-          'Products.i18ntestcase',
-          'plone.app.controlpanel',
+          # 'Acquisition',
+          # 'ZODB3',
+          # 'Zope2',
       ],
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
       )
