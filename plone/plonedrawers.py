@@ -17,7 +17,7 @@ Python scripts, but has been moved here to make it easier to maintain.
 import re, string
 from thread import get_ident
 from AccessControl import Unauthorized, ClassSecurityInfo, getSecurityManager
-from Globals import InitializeClass
+from App.class_init import InitializeClass
 from Products.Archetypes.public import *
 from Products.Archetypes.interfaces.referenceable import IReferenceable
 from Products.Archetypes.utils import shasattr

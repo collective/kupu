@@ -17,7 +17,7 @@ Note that FileSystemSite 1.3 is required.
 $Id$
 """
 
-import Globals
+from App.class_init import InitializeClass
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from Products.FileSystemSite.DirectoryView import DirectoryView
@@ -60,12 +60,12 @@ class KupuEditor(DirectoryView):
         res = s.__of__(parent)
         return res
 
-Globals.InitializeClass(KupuEditor)
+InitializeClass(KupuEditor)
 
 class KupuEditorSurrogate(DirectoryViewSurrogate):
     meta_type = "kupu editor"
 
-Globals.InitializeClass(KupuEditorSurrogate)
+InitializeClass(KupuEditorSurrogate)
 
 manage_addKupuEditorForm = PageTemplateFile('addKupuEditor.pt', globals())
 

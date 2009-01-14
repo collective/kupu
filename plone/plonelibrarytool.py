@@ -20,8 +20,8 @@ from ZODB.PersistentList import PersistentList
 from ZODB.PersistentMapping import PersistentMapping
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
-import Globals
-from Globals import InitializeClass
+from App.class_init import InitializeClass
+from App.Common import package_home
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.CMFCore.utils import UniqueObject
@@ -509,7 +509,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
     security.declarePublic('docs')
     def docs(self):
         """Returns Kupu docs formatted as HTML"""
-        docpath = os.path.join(Globals.package_home(kupu_globals), 'doc')
+        docpath = os.path.join(package_home(kupu_globals), 'doc')
         f = open(os.path.join(docpath, 'PLONE2.txt'), 'r')
         _docs = f.read()
         return _docs

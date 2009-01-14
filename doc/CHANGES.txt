@@ -4,6 +4,8 @@ Kupu changes
 
 - ?
 
+  - Declare package dependencies and fixed deprecation warnings for use of Globals.
+
   - Remove conditional comments when editing in IE (otherwise IE converts them to visible text)
 
   - Added a `kupu_enabled` browser view, which can be used instead of the
