@@ -5,6 +5,10 @@ from Products.CMFCore.utils import minimalpath
 from Products.CMFCore.DirectoryView import createDirectoryView
 from Products.MimetypesRegistry import MimeTypeItem
 from Products.kupu import kupu_globals
+try:
+    from App.class_init import InitializeClass
+except ImportError:
+    from Globals import InitializeClass
 
 kupu_package_dir = package_home(kupu_globals)
 

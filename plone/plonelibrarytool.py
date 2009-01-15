@@ -20,7 +20,7 @@ from ZODB.PersistentList import PersistentList
 from ZODB.PersistentMapping import PersistentMapping
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
-from App.class_init import InitializeClass
+from Products.kupu.plone.util import InitializeClass
 from App.Common import package_home
 
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile

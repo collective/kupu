@@ -16,7 +16,7 @@ import os
 
 from AccessControl import ClassSecurityInfo
 from AccessControl.Permission import Permission
-from App.class_init import InitializeClass
+from Products.kupu.plone.util import InitializeClass
 from App.Common import package_home
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
