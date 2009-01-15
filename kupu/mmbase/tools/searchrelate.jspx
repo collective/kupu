@@ -22,11 +22,17 @@
         <mm:import externid="prefix" />
         <mm:import externid="currentTitle" />
 
+
         <mm:import id="repository" from="session" externid="${prefix}repository"  required="true"/>
         <mm:import id="current"    from="session" externid="${prefix}current"    required="true"/>
 
+
+        <mm:log level="debug">prefix: ${prefix} </mm:log>
+        <mm:log level="debug">rep: ${repository.sql} </mm:log>
+        <mm:log level="debug">cur: ${current.sql} </mm:log>
+
         <div class="kupu-toolbox extra-box">
-          <h1 class="kupu-toolbox-heading-closed" title="click to fold">${currentTitle}</h1>
+          <h1 class="kupu-toolbox-heading-closed" title="click to fold">${empty currentTitle ? 'related' : currentTitle}</h1>
           <div>
             <mm-sr:relate repository="${repository}"
                           current="${current}"
