@@ -8,7 +8,10 @@
 # an appropriate chunk of HTML to include the caption.
 #
 try:
-    from Products.PortalTransforms.z3.interfaces import ITransform
+    try:
+        from Products.PortalTransforms.interfaces import ITransform
+    except ImportError:
+        from Products.PortalTransforms.z3.interfaces import ITransform
 except ImportError:
     ITransform = None
 from Products.PortalTransforms.interfaces import itransform
