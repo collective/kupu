@@ -17,7 +17,10 @@ Note that FileSystemSite 1.3 is required.
 $Id$
 """
 
-from App.class_init import InitializeClass
+try:
+    from App.class_init import InitializeClass
+except ImportError:
+    from Globals import InitializeClass
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 
 from Products.FileSystemSite.DirectoryView import DirectoryView
