@@ -174,7 +174,7 @@ class InfoAdaptor:
     def __init__(self, tool, resource_type, portal):
         self.url_tool = getToolByName(portal, 'portal_url')
         self.uid_catalog = getToolByName(portal, 'uid_catalog', None)
-        self.portal_interface = getToolByName(portal, 'portal_interface')
+        self.portal_interface = getToolByName(portal, 'portal_interface', None)
         self.workflow_tool = getToolByName(portal, 'portal_workflow')
         self.workflow_states = self.wfTitles()
         self.linkbyuid = tool.getLinkbyuid()
