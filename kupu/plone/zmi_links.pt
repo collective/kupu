@@ -5,9 +5,9 @@ i18n:domain="kupuconfig"
 xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
 
   <metal:cssslot fill-slot="style_slot">
-    <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
-    <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
-    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+    <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupustyles.css"/>
+    <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupuplone.css"/>
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupudrawerstyles.css"/>
       <tal:register define="getToolByName nocall:modules/Products.CMFCore.utils/getToolByName;
        _ python:getToolByName(context, 'kupu_library_tool').ensureReferencesLayer()" />
       <tal:if condition="not:exists:portal/portal_javascripts"

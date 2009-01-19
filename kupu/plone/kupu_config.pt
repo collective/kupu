@@ -264,7 +264,7 @@
                         <div tal:condition="here/have_plone_filtering|nothing"
                              i18n:translate="use_plone_controlpanel">
                            Please use the <a href="#"
-                           tal:attributes="href string:${portal_url}/@@filter-controlpanel"
+                           tal:attributes="href string:${context/portal_url}/@@filter-controlpanel"
                            i18n:name="plone_filter_controlpanel">
                               <span i18n:translate="plone_filter_controlpanel">Plone HTML filter control panel</span></a>
                               to set filtering options.

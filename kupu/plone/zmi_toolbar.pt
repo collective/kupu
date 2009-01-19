@@ -4,9 +4,9 @@ metal:use-macro="here/kupu_config/macros/master"
 i18n:domain="kupuconfig">
 
   <metal:cssslot fill-slot="css_slot">
-    <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupustyles.css"/>
-    <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupuplone.css"/>
-    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"/>
+    <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupustyles.css"/>
+    <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupuplone.css"/>
+    <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupudrawerstyles.css"/>
     <tal:if condition="not:exists:portal/portal_javascripts"
             metal:use-macro="context/kupu_wysiwyg_support/macros/kupu_js_include">
     </tal:if>

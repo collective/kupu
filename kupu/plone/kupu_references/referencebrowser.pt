@@ -11,10 +11,10 @@
    <tal:if condition="not:krb_drawer_loaded|nothing">
      <tal:var define="global krb_drawer_loaded string:yes" />
      <tal:if condition="not:exists:portal/portal_css">
-        <link href="#" tal:attributes="href string:${portal_url}/kupudrawerstyles.css"
+        <link href="#" tal:attributes="href string:${context/portal_url}/kupudrawerstyles.css"
               rel="stylesheet" type="text/css" />
 
-        <link href="#" tal:attributes="href string:${portal_url}/kupuplone.css"
+        <link href="#" tal:attributes="href string:${context/portal_url}/kupuplone.css"
               rel="stylesheet" type="text/css" />
      </tal:if>
 <!-- reference browser javascript -->
@@ -30,9 +30,9 @@
                 base python:kupu.getBaseUrl(here);
                 uid context/UID|nothing;
                 lib_prefix    string:${base}/kupulibraries.xml?instance=$uid&amp;resource_type=;
-                            search_prefix string:${portal_url}/kupusearch.xml?instance=$uid&amp;resource_type=;
-                            select_prefix string:${portal_url}/kupuselection.xml?instance=$uid&amp;resource_type=;
-                            xsl_uri string:${portal_url}/kupudrawers/drawer.xsl;"
+                            search_prefix string:${context/portal_url}/kupusearch.xml?instance=$uid&amp;resource_type=;
+                            select_prefix string:${context/portal_url}/kupuselection.xml?instance=$uid&amp;resource_type=;
+                            xsl_uri string:${context/portal_url}/kupudrawers/drawer.xsl;"
                 tal:content="string:krb_initdrawer('$xsl_uri','$lib_prefix','$search_prefix','$select_prefix');">
         </script>
     </tal:if>

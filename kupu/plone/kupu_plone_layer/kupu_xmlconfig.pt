@@ -36,12 +36,12 @@
                      base python:here.kupu_library_tool.getBaseUrl(here);
                      base kupu_base_override|base;">
         <captions tal:condition="usecaptions">1</captions>
-        <xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl"/>
+        <xsl_uri tal:content="string:${context/portal_url}/kupudrawers/drawer.xsl"/>
         <image_resource>mediaobject</image_resource>
         <link_resource>linkable</link_resource>
         <lib_prefix tal:content="string:${base}/kupulibraries.xml?resource_type="/>
-        <search_prefix tal:content="string:${portal_url}/kupusearch.xml?resource_type="/>
-        <select_prefix tal:content="string:${portal_url}/kupuselection.xml?resource_type="/>
+        <search_prefix tal:content="string:${context/portal_url}/kupusearch.xml?resource_type="/>
+        <select_prefix tal:content="string:${context/portal_url}/kupuselection.xml?resource_type="/>
     </tal:var>
   
         </kupuconfig>
