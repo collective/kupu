@@ -33,6 +33,7 @@ FILTERS = [
     ('indent-button', 'Indent button', True, 'kupu-indent'),
     ('bg-drawers', 'Drawers group', True, None),
     ('imagelibdrawer-button', 'Image drawer button', True, 'kupu-image'),
+    ('imagedrawer-button', 'External Image drawer button', True, 'kupu-externalimage'),
     ('linklibdrawer-button', 'Link drawer button', True, 'kupu-inthyperlink'),
     ('linkdrawer-button', 'External link drawer button', True, 'kupu-exthyperlink'),
     ('embed-tab', 'Embed tab in External link drawer', False, None),
@@ -70,7 +71,7 @@ class ButtonFilter:
             if allow_buttons is not None:
                 return visible and name in allow_buttons
             if filter_buttons is not None:
-               return visible and name not in filter_buttons
+                return visible and name not in filter_buttons
             return visible
 
         widget = getattr(field, 'widget', None)

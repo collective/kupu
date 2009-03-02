@@ -22,6 +22,11 @@
               id="kupu-imagelibdrawer-button"
               title="Insert image" i18n:attributes="title title_insert_image;"
         >&#160;</button>
+      <button type="button" class="kupu-extimage"
+              tal:condition="filter/imagedrawer-button"
+              id="kupu-imagedrawer-button"
+              title="Insert external image" i18n:attributes="title title_insert_external_image;"
+        >&#160;</button>
       <button type="button" class="kupu-inthyperlink"
               tal:condition="filter/linklibdrawer-button"
               id="kupu-linklibdrawer-button"

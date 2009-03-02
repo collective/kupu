@@ -222,6 +222,10 @@ function initPloneKupu(editorId) {
                                               opendrawer('imagelibdrawer'));
     kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
 
+    var imagedrawerbutton = new KupuButton(prefix+'button.kupu-extimage',
+                                              opendrawer('imagedrawer'));
+    kupu.registerTool('imagedrawerbutton', imagedrawerbutton);
+
     var linklibdrawerbutton = new KupuButton(prefix+'button.kupu-inthyperlink',
                                              opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
@@ -266,6 +270,9 @@ function initPloneKupu(editorId) {
                                                 drawerparent,
                                                 select_prefix+image_resource);
     drawertool.registerDrawer(prefix+'imagelibdrawer', imagelibdrawer, kupu);
+
+    var imagedrawer = new ImageDrawer(prefix+'div.kupu-imagedrawer', imagetool);
+    drawertool.registerDrawer(prefix+'imagedrawer', imagedrawer, kupu);
 
     var linkdrawer = new LinkDrawer(prefix+'div.kupu-linkdrawer', linktool);
     drawertool.registerDrawer(prefix+'linkdrawer', linkdrawer, kupu);

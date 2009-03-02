@@ -173,6 +173,7 @@ button.kupu-inthyperlink-pressed { border-color: &dtml-buttonshadow; &dtml-butto
 button.kupu-exthyperlink { background-position: 0 -120px; }
 button.kupu-exthyperlink-pressed { border-color: &dtml-buttonshadow; &dtml-buttonhighlight; &dtml-buttonhighlight; &dtml-buttonshadow;; }
 button.kupu-image        { background-position: 0 -140px; }
+button.kupu-extimage     { background-position: 0 -140px; }
 button.kupu-indent       { background-position: 0 -160px; }
 button.kupu-outdent      { background-position: 0 -180px; }
 

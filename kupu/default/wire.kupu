@@ -67,6 +67,7 @@
   <kupu:fill-slot name="drawers">
     <kupu:insert-part feature="drawers" part="librarydrawer" />
     <kupu:insert-part feature="drawers" part="linkdrawer" />
+    <kupu:insert-part feature="drawers" part="imagedrawer" />
     <kupu:insert-part feature="drawers" part="tabledrawer" />
     <kupu:insert-part feature="drawers" part="anchordrawer" />
   </kupu:fill-slot>

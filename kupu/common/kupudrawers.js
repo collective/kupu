@@ -461,6 +461,118 @@ function LinkDrawer(elementid, tool) {
 
 LinkDrawer.prototype = new DrawerWithAnchors;
 
+function ImageDrawer(elementid, tool) {
+    /* External image drawer */
+    DrawerWithAnchors.call(this, elementid, tool);
+
+    var urlinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-urlinput');
+    var altinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-altinput');
+    var preview = getBaseTagClass(this.element, 'iframe', 'kupu-imagedrawer-preview');
+    var watermark = getBaseTagClass(this.element, 'div', 'watermark');
+    this.anchorframe = preview;
+    this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-imagedrawer-anchors');
+    this.target = '';
+    this.panel = getBaseTagClass(this.element, 'div', 'kupu-panels');
+    var kuputabs = getBaseTagClass(this.element, 'ul', 'kupu-tabs');
+    if (kuputabs) {
+	var tabs = kuputabs.getElementsByTagName('a');
+	for (var i = 0; i < tabs.length; i++) {
+        addEventHandler(tabs[i], 'click', this.switchMode, this);
+	    }
+    }
+
+    this.selChange = function() {
+        var anchor = this.getFragment();
+
+        urlinput.value = urlinput.value.replace(/#[^#]*$/, '');
+        if (anchor) {
+            urlinput.value += anchor;
+        }
+    };
+    this.addSelectEvent();
+
+    this.createContent = function() {
+        /* display the drawer */
+        var ed = this.editor;
+        var currnode = ed.getSelectedNode();
+        var imagel = ed.getNearestParentOfType(currnode, 'img');
+        urlinput.value = "";
+
+        this.preview();
+        if (imagel) {
+            urlinput.value = imagel.getAttribute('src');
+            altinput.value = imagel.getAttribute('alt');
+        } else {
+            urlinput.value = 'http://';
+            altinput.value = '';
+        };
+        this.element.style.display = 'block';
+        this.hideAnchors();
+        this.focusElement();
+    };
+
+    this.save = function() {
+        /* add or modify an image */
+        this.editor.resumeEditing();
+        var url = urlinput.value;
+        var alt = altinput.value;
+        this.tool.createImage(url, alt, 'external-image');
+        urlinput.value = '';
+        altinput.value = '';
+        // XXX when reediting a link, the drawer does not close for
+        // some weird reason. BUG! Close the drawer manually until we
+        // find a fix:
+        this.drawertool.closeDrawer();
+    };
+
+
+    function currentAnchor() {
+        var bits = urlinput.value.split('#');
+        var current = bits.length > 1 ? bits[bits.length-1] : '';
+        return current;
+    }
+
+    this.preview = function() {
+        var ok = false;
+        watermark.style.display='';
+        if (/^http(s?):\x2f\x2f./.test(urlinput.value)) {
+            try {
+                preview.src = urlinput.value;
+                ok = true;
+            } catch(e) { alert('Preview blew up"'+urlinput.value+'"');};
+        } else {
+            preview.src = '';
+            if (urlinput.value.strip()) {
+                alert(_('Can only preview web urls'));
+            }
+        }
+        if (ok) {
+            this.showAnchors(currentAnchor());
+            if (this.editor.getBrowserName() == 'IE') {
+                preview.width = "800";
+                preview.height = "365";
+                preview.style.zoom = "60%";
+            };
+        };
+    };
+
+    this.preview_loaded = function() {
+        watermark.style.display = (/^http(s?):\x2f\x2f./.test(urlinput.value))?'none':'';
+        var here = urlinput.value;
+        try {
+            var there = preview.contentWindow.location.href;
+        } catch(e) { return; }
+
+        if (there && here != there && !(/^about:/.test(there))) {
+            urlinput.value = there;
+        }
+        this.showAnchors(currentAnchor());
+    };
+    addEventHandler(preview, "load", this.preview_loaded, this);
+};
+
+ImageDrawer.prototype = new DrawerWithAnchors;
+
 function TableDrawer(elementid, tool) {
     /* Table drawer */
     this.element = getFromSelector(elementid);

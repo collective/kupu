@@ -36,7 +36,49 @@
       <div tal:condition="usekupu">
         
     <div style="display: none;">
-<tal:block tal:define="config here/kupu_xmlconfig" replace="structure python:here.kupu_document_write(config)"/>
+      <xml id="kupuconfig" class="kupuconfig">
+        <kupuconfig>
+          
+    <dst>fulldoc.html</dst>
+    <use_css>0</use_css>
+    <reload_after_save>0</reload_after_save>
+    <strict_output>1</strict_output>
+    <content_type>application/xhtml+xml</content_type>
+    <compatible_singletons>1</compatible_singletons>
+    <filtersourceedit tal:condition="here/kupu_library_tool/getFiltersourceedit">1</filtersourceedit>
+    
+    <tal:block define="table_classnames here/get_table_classnames|here/kupu_library_tool/getTableClassnames|nothing">
+    <table_classes tal:condition="table_classnames">
+      <tal:loop repeat="klass table_classnames">
+      <class tal:define="parts python:klass.split('|', 1)*2;" tal:condition="python:parts[0].strip()">
+          <xcaption i18n:translate="" tal:content="python:parts[1]"/>
+          <classname tal:content="python:parts[0]"/>
+      </class>
+      </tal:loop>
+    </table_classes>
+    </tal:block>
+
+<tal:block define="excludes here/kupu_library_tool/getHtmlExclusions">
+<htmlfilter>
+<tal:block repeat="exclude excludes"><tal:block define="tags python:exclude[0]; attributes python:exclude[1];"><c tal:omit-tag="not:python:tags and attributes"><a tal:repeat="attr attributes" tal:content="attr">
+  </a><t tal:repeat="tag tags" tal:content="tag"/></c></tal:block></tal:block>
+<xstyle tal:repeat="st here/kupu_library_tool/getStyleWhitelist" tal:content="st"/>
+<class tal:repeat="cl here/kupu_library_tool/getClassBlacklist" tal:content="cl"/>
+</htmlfilter>
+</tal:block>
+  
+    <tal:var define="field field|nothing;             tool here/kupu_library_tool;             usecaptions python:tool.getCaptioning() and tool.canCaption(field);             base python:here.kupu_library_tool.getBaseUrl(here);             base kupu_base_override|base;">
+        <captions tal:condition="usecaptions">1</captions>
+        <xsl_uri tal:content="string:${portal_url}/kupudrawers/drawer.xsl"/>
+        <image_resource>mediaobject</image_resource>
+        <link_resource>linkable</link_resource>
+        <lib_prefix tal:content="string:${base}/kupulibraries.xml?resource_type="/>
+        <search_prefix tal:content="string:${portal_url}/kupusearch.xml?resource_type="/>
+        <select_prefix tal:content="string:${portal_url}/kupuselection.xml?resource_type="/>
+    </tal:var>
+  
+        </kupuconfig>
+      </xml>
     </div>
   
     <div class="kupu-fulleditor">
@@ -129,6 +171,7 @@
   
     <span class="kupu-tb-buttongroup" tal:condition="filter/bg-drawers">
       <button type="button" class="kupu-image" tal:condition="filter/imagelibdrawer-button" id="kupu-imagelibdrawer-button" title="Insert image" i18n:attributes="title title_insert_image;">&#160;</button>
+      <button type="button" class="kupu-extimage" tal:condition="filter/imagedrawer-button" id="kupu-imagedrawer-button" title="Insert external image" i18n:attributes="title title_insert_external_image;">&#160;</button>
       <button type="button" class="kupu-inthyperlink" tal:condition="filter/linklibdrawer-button" id="kupu-linklibdrawer-button" title="Insert internal link" i18n:attributes="title title_insert_internal_link;">&#160;</button>
       <button type="button" class="kupu-exthyperlink" tal:condition="filter/linkdrawer-button" id="kupu-linkdrawer-button" title="Insert external link" i18n:attributes="title title_insert_external_link;">&#160;</button>
       <button type="button" class="kupu-anchors" tal:condition="filter/anchors-button" id="kupu-anchors" title="Insert anchors" i18n:attributes="title title_insert_anchors;">&#160;</button>
@@ -238,6 +281,64 @@
                   inserted in this way will be preserved when you save
                   your edits. To select an existing object from IE click on
                   the border, from Firefox double click it.
+                  </td>
+               </tr>
+            </tbody>
+        </table>
+
+        <div class="kupu-dialogbuttons">
+          <button class="kupu-dialog-button" type="button" onclick="drawertool.current_drawer.save()" i18n:translate="button_ok">Ok</button>
+          <button class="kupu-dialog-button" type="button" onclick="drawertool.closeDrawer()" i18n:translate="button_cancel">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  
+    <div id="kupu-imagedrawer" class="kupu-drawer kupu-imagedrawer">
+      <h1 class="kupu-drawer-title" i18n:translate="title_external_image">External Image</h1>
+
+      <div id="kupu-imagedrawer-addimage" class="kupu-panels kupu-imagedrawer-addimage">
+         <ul class="kupu-tabs">
+            <li class="kupu-imagedrawer-addimage selected"><a href="#" i18n:translate="tab_image">Link to url</a></li>
+            <li class="kupu-imagedrawer-embed" tal:condition="filter/embed-tab|nothing"><a href="#" i18n:translate="tab_embed">Embed external object</a></li>
+         </ul>
+         <table class="kupu-tabbed">
+            <tbody class="kupu-addimage">
+               <tr>
+                  <td>
+                     <div class="kupu-toolbox-label">
+                        
+                        <span i18n:translate="label_image_text">
+                           Insert the image from this URL:
+                        </span>
+                     </div>
+                     <input class="kupu-toolbox-st kupu-imagedrawer-urlinput" type="text" onkeypress="return HandleDrawerEnter(event, 'imagedrawer-preview');"/>
+                  </td>
+                  <td class="kupu-preview-button">
+                     <button class="kupu-dialog-button" type="button" id="imagedrawer-preview" onclick="drawertool.current_drawer.preview()" i18n:translate="button_preview">Preview</button>
+                  </td>
+               </tr>
+               <tr>
+                  <td colspan="2">
+                     <div class="kupu-toolbox-label">
+                        
+                        <span i18n:translate="label_image_alt">
+                           Image ALT text:
+                        </span>
+                     </div>
+                     <input class="kupu-toolbox-st kupu-imagedrawer-altinput" type="text"/>
+                  </td>
+               </tr>
+               <tr class="kupu-imagedrawer-anchors" style="display:none">
+                  <td colspan="2">
+                     <label i18n:translate="label_anchor" for="anchorselect">Anchor</label>
+                     <select id="anchorselect"><option i18n:translate="opt_top_of_page" value="">top of page (default)</option></select>
+                  </td>
+               </tr>
+               <tr><td colspan="2" align="center">
+                  <div class="watermark"><span i18n:translate="watermark_preview">Preview</span></div>
+                  <iframe frameborder="1" scrolling="auto" width="440" height="198" class="kupu-imagedrawer-preview" src="javascript:''">
+                  </iframe>
                   </td>
                </tr>
             </tbody>
