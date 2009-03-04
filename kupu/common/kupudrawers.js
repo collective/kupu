@@ -467,7 +467,7 @@ function ImageDrawer(elementid, tool) {
 
     var urlinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-urlinput');
     var altinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-altinput');
-    var preview = getBaseTagClass(this.element, 'iframe', 'kupu-imagedrawer-preview');
+    var preview = getBaseTagClass(this.element, 'img', 'kupu-imagedrawer-preview');
     var watermark = getBaseTagClass(this.element, 'div', 'watermark');
     this.anchorframe = preview;
     this.anchorui = getBaseTagClass(this.element, 'tr', 'kupu-imagedrawer-anchors');
@@ -535,6 +535,7 @@ function ImageDrawer(elementid, tool) {
     this.preview = function() {
         var ok = false;
         watermark.style.display='';
+        preview.style.display = 'none';
         if (/^http(s?):\x2f\x2f./.test(urlinput.value)) {
             try {
                 preview.src = urlinput.value;
@@ -558,15 +559,16 @@ function ImageDrawer(elementid, tool) {
 
     this.preview_loaded = function() {
         watermark.style.display = (/^http(s?):\x2f\x2f./.test(urlinput.value))?'none':'';
-        var here = urlinput.value;
-        try {
-            var there = preview.contentWindow.location.href;
-        } catch(e) { return; }
-
-        if (there && here != there && !(/^about:/.test(there))) {
-            urlinput.value = there;
+        watermark.innerHTML = '<span>Preview</span>';
+        var MAXIMUM = 200;
+        if (preview.height > MAXIMUM) {
+            preview.height = MAXIMUM;
         }
-        this.showAnchors(currentAnchor());
+        var top = (MAXIMUM - preview.height) / 2;
+        if (top < 0) 
+            {top = 0;}
+        preview.style.top = top + "px";
+        preview.style.display = '';
     };
     addEventHandler(preview, "load", this.preview_loaded, this);
 };

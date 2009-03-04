@@ -69,6 +69,8 @@ div.kupu-linkdrawer-addlink td {
   border: 0;
 }
 .kupu-alt-row input { width: 220px; }
+.kupu-imagedrawer-altinput,
+.kupu-imagedrawer-urlinput,
 .kupu-linkdrawer-input {
    width: 500px;
 }
@@ -76,8 +78,16 @@ div.kupu-linkdrawer-addlink td {
    width: 500px;
    height: 20em;
 }
+
+.kupu-imagedrawer-preview {
+  position: relative;
+  text-align:center;
+  top: 0px;
+}
+
+.kupu-imagedrawer-previewcontainer,
 iframe.kupu-linkdrawer-preview {
-  width: 100%; height:20em;
+  width: 100%; height:200px;
 }
 .kupu-preview-row {
   float: right;
@@ -285,12 +295,15 @@ ul.kupu-tabs { border-bottom: 1px solid; margin: 0; padding: 0.5em 0.5em 1px 1.5
 
 .kupu-linkdrawer-addlink .kupu-embed,
 .kupu-linkdrawer-embed .kupu-addlink { display: none; }
+.kupu-imagedrawer-addimage .watermark,
 .kupu-linkdrawer-addlink .watermark {
   position: relative;
   text-align:center;
   top: 98px;
   font-size: 20pt;
+  z-index: 10;
 }
+.kupu-imagedrawer-addimage .watermark span,
 .kupu-linkdrawer-addlink .watermark span {
   background-color: white;
   opacity:0.5;

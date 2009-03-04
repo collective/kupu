@@ -91,8 +91,7 @@
                <tr><td colspan="2" align="center">
                   <div class="watermark"><span
                   i18n:translate="watermark_preview">Preview</span></div>
-                  <iframe frameborder="1" scrolling="auto" width="440" height="198"
-                          class="kupu-linkdrawer-preview" src="javascript:''">
+                  <iframe frameborder="1" scrolling="auto" width="440" height="198" class="kupu-linkdrawer-preview" src="javascript:''">
                   </iframe>
                   </td>
                </tr>
@@ -143,7 +142,7 @@
 
       <div id="kupu-imagedrawer-addimage" class="kupu-panels kupu-imagedrawer-addimage">
          <ul class="kupu-tabs">
-            <li class="kupu-imagedrawer-addimage selected"><a href="#" i18n:translate="tab_image">Link to url</a></li>
+            <li class="kupu-imagedrawer-addimage selected"><a href="#" i18n:translate="tab_image">Insert Image</a></li>
             <li class="kupu-imagedrawer-embed" tal:condition="filter/embed-tab|nothing"><a href="#" i18n:translate="tab_embed">Embed external object</a></li>
          </ul>
          <table class="kupu-tabbed">
@@ -179,10 +178,9 @@
                      <select id="anchorselect"><option i18n:translate="opt_top_of_page" value="">top of page (default)</option></select>
                   </td>
                </tr>
-               <tr><td colspan="2" align="center">
+               <tr><td class="kupu-imagedrawer-previewcontainer" colspan="2" align="center">
                   <div class="watermark"><span i18n:translate="watermark_preview">Preview</span></div>
-                  <iframe frameborder="1" scrolling="auto" width="440" height="198" class="kupu-imagedrawer-preview" src="javascript:''">
-                  </iframe>
+                  <img src="" class="kupu-imagedrawer-preview" />
                   </td>
                </tr>
             </tbody>
