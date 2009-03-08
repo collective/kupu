@@ -19,6 +19,8 @@ var kupu;
 
 
 function initKupu(iframe) {
+
+
     // first we create a logger
     var l = new PlainLogger('kupu-toolbox-debuglog', 5);
 
@@ -77,10 +79,12 @@ function initKupu(iframe) {
     var redobutton = new KupuButton('kupu-redo-button', execCommand('redo'));
     kupu.registerTool('redobutton', redobutton);
 
-    var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
-        'img',
-        'kupu-removeimage');
-    kupu.registerTool('removeimagebutton', removeimagebutton);
+    if (document.getElementById("kupu-image-float-select")) {
+        var removeimagebutton = new KupuRemoveElementButton('kupu-removeimage-button',
+            'img',
+            'kupu-removeimage');
+        kupu.registerTool('removeimagebutton', removeimagebutton);
+    }
 
     var removelinkbutton = new KupuRemoveElementButton('kupu-removelink-button',
         'a',
@@ -108,15 +112,17 @@ function initKupu(iframe) {
     var linktoolbox = new LinkToolBox("kupu-link-input", "kupu-link-button", 'kupu-toolbox-links', 'kupu-toolbox', 'kupu-toolbox-active');
     linktool.registerToolBox('linktoolbox', linktoolbox);
 
-    var imagetool = new ImageTool();
-    // remove 'create image' from context menu, it doesn't work, and there are 2 wokring methods.
-    imagetool.createContextMenuElements = function(selNode, event) {
-        return [];
-    };
-    kupu.registerTool('imagetool', imagetool);
-    var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton',
-        'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
-    imagetool.registerToolBox('imagetoolbox', imagetoolbox);
+    if (document.getElementById("kupu-image-float-select")) {
+        var imagetool = new ImageTool();
+        // remove 'create image' from context menu, it doesn't work, and there are 2 wokring methods.
+        imagetool.createContextMenuElements = function(selNode, event) {
+            return [];
+        };
+        kupu.registerTool('imagetool', imagetool);
+        var imagetoolbox = new ImageToolBox('kupu-image-input', 'kupu-image-addbutton',
+            'kupu-image-float-select', 'kupu-toolbox-images',  'kupu-toolbox', 'kupu-toolbox-active');
+        imagetool.registerToolBox('imagetoolbox', imagetoolbox);
+    }
 
     var tabletool = new TableTool();
     kupu.registerTool('tabletool', tabletool);
@@ -131,12 +137,14 @@ function initKupu(iframe) {
         'kupu-toolbox', 'kupu-toolbox-active');
     tabletool.registerToolBox('tabletoolbox', tabletoolbox);
 
-    var divstool = new DivsTool();
-    kupu.registerTool('divstool', divstool);
+    if (document.getElementById('kupu-toolbox-divs')) {
+        var divstool = new DivsTool();
+        kupu.registerTool('divstool', divstool);
 
-    var divstoolbox = new DivsToolBox('kupu-div-addbutton',
-        'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
-    divstool.registerToolBox('divstoolbox', divstoolbox);
+        var divstoolbox = new DivsToolBox('kupu-div-addbutton',
+            'kupu-divs-float-select', 'kupu-toolbox-divs',  'kupu-toolbox', 'kupu-toolbox-active');
+        divstool.registerToolBox('divstoolbox', divstoolbox);
+    }
 
     if (document.getElementById('kupu-toolbox-flash')) {
         var flashtool = new FlashTool();
@@ -175,10 +183,10 @@ function initKupu(iframe) {
             drawertool.openDrawer(drawerid);
         };
     };
-
-    var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button', opendrawer('imagelibdrawer'));
-    kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
-
+    if (document.getElementById("kupu-image-float-select")) {
+        var imagelibdrawerbutton = new KupuButton('kupu-imagelibdrawer-button', opendrawer('imagelibdrawer'));
+        kupu.registerTool('imagelibdrawerbutton', imagelibdrawerbutton);
+    }
     var linklibdrawerbutton = new KupuButton('kupu-linklibdrawer-button',
         opendrawer('linklibdrawer'));
     kupu.registerTool('linklibdrawerbutton', linklibdrawerbutton);
@@ -204,11 +212,13 @@ function initKupu(iframe) {
             conf['search_links_uri']);
         drawertool.registerDrawer('linklibdrawer', linklibdrawer);
 
-        var imagelibdrawer = new ImageLibraryDrawer(imagetool,
-            conf['image_xsl_uri'],
-            conf['image_libraries_uri'],
-            conf['search_images_uri']);
-        drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+        if (document.getElementById("kupu-image-float-select")) {
+            var imagelibdrawer = new ImageLibraryDrawer(imagetool,
+                conf['image_xsl_uri'],
+                conf['image_libraries_uri'],
+                conf['search_images_uri']);
+            drawertool.registerDrawer('imagelibdrawer', imagelibdrawer);
+        }
 
         /*
        var imagelibdrawer2 = new ImageLibraryDrawer(null,
@@ -218,13 +228,13 @@ function initKupu(iframe) {
        drawertool.registerDrawer('nodeimagedrawer', imagelibdrawer2);
        */
     } catch(e) {
-        var msg = _('There was a problem initializing the drawers. Most ' +
-                    'likely the XSLT or XML files aren\'t available. If this ' +
-                    'is not the Kupu demo version, check your files or the ' +
-                    'service that provide them (error: ${error}).',
-                    {'error': (e.message || e.toString())});
-        alert(msg);
+        alert(_('There was a problem initializing the drawers. Most ' +
+                'likely the XSLT or XML files aren\'t available. If this ' +
+                'is not the Kupu demo version, check your files or the ' +
+                'service that provide them (error: ${error}).',
+                {'error': (e.message || e.toString())}));
     };
+
     var linkdrawer = new LinkDrawer('kupu-linkdrawer', linktool);
     drawertool.registerDrawer('linkdrawer', linkdrawer);
 
