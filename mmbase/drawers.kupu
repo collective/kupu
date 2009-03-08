@@ -24,9 +24,15 @@
 
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">
-      <button type="button" class="kupu-image"
-              id="kupu-imagelibdrawer-button"  title="image"
-              i18n:attributes="title title_image;">&#160;</button>
+      <c:if test="${mm:contains(inline_nodetypes, 'images')}">
+        <mm:node referid="objectnumber">
+          <mm:hasrelationmanager sourcemanager="$_node" destinationmanager="images" role="idrel">
+            <button type="button" class="kupu-image"
+                    id="kupu-imagelibdrawer-button"  title="image"
+                    i18n:attributes="title title_image;">&#160;</button>
+          </mm:hasrelationmanager>
+        </mm:node>
+      </c:if>
       <button type="button" class="kupu-inthyperlink"
               id="kupu-linklibdrawer-button"   title="link"
               i18n:attributes="title title_link;">&#160;</button>
