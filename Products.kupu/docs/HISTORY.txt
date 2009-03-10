@@ -1,0 +1,8 @@
+Changelog
+=========
+
+1.4.12.extimage - 2009-03-10
+----------------------------
+
+* add external image drawer
+  [gotcha]
