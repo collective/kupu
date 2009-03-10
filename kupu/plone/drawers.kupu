@@ -20,7 +20,7 @@
       <button type="button" class="kupu-image"
               tal:condition="filter/imagelibdrawer-button"
               id="kupu-imagelibdrawer-button"
-              title="Insert image" i18n:attributes="title title_insert_image;"
+              title="Insert internal image" i18n:attributes="title title_insert_image;"
         >&#160;</button>
       <button type="button" class="kupu-extimage"
               tal:condition="filter/imagedrawer-button"
