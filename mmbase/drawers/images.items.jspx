@@ -13,7 +13,7 @@
         <mm:listnodescontainer id="query" type="images" />
       </mm:cloud>
     </mm:notpresent>
-    <mm:import externid="max">100</mm:import>
+    <mm:import externid="max" reset="true">100</mm:import>
     <mm:listnodescontainer referid="query">
       <mm:sortorder field="number" direction="down" />
       <items>

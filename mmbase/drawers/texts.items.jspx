@@ -10,6 +10,7 @@
   <mm:import externid="kupubasedir" reset="true" />
   <mm:content type="text/xml">
     <mm:listnodescontainer referid="query">
+      &lt;!-- ${query.sql} --&gt;
       <items>
         <mm:context>
           <mm:listnodes id="text">
@@ -19,8 +20,11 @@
               <title>
                 <mm:hasfunction name="icon" inverse="true"><mm:nodeinfo type="guinodemanager" />: </mm:hasfunction>
                 <mm:function name="gui" write="true" escape="none"><mm:isempty><mm:field name="number" /></mm:isempty></mm:function>
+                <jsp:text> (<mm:field name="number" />)</jsp:text>
               </title>
-              <description><mm:nodeinfo type="guitype" />: <mm:function name="gui" escape="none" /></description>
+              <description>
+                <mm:nodeinfo type="guitype" />: <mm:function name="gui" escape="none" />
+              </description>
               <mm:hasfunction name="icon">
                 <icon><mm:function name="icon" /></icon>
               </mm:hasfunction>

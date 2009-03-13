@@ -18,7 +18,7 @@
         <title>
           <mm:nodeinfo nodetype="$nodetype" type="plural_guinodemanager" />
         </title>
-        <icon height="12" width="16">${kupubasedir}mmbase/icons/map.gif</icon>
+        <icon height="12" width="16"><mm:url page="/mmbase/kupu/mmbase/icons/map.gif" /></icon>
         <mm:remove referid="query" />
         <mm:listnodescontainer id="query" type="$nodetype">
           <!-- a bit of a hack, we probably need a bit more sophisticated filter on version -->
