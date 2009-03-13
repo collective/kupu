@@ -15,12 +15,13 @@
     <mm:import externid="librarysize">50</mm:import>
     <mm:import externid="page">0</mm:import>
     <mm:import vartype="list" externid="link_nodetypes">images</mm:import>
+
     <mm:import externid="source" />
 
     <library id="${nodetypes}_${search}">
       <uri><mm:url referids="search,librarysize@max,link_nodetypes@nodetypes" page="drawers/collection.jspx" /></uri>
       <title>"<mm:write referid="search" />"</title>
-      <icon>icons/map.gif</icon>
+      <icon><mm:url page="/mmbase/kupu/mmbase/icons/map.gif" /></icon>
 
       <mm:stringlist referid="link_nodetypes">
         <mm:hasnodemanager name="$_">
