@@ -467,6 +467,9 @@ function ImageDrawer(elementid, tool) {
 
     var urlinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-urlinput');
     var altinput = getBaseTagClass(this.element, 'input', 'kupu-imagedrawer-altinput');
+    var alignleftinput = getBaseTagClass(this.element, 'input', 'kupu-image-align-left');
+    var alignrightinput = getBaseTagClass(this.element, 'input', 'kupu-image-align-right');
+    var aligninlineinput = getBaseTagClass(this.element, 'input', 'kupu-image-align-inline');
     var preview = getBaseTagClass(this.element, 'img', 'kupu-imagedrawer-preview');
     var watermark = getBaseTagClass(this.element, 'div', 'watermark');
     this.anchorframe = preview;
@@ -502,13 +505,48 @@ function ImageDrawer(elementid, tool) {
         if (imagel) {
             urlinput.value = imagel.getAttribute('src');
             altinput.value = imagel.getAttribute('alt');
+            var className = imagel.className;
+            var align = /\bimage-(left|right|inline)\b/.exec(className);
+            if (align && align.length > 1) {
+                var alignvalue = align[1];
+            };
         } else {
             urlinput.value = 'http://';
             altinput.value = '';
+            var alignvalue = 'inline';
         };
+        this.setAlign(alignvalue);
         this.element.style.display = 'block';
         this.hideAnchors();
         this.focusElement();
+    };
+
+    this.setAlign = function(value) {
+        if (value == 'left') {
+           alignleftinput.checked = true;
+           alignrightinput.checked = false;
+           aligninlineinput.checked = false;
+        } else if (value == 'right') {
+           alignleftinput.checked = false;
+           alignrightinput.checked = true;
+           aligninlineinput.checked = false;
+        } else {
+           alignleftinput.checked = false;
+           alignrightinput.checked = false;
+           aligninlineinput.checked = true;
+        }
+    };
+
+    this.getAlign = function() {
+        if (alignleftinput.checked) {
+            return alignleftinput.value
+            }
+        if (aligninlineinput.checked) {
+            return aligninlineinput.value
+            }
+        if (alignrightinput.checked) {
+            return alignrightinput.value
+            }
     };
 
     this.save = function() {
@@ -516,7 +554,8 @@ function ImageDrawer(elementid, tool) {
         this.editor.resumeEditing();
         var url = urlinput.value;
         var alt = altinput.value;
-        this.tool.createImage(url, alt, 'external-image');
+        var imgclass = this.getAlign() + ' external-image';
+        this.tool.createImage(url, alt, imgclass);
         urlinput.value = '';
         altinput.value = '';
         // XXX when reediting a link, the drawer does not close for

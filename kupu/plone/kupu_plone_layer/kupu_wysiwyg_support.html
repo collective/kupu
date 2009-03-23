@@ -329,6 +329,24 @@
                      <input class="kupu-toolbox-st kupu-imagedrawer-altinput" type="text"/>
                   </td>
                </tr>
+               <tr>
+                  <td colspan="2">
+                     <div class="kupu-toolbox-label">
+                        
+                        <span i18n:translate="label_image_align">
+                           Image alignment:
+                        </span>
+                     </div>
+                    <span class="kupu-detail">
+                       <input type="radio" name="image-align" class="kupu-image-align-left" value="image-left" onkeypress="if(event.keyCode==13)return false;"/>
+                       <label for="image-align-left" i18n:translate="imagedrawer_left">Left</label>
+                       <input type="radio" name="image-align" class="kupu-image-align-inline" value="image-inline" onkeypress="if(event.keyCode==13)return false;"/>
+                       <label for="image-align-inline" i18n:translate="imagedrawer_inline">Inline</label>
+                       <input type="radio" name="image-align" class="kupu-image-align-right" value="image-right" onkeypress="if(event.keyCode==13)return false;"/>
+                       <label for="image-align-right" i18n:translate="imagedrawer_right">Right</label>
+                    </span>
+                  </td>
+               </tr>
                <tr class="kupu-imagedrawer-anchors" style="display:none">
                   <td colspan="2">
                      <label i18n:translate="label_anchor" for="anchorselect">Anchor</label>
