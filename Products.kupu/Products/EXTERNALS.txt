@@ -1,1 +1,1 @@
-kupu https://codespeak.net/svn/kupu/branch/gotcha-externalimages/kupu
+kupu https://codespeak.net/svn/kupu/tag/1.4.12-extimage.1/kupu
