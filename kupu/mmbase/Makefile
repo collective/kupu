@@ -70,12 +70,12 @@ mmbase-kupu.war: webapp
 
 .PHONY:
 deploy.jars: $(I18N) mmbase-kupu-i18n.jar
-	mvn deploy:deploy-file -DgroupId=org.oscom -DartifactId=kupu-i18n        -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
-	mvn deploy:deploy-file -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
+	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n        -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
+	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
 
 .PHONY:
 deploy: mmbase-kupu.war
-	mvn deploy:deploy-file -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
+	mvn deploy:deploy-file -DgeneratePom.description='WAR-overlay containing all necessary files to use kupu with MMBase. The mmbase-richtext component depends on this.' -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
 
 
 clean:
