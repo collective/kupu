@@ -66,7 +66,7 @@ webapp: all $(I18N) mmbase-kupu-i18n.jar
 
 mmbase-kupu.war: webapp
 	( cd build ; find . -regex '.*/\.svn.*' -o -type f -print | xargs jar cf ../mmbase-kupu.war  )
-	cp mmbase-kupu.war mmbase-kupu-$(VERSION).war
+
 
 .PHONY:
 deploy.jars: $(I18N) mmbase-kupu-i18n.jar
@@ -75,7 +75,7 @@ deploy.jars: $(I18N) mmbase-kupu-i18n.jar
 
 .PHONY:
 deploy: mmbase-kupu.war
-	mvn deploy:deploy-file -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu-$(VERSION).war -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
+	mvn deploy:deploy-file -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
 
 
 clean:
