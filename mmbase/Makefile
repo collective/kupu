@@ -65,7 +65,7 @@ webapp: all $(I18N) mmbase-kupu-i18n.jar
 
 
 mmbase-kupu.war: webapp
-	jar cf mmbase-kupu.war -C build .
+	( cd build ; find . -regex '.*/\.svn.*' -o -type f -print | xargs jar cf ../mmbase-kupu.war  )
 	cp mmbase-kupu.war mmbase-kupu-$(VERSION).war
 
 .PHONY:
