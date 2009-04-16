@@ -82,6 +82,7 @@ clean:
 	rm -f index.jspx
 	rm -f body.jspx	head.jspx
 	rm -f mmbase-kupu-i18n.jar
+	rm -f mmbase-kupu.war
 	rm -rf resourcebundle
 	rm -rf build
 	@$(MAKE) -C $(KUPU_HOME) clean
