@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.8 2005/09/08 08:30:31 michiel Exp $
+# $Id$
 
 
 KUPU_HOME=..
@@ -35,6 +35,7 @@ i18n.js/i18n.js:
 	wget http://johnnydebris.net/javascript/.files/i18n.js-0.1.tar.gz
 	tar zxf i18n.js-0.1.tar.gz
 
+
 .PHONY:
 messages: *.js clean
 	rm -f phony.js
@@ -52,7 +53,7 @@ mmbase-kupu-i18n.jar: i18n/*.po
 	done
 	jar cf $@ -C resourcebundle org
 
-webapp: all $(I18N) mmbase-kupu-i18n.jar
+webapp: all deploy.jars
 	mkdir -p build/mmbase/kupu/mmbase
 	cp -pr *.jspx *.js *.css build/mmbase/kupu/mmbase
 	cp -rpf tools build/mmbase/kupu/mmbase
@@ -60,8 +61,8 @@ webapp: all $(I18N) mmbase-kupu-i18n.jar
 	cp -rpf icons build/mmbase/kupu/mmbase
 	cp -rpf ../common build/mmbase/kupu
 	mkdir -p build/WEB-INF/lib
-	cp $(I18N) build/WEB-INF/lib
-	cp mmbase-kupu-i18n.jar build/WEB-INF/lib
+	cp $(HOME)/.m2/repository/org/oscom/kupu-i18n/$(VERSION)/kupu-i18n-$(VERSION).jar build/WEB-INF/lib
+	cp $(HOME)/.m2/repository/org/oscom/mmbase-kupu-i18n/$(VERSION)/mmbase-kupu-i18n-$(VERSION).jar build/WEB-INF/lib
 
 
 mmbase-kupu.war: webapp
