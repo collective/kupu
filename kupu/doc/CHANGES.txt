@@ -2,7 +2,14 @@
 Kupu changes
 ============
 
-- ?
+- 1.4.13
+
+  - Patch from Andy Altepeter: kupu updatestate patch
+
+  - Patch from Gerhard Weis: small js-bugfix in kupudrawers.js
+
+  - Wrap the inline xml configuration with javascript document.write
+    in the plone integration, so edit pages are valid (x)html.
 
   - Changed undefined variable ${portal_url} to ${context/portal_url} in
     page templates.
@@ -25,6 +32,8 @@ Kupu changes
   - Plone tickets
 
     * 8612 strangely numbered column headings (Col 01 | Col 11 | Col 21 | Col 31 etc.)
+    * 9190 Please make new release for Kupu to apply updated translation
+
 
 - 1.4.12
 

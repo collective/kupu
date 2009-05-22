@@ -1269,7 +1269,7 @@ function LibraryDrawer(tool, xsluri, libsuri, searchuri, baseelement, selecturi)
         if (this.editor.getBrowserName() == 'IE') {
             resultlib = resultlib.cloneNode(true);
         } else {
-            this.xmldata.importNode(resultlib, true);
+            resultlib = this.xmldata.importNode(resultlib, true);
         }
         var libraries = this.xmldata.selectSingleNode("/libraries");
         libraries.appendChild(resultlib);
