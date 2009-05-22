@@ -163,7 +163,7 @@ function KupuEditor(document, config, logger) {
         // onbeforedeactivate event, which would be ideal here...
         this._saveSelection();
 
-        if (event.type == 'click' || event.type=='mouseup' ||
+        if (event.type == 'click' ||
                 (event.type == 'keyup' && 
                     interesting_codes.contains(event.keyCode))) {
             // Filthy trick to make the updateState method get called *after*
