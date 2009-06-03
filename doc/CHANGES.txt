@@ -2,6 +2,11 @@
 Kupu changes
 ============
 
+- 1.4.14
+
+  - Removed bogus `global_defines` call from kupu_xmlconfig.pt, which was
+    both expensive and failed for certain kind of non-content contexts.
+
 - 1.4.13
 
   - Patch from Andy Altepeter: kupu updatestate patch
