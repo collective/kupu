@@ -11,9 +11,10 @@
   <kupu:id>$Id$</kupu:id>
 
   <kupu:part name="xmlconfig">
-    <div style="display: none;">
-<tal:block tal:define="config here/kupu_xmlconfig" replace="structure python:here.kupu_document_write(config)"/>
-    </div>
+    <div id="kupu-config-escaped" style="display: none;"
+         tal:define="config here/kupu_xmlconfig; pss modules/Products/PythonScripts/standard"
+         tal:content="python:pss.url_quote(config)"></div>
+    <div id="kupu-config" style="display: none;"> </div>
   </kupu:part>
 
 </kupu:feature>
