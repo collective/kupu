@@ -26,6 +26,7 @@ function initPloneKupu(editorId) {
     var l = new DummyLogger();
 
     // now some config values
+    document.getElementById('kupu-config').innerHTML = unescape(document.getElementById('kupu-config-escaped').innerHTML);
     var conf = loadDictFromXML(document, prefix+'xml.kupuconfig');
 
     // the we create the document, hand it over the id of the iframe
