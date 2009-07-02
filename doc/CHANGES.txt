@@ -4,6 +4,10 @@ Kupu changes
 
 - 1.4.14 (unreleased)
 
+  - Fix kupu_xmlconfig to not assume all needed variables are already
+    in scope. This fixes 
+    http://dev.plone.org/old/plone/attachment/ticket/9266
+
   - Do not assume that kupu is always used in Plone. This fixes
     http://dev.plone.org/plone/ticket/9053
 
