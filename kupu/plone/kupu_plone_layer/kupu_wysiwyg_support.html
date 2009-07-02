@@ -441,10 +441,13 @@
     </textarea>
     </div>
   
-    <div class="kupuoverride" tal:condition="python:exists('kupu_content') and allowed and len(allowed)!=1" tal:define="floated widget/allow_file_upload | python:1;                 klass python:test(exists('kupu_content') and len(kupu_content), ' kupusourceoverride', '');                 gAC nocall:field/getAllowedContentTypes|nothing;                 allowed python:gAC and gAC(context) or path('field/allowable_content_types|nothing');" tal:attributes="style python:test(floated, 'float:left;;', '');class string:kupuoverride$klass"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;" tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,'');         editaction python:context.getActionInfo('object/edit')['url'];" tal:attributes="href string:${editaction}?kupu.suppress=${fieldName}${fs};" title="reload current page without kupu">
-         Edit without visual editor
-      </a></span>
-    </div>
+    <tal:guard tal:define="ti context/getTypeInfo | nothing"
+               tal:condition="python: ti and ti.listActionInfos('object/edit', check_condition=0)">
+       <div class="kupuoverride" tal:condition="python:exists('kupu_content') and allowed and len(allowed)!=1" tal:define="floated widget/allow_file_upload | python:1;                 klass python:test(exists('kupu_content') and len(kupu_content), ' kupusourceoverride', '');                 gAC nocall:field/getAllowedContentTypes|nothing;                 allowed python:gAC and gAC(context) or path('field/allowable_content_types|nothing');" tal:attributes="style python:test(floated, 'float:left;;', '');class string:kupuoverride$klass"><span class="discreet"><a class="forcekupu" href="#" i18n:translate="suppress-kupu" i18n:attributes="title title_suppress_kupu;" tal:define="fs fieldset|nothing;fs python:test(fs,'&amp;fieldset=%s'%fs,'');         editaction python:context.getActionInfo('object/edit')['url'];" tal:attributes="href string:${editaction}?kupu.suppress=${fieldName}${fs};" title="reload current page without kupu">
+            Edit without visual editor
+         </a></span>
+       </div>
+    </tal:guard>
   
     </div>
   
