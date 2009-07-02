@@ -2,7 +2,10 @@
 Kupu changes
 ============
 
-- 1.4.14
+- 1.4.14 (unreleased)
+
+  - Do not assume that kupu is always used in Plone. This fixes
+    http://dev.plone.org/plone/ticket/9053
 
   - Removed bogus `global_defines` call from kupu_xmlconfig.pt, which was
     both expensive and failed for certain kind of non-content contexts.
