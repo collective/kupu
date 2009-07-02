@@ -28,11 +28,11 @@
     </htmlfilter>
     </tal:block>
 
-    <tal:var define="field field|nothing;
+    <tal:var define="field python:options.get('field');
                      tool context/kupu_library_tool;
                      usecaptions python:tool.getCaptioning() and tool.canCaption(field);
                      base python:tool.getBaseUrl(context);
-                     base kupu_base_override|base;">
+                     base python:options.get('kupu_base_override') or base;">
     <captions tal:condition="usecaptions">1</captions>
     <xsl_uri tal:content="string:${context/portal_url}/kupudrawers/drawer.xsl"/>
     <image_resource>mediaobject</image_resource>
