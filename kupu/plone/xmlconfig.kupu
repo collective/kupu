@@ -12,7 +12,10 @@
 
   <kupu:part name="xmlconfig">
     <div id="kupu-config-escaped" style="display: none;"
-         tal:define="config here/kupu_xmlconfig; pss modules/Products/PythonScripts/standard"
+         tal:define="field field|nothing;
+	    kupu_base_override kupu_base_override|nothing;
+	    config python:context.kupu_xmlconfig(field=field, kupu_base_override=kupu_base_override);
+	    pss modules/Products/PythonScripts/standard"
          tal:content="python:pss.url_quote(config)"></div>
     <div id="kupu-config" style="display: none;"> </div>
   </kupu:part>
