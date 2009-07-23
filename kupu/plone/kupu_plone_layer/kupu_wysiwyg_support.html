@@ -34,9 +34,10 @@
     <div xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="wysiwygEditorBox" id="kupu-editor" tal:define="name fieldName|inputname;                 editorid string:kupu-editor-${name}" tal:attributes="id editorid">
      <tal:usekupu define="fname fieldName|inputname|nothing;                   usekupu python:here.contentUsesKupu(fname);">
       <div tal:condition="usekupu">
+
+    <div id="kupu-editor-config-escaped" style="display: none;" tal:attributes="id string:kupu-editor-${fname}-config-escaped" tal:define="field field|nothing;      kupu_base_override kupu_base_override|nothing;      config python:context.kupu_xmlconfig(field=field, kupu_base_override=kupu_base_override);      pss modules/Products/PythonScripts/standard" tal:content="python:pss.url_quote(config)"/>
+    <div id="kupu-editor-config" tal:attributes="id string:kupu-editor-${fname}-config" style="display: none;"> </div>
         
-    <div id="kupu-config-escaped" style="display: none;" tal:define="field field|nothing;      kupu_base_override kupu_base_override|nothing;      config python:context.kupu_xmlconfig(field=field, kupu_base_override=kupu_base_override);      pss modules/Products/PythonScripts/standard" tal:content="python:pss.url_quote(config)"/>
-    <div id="kupu-config" style="display: none;"> </div>
   
     <div class="kupu-fulleditor">
       
