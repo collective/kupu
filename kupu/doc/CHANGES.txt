@@ -2,6 +2,10 @@
 Kupu changes
 ============
 
+- 1.4.15
+
+  - Don't assume there is only one kupu widget on the page. Made each config node unique. (DannyB)
+
 - 1.4.14
 
   - Fix kupu_xmlconfig to not assume all needed variables are already
