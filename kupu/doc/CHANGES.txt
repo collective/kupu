@@ -2,6 +2,11 @@
 Kupu changes
 ============
 
+- 1.4.16
+
+  - Added icon_expr to the Plone configlet action registration, for
+    forward-compatibility with Plone 4.
+
 - 1.4.15
 
   - Don't assume there is only one kupu widget on the page. Made each config node unique. (DannyB)

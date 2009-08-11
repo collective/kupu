@@ -2,6 +2,7 @@
 <object name="portal_controlpanel" meta_type="Plone Control Panel Tool">
  <configlet title="Visual editor" action_id="kupu" appId="Kupu"
     category="Plone" condition_expr=""
+    icon_expr="string:$portal_url/kupuimages/kupu_icon.gif"
     url_expr="string:${portal_url}/kupu_library_tool/kupu_config"
     visible="True">
   <permission>Manage portal</permission>
