@@ -1,15 +1,35 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:five="http://namespaces.zope.org/five"
+           xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
            xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package=".browser" />
 
-  <adapter
-      zcml:condition="installed Products.GenericSetup"
-      factory=".exportimport"
-      provides="Products.GenericSetup.interfaces.IBody"
-      for=".interfaces.IPloneKupuLibraryTool
-           Products.GenericSetup.interfaces.ISetupEnviron"
-      />
+  <configure zcml:condition="installed Products.GenericSetup">
+
+    <adapter
+        factory=".exportimport"
+        provides="Products.GenericSetup.interfaces.IBody"
+        for=".interfaces.IPloneKupuLibraryTool
+             Products.GenericSetup.interfaces.ISetupEnviron"
+        />
+
+    <genericsetup:exportStep
+        name="kupu-setup"
+        title="Kupu Settings"
+        description="Export Kupu settings"
+        handler="Products.kupu.plone.exportimport.exportKupuSettings"
+        />
+
+    <genericsetup:importStep
+        name="kupu-setup"
+        title="Kupu Settings"
+        description="Import Kupu settings"
+        handler="Products.kupu.plone.exportimport.importKupuSettings">
+      <depends name="toolset"/>
+      <depends name="typeinfo"/>
+    </genericsetup:importStep>
+
+  </configure>
 
 </configure>
