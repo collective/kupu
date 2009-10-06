@@ -4,6 +4,8 @@ Kupu changes
 
 - 1.4.16
 
+  - Converted GenericSetup import and export step registrations to ZCML.
+
   - Added icon_expr to the Plone configlet action registration, for
     forward-compatibility with Plone 4.
 
