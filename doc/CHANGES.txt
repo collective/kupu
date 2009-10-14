@@ -4,6 +4,11 @@ Kupu changes
 
 - 1.4.16
 
+  - Remove Kupu from the available editors list on uninstall.
+
+  - Add Kupu to the available editors list when installed via the
+    GenericSetup profile.
+
   - Converted GenericSetup import and export step registrations to ZCML.
 
   - Added icon_expr to the Plone configlet action registration, for
