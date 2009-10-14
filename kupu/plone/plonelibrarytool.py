@@ -381,6 +381,15 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         pm = getToolByName(self, 'portal_membership')
         user = pm.getAuthenticatedMember()
         editor = user.getProperty('wysiwyg_editor', '')
+        
+        if not editor:
+            ptool = getToolByName(self, 'portal_properties')
+            site_props = getattr(ptool, 'site_properties', None)
+            if site_props is not None:
+                default_editor = site_props.getProperty('default_editor', '')
+                if default_editor:
+                    editor = default_editor
+        
         if editor: editor = editor.lower()
         if editor=='fck editor':
             editor = 'editor_fck'
@@ -388,12 +397,14 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         portal = getToolByName(self, 'portal_url').getPortalObject()
         for path in ('%s_wysiwyg_support' % editor,
             '%s/wysiwyg_support' % editor,
-            'portal_skins/plone_wysiwyg/wysiwyg_support'):
+            'portal_skins/plone_wysiwyg/wysiwyg_support',
+            'portal_skins/archetypes/wysiwyg_support'):
                 template = portal.restrictedTraverse(path, None)
                 if template:
                     break
 
         return template.macros
+
 
     security.declarePublic("forcekupu_url")
     def forcekupu_url(self, fieldName):
