@@ -20,13 +20,11 @@ from StringIO import StringIO
 
 from App.Common import package_home
 
-from Products.CMFCore.utils import getToolByName, minimalpath
-from Products.CMFCore.DirectoryView import createDirectoryView
+from Products.CMFCore.utils import getToolByName
 from Products.kupu import kupu_globals
 from Products.kupu.plone.util import register_layer, unregister_layers
 from Products.kupu.plone import util
 from Products.kupu.config import TOOLNAME, PROJECTNAME, TOOLTITLE
-from OFS.ObjectManager import BadRequestException
 from zExceptions import BadRequest
 
 try:
@@ -272,6 +270,17 @@ def uninstall(self):
     if configTool:
         configTool.unregisterConfiglet('kupu')
         out.write('Removed kupu configlet\n')
+
+    # remove from list of available editors
+    portal_props = getToolByName(self, 'portal_properties')
+    site_props = getattr(portal_props,'site_properties', None)
+    attrname = 'available_editors'
+    if site_props is not None:
+        editors = list(site_props.getProperty(attrname)) 
+        if 'Kupu' in editors:
+            editors.remove('Kupu')
+            site_props._updateProperty(attrname, editors)        
+            print >>out, "Removed 'Kupu' from available editors in Plone."
 
     uninstall_transform(self, out)
     uninstall_tool(self, out)
