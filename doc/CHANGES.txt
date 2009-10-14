@@ -4,6 +4,9 @@ Kupu changes
 
 - 1.4.16
 
+  - Updated getWysiwygmacros to respect Plone 4's default_editor property
+    and check for the non-rich wysiwyg_support in the archetypes skin layer.
+
   - Remove Kupu from the available editors list on uninstall.
 
   - Add Kupu to the available editors list when installed via the
