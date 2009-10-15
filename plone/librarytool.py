@@ -80,6 +80,9 @@ class KupuLibraryTool(Acquisition.Implicit):
                         lib[key] = library[key] = library[key].text
                     else:
                         lib[key] = library[key](expr_context)
+                if key == 'title':
+                    # translate title in the "kupu" domain
+                    lib[key] = self.translate(lib[key], domain='kupu')
             libraries.append(lib)
         return tuple(libraries)
 
