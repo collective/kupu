@@ -397,8 +397,7 @@ class PloneKupuLibraryTool(UniqueObject, SimpleItem, KupuLibraryTool,
         portal = getToolByName(self, 'portal_url').getPortalObject()
         for path in ('%s_wysiwyg_support' % editor,
             '%s/wysiwyg_support' % editor,
-            'portal_skins/plone_wysiwyg/wysiwyg_support',
-            'portal_skins/archetypes/wysiwyg_support'):
+            'portal_skins/plone_wysiwyg/wysiwyg_support'):
                 template = portal.restrictedTraverse(path, None)
                 if template:
                     break
