@@ -9,17 +9,14 @@ setup(name='Products.kupu',
       description="",
       long_description=open(os.path.join("Products", "kupu", "doc", "README.txt")).read() + "\n" +
                        open(os.path.join("Products", "kupu", "doc", "CHANGES.txt")).read().decode('latin1').encode('ascii','replace'),
-      # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
         "Programming Language :: JavaScript",
-        "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
       author='Kupu Team',
       author_email='kupu-dev@codespeak.net',
-      url='http://kupu.oscom.org/',
       license='Kupu License',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['Products'],
