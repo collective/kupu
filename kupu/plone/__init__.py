@@ -50,7 +50,7 @@ def initialize(context):
     if profile_registry is not None:
         profile_registry.registerProfile('default',
                                      'Kupu',
-                                     'Extension profile for Kupu',
+                                     'Kupu is a cross-browser visual editor.',
                                      'plone/profiles/default',
                                      'kupu',
                                      EXTENSION,
