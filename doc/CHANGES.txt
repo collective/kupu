@@ -4,6 +4,9 @@ Kupu changes
 
 - 1.4.16
 
+  - Kupu didn't not transform resolveuid to friendly url in area tags
+    (Plone ticket 9402).
+
   - Updated getWysiwygmacros to respect Plone 4's default_editor property.
 
   - Remove Kupu from the available editors list on uninstall.

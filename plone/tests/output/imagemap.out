@@ -1,0 +1,8 @@
+<div>Ensure links in image map area tags are transformed</div>
+<p>
+ <img class="image-left" alt="image map" src="/plone/folder/gamma" usemap="#the_map"  />
+ <map id="the_map" name="the_map">
+  <area alt="alpha" shape="rect" coords="1,2,3,4" href="/plone/folder/alpha" />
+  <area alt="beta" shape="rect" coords="1,2,3,4" href="/plone/folder/beta" />
+ </map>
+</p>

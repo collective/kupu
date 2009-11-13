@@ -32,6 +32,7 @@ tests =(
 ('Products.kupu.plone.html2captioned', "linked.in", "linked.out", normalize_html, 0),
 ('Products.kupu.plone.html2captioned', "umlauts.in", "umlauts.out", normalize_html, 0),
 ('Products.kupu.plone.html2captioned', "umlauts2.in", "umlauts2.out", normalize_html, 0),
+('Products.kupu.plone.html2captioned', "imagemap.in", "imagemap.out", normalize_html, 0),
     )
 
 class TransformTest(KupuTestCase):

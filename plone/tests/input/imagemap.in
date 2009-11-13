@@ -1,0 +1,8 @@
+<div>Ensure links in image map area tags are transformed</div>
+<p>
+<img class="image-left" alt="image map" src="resolveuid/104ede98d4c7c8eaeaa3b984f7395979" usemap="#the_map"  />
+<map id="the_map" name="the_map">
+<area alt="alpha" shape="rect" coords="1,2,3,4" href="resolveuid/828cfdd7e4ee51e223d0ae0672412633" />
+<area alt="beta" shape="rect" coords="1,2,3,4" href="resolveuid/f0249e0f3f2ff915d707e9d64a3e3621" />
+</map>
+</p>

@@ -18,5 +18,5 @@ import re
 #    url: the url containing the uid (stops after the uid: any
 #    trailing part such as '/image_thumb' is not included.
 #    uid: the uid itself.
-UID_PATTERN = re.compile('(?P<tag><(?:a|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
+UID_PATTERN = re.compile('(?P<tag><(?:a|area|img|object|param)\\s[^>]*(?:src|href|data|value)\s*=\s*")(?P<url>[^"]*resolveuid/(?P<uid>[^/"#? ]*))', re.DOTALL | re.IGNORECASE)
 
