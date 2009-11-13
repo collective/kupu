@@ -97,8 +97,16 @@ class KupuTestCase(PloneTestCase.PloneTestCase):
         self.loginPortalOwner()
         f = self.create('folder', 'Folder')
 
-        for id in ('alpha', 'beta'):
-            self.create(id, 'Document', f, subject=['aspidistra'])
+        self.create('alpha', 'Document', f, subject=['aspidistra'])
+        alpha = f.alpha
+        # The dcoument needs a fixed uid for the transform tests.
+        alpha._setUID('828cfdd7e4ee51e223d0ae0672412633')
+        
+        self.create('beta', 'Document', f, subject=['aspidistra'])
+        beta = f.beta
+        # The dcoument needs a fixed uid for the transform tests.
+        beta._setUID('f0249e0f3f2ff915d707e9d64a3e3621')
+        
         self.create('gamma', 'Image', f)
         gamma = f.gamma
         gamma.setImage(open(join(PREFIX,'image.jpg'),'rb').read())
