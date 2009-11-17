@@ -3,16 +3,13 @@
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupustyles.css" media="" rel="stylesheet" rendering="link"
-    insert-before="ploneCustom.css" />
+    id="kupustyles.css" media="" rel="stylesheet" rendering="link" />
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupuplone.css" media="" rel="stylesheet" rendering="link"
-    insert-before="ploneCustom.css" />
+    id="kupuplone.css" media="" rel="stylesheet" rendering="link" />
  <stylesheet title="" cacheable="True" compression="safe" cookable="True"
     enabled="True"
     expression="python:portal.kupu_library_tool.isKupuEnabled(REQUEST=request)"
-    id="kupudrawerstyles.css" media="" rel="stylesheet" rendering="link"
-    insert-before="ploneCustom.css" />
+    id="kupudrawerstyles.css" media="" rel="stylesheet" rendering="link" />
 </object>
