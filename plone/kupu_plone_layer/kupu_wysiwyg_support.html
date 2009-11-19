@@ -21,8 +21,8 @@
     <!--$Id: include.kupu 39202 2007-02-19 12:06:45Z duncan $-->
     <!--$Id: wire.kupu 45669 2007-08-15 10:47:27Z duncan $-->
     <!--$Id: head.kupu 44831 2007-07-07 19:01:27Z duncan $-->
-    <!--$Id: xmlconfig.kupu 65893 2009-06-23 19:32:14Z ldr $-->
-    <!--$Id: body.kupu 52814 2008-03-21 16:37:00Z duncan $-->
+    <!--$Id: xmlconfig.kupu 66540 2009-07-23 14:37:24Z dannyb $-->
+    <!--$Id: body.kupu 66130 2009-07-06 17:19:28Z duncan $-->
     <!--$Id: toolbar.kupu 45621 2007-08-13 12:26:50Z duncan $-->
     <!--$Id save.kupu (not yet in svn) $-->
     <!--$Id: drawers.kupu 44538 2007-06-26 10:46:28Z duncan $-->
@@ -34,10 +34,9 @@
     <div xmlns:metal="http://xml.zope.org/namespaces/metal" xmlns:tal="http://xml.zope.org/namespaces/tal" metal:define-macro="wysiwygEditorBox" id="kupu-editor" tal:define="name fieldName|inputname;                 editorid string:kupu-editor-${name}" tal:attributes="id editorid">
      <tal:usekupu define="fname fieldName|inputname|nothing;                   usekupu python:here.contentUsesKupu(fname);">
       <div tal:condition="usekupu">
-
+        
     <div id="kupu-editor-config-escaped" style="display: none;" tal:attributes="id string:kupu-editor-${fname}-config-escaped" tal:define="field field|nothing;      kupu_base_override kupu_base_override|nothing;      config python:context.kupu_xmlconfig(field=field, kupu_base_override=kupu_base_override);      pss modules/Products/PythonScripts/standard" tal:content="python:pss.url_quote(config)"/>
     <div id="kupu-editor-config" tal:attributes="id string:kupu-editor-${fname}-config" style="display: none;"> </div>
-        
   
     <div class="kupu-fulleditor">
       
