@@ -71,7 +71,9 @@ mmbase-kupu.war: webapp
 
 .PHONY:
 deploy.jars: $(I18N) mmbase-kupu-i18n.jar
-	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n        -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
+	mvn install:install-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n       -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N)
+	mvn install:install-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar
+	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n      -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
 	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=scp://mmbase.org/home/mmweb/web/maven2 -DrepositoryId=mmbase
 
 .PHONY:
