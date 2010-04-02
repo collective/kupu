@@ -11,33 +11,33 @@ Layouter.prototype.winOnLoad = function() {
     if (ele && xDef(ele.style, ele.offsetHeight)) { // another compatibility check
 	this.adjust();
 	var self = this;
-	addEventHandler(window, 'resize', function() {self.winOnResize()}, window);
+	addEventHandler(window, 'resize', function() {self.winOnResize();}, window);
     }
-}
+};
 Layouter.prototype.winOnResize = function() {
     this.adjust();
-}
+};
 
 Layouter.prototype.maxHeight = function() {
     return xClientHeight() - 20;
-}
+};
 Layouter.prototype.leftWidth = function () {
     return 270;
-}
+};
 Layouter.prototype.rightWidth = function () {
     return 201;
-}
+};
 
 Layouter.prototype.maxWidth = function () {
     return xClientWidth() - this.leftWidth() -  this.rightWidth() - 4;
-}
+};
 
 Layouter.prototype.rePosition = function(id) {
     // This seems to be only necessary in Mozilla.
     var el = document.getElementById(id);
     el.style.position = "absolute";
     el.style.left = (xClientWidth() - 202) + "px";
-}
+};
 
 Layouter.prototype.adjustToolBoxes = function() {
     var toolbox = 40;
@@ -78,21 +78,21 @@ Layouter.prototype.adjustToolBoxes = function() {
         this.rePosition("kupu-toolbox-debug");
     }
 
-}
+};
 
 Layouter.prototype.topHeight = function() {
     return 27;
-}
+};
 
 Layouter.prototype.adjustMMBaseExtra = function() {
     var maxHeight = this.maxHeight();
     xHeight('mmbase-extra', maxHeight - 3);
     this.adjustMMBaseExtraElements();
-}
+};
 
 Layouter.prototype.mmbaseExtraWidth = function() {
     return this.leftWidth() - 6;
-}
+};
 Layouter.prototype.adjustMMBaseExtraElements = function() {
     var width = this.mmbaseExtraWidth();
     var pattern = new RegExp("\\bmm_validate\\b");
@@ -108,7 +108,7 @@ Layouter.prototype.adjustMMBaseExtraElements = function() {
             xWidth(a[i], width);
         }
     }
-}
+};
 
 Layouter.prototype.adjustMMBaseTools = function() {
     var maxHeight = this.maxHeight();
@@ -120,7 +120,7 @@ Layouter.prototype.adjustMMBaseTools = function() {
     }
     xHeight("mmbase-tools", toolsHeight);
 
-}
+};
 Layouter.prototype.adjustKupu = function () {
     var maxHeight     = this.maxHeight();
     var maxHeightArea = maxHeight - this.topHeight();
@@ -134,12 +134,12 @@ Layouter.prototype.adjustKupu = function () {
     xHeight("toolboxes", maxHeight);
     xHeight("kupu-editor", maxHeightArea - 3);
     xWidth("kupu-editor", maxWidth);
-}
+};
 
 Layouter.prototype.adjustZoomed = function() {
-}
+};
 Layouter.prototype.adjustUnzoomed = function() {
-}
+};
 
 Layouter.prototype.adjust = function(zoom) {
     if (zoom) {
@@ -160,5 +160,5 @@ Layouter.prototype.adjust = function(zoom) {
 
     this.adjustMMBaseTools();
     this.adjustToolBoxes();
-}
+};
 
