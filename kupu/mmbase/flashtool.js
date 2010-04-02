@@ -56,13 +56,27 @@ FlashToolBox.prototype.updateState = function(selNode, event) {
     var result = flashel && FlashToolBox.srcRe.exec(flashel.src);
     if (result) {
         this.toolboxel.className = this.activeclass;
-        $(this.toolboxel).find(".flashobject").load("flash.jspx?o=" + result[1]);
+        $(this.toolboxel).find(".flashobject").load("flash.jspx?o=" + result[1],
+						    function() {
+							$(this).
+							    ready(function() {
+								      // I don't quite understand the need fo the timeout,
+								      // but it doesn't work without it (in FF)
+								      setTimeout(
+									  function() {
+									      layout.adjustToolBoxes();
+									  }, 500);
+								  }
+								 );
+						    });
 
     } else {
         this.toolboxel.className = this.plainclass;
         $(this.toolboxel).find(".flashobject").empty();
+	layout.adjustToolBoxes();
 
-    };
+    }
+
 };
 
 
@@ -84,6 +98,7 @@ ImageToolBox.prototype.updateState = function(selNode, event) {
         return this.originalUpdateState(selNode, event);
     }  else {
         this.toolboxel.className = this.plainclass;
+	return null;
     };
 };
 
