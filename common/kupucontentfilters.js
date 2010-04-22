@@ -515,7 +515,11 @@ function XhtmlValidation(editor) {
         }
         this.alt = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
-            if (val || xhtmlnode.tagName=='img') xhtmlnode.setAttribute(name, val);
+            if (val && xhtmlnode.tagName=='img') {
+                xhtmlnode.setAttribute(name, val);
+            } else if (xhtmlnode.tagName == 'img') {
+                xhtmlnode.removeAttribute(name);
+            };
         }
         this.rowspan = this.colspan = function(name, htmlnode, xhtmlnode) {
             var val = htmlnode.getAttribute(name);
