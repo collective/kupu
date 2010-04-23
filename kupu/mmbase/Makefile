@@ -65,7 +65,7 @@ mmbase-kupu-i18n.jar: i18n/*.po
 
 webapp: all deploy.jars
 	mkdir -p build/mmbase/kupu/mmbase
-	cp -pr *.jspx *.js *.css build/mmbase/kupu/mmbase
+	cp -pr *.jspx *.js *.css *.png build/mmbase/kupu/mmbase
 	cp -rpf tools build/mmbase/kupu/mmbase
 	cp -rpf drawers build/mmbase/kupu/mmbase
 	cp -rpf icons build/mmbase/kupu/mmbase
