@@ -2,9 +2,11 @@
 Kupu changes
 ============
 
-- 1.4 Final
+- 1.4.1
 
-  - ...
+  - Fix deprecation for Zope 2.12.
+
+  - Fix IE 8 issue.
 
 - 1.4 Beta 3
 
