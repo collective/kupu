@@ -17,6 +17,8 @@ VERSION=`cat ../version.txt | awk '{print $$2}'`$(VERSIONEXTRA)
 REPO=$(shell if [ "$(VERSIONEXTRA)" == "-SNAPSHOT" ] ; then echo snapshots ; else echo maven2 ; fi)
 REPOID=$(shell if [ "$(VERSIONEXTRA)" == "-SNAPSHOT" ] ; then echo mmbase-snapshots ; else echo mmbase ; fi)
 
+DEPLOY=scp://mmbase.org/home/tomcat/downloads/
+
 #type in i18n: msginit -l <locale> -i messages.po
 
 
@@ -83,8 +85,8 @@ mmbase-kupu.war: webapp
 deploy.jars: $(I18N) mmbase-kupu-i18n.jar
 	mvn install:install-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n       -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N)
 	mvn install:install-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar
-	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n      -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=scp://mmbase.org/home/mmweb/web/$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
-	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=scp://mmbase.org/home/mmweb/web/$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n      -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
 
 
 deploy: mmbase-kupu.war
