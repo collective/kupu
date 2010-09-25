@@ -143,6 +143,8 @@ try:
             return i18n_translate(label, context=context)
         return label
 except ImportError:
+    def Message(msg, *args, **kw):
+        return msg
     def translate(label, context):
         return label
 

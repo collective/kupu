@@ -18,6 +18,7 @@ from Acquisition import aq_parent, aq_inner, aq_base
 from Products.CMFCore.Expression import Expression, createExprContext
 from Products.PageTemplates.Expressions import getEngine, SecureModuleImporter
 from Products.kupu.plone.interfaces import IKupuLibraryTool
+from Products.kupu.plone.util import Message, translate
 from Products.CMFCore.utils import getToolByName
 from zope.interface import implements
 
@@ -82,7 +83,7 @@ class KupuLibraryTool(Acquisition.Implicit):
                         lib[key] = library[key](expr_context)
                 if key == 'title':
                     # translate title in the "kupu" domain
-                    lib[key] = self.translate(lib[key], domain='kupu')
+                    lib[key] = translate(Message(lib[key], domain='kupu'), self.REQUEST)
             libraries.append(lib)
         return tuple(libraries)
 
