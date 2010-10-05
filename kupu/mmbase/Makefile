@@ -90,7 +90,7 @@ deploy.jars: $(I18N) mmbase-kupu-i18n.jar
 
 
 deploy: mmbase-kupu.war
-	mvn deploy:deploy-file -DgeneratePom.description='WAR-overlay containing all necessary files to use kupu with MMBase. The mmbase-richtext component depends on this.' -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=scp://mmbase.org/home/mmweb/web/$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	mvn deploy:deploy-file -DgeneratePom.description='WAR-overlay containing all necessary files to use kupu with MMBase. The mmbase-richtext component depends on this.' -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
 
 
 clean:
