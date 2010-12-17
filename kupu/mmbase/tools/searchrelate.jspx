@@ -19,15 +19,24 @@
         expires="-1">
       <mm:cloud rank="basic user">
 
-        <mm:import externid="prefix" />
         <mm:import externid="currentTitle" />
 
 
-        <mm:import id="repository" from="session" externid="${prefix}repository"  required="true"/>
-        <mm:import id="current"    from="session" externid="${prefix}current"    required="true"/>
+        <mm:import externid="repositoryjsp" />
+        <mm:present referid="repositoryjsp">
+          <mm:include page="${repositoryjsp}" />
+          <mm:import from="request" externid="repository"  required="true"/>
+          <mm:import from="request" externid="current"     required="true"/>
+        </mm:present>
+        <mm:notpresent referid="repositoryjsp">
+          <mm:import externid="prefix" required="true" />
+          <mm:import id="repository" from="session" externid="${prefix}repository"  required="true"/>
+          <mm:import id="current"    from="session" externid="${prefix}current"    required="true"/>
+          <mm:log level="debug">prefix: ${prefix} </mm:log>
+        </mm:notpresent>
 
 
-        <mm:log level="debug">prefix: ${prefix} </mm:log>
+
         <mm:log level="debug">rep: ${repository.sql} </mm:log>
         <mm:log level="debug">cur: ${current.sql} </mm:log>
 
