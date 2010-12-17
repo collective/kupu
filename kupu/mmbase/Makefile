@@ -19,6 +19,8 @@ REPOID=$(shell if [ "$(VERSIONEXTRA)" == "-SNAPSHOT" ] ; then echo mmbase-snapsh
 
 DEPLOY=scp://mmbase.org/home/tomcat/downloads/
 
+MVN=mvn
+
 #type in i18n: msginit -l <locale> -i messages.po
 
 
@@ -83,14 +85,14 @@ mmbase-kupu.war: webapp
 
 
 deploy.jars: $(I18N) mmbase-kupu-i18n.jar
-	mvn install:install-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n       -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N)
-	mvn install:install-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar
-	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n      -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
-	mvn deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	$(MVN) install:install-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n       -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N)
+	$(MVN) install:install-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar
+	$(MVN) deploy:deploy-file -DgeneratePom.description='Resource bundle with translations of kupu-generic texts' -DgroupId=org.oscom -DartifactId=kupu-i18n      -Dversion=$(VERSION) -Dpackaging=jar -Dfile=$(I18N) -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	$(MVN) deploy:deploy-file -DgeneratePom.description='Resource bundle with translations specific to kupu/mmbase' -DgroupId=org.oscom -DartifactId=mmbase-kupu-i18n -Dversion=$(VERSION) -Dpackaging=jar -Dfile=mmbase-kupu-i18n.jar -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
 
 
 deploy: mmbase-kupu.war
-	mvn deploy:deploy-file -DgeneratePom.description='WAR-overlay containing all necessary files to use kupu with MMBase. The mmbase-richtext component depends on this.' -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
+	$(MVN) deploy:deploy-file -DgeneratePom.description='WAR-overlay containing all necessary files to use kupu with MMBase. The mmbase-richtext component depends on this.' -DgroupId=org.oscom -DartifactId=mmbase-kupu      -Dversion=$(VERSION) -Dpackaging=war -Dfile=mmbase-kupu.war -Durl=$(DEPLOY)$(REPO) -DrepositoryId=$(REPOID) -DuniqueVersion=false
 
 
 clean:
