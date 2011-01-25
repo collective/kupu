@@ -19,6 +19,9 @@
     XXX Is this overkill?
     
 */
+// this makes it possbible to upgrade sarissa.
+_SARISSA_IS_IE  = _SARISSA_IS_IE  || Sarissa._SARISSA_IS_IE;
+_SARISSA_IS_MOZ = _SARISSA_IS_MOZ || Sarissa._SARISSA_IS_MOZ;
 
 function KupuDocument(iframe) {
     /* Model */
