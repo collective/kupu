@@ -70,26 +70,27 @@
           </div>
         </div>
         <script type="text/javascript">
-          $(document).ready(function() {
-          $('#mm_searchrelate h1').each(function() {
-            $(this).find("+ div").css("display", "none");
-          });
-          $('#mm_searchrelate h1').click(function() {
-              var h1 = this;
-              $(this).find("+ div").each(function() {
-                 var c = $(this).css("display");
-                 $(this).css("display", c == 'none' ? 'block' : 'none');
-                 if (c == 'none') {
-                   $(h1).addClass("kupu-toolbox-heading-opened");
-                   $(h1).removeClass("kupu-toolbox-heading-closed");
-                   } else {
-                   $(h1).addClass("kupu-toolbox-heading-closed");
-                   $(h1).removeClass("kupu-toolbox-heading-opened");
-                   }
-                 });
-          });
-          });
-        </script>
+    $(document).ready(function() {
+        $('#mm_searchrelate h1').each(function() {
+            $(this).siblings("div").css("display", "none");
+	    $(this).click(function() {
+		var h1 = this;
+		$(this).siblings("div").each(function() {
+		    var c = $(this).css("display");
+                    $(this).css("display", c == 'none' ? 'block' : 'none');
+                    if (c == 'none') {
+			$(h1).addClass("kupu-toolbox-heading-opened");
+			$(h1).removeClass("kupu-toolbox-heading-closed");
+                    } else {
+			$(h1).addClass("kupu-toolbox-heading-closed");
+			$(h1).removeClass("kupu-toolbox-heading-opened");
+                    }
+                });
+            });
+        });
+    });
+
+                         </script>
       </mm:cloud>
     </mm:content>
   </fmt:bundle>
