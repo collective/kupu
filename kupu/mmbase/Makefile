@@ -1,5 +1,5 @@
 # $Id$
-
+SHELL=/bin/bash
 
 KUPU_HOME=..
 XSLTPROC = /usr/bin/env xsltproc
