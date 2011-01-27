@@ -84,6 +84,9 @@ this.kuputoolcollapser = new function() {
         return currchild;
     };
 
+    // 100 years before state is lost... should be enough ;)
+    ToolCollapser.prototype.COOKIE_AGE = (100 * 365 * 24 * 60 * 60 * 1000);
+    ToolCollapser.prototype.COOKIE_PATH = '/';
     ToolCollapser.prototype.saveState = function() {
         /* save collapse state of the toolboxes in a cookie */
         if (!navigator.cookieEnabled) {
@@ -100,13 +103,13 @@ this.kuputoolcollapser = new function() {
         };
 
         var exp = new Date();
-        // 100 years before state is lost... should be enough ;)
-        exp.setTime(exp.getTime() + (100 * 365 * 24 * 60 * 60 * 1000));
+
+        exp.setTime(exp.getTime() + ToolCollapser.prototype.COOKIE_AGE);
         var cookie = 'initial_state=' +
                             escape(this.serializeMapping(current_state)) +
                             ';' +
                             'expires=' + exp.toGMTString() + ';' +
-                            'path=/';
+                            'path=' + ToolCollapser.prototype.COOKIE_PATH;
         document.cookie = cookie;
     };
 
