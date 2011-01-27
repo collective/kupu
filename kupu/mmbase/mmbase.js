@@ -34,6 +34,7 @@ var loadedNodeBodies = new Map();
 var layout = new Layouter();
 
 function startKupu(language) {
+    document.cookie = 'initial_state=;expires=1296020719075;path=/'; // expire the cookies on / which we used to set
     // first let's load the message catalog
     // if there's no global 'i18n_message_catalog' variable available, don't
     // try to load any translations

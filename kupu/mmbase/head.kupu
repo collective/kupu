@@ -21,7 +21,7 @@
       <link rel="icon"          href="${_}" type="image/x-icon" />
       <link rel="shortcut icon" href="${_}" type="image/x-icon" />
     </mm:link>
-    <mm:import id="kupu_common">../common</mm:import>
+    <mm:import id="kupu_common"><mm:url page="../common" absolute="server" /></mm:import>
   </kupu:part>
 
   <kupu:part name="jsincludes">
@@ -54,6 +54,7 @@
 
 
   <kupu:part name="bootstrap-editor">
+    <script type="text/javascript">ToolCollapser.prototype.COOKIE_PATH='<mm:url page=".." absolute="server" />';</script>
     <script type="text/javascript" src="kupuinit.js"><jsp:text> </jsp:text></script>
   </kupu:part>
 
