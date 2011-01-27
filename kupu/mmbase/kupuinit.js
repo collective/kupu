@@ -165,11 +165,6 @@ function initKupu(iframe) {
     var zoom = new KupuZoomTool('kupu-zoom-button');
     kupu.registerTool('zoomtool', zoom);
 
-    // create some drawers, drawers are some sort of popups that appear when a
-    // toolbar button is clicked
-    var drawertool = new DrawerTool();
-    kupu.registerTool('drawertool', drawertool);
-
     /*
    var sourceedittool = new SourceEditTool('kupu-source-button', 'kupu-editor-textarea');
    kupu.registerTool('sourceedittool', sourceedittool);
@@ -202,8 +197,8 @@ function initKupu(iframe) {
     kupu.registerTool('drawertool', drawertool);
 
     drawertool.search = function() {
-        alert('haaai');
-    }
+	// alert('haaai');
+    };
 
     try {
         var linklibdrawer = new ResourceLibraryDrawer(linktool,
