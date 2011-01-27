@@ -90,7 +90,7 @@ function startKupu(language) {
             var child = toolboxes.childNodes[i];
             if (child.className == 'kupu-toolbox') {
                 var heading = child.getElementsByTagName('h1')[0];
-                addEventHandler(heading, 'click', function() { layout.adjustToolBoxes() });
+                addEventHandler(heading, 'click', function() { layout.adjustToolBoxes(); });
             };
         };
         if (kupu.getBrowserName() == 'IE') {
