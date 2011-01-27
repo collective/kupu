@@ -27,7 +27,7 @@
         <mm:import id="rich_language" externid="language" from="parameters,request" />
         <mm:import externid="rich_language" from="this,session">client</mm:import>
         <mm:write session="rich_language" referid="rich_language" />
-        <mm:write cookie="rich_language" referid="rich_language"/>
+        <mm:write cookie="rich_language" referid="rich_language" cookiepath="." />
         <mm:content type="text/html"  language="${rich_language}" expires="0" jspvar="locale" postprocessor="none">
           <mm:import id="lang"><jsp:expression>((java.util.Locale)locale).getLanguage()</jsp:expression></mm:import>
           <fmt:bundle basename="org.oscom.kupu.Messages">
