@@ -74,6 +74,7 @@ webapp: all deploy.jars
 	cp -rpf drawers build/mmbase/kupu/mmbase
 	cp -rpf icons build/mmbase/kupu/mmbase
 	cp -rpf ../common build/mmbase/kupu
+	svn info > build/mmbase/kupu/version
 	mkdir -p build/WEB-INF/lib
 	cp $(HOME)/.m2/repository/org/oscom/kupu-i18n/$(VERSION)/kupu-i18n-$(VERSION).jar build/WEB-INF/lib
 	cp $(HOME)/.m2/repository/org/oscom/mmbase-kupu-i18n/$(VERSION)/mmbase-kupu-i18n-$(VERSION).jar build/WEB-INF/lib
