@@ -54,7 +54,7 @@
 
 
   <kupu:part name="bootstrap-editor">
-   <script type="text/javascript">kuputoolcollapser.Collapser.prototype.COOKIE_PATH='<mm:url page=".." absolute="server" />';</script>  
+    <script type="text/javascript">kuputoolcollapser.Collapser.prototype.COOKIE_PATH='<mm:url page=".." absolute="server" />';</script>
     <script type="text/javascript" src="kupuinit.js"><jsp:text> </jsp:text></script>
   </kupu:part>
 
