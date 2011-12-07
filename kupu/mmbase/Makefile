@@ -19,7 +19,7 @@ REPOID=$(shell if [ "$(VERSIONEXTRA)" == "-SNAPSHOT" ] ; then echo mmbase-snapsh
 
 DEPLOY=scp://mmbase.org/home/tomcat/downloads/
 
-MVN=mvn
+MVN=mvn2
 
 #type in i18n: msginit -l <locale> -i messages.po
 

@@ -4,6 +4,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist" >
 
   <kupu:part name="tools-div">
@@ -11,7 +12,14 @@
       <mm:import externid="tools" from="this,parameters" vartype="list">empty</mm:import>
       <mm:stringlist referid="tools">
         <mm:isnotempty>
-          <mm:include page="tools/${_}.jspx" />
+          <c:choose>
+            <c:when test="${fn:startsWith(_, '/')}">
+              <mm:include page="${_}.jspx" />
+           </c:when>
+            <c:otherwise>
+              <mm:include page="tools/${_}.jspx" />
+            </c:otherwise>
+          </c:choose>
         </mm:isnotempty>
       </mm:stringlist>
     </div>
