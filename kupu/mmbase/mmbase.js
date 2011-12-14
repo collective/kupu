@@ -438,7 +438,13 @@ function createRelation(type, nodeNumber, relatedNode) {
     document.getElementById("related_" + type).innerHTML = result;
 }
 
-
+function editRelation(type, nodeNumber, relationNode, value) {
+     var relatedRequest = getRequest();
+     relatedRequest.open('GET', absoluteUrl + 'tools/related-type.jspx?objectnumber=' + nodeNumber + "&edit_relation=" + relationNode + "&type=" + type + "&relationValue=" + value, false);
+     relatedRequest.send('');
+     var result = serialize(relatedRequest);
+     document.getElementById("related_" + type).innerHTML = result;
+}
 
 
 // ================================================================================
