@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-// $Id$
+// $Id: kupuinit.js 202273 2008-05-28 10:56:35Z guido $
 
 // XXX Port this to the default dist?
 KupuEditor.prototype.afterInit = function() {

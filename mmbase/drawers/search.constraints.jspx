@@ -3,7 +3,7 @@
      It need two variables to exist:
      search:    string to search on
      nodetype:  fields of which node-type must be considered
-     $Id$
+     $Id: search.constraints.jspx 206527 2008-10-31 10:57:11Z mihxil $
 -->
 <jsp:root
     xmlns:jsp="http://java.sun.com/JSP/Page"

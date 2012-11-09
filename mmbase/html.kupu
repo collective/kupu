@@ -4,7 +4,7 @@
     implementation="mmbase"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: html.kupu 200007 2008-03-28 19:28:09Z mihxil $</kupu:id>
   <kupu:part name="html">
     <html xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"

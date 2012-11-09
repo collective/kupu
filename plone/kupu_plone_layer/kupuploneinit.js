@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 /*extern DummyLogger noContextMenu */
-// $Id$
+// $Id: kupuploneinit.js 213480 2009-07-23 14:37:24Z dannyb $
 
 function initPloneKupu(editorId) {
     var prefix = '#'+editorId+' ';

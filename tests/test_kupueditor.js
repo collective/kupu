@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 
-// $Id$
+// $Id: test_kupueditor.js 180937 2006-11-01 10:51:49Z duncan $
 
 function serializeDocument(d) {
     return serializeNode(d.documentElement);

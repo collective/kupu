@@ -6,7 +6,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: html.kupu 160272 2005-06-13 11:03:58Z gotcha $</kupu:id>
   <kupu:part name="html">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"

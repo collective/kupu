@@ -12,7 +12,7 @@
 This module does some twirks to let us use kupu with Zope2, CMF/Plone
 and Zope3
 
-$Id$
+$Id: __init__.py 201340 2008-05-04 12:42:54Z hannosch $
 """
 
 # we need this for the CMF install script

@@ -1,7 +1,7 @@
 /**
  * This file contains all Lenya specific functions needed to
  * initialize and register tools.
- * @version $Id$
+ * @version $Id: lenya.js 155707 2005-01-31 19:05:00Z gregor $
  */
 function KupuLenyaDist(){
     this.isInit = false;

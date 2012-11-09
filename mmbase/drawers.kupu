@@ -10,7 +10,7 @@
     xmlns:jsp="http://java.sun.com/JSP/Page"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: drawers.kupu 209877 2009-03-13 15:02:15Z mihxil $</kupu:id>
 
 
   <kupu:part name="styles">

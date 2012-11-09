@@ -9,7 +9,7 @@
 ##############################################################################
 """Zope2 permissions for server-side Kupu interaction
 
-$Id$
+$Id: permissions.py 183097 2007-01-05 08:50:23Z duncan $
 """
 try:
     from Products.CMFCore.permissions import setDefaultRoles

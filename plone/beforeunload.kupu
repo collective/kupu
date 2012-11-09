@@ -6,7 +6,7 @@
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     >
-    <kupu:id>$Id$</kupu:id>
+    <kupu:id>$Id: beforeunload.kupu 161482 2005-07-12 14:35:55Z duncan $</kupu:id>
 
   <kupu:part name="jsincludes">
 <tal:condition condition="python:here.kupu_library_tool.installBeforeUnload() and not path('haveBeforeUnload|nothing')">

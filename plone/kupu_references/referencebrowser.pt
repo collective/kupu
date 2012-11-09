@@ -143,10 +143,8 @@
                         class="searchButton"
                         value="Browse..." 
                         onClick=""
-                        tabindex=""
                         i18n:attributes="value label_browse;"
-                        tal:attributes="onClick string:referencebrowser_draweropen(event,$rFieldName,$rLabel,$multiVal,'$resource_type');;;
-                     tabindex tabindex/next|nothing" />
+                        tal:attributes="onClick string:referencebrowser_draweropen(event,$rFieldName,$rLabel,$multiVal,'$resource_type');;" />
 
               <input type="button" 
                         class="destructive" 

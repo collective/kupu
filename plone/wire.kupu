@@ -2,7 +2,7 @@
   implementation="plone"
   xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
   >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: wire.kupu 192607 2007-08-15 10:47:27Z duncan $</kupu:id>
 
   <!-- Plone specific wiring -->
 

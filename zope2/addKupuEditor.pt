@@ -17,14 +17,14 @@
         <strong>Id</strong>
       </td>
       <td align="left" valign="top">
-        <input type="text" name="id" size="40">
+        <input type="text" name="id" size="40"/>
       </td>
     </tr>
 
     <tr>
       <td></td>
       <td><br />
-        <input type="submit" name="submit" value=" Add ">
+        <input type="submit" name="submit" value=" Add "/>
       </td>
     </tr>
   </tbody>

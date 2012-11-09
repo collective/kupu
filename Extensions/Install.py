@@ -11,7 +11,7 @@
 
 This is best executed using CMFQuickInstaller
 
-$Id$
+$Id: Install.py 215356 2009-10-14 07:30:24Z davisagli $
 """
 import os.path
 import sys

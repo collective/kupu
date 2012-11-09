@@ -2,7 +2,7 @@ var divids = 0;
 
 /**
  * This tool is to create 'blocks'
- * $Id$
+ * $Id: divstool.js 205179 2008-09-19 15:55:36Z mihxil $
  */
 
 function DivsTool() {

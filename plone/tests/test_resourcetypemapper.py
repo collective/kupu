@@ -9,7 +9,7 @@
 ##############################################################################
 """Tests for the library tool
 
-$Id$
+$Id: test_resourcetypemapper.py 188170 2007-03-24 13:02:55Z hannosch $
 """
 
 import os, sys

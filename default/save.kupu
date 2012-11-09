@@ -7,7 +7,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: save.kupu 191476 2007-06-26 10:46:28Z duncan $</kupu:id>
 
   <kupu:part name="buttons">
     <span class="kupu-tb-buttongroup">

@@ -11,7 +11,7 @@
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: body.kupu 209771 2009-03-10 21:03:13Z mihxil $</kupu:id>
 
 
   <kupu:part name="body">

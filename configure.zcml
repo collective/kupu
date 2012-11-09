@@ -1,8 +1,21 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope">
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="kupu">
 
-  <!-- all we do is include the zope3 package which contains all the
-       Zope3 specific stuff -->
   <include package=".zope3" />
+
+  <configure zcml:condition="installed Products.GenericSetup">
+
+    <genericsetup:registerProfile
+        name="default"
+        title="Kupu"
+        directory="plone/profiles/default"
+        description="Kupu is a cross-browser visual editor."
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        />
+
+  </configure>
 
 </configure>

@@ -5,7 +5,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:kupu="http://kupu.oscom.org/namespaces/dist"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: xmlconfig.kupu 159098 2005-05-10 15:53:10Z guido $</kupu:id>
 
   <kupu:part name="xmlconfig">
     <div style="display: none;">

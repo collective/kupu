@@ -9,7 +9,7 @@
     xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: toolbar.kupu 204502 2008-08-21 15:26:50Z mihxil $</kupu:id>
 
   <!-- lets limit ourselves to 2 ways of emphasis (in stead of 3) -->
   <kupu:part name="buttongroup-basicmarkup">

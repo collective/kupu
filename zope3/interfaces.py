@@ -20,7 +20,7 @@ interface that can be set on content objects (even on an object per
 object basis) and tells the Zope3 view machiner that our special Kupu
 views, the ones that make asynchronous editing possible, apply.
 
-$Id$
+$Id: interfaces.py 156815 2005-03-18 12:04:00Z yuppie $
 """
 
 from zope.interface import Interface

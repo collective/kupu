@@ -9,7 +9,7 @@
 ##############################################################################
 """HTMLBody field
 
-$Id$
+$Id: field.py 156815 2005-03-18 12:04:00Z yuppie $
 """
 
 from zope.interface import implements

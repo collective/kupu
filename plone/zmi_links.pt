@@ -4,7 +4,8 @@ metal:use-macro="here/kupu_config/macros/master"
 i18n:domain="kupuconfig"
 xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
 
-  <metal:cssslot fill-slot="style_slot">
+  <metal:cssslot fill-slot="style_slot"
+    tal:define="portal context/portal_url/getPortalObject">
     <link href="kupustyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupustyles.css"/>
     <link href="kupuplone.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupuplone.css"/>
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" tal:attributes="href string:${context/portal_url}/kupudrawerstyles.css"/>
@@ -23,7 +24,7 @@ xmlns:kj="http://kupu.oscom.org/namespaces/kjax">
   <body>
 
     <div class="documentContent" metal:fill-slot="kupu_content">
-      <metal:call use-macro="portal/portal_skins/kupu_references/referencebrowser/macros/kupudrawer" />
+      <metal:call use-macro="context/portal_skins/kupu_references/referencebrowser/macros/kupudrawer" />
       <div id="target" i18n:translate="loading_links_tab">
         Loading kupu link maintenance...
       </div>

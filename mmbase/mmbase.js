@@ -17,7 +17,7 @@ function Map() {
     };
     this.remove = function(key) {
         this[key] = undefined;
-    }
+    };
 }
 
 
@@ -61,15 +61,16 @@ function startKupu(language) {
 
     // let's register saveOnPart(), to ask the user if he wants to save when
     // leaving after editing
-    if (kupu.getBrowserName() == 'IE') {
+    var browser = kupu.getBrowserName();
+    if (browser == 'IE') {
         // IE supports onbeforeunload, so let's use that
         addEventHandler(window, 'beforeunload', saveOnPart);
     } else {
         // some versions of Mozilla support onbeforeunload (starting with 1.7)
         // so let's try to register and if it fails fall back on onunload
-        var re = /rv:([0-9\.]+)/
-            var match = re.exec(navigator.userAgent)
-        if (match[1] && parseFloat(match[1]) > 1.6) {
+        var re = /rv:([0-9\.]+)/;
+        var match = re.exec(navigator.userAgent);
+        if (match != null && match[1] && parseFloat(match[1]) > 1.6) {
             addEventHandler(window, 'beforeunload', saveOnPart);
         } else {
             addEventHandler(window, 'unload', saveOnPart);
@@ -78,6 +79,7 @@ function startKupu(language) {
 
     // and now we can initialize...
     kupu.initialize();
+
     if (window.kuputoolcollapser) {
         var collapser = new window.kuputoolcollapser.Collapser('kupu-toolboxes');
         if (kupu.getBrowserName() != 'IE') {
@@ -114,7 +116,7 @@ function mmbaseInit(node, abs) {
             mmb.style.display = mmb.originalDisplay;
             layout.adjust();
         }
-    }
+    };
     layout.winOnLoad();
 
     trunkNumber = node;
@@ -219,7 +221,7 @@ function saveNode(button, editor, async) {
             }
             $("#ajax-loader").css("display", "none");
         }
-    }
+    };
 
 }
 
@@ -236,7 +238,7 @@ function reloadAfterError() {
                 alert(_("Reinited ") + currentNode);
             }
         }
-    }
+    };
 }
 
 

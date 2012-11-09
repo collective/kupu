@@ -9,7 +9,7 @@
 ##############################################################################
 """Tests for the library tool
 
-$Id$
+$Id: test_librarymanager.py 224310 2010-09-25 22:35:12Z davisagli $
 """
 
 import os, sys
@@ -45,7 +45,7 @@ class TestILibraryManager(PloneTestCase.PloneTestCase):
     def makeLibraries(self):
         # need to use Plone specific tool for Acquisition. Sucks.
         libs = PloneKupuLibraryTool()
-        self.portal = FakePortal()
+        self.portal = Acquisition.ImplicitAcquisitionWrapper(FakePortal(), self.app.REQUEST)
         context = FakeContextObject()
         libs = libs.__of__(self.portal)
         self.context = context.__of__(self.portal)

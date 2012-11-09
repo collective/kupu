@@ -7,7 +7,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: colorchooser.kupu 192588 2007-08-14 10:04:42Z guido $</kupu:id>
 
   <kupu:part name="colorchooser">
     <table id="kupu-colorchooser" class="kupu-colorchooser" cellpadding="0" cellspacing="0"

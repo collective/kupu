@@ -6,19 +6,18 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu">
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: body.kupu 228022 2010-12-02 06:51:57Z davisagli $</kupu:id>
   <kupu:part name="editorframe"><script type="text/javascript">var focuscount = 0;</script>
     <div>
     <iframe class="kupu-editor-iframe"
         frameborder="0"
         src="emptypage"
-        tabindex=""
         onfocus="this.contentWindow.focus();"
         tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);
                     base kupu_base_override|base;"
         tal:attributes="src string:${base}/emptypage;
                         id string:kupu-editor-iframe-${fname};
-                        name string:kupu-editor-iframe-${fname};tabindex tabindex/next|tabindex|nothing;"
+                        name string:kupu-editor-iframe-${fname}"
         >
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html"

@@ -1,6 +1,6 @@
 <!--
 
-   @version $Id$
+   @version $Id: wire.kupu 220235 2010-04-02 11:00:47Z mihxil $
    @author Michiel Meeuwissen <michiel.meeuwissen@gmail.com>
 -->
 <kupu:wire
@@ -60,7 +60,9 @@
     <kupu:insert-part feature="toolboxes" part="tables" />
     <kupu:insert-part feature="toolboxes" part="divs" />
     <kupu:insert-part feature="toolboxes" part="flash" />
+    <!--
     <kupu:insert-part feature="toolboxes" part="debug" />
+    -->
   </kupu:fill-slot>
 
   <kupu:fill-slot name="toolbar-buttons">

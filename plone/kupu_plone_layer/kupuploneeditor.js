@@ -16,7 +16,7 @@ KupuEditor.prototype._getBase = function(dom) {
     }
 };
 
-// $Id$
+// $Id: kupuploneeditor.js 198098 2008-01-31 16:00:24Z duncan $
 KupuEditor.prototype.makeLinksRelative = function(contents,base,debug) {
     // After extracting text from Internet Explorer, all the links in
     // the document are absolute.

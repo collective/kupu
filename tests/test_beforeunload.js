@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 
-// $Id$
+// $Id: test_beforeunload.js 156918 2005-03-21 09:53:57Z yuppie $
 
 // Test form beforeUnload processing
 

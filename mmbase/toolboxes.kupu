@@ -11,7 +11,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: toolboxes.kupu 206251 2008-10-22 11:39:24Z mihxil $</kupu:id>
 
 
   <kupu:part name="images">

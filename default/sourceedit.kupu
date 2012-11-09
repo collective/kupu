@@ -7,7 +7,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: sourceedit.kupu 172654 2006-04-12 10:33:01Z fschulze $</kupu:id>
 <!--
 This feature provides Source Editing functionality. Source editing is
 enabled by clicking on a button (provided in the 'button' part) which

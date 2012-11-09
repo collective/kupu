@@ -9,7 +9,7 @@
 ##############################################################################
 """Test browserSupportsKupu
 
-$Id$
+$Id: test_browserSupportsKupu.py 196252 2007-12-03 11:47:59Z duncan $
 """
 
 import os, sys

@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 
-// $Id$
+// $Id: test_kupuhelpers.js 196284 2007-12-04 16:24:14Z duncan $
 
 function SelectionTestCase() {
     var visibleEmptyElements = ['IMG', 'BR', 'HR'];

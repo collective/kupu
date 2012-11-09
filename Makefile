@@ -8,7 +8,7 @@
 #
 ##############################################################################
 
-# $Id$
+# $Id: Makefile 182608 2006-12-13 12:29:42Z duncan $
 
 XSLTPROC = /usr/bin/env xsltproc
 XSL_DEBUG = --param debug true\(\)

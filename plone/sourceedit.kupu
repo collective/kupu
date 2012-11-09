@@ -8,7 +8,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="kupu"
     >
-    <kupu:id>$Id$</kupu:id>
+    <kupu:id>$Id: sourceedit.kupu 191476 2007-06-26 10:46:28Z duncan $</kupu:id>
 
   <kupu:part name="jsincludes">
   </kupu:part>

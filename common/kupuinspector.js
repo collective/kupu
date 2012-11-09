@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-// $Id$
+// $Id: kupuinspector.js 182792 2006-12-18 15:37:15Z duncan $
 
 /* The Kupu Inspector tool 
 

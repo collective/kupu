@@ -8,7 +8,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: drawers.kupu 195359 2007-11-08 15:14:05Z duncan $</kupu:id>
 
   <kupu:part name="styles">
     <link href="kupudrawerstyles.css" rel="stylesheet" type="text/css" />

@@ -7,7 +7,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     xmlns:metal="http://xml.zope.org/namespaces/metal"
     >
-    <kupu:id>$Id$</kupu:id>
+    <kupu:id>$Id: head.kupu 191769 2007-07-07 19:01:27Z duncan $</kupu:id>
 
   <kupu:part name="styles">
    <tal:test condition="not:exists:portal/portal_css">

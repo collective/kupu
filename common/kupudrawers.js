@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-// $Id$
+// $Id: kupudrawers.js 212293 2009-05-22 07:29:45Z duncan $
 
 function kupu_busy(ed) {
     if (ed.busy) ed.busy();

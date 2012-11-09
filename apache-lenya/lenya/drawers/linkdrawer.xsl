@@ -13,7 +13,7 @@
 XSL transformation from Kupu Library XML to HTML for the link library
 drawer.
 
-$Id$
+$Id: linkdrawer.xsl 156815 2005-03-18 12:04:00Z yuppie $
 -->
 <xsl:stylesheet
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"

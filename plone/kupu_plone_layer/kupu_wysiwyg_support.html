@@ -430,7 +430,7 @@
     </table>
   <script type="text/javascript">var focuscount = 0;</script>
     <div>
-    <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" tabindex="" onfocus="this.contentWindow.focus();" tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);                     base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                         id string:kupu-editor-iframe-${fname};                         name string:kupu-editor-iframe-${fname};tabindex tabindex/next|tabindex|nothing;">
+    <iframe class="kupu-editor-iframe" frameborder="0" src="emptypage" onfocus="this.contentWindow.focus();" tal:define="base python:here.kupu_library_tool.getBaseUrl(here, True);                     base kupu_base_override|base;" tal:attributes="src string:${base}/emptypage;                         id string:kupu-editor-iframe-${fname};                         name string:kupu-editor-iframe-${fname}">
     </iframe>
      <input type="hidden" name="text_format:default" value="text/html" tal:define="fieldName fieldName|inputname|nothing;                 val python:fieldName and 'text/html' or 'html';                 fieldName python:test(fieldName, fieldName+'_', '') + 'text_format:default';" tal:attributes="name fieldName;value val;"/>
 <tal:test condition="fieldName|nothing">

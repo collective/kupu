@@ -8,7 +8,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="kupu"
     >
-  <kupu:id>$Id$</kupu:id>
+  <kupu:id>$Id: xmlconfig.kupu 213480 2009-07-23 14:37:24Z dannyb $</kupu:id>
 
   <kupu:part name="xmlconfig">
     <div id="kupu-editor-config-escaped" style="display: none;"

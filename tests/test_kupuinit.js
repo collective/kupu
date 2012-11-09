@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 
-// $Id$
+// $Id: test_kupuinit.js 182668 2006-12-14 10:30:33Z duncan $
 
 function InitKupuCheckersTestCase() {
     this.name = 'InitKupuCheckersTestCase';

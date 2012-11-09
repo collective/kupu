@@ -7,7 +7,7 @@
     xmlns:tal="http://xml.zope.org/namespaces/tal"
     i18n:domain="kupu"
     >
-<kupu:id>$Id$</kupu:id>
+<kupu:id>$Id: toolbar.kupu 192559 2007-08-13 12:26:50Z duncan $</kupu:id>
 
   <kupu:part name="toolbar">
     <div class="kupu-tb" id="toolbar"

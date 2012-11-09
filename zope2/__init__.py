@@ -14,7 +14,7 @@ FileSystemSite product. FileSystemSite can be found at
 http://www.zope.org/Members/k_vertigo/Products/FileSystemSite
 Note that FileSystemSite 1.3 is required.
 
-$Id$
+$Id: __init__.py 207993 2009-01-17 11:29:42Z hannosch $
 """
 
 try:

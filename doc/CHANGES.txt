@@ -2,6 +2,23 @@
 Kupu changes
 ============
 
+- 1.4.18 (2011-08-05)
+
+  - Convert GenericSetup profile registration to ZCML, to add compatibility
+    with GenericSetup version after 1.6.2 and also move an interface to the
+    correct place.
+    [hannosch]
+
+- 1.4.17 (2011-01-03)
+
+  - Remove use of tabindex iterator, which is no longer available in Plone 4.
+    This fixes http://dev.plone.org/plone/ticket/11138.
+    [encolpe, davisagli]
+
+  - Add definitions to zmi_links template to fix it in Plone 4. This fixes
+    http://dev.plone.org/plone/ticket/11182.
+    [ctxlken, davisagli]
+
 - 1.4.16
 
   - Kupu didn't not transform resolveuid to friendly url in area tags

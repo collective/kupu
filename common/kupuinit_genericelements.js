@@ -8,7 +8,7 @@
  *
  *****************************************************************************/
 /*extern CNFTableToolBox GenericElementsTool GenericElementsToolBox */
-// $Id$
+// $Id: kupuinit_genericelements.js 186283 2007-02-23 18:29:27Z yuppie $
 
 
 //----------------------------------------------------------------------------

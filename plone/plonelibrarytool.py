@@ -13,7 +13,7 @@
 This module contains the Plone specific version of the Kupu library
 tool.
 
-$Id$
+$Id: plonelibrarytool.py 215556 2009-10-19 00:33:12Z davisagli $
 """
 import os
 from ZODB.PersistentList import PersistentList

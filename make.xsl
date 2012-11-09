@@ -26,7 +26,7 @@ contains:
 If the XSLT processor supports XInclude, the above stated items may of
 course be located in different files and included later.
 
-$Id$
+$Id: make.xsl 161358 2005-07-08 13:02:09Z duncan $
 -->
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
