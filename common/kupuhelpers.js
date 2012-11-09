@@ -7,7 +7,7 @@
  * Contributors see CREDITS.txt.
  *
  *****************************************************************************/
-// $Id$
+// $Id: kupuhelpers.js 59576 2008-10-30 16:21:37Z guido $
 
 /*
 
@@ -72,7 +72,7 @@ Some notes about the scripts:
 //----------------------------------------------------------------------------
 function newDocumentElement(doc, tagName, args) {
     /* Create a new element, set attributes, and append children */
-    if (_SARISSA_IS_IE) {
+    if (_SARISSA_IS_IE && _SARISSA_IS_IE < 9) {
         /* Braindead IE cannot set some attributes (e.g. NAME) except
          * through bizarre use of createElement */
         var attrs = [tagName];
@@ -94,7 +94,7 @@ function newDocumentElement(doc, tagName, args) {
     for (var a = 1; a < args.length; a++) {
         var arg = args[a];
         if (arg.length===undefined) {
-            if (!_SARISSA_IS_IE) {
+            if (!_SARISSA_IS_IE || _SARISSA_IS_IE >= 9) {
                 for (var attr in arg) {
                     if (/^on/.test(attr)) {
                         node.setAttribute(attr, arg[attr]);
@@ -129,20 +129,26 @@ function addEventHandler(element, event, method, context) {
     };
     wrappedmethod.args = args;
     try {
-        if (element.addEventListener) {
-            element.addEventListener(event, wrappedmethod.execute, false);
-        } else if (element.attachEvent) {
+        if (element.attachEvent) {
             element.attachEvent("on" + event, wrappedmethod.execute);
+        } else if (element.addEventListener) {
+            element.addEventListener(event, wrappedmethod.execute, false);
         } else {
             throw _("Unsupported browser!");
         };
         return wrappedmethod.execute;
     } catch(e) {
-        alert(_('exception ${message} while registering an event handler ' +
-                'for element ${element}, event ${event}, method ${method}',
-                {'message': e.message, 'element': element,
-                    'event': event,
-                    'method': method}));
+        var msg = _(
+            'exception ${message} while registering an event handler ' +
+            'for element ${element}, event ${event}, method ${method}, ',
+            {'message': e.message, 'element': element,
+                'event': event,
+                'method': method
+            });
+        if (e.stack) {
+            msg += _('\r\ntraceback:\r\n${traceback}', {'traceback': e.stack});
+        };
+        alert(msg);
     };
 };
 
@@ -184,14 +190,13 @@ function getBaseTagClass(base, tag, className) {
     return null;
 }
 
-function openPopup(url, width, height) {
+function openPopup(url, width, height, properties) {
     /* open and center a popup window */
-    var sw = screen.width;
-    var sh = screen.height;
-    var left = sw / 2 - width / 2;
-    var top = sh / 2 - height / 2;
-    var win = window.open(url, 'someWindow', 
-                'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+    var allprops = 'width=' + width + ',height=' + height;
+    if (properties) {
+        allprops += ',' + properties;
+    };
+    var win = window.open(url, 'someWindow', allprops);
     return win;
 };
 
@@ -287,6 +292,11 @@ function loadDictFromXML(document, islandid) {
     */
     var dict = {};
     var confnode = getFromSelector(islandid);
+    if (confnode.canHaveChildren == false) {
+       var xmlstring= confnode.innerHTML;
+       var parser = new DOMParser();
+       confnode = parser.parseFromString(xmlstring,"text/xml");
+    }
     var root = null;
     for (var i=0; i < confnode.childNodes.length; i++) {
         if (confnode.childNodes[i].nodeType == 1) {
@@ -300,6 +310,7 @@ function loadDictFromXML(document, islandid) {
     dict = _load_dict_helper(root);
     return dict;
 };
+
 
 function NodeIterator(node, continueatnextsibling) {
     /* simple node iterator
@@ -327,10 +338,10 @@ function NodeIterator(node, continueatnextsibling) {
             this.current = current.firstChild;
         } else {
             // walk up parents until we finish or find one with a nextSibling
-            while (current != this.terminator && !current.nextSibling) {
+            while (current !== this.terminator && !current.nextSibling) {
                 current = current.parentNode;
             };
-            if (current == this.terminator) {
+            if (current === this.terminator) {
                 this.current = false;
             } else {
                 this.current = current.nextSibling;
@@ -464,13 +475,13 @@ function MozillaSelection(document) {
 
     this._createRange = function() {
         return this.document.getDocument().createRange();
-    }
+    };
     this.selectNodeContents = function(node) {
         if (node && node.parentNode) {
             /* select the contents of a node */
             var sel = this.selection;
             sel.removeAllRanges();
-            if (sel.selectAllChildren) {
+            if (sel.selectAllChildren && node.nodeType == 1) {
                 sel.selectAllChildren(node);
             } else {
                 var range = this._createRange();
@@ -486,6 +497,7 @@ function MozillaSelection(document) {
 
     this.collapse = function(collapseToEnd) {
         try {
+            if (!this.selection) this.reset();
             if (!collapseToEnd) {
                 this.selection.collapseToStart();
             } else {
@@ -619,6 +631,9 @@ function MozillaSelection(document) {
         while (currnode != startnode) {
             if (currnode.nodeType == 3) {
                 offset += currnode.nodeValue.length;
+            };
+            while (!currnode.nextSibling) {
+                currnode = currnode.parentNode;
             };
             currnode = currnode.nextSibling;
         };
@@ -775,6 +790,9 @@ function MozillaSelection(document) {
     this.parentElement = function(allowmulti) {
         /* return the selected node (or the node containing the selection) */
         // XXX this should be on a range object
+        if (!this.selection) {
+            return null;
+        }
         if (this.selection.rangeCount == 0) {
             var parent = this.document.getDocument().body;
             while (parent.firstChild) {
@@ -995,7 +1013,7 @@ function MozillaSelection(document) {
     };
 
     this.getRange = function() {
-        if (this.selection) {
+        if (this.selection && this.selection.rangeCount > 0) {
             return this.selection.getRangeAt(0);
         }
     };
