@@ -1,1 +1,0 @@
-kupu https://codespeak.net/svn/kupu/trunk/kupu 
