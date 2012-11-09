@@ -43,7 +43,6 @@ function initPloneKupu(editorId) {
     // the ui must be registered to the editor like a tool so it can be notified
     // of state changes
     kupu.registerTool('ui', ui); // XXX Should this be a different method?
-
     // function that returns a function to execute a button command
     var execCommand = function(cmd) {
         return function(button, editor) {
@@ -328,6 +327,16 @@ function initPloneKupu(editorId) {
     kupu._addEventHandler(inner.documentElement, "keydown", tabHandler);
 
     kupu.initialize();
+    if (kupu.getBrowserName() == "IE") {
+        iframe.attachEvent("onbeforedeactivate", function() {
+        var sel = iframe.contentWindow.document.selection;
+            if (sel.type == "None") {
+                selectedRange = sel.createRange();
+                selectedRange.moveStart('character', -1);  
+                selectedRange.select();
+            }
+        });
+    }
     return kupu;
 };
 

@@ -72,7 +72,7 @@ Some notes about the scripts:
 //----------------------------------------------------------------------------
 function newDocumentElement(doc, tagName, args) {
     /* Create a new element, set attributes, and append children */
-    if (_SARISSA_IS_IE) {
+    if (_SARISSA_IS_IE && _SARISSA_IS_IE < 9) {
         /* Braindead IE cannot set some attributes (e.g. NAME) except
          * through bizarre use of createElement */
         var attrs = [tagName];
@@ -94,7 +94,7 @@ function newDocumentElement(doc, tagName, args) {
     for (var a = 1; a < args.length; a++) {
         var arg = args[a];
         if (arg.length===undefined) {
-            if (!_SARISSA_IS_IE) {
+            if (!_SARISSA_IS_IE || _SARISSA_IS_IE >= 9) {
                 for (var attr in arg) {
                     if (/^on/.test(attr)) {
                         node.setAttribute(attr, arg[attr]);
@@ -129,10 +129,10 @@ function addEventHandler(element, event, method, context) {
     };
     wrappedmethod.args = args;
     try {
-        if (element.addEventListener) {
-            element.addEventListener(event, wrappedmethod.execute, false);
-        } else if (element.attachEvent) {
+        if (element.attachEvent) {
             element.attachEvent("on" + event, wrappedmethod.execute);
+        } else if (element.addEventListener) {
+            element.addEventListener(event, wrappedmethod.execute, false);
         } else {
             throw _("Unsupported browser!");
         };
@@ -292,6 +292,11 @@ function loadDictFromXML(document, islandid) {
     */
     var dict = {};
     var confnode = getFromSelector(islandid);
+    if (confnode.canHaveChildren == false) {
+       var xmlstring= confnode.innerHTML;
+       var parser = new DOMParser();
+       confnode = parser.parseFromString(xmlstring,"text/xml");
+    }
     var root = null;
     for (var i=0; i < confnode.childNodes.length; i++) {
         if (confnode.childNodes[i].nodeType == 1) {
@@ -305,6 +310,7 @@ function loadDictFromXML(document, islandid) {
     dict = _load_dict_helper(root);
     return dict;
 };
+
 
 function NodeIterator(node, continueatnextsibling) {
     /* simple node iterator
